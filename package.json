@@ -1,0 +1,24 @@
+{
+  "name": "crafter",
+  "version": "0.1.0",
+  "description": "JavaScript replacement of Drafter library for parsing Api Blueprint documentation format",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "drafter",
+    "api",
+    "blueprint",
+    "doc",
+    "snowcrash",
+    "protagonist",
+    "aglio"
+  ],
+  "devDependencies": {
+    "jest": "^22.4.3"
+  },
+  "dependencies": {
+    "commonmark": "^0.28.1"
+  }
+}
