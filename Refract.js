@@ -6,6 +6,7 @@ module.exports = {
     copy: 'copy',
     dataStructure: 'dataStructure',
     resourcePrototype: 'resourcePrototype',
+    transition: 'transition',
   },
   categoryClasses: {
     api: 'api',
