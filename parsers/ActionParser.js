@@ -11,15 +11,10 @@ const ActionHeaderRegex = new RegExp(`^${RegExpStrings.requestMethods}\\s*${RegE
 /** Named action matching regex */
 const NamedActionHeaderRegex = new RegExp(`^${actionSymbolIdentifier}\\[${RegExpStrings.requestMethods}\\s*${RegExpStrings.uriTemplate}?\](\\s+${RegExpStrings.resourcePrototype})?$`);
 
-module.exports = {
-  parse(node, context) {
-    const result = {
-      element: Refract.elements.transition,
-      meta: {
-        title: ''
-      },
-      content: [],
-    };
+module.exports = Object.assign(Object.create(require('./AbstractParser')), {
+  processSignature(node, context, result) {
+    result.element = Refract.elements.transition;
+    result.meta = { title: '' };
 
     const subject = utils.headerText(node, context.sourceLines);
     let matchData;
@@ -36,17 +31,7 @@ module.exports = {
       }
     }
 
-    let curNode = node.next;
-    [curNode, description] = utils.extractDescription(curNode, context.sourceLines);
-
-    if (description) {
-      result.content.push({
-        element: Refract.elements.copy,
-        content: description,
-      });
-    }
-
-    return [curNode, result];
+    return node.next;
   },
   sectionType(node, context) {
     if (node.type === 'heading') {
@@ -59,4 +44,4 @@ module.exports = {
 
     return SectionTypes.undefined;
   }
-};
+});

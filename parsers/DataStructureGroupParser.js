@@ -6,27 +6,16 @@ const MSONNamedTypeParser = require('./MSONNamedTypeParser');
 
 const DataStructureGroupRegex = /^[Dd]ata\s+[Ss]tructures?$/;
 
-module.exports = {
-  parse(node, context) {
-    const result = {
-      element: Refract.elements.category,
-      meta: {
-        classes: [Refract.categoryClasses.dataStructures],
-      },
-      content: [],
+module.exports = Object.assign(Object.create(require('./AbstractParser')), {
+  processSignature(node, context, result) {
+    result.element = Refract.elements.category;
+    result.meta = {
+      classes: [Refract.categoryClasses.dataStructures],
     };
 
-    let curNode = node.next;
-    let childResult;
-
-    while (curNode && MSONNamedTypeParser.sectionType(curNode, context) != SectionTypes.undefined) {
-      [curNode, childResult] = MSONNamedTypeParser.parse(curNode, context);
-
-      result.content.push(childResult);
-    }
-
-    return [curNode, result];
+    return node.next;
   },
+
   sectionType(node, context) {
     if (node.type === 'heading') {
       const subject = utils.headerText(node, context.sourceLines);
@@ -36,5 +25,13 @@ module.exports = {
     }
 
     return SectionTypes.undefined;
+  },
+
+  nestedSectionType(node, context) {
+    return MSONNamedTypeParser.sectionType(node, context);
+  },
+
+  processNestedSection(node, context) {
+    return MSONNamedTypeParser.parse(node, context);
   }
-};
+});

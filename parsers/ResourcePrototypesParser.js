@@ -6,26 +6,16 @@ const ResourcePrototypeParser = require('./ResourcePrototypeParser');
 
 const ResourcePrototypesRegex = /^[Rr]esource\s+[Pp]rototypes$/;
 
-module.exports = {
-  parse(node, context) {
-    const result = {
-      element: Refract.elements.category,
-      meta: {
-        classes: [Refract.categoryClasses.resourcePrototypes],
-      },
-      content: [],
+module.exports = Object.assign(Object.create(require('./AbstractParser')), {
+  processSignature(node, context, result) {
+    result.element = Refract.elements.category;
+    result.meta = {
+      classes: [Refract.categoryClasses.resourcePrototypes],
     };
 
-    let curNode = node.next;
-    let childResult;
-
-    while (curNode && ResourcePrototypeParser.sectionType(curNode, context) !== SectionTypes.undefined) {
-      [curNode, childResult] = ResourcePrototypeParser.parse(curNode, context);
-      result.content.push(childResult);
-    }
-
-    return [curNode, result];
+    return node.next;
   },
+
   sectionType(node, context) {
     if (node.type === 'heading') {
       const subject = utils.headerText(node, context.sourceLines);
@@ -35,5 +25,17 @@ module.exports = {
     }
 
     return SectionTypes.undefined;
+  },
+
+  nestedSectionType(node, context) {
+    return ResourcePrototypeParser.sectionType(node, context);
+  },
+
+  processNestedSection(node, context) {
+    return ResourcePrototypeParser.parse(node, context);
+  },
+
+  processDescription(node) {
+    return node;
   }
-};
+});

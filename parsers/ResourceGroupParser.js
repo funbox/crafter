@@ -6,38 +6,17 @@ const ResourceParser = require('./ResourceParser');
 
 const GroupHeaderRegex = new RegExp(`^[Gg]roup\\s+${RegExpStrings.symbolIdentifier}(\\s+${RegExpStrings.resourcePrototype})?$`);
 
-module.exports = {
-  parse(node, context) {
+module.exports = Object.assign(Object.create(require('./AbstractParser')), {
+  processSignature(node, context, result) {
     const matchData = GroupHeaderRegex.exec(utils.headerText(node, context.sourceLines));
 
-    const result = {
-      element: Refract.elements.category,
-      meta: {
-        classes: [Refract.categoryClasses.resourceGroup],
-        title: matchData[1]
-      },
-      content: [],
+    result.element = Refract.elements.category;
+    result.meta = {
+      classes: [Refract.categoryClasses.resourceGroup],
+      title: matchData[1]
     };
 
-    let curNode = node.next;
-
-    [curNode, description] = utils.extractDescription(curNode, context.sourceLines);
-
-    if (description) {
-      result.content.push({
-        element: Refract.elements.copy,
-        content: description,
-      });
-    }
-
-    let childResult;
-
-    while (curNode && ResourceParser.sectionType(curNode, context) !== SectionTypes.undefined) {
-      [curNode, childResult] = ResourceParser.parse(curNode, context);
-      result.content.push(childResult);
-    }
-
-    return [curNode, result];
+    return node.next;
   },
   sectionType(node, context) {
     if (node.type === 'heading') {
@@ -48,5 +27,13 @@ module.exports = {
     }
 
     return SectionTypes.undefined;
+  },
+
+  nestedSectionType(node, context) {
+    return ResourceParser.sectionType(node, context);
+  },
+
+  processNestedSection(node, context) {
+    return ResourceParser.parse(node, context);
   }
-};
+});
