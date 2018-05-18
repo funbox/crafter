@@ -7,6 +7,10 @@ module.exports = {
     dataStructure: 'dataStructure',
     resourcePrototype: 'resourcePrototype',
     transition: 'transition',
+    hrefVariables: 'hrefVariables',
+    member: 'member',
+    string: 'string',
+    array: 'array',
   },
   categoryClasses: {
     api: 'api',

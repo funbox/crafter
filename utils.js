@@ -35,4 +35,15 @@ module.exports = {
 
     return result.join('\n');
   },
+  nextNode(node) {
+    if (node.next) {
+      return node.next;
+    }
+
+    if (!node.parent) {
+      return null;
+    }
+
+    this.nextNode(node.parent);
+  }
 };

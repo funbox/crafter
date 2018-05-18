@@ -7,6 +7,11 @@ const SectionTypes = Object.freeze({
   resourcePrototype: 'resourcePrototype',
   MSONNamedType: 'MSONNamedType',
   action: 'action',
+  parameters: 'parameters',
+  parameter: 'paramter',
+  parameterDefaultValue: 'parameterDefaultValue',
+  parameterMembers: 'parameterMembers',
+  parameterMember: 'parameterMember',
 
   calculateSectionType(node, context, parsers) {
     let result = SectionTypes.undefined;

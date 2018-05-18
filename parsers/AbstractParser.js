@@ -17,8 +17,7 @@ module.exports = {
     let childResult;
 
     while (curNode && this.nestedSectionType(curNode, context) !== SectionTypes.undefined) {
-      [curNode, childResult] = this.processNestedSection(curNode, context);
-      result.content.push(childResult);
+      curNode = this.processNestedSection(curNode, context, result);
     }
 
     return [curNode, result];
@@ -42,7 +41,7 @@ module.exports = {
     return curNode;
   },
 
-  processNestedSection(node, context) {
+  processNestedSection(node, context, result) {
     throw new Error('Not Implemented');
   },
 

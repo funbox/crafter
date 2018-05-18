@@ -31,7 +31,9 @@ module.exports = Object.assign(Object.create(require('./AbstractParser')), {
     return MSONNamedTypeParser.sectionType(node, context);
   },
 
-  processNestedSection(node, context) {
-    return MSONNamedTypeParser.parse(node, context);
+  processNestedSection(node, context, result) {
+    const [nextNode, childResult] = MSONNamedTypeParser.parse(node, context);
+    result.content.push(childResult);
+    return nextNode;
   }
 });

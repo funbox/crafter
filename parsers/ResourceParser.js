@@ -4,6 +4,7 @@ const Refract = require('../Refract');
 const utils = require('../utils');
 
 const ActionParser = require('./ActionParser');
+const ParametersParser = require('./ParametersParser');
 
 const ResourceHeaderRegex = new RegExp(`^(${RegExpStrings.requestMethods}\\s+)?${RegExpStrings.uriTemplate}(\\s+${RegExpStrings.resourcePrototype})?$`);
 const NamedResourceHeaderRegex = new RegExp(`^${RegExpStrings.symbolIdentifier}\\s+\\[${RegExpStrings.uriTemplate}](\\s+${RegExpStrings.resourcePrototype})?$`);
@@ -45,10 +46,27 @@ module.exports = Object.assign(Object.create(require('./AbstractParser')), {
   },
 
   nestedSectionType(node, context) {
-    return ActionParser.sectionType(node, context);
+    const actionSectionType = ActionParser.sectionType(node, context);
+
+    if (actionSectionType !== SectionTypes.undefined) return actionSectionType;
+
+    if (node.type === 'list') {
+      return ParametersParser.sectionType(node.firstChild, context);
+    }
   },
 
-  processNestedSection(node, context) {
-    return ActionParser.parse(node, context);
+  processNestedSection(node, context, result) {
+    let nextNode;
+
+    if (this.nestedSectionType(node, context) === SectionTypes.action) {
+      let childResult;
+      [nextNode, childResult] = ActionParser.parse(node, context);
+      result.content.push(childResult);
+    } else {
+      result.attributes.hrefVariables = ParametersParser.parse(node.firstChild, context)[1];
+      nextNode = node.next;
+    }
+
+    return nextNode;
   }
 });

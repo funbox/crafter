@@ -31,8 +31,10 @@ module.exports = Object.assign(Object.create(require('./AbstractParser')), {
     return ResourcePrototypeParser.sectionType(node, context);
   },
 
-  processNestedSection(node, context) {
-    return ResourcePrototypeParser.parse(node, context);
+  processNestedSection(node, context, result) {
+    const [nextNode, childResult] = ResourcePrototypeParser.parse(node, context);
+    result.content.push(childResult);
+    return nextNode;
   },
 
   processDescription(node) {
