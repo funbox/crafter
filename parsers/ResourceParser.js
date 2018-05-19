@@ -24,6 +24,9 @@ module.exports = Object.assign(Object.create(require('./AbstractParser')), {
     } else if (matchData = NamedEndpointHeaderRegex.exec(subject)) {
       result.meta.title = matchData[1];
       result.attributes.href = matchData[3];
+      const [nextNode, childResult] = ActionParser.parse(node, context);
+      result.content.push(childResult);
+      return nextNode;
     } else {
       matchData = NamedResourceHeaderRegex.exec(subject);
       result.meta.title = matchData[1];
