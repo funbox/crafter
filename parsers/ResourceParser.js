@@ -59,15 +59,14 @@ module.exports = Object.assign(Object.create(require('./AbstractParser')), {
   },
 
   processNestedSection(node, context, result) {
-    let nextNode;
+    let nextNode, childResult;
 
     if (this.nestedSectionType(node, context) === SectionTypes.action) {
-      let childResult;
       [nextNode, childResult] = ActionParser.parse(node, context);
       result.content.push(childResult);
     } else {
-      result.attributes.hrefVariables = ParametersParser.parse(node.firstChild, context)[1];
-      nextNode = node.next;
+      [nextNode, childResult] = ParametersParser.parse(node.firstChild, context);
+      result.attributes.hrefVariables = childResult;
     }
 
     return nextNode;

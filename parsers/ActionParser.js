@@ -3,6 +3,8 @@ const RegExpStrings = require('../RegExpStrings');
 const Refract = require('../Refract');
 const utils = require('../utils');
 
+const ParametersParser = require('./ParametersParser');
+
 const actionSymbolIdentifier = "(.+)";
 
 /** Nameless action matching regex */
@@ -33,6 +35,7 @@ module.exports = Object.assign(Object.create(require('./AbstractParser')), {
 
     return node.next;
   },
+
   sectionType(node, context) {
     if (node.type === 'heading') {
       const subject = utils.headerText(node, context.sourceLines);
@@ -43,5 +46,15 @@ module.exports = Object.assign(Object.create(require('./AbstractParser')), {
     }
 
     return SectionTypes.undefined;
+  },
+
+  nestedSectionType(node, context) {
+    return ParametersParser.sectionType(node.firstChild, context);
+  },
+
+  processNestedSection(node, context, result) {
+    const [nextNode, childResult] = ParametersParser.parse(node.firstChild, context);
+    result.attributes.hrefVariables = childResult;
+    return nextNode;
   }
 });
