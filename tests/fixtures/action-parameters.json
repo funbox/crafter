@@ -1,0 +1,78 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": "api"
+      },
+      "content": [
+        {
+          "element": "resource",
+          "content": [
+            {
+              "element": "transition",
+              "content": [
+                {
+                  "element": "httpTransaction",
+                  "content": [
+                    {
+                      "element": "httpResponse",
+                      "content": [],
+                      "attributes": {
+                        "statusCode": {
+                          "element": "string",
+                          "content": "200"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "meta": {
+                "title": "List users"
+              },
+              "attributes": {
+                "href": "/users/{id}",
+                "hrefVariables": {
+                  "element": "hrefVariables",
+                  "content": [
+                    {
+                      "element": "member",
+                      "content": {
+                        "key": {
+                          "element": "string",
+                          "content": "id"
+                        },
+                        "value": {
+                          "element": "string",
+                          "content": "42"
+                        }
+                      },
+                      "attributes": {
+                        "typeAttributes": [
+                          "required"
+                        ]
+                      },
+                      "meta": {
+                        "description": "user id",
+                        "title": "number"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "meta": {
+            "title": "List users"
+          },
+          "attributes": {
+            "href": "/users/{id}"
+          }
+        }
+      ],
+      "title": "My API"
+    }
+  ]
+}

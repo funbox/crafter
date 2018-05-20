@@ -1,0 +1,70 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": "api"
+      },
+      "content": [
+        {
+          "element": "resource",
+          "content": [
+            {
+              "element": "transition",
+              "content": [
+                {
+                  "element": "httpTransaction",
+                  "content": [
+                    {
+                      "element": "httpResponse",
+                      "content": [],
+                      "attributes": {
+                        "statusCode": {
+                          "element": "string",
+                          "content": "200"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "meta": {
+                "title": "List users"
+              }
+            }
+          ],
+          "meta": {
+            "title": "Users"
+          },
+          "attributes": {
+            "href": "/users{?page}",
+            "hrefVariables": {
+              "element": "hrefVariables",
+              "content": [
+                {
+                  "element": "member",
+                  "content": {
+                    "key": {
+                      "element": "string",
+                      "content": "page"
+                    },
+                    "value": {
+                      "element": "string",
+                      "content": "42"
+                    }
+                  },
+                  "meta": {
+                    "description": "results page",
+                    "title": "number"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "title": "My API"
+    }
+  ]
+}

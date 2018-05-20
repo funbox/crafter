@@ -1,0 +1,82 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": "api"
+      },
+      "content": [
+        {
+          "element": "resource",
+          "content": [
+            {
+              "element": "transition",
+              "content": [
+                {
+                  "element": "httpTransaction",
+                  "content": [
+                    {
+                      "element": "httpResponse",
+                      "content": [
+                        {
+                          "element": "asset",
+                          "content": "  {\n      \"hello\": \"world\"\n  }\n",
+                          "meta": {
+                            "classes": [
+                              "messageBody"
+                            ]
+                          },
+                          "attributes": {
+                            "contentType": "application/json"
+                          }
+                        }
+                      ],
+                      "attributes": {
+                        "statusCode": {
+                          "element": "string",
+                          "content": "200"
+                        }
+                      },
+                      "headers": {
+                        "element": "httpHeaders",
+                        "content": [
+                          {
+                            "element": "member",
+                            "content": {
+                              "key": {
+                                "element": "string",
+                                "content": "Content-Type"
+                              },
+                              "value": {
+                                "element": "string",
+                                "content": "application/json"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ],
+              "meta": {
+                "title": "List users"
+              },
+              "attributes": {
+                "href": "/users"
+              }
+            }
+          ],
+          "meta": {
+            "title": "List users"
+          },
+          "attributes": {
+            "href": "/users"
+          }
+        }
+      ],
+      "title": "My API"
+    }
+  ]
+}

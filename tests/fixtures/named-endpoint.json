@@ -1,0 +1,51 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": "api"
+      },
+      "content": [
+        {
+          "element": "resource",
+          "content": [
+            {
+              "element": "transition",
+              "content": [
+                {
+                  "element": "httpTransaction",
+                  "content": [
+                    {
+                      "element": "httpResponse",
+                      "content": [],
+                      "attributes": {
+                        "statusCode": {
+                          "element": "string",
+                          "content": "200"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "meta": {
+                "title": "List users"
+              },
+              "attributes": {
+                "href": "/users"
+              }
+            }
+          ],
+          "meta": {
+            "title": "List users"
+          },
+          "attributes": {
+            "href": "/users"
+          }
+        }
+      ],
+      "title": "My API"
+    }
+  ]
+}

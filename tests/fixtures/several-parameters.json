@@ -1,0 +1,106 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": "api"
+      },
+      "content": [
+        {
+          "element": "resource",
+          "content": [
+            {
+              "element": "transition",
+              "content": [
+                {
+                  "element": "httpTransaction",
+                  "content": [
+                    {
+                      "element": "httpResponse",
+                      "content": [],
+                      "attributes": {
+                        "statusCode": {
+                          "element": "string",
+                          "content": "200"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "meta": {
+                "title": "List users"
+              },
+              "attributes": {
+                "href": "/users/{id}{?full}",
+                "hrefVariables": {
+                  "element": "hrefVariables",
+                  "content": [
+                    {
+                      "element": "member",
+                      "content": {
+                        "key": {
+                          "element": "string",
+                          "content": "id"
+                        },
+                        "value": {
+                          "element": "string",
+                          "content": "42"
+                        }
+                      },
+                      "attributes": {
+                        "typeAttributes": [
+                          "required"
+                        ]
+                      },
+                      "meta": {
+                        "description": "user id",
+                        "title": "number"
+                      }
+                    },
+                    {
+                      "element": "member",
+                      "content": {
+                        "key": {
+                          "element": "string",
+                          "content": "full"
+                        },
+                        "value": {
+                          "element": "string",
+                          "content": "true",
+                          "attributes": {
+                            "default": {
+                              "element": "string",
+                              "content": "false"
+                            }
+                          }
+                        }
+                      },
+                      "attributes": {
+                        "typeAttributes": [
+                          "optional"
+                        ]
+                      },
+                      "meta": {
+                        "description": "return full result with extended field set",
+                        "title": "boolean"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "meta": {
+            "title": "List users"
+          },
+          "attributes": {
+            "href": "/users/{id}{?full}"
+          }
+        }
+      ],
+      "title": "My API"
+    }
+  ]
+}
