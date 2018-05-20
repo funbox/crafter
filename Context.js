@@ -10,6 +10,8 @@ const SectionTypes = require('./SectionTypes');
 class Context {
   constructor(source) {
     this.sourceLines = source.split('\n');
+    this.data = {};
+    this.frames = [];
   }
 
   sectionKeywordSignature(node) {
@@ -21,6 +23,15 @@ class Context {
       DataStructureGroupParser,
       ResourcePrototypesParser,
     ])
+  }
+
+  pushFrame() {
+    this.frames.push(this.data);
+    this.data = {};
+  }
+
+  popFrame() {
+    this.data = this.frames.pop();
   }
 }
 

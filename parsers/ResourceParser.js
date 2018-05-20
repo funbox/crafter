@@ -33,7 +33,7 @@ module.exports = Object.assign(Object.create(require('./AbstractParser')), {
       result.attributes.href = matchData[2];
     }
 
-    return node.next;
+    return utils.nextNode(node);
   },
 
   sectionType(node, context) {

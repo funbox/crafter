@@ -4,6 +4,7 @@ const Refract = require('../Refract');
 const utils = require('../utils');
 
 const ParametersParser = require('./ParametersParser');
+const ResponseParser = require('./ResponseParser');
 
 const actionSymbolIdentifier = "(.+)";
 
@@ -15,6 +16,10 @@ const NamedActionHeaderRegex = new RegExp(`^${actionSymbolIdentifier}\\[${RegExp
 
 module.exports = Object.assign(Object.create(require('./AbstractParser')), {
   processSignature(node, context, result) {
+    context.pushFrame();
+
+    context.data.responses = [];
+
     result.element = Refract.elements.transition;
     result.meta = { title: '' };
 
@@ -33,7 +38,7 @@ module.exports = Object.assign(Object.create(require('./AbstractParser')), {
       }
     }
 
-    return node.next;
+    return utils.nextNode(node);
   },
 
   sectionType(node, context) {
@@ -49,12 +54,45 @@ module.exports = Object.assign(Object.create(require('./AbstractParser')), {
   },
 
   nestedSectionType(node, context) {
-    return ParametersParser.sectionType(node.firstChild, context);
+    if (node.type === 'list') {
+      node = node.firstChild;
+    }
+
+    // TODO: Может быть для списка сразу брать первый элемент прямо в AbstractParser?
+    return SectionTypes.calculateSectionType(node, context, [
+      ParametersParser,
+      ResponseParser,
+    ]);
   },
 
   processNestedSection(node, context, result) {
-    const [nextNode, childResult] = ParametersParser.parse(node.firstChild, context);
-    result.attributes.hrefVariables = childResult;
+    if (node.type === 'list') {
+      node = node.firstChild;
+    }
+
+    let nextNode, childResult;
+
+    if (ParametersParser.sectionType(node, context) !== SectionTypes.undefined) {
+      [nextNode, childResult] = ParametersParser.parse(node, context);
+      result.attributes.hrefVariables = childResult;
+    } else {
+      [nextNode, childResult] = ResponseParser.parse(node, context);
+      context.data.responses.push(childResult);
+    }
+
     return nextNode;
+  },
+
+  finalize(context, result) {
+    context.data.responses.forEach(resp => {
+      result.content.push({
+        element: Refract.elements.httpTransaction,
+        content: [
+          resp
+        ]
+      });
+    });
+
+    context.popFrame();
   }
 });

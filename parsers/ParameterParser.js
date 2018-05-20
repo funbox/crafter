@@ -67,7 +67,7 @@ module.exports = Object.assign(Object.create(require('./AbstractParser')), {
   },
 
   sectionType(node, context) {
-    if (node.type === 'item') {
+    if (node.type === 'item') { // TODO: вынести проверку node.type в AbstractParser
       const text = utils.nodeText(node.firstChild, context.sourceLines).trim();
 
       try {

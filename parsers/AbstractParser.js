@@ -20,6 +20,8 @@ module.exports = {
       curNode = this.processNestedSection(curNode, context, result);
     }
 
+    this.finalize(context, result);
+
     return [curNode, result];
   },
 
@@ -51,5 +53,9 @@ module.exports = {
 
   nestedSectionType(node, context) {
     return SectionTypes.undefined;
+  },
+
+  finalize(context, result) {
+
   }
 };

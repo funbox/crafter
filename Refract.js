@@ -11,6 +11,9 @@ module.exports = {
     member: 'member',
     string: 'string',
     array: 'array',
+    httpResponse: 'httpResponse',
+    httpTransaction: 'httpTransaction',
+    httpHeaders: 'httpHeaders',
   },
   categoryClasses: {
     api: 'api',

@@ -6,7 +6,7 @@ module.exports = Object.assign(Object.create(require('./AbstractParser')), {
   processSignature(node, context, result) {
     result.element = Refract.elements.resourcePrototype;
 
-    return node.next;
+    return utils.nextNode(node);
   },
 
   sectionType(node, context) {

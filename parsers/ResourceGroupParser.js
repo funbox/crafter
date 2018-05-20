@@ -16,7 +16,7 @@ module.exports = Object.assign(Object.create(require('./AbstractParser')), {
       title: matchData[1]
     };
 
-    return node.next;
+    return utils.nextNode(node);
   },
   sectionType(node, context) {
     if (node.type === 'heading') {

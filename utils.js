@@ -35,6 +35,8 @@ module.exports = {
 
     return result.join('\n');
   },
+
+  // TODO: Может быть брать следующий элемент как node.firstChild для списка именно тут?
   nextNode(node) {
     if (node.next) {
       return node.next;
@@ -44,6 +46,6 @@ module.exports = {
       return null;
     }
 
-    this.nextNode(node.parent);
+    return this.nextNode(node.parent);
   }
 };

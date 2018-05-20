@@ -13,7 +13,7 @@ module.exports = Object.assign(Object.create(require('./AbstractParser')), {
       classes: [Refract.categoryClasses.dataStructures],
     };
 
-    return node.next;
+    return utils.nextNode(node);
   },
 
   sectionType(node, context) {
