@@ -3,10 +3,14 @@ const RegExpStrings = require('../RegExpStrings');
 const Refract = require('../Refract');
 const utils = require('../utils');
 
+const BodyParser = require('./BodyParser');
+
 const responseRegex = /^[Rr]esponse(\s+(\d+))?(\s*\(([^\)]*)\))?$/;
 
 module.exports = Object.assign(Object.create(require('./AbstractParser')), {
   processSignature(node, context, result) {
+    context.pushFrame();
+
     result.element = Refract.elements.httpResponse;
 
     const subject = utils.headerText(node.firstChild, context.sourceLines);
@@ -38,9 +42,11 @@ module.exports = Object.assign(Object.create(require('./AbstractParser')), {
           }
         }]
       };
+
+      context.data.contentType = matchData[4];
     }
 
-    return utils.nextNode(node);
+    return utils.nextNode(node.firstChild);
   },
 
   sectionType(node, context) {
@@ -53,4 +59,25 @@ module.exports = Object.assign(Object.create(require('./AbstractParser')), {
 
     return SectionTypes.undefined;
   },
+
+  nestedSectionType(node, context) {
+    return BodyParser.sectionType(node, context);
+  },
+
+  processNestedSection(node, context, result) {
+    const [nextNode, childResult] = BodyParser.parse(node, context);
+
+    if (context.data.contentType) {
+      childResult.attributes = {
+        contentType: context.data.contentType
+      };
+    }
+
+    result.content.push(childResult);
+    return nextNode;
+  },
+
+  finalize(context, result) {
+    context.popFrame();
+  }
 });

@@ -4,6 +4,8 @@ const ResourceGroupParser = require('./parsers/ResourceGroupParser');
 const DataStructureGroupParser = require('./parsers/DataStructureGroupParser');
 const ResourcePrototypesParser = require('./parsers/ResourcePrototypesParser');
 const ParametersParser = require('./parsers/ParametersParser');
+const ResponseParser = require('./parsers/ResponseParser');
+const BodyParser = require('./parsers/BodyParser');
 
 const SectionTypes = require('./SectionTypes');
 
@@ -15,7 +17,10 @@ class Context {
   }
 
   sectionKeywordSignature(node) {
+    // TODO: Проверить все ли парсеры здесь
     return SectionTypes.calculateSectionType(node, this, [
+      ResponseParser,
+      BodyParser,
       ParametersParser,
       ResourceParser,
       ActionParser,

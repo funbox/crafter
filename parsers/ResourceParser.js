@@ -53,9 +53,7 @@ module.exports = Object.assign(Object.create(require('./AbstractParser')), {
 
     if (actionSectionType !== SectionTypes.undefined) return actionSectionType;
 
-    if (node.type === 'list') {
-      return ParametersParser.sectionType(node.firstChild, context);
-    }
+    return ParametersParser.sectionType(node, context);
   },
 
   processNestedSection(node, context, result) {

@@ -54,11 +54,6 @@ module.exports = Object.assign(Object.create(require('./AbstractParser')), {
   },
 
   nestedSectionType(node, context) {
-    if (node.type === 'list') {
-      node = node.firstChild;
-    }
-
-    // TODO: Может быть для списка сразу брать первый элемент прямо в AbstractParser?
     return SectionTypes.calculateSectionType(node, context, [
       ParametersParser,
       ResponseParser,
@@ -66,10 +61,6 @@ module.exports = Object.assign(Object.create(require('./AbstractParser')), {
   },
 
   processNestedSection(node, context, result) {
-    if (node.type === 'list') {
-      node = node.firstChild;
-    }
-
     let nextNode, childResult;
 
     if (ParametersParser.sectionType(node, context) !== SectionTypes.undefined) {

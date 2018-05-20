@@ -14,11 +14,13 @@ module.exports = {
     httpResponse: 'httpResponse',
     httpTransaction: 'httpTransaction',
     httpHeaders: 'httpHeaders',
+    asset: 'asset',
   },
   categoryClasses: {
     api: 'api',
     resourceGroup: 'resourceGroup',
     dataStructures: 'dataStructures',
-    resourcePrototypes: 'resourcePrototypes'
+    resourcePrototypes: 'resourcePrototypes',
+    messageBody: 'messageBody',
   }
 };

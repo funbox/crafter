@@ -13,6 +13,7 @@ const SectionTypes = Object.freeze({
   parameterMembers: 'parameterMembers',
   parameterMember: 'parameterMember',
   response: 'response',
+  response: 'body',
 
   calculateSectionType(node, context, parsers) {
     let result = SectionTypes.undefined;

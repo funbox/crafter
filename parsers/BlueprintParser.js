@@ -14,7 +14,7 @@ module.exports = {
     const result = {
       element: Refract.elements.category,
       meta: {
-        classes: Refract.categoryClasses.api,
+        classes: Refract.categoryClasses.api, // TODO: Сделать как в новом drafter (element: string, content: строка)
       },
       content: [],
       title: '',

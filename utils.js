@@ -36,10 +36,17 @@ module.exports = {
     return result.join('\n');
   },
 
-  // TODO: Может быть брать следующий элемент как node.firstChild для списка именно тут?
   nextNode(node) {
     if (node.next) {
-      return node.next;
+      const result = node.next;
+
+      if (result) {
+        if (result.type === 'list') {
+          return result.firstChild || this.nextNode(result);
+        } else {
+          return result;
+        }
+      }
     }
 
     if (!node.parent) {
