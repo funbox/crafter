@@ -18,26 +18,23 @@
                   "content": [
                     {
                       "element": "httpRequest",
-                      "attributes": {
-                        "method": {
-                          "element": "string",
-                          "content": "GET"
-                        }
-                      },
-                      "content": []
-                    },
-                    {
-                      "element": "httpResponse",
                       "content": [],
-                      "attributes": {
-                        "statusCode": {
-                          "element": "string",
-                          "content": "200"
-                        }
-                      },
                       "headers": {
                         "element": "httpHeaders",
                         "content": [
+                          {
+                            "element": "member",
+                            "content": {
+                              "key": {
+                                "element": "string",
+                                "content": "Content-Type"
+                              },
+                              "value": {
+                                "element": "string",
+                                "content": "application/json"
+                              }
+                            }
+                          },
                           {
                             "element": "member",
                             "content": {
@@ -78,13 +75,29 @@
                             }
                           }
                         ]
+                      },
+                      "attributes": {
+                        "method": {
+                          "element": "string",
+                          "content": "GET"
+                        }
+                      }
+                    },
+                    {
+                      "element": "httpResponse",
+                      "content": [],
+                      "attributes": {
+                        "statusCode": {
+                          "element": "string",
+                          "content": "200"
+                        }
                       }
                     }
                   ]
                 }
               ],
               "meta": {
-                "title": "Users"
+                "title": "List users"
               },
               "attributes": {
                 "href": "/users"
@@ -92,7 +105,7 @@
             }
           ],
           "meta": {
-            "title": "Users"
+            "title": "List users"
           },
           "attributes": {
             "href": "/users"

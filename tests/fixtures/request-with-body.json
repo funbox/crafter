@@ -18,13 +18,44 @@
                   "content": [
                     {
                       "element": "httpRequest",
+                      "content": [
+                        {
+                          "element": "asset",
+                          "content": "  {\n      \"hello\": \"world\"\n  }\n",
+                          "meta": {
+                            "classes": [
+                              "messageBody"
+                            ]
+                          },
+                          "attributes": {
+                            "contentType": "application/json"
+                          }
+                        }
+                      ],
+                      "headers": {
+                        "element": "httpHeaders",
+                        "content": [
+                          {
+                            "element": "member",
+                            "content": {
+                              "key": {
+                                "element": "string",
+                                "content": "Content-Type"
+                              },
+                              "value": {
+                                "element": "string",
+                                "content": "application/json"
+                              }
+                            }
+                          }
+                        ]
+                      },
                       "attributes": {
                         "method": {
                           "element": "string",
                           "content": "GET"
                         }
-                      },
-                      "content": []
+                      }
                     },
                     {
                       "element": "httpResponse",
@@ -43,34 +74,7 @@
                 "title": "List users"
               },
               "attributes": {
-                "href": "/users/{id}",
-                "hrefVariables": {
-                  "element": "hrefVariables",
-                  "content": [
-                    {
-                      "element": "member",
-                      "content": {
-                        "key": {
-                          "element": "string",
-                          "content": "id"
-                        },
-                        "value": {
-                          "element": "string",
-                          "content": "42"
-                        }
-                      },
-                      "attributes": {
-                        "typeAttributes": [
-                          "required"
-                        ]
-                      },
-                      "meta": {
-                        "description": "user id",
-                        "title": "number"
-                      }
-                    }
-                  ]
-                }
+                "href": "/users"
               }
             }
           ],
@@ -78,7 +82,7 @@
             "title": "List users"
           },
           "attributes": {
-            "href": "/users/{id}"
+            "href": "/users"
           }
         }
       ],

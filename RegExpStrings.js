@@ -22,4 +22,5 @@ module.exports = {
   uriTemplate: '(/[^(]*)',
   symbolIdentifier: "([^\\]\\[\\(\\)]+)",
   resourcePrototype: '\\(([^\\]\\[\\(\\)]+)\\)',
+  mediaType: '(\\s*\\(([^\\)]*)\\))',
 };

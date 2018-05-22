@@ -6,26 +6,16 @@ const utils = require('../utils');
 const BodyParser = require('./BodyParser');
 const HeadersParser = require('./HeadersParser');
 
-const responseRegex = new RegExp(`^[Rr]esponse(\\s+(\\d+))?${RegExpStrings.mediaType}?$`);
+const requestRegexp = new RegExp(`^[Rr]equest(\\s+${RegExpStrings.symbolIdentifier})?${RegExpStrings.mediaType}?$`);
 
-// TODO: Объединить с RequestParser, т.к. много общего?
 module.exports = Object.assign(Object.create(require('./AbstractParser')), {
   processSignature(node, context, result) {
     context.pushFrame();
 
-    result.element = Refract.elements.httpResponse;
+    result.element = Refract.elements.httpRequest;
 
     const subject = utils.headerText(node.firstChild, context.sourceLines);
-    const matchData = responseRegex.exec(subject);
-
-    if (matchData[2]) {
-      result.attributes = {
-        statusCode: {
-          element: Refract.elements.string,
-          content: matchData[2],
-        }
-      };
-    }
+    const matchData = requestRegexp.exec(subject);
 
     if (matchData[4]) {
       result.headers = {
@@ -48,13 +38,22 @@ module.exports = Object.assign(Object.create(require('./AbstractParser')), {
       context.data.contentType = matchData[4];
     }
 
+    if (matchData[2]) {
+      result.meta = {
+        title: {
+          element: Refract.elements.string,
+          content: matchData[2],
+        }
+      };
+    }
+
     return utils.nextNode(node.firstChild);
   },
 
   sectionType(node, context) {
     if (node.type === 'item') {
       const text = utils.nodeText(node.firstChild, context.sourceLines).trim();
-      if (responseRegex.exec(text)) {
+      if (requestRegexp.exec(text)) {
         return SectionTypes.response;
       }
     }

@@ -18,13 +18,29 @@
                   "content": [
                     {
                       "element": "httpRequest",
+                      "content": [
+                        {
+                          "element": "asset",
+                          "content": "  test\n",
+                          "meta": {
+                            "classes": [
+                              "messageBody"
+                            ]
+                          }
+                        }
+                      ],
+                      "meta": {
+                        "title": {
+                          "element": "string",
+                          "content": "My Request"
+                        }
+                      },
                       "attributes": {
                         "method": {
                           "element": "string",
                           "content": "GET"
                         }
-                      },
-                      "content": []
+                      }
                     },
                     {
                       "element": "httpResponse",
@@ -43,34 +59,7 @@
                 "title": "List users"
               },
               "attributes": {
-                "href": "/users/{id}",
-                "hrefVariables": {
-                  "element": "hrefVariables",
-                  "content": [
-                    {
-                      "element": "member",
-                      "content": {
-                        "key": {
-                          "element": "string",
-                          "content": "id"
-                        },
-                        "value": {
-                          "element": "string",
-                          "content": "42"
-                        }
-                      },
-                      "attributes": {
-                        "typeAttributes": [
-                          "required"
-                        ]
-                      },
-                      "meta": {
-                        "description": "user id",
-                        "title": "number"
-                      }
-                    }
-                  ]
-                }
+                "href": "/users"
               }
             }
           ],
@@ -78,7 +67,7 @@
             "title": "List users"
           },
           "attributes": {
-            "href": "/users/{id}"
+            "href": "/users"
           }
         }
       ],

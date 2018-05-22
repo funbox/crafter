@@ -12,8 +12,9 @@ const SectionTypes = Object.freeze({
   parameterDefaultValue: 'parameterDefaultValue',
   parameterMembers: 'parameterMembers',
   parameterMember: 'parameterMember',
+  request: 'request',
   response: 'response',
-  response: 'body',
+  body: 'body',
   headers: 'headers',
 
   calculateSectionType(node, context, parsers) {

@@ -17,6 +17,16 @@
                   "element": "httpTransaction",
                   "content": [
                     {
+                      "element": "httpRequest",
+                      "attributes": {
+                        "method": {
+                          "element": "string",
+                          "content": "GET"
+                        }
+                      },
+                      "content": []
+                    },
+                    {
                       "element": "httpResponse",
                       "content": [
                         {
