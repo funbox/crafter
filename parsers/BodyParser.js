@@ -3,7 +3,7 @@ const RegExpStrings = require('../RegExpStrings');
 const Refract = require('../Refract');
 const utils = require('../utils');
 
-const bodyRegex = /^[B|b]ody$/;
+const bodyRegex = /^[Bb]ody$/;
 
 module.exports = Object.assign(Object.create(require('./AbstractParser')), {
   processSignature(node, context, result) {
@@ -31,5 +31,9 @@ module.exports = Object.assign(Object.create(require('./AbstractParser')), {
     }
 
     return SectionTypes.undefined;
+  },
+
+  processDescription(node) {
+    return node;
   },
 });

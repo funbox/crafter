@@ -4,6 +4,7 @@ const Refract = require('../Refract');
 const utils = require('../utils');
 
 const BodyParser = require('./BodyParser');
+const HeadersParser = require('./HeadersParser');
 
 const responseRegex = /^[Rr]esponse(\s+(\d+))?(\s*\(([^\)]*)\))?$/;
 
@@ -61,19 +62,36 @@ module.exports = Object.assign(Object.create(require('./AbstractParser')), {
   },
 
   nestedSectionType(node, context) {
-    return BodyParser.sectionType(node, context);
+    return SectionTypes.calculateSectionType(node, context, [
+      HeadersParser,
+      BodyParser
+    ]);
   },
 
   processNestedSection(node, context, result) {
-    const [nextNode, childResult] = BodyParser.parse(node, context);
+    let nextNode, childResult;
 
-    if (context.data.contentType) {
-      childResult.attributes = {
-        contentType: context.data.contentType
-      };
+
+    if (BodyParser.sectionType(node, context) !== SectionTypes.undefined) {
+      [nextNode, childResult] = BodyParser.parse(node, context);
+
+      if (context.data.contentType) {
+        childResult.attributes = {
+          contentType: context.data.contentType
+        };
+      }
+
+      result.content.push(childResult);
+    } else {
+      [nextNode, childResult] = HeadersParser.parse(node, context);
+
+      if (result.headers) {
+        result.headers.content = result.headers.content.concat(childResult.content);
+      } else {
+        result.headers = childResult;
+      }
     }
 
-    result.content.push(childResult);
     return nextNode;
   },
 
