@@ -65,7 +65,10 @@
                     }
                   },
                   "meta": {
-                    "description": "results page",
+                    "description": {
+                      "element": "string",
+                      "content": "results page"
+                    },
                     "title": "number"
                   }
                 }

@@ -1,7 +1,19 @@
-const identifierRegex = /^`?(([\w.-]|%[a-fA-F0-9]{2})+)`?/
+const identifierRegex = /^`?(([\w.-]|%[a-fA-F0-9]{2})+)`?/;
+
+const typeAttributes = [
+  'required',
+  'optional',
+  'fixed',
+  'fixed-type',
+  'nullable'
+];
 
 class SignatureParser {
   constructor(signature) {
+    this.attributes = [];
+    this.typeAttributes = [];
+    this.otherAttributes = [];
+
     let matchData;
 
     matchData = identifierRegex.exec(signature);
@@ -63,6 +75,14 @@ class SignatureParser {
     if (!matchData) error(signature);
 
     this.attributes = matchData[1].split(',').map(a => a.trim());
+
+    this.attributes.forEach(a => {
+      if (typeAttributes.indexOf(a) !== -1) {
+        this.typeAttributes.push(a);
+      } else {
+        this.otherAttributes.push(a);
+      }
+    });
 
     return signature.slice(matchData[0].length).trim();
   }

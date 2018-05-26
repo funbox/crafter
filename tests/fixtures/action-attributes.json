@@ -1,0 +1,174 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": "api"
+      },
+      "content": [
+        {
+          "element": "resource",
+          "content": [
+            {
+              "element": "transition",
+              "content": [
+                {
+                  "element": "httpTransaction",
+                  "content": [
+                    {
+                      "element": "httpRequest",
+                      "content": [
+                        {
+                          "element": "dataStructure",
+                          "content": {
+                            "element": "object",
+                            "content": [
+                              {
+                                "element": "member",
+                                "content": {
+                                  "key": {
+                                    "element": "string",
+                                    "content": "name"
+                                  },
+                                  "value": {
+                                    "element": "string",
+                                    "content": "John"
+                                  }
+                                },
+                                "meta": {
+                                  "description": "User name"
+                                },
+                                "attributes": {
+                                  "typeAttributes": [
+                                    {
+                                      "element": "string",
+                                      "content": "required"
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "element": "member",
+                                "content": {
+                                  "key": {
+                                    "element": "string",
+                                    "content": "email"
+                                  },
+                                  "value": {
+                                    "element": "string",
+                                    "content": "admin@localhost"
+                                  }
+                                },
+                                "attributes": {
+                                  "typeAttributes": [
+                                    {
+                                      "element": "string",
+                                      "content": "optional"
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "element": "member",
+                                "content": {
+                                  "key": {
+                                    "element": "string",
+                                    "content": "age"
+                                  },
+                                  "value": {
+                                    "element": "number",
+                                    "content": "42"
+                                  }
+                                }
+                              },
+                              {
+                                "element": "member",
+                                "content": {
+                                  "key": {
+                                    "element": "string",
+                                    "content": "comment"
+                                  },
+                                  "value": {
+                                    "element": "string"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "attributes": {
+                        "method": {
+                          "element": "string",
+                          "content": "POST"
+                        }
+                      }
+                    },
+                    {
+                      "element": "httpResponse",
+                      "content": [
+                        {
+                          "element": "dataStructure",
+                          "content": {
+                            "element": "object",
+                            "content": [
+                              {
+                                "element": "member",
+                                "content": {
+                                  "key": {
+                                    "element": "string",
+                                    "content": "status"
+                                  },
+                                  "value": {
+                                    "element": "string",
+                                    "content": "ok"
+                                  }
+                                },
+                                "attributes": {
+                                  "typeAttributes": [
+                                    {
+                                      "element": "string",
+                                      "content": "required"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "fixed"
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "attributes": {
+                        "statusCode": {
+                          "element": "string",
+                          "content": "200"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "meta": {
+                "title": "Create user"
+              },
+              "attributes": {
+                "href": "/user"
+              }
+            }
+          ],
+          "meta": {
+            "title": "Create user"
+          },
+          "attributes": {
+            "href": "/user"
+          }
+        }
+      ],
+      "title": "My API"
+    }
+  ]
+}

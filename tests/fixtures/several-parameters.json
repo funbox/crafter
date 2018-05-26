@@ -61,11 +61,17 @@
                       },
                       "attributes": {
                         "typeAttributes": [
-                          "required"
+                          {
+                            "element": "string",
+                            "content": "required"
+                          }
                         ]
                       },
                       "meta": {
-                        "description": "user id",
+                        "description": {
+                          "element": "string",
+                          "content": "user id"
+                        },
                         "title": "number"
                       }
                     },
@@ -89,11 +95,17 @@
                       },
                       "attributes": {
                         "typeAttributes": [
-                          "optional"
+                          {
+                            "element": "string",
+                            "content": "optional"
+                          }
                         ]
                       },
                       "meta": {
-                        "description": "return full result with extended field set",
+                        "description": {
+                          "element": "string",
+                          "content": "return full result with extended field set"
+                        },
                         "title": "boolean"
                       }
                     }

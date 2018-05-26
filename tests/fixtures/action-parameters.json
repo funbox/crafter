@@ -61,11 +61,17 @@
                       },
                       "attributes": {
                         "typeAttributes": [
-                          "required"
+                          {
+                            "element": "string",
+                            "content": "required"
+                          }
                         ]
                       },
                       "meta": {
-                        "description": "user id",
+                        "description": {
+                          "element": "string",
+                          "content": "user id"
+                        },
                         "title": "number"
                       }
                     }

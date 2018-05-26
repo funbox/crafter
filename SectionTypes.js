@@ -16,6 +16,8 @@ const SectionTypes = Object.freeze({
   response: 'response',
   body: 'body',
   headers: 'headers',
+  attributes: 'attributes',
+  msonAttribute: 'msonAttribute',
 
   calculateSectionType(node, context, parsers) {
     let result = SectionTypes.undefined;

@@ -11,6 +11,7 @@ module.exports = {
     member: 'member',
     string: 'string',
     array: 'array',
+    object: 'object',
     httpRequest: 'httpRequest',
     httpResponse: 'httpResponse',
     httpTransaction: 'httpTransaction',

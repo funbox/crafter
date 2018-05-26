@@ -32,31 +32,27 @@ module.exports = Object.assign(Object.create(require('./AbstractParser')), {
 
     let index;
 
-    if ((index = signature.attributes.indexOf('optional')) !== -1) {
+    if (signature.typeAttributes.length) {
       result.attributes = {
-        typeAttributes: ['optional'],
+        typeAttributes: signature.typeAttributes.map(a => ({
+          element: 'string',
+          content: a
+        }))
       };
-
-      signature.attributes.splice(index, 1);
-    }
-
-    if ((index = signature.attributes.indexOf('required')) !== -1) {
-      result.attributes = {
-        typeAttributes: ['required'],
-      };
-
-      signature.attributes.splice(index, 1);
     }
 
     const description = signature.description;
-    const type = signature.attributes.length > 0 ? signature.attributes[0] : null;
+    const type = signature.otherAttributes.length > 0 ? signature.otherAttributes[0] : null;
 
     if (description || type) {
       result.meta = {};
     }
 
     if (description) {
-      result.meta.description = description;
+      result.meta.description = {
+        element: 'string',
+        content: description
+      };
     }
 
     if (type) {

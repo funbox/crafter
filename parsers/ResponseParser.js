@@ -5,6 +5,7 @@ const utils = require('../utils');
 
 const BodyParser = require('./BodyParser');
 const HeadersParser = require('./HeadersParser');
+const AttributesParser = require('./AttributesParser');
 
 const responseRegex = new RegExp(`^[Rr]esponse(\\s+(\\d+))?${RegExpStrings.mediaType}?$`);
 
@@ -65,7 +66,8 @@ module.exports = Object.assign(Object.create(require('./AbstractParser')), {
   nestedSectionType(node, context) {
     return SectionTypes.calculateSectionType(node, context, [
       HeadersParser,
-      BodyParser
+      BodyParser,
+      AttributesParser,
     ]);
   },
 
@@ -83,7 +85,7 @@ module.exports = Object.assign(Object.create(require('./AbstractParser')), {
       }
 
       result.content.push(childResult);
-    } else {
+    } else if (HeadersParser.sectionType(node, context) !== SectionTypes.undefined) {
       [nextNode, childResult] = HeadersParser.parse(node, context);
 
       if (result.headers) {
@@ -91,6 +93,9 @@ module.exports = Object.assign(Object.create(require('./AbstractParser')), {
       } else {
         result.headers = childResult;
       }
+    } else {
+      [nextNode, childResult] = AttributesParser.parse(node, context);
+      result.content.push(childResult);
     }
 
     return nextNode;
