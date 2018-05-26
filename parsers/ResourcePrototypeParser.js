@@ -2,18 +2,20 @@ const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
 const Refract = require('../Refract');
 
-module.exports = Object.assign(Object.create(require('./AbstractParser')), {
-  processSignature(node, context, result) {
-    result.element = Refract.elements.resourcePrototype;
+module.exports = (Parsers) => {
+  Parsers.ResourcePrototypeParser = Object.assign(Object.create(require('./AbstractParser')), {
+    processSignature(node, context, result) {
+      result.element = Refract.elements.resourcePrototype;
 
-    return utils.nextNode(node);
-  },
+      return utils.nextNode(node);
+    },
 
-  sectionType(node, context) {
-    if (node.type === 'heading' && context.sectionKeywordSignature(node) === SectionTypes.undefined) {
-      return SectionTypes.resourcePrototype;
+    sectionType(node, context) {
+      if (node.type === 'heading' && context.sectionKeywordSignature(node) === SectionTypes.undefined) {
+        return SectionTypes.resourcePrototype;
+      }
+
+      return SectionTypes.undefined;
     }
-
-    return SectionTypes.undefined;
-  }
-});
+  });
+};

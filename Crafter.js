@@ -1,32 +1,25 @@
 const commonmark = require('commonmark');
 const fs = require('fs');
-const BlueprintParser = require('./parsers/BlueprintParser');
 const Context = require('./Context');
+
+const Parsers = {};
+
+fs.readdirSync('./parsers').forEach(pFile => {
+  if (/Parser.js$/.exec(pFile)) {
+    const defineParser = require(`./parsers/${pFile}`);
+    if (typeof defineParser === 'function') {
+      defineParser(Parsers);
+    }
+  }
+});
 
 module.exports = {
   parse(source) {
     const parser = new commonmark.Parser({sourcepos: true});
     const ast = parser.parse(source);
     const context = new Context(source);
-    const [next, result] = BlueprintParser.parse(ast.firstChild, context);
+    const [next, result] = Parsers.BlueprintParser.parse(ast.firstChild, context);
 
-    /*
-    const printNode = (node, level) => {
-      let space = '';
-      for (let i = 0; i < level; i++) space = `${space} `;
-      let content;
-      if (node.type === 'text' || node.type === 'code') {
-        content = node.literal;
-      }
-      console.log(`${space}${node.type}${content && ` (${content})` || ''}`);
-
-      for (let child = node.firstChild; child !== null; child = child.next) {
-        printNode(child, level + 1);
-      }
-    };
-
-    printNode(ast, 0);
-    */
     return result;
   },
 
