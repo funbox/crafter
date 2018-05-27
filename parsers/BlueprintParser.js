@@ -8,7 +8,10 @@ module.exports = (Parsers) => {
       const result = {
         element: Refract.elements.category,
         meta: {
-          classes: Refract.categoryClasses.api, // TODO: Сделать как в новом drafter (element: string, content: строка)
+          classes: [{
+            element: Refract.elements.string,
+            content: Refract.categoryClasses.api,
+          }],
         },
         content: [],
         title: '',
