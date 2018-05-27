@@ -72,7 +72,7 @@ module.exports = (Parsers) => {
       }];
     },
 
-      nestedSectionType(node, context) {
+    nestedSectionType(node, context) {
       return SectionTypes.calculateSectionType(node, context, [
         Parsers.ResourceParser,
         Parsers.ResourceGroupParser,
