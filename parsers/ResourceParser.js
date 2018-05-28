@@ -1,7 +1,7 @@
 const SectionTypes = require('../SectionTypes');
 const RegExpStrings = require('../RegExpStrings');
-const Refract = require('../Refract');
 const utils = require('../utils');
+const ResourceElement = require('./elements/ResourceElement');
 
 const ResourceHeaderRegex = new RegExp(`^(${RegExpStrings.requestMethods}\\s+)?${RegExpStrings.uriTemplate}(\\s+${RegExpStrings.resourcePrototype})?$`);
 const NamedResourceHeaderRegex = new RegExp(`^${RegExpStrings.symbolIdentifier}\\s+\\[${RegExpStrings.uriTemplate}](\\s+${RegExpStrings.resourcePrototype})?$`);
@@ -9,29 +9,31 @@ const NamedEndpointHeaderRegex = new RegExp(`^${RegExpStrings.symbolIdentifier}\
 
 module.exports = (Parsers) => {
   Parsers.ResourceParser = Object.assign(Object.create(require('./AbstractParser')), {
-    processSignature(node, context, result) {
-      result.element = Refract.elements.resource;
-      result.meta = {title: ''};
-      result.attributes = {};
+    processSignature(node, context) {
+      let title = '';
+      let href = '';
 
       const subject = utils.headerText(node, context.sourceLines);
       let matchData;
 
       if (matchData = ResourceHeaderRegex.exec(subject)) {
-        result.attributes.href = matchData[3];
+        href = matchData[3];
       } else if (matchData = NamedEndpointHeaderRegex.exec(subject)) {
-        result.meta.title = matchData[1];
-        result.attributes.href = matchData[3];
+        title = matchData[1];
+        href = matchData[3];
+
+        const result = new ResourceElement(title, href);
         const [nextNode, childResult] = Parsers.ActionParser.parse(node, context);
-        result.content.push(childResult);
-        return nextNode;
+        result.actions.push(childResult);
+        return [nextNode, result];
       } else {
         matchData = NamedResourceHeaderRegex.exec(subject);
-        result.meta.title = matchData[1];
-        result.attributes.href = matchData[2];
+        title = matchData[1];
+        href = matchData[2];
       }
 
-      return utils.nextNode(node);
+      const result = new ResourceElement(title, href);
+      return [utils.nextNode(node), result];
     },
 
     sectionType(node, context) {
@@ -59,13 +61,13 @@ module.exports = (Parsers) => {
 
       if (this.nestedSectionType(node, context) === SectionTypes.action) {
         [nextNode, childResult] = Parsers.ActionParser.parse(node, context);
-        result.content.push(childResult);
+        result.actions.push(childResult);
       } else {
         [nextNode, childResult] = Parsers.ParametersParser.parse(node.firstChild, context);
-        result.attributes.hrefVariables = childResult;
+        result.parameters = childResult;
       }
 
-      return nextNode;
+      return [nextNode, result];
     }
   });
 };

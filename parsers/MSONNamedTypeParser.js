@@ -1,32 +1,11 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
-const Refract = require('../Refract');
+const MSONNamedTypeElement = require('./elements/MSONNamedTypeElement');
 
 module.exports = (Parsers) => {
-  Parsers.MSONNamedTypeParser = {
+  Parsers.MSONNamedTypeParser = Object.assign(Object.create(require('./AbstractParser')), {
     parse(node, context) {
-      const result = {
-        element: Refract.elements.dataStructure,
-        content: [],
-      };
-
-      let curNode = node.next;
-
-      [curNode, description] = utils.extractDescription(curNode, context.sourceLines);
-
-      if (description) {
-        result.content.push({
-          element: Refract.elements.copy,
-          content: description,
-        });
-      }
-
-      if (curNode && curNode.type === 'list') {
-        // Обработать содержимое именованного типа
-        curNode = curNode.next;
-      }
-
-      return [curNode, result];
+      return [utils.nextNode(curNode), new MSONNamedTypeElement()];
     },
 
     sectionType(node, context) {
@@ -36,5 +15,5 @@ module.exports = (Parsers) => {
 
       return SectionTypes.undefined;
     }
-  };
+  });
 };

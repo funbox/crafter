@@ -1,18 +1,13 @@
 const SectionTypes = require('../SectionTypes');
-const Refract = require('../Refract');
 const utils = require('../utils');
+const DataStructureGroupElement = require('./elements/DataStructureGroupElement');
 
 const DataStructureGroupRegex = /^[Dd]ata\s+[Ss]tructures?$/;
 
 module.exports = (Parsers) => {
   Parsers.DataStructureGroupParser = Object.assign(Object.create(require('./AbstractParser')), {
-    processSignature(node, context, result) {
-      result.element = Refract.elements.category;
-      result.meta = {
-        classes: [Refract.categoryClasses.dataStructures],
-      };
-
-      return utils.nextNode(node);
+    processSignature(node, context) {
+      return [utils.nextNode(node), new DataStructureGroupElement()];
     },
 
     sectionType(node, context) {
@@ -32,8 +27,12 @@ module.exports = (Parsers) => {
 
     processNestedSection(node, context, result) {
       const [nextNode, childResult] = Parsers.MSONNamedTypeParser.parse(node, context);
-      result.content.push(childResult);
-      return nextNode;
+      result.dataStructures.push(childResult);
+      return [nextNode, result];
+    },
+
+    processDescription(node, context, result) {
+      return [node, result];
     }
   });
 };

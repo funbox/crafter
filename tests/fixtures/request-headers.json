@@ -9,20 +9,54 @@
             "element": "string",
             "content": "api"
           }
-        ]
+        ],
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
       },
       "content": [
         {
           "element": "resource",
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "List users"
+            }
+          },
+          "attributes": {
+            "href": {
+              "element": "string",
+              "content": "/users"
+            }
+          },
           "content": [
             {
               "element": "transition",
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "List users"
+                }
+              },
+              "attributes": {
+                "href": {
+                  "element": "string",
+                  "content": "/users"
+                }
+              },
               "content": [
                 {
                   "element": "httpTransaction",
                   "content": [
                     {
                       "element": "httpRequest",
+                      "attributes": {
+                        "method": {
+                          "element": "string",
+                          "content": "GET"
+                        }
+                      },
                       "content": [],
                       "headers": {
                         "element": "httpHeaders",
@@ -80,12 +114,6 @@
                             }
                           }
                         ]
-                      },
-                      "attributes": {
-                        "method": {
-                          "element": "string",
-                          "content": "GET"
-                        }
                       }
                     },
                     {
@@ -100,24 +128,11 @@
                     }
                   ]
                 }
-              ],
-              "meta": {
-                "title": "List users"
-              },
-              "attributes": {
-                "href": "/users"
-              }
+              ]
             }
-          ],
-          "meta": {
-            "title": "List users"
-          },
-          "attributes": {
-            "href": "/users"
-          }
+          ]
         }
-      ],
-      "title": "My API"
+      ]
     }
   ]
 }

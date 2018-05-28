@@ -1,19 +1,15 @@
 const SectionTypes = require('../SectionTypes');
-const Refract = require('../Refract');
 const utils = require('../utils');
+const ParameterDefaultValueElement = require('./elements/ParameterDefaultValueElement');
 
 const parameterDefaultValueRegex = /^[Dd]efault:\s*`?(.+?)`?$/;
 
 module.exports = (Parsers) => {
   Parsers.ParameterDefaultValueParser = Object.assign(Object.create(require('./AbstractParser')), {
-    processSignature(node, context, result) {
+    processSignature(node, context) {
       const text = utils.nodeText(node.firstChild, context.sourceLines).trim();
       const val = parameterDefaultValueRegex.exec(text)[1];
-
-      result.element = Refract.elements.string;
-      result.content = val;
-
-      return utils.nextNode(node);
+      return [utils.nextNode(node), new ParameterDefaultValueElement(val)];
     },
 
     sectionType(node, context) {
@@ -27,8 +23,8 @@ module.exports = (Parsers) => {
       return SectionTypes.undefined;
     },
 
-    processDescription(node) {
-      return node;
+    processDescription(node, context, result) {
+      return [node, result];
     }
   });
 };

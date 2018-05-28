@@ -8,4 +8,4 @@ if (process.argv.length !== 3) {
 
 const data = fs.readFileSync(process.argv[2], {encoding: 'utf-8'});
 const result = Crafter.parse(data);
-console.log(JSON.stringify(result, null, 2));
+console.log(JSON.stringify(result.toRefract(), null, 2));

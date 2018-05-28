@@ -9,7 +9,11 @@
             "element": "string",
             "content": "api"
           }
-        ]
+        ],
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
       },
       "content": [
         {
@@ -45,22 +49,33 @@
                 }
               ],
               "meta": {
-                "title": "List users"
+                "title": {
+                  "element": "string",
+                  "content": "List users"
+                }
               },
               "attributes": {
-                "href": "/users"
+                "href": {
+                  "element": "string",
+                  "content": "/users"
+                }
               }
             }
           ],
           "meta": {
-            "title": "List users"
+            "title": {
+              "element": "string",
+              "content": "List users"
+            }
           },
           "attributes": {
-            "href": "/users"
+            "href": {
+              "element": "string",
+              "content": "/users"
+            }
           }
         }
-      ],
-      "title": "My API"
+      ]
     }
   ]
 }

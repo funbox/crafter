@@ -9,7 +9,11 @@
             "element": "string",
             "content": "api"
           }
-        ]
+        ],
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
       },
       "content": [
         {
@@ -45,10 +49,16 @@
                 }
               ],
               "meta": {
-                "title": "List users"
+                "title": {
+                  "element": "string",
+                  "content": "List users"
+                }
               },
               "attributes": {
-                "href": "/users/{id}",
+                "href": {
+                  "element": "string",
+                  "content": "/users/{id}"
+                },
                 "hrefVariables": {
                   "element": "hrefVariables",
                   "content": [
@@ -77,7 +87,10 @@
                           "element": "string",
                           "content": "user id"
                         },
-                        "title": "number"
+                        "title": {
+                          "element": "string",
+                          "content": "number"
+                        }
                       }
                     }
                   ]
@@ -86,14 +99,19 @@
             }
           ],
           "meta": {
-            "title": "List users"
+            "title": {
+              "element": "string",
+              "content": "List users"
+            }
           },
           "attributes": {
-            "href": "/users/{id}"
+            "href": {
+              "element": "string",
+              "content": "/users/{id}"
+            }
           }
         }
-      ],
-      "title": "My API"
+      ]
     }
   ]
 }

@@ -1,13 +1,11 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
-const Refract = require('../Refract');
+const ResourcePrototypeElement = require('./elements/ResourcePrototypeElement');
 
 module.exports = (Parsers) => {
   Parsers.ResourcePrototypeParser = Object.assign(Object.create(require('./AbstractParser')), {
-    processSignature(node, context, result) {
-      result.element = Refract.elements.resourcePrototype;
-
-      return utils.nextNode(node);
+    processSignature(node, context) {
+      return [utils.nextNode(node), new ResourcePrototypeElement()];
     },
 
     sectionType(node, context) {

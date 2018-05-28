@@ -2,25 +2,34 @@ const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
 const Refract = require('../Refract');
 
+class DescriptionElement {
+  constructor(description) {
+    this.description = description;
+  }
+
+  toRefract() {
+    return {
+      element: Refract.elements.copy,
+      content: this.description,
+    };
+  }
+}
+
 module.exports = {
   parse(node, context) {
-    const result = {
-      element: null,
-      content: [],
-    };
-
+    let result;
     let curNode = node;
 
-    curNode = this.processSignature(curNode, context, result);
-    curNode = this.processDescription(curNode, context, result);
+    [curNode, result] = this.processSignature(curNode, context);
+    [curNode, result] = this.processDescription(curNode, context, result);
 
     let childResult;
 
     while (curNode && this.nestedSectionType(curNode, context) !== SectionTypes.undefined) {
-      curNode = this.processNestedSection(curNode, context, result);
+      [curNode, result] = this.processNestedSection(curNode, context, result);
     }
 
-    this.finalize(context, result);
+    result = this.finalize(context, result);
 
     return [curNode, result];
   },
@@ -34,13 +43,10 @@ module.exports = {
     [curNode, description] = utils.extractDescription(curNode, context.sourceLines);
 
     if (description) {
-      result.content.push({
-        element: Refract.elements.copy,
-        content: description,
-      });
+      result.content.push(new DescriptionElement(description));
     }
 
-    return curNode;
+    return [curNode, result];
   },
 
   processNestedSection(node, context, result) {
@@ -56,6 +62,6 @@ module.exports = {
   },
 
   finalize(context, result) {
-
+    return result;
   }
 };

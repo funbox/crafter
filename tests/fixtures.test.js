@@ -13,7 +13,7 @@ describe('fixtures', () => {
         const data = readFile(f);
         const example = JSON.parse(readFile(f.replace(apibRegex, '.json')));
         const result = Crafter.parse(data);
-        expect(result).toEqual(example);
+        expect(result.toRefract()).toEqual(example);
       });
     }
   });

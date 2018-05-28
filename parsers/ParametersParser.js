@@ -1,16 +1,14 @@
 const SectionTypes = require('../SectionTypes');
-const Refract = require('../Refract');
 const utils = require('../utils');
+const ParametersElement = require('./elements/ParametersElement');
 
 const ParametersRegex = /^[Pp]arameters?$/;
 
 module.exports = (Parsers) => {
   Parsers.ParametersParser = Object.assign(Object.create(require('./AbstractParser')), {
-    processSignature(node, context, result) {
-      result.element = Refract.elements.hrefVariables;
-
+    processSignature(node, context) {
       const parametersList = node.firstChild.next;
-      return parametersList && parametersList.firstChild || utils.nextNode(node);
+      return [parametersList && parametersList.firstChild || utils.nextNode(node), new ParametersElement()];
     },
 
     sectionType(node, context) {
@@ -30,12 +28,12 @@ module.exports = (Parsers) => {
 
     processNestedSection(node, context, result) {
       const [nextNode, childResult] = Parsers.ParameterParser.parse(node, context);
-      result.content.push(childResult);
-      return nextNode;
+      result.parameters.push(childResult);
+      return [nextNode, result];
     },
 
-    processDescription(node) {
-      return node;
+    processDescription(node, context, result) {
+      return [node, result];
     }
   });
 };

@@ -9,7 +9,11 @@
             "element": "string",
             "content": "api"
           }
-        ]
+        ],
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
       },
       "content": [
         {
@@ -43,7 +47,10 @@
                             ]
                           },
                           "attributes": {
-                            "contentType": "application/json"
+                            "contentType": {
+                              "element": "string",
+                              "content": "application/json"
+                            }
                           }
                         }
                       ],
@@ -76,22 +83,33 @@
                 }
               ],
               "meta": {
-                "title": "List users"
+                "title": {
+                  "element": "string",
+                  "content": "List users"
+                }
               },
               "attributes": {
-                "href": "/users"
+                "href": {
+                  "element": "string",
+                  "content": "/users"
+                }
               }
             }
           ],
           "meta": {
-            "title": "List users"
+            "title": {
+              "element": "string",
+              "content": "List users"
+            }
           },
           "attributes": {
-            "href": "/users"
+            "href": {
+              "element": "string",
+              "content": "/users"
+            }
           }
         }
-      ],
-      "title": "My API"
+      ]
     }
   ]
 }

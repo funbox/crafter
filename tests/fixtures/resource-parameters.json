@@ -9,14 +9,64 @@
             "element": "string",
             "content": "api"
           }
-        ]
+        ],
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
       },
       "content": [
         {
           "element": "resource",
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Users"
+            }
+          },
+          "attributes": {
+            "href": {
+              "element": "string",
+              "content": "/users{?page}"
+            },
+            "hrefVariables": {
+              "element": "hrefVariables",
+              "content": [
+                {
+                  "element": "member",
+                  "content": {
+                    "key": {
+                      "element": "string",
+                      "content": "page"
+                    },
+                    "value": {
+                      "element": "string",
+                      "content": "42"
+                    }
+                  },
+                  "meta": {
+                    "description": {
+                      "element": "string",
+                      "content": "results page"
+                    },
+                    "title": {
+                      "element": "string",
+                      "content": "number"
+                    }
+                  }
+                }
+              ]
+            }
+          },
           "content": [
             {
               "element": "transition",
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "List users"
+                }
+              },
               "content": [
                 {
                   "element": "httpTransaction",
@@ -43,46 +93,11 @@
                     }
                   ]
                 }
-              ],
-              "meta": {
-                "title": "List users"
-              }
-            }
-          ],
-          "meta": {
-            "title": "Users"
-          },
-          "attributes": {
-            "href": "/users{?page}",
-            "hrefVariables": {
-              "element": "hrefVariables",
-              "content": [
-                {
-                  "element": "member",
-                  "content": {
-                    "key": {
-                      "element": "string",
-                      "content": "page"
-                    },
-                    "value": {
-                      "element": "string",
-                      "content": "42"
-                    }
-                  },
-                  "meta": {
-                    "description": {
-                      "element": "string",
-                      "content": "results page"
-                    },
-                    "title": "number"
-                  }
-                }
               ]
             }
-          }
+          ]
         }
-      ],
-      "title": "My API"
+      ]
     }
   ]
 }

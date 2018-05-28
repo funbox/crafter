@@ -1,25 +1,15 @@
 const SectionTypes = require('../SectionTypes');
-const Refract = require('../Refract');
 const utils = require('../utils');
+const BodyElement = require('./elements/BodyElement');
 
 const bodyRegex = /^[Bb]ody$/;
 
 module.exports = (Parsers) => {
   Parsers.BodyParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context, result) {
-      result.element = Refract.elements.asset;
-
-      result.meta = {
-        classes: [
-          Refract.categoryClasses.messageBody
-        ]
-      };
-
       const bodyContentNode = node.firstChild.next;
-
-      result.content = bodyContentNode && bodyContentNode.literal || '';
-
-      return utils.nextNode(node);
+      const body = bodyContentNode && bodyContentNode.literal || '';
+      return [utils.nextNode(node), new BodyElement(body)];
     },
 
     sectionType(node, context) {
@@ -33,8 +23,8 @@ module.exports = (Parsers) => {
       return SectionTypes.undefined;
     },
 
-    processDescription(node) {
-      return node;
+    processDescription(node, context, result) {
+      return [node, result];
     },
   });
 };

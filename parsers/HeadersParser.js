@@ -1,37 +1,27 @@
 const SectionTypes = require('../SectionTypes');
-const Refract = require('../Refract');
 const utils = require('../utils');
+const HeadersElement = require('./elements/HeadersElement');
 
 const headersRegex = /^[Hh]eaders$/;
 
 module.exports = (Parsers) => {
   Parsers.HeadersParser = Object.assign(Object.create(require('./AbstractParser')), {
     // TODO: Обработать кривые заголовки (когда не в формате Name: Value)
-    processSignature(node, context, result) {
-      result.element = Refract.elements.httpHeaders;
-
+    processSignature(node, context) {
       const headersContentNode = node.firstChild.next;
 
+      let headers = [];
       if (headersContentNode) {
-        (headersContentNode.literal || '').trim().split('\n').forEach(headerLine => {
+        headers = (headersContentNode.literal || '').trim().split('\n').map(headerLine => {
           const [key, val] = headerLine.split(':');
-          result.content.push({
-            element: Refract.elements.member,
-            content: {
-              key: {
-                element: Refract.elements.string,
-                content: key.trim(),
-              },
-              value: {
-                element: Refract.elements.string,
-                content: val.trim(),
-              }
-            }
-          });
+          return {
+            key: key.trim(),
+            val: val.trim(),
+          };
         });
       }
 
-      return utils.nextNode(node);
+      return [utils.nextNode(node), new HeadersElement(headers)];
     },
 
     sectionType(node, context) {
@@ -45,8 +35,8 @@ module.exports = (Parsers) => {
       return SectionTypes.undefined;
     },
 
-    processDescription(node) {
-      return node;
+    processDescription(node, context, result) {
+      return [node, result];
     },
   });
 };

@@ -1,7 +1,7 @@
 const SectionTypes = require('../SectionTypes');
 const RegExpStrings = require('../RegExpStrings');
-const Refract = require('../Refract');
 const utils = require('../utils');
+const ActionElement = require('./elements/ActionElement');
 
 const actionSymbolIdentifier = "(.+)";
 
@@ -13,35 +13,33 @@ const NamedActionHeaderRegex = new RegExp(`^${actionSymbolIdentifier}\\[${RegExp
 
 module.exports = (Parsers) => {
   Parsers.ActionParser = Object.assign(Object.create(require('./AbstractParser')), {
-    processSignature(node, context, result) {
-      context.pushFrame();
-
-      context.data.requests = [];
-      context.data.responses = [];
-
-      result.element = Refract.elements.transition;
-      result.meta = { title: '' };
+    processSignature(node, context) {
+      let title = '';
+      let href = '';
+      let method = '';
 
       const subject = utils.headerText(node, context.sourceLines);
       let matchData;
 
       if (matchData = ActionHeaderRegex.exec(subject)) {
         if (matchData[2]) {
-          result.attributes = {href: matchData[2].trim()};
+          href = matchData[2].trim();
         }
 
-        context.data.method = matchData[1];
+        method = matchData[1];
       } else if (matchData = NamedActionHeaderRegex.exec(subject)) {
-        result.meta.title = matchData[1].trim();
+        title = matchData[1].trim();
 
         if (matchData[3]) {
-          result.attributes = {href: matchData[3].trim()};
+          href = matchData[3].trim();
         }
 
-        context.data.method = matchData[2];
+        method = matchData[2];
       }
 
-      return utils.nextNode(node);
+      const result = new ActionElement(title, href, method);
+
+      return [utils.nextNode(node), result];
     },
 
     sectionType(node, context) {
@@ -69,55 +67,21 @@ module.exports = (Parsers) => {
 
       if (Parsers.ParametersParser.sectionType(node, context) !== SectionTypes.undefined) {
         [nextNode, childResult] = Parsers.ParametersParser.parse(node, context);
-        result.attributes.hrefVariables = childResult;
+        result.parameters = childResult;
       } else if (Parsers.RequestParser.sectionType(node, context) !== SectionTypes.undefined) {
         [nextNode, childResult] = Parsers.RequestParser.parse(node, context);
-
-        if (!childResult.attributes) {
-          childResult.attributes = {};
-        }
-
-        childResult.attributes.method = {
-          element: Refract.elements.string,
-          content: context.data.method
-        };
-
-        context.data.requests.push(childResult);
+        childResult.method = result.method;
+        result.requests.push(childResult);
       } else {
         [nextNode, childResult] = Parsers.ResponseParser.parse(node, context);
-        context.data.responses.push(childResult);
+        result.responses.push(childResult);
       }
 
-      return nextNode;
+      return [nextNode, result];
     },
 
     finalize(context, result) {
-      if (context.data.requests.length === 0) {
-        context.data.requests = [{
-          element: Refract.elements.httpRequest,
-          attributes: {
-            method: {
-              element: Refract.elements.string,
-              content: context.data.method,
-            }
-          },
-          content: [],
-        }];
-      }
-
-      context.data.requests.forEach(req => {
-        context.data.responses.forEach(resp => {
-          result.content.push({
-            element: Refract.elements.httpTransaction,
-            content: [
-              req,
-              resp
-            ]
-          });
-        });
-      });
-
-      context.popFrame();
+      return result;
     }
   });
 };

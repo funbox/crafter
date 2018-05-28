@@ -1,64 +1,24 @@
 const SectionTypes = require('../SectionTypes');
-const Refract = require('../Refract');
 const utils = require('../utils');
+const ParameterElement = require('./elements/ParameterElement');
 
 const SignatureParser = require('../SignatureParser');
 
-const parameterIdentifierRegex = /^`?(([\w.-])*|(%[A-Fa-f0-9]{2})*)+`?/;
-const parameterExampleRegex = /^`?[^`]+`?/;
-
 module.exports = (Parsers) => {
   Parsers.ParameterParser = Object.assign(Object.create(require('./AbstractParser')), {
-    processSignature(node, context, result) {
-      result.element = Refract.elements.member;
-
+    processSignature(node, context) {
       const text = utils.nodeText(node.firstChild, context.sourceLines).trim();
       const signature = new SignatureParser(text);
 
-      result.content = {
-        key: {
-          element: Refract.elements.string,
-          content: signature.name,
-        },
-      };
+      const result = new ParameterElement(
+        signature.name,
+        signature.example,
+        signature.otherAttributes.length > 0 ? signature.otherAttributes[0] : null,
+        signature.typeAttributes,
+        signature.description
+      );
 
-      if (signature.example) {
-        result.content.value = {
-          element: Refract.elements.string,
-          content: signature.example,
-        };
-      }
-
-      let index;
-
-      if (signature.typeAttributes.length) {
-        result.attributes = {
-          typeAttributes: signature.typeAttributes.map(a => ({
-            element: 'string',
-            content: a
-          }))
-        };
-      }
-
-      const description = signature.description;
-      const type = signature.otherAttributes.length > 0 ? signature.otherAttributes[0] : null;
-
-      if (description || type) {
-        result.meta = {};
-      }
-
-      if (description) {
-        result.meta.description = {
-          element: 'string',
-          content: description
-        };
-      }
-
-      if (type) {
-        result.meta.title = type;
-      }
-
-      return node.firstChild.next && node.firstChild.next.firstChild || utils.nextNode(node);
+      return [node.firstChild.next && node.firstChild.next.firstChild || utils.nextNode(node), result];
     },
 
     sectionType(node, context) {
@@ -87,28 +47,19 @@ module.exports = (Parsers) => {
     processNestedSection(node, context, result) {
       let nextNode, childRes;
 
-      if (!result.content.value) {
-        result.content.value = {};
-      }
-
-      if (!result.content.value.attributes) {
-        result.content.value.attributes = {};
-      }
-
-
       if (Parsers.ParameterDefaultValueParser.sectionType(node, context) !== SectionTypes.undefined) {
         [nextNode, childRes] = Parsers.ParameterDefaultValueParser.parse(node, context);
-        result.content.value.attributes.default = childRes;
+        result.defaultValue = childRes;
       } else {
         [nextNode, childRes] = Parsers.ParameterMembersParser.parse(node, context);
-        result.content.value.attributes.enumerations = childRes;
+        result.enumerations = childRes;
       }
 
-      return nextNode;
+      return [nextNode, result];
     },
 
-    processDescription(node) {
-      return node;
+    processDescription(node, context, result) {
+      return [node, result];
     }
   });
 };

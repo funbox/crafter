@@ -1,6 +1,6 @@
 const SectionTypes = require('../SectionTypes');
-const Refract = require('../Refract');
 const utils = require('../utils');
+const ParameterMembersElement = require('./elements/ParameterMembersElement');
 
 const parameterMembersRegex = /^[Mm]embers$/;
 const parameterMemberRegex = /^`?(.+?)`?$/;
@@ -8,10 +8,8 @@ const parameterMemberRegex = /^`?(.+?)`?$/;
 module.exports = (Parsers) => {
   Parsers.ParameterMembersParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context, result) {
-      result.element = Refract.elements.array;
-      result.content = [];
-
-      return node.firstChild.next && node.firstChild.next.firstChild || utils.nextNode(node);
+      const nextNode = node.firstChild.next && node.firstChild.next.firstChild || utils.nextNode(node);
+      return [nextNode, new ParameterMembersElement()];
     },
 
     sectionType(node, context) {
@@ -35,16 +33,13 @@ module.exports = (Parsers) => {
 
     processNestedSection(node, context, result) {
       const text = utils.nodeText(node.firstChild, context.sourceLines).trim();
-      result.content.push({
-        element: Refract.elements.string,
-        content: parameterMemberRegex.exec(text)[1],
-      });
+      result.members.push(parameterMemberRegex.exec(text)[1]);
 
-      return utils.nextNode(node);
+      return [utils.nextNode(node), result];
     },
 
-    processDescription(node) {
-      return node;
+    processDescription(node, context, result) {
+      return [node, result];
     }
   });
 };

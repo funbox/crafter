@@ -1,18 +1,14 @@
 const SectionTypes = require('../SectionTypes');
 const Refract = require('../Refract');
 const utils = require('../utils');
+const ResourcePrototypesElement = require('./elements/ResourcePrototypesElement');
 
 const ResourcePrototypesRegex = /^[Rr]esource\s+[Pp]rototypes$/;
 
 module.exports = (Parsers) => {
   Parsers.ResourcePrototypesParser = Object.assign(Object.create(require('./AbstractParser')), {
-    processSignature(node, context, result) {
-      result.element = Refract.elements.category;
-      result.meta = {
-        classes: [Refract.categoryClasses.resourcePrototypes],
-      };
-
-      return utils.nextNode(node);
+    processSignature(node, context) {
+      return [utils.nextNode(node), new ResourcePrototypesElement()];
     },
 
     sectionType(node, context) {
@@ -32,12 +28,12 @@ module.exports = (Parsers) => {
 
     processNestedSection(node, context, result) {
       const [nextNode, childResult] = Parsers.ResourcePrototypeParser.parse(node, context);
-      result.content.push(childResult);
-      return nextNode;
+      result.resourcePrototypes.push(childResult);
+      return [nextNode, result];
     },
 
-    processDescription(node) {
-      return node;
+    processDescription(node, context, result) {
+      return [node, result];
     }
   });
 };

@@ -9,14 +9,42 @@
             "element": "string",
             "content": "api"
           }
-        ]
+        ],
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
       },
       "content": [
         {
           "element": "resource",
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Users"
+            }
+          },
+          "attributes": {
+            "href": {
+              "element": "string",
+              "content": "/users"
+            }
+          },
           "content": [
             {
               "element": "transition",
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Users"
+                }
+              },
+              "attributes": {
+                "href": {
+                  "element": "string",
+                  "content": "/users"
+                }
+              },
               "content": [
                 {
                   "element": "httpTransaction",
@@ -100,24 +128,11 @@
                     }
                   ]
                 }
-              ],
-              "meta": {
-                "title": "Users"
-              },
-              "attributes": {
-                "href": "/users"
-              }
+              ]
             }
-          ],
-          "meta": {
-            "title": "Users"
-          },
-          "attributes": {
-            "href": "/users"
-          }
+          ]
         }
-      ],
-      "title": "My API"
+      ]
     }
   ]
 }

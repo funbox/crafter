@@ -1,26 +1,15 @@
 const SectionTypes = require('../SectionTypes');
-const Refract = require('../Refract');
 const utils = require('../utils');
+const BlueprintElement = require('./elements/BlueprintElement');
 
 module.exports = (Parsers) => {
   Parsers.BlueprintParser = {
     parse(node, context) {
-      const result = {
-        element: Refract.elements.category,
-        meta: {
-          classes: [{
-            element: Refract.elements.string,
-            content: Refract.categoryClasses.api,
-          }],
-        },
-        content: [],
-        title: '',
-      };
-
       let curNode = node;
 
+      let title = '';
       if (curNode.type === 'heading') {
-        result.title = utils.headerText(curNode, context.sourceLines); // Что если внутри хедера ссылки и все такое?
+        title = utils.headerText(curNode, context.sourceLines); // Что если внутри хедера ссылки и все такое?
 
         curNode = curNode.next;
       } else {
@@ -31,12 +20,7 @@ module.exports = (Parsers) => {
 
       [curNode, description] = utils.extractDescription(curNode, context.sourceLines);
 
-      if (description) {
-        result.content.push({
-          element: Refract.elements.copy,
-          content: description,
-        });
-      }
+      const result = new BlueprintElement(title, description);
 
       while (curNode) {
         const nodeType = this.nestedSectionType(curNode, context);
@@ -66,10 +50,7 @@ module.exports = (Parsers) => {
         }
       }
 
-      return [null, {
-        element: Refract.elements.parseResult,
-        content: [result]
-      }];
+      return [null, result];
     },
 
     nestedSectionType(node, context) {

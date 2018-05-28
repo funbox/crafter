@@ -1,20 +1,13 @@
 const SectionTypes = require('../SectionTypes');
-const Refract = require('../Refract');
 const utils = require('../utils');
+const AttributesElement = require('./elements/AttributesElement');
 
 const attributesRegex = /^[Aa]ttributes?$/;
 
 module.exports = (Parsers) => {
   Parsers.AttributesParser = Object.assign(Object.create(require('./AbstractParser')), {
-    processSignature(node, context, result) {
-      result.element = Refract.elements.dataStructure;
-
-      result.content = {
-        element: Refract.elements.object,
-        content: []
-      };
-
-      return utils.nextNode(node.firstChild);
+    processSignature(node, context) {
+      return [utils.nextNode(node.firstChild), new AttributesElement()];
     },
 
     sectionType(node, context) {
@@ -34,8 +27,8 @@ module.exports = (Parsers) => {
 
     processNestedSection(node, context, result) {
       const [nextNode, childResult] = Parsers.MSONAttributeParser.parse(node, context);
-      result.content.content.push(childResult);
-      return nextNode;
+      result.content.push(childResult);
+      return [nextNode, result];
     },
   });
 };

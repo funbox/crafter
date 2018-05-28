@@ -9,7 +9,11 @@
             "element": "string",
             "content": "api"
           }
-        ]
+        ],
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
       },
       "content": [
         {
@@ -42,7 +46,10 @@
                                   }
                                 },
                                 "meta": {
-                                  "description": "User name"
+                                  "description": {
+                                    "element": "string",
+                                    "content": "User name"
+                                  }
                                 },
                                 "attributes": {
                                   "typeAttributes": [
@@ -158,22 +165,33 @@
                 }
               ],
               "meta": {
-                "title": "Create user"
+                "title": {
+                  "element": "string",
+                  "content": "Create user"
+                }
               },
               "attributes": {
-                "href": "/user"
+                "href": {
+                  "element": "string",
+                  "content": "/user"
+                }
               }
             }
           ],
           "meta": {
-            "title": "Create user"
+            "title": {
+              "element": "string",
+              "content": "Create user"
+            }
           },
           "attributes": {
-            "href": "/user"
+            "href": {
+              "element": "string",
+              "content": "/user"
+            }
           }
         }
-      ],
-      "title": "My API"
+      ]
     }
   ]
 }
