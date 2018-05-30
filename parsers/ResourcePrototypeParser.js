@@ -14,6 +14,8 @@ module.exports = (Parsers) => {
       }
 
       return SectionTypes.undefined;
-    }
+    },
+
+    skipSectionKeywordSignature: true,
   });
 };

@@ -1,5 +1,6 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
+const SignatureParser = require('../SignatureParser');
 const AttributesElement = require('./elements/AttributesElement');
 
 const attributesRegex = /^[Aa]ttributes?$/;
@@ -12,9 +13,14 @@ module.exports = (Parsers) => {
 
     sectionType(node, context) {
       if (node.type === 'item') {
-        const text = utils.nodeText(node.firstChild, context.sourceLines).trim();
-        if (attributesRegex.exec(text)) {
-          return SectionTypes.attributes;
+        const text = utils.nodeText(node.firstChild, context.sourceLines);
+
+        try {
+          const signature = new SignatureParser(text);
+          if (attributesRegex.exec(signature.name)) {
+            return SectionTypes.attributes;
+          }
+        } catch (e) {
         }
       }
 

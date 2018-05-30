@@ -12,7 +12,7 @@ class SignatureParser {
   constructor(signature) {
     this.attributes = [];
     this.typeAttributes = [];
-    this.otherAttributes = [];
+    this.type = null;
 
     let matchData;
 
@@ -79,8 +79,10 @@ class SignatureParser {
     this.attributes.forEach(a => {
       if (typeAttributes.indexOf(a) !== -1) {
         this.typeAttributes.push(a);
+      } else if (!this.type) {
+        this.type = a;
       } else {
-        this.otherAttributes.push(a);
+        error(a);
       }
     });
 

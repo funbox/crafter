@@ -21,7 +21,7 @@ module.exports = (Parsers) => {
 
     sectionType(node, context) {
       if (node.type === 'item') {
-        const text = utils.nodeText(node.firstChild, context.sourceLines).trim();
+        const text = utils.nodeText(node.firstChild, context.sourceLines);
         if (requestRegexp.exec(text)) {
           return SectionTypes.response;
         }

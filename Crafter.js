@@ -17,7 +17,7 @@ module.exports = {
   parse(source) {
     const parser = new commonmark.Parser({sourcepos: true});
     const ast = parser.parse(source);
-    const context = new Context(source);
+    const context = new Context(source, Parsers);
     const [next, result] = Parsers.BlueprintParser.parse(ast.firstChild, context);
 
     return result;

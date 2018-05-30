@@ -60,6 +60,8 @@ module.exports = (Parsers) => {
         Parsers.DataStructureGroupParser,
         Parsers.ResourcePrototypesParser,
       ]);
-    }
+    },
+
+    skipSectionKeywordSignature: true,
   };
 };

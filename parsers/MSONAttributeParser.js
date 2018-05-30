@@ -7,13 +7,13 @@ const SignatureParser = require('../SignatureParser');
 module.exports = (Parsers) => {
   Parsers.MSONAttributeParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
-      const text = utils.nodeText(node.firstChild, context.sourceLines).trim(); // TODO: часто берем text, может сделать отдельную функцию?
-      const signature = new SignatureParser(text);
+      const subject = utils.nodeText(node.firstChild, context.sourceLines); // TODO: часто берем text, может сделать отдельную функцию?
+      const signature = new SignatureParser(subject);
 
       const result = new MSONAttributeElement(
         signature.name,
         signature.example,
-        signature.otherAttributes[0],
+        signature.type,
         signature.typeAttributes,
         signature.description
       );
@@ -23,7 +23,7 @@ module.exports = (Parsers) => {
 
     sectionType(node, context) {
       if (node.type === 'item') {
-        const text = utils.nodeText(node.firstChild, context.sourceLines).trim();
+        const text = utils.nodeText(node.firstChild, context.sourceLines);
 
         try {
           const signature = new SignatureParser(text);

@@ -14,7 +14,7 @@ module.exports = (Parsers) => {
 
     sectionType(node, context) {
       if (node.type === 'item') {
-        const text = utils.nodeText(node.firstChild, context.sourceLines).trim();
+        const text = utils.nodeText(node.firstChild, context.sourceLines);
         if (parameterMembersRegex.exec(text)) {
           return SectionTypes.parameterMembers;
         }
@@ -32,7 +32,7 @@ module.exports = (Parsers) => {
     },
 
     processNestedSection(node, context, result) {
-      const text = utils.nodeText(node.firstChild, context.sourceLines).trim();
+      const text = utils.nodeText(node.firstChild, context.sourceLines);
       result.members.push(parameterMemberRegex.exec(text)[1]);
 
       return [utils.nextNode(node), result];

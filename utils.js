@@ -33,7 +33,7 @@ module.exports = {
       result.push(sourceLines[endline].slice(0, endcolumn));
     }
 
-    return result.join('\n');
+    return result.join('\n').trim();
   },
 
   nextNode(node) {

@@ -7,13 +7,13 @@ const SignatureParser = require('../SignatureParser');
 module.exports = (Parsers) => {
   Parsers.ParameterParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
-      const text = utils.nodeText(node.firstChild, context.sourceLines).trim();
+      const text = utils.nodeText(node.firstChild, context.sourceLines);
       const signature = new SignatureParser(text);
 
       const result = new ParameterElement(
         signature.name,
         signature.example,
-        signature.otherAttributes.length > 0 ? signature.otherAttributes[0] : null,
+        signature.type,
         signature.typeAttributes,
         signature.description
       );
@@ -23,7 +23,7 @@ module.exports = (Parsers) => {
 
     sectionType(node, context) {
       if (node.type === 'item') { // TODO: вынести проверку node.type в AbstractParser
-        const text = utils.nodeText(node.firstChild, context.sourceLines).trim();
+        const text = utils.nodeText(node.firstChild, context.sourceLines);
 
         try {
           const signature = new SignatureParser(text);

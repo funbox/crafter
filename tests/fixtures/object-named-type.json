@@ -1,0 +1,175 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": [
+          {
+            "element": "string",
+            "content": "api"
+          }
+        ],
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
+      },
+      "content": [
+        {
+          "element": "category",
+          "meta": {
+            "classes": [
+              "dataStructures"
+            ]
+          },
+          "content": [
+            {
+              "element": "dataStructure",
+              "meta": {
+                "id": {
+                  "element": "string",
+                  "content": "User"
+                }
+              },
+              "content": [
+                [
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "name"
+                      },
+                      "value": {
+                        "element": "string",
+                        "content": "John"
+                      }
+                    },
+                    "meta": {
+                      "description": {
+                        "element": "string",
+                        "content": "user name"
+                      }
+                    },
+                    "attributes": {
+                      "typeAttributes": [
+                        {
+                          "element": "string",
+                          "content": "required"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "email"
+                      },
+                      "value": {
+                        "element": "string"
+                      }
+                    }
+                  },
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "phone"
+                      },
+                      "value": {
+                        "element": "string"
+                      }
+                    }
+                  },
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "age"
+                      },
+                      "value": {
+                        "element": "number"
+                      }
+                    }
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "element": "resource",
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Get user"
+            }
+          },
+          "attributes": {
+            "href": {
+              "element": "string",
+              "content": "/user"
+            }
+          },
+          "content": [
+            {
+              "element": "transition",
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Get user"
+                }
+              },
+              "content": [
+                {
+                  "element": "httpTransaction",
+                  "content": [
+                    {
+                      "element": "httpRequest",
+                      "attributes": {
+                        "method": {
+                          "element": "string",
+                          "content": "GET"
+                        }
+                      },
+                      "content": []
+                    },
+                    {
+                      "element": "httpResponse",
+                      "content": [
+                        {
+                          "element": "dataStructure",
+                          "content": {
+                            "element": "object",
+                            "content": []
+                          }
+                        }
+                      ],
+                      "attributes": {
+                        "statusCode": {
+                          "element": "string",
+                          "content": "200"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "attributes": {
+                "href": {
+                  "element": "string",
+                  "content": "/user"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
