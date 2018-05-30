@@ -1,3 +1,9 @@
+class CrafterError extends Error {
+  constructor() {
+    super(...arguments);
+  }
+}
+
 module.exports = {
   headerText(node, sourceLines) {
     return this.nodeText(node, sourceLines).slice(node.level).trim();
@@ -54,5 +60,7 @@ module.exports = {
     }
 
     return this.nextNode(node.parent);
-  }
+  },
+
+  CrafterError,
 };

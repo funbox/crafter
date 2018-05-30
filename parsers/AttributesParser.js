@@ -8,7 +8,9 @@ const attributesRegex = /^[Aa]ttributes?$/;
 module.exports = (Parsers) => {
   Parsers.AttributesParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
-      return [utils.nextNode(node.firstChild), new AttributesElement()];
+      const text = utils.nodeText(node.firstChild, context.sourceLines);
+      const signature = new SignatureParser(text);
+      return [utils.nextNode(node.firstChild), new AttributesElement(signature.type)];
     },
 
     sectionType(node, context) {
@@ -33,8 +35,13 @@ module.exports = (Parsers) => {
 
     processNestedSection(node, context, result) {
       const [nextNode, childResult] = Parsers.MSONAttributeParser.parse(node, context);
-      result.content.push(childResult);
+      result.attributes.push(childResult);
       return [nextNode, result];
     },
+
+    finalize(context, result) {
+      context.typeResolver.resolve(result);
+      return result;
+    }
   });
 };

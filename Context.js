@@ -1,4 +1,5 @@
 const SectionTypes = require('./SectionTypes');
+const TypeResolver = require('./TypeResolver');
 
 class Context {
   constructor(source, parsers) {
@@ -6,12 +7,20 @@ class Context {
     this.data = {};
     this.frames = [];
     this.sectionKeywordSignatureParsers = [];
+    this.typeResolver = new TypeResolver();
 
     Object.values(parsers).forEach(parser => {
       if (!parser.skipSectionKeywordSignature) {
         this.sectionKeywordSignatureParsers.push(parser);
       }
     });
+  }
+
+  addType(type) {
+    if (this.typeResolver.types[type.name]) {
+      console.error(`${type.name} type already defined`);
+    }
+    this.typeResolver.types[type.name] = type;
   }
 
   sectionKeywordSignature(node) {

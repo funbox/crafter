@@ -60,41 +60,39 @@
                         }
                       ]
                     }
-                  },
+                  }
+                ]
+              ]
+            },
+            {
+              "element": "dataStructure",
+              "meta": {
+                "id": {
+                  "element": "string",
+                  "content": "Admin"
+                }
+              },
+              "content": [
+                [
                   {
                     "element": "member",
                     "content": {
                       "key": {
                         "element": "string",
-                        "content": "email"
+                        "content": "access_level"
                       },
                       "value": {
-                        "element": "string"
-                      }
-                    }
-                  },
-                  {
-                    "element": "member",
-                    "content": {
-                      "key": {
                         "element": "string",
-                        "content": "phone"
-                      },
-                      "value": {
-                        "element": "string"
+                        "content": "all"
                       }
-                    }
-                  },
-                  {
-                    "element": "member",
-                    "content": {
-                      "key": {
-                        "element": "string",
-                        "content": "age"
-                      },
-                      "value": {
-                        "element": "number"
-                      }
+                    },
+                    "attributes": {
+                      "typeAttributes": [
+                        {
+                          "element": "string",
+                          "content": "required"
+                        }
+                      ]
                     }
                   }
                 ]
@@ -107,13 +105,13 @@
           "meta": {
             "title": {
               "element": "string",
-              "content": "Get user"
+              "content": "Get admin"
             }
           },
           "attributes": {
             "href": {
               "element": "string",
-              "content": "/user"
+              "content": "/admin"
             }
           },
           "content": [
@@ -122,7 +120,7 @@
               "meta": {
                 "title": {
                   "element": "string",
-                  "content": "Get user"
+                  "content": "Get admin"
                 }
               },
               "content": [
@@ -152,6 +150,27 @@
                                 "content": {
                                   "key": {
                                     "element": "string",
+                                    "content": "access_level"
+                                  },
+                                  "value": {
+                                    "element": "string",
+                                    "content": "all"
+                                  }
+                                },
+                                "attributes": {
+                                  "typeAttributes": [
+                                    {
+                                      "element": "string",
+                                      "content": "required"
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "element": "member",
+                                "content": {
+                                  "key": {
+                                    "element": "string",
                                     "content": "name"
                                   },
                                   "value": {
@@ -173,42 +192,6 @@
                                     }
                                   ]
                                 }
-                              },
-                              {
-                                "element": "member",
-                                "content": {
-                                  "key": {
-                                    "element": "string",
-                                    "content": "email"
-                                  },
-                                  "value": {
-                                    "element": "string"
-                                  }
-                                }
-                              },
-                              {
-                                "element": "member",
-                                "content": {
-                                  "key": {
-                                    "element": "string",
-                                    "content": "phone"
-                                  },
-                                  "value": {
-                                    "element": "string"
-                                  }
-                                }
-                              },
-                              {
-                                "element": "member",
-                                "content": {
-                                  "key": {
-                                    "element": "string",
-                                    "content": "age"
-                                  },
-                                  "value": {
-                                    "element": "number"
-                                  }
-                                }
                               }
                             ]
                           }
@@ -227,7 +210,7 @@
               "attributes": {
                 "href": {
                   "element": "string",
-                  "content": "/user"
+                  "content": "/admin"
                 }
               }
             }
