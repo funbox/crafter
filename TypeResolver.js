@@ -63,14 +63,14 @@ class TypeResolver {
 }
 
 function copyNewAttributes(src, target) {
-  src.attributes.forEach(a => {
+  src.content.forEach(a => {
     if (!hasAttribute(a)) {
-      target.attributes.push(a);
+      target.content.push(a);
     }
   });
 
   function hasAttribute(srcAttr) {
-    return !!target.attributes.find((a) => {
+    return !!target.content.find((a) => {
       return a.name === srcAttr.name;
     })
   }

@@ -19,27 +19,27 @@ describe('TypeResolver', () => {
   });
 
   it('resolves base type', () => {
-    foo.attributes = [
+    foo.content = [
       new MSONAttributeElement('a')
     ];
 
-    bar.attributes = [
+    bar.content = [
       new MSONAttributeElement('b')
     ];
     resolver.types = {foo, bar};
 
     resolver.resolveRegisteredTypes();
 
-    expect(resolver.types.bar.attributes.length).toEqual(2);
-    expect(resolver.types.bar.attributes[1]).toBe(foo.attributes[0]);
+    expect(resolver.types.bar.content.length).toEqual(2);
+    expect(resolver.types.bar.content[1]).toBe(foo.content[0]);
   });
 
   it('resolves base type recursively', () => {
-    foo.attributes = [
+    foo.content = [
       new MSONAttributeElement('a')
     ];
 
-    bar.attributes = [
+    bar.content = [
       new MSONAttributeElement('b')
     ];
 
@@ -48,12 +48,12 @@ describe('TypeResolver', () => {
 
     resolver.resolveRegisteredTypes();
 
-    expect(resolver.types.bar.attributes.length).toEqual(2);
-    expect(resolver.types.bar.attributes[1]).toBe(foo.attributes[0]);
+    expect(resolver.types.bar.content.length).toEqual(2);
+    expect(resolver.types.bar.content[1]).toBe(foo.content[0]);
 
-    expect(resolver.types.baz.attributes.length).toEqual(2);
-    expect(resolver.types.baz.attributes[0]).toBe(bar.attributes[0]);
-    expect(resolver.types.baz.attributes[1]).toBe(foo.attributes[0]);
+    expect(resolver.types.baz.content.length).toEqual(2);
+    expect(resolver.types.baz.content[0]).toBe(bar.content[0]);
+    expect(resolver.types.baz.content[1]).toBe(foo.content[0]);
   });
 
   it('throws error on unknown type', () => {

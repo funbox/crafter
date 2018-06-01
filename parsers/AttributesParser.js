@@ -30,12 +30,23 @@ module.exports = (Parsers) => {
     },
 
     nestedSectionType(node, context) {
-      return Parsers.MSONAttributeParser.sectionType(node, context);
+      return SectionTypes.calculateSectionType(node, context, [
+        Parsers.MSONAttributeParser,
+        Parsers.MSONMixinParser,
+      ]);
     },
 
     processNestedSection(node, context, result) {
-      const [nextNode, childResult] = Parsers.MSONAttributeParser.parse(node, context);
-      result.attributes.push(childResult);
+      let nextNode;
+      let childResult;
+
+      if (Parsers.MSONAttributeParser.sectionType(node, context) !== SectionTypes.undefined) {
+        [nextNode, childResult] = Parsers.MSONAttributeParser.parse(node, context);
+      } else {
+        [nextNode, childResult] = Parsers.MSONMixinParser.parse(node, context);
+      }
+
+      result.content.push(childResult);
       return [nextNode, result];
     },
 

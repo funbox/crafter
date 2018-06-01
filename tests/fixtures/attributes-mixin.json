@@ -1,0 +1,211 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": [
+          {
+            "element": "string",
+            "content": "api"
+          }
+        ],
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
+      },
+      "content": [
+        {
+          "element": "category",
+          "meta": {
+            "classes": [
+              "dataStructures"
+            ]
+          },
+          "content": [
+            {
+              "element": "dataStructure",
+              "meta": {
+                "id": {
+                  "element": "string",
+                  "content": "User"
+                }
+              },
+              "content": [
+                [
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "name"
+                      },
+                      "value": {
+                        "element": "string",
+                        "content": "John"
+                      }
+                    },
+                    "meta": {
+                      "description": {
+                        "element": "string",
+                        "content": "user name"
+                      }
+                    },
+                    "attributes": {
+                      "typeAttributes": [
+                        {
+                          "element": "string",
+                          "content": "required"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              ]
+            },
+            {
+              "element": "dataStructure",
+              "meta": {
+                "id": {
+                  "element": "string",
+                  "content": "Admin"
+                }
+              },
+              "content": [
+                [
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "access_level"
+                      },
+                      "value": {
+                        "element": "string",
+                        "content": "all"
+                      }
+                    },
+                    "attributes": {
+                      "typeAttributes": [
+                        {
+                          "element": "string",
+                          "content": "required"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "element": "resource",
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Get admin"
+            }
+          },
+          "attributes": {
+            "href": {
+              "element": "string",
+              "content": "/admin"
+            }
+          },
+          "content": [
+            {
+              "element": "transition",
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Get admin"
+                }
+              },
+              "content": [
+                {
+                  "element": "httpTransaction",
+                  "content": [
+                    {
+                      "element": "httpRequest",
+                      "attributes": {
+                        "method": {
+                          "element": "string",
+                          "content": "GET"
+                        }
+                      },
+                      "content": []
+                    },
+                    {
+                      "element": "httpResponse",
+                      "content": [
+                        {
+                          "element": "dataStructure",
+                          "content": {
+                            "element": "object",
+                            "content": [
+                              {
+                                "element": "ref",
+                                "attributes": {
+                                  "path": {
+                                    "element": "string",
+                                    "content": "content"
+                                  }
+                                },
+                                "content": "Admin"
+                              },
+                              {
+                                "element": "member",
+                                "content": {
+                                  "key": {
+                                    "element": "string",
+                                    "content": "name"
+                                  },
+                                  "value": {
+                                    "element": "string",
+                                    "content": "John"
+                                  }
+                                },
+                                "meta": {
+                                  "description": {
+                                    "element": "string",
+                                    "content": "user name"
+                                  }
+                                },
+                                "attributes": {
+                                  "typeAttributes": [
+                                    {
+                                      "element": "string",
+                                      "content": "required"
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "attributes": {
+                        "statusCode": {
+                          "element": "string",
+                          "content": "200"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "attributes": {
+                "href": {
+                  "element": "string",
+                  "content": "/admin"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

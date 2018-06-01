@@ -3,7 +3,7 @@ const Refract = require('../../Refract');
 class AttributesElement {
   constructor(baseType) {
     this.baseType = baseType;
-    this.attributes = [];
+    this.content = [];
   }
 
   toRefract() {
@@ -11,7 +11,7 @@ class AttributesElement {
       element: Refract.elements.dataStructure,
       content: {
         element: Refract.elements.object,
-        content: this.attributes.map(i => i.toRefract())
+        content: this.content.map(i => i.toRefract())
       }
     };
   }

@@ -4,7 +4,7 @@ class MSONNamedTypeElement {
   constructor(name, baseType) {
     this.name = name;
     this.baseType = baseType; // TODO: Может быть задан неявно
-    this.attributes = [];
+    this.content = [];
   }
 
   toRefract() {
@@ -16,7 +16,7 @@ class MSONNamedTypeElement {
           content: this.name
         }
       },
-      content: [this.attributes.map(a => a.toRefract())],
+      content: [this.content.map(a => a.toRefract())],
     }
   }
 }

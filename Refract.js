@@ -17,6 +17,7 @@ module.exports = {
     httpTransaction: 'httpTransaction',
     httpHeaders: 'httpHeaders',
     asset: 'asset',
+    ref: 'ref',
   },
   categoryClasses: {
     api: 'api',
