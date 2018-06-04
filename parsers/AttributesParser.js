@@ -2,6 +2,7 @@ const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
 const SignatureParser = require('../SignatureParser');
 const AttributesElement = require('./elements/AttributesElement');
+const ObjectProcessor = require('./ObjectProcessor');
 
 const attributesRegex = /^[Aa]ttributes?$/;
 
@@ -29,25 +30,20 @@ module.exports = (Parsers) => {
       return SectionTypes.undefined;
     },
 
-    nestedSectionType(node, context) {
-      return SectionTypes.calculateSectionType(node, context, [
-        Parsers.MSONAttributeParser,
-        Parsers.MSONMixinParser,
-      ]);
-    },
-
-    processNestedSection(node, context, result) {
-      let nextNode;
-      let childResult;
-
-      if (Parsers.MSONAttributeParser.sectionType(node, context) !== SectionTypes.undefined) {
-        [nextNode, childResult] = Parsers.MSONAttributeParser.parse(node, context);
-      } else {
-        [nextNode, childResult] = Parsers.MSONMixinParser.parse(node, context);
+    processNestedSections(node, context, result) {
+      if (!node) {
+        return [node, result];
       }
 
-      result.object.content.push(childResult);
-      return [nextNode, result];
+      let contentNode = node.parent;
+      if (contentNode.type === 'list') {
+        const objectProcessor = new ObjectProcessor(contentNode, Parsers);
+        objectProcessor.fillObject(result.object, context);
+      } else {
+        // TODO: Что делать в этом случае?
+      }
+
+      return [utils.nextNode(contentNode), result];
     },
 
     finalize(context, result) {

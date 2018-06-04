@@ -22,12 +22,7 @@ module.exports = {
 
     [curNode, result] = this.processSignature(curNode, context);
     [curNode, result] = this.processDescription(curNode, context, result);
-
-    let childResult;
-
-    while (curNode && this.nestedSectionType(curNode, context) !== SectionTypes.undefined) {
-      [curNode, result] = this.processNestedSection(curNode, context, result);
-    }
+    [curNode, result] = this.processNestedSections(curNode, context, result);
 
     result = this.finalize(context, result);
 
@@ -44,6 +39,17 @@ module.exports = {
 
     if (description) {
       result.content.push(new DescriptionElement(description));
+    }
+
+    return [curNode, result];
+  },
+
+  processNestedSections(node, context, result) {
+    let childResult;
+    let curNode = node;
+
+    while (curNode && this.nestedSectionType(curNode, context) !== SectionTypes.undefined) {
+      [curNode, result] = this.processNestedSection(curNode, context, result);
     }
 
     return [curNode, result];

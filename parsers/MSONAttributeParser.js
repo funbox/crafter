@@ -1,6 +1,8 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
 const MSONAttributeElement = require('./elements/MSONAttributeElement');
+const MSONObjectElement = require('./elements/MSONObjectElement');
+const ObjectProcessor = require('./ObjectProcessor');
 
 const SignatureParser = require('../SignatureParser');
 
@@ -19,6 +21,13 @@ module.exports = (Parsers) => {
         signature.description
       );
 
+      let nestedNode = node.firstChild.next;
+
+      if (nestedNode) {
+        const objectProcessor = new ObjectProcessor(nestedNode, Parsers);
+        result.object = new MSONObjectElement(null, null); // TODO: Корректно заполнять baseType
+        objectProcessor.fillObject(result.object, context);
+      }
       return [utils.nextNode(node), result];
     },
 
@@ -36,6 +45,11 @@ module.exports = (Parsers) => {
       }
 
       return SectionTypes.undefined;
+    },
+
+    // TODO: Корректно парсить многострочное описание параметра
+    processDescription(node, context, result) {
+      return [node, result];
     },
   });
 };
