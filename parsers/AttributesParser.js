@@ -46,12 +46,12 @@ module.exports = (Parsers) => {
         [nextNode, childResult] = Parsers.MSONMixinParser.parse(node, context);
       }
 
-      result.content.push(childResult);
+      result.object.content.push(childResult);
       return [nextNode, result];
     },
 
     finalize(context, result) {
-      context.typeResolver.resolve(result);
+      context.typeResolver.resolve(result.object);
       return result;
     }
   });

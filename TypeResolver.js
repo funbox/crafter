@@ -1,4 +1,3 @@
-const MSONNamedTypeElement = require('./parsers/elements/MSONNamedTypeElement');
 const CrafterError = require('./utils').CrafterError;
 
 const primitiveTypes = [

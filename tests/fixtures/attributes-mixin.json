@@ -26,14 +26,15 @@
           "content": [
             {
               "element": "dataStructure",
-              "meta": {
-                "id": {
-                  "element": "string",
-                  "content": "User"
-                }
-              },
-              "content": [
-                [
+              "content": {
+                "element": "object",
+                "meta": {
+                  "id": {
+                    "element": "string",
+                    "content": "User"
+                  }
+                },
+                "content": [
                   {
                     "element": "member",
                     "content": {
@@ -62,18 +63,19 @@
                     }
                   }
                 ]
-              ]
+              }
             },
             {
               "element": "dataStructure",
-              "meta": {
-                "id": {
-                  "element": "string",
-                  "content": "Admin"
-                }
-              },
-              "content": [
-                [
+              "content": {
+                "element": "object",
+                "meta": {
+                  "id": {
+                    "element": "string",
+                    "content": "Admin"
+                  }
+                },
+                "content": [
                   {
                     "element": "member",
                     "content": {
@@ -96,7 +98,7 @@
                     }
                   }
                 ]
-              ]
+              }
             }
           ]
         },

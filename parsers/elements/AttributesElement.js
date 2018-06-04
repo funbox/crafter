@@ -1,18 +1,16 @@
 const Refract = require('../../Refract');
 
+const MSONObjectElement = require('./MSONObjectElement');
+
 class AttributesElement {
   constructor(baseType) {
-    this.baseType = baseType;
-    this.content = [];
+    this.object = new MSONObjectElement(null, baseType);
   }
 
   toRefract() {
     return {
       element: Refract.elements.dataStructure,
-      content: {
-        element: Refract.elements.object,
-        content: this.content.map(i => i.toRefract())
-      }
+      content: this.object.toRefract(),
     };
   }
 }

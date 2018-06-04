@@ -17,10 +17,10 @@ class Context {
   }
 
   addType(type) {
-    if (this.typeResolver.types[type.name]) {
-      console.error(`${type.name} type already defined`);
+    if (this.typeResolver.types[type.object.name]) {
+      console.error(`${type.object.name} type already defined`);
     }
-    this.typeResolver.types[type.name] = type;
+    this.typeResolver.types[type.object.name] = type.object;
   }
 
   sectionKeywordSignature(node) {

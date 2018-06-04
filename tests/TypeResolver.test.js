@@ -1,5 +1,5 @@
 const TypeResolver = require('../TypeResolver');
-const MSONNamedTypeElement = require('../parsers/elements/MSONNamedTypeElement');
+const MSONObjectElement = require('../parsers/elements/MSONObjectElement');
 const MSONAttributeElement = require('../parsers/elements/MSONAttributeElement');
 const CrafterError = require('../utils').CrafterError;
 
@@ -10,8 +10,8 @@ let bar;
 describe('TypeResolver', () => {
   beforeEach(() => {
     resolver = new TypeResolver();
-    foo = new MSONNamedTypeElement('foo');
-    bar = new MSONNamedTypeElement('bar', 'foo');
+    foo = new MSONObjectElement('foo');
+    bar = new MSONObjectElement('bar', 'foo');
   });
 
   it('resolves empty types array without errors', () => {
@@ -43,7 +43,7 @@ describe('TypeResolver', () => {
       new MSONAttributeElement('b')
     ];
 
-    const baz = new MSONNamedTypeElement('baz', 'bar');
+    const baz = new MSONObjectElement('baz', 'bar');
     resolver.types = {baz, foo, bar};
 
     resolver.resolveRegisteredTypes();

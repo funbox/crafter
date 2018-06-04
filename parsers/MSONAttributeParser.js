@@ -5,6 +5,7 @@ const MSONAttributeElement = require('./elements/MSONAttributeElement');
 const SignatureParser = require('../SignatureParser');
 
 module.exports = (Parsers) => {
+  // TODO Сделать обработку nestedSection
   Parsers.MSONAttributeParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
       const subject = utils.nodeText(node.firstChild, context.sourceLines); // TODO: часто берем text, может сделать отдельную функцию?
