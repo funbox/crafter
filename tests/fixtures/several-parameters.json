@@ -39,6 +39,33 @@
                   "content": "List users"
                 }
               },
+              "content": [
+                {
+                  "element": "httpTransaction",
+                  "content": [
+                    {
+                      "element": "httpRequest",
+                      "attributes": {
+                        "method": {
+                          "element": "string",
+                          "content": "GET"
+                        }
+                      },
+                      "content": []
+                    },
+                    {
+                      "element": "httpResponse",
+                      "content": [],
+                      "attributes": {
+                        "statusCode": {
+                          "element": "string",
+                          "content": "200"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
               "attributes": {
                 "href": {
                   "element": "string",
@@ -117,34 +144,7 @@
                     }
                   ]
                 }
-              },
-              "content": [
-                {
-                  "element": "httpTransaction",
-                  "content": [
-                    {
-                      "element": "httpRequest",
-                      "attributes": {
-                        "method": {
-                          "element": "string",
-                          "content": "GET"
-                        }
-                      },
-                      "content": []
-                    },
-                    {
-                      "element": "httpResponse",
-                      "content": [],
-                      "attributes": {
-                        "statusCode": {
-                          "element": "string",
-                          "content": "200"
-                        }
-                      }
-                    }
-                  ]
-                }
-              ]
+              }
             }
           ]
         }

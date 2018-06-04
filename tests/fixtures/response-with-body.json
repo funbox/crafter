@@ -18,9 +18,27 @@
       "content": [
         {
           "element": "resource",
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "List users"
+            }
+          },
+          "attributes": {
+            "href": {
+              "element": "string",
+              "content": "/users"
+            }
+          },
           "content": [
             {
               "element": "transition",
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "List users"
+                }
+              },
               "content": [
                 {
                   "element": "httpTransaction",
@@ -40,12 +58,12 @@
                       "content": [
                         {
                           "element": "asset",
-                          "content": "  {\n      \"hello\": \"world\"\n  }\n",
                           "meta": {
                             "classes": [
                               "messageBody"
                             ]
                           },
+                          "content": "  {\n      \"hello\": \"world\"\n  }\n",
                           "attributes": {
                             "contentType": {
                               "element": "string",
@@ -82,12 +100,6 @@
                   ]
                 }
               ],
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "List users"
-                }
-              },
               "attributes": {
                 "href": {
                   "element": "string",
@@ -95,19 +107,7 @@
                 }
               }
             }
-          ],
-          "meta": {
-            "title": {
-              "element": "string",
-              "content": "List users"
-            }
-          },
-          "attributes": {
-            "href": {
-              "element": "string",
-              "content": "/users"
-            }
-          }
+          ]
         }
       ]
     }

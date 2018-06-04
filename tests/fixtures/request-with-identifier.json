@@ -39,12 +39,6 @@
                   "content": "List users"
                 }
               },
-              "attributes": {
-                "href": {
-                  "element": "string",
-                  "content": "/users"
-                }
-              },
               "content": [
                 {
                   "element": "httpTransaction",
@@ -87,7 +81,13 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "attributes": {
+                "href": {
+                  "element": "string",
+                  "content": "/users"
+                }
+              }
             }
           ]
         }

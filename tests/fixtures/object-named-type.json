@@ -28,12 +28,6 @@
               "element": "dataStructure",
               "content": {
                 "element": "object",
-                "meta": {
-                  "id": {
-                    "element": "string",
-                    "content": "User"
-                  }
-                },
                 "content": [
                   {
                     "element": "member",
@@ -98,7 +92,13 @@
                       }
                     }
                   }
-                ]
+                ],
+                "meta": {
+                  "id": {
+                    "element": "string",
+                    "content": "User"
+                  }
+                }
               }
             }
           ]

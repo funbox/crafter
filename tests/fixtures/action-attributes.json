@@ -18,15 +18,39 @@
       "content": [
         {
           "element": "resource",
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Create user"
+            }
+          },
+          "attributes": {
+            "href": {
+              "element": "string",
+              "content": "/user"
+            }
+          },
           "content": [
             {
               "element": "transition",
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Create user"
+                }
+              },
               "content": [
                 {
                   "element": "httpTransaction",
                   "content": [
                     {
                       "element": "httpRequest",
+                      "attributes": {
+                        "method": {
+                          "element": "string",
+                          "content": "POST"
+                        }
+                      },
                       "content": [
                         {
                           "element": "dataStructure",
@@ -109,13 +133,7 @@
                             ]
                           }
                         }
-                      ],
-                      "attributes": {
-                        "method": {
-                          "element": "string",
-                          "content": "POST"
-                        }
-                      }
+                      ]
                     },
                     {
                       "element": "httpResponse",
@@ -164,12 +182,6 @@
                   ]
                 }
               ],
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Create user"
-                }
-              },
               "attributes": {
                 "href": {
                   "element": "string",
@@ -177,19 +189,7 @@
                 }
               }
             }
-          ],
-          "meta": {
-            "title": {
-              "element": "string",
-              "content": "Create user"
-            }
-          },
-          "attributes": {
-            "href": {
-              "element": "string",
-              "content": "/user"
-            }
-          }
+          ]
         }
       ]
     }
