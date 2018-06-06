@@ -8,7 +8,7 @@ const SectionTypes = Object.freeze({
   MSONNamedType: 'MSONNamedType',
   action: 'action',
   parameters: 'parameters',
-  parameter: 'paramter',
+  parameter: 'parameter',
   parameterDefaultValue: 'parameterDefaultValue',
   parameterMembers: 'parameterMembers',
   parameterMember: 'parameterMember',
