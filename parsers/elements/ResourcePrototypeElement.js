@@ -1,6 +1,6 @@
 const Refract = require('../../Refract');
 
-class ResourcePrototypesElement {
+class ResourcePrototypeElement {
   constructor() {
   }
 
@@ -12,4 +12,4 @@ class ResourcePrototypesElement {
   }
 }
 
-module.exports = ResourcePrototypesElement;
+module.exports = ResourcePrototypeElement;
