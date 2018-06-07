@@ -5,7 +5,7 @@ const BlueprintElement = require('./elements/BlueprintElement');
 module.exports = (Parsers) => {
   Parsers.BlueprintParser = {
     parse(node, context) {
-      this.extractTypes(node, context);
+      this.preprocessNestedSections(node, context);
 
       let curNode = node;
 
@@ -64,18 +64,25 @@ module.exports = (Parsers) => {
       ]);
     },
 
-    extractTypes(node, context) {
+    preprocessNestedSections(node, context) {
       let curNode = node;
 
       while (curNode) {
         const nodeType = this.nestedSectionType(curNode, context);
         let dataStructuresGroup;
+        let resourcePrototypeGroup;
 
         switch (nodeType) {
           case SectionTypes.dataStructureGroup:
             [curNode, dataStructuresGroup] = Parsers.DataStructureGroupParser.parse(curNode, context);
             dataStructuresGroup.dataStructures.forEach(ds => {
               context.addType(ds);
+            });
+            break;
+          case SectionTypes.resourcePrototypes:
+            [curNode, resourcePrototypeGroup] = Parsers.ResourcePrototypesParser.parse(curNode, context);
+            resourcePrototypeGroup.resourcePrototypes.forEach(proto => {
+              context.addResourcePrototype(proto);
             });
             break;
           default:

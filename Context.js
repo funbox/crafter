@@ -6,8 +6,10 @@ class Context {
     this.sourceLines = source.split('\n');
     this.data = {};
     this.frames = [];
+    this.resourcePrototypes = [];
     this.sectionKeywordSignatureParsers = [];
     this.typeResolver = new TypeResolver();
+    this.resourcePrototypeResolver = new TypeResolver();
 
     Object.values(parsers).forEach(parser => {
       if (!parser.skipSectionKeywordSignature) {
@@ -21,6 +23,13 @@ class Context {
       console.error(`${type.object.name} type already defined`);
     }
     this.typeResolver.types[type.object.name] = type.object;
+  }
+
+  addResourcePrototype(prototype) {
+    if (this.resourcePrototypeResolver.types[prototype.title]) {
+      console.error(`${prototype.title} resource prototype already defined`);
+    }
+    this.resourcePrototypeResolver.types[prototype.title] = prototype;
   }
 
   sectionKeywordSignature(node) {

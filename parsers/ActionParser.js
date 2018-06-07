@@ -17,6 +17,7 @@ module.exports = (Parsers) => {
       let title = '';
       let href = '';
       let method = '';
+      let protoNames = '';
 
       const subject = utils.headerText(node, context.sourceLines);
       let matchData;
@@ -24,6 +25,10 @@ module.exports = (Parsers) => {
       if (matchData = ActionHeaderRegex.exec(subject)) {
         if (matchData[2]) {
           href = matchData[2].trim();
+        }
+
+        if (matchData[4]) {
+          protoNames = matchData[4];
         }
 
         method = matchData[1];
@@ -34,9 +39,15 @@ module.exports = (Parsers) => {
           href = matchData[3].trim();
         }
 
+        if (matchData[5]) {
+          protoNames = matchData[5];
+        }
+
         method = matchData[2];
       }
 
+      const prototypes = protoNames ? protoNames.split(',').map(p => p.trim()) : [];
+      context.resourcePrototypes.push(prototypes);
       const result = new ActionElement(title, href, method);
 
       return [utils.nextNode(node), result];
@@ -81,6 +92,17 @@ module.exports = (Parsers) => {
     },
 
     finalize(context, result) {
+      const registeredProtos = context.resourcePrototypeResolver.types;
+      const resourcePrototypesChain = context.resourcePrototypes.reduce((res, el) => res.concat(el), []);
+      const uniqueProtos = [...new Set(resourcePrototypesChain)];
+      const activeProtos = uniqueProtos.map(pName => {
+        return registeredProtos[pName];
+      });
+      activeProtos.forEach(p => {
+        result.responses.push(...p.responses);
+      });
+
+      context.resourcePrototypes.pop();
       return result;
     }
   });

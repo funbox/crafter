@@ -12,28 +12,34 @@ module.exports = (Parsers) => {
     processSignature(node, context) {
       let title = '';
       let href = '';
+      let protoNames = '';
+      let nodeToReturn = node;
 
       const subject = utils.headerText(node, context.sourceLines);
       let matchData;
 
       if (matchData = ResourceHeaderRegex.exec(subject)) {
         href = matchData[3];
+        protoNames = matchData[5];
+
       } else if (matchData = NamedEndpointHeaderRegex.exec(subject)) {
         title = matchData[1];
         href = matchData[3];
+        protoNames = matchData[5];
 
-        const result = new ResourceElement(title, href);
-        const [nextNode, childResult] = Parsers.ActionParser.parse(node, context);
-        result.actions.push(childResult);
-        return [nextNode, result];
       } else {
         matchData = NamedResourceHeaderRegex.exec(subject);
         title = matchData[1];
         href = matchData[2];
+        protoNames = matchData[4];
+        nodeToReturn = utils.nextNode(node);
       }
 
+      const prototypes = protoNames ? protoNames.split(',').map(p => p.trim()) : [];
+      context.resourcePrototypes.push(prototypes);
+
       const result = new ResourceElement(title, href);
-      return [utils.nextNode(node), result];
+      return [nodeToReturn, result];
     },
 
     sectionType(node, context) {
@@ -68,6 +74,11 @@ module.exports = (Parsers) => {
       }
 
       return [nextNode, result];
+    },
+
+    finalize(context, result) {
+      context.resourcePrototypes.pop(); // очищаем стек с прототипами данного ресурса
+      return result;
     }
   });
 };

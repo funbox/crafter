@@ -9,8 +9,10 @@ module.exports = (Parsers) => {
   Parsers.ResourceGroupParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
       const matchData = GroupHeaderRegex.exec(utils.headerText(node, context.sourceLines));
+      const prototypes = matchData[3] ? matchData[3].split(',').map(p => p.trim()) : [];
       const result = new ResourceGroupElement(matchData[1]);
 
+      context.resourcePrototypes.push(prototypes);
       return [utils.nextNode(node), result];
     },
     sectionType(node, context) {
@@ -32,6 +34,11 @@ module.exports = (Parsers) => {
       const [nextNode, childResult] = Parsers.ResourceParser.parse(node, context);
       result.resources.push(childResult);
       return [nextNode, result];
+    },
+
+    finalize(context, result) {
+      context.resourcePrototypes.pop(); // очищаем стек с прототипами данной группы ресурсов
+      return result;
     }
   });
 };
