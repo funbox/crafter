@@ -3,11 +3,12 @@ const Refract = require('../../Refract');
 class ResourceGroupElement {
   constructor(title) {
     this.title = title;
+    this.description = null;
     this.resources = [];
   }
 
   toRefract() {
-    return {
+    const result = {
       element: Refract.elements.category,
       meta: {
         classes: [Refract.categoryClasses.resourceGroup],
@@ -18,6 +19,12 @@ class ResourceGroupElement {
       },
       content: this.resources.map(r => r.toRefract()),
     };
+
+    if (this.description) {
+      result.content.unshift(this.description.toRefract());
+    }
+
+    return result;
   }
 }
 

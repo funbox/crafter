@@ -38,7 +38,7 @@ module.exports = {
     [curNode, description] = utils.extractDescription(curNode, context.sourceLines);
 
     if (description) {
-      result.content.push(new DescriptionElement(description));
+      result.description = new DescriptionElement(description);
     }
 
     return [curNode, result];
