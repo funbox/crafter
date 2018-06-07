@@ -1,24 +1,37 @@
 const fs = require('fs');
 const Crafter = require('../Crafter');
 
-const files = fs.readdirSync(`${__dirname}/fixtures`);
+const testPath = {
+  base: `${__dirname}/fixtures`,
+  get resourceProto() {
+    return `${this.base}/resource-prototype`;
+  }
+};
 
 const apibRegex = /\.apib$/;
 
-
-describe('fixtures', () => {
+const testFilesFrom = (path) => {
+  const files = fs.readdirSync(path);
   files.forEach(f => {
     if (apibRegex.exec(f)) {
       test(f, () => {
-        const data = readFile(f);
-        const example = JSON.parse(readFile(f.replace(apibRegex, '.json')));
+        const data = readFile(f, path);
+        const example = JSON.parse(readFile(f.replace(apibRegex, '.json'), path));
         const result = Crafter.parse(data);
         expect(result.toRefract()).toEqual(example);
       });
     }
   });
+};
+
+describe('common fixtures', () => {
+  testFilesFrom(testPath.base);
 });
 
-function readFile(f) {
-  return fs.readFileSync(`${__dirname}/fixtures/${f}`, {encoding: 'utf-8'});
+describe('resource-proto fixtures', () => {
+  testFilesFrom(testPath.resourceProto);
+});
+
+function readFile(file, path) {
+  return fs.readFileSync(`${path}/${file}`, {encoding: 'utf-8'});
 }
