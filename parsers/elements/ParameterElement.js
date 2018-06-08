@@ -1,6 +1,6 @@
 const Refract = require('../../Refract');
 
-class ParametersElement {
+class ParameterElement {
   constructor(name, example, type, typeAttributes, description) {
     this.name = name;
     this.example = example;
@@ -78,4 +78,4 @@ class ParametersElement {
   }
 }
 
-module.exports = ParametersElement;
+module.exports = ParameterElement;
