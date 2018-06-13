@@ -1,0 +1,379 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": [
+          {
+            "element": "string",
+            "content": "api"
+          }
+        ],
+        "title": {
+          "element": "string",
+          "content": "API name"
+        }
+      },
+      "content": [
+        {
+          "element": "category",
+          "meta": {
+            "classes": [
+              "resourcePrototypes"
+            ]
+          },
+          "content": [
+            {
+              "element": "resourcePrototype",
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "A"
+                },
+                "basePrototypes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "B"
+                    },
+                    {
+                      "element": "string",
+                      "content": "C"
+                    }
+                  ]
+                }
+              },
+              "content": [
+                {
+                  "element": "httpResponse",
+                  "content": [],
+                  "attributes": {
+                    "statusCode": {
+                      "element": "string",
+                      "content": "200"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "element": "resourcePrototype",
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "B"
+                },
+                "basePrototypes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "D"
+                    }
+                  ]
+                }
+              },
+              "content": [
+                {
+                  "element": "httpResponse",
+                  "content": [],
+                  "attributes": {
+                    "statusCode": {
+                      "element": "string",
+                      "content": "201"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "element": "resourcePrototype",
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "C"
+                },
+                "basePrototypes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "D"
+                    },
+                    {
+                      "element": "string",
+                      "content": "E"
+                    }
+                  ]
+                }
+              },
+              "content": [
+                {
+                  "element": "httpResponse",
+                  "content": [],
+                  "attributes": {
+                    "statusCode": {
+                      "element": "string",
+                      "content": "202"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "element": "resourcePrototype",
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "D"
+                },
+                "basePrototypes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "E"
+                    }
+                  ]
+                }
+              },
+              "content": [
+                {
+                  "element": "httpResponse",
+                  "content": [],
+                  "attributes": {
+                    "statusCode": {
+                      "element": "string",
+                      "content": "203"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "element": "resourcePrototype",
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "E"
+                }
+              },
+              "content": [
+                {
+                  "element": "httpResponse",
+                  "content": [],
+                  "attributes": {
+                    "statusCode": {
+                      "element": "string",
+                      "content": "204"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "element": "category",
+          "meta": {
+            "classes": [
+              "resourceGroup"
+            ],
+            "title": {
+              "element": "string",
+              "content": "Users"
+            }
+          },
+          "content": [
+            {
+              "element": "resource",
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Users"
+                }
+              },
+              "attributes": {
+                "href": {
+                  "element": "string",
+                  "content": "/users"
+                }
+              },
+              "content": [
+                {
+                  "element": "transition",
+                  "meta": {
+                    "title": {
+                      "element": "string",
+                      "content": "Users"
+                    }
+                  },
+                  "content": [
+                    {
+                      "element": "httpTransaction",
+                      "content": [
+                        {
+                          "element": "httpRequest",
+                          "attributes": {
+                            "method": {
+                              "element": "string",
+                              "content": "GET"
+                            }
+                          },
+                          "content": []
+                        },
+                        {
+                          "element": "httpResponse",
+                          "content": [],
+                          "attributes": {
+                            "statusCode": {
+                              "element": "string",
+                              "content": "302"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "element": "httpTransaction",
+                      "content": [
+                        {
+                          "element": "httpRequest",
+                          "attributes": {
+                            "method": {
+                              "element": "string",
+                              "content": "GET"
+                            }
+                          },
+                          "content": []
+                        },
+                        {
+                          "element": "httpResponse",
+                          "content": [],
+                          "attributes": {
+                            "statusCode": {
+                              "element": "string",
+                              "content": "200"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "element": "httpTransaction",
+                      "content": [
+                        {
+                          "element": "httpRequest",
+                          "attributes": {
+                            "method": {
+                              "element": "string",
+                              "content": "GET"
+                            }
+                          },
+                          "content": []
+                        },
+                        {
+                          "element": "httpResponse",
+                          "content": [],
+                          "attributes": {
+                            "statusCode": {
+                              "element": "string",
+                              "content": "201"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "element": "httpTransaction",
+                      "content": [
+                        {
+                          "element": "httpRequest",
+                          "attributes": {
+                            "method": {
+                              "element": "string",
+                              "content": "GET"
+                            }
+                          },
+                          "content": []
+                        },
+                        {
+                          "element": "httpResponse",
+                          "content": [],
+                          "attributes": {
+                            "statusCode": {
+                              "element": "string",
+                              "content": "203"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "element": "httpTransaction",
+                      "content": [
+                        {
+                          "element": "httpRequest",
+                          "attributes": {
+                            "method": {
+                              "element": "string",
+                              "content": "GET"
+                            }
+                          },
+                          "content": []
+                        },
+                        {
+                          "element": "httpResponse",
+                          "content": [],
+                          "attributes": {
+                            "statusCode": {
+                              "element": "string",
+                              "content": "204"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "element": "httpTransaction",
+                      "content": [
+                        {
+                          "element": "httpRequest",
+                          "attributes": {
+                            "method": {
+                              "element": "string",
+                              "content": "GET"
+                            }
+                          },
+                          "content": []
+                        },
+                        {
+                          "element": "httpResponse",
+                          "content": [],
+                          "attributes": {
+                            "statusCode": {
+                              "element": "string",
+                              "content": "202"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "attributes": {
+                    "href": {
+                      "element": "string",
+                      "content": "/users"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

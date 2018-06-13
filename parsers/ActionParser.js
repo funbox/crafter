@@ -92,7 +92,7 @@ module.exports = (Parsers) => {
     },
 
     finalize(context, result) {
-      const registeredProtos = context.resourcePrototypeResolver.types;
+      const registeredProtos = context.resourcePrototypeResolver.prototypes;
       const resourcePrototypesChain = context.resourcePrototypes.reduce((res, el) => res.concat(el), []);
       const uniqueProtos = [...new Set(resourcePrototypesChain)];
       const activeProtos = uniqueProtos.map(pName => {

@@ -1,5 +1,6 @@
 const SectionTypes = require('./SectionTypes');
 const TypeResolver = require('./TypeResolver');
+const PrototypeResolver = require('./PrototypeResolver');
 
 class Context {
   constructor(source, parsers) {
@@ -9,7 +10,7 @@ class Context {
     this.resourcePrototypes = [];
     this.sectionKeywordSignatureParsers = [];
     this.typeResolver = new TypeResolver();
-    this.resourcePrototypeResolver = new TypeResolver();
+    this.resourcePrototypeResolver = new PrototypeResolver();
 
     Object.values(parsers).forEach(parser => {
       if (!parser.skipSectionKeywordSignature) {
@@ -26,10 +27,10 @@ class Context {
   }
 
   addResourcePrototype(prototype) {
-    if (this.resourcePrototypeResolver.types[prototype.title]) {
+    if (this.resourcePrototypeResolver.prototypes[prototype.title]) {
       console.error(`${prototype.title} resource prototype already defined`);
     }
-    this.resourcePrototypeResolver.types[prototype.title] = prototype;
+    this.resourcePrototypeResolver.prototypes[prototype.title] = prototype;
   }
 
   sectionKeywordSignature(node) {
