@@ -41,19 +41,22 @@
                         "content": "John"
                       }
                     },
+                    "attributes": {
+                      "typeAttributes": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "required"
+                          }
+                        ]
+                      }
+                    },
                     "meta": {
                       "description": {
                         "element": "string",
                         "content": "user name"
                       }
-                    },
-                    "attributes": {
-                      "typeAttributes": [
-                        {
-                          "element": "string",
-                          "content": "required"
-                        }
-                      ]
                     }
                   }
                 ],
@@ -83,12 +86,15 @@
                       }
                     },
                     "attributes": {
-                      "typeAttributes": [
-                        {
-                          "element": "string",
-                          "content": "required"
-                        }
-                      ]
+                      "typeAttributes": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "required"
+                          }
+                        ]
+                      }
                     }
                   }
                 ],
@@ -145,7 +151,7 @@
                         {
                           "element": "dataStructure",
                           "content": {
-                            "element": "object",
+                            "element": "User",
                             "content": [
                               {
                                 "element": "ref",
@@ -156,33 +162,6 @@
                                   }
                                 },
                                 "content": "Admin"
-                              },
-                              {
-                                "element": "member",
-                                "content": {
-                                  "key": {
-                                    "element": "string",
-                                    "content": "name"
-                                  },
-                                  "value": {
-                                    "element": "string",
-                                    "content": "John"
-                                  }
-                                },
-                                "meta": {
-                                  "description": {
-                                    "element": "string",
-                                    "content": "user name"
-                                  }
-                                },
-                                "attributes": {
-                                  "typeAttributes": [
-                                    {
-                                      "element": "string",
-                                      "content": "required"
-                                    }
-                                  ]
-                                }
                               }
                             ]
                           }

@@ -69,19 +69,22 @@
                                     "content": "John"
                                   }
                                 },
+                                "attributes": {
+                                  "typeAttributes": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "required"
+                                      }
+                                    ]
+                                  }
+                                },
                                 "meta": {
                                   "description": {
                                     "element": "string",
                                     "content": "User name"
                                   }
-                                },
-                                "attributes": {
-                                  "typeAttributes": [
-                                    {
-                                      "element": "string",
-                                      "content": "required"
-                                    }
-                                  ]
                                 }
                               },
                               {
@@ -97,12 +100,15 @@
                                   }
                                 },
                                 "attributes": {
-                                  "typeAttributes": [
-                                    {
-                                      "element": "string",
-                                      "content": "optional"
-                                    }
-                                  ]
+                                  "typeAttributes": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "optional"
+                                      }
+                                    ]
+                                  }
                                 }
                               },
                               {
@@ -156,16 +162,19 @@
                                   }
                                 },
                                 "attributes": {
-                                  "typeAttributes": [
-                                    {
-                                      "element": "string",
-                                      "content": "required"
-                                    },
-                                    {
-                                      "element": "string",
-                                      "content": "fixed"
-                                    }
-                                  ]
+                                  "typeAttributes": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "required"
+                                      },
+                                      {
+                                        "element": "string",
+                                        "content": "fixed"
+                                      }
+                                    ]
+                                  }
                                 }
                               }
                             ]

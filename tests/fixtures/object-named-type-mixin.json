@@ -41,19 +41,22 @@
                         "content": "John"
                       }
                     },
+                    "attributes": {
+                      "typeAttributes": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "required"
+                          }
+                        ]
+                      }
+                    },
                     "meta": {
                       "description": {
                         "element": "string",
                         "content": "user name"
                       }
-                    },
-                    "attributes": {
-                      "typeAttributes": [
-                        {
-                          "element": "string",
-                          "content": "required"
-                        }
-                      ]
                     }
                   }
                 ],
@@ -93,12 +96,15 @@
                       }
                     },
                     "attributes": {
-                      "typeAttributes": [
-                        {
-                          "element": "string",
-                          "content": "required"
-                        }
-                      ]
+                      "typeAttributes": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "required"
+                          }
+                        ]
+                      }
                     }
                   }
                 ],
@@ -155,40 +161,7 @@
                         {
                           "element": "dataStructure",
                           "content": {
-                            "element": "object",
-                            "content": [
-                              {
-                                "element": "ref",
-                                "attributes": {
-                                  "path": {
-                                    "element": "string",
-                                    "content": "content"
-                                  }
-                                },
-                                "content": "User"
-                              },
-                              {
-                                "element": "member",
-                                "content": {
-                                  "key": {
-                                    "element": "string",
-                                    "content": "access_level"
-                                  },
-                                  "value": {
-                                    "element": "string",
-                                    "content": "all"
-                                  }
-                                },
-                                "attributes": {
-                                  "typeAttributes": [
-                                    {
-                                      "element": "string",
-                                      "content": "required"
-                                    }
-                                  ]
-                                }
-                              }
-                            ]
+                            "element": "Admin"
                           }
                         }
                       ],

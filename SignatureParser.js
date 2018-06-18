@@ -74,7 +74,7 @@ class SignatureParser {
 
     if (!matchData) error(signature);
 
-    this.attributes = matchData[1].split(',').map(a => a.trim());
+    this.attributes = matchData[1].split(/,(?![^\[\]]*])/).map(a => a.trim());
 
     this.attributes.forEach(a => {
       if (typeAttributes.indexOf(a) !== -1) {

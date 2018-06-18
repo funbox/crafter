@@ -54,16 +54,19 @@
                               }
                             },
                             "attributes": {
-                              "typeAttributes": [
-                                {
-                                  "element": "string",
-                                  "content": "required"
-                                },
-                                {
-                                  "element": "string",
-                                  "content": "fixed"
-                                }
-                              ]
+                              "typeAttributes": {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "string",
+                                    "content": "required"
+                                  },
+                                  {
+                                    "element": "string",
+                                    "content": "fixed"
+                                  }
+                                ]
+                              }
                             }
                           }
                         ]
@@ -176,16 +179,19 @@
                                       }
                                     },
                                     "attributes": {
-                                      "typeAttributes": [
-                                        {
-                                          "element": "string",
-                                          "content": "required"
-                                        },
-                                        {
-                                          "element": "string",
-                                          "content": "fixed"
-                                        }
-                                      ]
+                                      "typeAttributes": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "string",
+                                            "content": "required"
+                                          },
+                                          {
+                                            "element": "string",
+                                            "content": "fixed"
+                                          }
+                                        ]
+                                      }
                                     }
                                   }
                                 ]

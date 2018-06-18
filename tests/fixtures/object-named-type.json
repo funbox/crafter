@@ -41,19 +41,22 @@
                         "content": "John"
                       }
                     },
+                    "attributes": {
+                      "typeAttributes": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "required"
+                          }
+                        ]
+                      }
+                    },
                     "meta": {
                       "description": {
                         "element": "string",
                         "content": "user name"
                       }
-                    },
-                    "attributes": {
-                      "typeAttributes": [
-                        {
-                          "element": "string",
-                          "content": "required"
-                        }
-                      ]
                     }
                   },
                   {
@@ -146,72 +149,7 @@
                         {
                           "element": "dataStructure",
                           "content": {
-                            "element": "object",
-                            "content": [
-                              {
-                                "element": "member",
-                                "content": {
-                                  "key": {
-                                    "element": "string",
-                                    "content": "name"
-                                  },
-                                  "value": {
-                                    "element": "string",
-                                    "content": "John"
-                                  }
-                                },
-                                "meta": {
-                                  "description": {
-                                    "element": "string",
-                                    "content": "user name"
-                                  }
-                                },
-                                "attributes": {
-                                  "typeAttributes": [
-                                    {
-                                      "element": "string",
-                                      "content": "required"
-                                    }
-                                  ]
-                                }
-                              },
-                              {
-                                "element": "member",
-                                "content": {
-                                  "key": {
-                                    "element": "string",
-                                    "content": "email"
-                                  },
-                                  "value": {
-                                    "element": "string"
-                                  }
-                                }
-                              },
-                              {
-                                "element": "member",
-                                "content": {
-                                  "key": {
-                                    "element": "string",
-                                    "content": "phone"
-                                  },
-                                  "value": {
-                                    "element": "string"
-                                  }
-                                }
-                              },
-                              {
-                                "element": "member",
-                                "content": {
-                                  "key": {
-                                    "element": "string",
-                                    "content": "age"
-                                  },
-                                  "value": {
-                                    "element": "number"
-                                  }
-                                }
-                              }
-                            ]
+                            "element": "User"
                           }
                         }
                       ],

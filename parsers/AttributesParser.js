@@ -2,7 +2,7 @@ const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
 const SignatureParser = require('../SignatureParser');
 const AttributesElement = require('./elements/AttributesElement');
-const ObjectProcessor = require('./ObjectProcessor');
+const DataStructureProcessor = require('./DataStructureProcessor');
 
 const attributesRegex = /^[Aa]ttributes?$/;
 
@@ -11,7 +11,7 @@ module.exports = (Parsers) => {
     processSignature(node, context) {
       const text = utils.nodeText(node.firstChild, context.sourceLines);
       const signature = new SignatureParser(text);
-      return [utils.nextNode(node.firstChild), new AttributesElement(signature.type)];
+      return [utils.nextNode(node.firstChild), new AttributesElement(signature.type, signature.typeAttributes)];
     },
 
     sectionType(node, context) {
@@ -37,18 +37,13 @@ module.exports = (Parsers) => {
 
       let contentNode = node.parent;
       if (contentNode.type === 'list') {
-        const objectProcessor = new ObjectProcessor(contentNode, Parsers);
-        objectProcessor.fillObject(result.object, context);
+        const dataStructureProcessor = new DataStructureProcessor(contentNode, Parsers);
+        dataStructureProcessor.fillValueMember(result.content, context);
       } else {
         // TODO: Что делать в этом случае?
       }
 
       return [utils.nextNode(contentNode), result];
-    },
-
-    finalize(context, result) {
-      context.typeResolver.resolve(result.object);
-      return result;
     }
   });
 };

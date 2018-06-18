@@ -1,12 +1,5 @@
 const CrafterError = require('./utils').CrafterError;
-
-const primitiveTypes = [
-  'string',
-  'number',
-  'boolean',
-];
-
-const standardTypes = primitiveTypes.concat(['object']);
+const standardTypes = require('./types').standardTypes;
 
 class TypeResolver {
   constructor() {
@@ -14,30 +7,20 @@ class TypeResolver {
     this.resolvedTypes = new Set();
   }
 
-  resolve(type) {
-    const baseTypeName = type.baseType;
-    if (!baseTypeName || standardTypes.indexOf(baseTypeName) !== -1) {
-      return;
-    }
-
-    const baseType = this.types[baseTypeName];
-    copyNewAttributes(baseType, type);
-  }
-
   resolveRegisteredTypes() {
     const usedTypes = [];
 
-    const resolveType = (targetType) => {
-      if (usedTypes.includes(targetType.name)) {
-        throw new CrafterError(`Dependencies loop: ${usedTypes.concat([targetType.name]).join(' - ')}`);
+    const resolveType = (name, targetType) => {
+      if (usedTypes.includes(name)) {
+        throw new CrafterError(`Dependencies loop: ${usedTypes.concat([name]).join(' - ')}`);
       }
 
-      if (this.resolvedTypes.has(targetType.name)) {
+      if (this.resolvedTypes.has(name)) {
         return;
       }
 
-      usedTypes.push(targetType.name);
-      const baseTypeName = targetType.baseType;
+      usedTypes.push(name);
+      const baseTypeName = targetType.type;
 
       if (baseTypeName && standardTypes.indexOf(baseTypeName) === -1) {
         const baseType = this.types[baseTypeName];
@@ -46,30 +29,30 @@ class TypeResolver {
           throw new CrafterError(`Unknown type: ${baseTypeName}`);
         }
 
-        resolveType(baseType);
+        resolveType(baseTypeName, baseType);
 
         copyNewAttributes(baseType, targetType);
       }
 
       usedTypes.pop();
-      this.resolvedTypes.add(targetType.name);
+      this.resolvedTypes.add(name);
     };
 
-    Object.values(this.types).forEach(t => {
-      resolveType(t);
+    Object.entries(this.types).forEach(([name, valueMember]) => {
+      resolveType(name, valueMember);
     });
   }
 }
 
 function copyNewAttributes(src, target) {
-  src.content.forEach(a => {
+  src.propertyMembers.forEach(a => {
     if (!hasAttribute(a)) {
-      target.content.push(a);
+      target.propertyMembers.push(a);
     }
   });
 
   function hasAttribute(srcAttr) {
-    return !!target.content.find((a) => {
+    return !!target.propertyMembers.find((a) => {
       return a.name === srcAttr.name;
     })
   }

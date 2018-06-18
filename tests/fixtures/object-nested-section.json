@@ -41,19 +41,22 @@
                         "content": "John"
                       }
                     },
+                    "attributes": {
+                      "typeAttributes": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "required"
+                          }
+                        ]
+                      }
+                    },
                     "meta": {
                       "description": {
                         "element": "string",
                         "content": "user name"
                       }
-                    },
-                    "attributes": {
-                      "typeAttributes": [
-                        {
-                          "element": "string",
-                          "content": "required"
-                        }
-                      ]
                     }
                   },
                   {
@@ -154,80 +157,7 @@
                         {
                           "element": "dataStructure",
                           "content": {
-                            "element": "object",
-                            "content": [
-                              {
-                                "element": "member",
-                                "content": {
-                                  "key": {
-                                    "element": "string",
-                                    "content": "name"
-                                  },
-                                  "value": {
-                                    "element": "string",
-                                    "content": "John"
-                                  }
-                                },
-                                "meta": {
-                                  "description": {
-                                    "element": "string",
-                                    "content": "user name"
-                                  }
-                                },
-                                "attributes": {
-                                  "typeAttributes": [
-                                    {
-                                      "element": "string",
-                                      "content": "required"
-                                    }
-                                  ]
-                                }
-                              },
-                              {
-                                "element": "member",
-                                "content": {
-                                  "key": {
-                                    "element": "string",
-                                    "content": "permissions"
-                                  },
-                                  "value": {
-                                    "element": "object",
-                                    "content": [
-                                      {
-                                        "element": "member",
-                                        "content": {
-                                          "key": {
-                                            "element": "string",
-                                            "content": "posts"
-                                          },
-                                          "value": {
-                                            "element": "boolean"
-                                          }
-                                        },
-                                        "meta": {
-                                          "description": {
-                                            "element": "string",
-                                            "content": "allow user to access posts"
-                                          }
-                                        }
-                                      },
-                                      {
-                                        "element": "member",
-                                        "content": {
-                                          "key": {
-                                            "element": "string",
-                                            "content": "comments"
-                                          },
-                                          "value": {
-                                            "element": "boolean"
-                                          }
-                                        }
-                                      }
-                                    ]
-                                  }
-                                }
-                              }
-                            ]
+                            "element": "User"
                           }
                         }
                       ],

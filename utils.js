@@ -1,3 +1,5 @@
+const Refract = require('./Refract');
+
 class CrafterError extends Error {
   constructor() {
     super(...arguments);
@@ -5,6 +7,17 @@ class CrafterError extends Error {
 }
 
 module.exports = {
+  typeAttributesToRefract(typeAttributes) {
+    return {
+      typeAttributes: {
+        element: Refract.elements.array,
+        content: typeAttributes.map(a => ({
+          element: Refract.elements.string,
+          content: a,
+        })),
+      },
+    };
+  },
   headerText(node, sourceLines) {
     return this.nodeText(node, sourceLines).slice(node.level).trim();
   },

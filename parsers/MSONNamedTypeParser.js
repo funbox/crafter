@@ -2,7 +2,7 @@ const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
 const SignatureParser = require('../SignatureParser');
 const MSONNamedTypeElement = require('./elements/MSONNamedTypeElement');
-const ObjectProcessor = require('./ObjectProcessor');
+const DataStructureProcessor = require('./DataStructureProcessor');
 
 module.exports = (Parsers) => {
   Parsers.MSONNamedTypeParser = Object.assign(Object.create(require('./AbstractParser')), {
@@ -10,7 +10,7 @@ module.exports = (Parsers) => {
       const subject = utils.headerText(node, context.sourceLines);
       const signature = new SignatureParser(subject);
 
-      return [utils.nextNode(node), new MSONNamedTypeElement(signature.name, signature.type)];
+      return [utils.nextNode(node), new MSONNamedTypeElement(signature.name, signature.type, signature.typeAttributes)];
     },
 
     sectionType(node, context) {
@@ -28,8 +28,8 @@ module.exports = (Parsers) => {
 
       let contentNode = node.parent;
       if (contentNode.type === 'list') {
-        const objectProcessor = new ObjectProcessor(contentNode, Parsers);
-        objectProcessor.fillObject(result.object, context);
+        const dataStructureProcessor = new DataStructureProcessor(contentNode, Parsers);
+        dataStructureProcessor.fillValueMember(result.content, context);
       } else {
         // TODO: Что делать в этом случае?
       }

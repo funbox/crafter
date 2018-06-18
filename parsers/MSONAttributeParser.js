@@ -1,9 +1,7 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
-const MSONAttributeElement = require('./elements/MSONAttributeElement');
-const MSONObjectElement = require('./elements/MSONObjectElement');
-const ObjectProcessor = require('./ObjectProcessor');
-
+const PropertyMemberElement = require('./elements/PropertyMemberElement');
+const DataStructureProcessor = require('./DataStructureProcessor');
 const SignatureParser = require('../SignatureParser');
 
 module.exports = (Parsers) => {
@@ -13,10 +11,10 @@ module.exports = (Parsers) => {
       const subject = utils.nodeText(node.firstChild, context.sourceLines); // TODO: часто берем text, может сделать отдельную функцию?
       const signature = new SignatureParser(subject);
 
-      const result = new MSONAttributeElement(
+      const result = new PropertyMemberElement(
         signature.name,
-        signature.example,
         signature.type,
+        signature.example,
         signature.typeAttributes,
         signature.description
       );
@@ -24,10 +22,10 @@ module.exports = (Parsers) => {
       let nestedNode = node.firstChild.next;
 
       if (nestedNode) {
-        const objectProcessor = new ObjectProcessor(nestedNode, Parsers);
-        result.object = new MSONObjectElement(null, null); // TODO: Корректно заполнять baseType
-        objectProcessor.fillObject(result.object, context);
+        const dataStructureProcessor = new DataStructureProcessor(nestedNode, Parsers);
+        dataStructureProcessor.fillValueMember(result.value, context);
       }
+
       return [utils.nextNode(node), result];
     },
 

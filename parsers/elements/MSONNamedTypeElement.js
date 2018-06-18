@@ -1,16 +1,24 @@
 const Refract = require('../../Refract');
 
-const MSONObjectElement = require('./MSONObjectElement');
+const ValueMemberElement = require('./ValueMemberElement');
 
 class MSONNamedTypeElement {
-  constructor(name, baseType) {
-    this.object = new MSONObjectElement(name, baseType);
+  constructor(name, baseType, typeAttributes) {
+    this.name = name;
+    this.content = new ValueMemberElement(baseType, typeAttributes);
   }
 
   toRefract() {
     return {
       element: Refract.elements.dataStructure,
-      content: this.object.toRefract(),
+      content: Object.assign(this.content.toRefract(), {
+        meta: {
+          id: {
+            element: Refract.elements.string,
+            content: this.name,
+          }
+        }
+      }),
     }
   }
 }
