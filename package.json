@@ -2,9 +2,10 @@
   "name": "crafter",
   "version": "0.1.0",
   "description": "JavaScript replacement of Drafter library for parsing Api Blueprint documentation format",
-  "main": "index.js",
+  "main": "Crafter.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "regenerate-fixtures": "node ./scripts/regenerate-fixtures.js"
   },
   "keywords": [
     "drafter",
@@ -15,6 +16,9 @@
     "protagonist",
     "aglio"
   ],
+  "bin": {
+    "crafter": "node ./cli.js"
+  },
   "devDependencies": {
     "jest": "^22.4.3"
   },
