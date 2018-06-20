@@ -1,5 +1,6 @@
 const CrafterError = require('./utils').CrafterError;
 const standardTypes = require('./types').standardTypes;
+const MSONMixinElement = require('./parsers/elements/MSONMixinElement');
 
 class TypeResolver {
   constructor() {
@@ -14,6 +15,8 @@ class TypeResolver {
       if (usedTypes.includes(name)) {
         throw new CrafterError(`Dependencies loop: ${usedTypes.concat([name]).join(' - ')}`);
       }
+
+      this.checkUsedMixins(this.types[name]);
 
       if (this.resolvedTypes.has(name)) {
         return;
@@ -40,6 +43,20 @@ class TypeResolver {
 
     Object.entries(this.types).forEach(([name, valueMember]) => {
       resolveType(name, valueMember);
+    });
+  }
+
+  checkUsedMixins(target) {
+    if (!target.propertyMembers) return;
+
+    const usedMixins = target.propertyMembers.filter(member => member instanceof MSONMixinElement);
+
+    if (usedMixins.length === 0) return;
+
+    usedMixins.forEach(mixin => {
+      if (!this.types.hasOwnProperty(mixin.className)) {
+        throw new CrafterError(`Mixin "${mixin.className}" is not defined in the document.`);
+      }
     });
   }
 }

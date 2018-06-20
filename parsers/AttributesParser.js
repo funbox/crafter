@@ -43,6 +43,7 @@ module.exports = (Parsers) => {
         // TODO: Что делать в этом случае?
       }
 
+      context.typeResolver.checkUsedMixins(result.content);
       return [utils.nextNode(contentNode), result];
     },
   });
