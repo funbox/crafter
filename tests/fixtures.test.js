@@ -1,5 +1,6 @@
 const fs = require('fs');
 const Crafter = require('../Crafter');
+const CrafterError = require('../utils').CrafterError;
 
 const testPath = {
   base: `${__dirname}/fixtures`,
@@ -9,6 +10,9 @@ const testPath = {
   get arrays() {
     return `${this.base}/arrays`;
   },
+  get fixturesWithErrors() {
+    return `${this.base}/fixtures-with-errors`;
+  }
 };
 
 const apibRegex = /\.apib$/;
@@ -37,6 +41,19 @@ describe('resource-proto fixtures', () => {
 
 describe('arrays fixtures', () => {
   testFilesFrom(testPath.arrays);
+});
+
+describe('fixtures with errors', () => {
+  const path = testPath.fixturesWithErrors;
+  const files = fs.readdirSync(path);
+  files.forEach(f => {
+    if (apibRegex.exec(f)) {
+      it(f, () => {
+        const data = readFile(f, path);
+        expect(() => Crafter.parse(data)).toThrow(CrafterError);
+      });
+    }
+  });
 });
 
 function readFile(file, path) {
