@@ -25,6 +25,6 @@ module.exports = (Parsers) => {
 
     processDescription(node, context, result) {
       return [node, result];
-    }
+    },
   });
 };

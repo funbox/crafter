@@ -4,9 +4,9 @@ const Context = require('./Context');
 
 const Parsers = {};
 
-fs.readdirSync('./parsers').forEach(pFile => {
+fs.readdirSync('./parsers').forEach((pFile) => {
   if (/Parser.js$/.exec(pFile)) {
-    const defineParser = require(`./parsers/${pFile}`);
+    const defineParser = require(`./parsers/${pFile}`); // eslint-disable-line import/no-dynamic-require
     if (typeof defineParser === 'function') {
       defineParser(Parsers);
     }
@@ -15,15 +15,15 @@ fs.readdirSync('./parsers').forEach(pFile => {
 
 module.exports = {
   parse(source) {
-    const parser = new commonmark.Parser({sourcepos: true});
+    const parser = new commonmark.Parser({ sourcepos: true });
     const ast = parser.parse(source);
     const context = new Context(source, Parsers);
-    const [next, result] = Parsers.BlueprintParser.parse(ast.firstChild, context);
+    const result = Parsers.BlueprintParser.parse(ast.firstChild, context)[1];
 
     return result;
   },
 
   parseFile(file) {
-    return this.parse(fs.readFileSync(file, {encoding: 'utf-8'}));
-  }
+    return this.parse(fs.readFileSync(file, { encoding: 'utf-8' }));
+  },
 };

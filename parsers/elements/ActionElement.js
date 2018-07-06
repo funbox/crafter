@@ -18,7 +18,7 @@ class ActionElement {
         title: {
           element: Refract.elements.string,
           content: this.title,
-        }
+        },
       },
       content: [],
     };
@@ -27,7 +27,7 @@ class ActionElement {
       result.attributes = {
         href: {
           element: Refract.elements.string,
-            content: this.href,
+          content: this.href,
         },
       };
     }
@@ -45,14 +45,14 @@ class ActionElement {
       requests = requests.concat([request]);
     }
 
-    requests.forEach(request => {
-      responses.forEach(response => {
+    requests.forEach((request) => {
+      responses.forEach((response) => {
         result.content.push({
           element: Refract.elements.httpTransaction,
           content: [
             request.toRefract(),
             response.toRefract(),
-          ]
+          ],
         });
       });
     });

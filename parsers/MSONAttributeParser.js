@@ -16,10 +16,10 @@ module.exports = (Parsers) => {
         signature.type,
         signature.example,
         signature.typeAttributes,
-        signature.description
+        signature.description,
       );
 
-      let nestedNode = node.firstChild.next;
+      const nestedNode = node.firstChild.next;
 
       if (nestedNode) {
         const dataStructureProcessor = new DataStructureProcessor(nestedNode, Parsers);
@@ -38,7 +38,7 @@ module.exports = (Parsers) => {
           if (signature.name) {
             return SectionTypes.msonAttribute;
           }
-        } catch (e) {
+        } catch (e) { // eslint-disable-line no-empty
         }
       }
 

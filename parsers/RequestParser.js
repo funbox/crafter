@@ -39,8 +39,8 @@ module.exports = (Parsers) => {
     },
 
     processNestedSection(node, context, result) {
-      let nextNode, childResult;
-
+      let nextNode;
+      let childResult;
 
       if (Parsers.BodyParser.sectionType(node, context) !== SectionTypes.undefined) {
         [nextNode, childResult] = Parsers.BodyParser.parse(node, context);

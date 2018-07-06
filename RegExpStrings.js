@@ -20,7 +20,7 @@ const requestMethods = [
 module.exports = {
   requestMethods: `(${requestMethods.join('|')})`,
   uriTemplate: '(/[^(]*)',
-  symbolIdentifier: "([^\\]\\[\\(\\)]+)",
+  symbolIdentifier: '([^\\]\\[\\(\\)]+)',
   resourcePrototype: '\\(([^\\]\\[\\(\\)]+)\\)',
   mediaType: '(\\s*\\(([^\\)]*)\\))',
 };

@@ -12,10 +12,10 @@ class MSONMixinElement {
         path: {
           element: Refract.elements.string,
           content: 'content',
-        }
+        },
       },
       content: this.className,
-    }
+    };
   }
 }
 

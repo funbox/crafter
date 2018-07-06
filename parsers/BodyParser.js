@@ -6,9 +6,9 @@ const bodyRegex = /^[Bb]ody$/;
 
 module.exports = (Parsers) => {
   Parsers.BodyParser = Object.assign(Object.create(require('./AbstractParser')), {
-    processSignature(node, context, result) {
+    processSignature(node) {
       const bodyContentNode = node.firstChild.next;
-      const body = bodyContentNode && bodyContentNode.literal || '';
+      const body = (bodyContentNode && bodyContentNode.literal) || '';
       return [utils.nextNode(node), new BodyElement(body)];
     },
 

@@ -45,16 +45,14 @@ class TypeResolver {
 }
 
 function copyNewAttributes(src, target) {
-  src.propertyMembers.forEach(a => {
+  src.propertyMembers.forEach((a) => {
     if (!hasAttribute(a)) {
       target.propertyMembers.push(a);
     }
   });
 
   function hasAttribute(srcAttr) {
-    return !!target.propertyMembers.find((a) => {
-      return a.name === srcAttr.name;
-    })
+    return !!target.propertyMembers.find(a => a.name === srcAttr.name);
   }
 }
 

@@ -25,5 +25,5 @@ module.exports = {
     dataStructures: 'dataStructures',
     resourcePrototypes: 'resourcePrototypes',
     messageBody: 'messageBody',
-  }
+  },
 };

@@ -7,12 +7,12 @@ const headersRegex = /^[Hh]eaders$/;
 module.exports = (Parsers) => {
   Parsers.HeadersParser = Object.assign(Object.create(require('./AbstractParser')), {
     // TODO: Обработать кривые заголовки (когда не в формате Name: Value)
-    processSignature(node, context) {
+    processSignature(node) {
       const headersContentNode = node.firstChild.next;
 
       let headers = [];
       if (headersContentNode) {
-        headers = (headersContentNode.literal || '').trim().split('\n').map(headerLine => {
+        headers = (headersContentNode.literal || '').trim().split('\n').map((headerLine) => {
           const [key, val] = headerLine.split(':');
           return {
             key: key.trim(),

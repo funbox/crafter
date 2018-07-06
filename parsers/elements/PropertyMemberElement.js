@@ -33,7 +33,7 @@ class PropertyMemberElement {
         description: {
           element: Refract.elements.string,
           content: this.description,
-        }
+        },
       };
     }
 

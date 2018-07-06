@@ -33,8 +33,8 @@ class ParameterElement {
       result.attributes = {
         typeAttributes: this.typeAttributes.map(a => ({
           element: Refract.elements.string,
-          content: a
-        }))
+          content: a,
+        })),
       };
     }
 
@@ -45,14 +45,14 @@ class ParameterElement {
     if (this.description) {
       result.meta.description = {
         element: Refract.elements.string,
-        content: this.description
+        content: this.description,
       };
     }
 
     if (this.type) {
       result.meta.title = {
         element: Refract.elements.string,
-        content: this.type
+        content: this.type,
       };
     }
 

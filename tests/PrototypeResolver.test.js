@@ -21,11 +21,11 @@ describe('TypeResolver', () => {
 
   it('resolves base prototype', () => {
     foo.responses = [
-      new ResponseElement(200)
+      new ResponseElement(200),
     ];
 
     bar.responses = [
-      new ResponseElement(404)
+      new ResponseElement(404),
     ];
 
     resolver.prototypes = { foo, bar };
@@ -38,27 +38,27 @@ describe('TypeResolver', () => {
 
   it('throws error on unknown type', () => {
     foo.basePrototypes = ['unknown'];
-    resolver.prototypes = {foo};
+    resolver.prototypes = { foo };
     expect(() => resolver.resolveRegisteredPrototypes()).toThrow(CrafterError);
   });
 
   it('throws error on loop', () => {
     foo.basePrototypes = ['bar'];
-    resolver.prototypes = {foo, bar};
+    resolver.prototypes = { foo, bar };
     expect(() => resolver.resolveRegisteredPrototypes()).toThrow(CrafterError);
   });
 
   it('resolves base prototypes recursively', () => {
     foo.responses = [
-      new ResponseElement(200)
+      new ResponseElement(200),
     ];
 
     bar.responses = [
-      new ResponseElement(404)
+      new ResponseElement(404),
     ];
 
     const baz = new ResourcePrototypeElement('baz', ['bar']);
-    resolver.prototypes = {baz, foo, bar};
+    resolver.prototypes = { baz, foo, bar };
 
     resolver.resolveRegisteredPrototypes();
 

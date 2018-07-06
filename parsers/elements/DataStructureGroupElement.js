@@ -10,11 +10,11 @@ class DataStructureGroupElement {
       element: Refract.elements.category,
       meta: {
         classes: [
-          Refract.categoryClasses.dataStructures
-        ]
+          Refract.categoryClasses.dataStructures,
+        ],
       },
       content: this.dataStructures.map(ds => ds.toRefract()),
-    }
+    };
   }
 }
 

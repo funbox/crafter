@@ -1,9 +1,6 @@
 const Refract = require('./Refract');
 
 class CrafterError extends Error {
-  constructor() {
-    super(...arguments);
-  }
 }
 
 module.exports = {
@@ -45,7 +42,7 @@ module.exports = {
     } else {
       result.push(sourceLines[startline - 1].slice(startcolumn - 1));
 
-      for (let i = startline + 1; i < endline; i++) {
+      for (let i = startline + 1; i < endline; i += 1) {
         result.push(sourceLines[i - 1]);
       }
 
@@ -62,9 +59,8 @@ module.exports = {
       if (result) {
         if (result.type === 'list') {
           return result.firstChild || this.nextNode(result);
-        } else {
-          return result;
         }
+        return result;
       }
     }
 

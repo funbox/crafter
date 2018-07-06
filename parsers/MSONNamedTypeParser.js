@@ -26,7 +26,7 @@ module.exports = (Parsers) => {
         return [node, result];
       }
 
-      let contentNode = node.parent;
+      const contentNode = node.parent;
       if (contentNode.type === 'list') {
         const dataStructureProcessor = new DataStructureProcessor(contentNode, Parsers);
         dataStructureProcessor.fillValueMember(result.content, context);

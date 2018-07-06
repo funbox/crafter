@@ -5,7 +5,7 @@ const typeAttributes = [
   'optional',
   'fixed',
   'fixed-type',
-  'nullable'
+  'nullable',
 ];
 
 class SignatureParser {
@@ -14,9 +14,7 @@ class SignatureParser {
     this.typeAttributes = [];
     this.type = null;
 
-    let matchData;
-
-    matchData = identifierRegex.exec(signature);
+    const matchData = identifierRegex.exec(signature);
 
     if (!matchData) error(signature);
 
@@ -56,14 +54,14 @@ class SignatureParser {
 
     while (pos < signature.length && signature[pos] !== searchSymbol) {
       this.example = `${this.example}${signature[pos]}`;
-      pos++;
+      pos += 1;
     }
 
     if (pos >= signature.length && searchSymbol === '`') error(signature);
 
     if (pos < signature.length && searchSymbol === '(') {
       this.example = this.example.trim();
-      pos--;
+      pos -= 1;
     }
 
     return signature.slice(pos + 1).trim();
@@ -74,9 +72,9 @@ class SignatureParser {
 
     if (!matchData) error(signature);
 
-    this.attributes = matchData[1].split(/,(?![^\[\]]*])/).map(a => a.trim());
+    this.attributes = matchData[1].split(/,(?![^[\]]*])/).map(a => a.trim());
 
-    this.attributes.forEach(a => {
+    this.attributes.forEach((a) => {
       if (typeAttributes.indexOf(a) !== -1) {
         this.typeAttributes.push(a);
       } else if (!this.type) {

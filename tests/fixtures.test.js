@@ -8,14 +8,14 @@ const testPath = {
   },
   get arrays() {
     return `${this.base}/arrays`;
-  }
+  },
 };
 
 const apibRegex = /\.apib$/;
 
 const testFilesFrom = (path) => {
   const files = fs.readdirSync(path);
-  files.forEach(f => {
+  files.forEach((f) => {
     if (apibRegex.exec(f)) {
       test(f, () => {
         const data = readFile(f, path);
@@ -40,5 +40,5 @@ describe('arrays fixtures', () => {
 });
 
 function readFile(file, path) {
-  return fs.readFileSync(`${path}/${file}`, {encoding: 'utf-8'});
+  return fs.readFileSync(`${path}/${file}`, { encoding: 'utf-8' });
 }

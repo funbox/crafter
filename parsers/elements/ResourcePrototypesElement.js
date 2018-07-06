@@ -11,10 +11,10 @@ class ResourcePrototypesElement {
       meta: {
         classes: [
           Refract.categoryClasses.resourcePrototypes,
-        ]
+        ],
       },
       content: this.resourcePrototypes.map(rp => rp.toRefract()),
-    }
+    };
   }
 }
 

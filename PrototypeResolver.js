@@ -21,7 +21,7 @@ class PrototypeResolver {
       usedPrototypes.push(targetProto.title);
       const baseProtoNames = targetProto.basePrototypes;
 
-      baseProtoNames.forEach(protoName => {
+      baseProtoNames.forEach((protoName) => {
         if (protoName) {
           const basePrototype = this.prototypes[protoName];
 
@@ -39,23 +39,21 @@ class PrototypeResolver {
       this.resolvedPrototypes.add(targetProto.title);
     };
 
-    Object.values(this.prototypes).forEach(p => {
+    Object.values(this.prototypes).forEach((p) => {
       resolvePrototype(p);
     });
   }
 }
 
 function copyNewContent(src, target) {
-  src.responses.forEach(r => {
+  src.responses.forEach((r) => {
     if (!hasResponse(r)) {
       target.responses.push(r);
     }
   });
 
   function hasResponse(srcAttr) {
-    return !!target.responses.find((a) => {
-      return a.statusCode === srcAttr.statusCode;
-    })
+    return !!target.responses.find(a => a.statusCode === srcAttr.statusCode);
   }
 }
 

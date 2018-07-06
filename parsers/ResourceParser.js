@@ -16,23 +16,24 @@ module.exports = (Parsers) => {
       let nodeToReturn = node;
 
       const subject = utils.headerText(node, context.sourceLines);
-      let matchData;
 
-      if (matchData = ResourceHeaderRegex.exec(subject)) {
+      let matchData = ResourceHeaderRegex.exec(subject);
+      if (matchData) {
         href = matchData[3];
         protoNames = matchData[5];
-
-      } else if (matchData = NamedEndpointHeaderRegex.exec(subject)) {
-        title = matchData[1];
-        href = matchData[3];
-        protoNames = matchData[5];
-
       } else {
-        matchData = NamedResourceHeaderRegex.exec(subject);
-        title = matchData[1];
-        href = matchData[2];
-        protoNames = matchData[4];
-        nodeToReturn = utils.nextNode(node);
+        matchData = NamedEndpointHeaderRegex.exec(subject);
+        if (matchData) {
+          title = matchData[1];
+          href = matchData[3];
+          protoNames = matchData[5];
+        } else {
+          matchData = NamedResourceHeaderRegex.exec(subject);
+          title = matchData[1];
+          href = matchData[2];
+          protoNames = matchData[4];
+          nodeToReturn = utils.nextNode(node);
+        }
       }
 
       const prototypes = protoNames ? protoNames.split(',').map(p => p.trim()) : [];
@@ -63,7 +64,8 @@ module.exports = (Parsers) => {
     },
 
     processNestedSection(node, context, result) {
-      let nextNode, childResult;
+      let nextNode;
+      let childResult;
 
       if (this.nestedSectionType(node, context) === SectionTypes.action) {
         [nextNode, childResult] = Parsers.ActionParser.parse(node, context);
@@ -79,6 +81,6 @@ module.exports = (Parsers) => {
     finalize(context, result) {
       context.resourcePrototypes.pop(); // очищаем стек с прототипами данного ресурса
       return result;
-    }
+    },
   });
 };

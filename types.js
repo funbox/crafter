@@ -2,10 +2,10 @@ const primitiveTypes = [
   'string',
   'number',
   'boolean',
-  ];
+];
 const object = 'object';
 const array = 'array';
-const enum_ = 'enum';
+const enum_ = 'enum'; // eslint-disable-line no-underscore-dangle
 
 module.exports = {
   primitiveTypes,

@@ -75,13 +75,13 @@ module.exports = (Parsers) => {
         switch (nodeType) {
           case SectionTypes.dataStructureGroup:
             [curNode, dataStructuresGroup] = Parsers.DataStructureGroupParser.parse(curNode, context);
-            dataStructuresGroup.dataStructures.forEach(ds => {
+            dataStructuresGroup.dataStructures.forEach((ds) => {
               context.addType(ds);
             });
             break;
           case SectionTypes.resourcePrototypes:
             [curNode, resourcePrototypeGroup] = Parsers.ResourcePrototypesParser.parse(curNode, context);
-            resourcePrototypeGroup.resourcePrototypes.forEach(proto => {
+            resourcePrototypeGroup.resourcePrototypes.forEach((proto) => {
               context.addResourcePrototype(proto);
             });
             break;

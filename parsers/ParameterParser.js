@@ -15,10 +15,10 @@ module.exports = (Parsers) => {
         signature.example,
         signature.type,
         signature.typeAttributes,
-        signature.description
+        signature.description,
       );
 
-      return [node.firstChild.next && node.firstChild.next.firstChild || utils.nextNode(node), result];
+      return [(node.firstChild.next && node.firstChild.next.firstChild) || utils.nextNode(node), result];
     },
 
     sectionType(node, context) {
@@ -30,7 +30,7 @@ module.exports = (Parsers) => {
           if (signature.attributes.length <= 2) {
             return SectionTypes.parameter;
           }
-        } catch (e) {
+        } catch (e) { // eslint-disable-line no-empty
         }
       }
 
@@ -40,12 +40,13 @@ module.exports = (Parsers) => {
     nestedSectionType(node, context) {
       return SectionTypes.calculateSectionType(node, context, [
         Parsers.ParameterDefaultValueParser,
-        Parsers.ParameterMembersParser
+        Parsers.ParameterMembersParser,
       ]);
     },
 
     processNestedSection(node, context, result) {
-      let nextNode, childRes;
+      let nextNode;
+      let childRes;
 
       if (Parsers.ParameterDefaultValueParser.sectionType(node, context) !== SectionTypes.undefined) {
         [nextNode, childRes] = Parsers.ParameterDefaultValueParser.parse(node, context);
@@ -60,6 +61,6 @@ module.exports = (Parsers) => {
 
     processDescription(node, context, result) {
       return [node, result];
-    }
+    },
   });
 };

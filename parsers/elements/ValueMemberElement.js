@@ -25,14 +25,14 @@ class ValueMemberElement {
   }
 
   toRefract() {
-    let type = this.type || (this.propertyMembers.length ? 'object' : 'string');
+    const type = this.type || (this.propertyMembers.length ? 'object' : 'string');
 
     const result = {
       element: type,
     };
 
     if (this.typeAttributes.length) {
-      result.attributes = utils.typeAttributesToRefract(this.typeAttributes)
+      result.attributes = utils.typeAttributesToRefract(this.typeAttributes);
     }
 
     if (this.example) {
@@ -40,9 +40,9 @@ class ValueMemberElement {
     }
 
     if (this.propertyMembers && this.propertyMembers.length) {
-      result.content = this.propertyMembers.map(element => element.toRefract())
+      result.content = this.propertyMembers.map(element => element.toRefract());
     } else if (this.valueMembers && this.valueMembers.length) {
-      result.content = this.valueMembers.map(element => element.toRefract())
+      result.content = this.valueMembers.map(element => element.toRefract());
     }
 
     return result;

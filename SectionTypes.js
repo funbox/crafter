@@ -23,13 +23,13 @@ const SectionTypes = Object.freeze({
   calculateSectionType(node, context, parsers) {
     let result = SectionTypes.undefined;
 
-    for (let i = 0; i < parsers.length; i++) {
+    for (let i = 0; i < parsers.length; i += 1) {
       result = parsers[i].sectionType(node, context);
       if (result !== SectionTypes.undefined) return result;
     }
 
     return result;
-  }
+  },
 });
 
 module.exports = SectionTypes;

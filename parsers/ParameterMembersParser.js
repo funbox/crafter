@@ -7,8 +7,8 @@ const parameterMemberRegex = /^`?(.+?)`?$/;
 
 module.exports = (Parsers) => {
   Parsers.ParameterMembersParser = Object.assign(Object.create(require('./AbstractParser')), {
-    processSignature(node, context, result) {
-      const nextNode = node.firstChild.next && node.firstChild.next.firstChild || utils.nextNode(node);
+    processSignature(node) {
+      const nextNode = (node.firstChild.next && node.firstChild.next.firstChild) || utils.nextNode(node);
       return [nextNode, new ParameterMembersElement()];
     },
 
@@ -40,6 +40,6 @@ module.exports = (Parsers) => {
 
     processDescription(node, context, result) {
       return [node, result];
-    }
+    },
   });
 };

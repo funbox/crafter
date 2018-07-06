@@ -16,10 +16,10 @@ class MSONNamedTypeElement {
           id: {
             element: Refract.elements.string,
             content: this.name,
-          }
-        }
+          },
+        },
       }),
-    }
+    };
   }
 }
 

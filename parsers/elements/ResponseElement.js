@@ -19,7 +19,7 @@ class ResponseElement {
         statusCode: {
           element: Refract.elements.string,
           content: this.statusCode,
-        }
+        },
       };
     }
 
@@ -36,13 +36,13 @@ class ResponseElement {
             value: {
               element: Refract.elements.string,
               content: this.contentType,
-            }
-          }
-        }]
+            },
+          },
+        }],
       };
     }
 
-    this.headersSections.forEach(headers => {
+    this.headersSections.forEach((headers) => {
       if (result.headers) {
         result.headers.content = result.headers.content.concat(headers.toRefract().content);
       } else {

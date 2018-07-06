@@ -18,7 +18,7 @@ class BlueprintElement {
         title: {
           element: Refract.elements.string,
           content: this.title,
-        }
+        },
       },
       content: this.content.map(item => item.toRefract()),
     };
@@ -32,7 +32,7 @@ class BlueprintElement {
 
     return {
       element: Refract.elements.parseResult,
-      content: [result]
+      content: [result],
     };
   }
 }

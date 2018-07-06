@@ -12,7 +12,7 @@ class Context {
     this.typeResolver = new TypeResolver();
     this.resourcePrototypeResolver = new PrototypeResolver();
 
-    Object.values(parsers).forEach(parser => {
+    Object.values(parsers).forEach((parser) => {
       if (!parser.skipSectionKeywordSignature) {
         this.sectionKeywordSignatureParsers.push(parser);
       }

@@ -8,7 +8,7 @@ class HeadersElement {
   toRefract() {
     return {
       element: Refract.elements.httpHeaders,
-      content: this.headers.map(({key, val}) => ({
+      content: this.headers.map(({ key, val }) => ({
         element: Refract.elements.member,
         content: {
           key: {
@@ -18,9 +18,9 @@ class HeadersElement {
           value: {
             element: Refract.elements.string,
             content: val,
-          }
-        }
-      }))
+          },
+        },
+      })),
     };
   }
 }

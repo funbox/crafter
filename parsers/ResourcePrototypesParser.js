@@ -1,5 +1,4 @@
 const SectionTypes = require('../SectionTypes');
-const Refract = require('../Refract');
 const utils = require('../utils');
 const ResourcePrototypesElement = require('./elements/ResourcePrototypesElement');
 
@@ -7,7 +6,7 @@ const ResourcePrototypesRegex = /^[Rr]esource\s+[Pp]rototypes$/;
 
 module.exports = (Parsers) => {
   Parsers.ResourcePrototypesParser = Object.assign(Object.create(require('./AbstractParser')), {
-    processSignature(node, context) {
+    processSignature(node) {
       return [utils.nextNode(node), new ResourcePrototypesElement()];
     },
 
@@ -15,8 +14,9 @@ module.exports = (Parsers) => {
       if (node.type === 'heading') {
         const subject = utils.headerText(node, context.sourceLines);
 
-        if (ResourcePrototypesRegex.exec(subject))
+        if (ResourcePrototypesRegex.exec(subject)) {
           return SectionTypes.resourcePrototypes;
+        }
       }
 
       return SectionTypes.undefined;
@@ -34,6 +34,6 @@ module.exports = (Parsers) => {
 
     processDescription(node, context, result) {
       return [node, result];
-    }
+    },
   });
 };

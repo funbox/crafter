@@ -3,13 +3,13 @@ const RegExpStrings = require('../RegExpStrings');
 const utils = require('../utils');
 const ActionElement = require('./elements/ActionElement');
 
-const actionSymbolIdentifier = "(.+)";
+const actionSymbolIdentifier = '(.+)';
 
 /** Nameless action matching regex */
 const ActionHeaderRegex = new RegExp(`^${RegExpStrings.requestMethods}\\s*${RegExpStrings.uriTemplate}?(\\s+${RegExpStrings.resourcePrototype})?$`);
 
 /** Named action matching regex */
-const NamedActionHeaderRegex = new RegExp(`^${actionSymbolIdentifier}\\[${RegExpStrings.requestMethods}\\s*${RegExpStrings.uriTemplate}?\](\\s+${RegExpStrings.resourcePrototype})?$`);
+const NamedActionHeaderRegex = new RegExp(`^${actionSymbolIdentifier}\\[${RegExpStrings.requestMethods}\\s*${RegExpStrings.uriTemplate}?](\\s+${RegExpStrings.resourcePrototype})?$`);
 
 module.exports = (Parsers) => {
   Parsers.ActionParser = Object.assign(Object.create(require('./AbstractParser')), {
@@ -20,9 +20,9 @@ module.exports = (Parsers) => {
       let protoNames = '';
 
       const subject = utils.headerText(node, context.sourceLines);
-      let matchData;
 
-      if (matchData = ActionHeaderRegex.exec(subject)) {
+      let matchData = ActionHeaderRegex.exec(subject);
+      if (matchData) {
         if (matchData[2]) {
           href = matchData[2].trim();
         }
@@ -32,18 +32,21 @@ module.exports = (Parsers) => {
         }
 
         method = matchData[1];
-      } else if (matchData = NamedActionHeaderRegex.exec(subject)) {
-        title = matchData[1].trim();
+      } else {
+        matchData = NamedActionHeaderRegex.exec(subject);
+        if (matchData) {
+          title = matchData[1].trim();
 
-        if (matchData[3]) {
-          href = matchData[3].trim();
+          if (matchData[3]) {
+            href = matchData[3].trim();
+          }
+
+          if (matchData[5]) {
+            protoNames = matchData[5];
+          }
+
+          method = matchData[2];
         }
-
-        if (matchData[5]) {
-          protoNames = matchData[5];
-        }
-
-        method = matchData[2];
       }
 
       const prototypes = protoNames ? protoNames.split(',').map(p => p.trim()) : [];
@@ -74,7 +77,8 @@ module.exports = (Parsers) => {
     },
 
     processNestedSection(node, context, result) {
-      let nextNode, childResult;
+      let nextNode;
+      let childResult;
 
       if (Parsers.ParametersParser.sectionType(node, context) !== SectionTypes.undefined) {
         [nextNode, childResult] = Parsers.ParametersParser.parse(node, context);
@@ -94,13 +98,13 @@ module.exports = (Parsers) => {
     finalize(context, result) {
       const registeredProtos = context.resourcePrototypeResolver.prototypes;
       const resourcePrototypesChain = context.resourcePrototypes.reduce((res, el) => res.concat(el), []);
-      [...new Set(resourcePrototypesChain)].forEach(pName => {
+      [...new Set(resourcePrototypesChain)].forEach((pName) => {
         const p = registeredProtos[pName];
         result.responses.push(...p.responses);
       });
 
       context.resourcePrototypes.pop();
       return result;
-    }
+    },
   });
 };

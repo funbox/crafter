@@ -45,8 +45,6 @@ class DataStructureProcessor {
         // valueMember.valueMembers.push(childResult);
       }
 
-
-
       // TODO Что если nextNode !== curNode.next ?
       if (curNode.next && nextNode !== curNode.next) {
         throw new utils.CrafterError('nextNode !== curNode.next');

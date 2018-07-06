@@ -29,13 +29,14 @@ module.exports = {
     return [curNode, result];
   },
 
-  processSignature(node, context, result) {
+  processSignature(node, context, result) { // eslint-disable-line no-unused-vars
     throw new Error('Not Implemented');
   },
 
   processDescription(node, context, result) {
     let curNode = node;
-    [curNode, description] = utils.extractDescription(curNode, context.sourceLines);
+    const [curNode_, description] = utils.extractDescription(curNode, context.sourceLines);
+    curNode = curNode_;
 
     if (description) {
       result.description = new DescriptionElement(description);
@@ -45,7 +46,6 @@ module.exports = {
   },
 
   processNestedSections(node, context, result) {
-    let childResult;
     let curNode = node;
 
     while (curNode && this.nestedSectionType(curNode, context) !== SectionTypes.undefined) {
@@ -55,19 +55,19 @@ module.exports = {
     return [curNode, result];
   },
 
-  processNestedSection(node, context, result) {
+  processNestedSection(node, context, result) { // eslint-disable-line no-unused-vars
     throw new Error('Not Implemented');
   },
 
-  sectionType(node, context) {
+  sectionType(node, context) { // eslint-disable-line no-unused-vars
     return SectionTypes.undefined;
   },
 
-  nestedSectionType(node, context) {
+  nestedSectionType(node, context) { // eslint-disable-line no-unused-vars
     return SectionTypes.undefined;
   },
 
   finalize(context, result) {
     return result;
-  }
+  },
 };

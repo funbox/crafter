@@ -19,8 +19,9 @@ module.exports = (Parsers) => {
       if (node.type === 'heading') {
         const subject = utils.headerText(node, context.sourceLines);
 
-        if (GroupHeaderRegex.exec(subject))
+        if (GroupHeaderRegex.exec(subject)) {
           return SectionTypes.resourceGroup;
+        }
       }
 
       return SectionTypes.undefined;
@@ -39,6 +40,6 @@ module.exports = (Parsers) => {
     finalize(context, result) {
       context.resourcePrototypes.pop(); // очищаем стек с прототипами данной группы ресурсов
       return result;
-    }
+    },
   });
 };

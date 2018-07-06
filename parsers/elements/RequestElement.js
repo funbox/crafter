@@ -16,7 +16,7 @@ class RequestElement {
         method: {
           element: Refract.elements.string,
           content: this.method,
-        }
+        },
       },
       content: this.content.map(c => c.toRefract()),
     };
@@ -34,9 +34,9 @@ class RequestElement {
             value: {
               element: Refract.elements.string,
               content: this.contentType,
-            }
-          }
-        }]
+            },
+          },
+        }],
       };
     }
 
@@ -45,11 +45,11 @@ class RequestElement {
         title: {
           element: Refract.elements.string,
           content: this.title,
-        }
+        },
       };
     }
 
-    this.headersSections.forEach(headers => {
+    this.headersSections.forEach((headers) => {
       if (result.headers) {
         result.headers.content = result.headers.content.concat(headers.toRefract().content);
       } else {

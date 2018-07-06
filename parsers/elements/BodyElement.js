@@ -11,8 +11,8 @@ class BodyElement {
       element: Refract.elements.asset,
       meta: {
         classes: [
-          Refract.categoryClasses.messageBody
-        ]
+          Refract.categoryClasses.messageBody,
+        ],
       },
       content: this.body,
     };
@@ -22,7 +22,7 @@ class BodyElement {
         contentType: {
           element: Refract.elements.string,
           content: this.contentType,
-        }
+        },
       };
     }
 

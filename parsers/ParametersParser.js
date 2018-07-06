@@ -6,9 +6,9 @@ const ParametersRegex = /^[Pp]arameters?$/;
 
 module.exports = (Parsers) => {
   Parsers.ParametersParser = Object.assign(Object.create(require('./AbstractParser')), {
-    processSignature(node, context) {
+    processSignature(node) {
       const parametersList = node.firstChild.next;
-      return [parametersList && parametersList.firstChild || utils.nextNode(node), new ParametersElement()];
+      return [(parametersList && parametersList.firstChild) || utils.nextNode(node), new ParametersElement()];
     },
 
     sectionType(node, context) {
@@ -34,6 +34,6 @@ module.exports = (Parsers) => {
 
     processDescription(node, context, result) {
       return [node, result];
-    }
+    },
   });
 };

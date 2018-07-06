@@ -6,7 +6,7 @@ const DataStructureGroupRegex = /^[Dd]ata\s+[Ss]tructures?$/;
 
 module.exports = (Parsers) => {
   Parsers.DataStructureGroupParser = Object.assign(Object.create(require('./AbstractParser')), {
-    processSignature(node, context) {
+    processSignature(node) {
       return [utils.nextNode(node), new DataStructureGroupElement()];
     },
 
@@ -14,8 +14,9 @@ module.exports = (Parsers) => {
       if (node.type === 'heading') {
         const subject = utils.headerText(node, context.sourceLines);
 
-        if (DataStructureGroupRegex.exec(subject))
+        if (DataStructureGroupRegex.exec(subject)) {
           return SectionTypes.dataStructureGroup;
+        }
       }
 
       return SectionTypes.undefined;
@@ -33,6 +34,6 @@ module.exports = (Parsers) => {
 
     processDescription(node, context, result) {
       return [node, result];
-    }
+    },
   });
 };

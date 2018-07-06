@@ -20,13 +20,13 @@ describe('TypeResolver', () => {
 
   it('resolves base type', () => {
     foo.content.propertyMembers = [
-      new PropertyMemberElement('a')
+      new PropertyMemberElement('a'),
     ];
 
     bar.content.propertyMembers = [
-      new PropertyMemberElement('b')
+      new PropertyMemberElement('b'),
     ];
-    resolver.types = {foo: foo.content, bar: bar.content};
+    resolver.types = { foo: foo.content, bar: bar.content };
 
     resolver.resolveRegisteredTypes();
 
@@ -36,15 +36,15 @@ describe('TypeResolver', () => {
 
   it('resolves base type recursively', () => {
     foo.content.propertyMembers = [
-      new PropertyMemberElement('a')
+      new PropertyMemberElement('a'),
     ];
 
     bar.content.propertyMembers = [
-      new PropertyMemberElement('b')
+      new PropertyMemberElement('b'),
     ];
 
     const baz = new MSONNamedTypeElement('baz', 'bar');
-    resolver.types = {baz: baz.content, foo: foo.content, bar: bar.content};
+    resolver.types = { baz: baz.content, foo: foo.content, bar: bar.content };
 
     resolver.resolveRegisteredTypes();
 
@@ -58,13 +58,13 @@ describe('TypeResolver', () => {
 
   it('throws error on unknown type', () => {
     foo.content.type = 'unknown';
-    resolver.types = {foo: foo.content};
+    resolver.types = { foo: foo.content };
     expect(() => resolver.resolveRegisteredTypes()).toThrow(CrafterError);
   });
 
   it('throws error on loop', () => {
     foo.content.type = 'bar';
-    resolver.types = {foo: foo.content, bar: bar.content};
+    resolver.types = { foo: foo.content, bar: bar.content };
     expect(() => resolver.resolveRegisteredTypes()).toThrow(CrafterError);
   });
 });
