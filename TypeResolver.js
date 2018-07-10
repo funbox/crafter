@@ -13,17 +13,17 @@ class TypeResolver {
     const usedTypes = [];
 
     const resolveType = (name, targetType) => {
-      if (usedTypes.includes(name)) {
-        throw new CrafterError(`Dependencies loop: ${usedTypes.concat([name]).join(' - ')}`);
-      }
-
-      this.checkUsedMixins(this.types[name]);
-
       if (this.resolvedTypes.has(name)) {
         return;
       }
 
+      if (usedTypes.includes(name)) {
+        throw new CrafterError(`Dependencies loop: ${usedTypes.concat([name]).join(' - ')}`);
+      }
+
       usedTypes.push(name);
+
+      const includedMixins = getIncludedMixins(targetType);
       const baseTypeName = targetType.type;
 
       if (baseTypeName && standardTypes.indexOf(baseTypeName) === -1) {
@@ -38,6 +38,19 @@ class TypeResolver {
         copyNewAttributes(baseType, targetType);
       }
 
+      includedMixins.forEach((mixin) => {
+        const mixinName = mixin.className;
+        const baseType = this.types[mixinName];
+
+        this.checkMixinExists(mixinName);
+
+        if (mixinName === name) {
+          throw new CrafterError(`Base type '${name}' circularly referencing itself`);
+        }
+
+        resolveType(mixinName, baseType);
+      });
+
       usedTypes.pop();
       this.resolvedTypes.add(name);
     };
@@ -47,15 +60,18 @@ class TypeResolver {
     });
   }
 
+  checkMixinExists(mixinName) {
+    if (!this.types.hasOwnProperty(mixinName)) {
+      throw new CrafterError(`Mixin "${mixinName}" is not defined in the document.`);
+    }
+  }
+
   checkUsedMixins(target) {
-    const usedMixins = getIncludedMixins(target);
+    const includedMixins = getIncludedMixins(target);
+    const checkMixinExists = this.checkMixinExists.bind(this);
 
-    if (usedMixins.length === 0) return;
-
-    usedMixins.forEach(mixin => {
-      if (!this.types.hasOwnProperty(mixin.className)) {
-        throw new CrafterError(`Mixin "${mixin.className}" is not defined in the document.`);
-      }
+    includedMixins.forEach((mixin) => {
+      checkMixinExists(mixin.className);
     });
   }
 }
@@ -73,22 +89,22 @@ function copyNewAttributes(src, target) {
 }
 
 function getIncludedMixins(target) {
-  const appliedMixins = [];
+  const includedMixins = [];
 
-  const processValueElement = tgt => {
-    const res = tgt.propertyMembers.filter(member => {
+  const processValueElement = (tgt) => {
+    const res = tgt.propertyMembers.filter((member) => {
       if (member instanceof PropertyMemberElement) {
         processValueElement(member.value);
       }
       return member instanceof MSONMixinElement;
     });
 
-    appliedMixins.push(...res);
+    includedMixins.push(...res);
   };
 
   processValueElement(target);
 
-  return appliedMixins;
+  return includedMixins;
 }
 
 module.exports = TypeResolver;
