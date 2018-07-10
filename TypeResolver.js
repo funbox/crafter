@@ -1,6 +1,7 @@
 const CrafterError = require('./utils').CrafterError;
 const standardTypes = require('./types').standardTypes;
 const MSONMixinElement = require('./parsers/elements/MSONMixinElement');
+const PropertyMemberElement = require('./parsers/elements/PropertyMemberElement');
 
 class TypeResolver {
   constructor() {
@@ -49,7 +50,7 @@ class TypeResolver {
   checkUsedMixins(target) {
     if (!target.propertyMembers) return;
 
-    const usedMixins = target.propertyMembers.filter(member => member instanceof MSONMixinElement);
+    const usedMixins = getIncludedMixins(target);
 
     if (usedMixins.length === 0) return;
 
@@ -71,6 +72,25 @@ function copyNewAttributes(src, target) {
   function hasAttribute(srcAttr) {
     return !!target.propertyMembers.find(a => a.name === srcAttr.name);
   }
+}
+
+function getIncludedMixins(target) {
+  const appliedMixins = [];
+
+  const processValueElement = tgt => {
+    const res = tgt.propertyMembers.filter(member => {
+      if (member instanceof PropertyMemberElement && member.value.propertyMembers) {
+        processValueElement(member.value);
+      }
+      return member instanceof MSONMixinElement;
+    });
+
+    appliedMixins.push(...res);
+  };
+
+  processValueElement(target);
+
+  return appliedMixins;
 }
 
 module.exports = TypeResolver;
