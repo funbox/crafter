@@ -6,10 +6,10 @@ class ValueMemberElement {
     const resolvedType = resolveType(type);
 
     this.type = resolvedType.type;
+    this.propertyMembers = []; // array of PropertyMemberElement
+
     if (this.isArray()) {
       this.valueMembers = resolvedType.nestedTypes.map(t => new ValueMemberElement(t)); // array of ValueMemberElement
-    } else if (this.isObject()) {
-      this.propertyMembers = []; // array of PropertyMemberElement
     }
 
     this.typeAttributes = typeAttributes;
@@ -39,7 +39,7 @@ class ValueMemberElement {
       result.content = this.example;
     }
 
-    if (this.propertyMembers && this.propertyMembers.length) {
+    if (this.propertyMembers.length) {
       result.content = this.propertyMembers.map(element => element.toRefract());
     } else if (this.valueMembers && this.valueMembers.length) {
       result.content = this.valueMembers.map(element => element.toRefract());

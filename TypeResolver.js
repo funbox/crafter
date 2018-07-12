@@ -48,8 +48,6 @@ class TypeResolver {
   }
 
   checkUsedMixins(target) {
-    if (!target.propertyMembers) return;
-
     const usedMixins = getIncludedMixins(target);
 
     if (usedMixins.length === 0) return;
@@ -79,7 +77,7 @@ function getIncludedMixins(target) {
 
   const processValueElement = tgt => {
     const res = tgt.propertyMembers.filter(member => {
-      if (member instanceof PropertyMemberElement && member.value.propertyMembers) {
+      if (member instanceof PropertyMemberElement) {
         processValueElement(member.value);
       }
       return member instanceof MSONMixinElement;
