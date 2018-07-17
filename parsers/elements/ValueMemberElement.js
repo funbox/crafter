@@ -3,7 +3,7 @@ const types = require('../../types');
 
 class ValueMemberElement {
   constructor(type, typeAttributes = [], example) {
-    const resolvedType = resolveType(type);
+    const resolvedType = utils.resolveType(type);
 
     this.type = resolvedType.type;
     this.propertyMembers = []; // array of PropertyMemberElement
@@ -47,24 +47,6 @@ class ValueMemberElement {
 
     return result;
   }
-}
-
-function resolveType(type) {
-  const result = {};
-
-  const arrayMachData = /^array\s*(\[(.*)])?$/.exec(type);
-  if (arrayMachData) {
-    result.type = types.array;
-    if (arrayMachData[2]) {
-      result.nestedTypes = arrayMachData[2].split(',').map(rawType => rawType.trim()).filter(t => !!t);
-    } else {
-      result.nestedTypes = [];
-    }
-  } else {
-    result.type = type;
-  }
-
-  return result;
 }
 
 module.exports = ValueMemberElement;

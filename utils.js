@@ -1,4 +1,5 @@
 const Refract = require('./Refract');
+const types = require('./types');
 
 class CrafterError extends Error {
 }
@@ -15,9 +16,11 @@ module.exports = {
       },
     };
   },
+
   headerText(node, sourceLines) {
     return this.nodeText(node, sourceLines).slice(node.level).trim();
   },
+
   extractDescription(curNode, sourceLines) {
     let description = '';
 
@@ -31,6 +34,7 @@ module.exports = {
 
     return [curNode, description];
   },
+
   nodeText(node, sourceLines) {
     const [startline, startcolumn] = node.sourcepos[0];
     const [endline, endcolumn] = node.sourcepos[1];
@@ -69,6 +73,26 @@ module.exports = {
     }
 
     return this.nextNode(node.parent);
+  },
+
+  resolveType(type) {
+    const result = {};
+
+    const matchData = /^(array|enum)\s*(\[(.*)])?$/.exec(type);
+
+    if (matchData) {
+      const resolvedType = matchData[1];
+      result.type = types[resolvedType];
+      if (matchData[3]) {
+        result.nestedTypes = matchData[3].split(',').map(rawType => rawType.trim()).filter(t => !!t);
+      } else {
+        result.nestedTypes = [];
+      }
+    } else {
+      result.type = type;
+    }
+
+    return result;
   },
 
   CrafterError,
