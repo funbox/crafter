@@ -48,7 +48,11 @@ class ValueMemberElement {
     }
 
     if (this.content) {
-      result.content = this.content.toRefract();
+      if (this.isEnum()) {
+        result.attributes = this.content.toRefract();
+      } else {
+        result.content = this.content.toRefract();
+      }
     }
 
     if (!result.content || !result.content[0]) {

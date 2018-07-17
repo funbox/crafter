@@ -12,6 +12,7 @@ module.exports = {
     string: 'string',
     array: 'array',
     object: 'object',
+    enum: 'enum',
     httpRequest: 'httpRequest',
     httpResponse: 'httpResponse',
     httpTransaction: 'httpTransaction',

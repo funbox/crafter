@@ -12,6 +12,6 @@ module.exports = {
   object,
   array,
   enum: enum_,
-  standardTypes: primitiveTypes.concat([object, array]),
+  standardTypes: primitiveTypes.concat([object, array, enum_]),
   nonObjectTypes: primitiveTypes.concat([array, enum_]),
 };
