@@ -1,6 +1,6 @@
 const Refract = require('../../Refract');
 
-class ParameterDefaultValueElement {
+class DefaultValueElement {
   constructor(value) {
     this.value = value;
   }
@@ -13,4 +13,4 @@ class ParameterDefaultValueElement {
   }
 }
 
-module.exports = ParameterDefaultValueElement;
+module.exports = DefaultValueElement;

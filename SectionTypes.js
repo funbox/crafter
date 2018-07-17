@@ -9,7 +9,7 @@ const SectionTypes = Object.freeze({
   action: 'action',
   parameters: 'parameters',
   parameter: 'parameter',
-  parameterDefaultValue: 'parameterDefaultValue',
+  defaultValue: 'defaultValue',
   parameterMembers: 'parameterMembers',
   parameterMember: 'parameterMember',
   request: 'request',

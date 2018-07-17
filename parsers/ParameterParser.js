@@ -39,7 +39,7 @@ module.exports = (Parsers) => {
 
     nestedSectionType(node, context) {
       return SectionTypes.calculateSectionType(node, context, [
-        Parsers.ParameterDefaultValueParser,
+        Parsers.DefaultValueParser,
         Parsers.ParameterMembersParser,
       ]);
     },
@@ -48,8 +48,8 @@ module.exports = (Parsers) => {
       let nextNode;
       let childRes;
 
-      if (Parsers.ParameterDefaultValueParser.sectionType(node, context) !== SectionTypes.undefined) {
-        [nextNode, childRes] = Parsers.ParameterDefaultValueParser.parse(node, context);
+      if (Parsers.DefaultValueParser.sectionType(node, context) !== SectionTypes.undefined) {
+        [nextNode, childRes] = Parsers.DefaultValueParser.parse(node, context);
         result.defaultValue = childRes;
       } else {
         [nextNode, childRes] = Parsers.ParameterMembersParser.parse(node, context);
