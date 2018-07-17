@@ -24,6 +24,14 @@ class ValueMemberElement {
     return this.type === types.array;
   }
 
+  isEnum() {
+    return this.type === types.enum;
+  }
+
+  isComplex() {
+    return !types.primitiveTypes.includes(this.type);
+  }
+
   toRefract() {
     const type = this.type || (this.content ? 'object' : 'string');
 

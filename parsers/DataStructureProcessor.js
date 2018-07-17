@@ -12,7 +12,7 @@ class DataStructureProcessor {
   fillValueMember(valueMember, context) {
     const curNode = this.valueMemberRootNode.firstChild;
 
-    if (curNode && !(valueMember.isObject() || valueMember.isArray())) {
+    if (curNode && !(valueMember.isComplex())) {
       console.log('sub-types of primitive types should not have nested members, ignoring unrecognized block');
       return;
     }
