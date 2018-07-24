@@ -4,18 +4,19 @@ const types = require('../../types');
 const ArrayElement = require('./ArrayElement');
 
 class ValueMemberElement {
-  constructor(type, typeAttributes = [], example) {
+  constructor(type, typeAttributes = [], example, description) {
     const resolvedType = utils.resolveType(type);
 
     this.rawType = type;
     this.type = resolvedType.type;
     this.typeAttributes = typeAttributes;
     this.example = example;
+    this.description = description;
     this.content = null;
     this.samples = null;
 
     if (this.isArray()) {
-      this.content = new ArrayElement(type);
+      this.content = new ArrayElement(ValueMemberElement, type);
     }
   }
 
@@ -41,6 +42,10 @@ class ValueMemberElement {
     const result = {
       element: type,
     };
+
+    if (this.description && !this.isObject()) {
+      result.meta = utils.descriptionToRefract(this.description);
+    }
 
     if (this.typeAttributes.length) {
       result.attributes = utils.typeAttributesToRefract(this.typeAttributes);

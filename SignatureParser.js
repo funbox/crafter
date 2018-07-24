@@ -9,22 +9,27 @@ const typeAttributes = [
 ];
 
 class SignatureParser {
-  constructor(signature) {
+  constructor(signature, forValueMember) {
     this.attributes = [];
     this.typeAttributes = [];
     this.type = null;
 
-    const matchData = identifierRegex.exec(signature);
+    if (!forValueMember) {
+      const matchData = identifierRegex.exec(signature);
 
-    if (!matchData) error(signature);
+      if (!matchData) error(signature);
 
-    this.name = matchData[1];
+      this.name = matchData[1];
 
-    signature = signature.slice(matchData[0].length).trim();
+      signature = signature.slice(matchData[0].length).trim();
 
-    if (signature[0] === ':') {
-      signature = this.extractExample(signature);
-    }
+      if (signature[0] === ':') {
+        signature = this.extractExample(signature);
+      }
+    } else
+      if (signature[0] !== '(' && signature[0] !== '-') {
+        signature = this.extractExample(signature, true);
+      }
 
     if (!signature) return;
 
@@ -41,8 +46,10 @@ class SignatureParser {
     }
   }
 
-  extractExample(signature) {
-    signature = signature.slice(1).trim();
+  extractExample(signature, forValueMember) {
+    if (!forValueMember) {
+      signature = signature.slice(1).trim();
+    }
     let searchSymbol = '(';
     let pos = 0;
     this.example = '';

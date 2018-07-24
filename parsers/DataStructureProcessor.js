@@ -28,13 +28,27 @@ class DataStructureProcessor {
     }
 
     if (valueMember.isArray()) {
-      // ... - тут должен быть парсинг ValueMember
-
-      // valueMember.content = this.buildArray(curNode, context);
+      this.processArray(valueMember.content, curNode, context);
     }
 
     if (valueMember.isEnum()) {
       valueMember.content = this.buildEnum(curNode, context, valueMember.rawType);
+    }
+  }
+
+  processArray(arrayElement, node, context) {
+    let curNode = node;
+
+    while (curNode) {
+      const [nextNode, childResult] = this.Parsers.ValueMemberParser.parse(curNode, context);
+
+      arrayElement.valueMembers.push(childResult);
+
+      // TODO Что если nextNode !== curNode.next ?
+      if (curNode.next && nextNode !== curNode.next) {
+        throw new utils.CrafterError('nextNode !== curNode.next');
+      }
+      curNode = curNode.next;
     }
   }
 

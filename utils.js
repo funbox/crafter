@@ -17,6 +17,15 @@ module.exports = {
     };
   },
 
+  descriptionToRefract(description) {
+    return {
+      description: {
+        element: Refract.elements.string,
+        content: description,
+      },
+    };
+  },
+
   headerText(node, sourceLines) {
     return this.nodeText(node, sourceLines).slice(node.level).trim();
   },
