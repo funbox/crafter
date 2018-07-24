@@ -61,7 +61,7 @@ class TypeResolver {
   }
 
   checkMixinExists(mixinName) {
-    if (!this.types.hasOwnProperty(mixinName)) {
+    if (!Object.prototype.hasOwnProperty.call(this.types, mixinName)) {
       throw new CrafterError(`Mixin "${mixinName}" is not defined in the document.`);
     }
   }
