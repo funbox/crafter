@@ -1,19 +1,19 @@
 const utils = require('../../utils');
 const types = require('../../types');
+const ArrayElement = require('./ArrayElement');
 
 class ValueMemberElement {
   constructor(type, typeAttributes = [], example) {
     const resolvedType = utils.resolveType(type);
 
     this.type = resolvedType.type;
-    this.propertyMembers = []; // array of PropertyMemberElement
-
-    if (this.isArray()) {
-      this.valueMembers = resolvedType.nestedTypes.map(t => new ValueMemberElement(t)); // array of ValueMemberElement
-    }
-
     this.typeAttributes = typeAttributes;
     this.example = example;
+    this.content = null;
+
+    if (this.isArray()) {
+      this.content = new ArrayElement(type);
+    }
   }
 
   isObject() {
@@ -25,7 +25,7 @@ class ValueMemberElement {
   }
 
   toRefract() {
-    const type = this.type || (this.propertyMembers.length ? 'object' : 'string');
+    const type = this.type || (this.content ? 'object' : 'string');
 
     const result = {
       element: type,
@@ -39,10 +39,12 @@ class ValueMemberElement {
       result.content = this.example;
     }
 
-    if (this.propertyMembers.length) {
-      result.content = this.propertyMembers.map(element => element.toRefract());
-    } else if (this.valueMembers && this.valueMembers.length) {
-      result.content = this.valueMembers.map(element => element.toRefract());
+    if (this.content) {
+      result.content = this.content.toRefract();
+    }
+
+    if (!result.content || !result.content[0]) {
+      delete result.content;
     }
 
     return result;

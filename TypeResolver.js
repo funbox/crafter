@@ -77,14 +77,14 @@ class TypeResolver {
 }
 
 function copyNewAttributes(src, target) {
-  src.propertyMembers.forEach((a) => {
+  src.content.propertyMembers.forEach((a) => {
     if (!hasAttribute(a)) {
-      target.propertyMembers.push(a);
+      target.content.propertyMembers.push(a);
     }
   });
 
   function hasAttribute(srcAttr) {
-    return !!target.propertyMembers.find(a => a.name === srcAttr.name);
+    return !!target.content.propertyMembers.find(a => a.name === srcAttr.name);
   }
 }
 
@@ -92,7 +92,9 @@ function getIncludedMixins(target) {
   const includedMixins = [];
 
   const processValueElement = (tgt) => {
-    const res = tgt.propertyMembers.filter((member) => {
+    if (!tgt.content || !tgt.content.propertyMembers) return;
+
+    const res = tgt.content.propertyMembers.filter((member) => {
       if (member instanceof PropertyMemberElement) {
         processValueElement(member.value);
       }
