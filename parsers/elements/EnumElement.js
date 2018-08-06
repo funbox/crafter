@@ -1,13 +1,28 @@
 const Refract = require('../../Refract');
+const utils = require('../../utils');
 
 class EnumElement {
-  constructor() {
+  constructor(type) {
+    const resolvedType = utils.resolveType(type);
+
     this.members = [];
     this.defaultValue = null;
     this.sampleValue = null;
+    this.type = (resolvedType.nestedTypes ? resolvedType.nestedTypes[0] : 'string');
   }
 
   toRefract() {
+    const self = this;
+    this.members.forEach((member) => {
+      const typesMatch = utils.compareAttributeTypes(self, member);
+
+      if (!typesMatch) {
+        utils.showWarningMessage(`Warning:  Invalid value format "${member.name}" for enum type '${self.type}'.`);
+      }
+
+      if (!member.type) member.type = self.type;
+    });
+
     const result = {
       enumerations: {
         element: Refract.elements.array,

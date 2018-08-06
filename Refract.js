@@ -10,6 +10,7 @@ module.exports = {
     hrefVariables: 'hrefVariables',
     member: 'member',
     string: 'string',
+    number: 'number',
     array: 'array',
     object: 'object',
     enum: 'enum',

@@ -6,6 +6,7 @@ class ValueMemberElement {
   constructor(type, typeAttributes = [], example) {
     const resolvedType = utils.resolveType(type);
 
+    this.rawType = type;
     this.type = resolvedType.type;
     this.typeAttributes = typeAttributes;
     this.example = example;

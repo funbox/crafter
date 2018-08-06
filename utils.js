@@ -95,5 +95,24 @@ module.exports = {
     return result;
   },
 
+  compareAttributeTypes(baseAttr, childAttr) {
+    const baseType = baseAttr.type;
+
+    switch (baseType) {
+      case 'number':
+        if (childAttr.type) return true; // если для enumMember задан свой тип, то всё ок
+        if (isNaN(childAttr.name)) return false;
+        break;
+      default:
+        return true;
+    }
+
+    return true;
+  },
+
+  showWarningMessage(text) {
+    console.log('\x1b[33m%s\x1b[0m', text); // font yellow color
+  },
+
   CrafterError,
 };

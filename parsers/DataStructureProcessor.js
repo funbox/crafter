@@ -29,7 +29,7 @@ class DataStructureProcessor {
     }
 
     if (valueMember.isEnum()) {
-      valueMember.content = this.buildEnum(curNode, context);
+      valueMember.content = this.buildEnum(curNode, context, valueMember.rawType);
     }
   }
 
@@ -71,8 +71,8 @@ class DataStructureProcessor {
     return objectElement;
   }
 
-  buildEnum(node, context) {
-    const enumElement = new EnumElement();
+  buildEnum(node, context, type) {
+    const enumElement = new EnumElement(type);
     let curNode = node;
 
     while (curNode) {

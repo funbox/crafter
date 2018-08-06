@@ -1,14 +1,15 @@
 const Refract = require('../../Refract');
 
 class EnumMemberElement {
-  constructor(name, description) {
+  constructor(name, description, type) {
     this.name = name;
     this.description = description;
+    this.type = type;
   }
 
   toRefract() {
     const result = {
-      element: Refract.elements.string,
+      element: Refract.elements[this.type || 'string'],
       attributes: {
         typeAttributes: {
           element: Refract.elements.array,
