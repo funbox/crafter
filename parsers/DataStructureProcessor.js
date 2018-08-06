@@ -76,8 +76,31 @@ class DataStructureProcessor {
     let curNode = node;
 
     while (curNode) {
-      const [nextNode, childResult] = this.Parsers.EnumMemberParser.parse(curNode, context);
-      enumElement.members.push(childResult);
+      let nextNode;
+      let childResult;
+
+      const sectionType = SectionTypes.calculateSectionType(curNode, context, [
+        this.Parsers.DefaultValueParser,
+        this.Parsers.SampleValueParser,
+        this.Parsers.EnumMemberParser,
+      ]);
+
+      switch (sectionType) {
+        case SectionTypes.defaultValue:
+          [nextNode, childResult] = this.Parsers.DefaultValueParser.parse(curNode, context);
+          enumElement.defaultValue = childResult;
+          break;
+        case SectionTypes.sampleValue:
+          [nextNode, childResult] = this.Parsers.SampleValueParser.parse(curNode, context);
+          enumElement.sampleValue = childResult;
+          break;
+        case SectionTypes.enumMember:
+          [nextNode, childResult] = this.Parsers.EnumMemberParser.parse(curNode, context);
+          enumElement.members.push(childResult);
+          break;
+        default:
+          throw new utils.CrafterError(`invalid sectionType: ${sectionType}`);
+      }
 
       // TODO Что если nextNode !== curNode.next ?
       if (curNode.next && nextNode !== curNode.next) {

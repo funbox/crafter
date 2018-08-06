@@ -1,3 +1,4 @@
+const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
 const EnumMemberElement = require('./elements/EnumMemberElement');
 
@@ -16,6 +17,22 @@ module.exports = (Parsers) => {
       );
 
       return [utils.nextNode(node), result];
+    },
+
+    sectionType(node, context) {
+      if (node.type === 'item') {
+        const text = utils.nodeText(node.firstChild, context.sourceLines);
+
+        try {
+          const signature = new SignatureParser(text);
+          if (signature.name) {
+            return SectionTypes.enumMember;
+          }
+        } catch (e) { // eslint-disable-line no-empty
+        }
+      }
+
+      return SectionTypes.undefined;
     },
 
     processDescription(node, context, result) {
