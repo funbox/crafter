@@ -1,0 +1,18 @@
+# My API
+
+## Шаблоны SMS-отчетов [/report_templates/sms]
+
+### Создать шаблон отчета с указанными параметрами [POST /report_templates/sms]
+
++ Request (application/json)
+    + Attributes
+        + name: `SMS-отчет` (string, required)
+
++ Response 200 (application/json)
+    + Attributes
+        + kind (enum)
+          + Default: track
+          + movement
+          + track
+          + sms
+          + zone

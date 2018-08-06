@@ -1,0 +1,18 @@
+# My API
+
+# Group Группы клиентов
+
+## Группы клиентов [/client_groups]
+
+### Получить список групп клиентов [GET /client_groups{?sort_field}]
+
++ Parameters
+    + sort_field: `name` (enum[string], optional) - поле, по которому производится сортировка
+        + Default: `name`
+        + Members
+            + `name` - по названию
+            + `list_type` - по типу
+            + `numbers_count` - по количеству номеров
+            + `created_at` - по дате создания
+
++ Response 200 (application/json)

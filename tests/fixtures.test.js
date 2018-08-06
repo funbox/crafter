@@ -10,9 +10,12 @@ const testPath = {
   get arrays() {
     return `${this.base}/arrays`;
   },
+  get enum() {
+    return `${this.base}/enum`;
+  },
   get fixturesWithErrors() {
     return `${this.base}/fixtures-with-errors`;
-  }
+  },
 };
 
 const apibRegex = /\.apib$/;
@@ -43,10 +46,14 @@ describe('arrays fixtures', () => {
   testFilesFrom(testPath.arrays);
 });
 
+describe('enum fixtures', () => {
+  testFilesFrom(testPath.enum);
+});
+
 describe('fixtures with errors', () => {
   const path = testPath.fixturesWithErrors;
   const files = fs.readdirSync(path);
-  files.forEach(f => {
+  files.forEach((f) => {
     if (apibRegex.exec(f)) {
       it(f, () => {
         const data = readFile(f, path);

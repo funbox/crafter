@@ -1,0 +1,22 @@
+# My API
+
+# Data Structures
+
+## ReportType
++ kind (enum)
+    + Default: track
+    + movement
+    + track
+    + sms
+    + zone
+
+## Report templates [/report_templates]
+
+### Create report template [POST /report_templates]
+
++ Request (application/json)
+    + Attributes
+        + name: `Template` (string, required)
+
++ Response 200 (application/json)
+    + Attributes(ReportType)
