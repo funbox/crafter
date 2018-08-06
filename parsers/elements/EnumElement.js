@@ -1,5 +1,6 @@
 const Refract = require('../../Refract');
 const utils = require('../../utils');
+const { standardTypes } = require('../../types');
 
 class EnumElement {
   constructor(type) {
@@ -8,11 +9,17 @@ class EnumElement {
     this.members = [];
     this.defaultValue = null;
     this.sampleValue = null;
-    this.type = (resolvedType.nestedTypes ? resolvedType.nestedTypes[0] : 'string');
+    this.type = (resolvedType.nestedTypes[0] ? resolvedType.nestedTypes[0] : 'string');
   }
 
   toRefract() {
     const self = this;
+
+    if (!standardTypes.includes(this.type)) {
+      utils.showWarningMessage('Warning: enum must not use named types as a sub-type. Sub-type "string" will be used instead.');
+      this.type = 'string';
+    }
+
     this.members.forEach((member) => {
       const typesMatch = utils.compareAttributeTypes(self, member);
 
