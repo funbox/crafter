@@ -1,10 +1,13 @@
 const Refract = require('../../Refract');
+const utils = require('../../utils');
 
 class ParameterElement {
   constructor(name, example, type, typeAttributes, description) {
+    const resolvedType = utils.resolveType(type);
+
     this.name = name;
     this.example = example;
-    this.type = type;
+    this.type = resolvedType.type;
     this.typeAttributes = typeAttributes;
     this.description = description;
     this.defaultValue = null;
@@ -19,14 +22,22 @@ class ParameterElement {
           element: Refract.elements.string,
           content: this.name,
         },
+        value: {},
       },
     };
 
+    if (this.type === Refract.elements.enum) {
+      result.content.value.element = Refract.elements.enum;
+    }
+
     if (this.example) {
-      result.content.value = {
+      const example = {
         element: Refract.elements.string,
         content: this.example,
       };
+
+      result.content.value = this.type === Refract.elements.enum ?
+        Object.assign({ content: example }, result.content.value) : example;
     }
 
     if (this.typeAttributes.length) {
@@ -57,10 +68,6 @@ class ParameterElement {
     }
 
     if (this.defaultValue || this.enumerations) {
-      if (!result.content.value) {
-        result.content.value = {};
-      }
-
       if (!result.content.value.attributes) {
         result.content.value.attributes = {};
       }
@@ -72,6 +79,10 @@ class ParameterElement {
 
     if (this.enumerations) {
       result.content.value.attributes.enumerations = this.enumerations.toRefract();
+    }
+
+    if (Object.keys(result.content.value).length === 0) {
+      delete result.content.value;
     }
 
     return result;

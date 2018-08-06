@@ -1,9 +1,9 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
+const SignatureParser = require('../SignatureParser');
 const ParameterMembersElement = require('./elements/ParameterMembersElement');
 
 const parameterMembersRegex = /^[Mm]embers$/;
-const parameterMemberRegex = /^`?(.+?)`?$/;
 
 module.exports = (Parsers) => {
   Parsers.ParameterMembersParser = Object.assign(Object.create(require('./AbstractParser')), {
@@ -33,7 +33,8 @@ module.exports = (Parsers) => {
 
     processNestedSection(node, context, result) {
       const text = utils.nodeText(node.firstChild, context.sourceLines);
-      result.members.push(parameterMemberRegex.exec(text)[1]);
+      const member = new SignatureParser(text);
+      result.members.push(member.name);
 
       return [utils.nextNode(node), result];
     },
