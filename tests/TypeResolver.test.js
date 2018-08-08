@@ -19,41 +19,52 @@ describe('TypeResolver', () => {
   });
 
   it('resolves base type', () => {
-    foo.content.propertyMembers = [
-      new PropertyMemberElement('a'),
-    ];
+    foo.content.content = {
+      propertyMembers: [
+        new PropertyMemberElement('a'),
+      ],
+    };
 
-    bar.content.propertyMembers = [
-      new PropertyMemberElement('b'),
-    ];
+    bar.content.content = {
+      propertyMembers: [
+        new PropertyMemberElement('b'),
+      ],
+    };
     resolver.types = { foo: foo.content, bar: bar.content };
 
     resolver.resolveRegisteredTypes();
 
-    expect(resolver.types.bar.propertyMembers.length).toEqual(2);
-    expect(resolver.types.bar.propertyMembers[1]).toBe(foo.content.propertyMembers[0]);
+    expect(resolver.types.bar.content.propertyMembers.length).toEqual(2);
+    expect(resolver.types.bar.content.propertyMembers[1]).toBe(foo.content.content.propertyMembers[0]);
   });
 
   it('resolves base type recursively', () => {
-    foo.content.propertyMembers = [
-      new PropertyMemberElement('a'),
-    ];
+    foo.content.content = {
+      propertyMembers: [
+        new PropertyMemberElement('a'),
+      ],
+    };
 
-    bar.content.propertyMembers = [
-      new PropertyMemberElement('b'),
-    ];
+    bar.content.content = {
+      propertyMembers: [
+        new PropertyMemberElement('b'),
+      ],
+    };
 
     const baz = new MSONNamedTypeElement('baz', 'bar');
+    baz.content.content = {
+      propertyMembers: [],
+    };
     resolver.types = { baz: baz.content, foo: foo.content, bar: bar.content };
 
     resolver.resolveRegisteredTypes();
 
-    expect(resolver.types.bar.propertyMembers.length).toEqual(2);
-    expect(resolver.types.bar.propertyMembers[1]).toBe(foo.content.propertyMembers[0]);
+    expect(resolver.types.bar.content.propertyMembers.length).toEqual(2);
+    expect(resolver.types.bar.content.propertyMembers[1]).toBe(foo.content.content.propertyMembers[0]);
 
-    expect(resolver.types.baz.propertyMembers.length).toEqual(2);
-    expect(resolver.types.baz.propertyMembers[0]).toBe(bar.content.propertyMembers[0]);
-    expect(resolver.types.baz.propertyMembers[1]).toBe(foo.content.propertyMembers[0]);
+    expect(resolver.types.baz.content.propertyMembers.length).toEqual(2);
+    expect(resolver.types.baz.content.propertyMembers[0]).toBe(bar.content.content.propertyMembers[0]);
+    expect(resolver.types.baz.content.propertyMembers[1]).toBe(foo.content.content.propertyMembers[0]);
   });
 
   it('throws error on unknown type', () => {
