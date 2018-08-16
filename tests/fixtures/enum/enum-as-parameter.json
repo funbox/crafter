@@ -147,12 +147,15 @@
                             }
                           },
                           "attributes": {
-                            "typeAttributes": [
-                              {
-                                "element": "string",
-                                "content": "optional"
-                              }
-                            ]
+                            "typeAttributes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "optional"
+                                }
+                              ]
+                            }
                           },
                           "meta": {
                             "description": {

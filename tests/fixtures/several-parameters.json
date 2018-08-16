@@ -87,12 +87,15 @@
                         }
                       },
                       "attributes": {
-                        "typeAttributes": [
-                          {
-                            "element": "string",
-                            "content": "required"
-                          }
-                        ]
+                        "typeAttributes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "required"
+                            }
+                          ]
+                        }
                       },
                       "meta": {
                         "description": {
@@ -124,12 +127,15 @@
                         }
                       },
                       "attributes": {
-                        "typeAttributes": [
-                          {
-                            "element": "string",
-                            "content": "optional"
-                          }
-                        ]
+                        "typeAttributes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "optional"
+                            }
+                          ]
+                        }
                       },
                       "meta": {
                         "description": {
