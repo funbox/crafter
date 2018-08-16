@@ -1,7 +1,7 @@
 const Refract = require('../../Refract');
 
 class ResponseElement {
-  constructor(statusCode, contentType) {
+  constructor(statusCode = 200, contentType) {
     this.statusCode = statusCode;
     this.contentType = contentType;
     this.headersSections = [];
@@ -12,16 +12,13 @@ class ResponseElement {
     const result = {
       element: Refract.elements.httpResponse,
       content: this.content.map(c => c.toRefract()),
-    };
-
-    if (this.statusCode) {
-      result.attributes = {
+      attributes: {
         statusCode: {
           element: Refract.elements.string,
           content: this.statusCode,
         },
-      };
-    }
+      },
+    };
 
     if (this.contentType) {
       result.headers = {
