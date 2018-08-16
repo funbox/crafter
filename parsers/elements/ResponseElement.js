@@ -21,7 +21,7 @@ class ResponseElement {
     };
 
     if (this.contentType) {
-      result.headers = {
+      result.attributes.headers = {
         element: Refract.elements.httpHeaders,
         content: [{
           element: Refract.elements.member,
@@ -40,10 +40,10 @@ class ResponseElement {
     }
 
     this.headersSections.forEach((headers) => {
-      if (result.headers) {
-        result.headers.content = result.headers.content.concat(headers.toRefract().content);
+      if (result.attributes.headers) {
+        result.attributes.headers.content = result.attributes.headers.content.concat(headers.toRefract().content);
       } else {
-        result.headers = headers.toRefract();
+        result.attributes.headers = headers.toRefract();
       }
     });
 
