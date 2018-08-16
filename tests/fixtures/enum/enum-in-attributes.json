@@ -49,6 +49,24 @@
                         "method": {
                           "element": "string",
                           "content": "POST"
+                        },
+                        "headers": {
+                          "element": "httpHeaders",
+                          "content": [
+                            {
+                              "element": "member",
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "Content-Type"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "application/json"
+                                }
+                              }
+                            }
+                          ]
                         }
                       },
                       "content": [
@@ -84,25 +102,7 @@
                             ]
                           }
                         }
-                      ],
-                      "headers": {
-                        "element": "httpHeaders",
-                        "content": [
-                          {
-                            "element": "member",
-                            "content": {
-                              "key": {
-                                "element": "string",
-                                "content": "Content-Type"
-                              },
-                              "value": {
-                                "element": "string",
-                                "content": "application/json"
-                              }
-                            }
-                          }
-                        ]
-                      }
+                      ]
                     },
                     {
                       "element": "httpResponse",
@@ -206,25 +206,25 @@
                         "statusCode": {
                           "element": "string",
                           "content": "200"
-                        }
-                      },
-                      "headers": {
-                        "element": "httpHeaders",
-                        "content": [
-                          {
-                            "element": "member",
-                            "content": {
-                              "key": {
-                                "element": "string",
-                                "content": "Content-Type"
-                              },
-                              "value": {
-                                "element": "string",
-                                "content": "application/json"
+                        },
+                        "headers": {
+                          "element": "httpHeaders",
+                          "content": [
+                            {
+                              "element": "member",
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "Content-Type"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "application/json"
+                                }
                               }
                             }
-                          }
-                        ]
+                          ]
+                        }
                       }
                     }
                   ]

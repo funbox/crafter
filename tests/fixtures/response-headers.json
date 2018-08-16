@@ -60,51 +60,51 @@
                         "statusCode": {
                           "element": "string",
                           "content": "200"
+                        },
+                        "headers": {
+                          "element": "httpHeaders",
+                          "content": [
+                            {
+                              "element": "member",
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "Accept-Charset"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "utf-8"
+                                }
+                              }
+                            },
+                            {
+                              "element": "member",
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "Connection"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "keep-alive"
+                                }
+                              }
+                            },
+                            {
+                              "element": "member",
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "Content-Type"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "multipart/form-data, boundary=AaB03x"
+                                }
+                              }
+                            }
+                          ]
                         }
-                      },
-                      "headers": {
-                        "element": "httpHeaders",
-                        "content": [
-                          {
-                            "element": "member",
-                            "content": {
-                              "key": {
-                                "element": "string",
-                                "content": "Accept-Charset"
-                              },
-                              "value": {
-                                "element": "string",
-                                "content": "utf-8"
-                              }
-                            }
-                          },
-                          {
-                            "element": "member",
-                            "content": {
-                              "key": {
-                                "element": "string",
-                                "content": "Connection"
-                              },
-                              "value": {
-                                "element": "string",
-                                "content": "keep-alive"
-                              }
-                            }
-                          },
-                          {
-                            "element": "member",
-                            "content": {
-                              "key": {
-                                "element": "string",
-                                "content": "Content-Type"
-                              },
-                              "value": {
-                                "element": "string",
-                                "content": "multipart/form-data, boundary=AaB03x"
-                              }
-                            }
-                          }
-                        ]
                       }
                     }
                   ]

@@ -49,6 +49,24 @@
                         "method": {
                           "element": "string",
                           "content": "GET"
+                        },
+                        "headers": {
+                          "element": "httpHeaders",
+                          "content": [
+                            {
+                              "element": "member",
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "Content-Type"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "application/json"
+                                }
+                              }
+                            }
+                          ]
                         }
                       },
                       "content": [
@@ -67,25 +85,7 @@
                             }
                           }
                         }
-                      ],
-                      "headers": {
-                        "element": "httpHeaders",
-                        "content": [
-                          {
-                            "element": "member",
-                            "content": {
-                              "key": {
-                                "element": "string",
-                                "content": "Content-Type"
-                              },
-                              "value": {
-                                "element": "string",
-                                "content": "application/json"
-                              }
-                            }
-                          }
-                        ]
-                      }
+                      ]
                     },
                     {
                       "element": "httpResponse",
