@@ -24,6 +24,12 @@ class ParameterElement {
         },
         value: {},
       },
+      attributes: {
+        typeAttributes: {
+          element: Refract.elements.array,
+          content: [],
+        },
+      },
     };
 
     if (this.type === Refract.elements.enum) {
@@ -40,14 +46,11 @@ class ParameterElement {
         Object.assign({ content: example }, result.content.value) : example;
     }
 
-    if (this.typeAttributes.length) {
-      result.attributes = {
-        typeAttributes: this.typeAttributes.map(a => ({
-          element: Refract.elements.string,
-          content: a,
-        })),
-      };
-    }
+    const typeAttributes = this.typeAttributes.length ? this.typeAttributes : ['required'];
+    result.attributes.typeAttributes.content = typeAttributes.map(a => ({
+      element: Refract.elements.string,
+      content: a,
+    }));
 
     if (this.description || this.type) {
       result.meta = {};
