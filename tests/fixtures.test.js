@@ -13,6 +13,9 @@ const testPath = {
   get enum() {
     return `${this.base}/enum`;
   },
+  get oneOf() {
+    return `${this.base}/one-of`;
+  },
   get fixturesWithErrors() {
     return `${this.base}/fixtures-with-errors`;
   },
@@ -48,6 +51,10 @@ describe('arrays fixtures', () => {
 
 describe('enum fixtures', () => {
   testFilesFrom(testPath.enum);
+});
+
+describe('one-of-type fixtures', () => {
+  testFilesFrom(testPath.oneOf);
 });
 
 describe('fixtures with errors', () => {
