@@ -1,0 +1,18 @@
+# My API
+
+# Data Structures
+
+# User
+
++ name: `John` (string, required) - user name
++ permissions
+    + posts (boolean) - allow user to access posts
+    + comments (boolean)
+    + Sample
+      + posts: true
+      + comments: true
+
+# Get user [GET /user]
+
++ Response 200
+    + Attributes(User)
