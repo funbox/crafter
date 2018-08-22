@@ -47,10 +47,10 @@ class EnumElement {
     if (this.sampleValue) {
       result.samples = {
         element: Refract.elements.array,
-        content: [{
+        content: this.sampleValue.toRefract().map(value => ({
           element: Refract.elements.enum,
-          content: this.sampleValue.toRefract(),
-        }],
+          content: value,
+        })),
       };
     }
     return result;

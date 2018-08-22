@@ -2,14 +2,14 @@ const Refract = require('../../Refract');
 
 class SampleValueElement {
   constructor(value) {
-    this.value = value;
+    this.members = value ? [value] : [];
   }
 
   toRefract() {
-    return {
+    return this.members.map(value => ({
       element: Refract.elements.string,
-      content: this.value,
-    };
+      content: value,
+    }));
   }
 }
 
