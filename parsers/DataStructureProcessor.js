@@ -44,6 +44,7 @@ class DataStructureProcessor {
       const sectionType = SectionTypes.calculateSectionType(curNode, context, [
         this.Parsers.MSONAttributeParser,
         this.Parsers.MSONMixinParser,
+        this.Parsers.OneOfTypeParser,
       ]);
 
       switch (sectionType) {
@@ -52,6 +53,9 @@ class DataStructureProcessor {
           break;
         case SectionTypes.msonMixin:
           [nextNode, childResult] = this.Parsers.MSONMixinParser.parse(curNode, context);
+          break;
+        case SectionTypes.oneOfType:
+          [nextNode, childResult] = this.Parsers.OneOfTypeParser.parse(curNode, context);
           break;
 
         default:

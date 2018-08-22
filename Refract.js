@@ -14,6 +14,8 @@ module.exports = {
     array: 'array',
     object: 'object',
     enum: 'enum',
+    select: 'select',
+    option: 'option',
     httpRequest: 'httpRequest',
     httpResponse: 'httpResponse',
     httpTransaction: 'httpTransaction',

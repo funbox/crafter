@@ -21,6 +21,8 @@ const SectionTypes = Object.freeze({
   attributes: 'attributes',
   msonAttribute: 'msonAttribute',
   msonMixin: 'msonMixin',
+  oneOfType: 'oneOfType',
+  oneOfTypeOption: 'oneOfTypeOption',
 
   calculateSectionType(node, context, parsers) {
     let result = SectionTypes.undefined;
