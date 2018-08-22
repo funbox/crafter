@@ -1,6 +1,5 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
-const SignatureParser = require('../SignatureParser');
 const SampleValueElement = require('./elements/SampleValueElement');
 
 const sampleValueRegex = /^[Ss]ample:?\s*`?(.+?)`?$/;
@@ -39,11 +38,11 @@ module.exports = (Parsers) => {
     },
 
     processNestedSection(node, context, result) {
-      const text = utils.nodeText(node.firstChild, context.sourceLines);
-      const member = new SignatureParser(text);
-      result.members.push(member.name);
+      const [nextNode, childResult] = Parsers.MSONAttributeParser.parse(node, context);
+      const hasValue = !!(childResult.value.content || childResult.value.example);
+      result.members.push(hasValue ? childResult : childResult.name);
 
-      return [utils.nextNode(node), result];
+      return [nextNode, result];
     },
   });
 };

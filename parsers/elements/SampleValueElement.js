@@ -6,10 +6,16 @@ class SampleValueElement {
   }
 
   toRefract() {
-    return this.members.map(value => ({
-      element: Refract.elements.string,
-      content: value,
-    }));
+    return this.members.map((value) => {
+      if (value.toRefract) {
+        return value.toRefract();
+      }
+
+      return ({
+        element: Refract.elements.string,
+        content: value,
+      });
+    });
   }
 }
 

@@ -19,7 +19,12 @@ class DataStructureProcessor {
     }
 
     if (valueMember.isObject()) {
-      valueMember.content = this.buildObject(curNode, context);
+      const [object, samples] = this.buildObject(curNode, context);
+      valueMember.content = object;
+
+      if (samples) {
+        valueMember.samples = samples;
+      }
     }
 
     if (valueMember.isArray()) {
@@ -35,6 +40,7 @@ class DataStructureProcessor {
 
   buildObject(node, context) {
     const objectElement = new ObjectElement();
+    let samples;
     let curNode = node;
 
     while (curNode) {
@@ -42,6 +48,7 @@ class DataStructureProcessor {
       let childResult;
 
       const sectionType = SectionTypes.calculateSectionType(curNode, context, [
+        this.Parsers.SampleValueParser,
         this.Parsers.MSONAttributeParser,
         this.Parsers.MSONMixinParser,
         this.Parsers.OneOfTypeParser,
@@ -57,13 +64,18 @@ class DataStructureProcessor {
         case SectionTypes.oneOfType:
           [nextNode, childResult] = this.Parsers.OneOfTypeParser.parse(curNode, context);
           break;
+        case SectionTypes.sampleValue:
+          [nextNode, samples] = this.Parsers.SampleValueParser.parse(curNode, context);
+          break;
 
         default:
           // TODO что делать в этом случае? Прерывать парсинг или пропускать ноду?
           throw new utils.CrafterError(`invalid sectionType: ${sectionType}`);
       }
 
-      objectElement.propertyMembers.push(childResult);
+      if (childResult) {
+        objectElement.propertyMembers.push(childResult);
+      }
 
       // TODO Что если nextNode !== curNode.next ?
       if (curNode.next && nextNode !== curNode.next) {
@@ -72,7 +84,7 @@ class DataStructureProcessor {
       curNode = curNode.next;
     }
 
-    return objectElement;
+    return [objectElement, samples];
   }
 
   buildEnum(node, context, type) {

@@ -1,3 +1,4 @@
+const Refract = require('../../Refract');
 const utils = require('../../utils');
 const types = require('../../types');
 const ArrayElement = require('./ArrayElement');
@@ -11,6 +12,7 @@ class ValueMemberElement {
     this.typeAttributes = typeAttributes;
     this.example = example;
     this.content = null;
+    this.samples = null;
 
     if (this.isArray()) {
       this.content = new ArrayElement(type);
@@ -42,6 +44,18 @@ class ValueMemberElement {
 
     if (this.typeAttributes.length) {
       result.attributes = utils.typeAttributesToRefract(this.typeAttributes);
+    }
+
+    if (this.samples) {
+      if (!result.attributes) result.attributes = {};
+
+      result.attributes.samples = {
+        element: Refract.elements.array,
+        content: this.samples.toRefract().map(value => ({
+          element: type,
+          content: value,
+        })),
+      };
     }
 
     if (this.example) {
