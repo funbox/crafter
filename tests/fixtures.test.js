@@ -16,6 +16,12 @@ const testPath = {
   get oneOf() {
     return `${this.base}/one-of`;
   },
+  get import() {
+    return {
+      path: `${this.base}/import`,
+      exclude: /(-inner|-next)\.apib$/,
+    };
+  },
   get fixturesWithErrors() {
     return `${this.base}/fixtures-with-errors`;
   },
@@ -59,6 +65,10 @@ describe('enum fixtures', () => {
 
 describe('one-of-type fixtures', () => {
   testFilesFrom(testPath.oneOf);
+});
+
+describe('import fixtures', () => {
+  testFilesFrom(testPath.import);
 });
 
 describe('fixtures with errors', () => {
