@@ -68,9 +68,10 @@ module.exports = (Parsers) => {
     },
 
     preprocessNestedSections(node, context) {
+      const usedFiles = [context.currentFileName()];
       let curNode = node;
 
-      this.resolveImports(curNode, context);
+      this.resolveImports(curNode, context, usedFiles);
 
       while (curNode) {
         const nodeType = this.nestedSectionType(curNode, context);
@@ -99,7 +100,7 @@ module.exports = (Parsers) => {
       context.resourcePrototypeResolver.resolveRegisteredPrototypes();
     },
 
-    resolveImports(entryNode, context) {
+    resolveImports(entryNode, context, usedFiles) {
       const { sourceLines } = context;
       const ImportRegex = /^[Ii]mport\s+(.+)$/;
       const parentNode = entryNode.parent;
@@ -116,6 +117,12 @@ module.exports = (Parsers) => {
             throw new CrafterError(`File import error. File "${filename}" must have extension type ".apib".`);
           }
 
+          if (usedFiles.includes(filename)) {
+            throw new CrafterError(`Recursive import: ${usedFiles.join(' → ')} → ${filename}`);
+          }
+
+          usedFiles.push(filename);
+
           const { ast: childAst, context: childContext } = context.getApibAST(filename);
           const childSourceLines = childContext.sourceLines;
 
@@ -128,15 +135,18 @@ module.exports = (Parsers) => {
           }
 
           addSourceLines(childAst, childSourceLines);
+          this.resolveImports(childAst.firstChild, childContext, usedFiles);
 
           let childNode = childAst.firstChild;
           while (childNode) {
             newChildren.push(childNode);
             childNode = childNode.next;
           }
+
+          usedFiles.pop();
         } else {
           if (curNode.firstChild) {
-            this.resolveImports(curNode.firstChild, context);
+            this.resolveImports(curNode.firstChild, context, usedFiles);
           }
           newChildren.push(curNode);
         }
