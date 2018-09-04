@@ -3,10 +3,11 @@ const TypeResolver = require('./TypeResolver');
 const PrototypeResolver = require('./PrototypeResolver');
 
 class Context {
-  constructor(source, parsers) {
+  constructor(source, parsers, options) {
     this.sourceLines = source.split('\n');
     this.data = {};
     this.frames = [];
+    this.currentFile = options.currentFile;
     this.resourcePrototypes = [];
 
     this.sectionKeywordSignatureParsers = [
