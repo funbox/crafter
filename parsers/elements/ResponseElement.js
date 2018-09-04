@@ -4,6 +4,7 @@ class ResponseElement {
   constructor(statusCode = 200, contentType) {
     this.statusCode = statusCode;
     this.contentType = contentType;
+    this.description = null;
     this.headersSections = [];
     this.content = [];
   }
@@ -46,6 +47,10 @@ class ResponseElement {
         result.attributes.headers = headers.toRefract();
       }
     });
+
+    if (this.description) {
+      result.content.unshift(this.description.toRefract());
+    }
 
     return result;
   }

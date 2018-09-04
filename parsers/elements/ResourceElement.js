@@ -4,6 +4,7 @@ class ResourceElement {
   constructor(title, href) {
     this.title = title;
     this.href = href;
+    this.description = null;
     this.parameters = null;
     this.actions = [];
   }
@@ -28,6 +29,10 @@ class ResourceElement {
 
     if (this.parameters) {
       result.attributes.hrefVariables = this.parameters.toRefract();
+    }
+
+    if (this.description) {
+      result.content.unshift(this.description.toRefract());
     }
 
     return result;

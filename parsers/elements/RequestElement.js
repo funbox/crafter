@@ -5,6 +5,7 @@ class RequestElement {
     this.contentType = contentType;
     this.title = title;
     this.method = null;
+    this.description = null;
     this.headersSections = [];
     this.content = [];
   }
@@ -56,6 +57,10 @@ class RequestElement {
         result.attributes.headers = headers.toRefract();
       }
     });
+
+    if (this.description) {
+      result.content.unshift(this.description.toRefract());
+    }
 
     return result;
   }

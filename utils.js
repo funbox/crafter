@@ -29,7 +29,7 @@ module.exports = {
         description += '\n\n';
       }
       description += this.nodeText(curNode, sourceLines);
-      curNode = curNode.next;
+      curNode = this.nextNode(curNode);
     }
 
     return [curNode, description];
@@ -50,10 +50,10 @@ module.exports = {
         result.push(sourceLines[i - 1]);
       }
 
-      result.push(sourceLines[endline].slice(0, endcolumn));
+      result.push(sourceLines[endline - 1].slice(0, endcolumn));
     }
 
-    return result.join('\n').trim();
+    return result.map(line => line.trim()).join('\n').trim();
   },
 
   nextNode(node) {

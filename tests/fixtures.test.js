@@ -19,6 +19,9 @@ const testPath = {
   get fixturesWithErrors() {
     return `${this.base}/fixtures-with-errors`;
   },
+  get copy() {
+    return `${this.base}/copy`;
+  },
 };
 
 const apibRegex = /\.apib$/;
@@ -68,6 +71,10 @@ describe('fixtures with errors', () => {
       });
     }
   });
+});
+
+describe('copy fixtures', () => {
+  testFilesFrom(testPath.copy);
 });
 
 function readFile(file, path) {

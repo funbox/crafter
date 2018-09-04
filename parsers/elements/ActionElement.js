@@ -9,6 +9,7 @@ class ActionElement {
     this.requests = [];
     this.responses = [];
     this.parameters = null;
+    this.description = null;
   }
 
   toRefract() {
@@ -56,6 +57,10 @@ class ActionElement {
         });
       });
     });
+
+    if (this.description) {
+      result.content.unshift(this.description.toRefract());
+    }
 
     return result;
   }

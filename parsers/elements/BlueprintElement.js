@@ -24,7 +24,7 @@ class BlueprintElement {
     };
 
     if (this.description) {
-      result.content.push({
+      result.content.unshift({
         element: Refract.elements.copy,
         content: this.description,
       });
