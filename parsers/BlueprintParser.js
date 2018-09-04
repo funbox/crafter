@@ -1,5 +1,8 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
+
+const CrafterError = utils.CrafterError;
+
 const BlueprintElement = require('./elements/BlueprintElement');
 
 module.exports = (Parsers) => {
@@ -67,6 +70,8 @@ module.exports = (Parsers) => {
     preprocessNestedSections(node, context) {
       let curNode = node;
 
+      this.resolveImports(curNode, context);
+
       while (curNode) {
         const nodeType = this.nestedSectionType(curNode, context);
         let dataStructuresGroup;
@@ -93,5 +98,76 @@ module.exports = (Parsers) => {
       context.typeResolver.resolveRegisteredTypes();
       context.resourcePrototypeResolver.resolveRegisteredPrototypes();
     },
+
+    resolveImports(entryNode, context) {
+      const { sourceLines } = context;
+      const ImportRegex = /^[Ii]mport\s+(.+)$/;
+      const parentNode = entryNode.parent;
+      const newChildren = [];
+      let curNode = entryNode;
+
+      const textFromNode = node => utils.headerText(node, sourceLines);
+
+      while (curNode) {
+        if (curNode.type === 'heading' && ImportRegex.test(textFromNode(curNode))) {
+          const filename = ImportRegex.exec(textFromNode(curNode))[1].trim();
+
+          if (!/\.apib$/.test(filename)) {
+            throw new CrafterError(`File import error. File "${filename}" must have extension type ".apib".`);
+          }
+
+          const { ast: childAst, context: childContext } = context.getApibAST(filename);
+          const childSourceLines = childContext.sourceLines;
+
+          if (!childAst.firstChild) {
+            throw new CrafterError(`File import error. File "${filename}" is empty.`);
+          }
+
+          if (childAst.firstChild.type !== 'heading') {
+            throw new CrafterError(`Invalid content of "${filename}". Expected content to be a section, instead got "${childAst.firstChild.type}".`);
+          }
+
+          addSourceLines(childAst, childSourceLines);
+
+          let childNode = childAst.firstChild;
+          while (childNode) {
+            newChildren.push(childNode);
+            childNode = childNode.next;
+          }
+        } else {
+          if (curNode.firstChild) {
+            this.resolveImports(curNode.firstChild, context);
+          }
+          newChildren.push(curNode);
+        }
+        curNode = curNode.next;
+      }
+
+      if (newChildren.length > 0) {
+        let childNode = parentNode.firstChild;
+
+        while (childNode) {
+          const nextNode = childNode.next;
+          childNode.unlink();
+          childNode = nextNode;
+        }
+
+        newChildren.forEach((child) => {
+          parentNode.appendChild(child);
+        });
+      }
+    },
   };
 };
+
+function addSourceLines(ast, sourceLines) {
+  const walker = ast.walker();
+  let event = walker.next();
+  let node;
+
+  while (event) {
+    node = event.node;
+    node.sourceLines = sourceLines;
+    event = walker.next();
+  }
+}
