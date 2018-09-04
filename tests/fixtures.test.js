@@ -32,9 +32,9 @@ const testFilesFrom = (location) => {
   files.forEach((f) => {
     if (apibRegex.exec(f) && ((location.exclude && !location.exclude.test(f)) || !location.exclude)) {
       test(f, () => {
-        const data = readFile(f, path);
+        const filePath = `${path}/${f}`;
         const example = JSON.parse(readFile(f.replace(apibRegex, '.json'), path));
-        const result = Crafter.parse(data);
+        const result = Crafter.parseFile(filePath);
         expect(result.toRefract()).toEqual(example);
       });
     }
@@ -67,8 +67,8 @@ describe('fixtures with errors', () => {
   files.forEach((f) => {
     if (apibRegex.exec(f)) {
       it(f, () => {
-        const data = readFile(f, path);
-        expect(() => Crafter.parse(data)).toThrow(CrafterError);
+        const filePath = `${path}/${f}`;
+        expect(() => Crafter.parseFile(filePath)).toThrow(CrafterError);
       });
     }
   });
