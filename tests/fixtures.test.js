@@ -26,10 +26,11 @@ const testPath = {
 
 const apibRegex = /\.apib$/;
 
-const testFilesFrom = (path) => {
+const testFilesFrom = (location) => {
+  const path = location.path || location;
   const files = fs.readdirSync(path);
   files.forEach((f) => {
-    if (apibRegex.exec(f)) {
+    if (apibRegex.exec(f) && ((location.exclude && !location.exclude.test(f)) || !location.exclude)) {
       test(f, () => {
         const data = readFile(f, path);
         const example = JSON.parse(readFile(f.replace(apibRegex, '.json'), path));
