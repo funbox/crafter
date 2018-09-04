@@ -36,21 +36,22 @@ module.exports = {
   },
 
   nodeText(node, sourceLines) {
+    const localSourceLines = node.sourceLines || sourceLines;
     const [startline, startcolumn] = node.sourcepos[0];
     const [endline, endcolumn] = node.sourcepos[1];
 
     const result = [];
 
     if (startline === endline) {
-      result.push(sourceLines[startline - 1].slice(startcolumn - 1, endcolumn));
+      result.push(localSourceLines[startline - 1].slice(startcolumn - 1, endcolumn));
     } else {
-      result.push(sourceLines[startline - 1].slice(startcolumn - 1));
+      result.push(localSourceLines[startline - 1].slice(startcolumn - 1));
 
       for (let i = startline + 1; i < endline; i += 1) {
-        result.push(sourceLines[i - 1]);
+        result.push(localSourceLines[i - 1]);
       }
 
-      result.push(sourceLines[endline - 1].slice(0, endcolumn));
+      result.push(localSourceLines[endline - 1].slice(0, endcolumn));
     }
 
     return result.map(line => line.trim()).join('\n').trim();
