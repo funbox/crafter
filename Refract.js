@@ -11,6 +11,7 @@ module.exports = {
     member: 'member',
     string: 'string',
     number: 'number',
+    file: 'file',
     array: 'array',
     object: 'object',
     enum: 'enum',

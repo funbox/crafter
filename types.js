@@ -2,6 +2,7 @@ const primitiveTypes = [
   'string',
   'number',
   'boolean',
+  'file',
 ];
 const object = 'object';
 const array = 'array';
