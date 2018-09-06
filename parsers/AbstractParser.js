@@ -1,19 +1,6 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
-const Refract = require('../Refract');
-
-class DescriptionElement {
-  constructor(description) {
-    this.description = description;
-  }
-
-  toRefract() {
-    return {
-      element: Refract.elements.copy,
-      content: this.description,
-    };
-  }
-}
+const DescriptionElement = require('./elements/DescriptionElement');
 
 module.exports = {
   allowLeavingNode: true,
