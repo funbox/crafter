@@ -21,6 +21,13 @@ module.exports = (Parsers) => {
       return SectionTypes.undefined;
     },
 
+    nestedSectionType(node, context) {
+      return SectionTypes.calculateSectionType(node, context, [
+        Parsers.OneOfTypeParser,
+        Parsers.MSONAttributeParser,
+      ]);
+    },
+
     processNestedSections(node, context, result) {
       if (!node) {
         return [node, result];

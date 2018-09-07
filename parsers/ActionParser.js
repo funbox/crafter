@@ -57,7 +57,7 @@ module.exports = (Parsers) => {
     },
 
     sectionType(node, context) {
-      if (node.type === 'heading') {
+      if (node && node.type === 'heading') {
         const subject = utils.headerText(node, context.sourceLines);
 
         if (ActionHeaderRegex.exec(subject) || NamedActionHeaderRegex.exec(subject)) {
@@ -73,6 +73,17 @@ module.exports = (Parsers) => {
         Parsers.ParametersParser,
         Parsers.RequestParser,
         Parsers.ResponseParser,
+      ]);
+    },
+
+    upperSectionType(node, context) {
+      return SectionTypes.calculateSectionType(node, context, [
+        Parsers.ActionParser,
+        Parsers.ResourceParser,
+        Parsers.ResourceGroupParser,
+        Parsers.ResourcePrototypeParser,
+        Parsers.DataStructureGroupParser,
+        Parsers.ResourcePrototypesParser,
       ]);
     },
 

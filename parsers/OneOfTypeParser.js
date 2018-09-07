@@ -16,7 +16,7 @@ module.exports = (Parsers) => {
     },
 
     sectionType(node, context) {
-      if (node.type === 'item') {
+      if (node && node.type === 'item') {
         const text = utils.nodeText(node.firstChild, context.sourceLines);
         if (oneOfTypeRegex.exec(text)) {
           return SectionTypes.oneOfType;

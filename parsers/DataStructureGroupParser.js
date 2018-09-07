@@ -26,6 +26,15 @@ module.exports = (Parsers) => {
       return Parsers.MSONNamedTypeParser.sectionType(node, context);
     },
 
+    upperSectionType(node, context) {
+      return SectionTypes.calculateSectionType(node, context, [
+        Parsers.ResourceGroupParser,
+        Parsers.ResourcePrototypeParser,
+        Parsers.DataStructureGroupParser,
+        Parsers.ResourcePrototypesParser,
+      ]);
+    },
+
     processNestedSection(node, context, result) {
       const [nextNode, childResult] = Parsers.MSONNamedTypeParser.parse(node, context);
       result.dataStructures.push(childResult);

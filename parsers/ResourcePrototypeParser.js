@@ -31,6 +31,15 @@ module.exports = (Parsers) => {
       return Parsers.ResponseParser.sectionType(node, context);
     },
 
+    upperSectionType(node, context) {
+      return SectionTypes.calculateSectionType(node, context, [
+        Parsers.ResourceGroupParser,
+        Parsers.ResourcePrototypeParser,
+        Parsers.DataStructureGroupParser,
+        Parsers.ResourcePrototypesParser,
+      ]);
+    },
+
     processNestedSection(node, context, result) {
       const [nextNode, childResult] = Parsers.ResponseParser.parse(node, context);
       result.responses.push(childResult);

@@ -37,6 +37,10 @@ module.exports = {
   },
 
   nodeText(node, sourceLines) {
+    if (!node) {
+      return '';
+    }
+
     const localSourceLines = node.sourceLines || sourceLines;
     const [startline, startcolumn] = node.sourcepos[0];
     const [endline, endcolumn] = node.sourcepos[1];
@@ -121,6 +125,17 @@ module.exports = {
 
   showWarningMessage(text) {
     console.log('\x1b[33m%s\x1b[0m', text); // font yellow color
+  },
+
+  twoNewLines(s) {
+    if (s[s.length - 1] !== '\n') {
+      s += '\n';
+    }
+    if (s[s.length - 2] !== '\n') {
+      s += '\n';
+    }
+
+    return s;
   },
 
   CrafterError,

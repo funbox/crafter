@@ -28,6 +28,9 @@ const testPath = {
   get copy() {
     return `${this.base}/copy`;
   },
+  get wrongSections() {
+    return `${this.base}/wrong-sections`;
+  },
 };
 
 const apibRegex = /\.apib$/;
@@ -69,6 +72,10 @@ describe('one-of-type fixtures', () => {
 
 describe('import fixtures', () => {
   testFilesFrom(testPath.import);
+});
+
+describe('wrong-sections fixtures', () => {
+  testFilesFrom(testPath.wrongSections);
 });
 
 describe('fixtures with errors', () => {

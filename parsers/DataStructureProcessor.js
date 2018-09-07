@@ -112,10 +112,6 @@ class DataStructureProcessor {
         samplesArray.push(samplesElement);
       }
 
-      // TODO Что если nextNode !== curNode.next ?
-      if (curNode.next && nextNode !== curNode.next) {
-        throw new utils.CrafterError('nextNode !== curNode.next');
-      }
       curNode = curNode.next;
     }
 

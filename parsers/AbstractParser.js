@@ -45,12 +45,26 @@ module.exports = {
   },
 
   processDescription(node, context, result) {
-    let curNode = node;
-    const [curNode_, description] = utils.extractDescription(curNode, context.sourceLines);
-    curNode = curNode_;
+    let [curNode, description] = utils.extractDescription(node, context.sourceLines);
+
+    let fullDescription = '';
 
     if (description) {
-      result.description = new DescriptionElement(description);
+      fullDescription+= description;
+    }
+
+    while (curNode && this.isDescriptionNode(curNode, context)) {
+      if (fullDescription) {
+        fullDescription = utils.twoNewLines(fullDescription);
+      }
+
+      fullDescription += utils.nodeText(curNode, context.sourceLines);
+
+      curNode = utils.nextNode(curNode);
+    }
+
+    if (fullDescription) {
+      result.description = new DescriptionElement(fullDescription);
     }
 
     return [curNode, result];
@@ -82,6 +96,10 @@ module.exports = {
     return SectionTypes.undefined;
   },
 
+  upperSectionType(node, context) { // eslint-disable-line no-unused-vars
+    return SectionTypes.undefined;
+  },
+
   finalize(context, result) {
     return result;
   },
@@ -97,4 +115,9 @@ module.exports = {
 
     return false;
   },
+
+  isDescriptionNode(node, context) {
+    return this.nestedSectionType(node, context) === SectionTypes.undefined &&
+      this.upperSectionType(node, context) === SectionTypes.undefined;
+  }
 };
