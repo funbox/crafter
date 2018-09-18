@@ -17,6 +17,7 @@ module.exports = (Parsers) => {
         signature.value,
         signature.typeAttributes,
         signature.description,
+        signature.isSample,
       );
 
       const nestedNode = node.firstChild.next;

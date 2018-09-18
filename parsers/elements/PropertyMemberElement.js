@@ -3,7 +3,7 @@ const ValueMemberElement = require('./ValueMemberElement');
 const utils = require('../../utils');
 
 class PropertyMemberElement {
-  constructor(name, type, value, typeAttributes, description) {
+  constructor(name, type, value, typeAttributes = [], description, isSample) {
     this.name = name;
     this.value = new ValueMemberElement(type, [], value);
 
