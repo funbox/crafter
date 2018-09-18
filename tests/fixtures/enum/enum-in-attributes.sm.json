@@ -1,0 +1,473 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": [
+          {
+            "element": "string",
+            "content": "api"
+          }
+        ],
+        "title": {
+          "element": "string",
+          "content": "My API",
+          "attributes": {
+            "sourceMap": {
+              "element": "sourceMap",
+              "content": [
+                [
+                  0,
+                  10
+                ]
+              ]
+            }
+          }
+        }
+      },
+      "content": [
+        {
+          "element": "resource",
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Шаблоны SMS-отчетов",
+              "attributes": {
+                "sourceMap": {
+                  "element": "sourceMap",
+                  "content": [
+                    [
+                      10,
+                      62
+                    ]
+                  ]
+                }
+              }
+            }
+          },
+          "attributes": {
+            "href": {
+              "element": "string",
+              "content": "/report_templates/sms",
+              "attributes": {
+                "sourceMap": {
+                  "element": "sourceMap",
+                  "content": [
+                    [
+                      10,
+                      62
+                    ]
+                  ]
+                }
+              }
+            }
+          },
+          "content": [
+            {
+              "element": "transition",
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Создать шаблон отчета с указанными параметрами",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "sourceMap",
+                      "content": [
+                        [
+                          72,
+                          122
+                        ]
+                      ]
+                    }
+                  }
+                }
+              },
+              "content": [
+                {
+                  "element": "httpTransaction",
+                  "content": [
+                    {
+                      "element": "httpRequest",
+                      "attributes": {
+                        "method": {
+                          "element": "string",
+                          "content": "POST",
+                          "attributes": {
+                            "sourceMap": {
+                              "element": "sourceMap",
+                              "content": [
+                                [
+                                  72,
+                                  122
+                                ]
+                              ]
+                            }
+                          }
+                        },
+                        "headers": {
+                          "element": "httpHeaders",
+                          "content": [
+                            {
+                              "element": "member",
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "Content-Type"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "application/json"
+                                }
+                              },
+                              "attributes": {
+                                "sourceMap": {
+                                  "element": "sourceMap",
+                                  "content": [
+                                    [
+                                      196,
+                                      27
+                                    ]
+                                  ]
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "sourceMap": {
+                          "element": "sourceMap",
+                          "content": [
+                            [
+                              196,
+                              27
+                            ]
+                          ]
+                        }
+                      },
+                      "content": [
+                        {
+                          "element": "dataStructure",
+                          "content": {
+                            "element": "object",
+                            "content": [
+                              {
+                                "element": "member",
+                                "content": {
+                                  "key": {
+                                    "element": "string",
+                                    "content": "name",
+                                    "attributes": {
+                                      "sourceMap": {
+                                        "element": "sourceMap",
+                                        "content": [
+                                          [
+                                            250,
+                                            42
+                                          ]
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  "value": {
+                                    "element": "string",
+                                    "content": "SMS-отчет",
+                                    "attributes": {
+                                      "sourceMap": {
+                                        "element": "sourceMap",
+                                        "content": [
+                                          [
+                                            250,
+                                            42
+                                          ]
+                                        ]
+                                      }
+                                    }
+                                  }
+                                },
+                                "attributes": {
+                                  "typeAttributes": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "required"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            ],
+                            "attributes": {
+                              "sourceMap": {
+                                "element": "sourceMap",
+                                "content": [
+                                  [
+                                    229,
+                                    11
+                                  ]
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "element": "httpResponse",
+                      "content": [
+                        {
+                          "element": "dataStructure",
+                          "content": {
+                            "element": "object",
+                            "content": [
+                              {
+                                "element": "member",
+                                "content": {
+                                  "key": {
+                                    "element": "string",
+                                    "content": "kind",
+                                    "attributes": {
+                                      "sourceMap": {
+                                        "element": "sourceMap",
+                                        "content": [
+                                          [
+                                            354,
+                                            12
+                                          ]
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  "value": {
+                                    "element": "enum",
+                                    "attributes": {
+                                      "enumerations": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "string",
+                                            "attributes": {
+                                              "typeAttributes": {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "string",
+                                                    "content": "fixed"
+                                                  }
+                                                ]
+                                              },
+                                              "sourceMap": {
+                                                "element": "sourceMap",
+                                                "content": [
+                                                  [
+                                                    405,
+                                                    9
+                                                  ]
+                                                ]
+                                              }
+                                            },
+                                            "content": "movement"
+                                          },
+                                          {
+                                            "element": "string",
+                                            "attributes": {
+                                              "typeAttributes": {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "string",
+                                                    "content": "fixed"
+                                                  }
+                                                ]
+                                              },
+                                              "sourceMap": {
+                                                "element": "sourceMap",
+                                                "content": [
+                                                  [
+                                                    426,
+                                                    6
+                                                  ]
+                                                ]
+                                              }
+                                            },
+                                            "content": "track"
+                                          },
+                                          {
+                                            "element": "string",
+                                            "attributes": {
+                                              "typeAttributes": {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "string",
+                                                    "content": "fixed"
+                                                  }
+                                                ]
+                                              },
+                                              "sourceMap": {
+                                                "element": "sourceMap",
+                                                "content": [
+                                                  [
+                                                    444,
+                                                    4
+                                                  ]
+                                                ]
+                                              }
+                                            },
+                                            "content": "sms"
+                                          },
+                                          {
+                                            "element": "string",
+                                            "attributes": {
+                                              "typeAttributes": {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "string",
+                                                    "content": "fixed"
+                                                  }
+                                                ]
+                                              },
+                                              "sourceMap": {
+                                                "element": "sourceMap",
+                                                "content": [
+                                                  [
+                                                    460,
+                                                    4
+                                                  ]
+                                                ]
+                                              }
+                                            },
+                                            "content": "zone"
+                                          }
+                                        ]
+                                      },
+                                      "default": {
+                                        "element": "enum",
+                                        "content": {
+                                          "element": "string",
+                                          "content": "track",
+                                          "attributes": {
+                                            "sourceMap": {
+                                              "element": "sourceMap",
+                                              "content": [
+                                                [
+                                                  378,
+                                                  15
+                                                ]
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "sourceMap": {
+                                        "element": "sourceMap",
+                                        "content": [
+                                          [
+                                            354,
+                                            12
+                                          ]
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ],
+                            "attributes": {
+                              "sourceMap": {
+                                "element": "sourceMap",
+                                "content": [
+                                  [
+                                    333,
+                                    11
+                                  ]
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      ],
+                      "attributes": {
+                        "statusCode": {
+                          "element": "string",
+                          "content": "200",
+                          "attributes": {
+                            "sourceMap": {
+                              "element": "sourceMap",
+                              "content": [
+                                [
+                                  295,
+                                  32
+                                ]
+                              ]
+                            }
+                          }
+                        },
+                        "headers": {
+                          "element": "httpHeaders",
+                          "content": [
+                            {
+                              "element": "member",
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "Content-Type"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "application/json"
+                                }
+                              },
+                              "attributes": {
+                                "sourceMap": {
+                                  "element": "sourceMap",
+                                  "content": [
+                                    [
+                                      295,
+                                      32
+                                    ]
+                                  ]
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "sourceMap": {
+                          "element": "sourceMap",
+                          "content": [
+                            [
+                              295,
+                              32
+                            ]
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "attributes": {
+                "href": {
+                  "element": "string",
+                  "content": "/report_templates/sms",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "sourceMap",
+                      "content": [
+                        [
+                          72,
+                          122
+                        ]
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,233 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": [
+          {
+            "element": "string",
+            "content": "api"
+          }
+        ],
+        "title": {
+          "element": "string",
+          "content": "My API",
+          "attributes": {
+            "sourceMap": {
+              "element": "sourceMap",
+              "content": [
+                [
+                  0,
+                  10
+                ]
+              ]
+            }
+          }
+        }
+      },
+      "content": [
+        {
+          "element": "resource",
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Users",
+              "attributes": {
+                "sourceMap": {
+                  "element": "sourceMap",
+                  "content": [
+                    [
+                      10,
+                      25
+                    ]
+                  ]
+                }
+              }
+            }
+          },
+          "attributes": {
+            "href": {
+              "element": "string",
+              "content": "/users{?page}",
+              "attributes": {
+                "sourceMap": {
+                  "element": "sourceMap",
+                  "content": [
+                    [
+                      10,
+                      25
+                    ]
+                  ]
+                }
+              }
+            },
+            "hrefVariables": {
+              "element": "hrefVariables",
+              "content": [
+                {
+                  "element": "member",
+                  "content": {
+                    "key": {
+                      "element": "string",
+                      "content": "page",
+                      "attributes": {
+                        "sourceMap": {
+                          "element": "sourceMap",
+                          "content": [
+                            [
+                              54,
+                              33
+                            ]
+                          ]
+                        }
+                      }
+                    },
+                    "value": {
+                      "element": "string",
+                      "content": "42",
+                      "attributes": {
+                        "sourceMap": {
+                          "element": "sourceMap",
+                          "content": [
+                            [
+                              54,
+                              33
+                            ]
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "attributes": {
+                    "typeAttributes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "required"
+                        }
+                      ]
+                    }
+                  },
+                  "meta": {
+                    "description": {
+                      "element": "string",
+                      "content": "results page",
+                      "attributes": {
+                        "sourceMap": {
+                          "element": "sourceMap",
+                          "content": [
+                            [
+                              54,
+                              33
+                            ]
+                          ]
+                        }
+                      }
+                    },
+                    "title": {
+                      "element": "string",
+                      "content": "number",
+                      "attributes": {
+                        "sourceMap": {
+                          "element": "sourceMap",
+                          "content": [
+                            [
+                              54,
+                              33
+                            ]
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "content": [
+            {
+              "element": "transition",
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "List users",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "sourceMap",
+                      "content": [
+                        [
+                          88,
+                          21
+                        ]
+                      ]
+                    }
+                  }
+                }
+              },
+              "content": [
+                {
+                  "element": "httpTransaction",
+                  "content": [
+                    {
+                      "element": "httpRequest",
+                      "attributes": {
+                        "method": {
+                          "element": "string",
+                          "content": "GET",
+                          "attributes": {
+                            "sourceMap": {
+                              "element": "sourceMap",
+                              "content": [
+                                [
+                                  88,
+                                  21
+                                ]
+                              ]
+                            }
+                          }
+                        }
+                      },
+                      "content": []
+                    },
+                    {
+                      "element": "httpResponse",
+                      "content": [],
+                      "attributes": {
+                        "statusCode": {
+                          "element": "string",
+                          "content": "200",
+                          "attributes": {
+                            "sourceMap": {
+                              "element": "sourceMap",
+                              "content": [
+                                [
+                                  111,
+                                  13
+                                ]
+                              ]
+                            }
+                          }
+                        },
+                        "sourceMap": {
+                          "element": "sourceMap",
+                          "content": [
+                            [
+                              111,
+                              13
+                            ]
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -7,7 +7,14 @@ class SampleValueElement {
   toRefract() {
     return this.members.map((value) => {
       if (value.toRefract) {
-        return value.toRefract();
+        const result = value.toRefract();
+        if (typeof result.content === 'object') {
+          return result;
+        }
+        const content = convertType(result.content, this.type);
+        result.element = this.type;
+        result.content = content.value;
+        return result;
       }
 
       const content = convertType(value, this.type);

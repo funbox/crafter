@@ -24,6 +24,7 @@ module.exports = {
     httpHeaders: 'httpHeaders',
     asset: 'asset',
     ref: 'ref',
+    sourceMap: 'sourceMap',
   },
   categoryClasses: {
     api: 'api',

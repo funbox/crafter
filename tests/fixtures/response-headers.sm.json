@@ -1,0 +1,233 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": [
+          {
+            "element": "string",
+            "content": "api"
+          }
+        ],
+        "title": {
+          "element": "string",
+          "content": "My API",
+          "attributes": {
+            "sourceMap": {
+              "element": "sourceMap",
+              "content": [
+                [
+                  0,
+                  10
+                ]
+              ]
+            }
+          }
+        }
+      },
+      "content": [
+        {
+          "element": "resource",
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Users"
+            }
+          },
+          "attributes": {
+            "href": {
+              "element": "string",
+              "content": "/users",
+              "attributes": {
+                "sourceMap": {
+                  "element": "sourceMap",
+                  "content": [
+                    [
+                      10,
+                      22
+                    ]
+                  ]
+                }
+              }
+            }
+          },
+          "content": [
+            {
+              "element": "transition",
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Users",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "sourceMap",
+                      "content": [
+                        [
+                          10,
+                          22
+                        ]
+                      ]
+                    }
+                  }
+                }
+              },
+              "content": [
+                {
+                  "element": "httpTransaction",
+                  "content": [
+                    {
+                      "element": "httpRequest",
+                      "attributes": {
+                        "method": {
+                          "element": "string",
+                          "content": "GET",
+                          "attributes": {
+                            "sourceMap": {
+                              "element": "sourceMap",
+                              "content": [
+                                [
+                                  10,
+                                  22
+                                ]
+                              ]
+                            }
+                          }
+                        }
+                      },
+                      "content": []
+                    },
+                    {
+                      "element": "httpResponse",
+                      "content": [],
+                      "attributes": {
+                        "statusCode": {
+                          "element": "string",
+                          "content": "200",
+                          "attributes": {
+                            "sourceMap": {
+                              "element": "sourceMap",
+                              "content": [
+                                [
+                                  34,
+                                  13
+                                ]
+                              ]
+                            }
+                          }
+                        },
+                        "headers": {
+                          "element": "httpHeaders",
+                          "content": [
+                            {
+                              "element": "member",
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "Accept-Charset"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "utf-8"
+                                }
+                              },
+                              "attributes": {
+                                "sourceMap": {
+                                  "element": "sourceMap",
+                                  "content": [
+                                    [
+                                      74,
+                                      21
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "element": "member",
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "Connection"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "keep-alive"
+                                }
+                              },
+                              "attributes": {
+                                "sourceMap": {
+                                  "element": "sourceMap",
+                                  "content": [
+                                    [
+                                      108,
+                                      22
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "element": "member",
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "Content-Type"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "multipart/form-data, boundary=AaB03x"
+                                }
+                              },
+                              "attributes": {
+                                "sourceMap": {
+                                  "element": "sourceMap",
+                                  "content": [
+                                    [
+                                      143,
+                                      50
+                                    ]
+                                  ]
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "sourceMap": {
+                          "element": "sourceMap",
+                          "content": [
+                            [
+                              34,
+                              13
+                            ]
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "attributes": {
+                "href": {
+                  "element": "string",
+                  "content": "/users",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "sourceMap",
+                      "content": [
+                        [
+                          10,
+                          22
+                        ]
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

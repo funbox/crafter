@@ -1,0 +1,389 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": [
+          {
+            "element": "string",
+            "content": "api"
+          }
+        ],
+        "title": {
+          "element": "string",
+          "content": "My API",
+          "attributes": {
+            "sourceMap": {
+              "element": "sourceMap",
+              "content": [
+                [
+                  0,
+                  10
+                ]
+              ]
+            }
+          }
+        }
+      },
+      "content": [
+        {
+          "element": "category",
+          "meta": {
+            "classes": [
+              "resourceGroup"
+            ],
+            "title": {
+              "element": "string",
+              "content": "Группы клиентов",
+              "attributes": {
+                "sourceMap": {
+                  "element": "sourceMap",
+                  "content": [
+                    [
+                      10,
+                      39
+                    ]
+                  ]
+                }
+              }
+            }
+          },
+          "content": [
+            {
+              "element": "resource",
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Группы клиентов",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "sourceMap",
+                      "content": [
+                        [
+                          49,
+                          51
+                        ]
+                      ]
+                    }
+                  }
+                }
+              },
+              "attributes": {
+                "href": {
+                  "element": "string",
+                  "content": "/client_groups",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "sourceMap",
+                      "content": [
+                        [
+                          49,
+                          51
+                        ]
+                      ]
+                    }
+                  }
+                }
+              },
+              "content": [
+                {
+                  "element": "transition",
+                  "meta": {
+                    "title": {
+                      "element": "string",
+                      "content": "Получить список групп клиентов",
+                      "attributes": {
+                        "sourceMap": {
+                          "element": "sourceMap",
+                          "content": [
+                            [
+                              100,
+                              97
+                            ]
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "content": [
+                    {
+                      "element": "httpTransaction",
+                      "content": [
+                        {
+                          "element": "httpRequest",
+                          "attributes": {
+                            "method": {
+                              "element": "string",
+                              "content": "GET",
+                              "attributes": {
+                                "sourceMap": {
+                                  "element": "sourceMap",
+                                  "content": [
+                                    [
+                                      100,
+                                      97
+                                    ]
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "content": []
+                        },
+                        {
+                          "element": "httpResponse",
+                          "content": [],
+                          "attributes": {
+                            "statusCode": {
+                              "element": "string",
+                              "content": "200",
+                              "attributes": {
+                                "sourceMap": {
+                                  "element": "sourceMap",
+                                  "content": [
+                                    [
+                                      607,
+                                      31
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            "headers": {
+                              "element": "httpHeaders",
+                              "content": [
+                                {
+                                  "element": "member",
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "Content-Type"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "content": "application/json"
+                                    }
+                                  },
+                                  "attributes": {
+                                    "sourceMap": {
+                                      "element": "sourceMap",
+                                      "content": [
+                                        [
+                                          607,
+                                          31
+                                        ]
+                                      ]
+                                    }
+                                  }
+                                }
+                              ]
+                            },
+                            "sourceMap": {
+                              "element": "sourceMap",
+                              "content": [
+                                [
+                                  607,
+                                  31
+                                ]
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "attributes": {
+                    "href": {
+                      "element": "string",
+                      "content": "/client_groups{?sort_field}",
+                      "attributes": {
+                        "sourceMap": {
+                          "element": "sourceMap",
+                          "content": [
+                            [
+                              100,
+                              97
+                            ]
+                          ]
+                        }
+                      }
+                    },
+                    "hrefVariables": {
+                      "element": "hrefVariables",
+                      "content": [
+                        {
+                          "element": "member",
+                          "content": {
+                            "key": {
+                              "element": "string",
+                              "content": "sort_field",
+                              "attributes": {
+                                "sourceMap": {
+                                  "element": "sourceMap",
+                                  "content": [
+                                    [
+                                      216,
+                                      124
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            "value": {
+                              "content": {
+                                "element": "string",
+                                "content": "name",
+                                "attributes": {
+                                  "sourceMap": {
+                                    "element": "sourceMap",
+                                    "content": [
+                                      [
+                                        216,
+                                        124
+                                      ]
+                                    ]
+                                  }
+                                }
+                              },
+                              "element": "enum",
+                              "attributes": {
+                                "default": {
+                                  "element": "string",
+                                  "content": "name",
+                                  "attributes": {
+                                    "sourceMap": {
+                                      "element": "sourceMap",
+                                      "content": [
+                                        [
+                                          350,
+                                          16
+                                        ]
+                                      ]
+                                    }
+                                  }
+                                },
+                                "enumerations": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "name",
+                                      "attributes": {
+                                        "sourceMap": {
+                                          "element": "sourceMap",
+                                          "content": [
+                                            [
+                                              398,
+                                              31
+                                            ]
+                                          ]
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "list_type",
+                                      "attributes": {
+                                        "sourceMap": {
+                                          "element": "sourceMap",
+                                          "content": [
+                                            [
+                                              443,
+                                              28
+                                            ]
+                                          ]
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "numbers_count",
+                                      "attributes": {
+                                        "sourceMap": {
+                                          "element": "sourceMap",
+                                          "content": [
+                                            [
+                                              485,
+                                              59
+                                            ]
+                                          ]
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "created_at",
+                                      "attributes": {
+                                        "sourceMap": {
+                                          "element": "sourceMap",
+                                          "content": [
+                                            [
+                                              558,
+                                              46
+                                            ]
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "attributes": {
+                            "typeAttributes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "optional"
+                                }
+                              ]
+                            }
+                          },
+                          "meta": {
+                            "description": {
+                              "element": "string",
+                              "content": "поле, по которому производится сортировка",
+                              "attributes": {
+                                "sourceMap": {
+                                  "element": "sourceMap",
+                                  "content": [
+                                    [
+                                      216,
+                                      124
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            "title": {
+                              "element": "string",
+                              "content": "enum",
+                              "attributes": {
+                                "sourceMap": {
+                                  "element": "sourceMap",
+                                  "content": [
+                                    [
+                                      216,
+                                      124
+                                    ]
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

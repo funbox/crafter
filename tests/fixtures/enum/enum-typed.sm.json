@@ -1,0 +1,511 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": [
+          {
+            "element": "string",
+            "content": "api"
+          }
+        ],
+        "title": {
+          "element": "string",
+          "content": "My API",
+          "attributes": {
+            "sourceMap": {
+              "element": "sourceMap",
+              "content": [
+                [
+                  0,
+                  10
+                ]
+              ]
+            }
+          }
+        }
+      },
+      "content": [
+        {
+          "element": "category",
+          "meta": {
+            "classes": [
+              "dataStructures"
+            ]
+          },
+          "content": [
+            {
+              "element": "dataStructure",
+              "content": {
+                "element": "object",
+                "content": [
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "id",
+                        "attributes": {
+                          "sourceMap": {
+                            "element": "sourceMap",
+                            "content": [
+                              [
+                                40,
+                                70
+                              ]
+                            ]
+                          }
+                        }
+                      },
+                      "value": {
+                        "element": "enum",
+                        "attributes": {
+                          "enumerations": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "number",
+                                "attributes": {
+                                  "typeAttributes": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "fixed"
+                                      }
+                                    ]
+                                  },
+                                  "sourceMap": {
+                                    "element": "sourceMap",
+                                    "content": [
+                                      [
+                                        116,
+                                        24
+                                      ]
+                                    ]
+                                  }
+                                },
+                                "content": "53",
+                                "meta": {
+                                  "description": {
+                                    "element": "string",
+                                    "content": "описание 1",
+                                    "attributes": {
+                                      "sourceMap": {
+                                        "element": "sourceMap",
+                                        "content": [
+                                          [
+                                            116,
+                                            24
+                                          ]
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "element": "number",
+                                "attributes": {
+                                  "typeAttributes": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "fixed"
+                                      }
+                                    ]
+                                  },
+                                  "sourceMap": {
+                                    "element": "sourceMap",
+                                    "content": [
+                                      [
+                                        146,
+                                        24
+                                      ]
+                                    ]
+                                  }
+                                },
+                                "content": "12",
+                                "meta": {
+                                  "description": {
+                                    "element": "string",
+                                    "content": "описание 2",
+                                    "attributes": {
+                                      "sourceMap": {
+                                        "element": "sourceMap",
+                                        "content": [
+                                          [
+                                            146,
+                                            24
+                                          ]
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "element": "number",
+                                "attributes": {
+                                  "typeAttributes": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "fixed"
+                                      }
+                                    ]
+                                  },
+                                  "sourceMap": {
+                                    "element": "sourceMap",
+                                    "content": [
+                                      [
+                                        176,
+                                        24
+                                      ]
+                                    ]
+                                  }
+                                },
+                                "content": "72",
+                                "meta": {
+                                  "description": {
+                                    "element": "string",
+                                    "content": "описание 3",
+                                    "attributes": {
+                                      "sourceMap": {
+                                        "element": "sourceMap",
+                                        "content": [
+                                          [
+                                            176,
+                                            24
+                                          ]
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "element": "number",
+                                "attributes": {
+                                  "typeAttributes": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "fixed"
+                                      }
+                                    ]
+                                  },
+                                  "sourceMap": {
+                                    "element": "sourceMap",
+                                    "content": [
+                                      [
+                                        206,
+                                        25
+                                      ]
+                                    ]
+                                  }
+                                },
+                                "content": "sms",
+                                "meta": {
+                                  "description": {
+                                    "element": "string",
+                                    "content": "описание 4",
+                                    "attributes": {
+                                      "sourceMap": {
+                                        "element": "sourceMap",
+                                        "content": [
+                                          [
+                                            206,
+                                            25
+                                          ]
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          "sourceMap": {
+                            "element": "sourceMap",
+                            "content": [
+                              [
+                                40,
+                                70
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "meta": {
+                      "description": {
+                        "element": "string",
+                        "content": "typed enum, with a member with non-specified type"
+                      }
+                    }
+                  }
+                ],
+                "meta": {
+                  "id": {
+                    "element": "string",
+                    "content": "Enum1",
+                    "attributes": {
+                      "sourceMap": {
+                        "element": "sourceMap",
+                        "content": [
+                          [
+                            29,
+                            9
+                          ]
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "element": "dataStructure",
+              "content": {
+                "element": "object",
+                "content": [
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "kind",
+                        "attributes": {
+                          "sourceMap": {
+                            "element": "sourceMap",
+                            "content": [
+                              [
+                                243,
+                                85
+                              ]
+                            ]
+                          }
+                        }
+                      },
+                      "value": {
+                        "element": "enum",
+                        "attributes": {
+                          "enumerations": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "attributes": {
+                                  "typeAttributes": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "fixed"
+                                      }
+                                    ]
+                                  },
+                                  "sourceMap": {
+                                    "element": "sourceMap",
+                                    "content": [
+                                      [
+                                        334,
+                                        26
+                                      ]
+                                    ]
+                                  }
+                                },
+                                "content": "code",
+                                "meta": {
+                                  "description": {
+                                    "element": "string",
+                                    "content": "описание 1",
+                                    "attributes": {
+                                      "sourceMap": {
+                                        "element": "sourceMap",
+                                        "content": [
+                                          [
+                                            334,
+                                            26
+                                          ]
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "element": "string",
+                                "attributes": {
+                                  "typeAttributes": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "fixed"
+                                      }
+                                    ]
+                                  },
+                                  "sourceMap": {
+                                    "element": "sourceMap",
+                                    "content": [
+                                      [
+                                        366,
+                                        25
+                                      ]
+                                    ]
+                                  }
+                                },
+                                "content": "sms",
+                                "meta": {
+                                  "description": {
+                                    "element": "string",
+                                    "content": "описание 2",
+                                    "attributes": {
+                                      "sourceMap": {
+                                        "element": "sourceMap",
+                                        "content": [
+                                          [
+                                            366,
+                                            25
+                                          ]
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "element": "string",
+                                "attributes": {
+                                  "typeAttributes": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "fixed"
+                                      }
+                                    ]
+                                  },
+                                  "sourceMap": {
+                                    "element": "sourceMap",
+                                    "content": [
+                                      [
+                                        397,
+                                        26
+                                      ]
+                                    ]
+                                  }
+                                },
+                                "content": "mail",
+                                "meta": {
+                                  "description": {
+                                    "element": "string",
+                                    "content": "описание 3",
+                                    "attributes": {
+                                      "sourceMap": {
+                                        "element": "sourceMap",
+                                        "content": [
+                                          [
+                                            397,
+                                            26
+                                          ]
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "element": "number",
+                                "attributes": {
+                                  "typeAttributes": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "fixed"
+                                      }
+                                    ]
+                                  },
+                                  "sourceMap": {
+                                    "element": "sourceMap",
+                                    "content": [
+                                      [
+                                        429,
+                                        33
+                                      ]
+                                    ]
+                                  }
+                                },
+                                "content": "33",
+                                "meta": {
+                                  "description": {
+                                    "element": "string",
+                                    "content": "описание 4",
+                                    "attributes": {
+                                      "sourceMap": {
+                                        "element": "sourceMap",
+                                        "content": [
+                                          [
+                                            429,
+                                            33
+                                          ]
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          "sourceMap": {
+                            "element": "sourceMap",
+                            "content": [
+                              [
+                                243,
+                                85
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "meta": {
+                      "description": {
+                        "element": "string",
+                        "content": "non-typed enum, by default string, with type overriding on last member"
+                      }
+                    }
+                  }
+                ],
+                "meta": {
+                  "id": {
+                    "element": "string",
+                    "content": "Enum2",
+                    "attributes": {
+                      "sourceMap": {
+                        "element": "sourceMap",
+                        "content": [
+                          [
+                            232,
+                            9
+                          ]
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

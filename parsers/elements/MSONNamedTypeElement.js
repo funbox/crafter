@@ -1,10 +1,11 @@
 const Refract = require('../../Refract');
 
 const ValueMemberElement = require('./ValueMemberElement');
+const StringElement = require('./StringElement');
 
 class MSONNamedTypeElement {
   constructor(name, baseType, typeAttributes) {
-    this.name = name;
+    this.name = name instanceof StringElement ? name : new StringElement(name);
     this.content = new ValueMemberElement(baseType, typeAttributes);
   }
 
@@ -13,10 +14,7 @@ class MSONNamedTypeElement {
       element: Refract.elements.dataStructure,
       content: Object.assign(this.content.toRefract(), {
         meta: {
-          id: {
-            element: Refract.elements.string,
-            content: this.name,
-          },
+          id: this.name.toRefract(),
         },
       }),
     };

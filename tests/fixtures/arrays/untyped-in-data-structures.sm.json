@@ -1,0 +1,102 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": [
+          {
+            "element": "string",
+            "content": "api"
+          }
+        ],
+        "title": {
+          "element": "string",
+          "content": "My API",
+          "attributes": {
+            "sourceMap": {
+              "element": "sourceMap",
+              "content": [
+                [
+                  0,
+                  10
+                ]
+              ]
+            }
+          }
+        }
+      },
+      "content": [
+        {
+          "element": "category",
+          "meta": {
+            "classes": [
+              "dataStructures"
+            ]
+          },
+          "content": [
+            {
+              "element": "dataStructure",
+              "content": {
+                "element": "object",
+                "content": [
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "foo",
+                        "attributes": {
+                          "sourceMap": {
+                            "element": "sourceMap",
+                            "content": [
+                              [
+                                39,
+                                12
+                              ]
+                            ]
+                          }
+                        }
+                      },
+                      "value": {
+                        "element": "array",
+                        "attributes": {
+                          "sourceMap": {
+                            "element": "sourceMap",
+                            "content": [
+                              [
+                                39,
+                                12
+                              ]
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                ],
+                "meta": {
+                  "id": {
+                    "element": "string",
+                    "content": "Note",
+                    "attributes": {
+                      "sourceMap": {
+                        "element": "sourceMap",
+                        "content": [
+                          [
+                            29,
+                            8
+                          ]
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

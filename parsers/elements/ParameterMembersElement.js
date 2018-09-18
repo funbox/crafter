@@ -8,10 +8,7 @@ class ParameterMembersElement {
   toRefract() {
     return {
       element: Refract.elements.array,
-      content: this.members.map(m => ({
-        element: Refract.elements.string,
-        content: m,
-      })),
+      content: this.members.map(m => m.toRefract()),
     };
   }
 }

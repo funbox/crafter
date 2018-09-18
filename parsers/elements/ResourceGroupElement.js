@@ -12,10 +12,7 @@ class ResourceGroupElement {
       element: Refract.elements.category,
       meta: {
         classes: [Refract.categoryClasses.resourceGroup],
-        title: {
-          element: Refract.elements.string,
-          content: this.title,
-        },
+        title: this.title.toRefract(),
       },
       content: this.resources.map(r => r.toRefract()),
     };

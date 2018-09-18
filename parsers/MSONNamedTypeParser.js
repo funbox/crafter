@@ -2,6 +2,7 @@ const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
 const { parser: SignatureParser, traits: ParserTraits } = require('../SignatureParser');
 const MSONNamedTypeElement = require('./elements/MSONNamedTypeElement');
+const StringElement = require('./elements/StringElement');
 const DataStructureProcessor = require('./DataStructureProcessor');
 
 module.exports = (Parsers) => {
@@ -10,7 +11,12 @@ module.exports = (Parsers) => {
       const subject = utils.headerText(node, context.sourceLines);
       const signature = new SignatureParser(subject, [ParserTraits.NAME, ParserTraits.ATTRIBUTES]);
 
-      return [utils.nextNode(node), new MSONNamedTypeElement(signature.name, signature.type, signature.typeAttributes)];
+      const name = new StringElement(signature.name);
+      if (context.sourceMapsEnabled) {
+        name.sourceMap = utils.makeGenericSourceMap(node, context.sourceLines);
+      }
+
+      return [utils.nextNode(node), new MSONNamedTypeElement(name, signature.type, signature.typeAttributes)];
     },
 
     sectionType(node, context) {

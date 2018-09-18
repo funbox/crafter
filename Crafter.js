@@ -23,11 +23,9 @@ module.exports = {
     return result;
   },
 
-  parseFile(file) {
-    const contextOptions = {
-      currentFile: path.resolve(__dirname, file),
-      logger: utils.logger,
-    };
+  parseFile(file, contextOptions = {}) {
+    contextOptions.currentFile = path.resolve(__dirname, file);
+    contextOptions.logger = utils.logger;
     return this.parse(fs.readFileSync(file, { encoding: 'utf-8' }), contextOptions);
   },
 };

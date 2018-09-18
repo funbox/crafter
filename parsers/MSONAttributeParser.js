@@ -2,6 +2,8 @@ const SectionTypes = require('../SectionTypes');
 const types = require('../types');
 const utils = require('../utils');
 const PropertyMemberElement = require('./elements/PropertyMemberElement');
+const StringElement = require('./elements/StringElement');
+const ValueMemberElement = require('./elements/ValueMemberElement');
 const DataStructureProcessor = require('./DataStructureProcessor');
 const { parser: SignatureParser } = require('../SignatureParser');
 
@@ -12,13 +14,18 @@ module.exports = (Parsers) => {
       const subject = utils.nodeText(node.firstChild, context.sourceLines); // TODO: часто берем text, может сделать отдельную функцию?
       const signature = new SignatureParser(subject);
 
+      const name = new StringElement(signature.name);
+      const valueEl = new ValueMemberElement(signature.type, [], signature.value, '', signature.isSample);
+      if (context.sourceMapsEnabled) {
+        name.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);
+        valueEl.sourceMap = name.sourceMap;
+      }
+
       const result = new PropertyMemberElement(
-        signature.name,
-        signature.type,
-        signature.value,
+        name,
+        valueEl,
         signature.typeAttributes,
         signature.description,
-        signature.isSample,
       );
 
       const nestedNode = node.firstChild.next;

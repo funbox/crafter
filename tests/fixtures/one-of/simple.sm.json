@@ -1,0 +1,165 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": [
+          {
+            "element": "string",
+            "content": "api"
+          }
+        ],
+        "title": {
+          "element": "string",
+          "content": "My API",
+          "attributes": {
+            "sourceMap": {
+              "element": "sourceMap",
+              "content": [
+                [
+                  0,
+                  10
+                ]
+              ]
+            }
+          }
+        }
+      },
+      "content": [
+        {
+          "element": "category",
+          "meta": {
+            "classes": [
+              "dataStructures"
+            ]
+          },
+          "content": [
+            {
+              "element": "dataStructure",
+              "content": {
+                "element": "object",
+                "content": [
+                  {
+                    "element": "select",
+                    "content": [
+                      {
+                        "element": "option",
+                        "content": [
+                          {
+                            "element": "member",
+                            "content": {
+                              "key": {
+                                "element": "string",
+                                "content": "kind",
+                                "attributes": {
+                                  "sourceMap": {
+                                    "element": "sourceMap",
+                                    "content": [
+                                      [
+                                        56,
+                                        71
+                                      ]
+                                    ]
+                                  }
+                                }
+                              },
+                              "value": {
+                                "element": "string",
+                                "content": "phone",
+                                "attributes": {
+                                  "sourceMap": {
+                                    "element": "sourceMap",
+                                    "content": [
+                                      [
+                                        56,
+                                        71
+                                      ]
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            "meta": {
+                              "description": {
+                                "element": "string",
+                                "content": "перевод на другой телефон"
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "element": "option",
+                        "content": [
+                          {
+                            "element": "member",
+                            "content": {
+                              "key": {
+                                "element": "string",
+                                "content": "number",
+                                "attributes": {
+                                  "sourceMap": {
+                                    "element": "sourceMap",
+                                    "content": [
+                                      [
+                                        131,
+                                        59
+                                      ]
+                                    ]
+                                  }
+                                }
+                              },
+                              "value": {
+                                "element": "number",
+                                "content": "79000000002",
+                                "attributes": {
+                                  "sourceMap": {
+                                    "element": "sourceMap",
+                                    "content": [
+                                      [
+                                        131,
+                                        59
+                                      ]
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            "meta": {
+                              "description": {
+                                "element": "string",
+                                "content": "номер телефона"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "meta": {
+                  "id": {
+                    "element": "string",
+                    "content": "ReportType",
+                    "attributes": {
+                      "sourceMap": {
+                        "element": "sourceMap",
+                        "content": [
+                          [
+                            29,
+                            14
+                          ]
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

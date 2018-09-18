@@ -13,16 +13,10 @@ class ResourceElement {
     const result = {
       element: Refract.elements.resource,
       meta: {
-        title: {
-          element: Refract.elements.string,
-          content: this.title,
-        },
+        title: this.title.toRefract(),
       },
       attributes: {
-        href: {
-          element: Refract.elements.string,
-          content: this.href,
-        },
+        href: this.href.toRefract(),
       },
       content: this.actions.map(a => a.toRefract()),
     };

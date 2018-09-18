@@ -5,6 +5,7 @@ class ResourcePrototypeElement {
     this.title = title;
     this.responses = [];
     this.basePrototypes = basePrototypes;
+    this.sourceMap = null;
   }
 
   toRefract() {
@@ -14,6 +15,9 @@ class ResourcePrototypeElement {
         title: {
           element: Refract.elements.string,
           content: this.title,
+          ...(this.sourceMap ? {
+            attributes: { sourceMap: this.sourceMap.toRefract() },
+          } : {}),
         },
       },
       content: this.responses.map(r => r.toRefract()),

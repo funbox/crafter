@@ -16,6 +16,7 @@ class ValueMemberElement {
     this.description = description;
     this.content = null;
     this.samples = null;
+    this.sourceMap = null;
 
     if (this.isArray()) {
       let members = resolvedType.nestedTypes.map(t => new ValueMemberElement(t));
@@ -66,6 +67,9 @@ class ValueMemberElement {
         description: {
           element: Refract.elements.string,
           content: this.description,
+          ...(this.sourceMap ? {
+            attributes: { sourceMap: this.sourceMap.toRefract() },
+          } : {}),
         },
       };
     }
@@ -100,6 +104,11 @@ class ValueMemberElement {
 
     if (!result.content || !result.content[0]) {
       delete result.content;
+    }
+
+    if (this.sourceMap) {
+      if (!result.attributes) result.attributes = {};
+      result.attributes.sourceMap = this.sourceMap.toRefract();
     }
 
     return result;

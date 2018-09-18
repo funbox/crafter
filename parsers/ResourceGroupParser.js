@@ -2,6 +2,7 @@ const SectionTypes = require('../SectionTypes');
 const RegExpStrings = require('../RegExpStrings');
 const utils = require('../utils');
 const ResourceGroupElement = require('./elements/ResourceGroupElement');
+const StringElement = require('./elements/StringElement');
 
 const GroupHeaderRegex = new RegExp(`^[Gg]roup\\s+${RegExpStrings.symbolIdentifier}(\\s+${RegExpStrings.resourcePrototype})?$`);
 
@@ -10,7 +11,11 @@ module.exports = (Parsers) => {
     processSignature(node, context) {
       const matchData = GroupHeaderRegex.exec(utils.headerText(node, context.sourceLines));
       const prototypes = matchData[3] ? matchData[3].split(',').map(p => p.trim()) : [];
-      const result = new ResourceGroupElement(matchData[1]);
+      const title = new StringElement(matchData[1]);
+      if (context.sourceMapsEnabled) {
+        title.sourceMap = utils.makeGenericSourceMap(node, context.sourceLines);
+      }
+      const result = new ResourceGroupElement(title);
 
       context.resourcePrototypes.push(prototypes);
       return [utils.nextNode(node), result];

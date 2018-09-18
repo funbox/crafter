@@ -13,7 +13,9 @@ function processApibFiles(dir) {
       processApibFiles(path.join(dir, item));
     } else if (path.extname(item) === '.apib') {
       const fileName = path.join(dir, item);
-      fs.writeFileSync(`${fileName.slice(0, -4)}json`, `${parseApibFile(fileName, 'json')}\n`);
+      const jsonFileName = fileName.slice(0, -5);
+      fs.writeFileSync(`${jsonFileName}.json`, `${parseApibFile(fileName, 'json')}\n`);
+      fs.writeFileSync(`${jsonFileName}.sm.json`, `${parseApibFile(fileName, 'json', { sourceMapsEnabled: true })}\n`);
     }
   });
 }

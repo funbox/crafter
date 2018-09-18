@@ -2,6 +2,7 @@ const SectionTypes = require('../SectionTypes');
 const RegExpStrings = require('../RegExpStrings');
 const utils = require('../utils');
 const ActionElement = require('./elements/ActionElement');
+const StringElement = require('./elements/StringElement');
 
 const actionSymbolIdentifier = '(.+)';
 
@@ -51,7 +52,12 @@ module.exports = (Parsers) => {
 
       const prototypes = protoNames ? protoNames.split(',').map(p => p.trim()) : [];
       context.resourcePrototypes.push(prototypes);
-      const result = new ActionElement(title, href, method);
+
+      const sourceMap = context.sourceMapsEnabled ? utils.makeGenericSourceMap(node, context.sourceLines) : null;
+      const methodEl = new StringElement(method);
+      methodEl.sourceMap = sourceMap;
+      const result = new ActionElement(title, href, methodEl);
+      result.sourceMap = sourceMap;
 
       return [utils.nextNode(node), result];
     },
@@ -110,7 +116,10 @@ module.exports = (Parsers) => {
       const resourcePrototypesChain = context.resourcePrototypes.reduce((res, el) => res.concat(el), []);
       [...new Set(resourcePrototypesChain)].forEach((pName) => {
         const p = registeredProtos[pName];
-        result.responses.push(...p.responses);
+        result.responses.push(...p.responses.map((response) => {
+          response.sourceMap = null;
+          return response;
+        }));
       });
 
       context.resourcePrototypes.pop();

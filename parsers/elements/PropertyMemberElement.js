@@ -1,11 +1,12 @@
 const Refract = require('../../Refract');
 const ValueMemberElement = require('./ValueMemberElement');
+const StringElement = require('./StringElement');
 const utils = require('../../utils');
 
 class PropertyMemberElement {
-  constructor(name, type, value, typeAttributes = [], description, isSample) {
-    this.name = name;
-    this.value = new ValueMemberElement(type, [], value, '', isSample);
+  constructor(name, value = new ValueMemberElement(), typeAttributes = [], description) {
+    this.name = name instanceof StringElement ? name : new StringElement(name);
+    this.value = value;
 
     this.typeAttributes = typeAttributes;
     this.description = description;
@@ -15,10 +16,7 @@ class PropertyMemberElement {
     const result = {
       element: Refract.elements.member,
       content: {
-        key: {
-          element: 'string',
-          content: this.name,
-        },
+        key: this.name.toRefract(),
         value: this.value.toRefract(),
       },
     };

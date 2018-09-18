@@ -15,6 +15,9 @@ module.exports = (Parsers) => {
       const matchData = responseRegex.exec(subject);
 
       const result = new ResponseElement(matchData[2], matchData[4]);
+      if (context.sourceMapsEnabled) {
+        result.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);
+      }
 
       return [utils.nextNode(node.firstChild), result];
     },

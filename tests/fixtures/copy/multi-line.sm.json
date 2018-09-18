@@ -1,0 +1,443 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": [
+          {
+            "element": "string",
+            "content": "api"
+          }
+        ],
+        "title": {
+          "element": "string",
+          "content": "My API",
+          "attributes": {
+            "sourceMap": {
+              "element": "sourceMap",
+              "content": [
+                [
+                  0,
+                  10
+                ]
+              ]
+            }
+          }
+        }
+      },
+      "content": [
+        {
+          "element": "copy",
+          "content": "Test API description 1\nTest API description 2\nTest API description 3",
+          "attributes": {
+            "sourceMap": {
+              "element": "sourceMap",
+              "content": [
+                [
+                  10,
+                  70
+                ]
+              ]
+            }
+          }
+        },
+        {
+          "element": "category",
+          "meta": {
+            "classes": [
+              "resourceGroup"
+            ],
+            "title": {
+              "element": "string",
+              "content": "Comments",
+              "attributes": {
+                "sourceMap": {
+                  "element": "sourceMap",
+                  "content": [
+                    [
+                      80,
+                      18
+                    ]
+                  ]
+                }
+              }
+            }
+          },
+          "content": [
+            {
+              "element": "copy",
+              "content": "Test group description 1\nTest group description 2\nTest group description 3",
+              "attributes": {
+                "sourceMap": {
+                  "element": "sourceMap",
+                  "content": [
+                    [
+                      98,
+                      76
+                    ]
+                  ]
+                }
+              }
+            },
+            {
+              "element": "resource",
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Users",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "sourceMap",
+                      "content": [
+                        [
+                          174,
+                          19
+                        ]
+                      ]
+                    }
+                  }
+                }
+              },
+              "attributes": {
+                "href": {
+                  "element": "string",
+                  "content": "/users",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "sourceMap",
+                      "content": [
+                        [
+                          174,
+                          19
+                        ]
+                      ]
+                    }
+                  }
+                }
+              },
+              "content": [
+                {
+                  "element": "copy",
+                  "content": "Test resource description 1\nTest resource description 2\nTest resource description 3",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "sourceMap",
+                      "content": [
+                        [
+                          193,
+                          85
+                        ]
+                      ]
+                    }
+                  }
+                },
+                {
+                  "element": "transition",
+                  "meta": {
+                    "title": {
+                      "element": "string",
+                      "content": "Create user",
+                      "attributes": {
+                        "sourceMap": {
+                          "element": "sourceMap",
+                          "content": [
+                            [
+                              278,
+                              24
+                            ]
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "content": [
+                    {
+                      "element": "copy",
+                      "content": "Test transition description 1\nTest transition description 2\nTest transition description 3",
+                      "attributes": {
+                        "sourceMap": {
+                          "element": "sourceMap",
+                          "content": [
+                            [
+                              302,
+                              91
+                            ]
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "element": "httpTransaction",
+                      "content": [
+                        {
+                          "element": "httpRequest",
+                          "attributes": {
+                            "method": {
+                              "element": "string",
+                              "content": "POST",
+                              "attributes": {
+                                "sourceMap": {
+                                  "element": "sourceMap",
+                                  "content": [
+                                    [
+                                      278,
+                                      24
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            "headers": {
+                              "element": "httpHeaders",
+                              "content": [
+                                {
+                                  "element": "member",
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "Content-Type"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "content": "application/json"
+                                    }
+                                  },
+                                  "attributes": {
+                                    "sourceMap": {
+                                      "element": "sourceMap",
+                                      "content": [
+                                        [
+                                          395,
+                                          28
+                                        ]
+                                      ]
+                                    }
+                                  }
+                                }
+                              ]
+                            },
+                            "sourceMap": {
+                              "element": "sourceMap",
+                              "content": [
+                                [
+                                  395,
+                                  28
+                                ]
+                              ]
+                            }
+                          },
+                          "content": [
+                            {
+                              "element": "copy",
+                              "content": "Test request description 1\nTest request description 2\nTest request description 3",
+                              "attributes": {
+                                "sourceMap": {
+                                  "element": "sourceMap",
+                                  "content": [
+                                    [
+                                      427,
+                                      27
+                                    ],
+                                    [
+                                      458,
+                                      27
+                                    ],
+                                    [
+                                      489,
+                                      27
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "element": "dataStructure",
+                              "content": {
+                                "element": "object",
+                                "content": [
+                                  {
+                                    "element": "member",
+                                    "content": {
+                                      "key": {
+                                        "element": "string",
+                                        "content": "name",
+                                        "attributes": {
+                                          "sourceMap": {
+                                            "element": "sourceMap",
+                                            "content": [
+                                              [
+                                                544,
+                                                14
+                                              ]
+                                            ]
+                                          }
+                                        }
+                                      },
+                                      "value": {
+                                        "element": "string",
+                                        "attributes": {
+                                          "sourceMap": {
+                                            "element": "sourceMap",
+                                            "content": [
+                                              [
+                                                544,
+                                                14
+                                              ]
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                ],
+                                "attributes": {
+                                  "sourceMap": {
+                                    "element": "sourceMap",
+                                    "content": [
+                                      [
+                                        523,
+                                        11
+                                      ]
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "element": "httpResponse",
+                          "content": [
+                            {
+                              "element": "copy",
+                              "content": "Test response description 1\nTest response description 2\nTest response description 3",
+                              "attributes": {
+                                "sourceMap": {
+                                  "element": "sourceMap",
+                                  "content": [
+                                    [
+                                      579,
+                                      28
+                                    ],
+                                    [
+                                      611,
+                                      28
+                                    ],
+                                    [
+                                      643,
+                                      28
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "element": "dataStructure",
+                              "content": {
+                                "element": "object",
+                                "content": [
+                                  {
+                                    "element": "member",
+                                    "content": {
+                                      "key": {
+                                        "element": "string",
+                                        "content": "status",
+                                        "attributes": {
+                                          "sourceMap": {
+                                            "element": "sourceMap",
+                                            "content": [
+                                              [
+                                                699,
+                                                31
+                                              ]
+                                            ]
+                                          }
+                                        }
+                                      },
+                                      "value": {
+                                        "element": "string",
+                                        "content": "ok",
+                                        "attributes": {
+                                          "sourceMap": {
+                                            "element": "sourceMap",
+                                            "content": [
+                                              [
+                                                699,
+                                                31
+                                              ]
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "attributes": {
+                                      "typeAttributes": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "string",
+                                            "content": "required"
+                                          },
+                                          {
+                                            "element": "string",
+                                            "content": "fixed"
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                ],
+                                "attributes": {
+                                  "sourceMap": {
+                                    "element": "sourceMap",
+                                    "content": [
+                                      [
+                                        678,
+                                        11
+                                      ]
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          ],
+                          "attributes": {
+                            "statusCode": {
+                              "element": "string",
+                              "content": "200",
+                              "attributes": {
+                                "sourceMap": {
+                                  "element": "sourceMap",
+                                  "content": [
+                                    [
+                                      561,
+                                      14
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            "sourceMap": {
+                              "element": "sourceMap",
+                              "content": [
+                                [
+                                  561,
+                                  14
+                                ]
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

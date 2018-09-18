@@ -3,6 +3,7 @@ const utils = require('../utils');
 const { parser: SignatureParser, traits: ParserTraits } = require('../SignatureParser');
 const AttributesElement = require('./elements/AttributesElement');
 const DataStructureProcessor = require('./DataStructureProcessor');
+const ValueMemberElement = require('./elements/ValueMemberElement');
 
 const attributesRegex = /^[Aa]ttributes?$/;
 
@@ -13,7 +14,11 @@ module.exports = (Parsers) => {
     processSignature(node, context) {
       const text = utils.nodeText(node.firstChild, context.sourceLines);
       const signature = new SignatureParser(text, [ParserTraits.NAME, ParserTraits.ATTRIBUTES]);
-      return [utils.nextNode(node.firstChild), new AttributesElement(signature.type, signature.typeAttributes)];
+      const memberEl = new ValueMemberElement(signature.type, signature.typeAttributes);
+      if (context.sourceMapsEnabled) {
+        memberEl.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);
+      }
+      return [utils.nextNode(node.firstChild), new AttributesElement(memberEl)];
     },
 
     sectionType(node, context) {

@@ -10,6 +10,7 @@ class ActionElement {
     this.responses = [];
     this.parameters = null;
     this.description = null;
+    this.sourceMap = null;
   }
 
   toRefract() {
@@ -19,6 +20,9 @@ class ActionElement {
         title: {
           element: Refract.elements.string,
           content: this.title,
+          ...(this.sourceMap && this.title ? {
+            attributes: { sourceMap: this.sourceMap.toRefract() },
+          } : {}),
         },
       },
       content: [],
@@ -29,6 +33,9 @@ class ActionElement {
         href: {
           element: Refract.elements.string,
           content: this.href,
+          ...(this.sourceMap ? {
+            attributes: { sourceMap: this.sourceMap.toRefract() },
+          } : {}),
         },
       };
     }

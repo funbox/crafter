@@ -12,6 +12,7 @@ class ParameterElement {
     this.description = description;
     this.defaultValue = null;
     this.enumerations = null;
+    this.sourceMap = null;
   }
 
   toRefract() {
@@ -21,6 +22,9 @@ class ParameterElement {
         key: {
           element: Refract.elements.string,
           content: this.name,
+          ...(this.sourceMap ? {
+            attributes: { sourceMap: this.sourceMap.toRefract() },
+          } : {}),
         },
         value: {},
       },
@@ -40,6 +44,9 @@ class ParameterElement {
       const value = {
         element: Refract.elements.string,
         content: this.value,
+        ...(this.sourceMap ? {
+          attributes: { sourceMap: this.sourceMap.toRefract() },
+        } : {}),
       };
 
       result.content.value = this.type === Refract.elements.enum
@@ -60,6 +67,9 @@ class ParameterElement {
       result.meta.description = {
         element: Refract.elements.string,
         content: this.description,
+        ...(this.sourceMap ? {
+          attributes: { sourceMap: this.sourceMap.toRefract() },
+        } : {}),
       };
     }
 
@@ -67,6 +77,9 @@ class ParameterElement {
       result.meta.title = {
         element: Refract.elements.string,
         content: this.type,
+        ...(this.sourceMap ? {
+          attributes: { sourceMap: this.sourceMap.toRefract() },
+        } : {}),
       };
     }
 

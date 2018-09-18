@@ -16,6 +16,10 @@ module.exports = (Parsers) => {
         signature.type,
       );
 
+      if (context.sourceMapsEnabled) {
+        result.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);
+      }
+
       return [utils.nextNode(node), result];
     },
 

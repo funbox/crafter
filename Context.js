@@ -15,6 +15,7 @@ class Context {
     this.resourcePrototypes = [];
     this.currentFile = options.currentFile;
     this.logger = options.logger;
+    this.sourceMapsEnabled = options.sourceMapsEnabled;
 
     this.sectionKeywordSignatureParsers = [
       'DefaultValue',
@@ -37,10 +38,10 @@ class Context {
   }
 
   addType(type) {
-    if (this.typeResolver.types[type.name]) {
-      console.error(`${type.name} type already defined`);
+    if (this.typeResolver.types[type.name.string]) {
+      console.error(`${type.name.string} type already defined`);
     }
-    this.typeResolver.types[type.name] = type.content;
+    this.typeResolver.types[type.name.string] = type.content;
   }
 
   getType(typeName) {

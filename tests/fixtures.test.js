@@ -35,6 +35,9 @@ const testPath = {
   get wrongSections() {
     return `${this.base}/wrong-sections`;
   },
+  get sourceMaps() {
+    return `${this.base}/source-maps`;
+  },
 };
 
 const apibRegex = /\.apib$/;
@@ -49,6 +52,10 @@ const testFilesFrom = (location) => {
         const example = JSON.parse(readFile(f.replace(apibRegex, '.json'), path));
         const result = Crafter.parseFile(filePath);
         expect(result.toRefract()).toEqual(example);
+
+        const exampleSm = JSON.parse(readFile(f.replace(apibRegex, '.sm.json'), path));
+        const resultSm = Crafter.parseFile(filePath, { sourceMapsEnabled: true });
+        expect(resultSm.toRefract()).toEqual(exampleSm);
       });
     }
   });
@@ -122,6 +129,10 @@ describe('fixtures with warnings', () => {
 
 describe('copy fixtures', () => {
   testFilesFrom(testPath.copy);
+});
+
+describe('source maps fixtures', () => {
+  testFilesFrom(testPath.sourceMaps);
 });
 
 function readFile(file, path) {

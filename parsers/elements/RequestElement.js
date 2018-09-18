@@ -8,16 +8,14 @@ class RequestElement {
     this.description = null;
     this.headersSections = [];
     this.content = [];
+    this.sourceMap = null;
   }
 
   toRefract() {
     const result = {
       element: Refract.elements.httpRequest,
       attributes: {
-        method: {
-          element: Refract.elements.string,
-          content: this.method,
-        },
+        method: this.method.toRefract(),
       },
       content: this.content.map(c => c.toRefract()),
     };
@@ -37,6 +35,9 @@ class RequestElement {
               content: this.contentType,
             },
           },
+          ...(this.sourceMap ? {
+            attributes: { sourceMap: this.sourceMap.toRefract() },
+          } : {}),
         }],
       };
     }
@@ -46,6 +47,9 @@ class RequestElement {
         title: {
           element: Refract.elements.string,
           content: this.title,
+          ...(this.sourceMap ? {
+            attributes: { sourceMap: this.sourceMap.toRefract() },
+          } : {}),
         },
       };
     }
@@ -60,6 +64,10 @@ class RequestElement {
 
     if (this.description) {
       result.content.unshift(this.description.toRefract());
+    }
+
+    if (this.sourceMap) {
+      result.attributes.sourceMap = this.sourceMap.toRefract();
     }
 
     return result;

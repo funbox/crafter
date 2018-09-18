@@ -16,7 +16,12 @@ module.exports = (Parsers) => {
         inheritedPrototypes = matchData[3].split(',').map(a => a.trim());
       }
 
-      return [utils.nextNode(node), new ResourcePrototypeElement(matchData[1], inheritedPrototypes)];
+      const resourcePrototypeEl = new ResourcePrototypeElement(matchData[1], inheritedPrototypes);
+      if (context.sourceMapsEnabled) {
+        resourcePrototypeEl.sourceMap = utils.makeGenericSourceMap(node, context.sourceLines);
+      }
+
+      return [utils.nextNode(node), resourcePrototypeEl];
     },
 
     sectionType(node, context) {

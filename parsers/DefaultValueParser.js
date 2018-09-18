@@ -10,8 +10,12 @@ module.exports = (Parsers) => {
   Parsers.DefaultValueParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
       const text = utils.nodeText(node.firstChild, context.sourceLines);
-      const val = defaultValueRegex.exec(text);
-      const defaultValueElement = new DefaultValueElement((val && val[1]) || undefined);
+      const valMatch = defaultValueRegex.exec(text);
+      const val = (valMatch && valMatch[1]) || undefined;
+      const defaultValueElement = new DefaultValueElement(val);
+      if (context.sourceMapsEnabled && val !== undefined) {
+        defaultValueElement.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);
+      }
       return [(node.firstChild.next && node.firstChild.next.firstChild) || utils.nextNode(node), defaultValueElement];
     },
 
@@ -42,6 +46,9 @@ module.exports = (Parsers) => {
       const text = utils.nodeText(node.firstChild, context.sourceLines);
       const value = new SignatureParser(text, [ParserTraits.NAME, ParserTraits.DESCRIPTION]);
       result.value = value.name;
+      if (context.sourceMapsEnabled) {
+        result.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);
+      }
 
       return [utils.nextNode(node), result];
     },

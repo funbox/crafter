@@ -1,6 +1,5 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
-const DescriptionElement = require('./elements/DescriptionElement');
 
 module.exports = {
   allowLeavingNode: true,
@@ -32,14 +31,14 @@ module.exports = {
   },
 
   processDescription(node, context, result) {
-    const descriptionResult = utils.extractDescription(node, context.sourceLines);
+    const descriptionResult = utils.extractDescription(node, context.sourceLines, context.sourceMapsEnabled);
     let curNode = descriptionResult[0];
-    const description = descriptionResult[1];
+    const descriptionEl = descriptionResult[1];
 
     let fullDescription = '';
 
-    if (description) {
-      fullDescription += description;
+    if (descriptionEl) {
+      fullDescription += descriptionEl.description;
     }
 
     while (curNode && this.isDescriptionNode(curNode, context)) {
@@ -53,7 +52,8 @@ module.exports = {
     }
 
     if (fullDescription) {
-      result.description = new DescriptionElement(fullDescription);
+      descriptionEl.description = fullDescription;
+      result.description = descriptionEl;
     }
 
     return [curNode, result];

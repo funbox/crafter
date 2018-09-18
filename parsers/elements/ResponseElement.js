@@ -7,6 +7,7 @@ class ResponseElement {
     this.description = null;
     this.headersSections = [];
     this.content = [];
+    this.sourceMap = null;
   }
 
   toRefract() {
@@ -17,6 +18,9 @@ class ResponseElement {
         statusCode: {
           element: Refract.elements.string,
           content: this.statusCode,
+          ...(this.sourceMap ? {
+            attributes: { sourceMap: this.sourceMap.toRefract() },
+          } : {}),
         },
       },
     };
@@ -36,6 +40,9 @@ class ResponseElement {
               content: this.contentType,
             },
           },
+          ...(this.sourceMap ? {
+            attributes: { sourceMap: this.sourceMap.toRefract() },
+          } : {}),
         }],
       };
     }
@@ -50,6 +57,10 @@ class ResponseElement {
 
     if (this.description) {
       result.content.unshift(this.description.toRefract());
+    }
+
+    if (this.sourceMap) {
+      result.attributes.sourceMap = this.sourceMap.toRefract();
     }
 
     return result;

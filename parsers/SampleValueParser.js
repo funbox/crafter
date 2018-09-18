@@ -2,6 +2,7 @@ const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
 const SampleValueElement = require('./elements/SampleValueElement');
 const { splitValues } = require('../SignatureParser');
+const StringElement = require('./elements/StringElement');
 
 const sampleValueRegex = /^[Ss]ample:?\s*`?(.+?)`?$/;
 const listTypedSampleValueRegex = /^[Ss]ample$/;
@@ -12,7 +13,16 @@ module.exports = (Parsers) => {
       const text = utils.nodeText(node.firstChild, context.sourceLines);
       const valuesMatch = sampleValueRegex.exec(text);
       const values = valuesMatch ? splitValues(valuesMatch[1]) : undefined;
-      const sampleValueElement = new SampleValueElement(values);
+      let valueEls;
+      if (values) {
+        const sourceMap = context.sourceMapsEnabled ? utils.makeGenericSourceMap(node.firstChild, context.sourceLines) : null;
+        valueEls = values.map((value) => {
+          const el = new StringElement(value);
+          el.sourceMap = sourceMap;
+          return el;
+        });
+      }
+      const sampleValueElement = new SampleValueElement(valueEls);
       return [(node.firstChild.next && node.firstChild.next.firstChild) || utils.nextNode(node), sampleValueElement];
     },
 

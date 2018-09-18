@@ -18,6 +18,9 @@ module.exports = (Parsers) => {
       const contentType = matchData[4];
 
       const result = new RequestElement(contentType, title);
+      if (context.sourceMapsEnabled) {
+        result.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);
+      }
       return [utils.nextNode(node.firstChild), result];
     },
 

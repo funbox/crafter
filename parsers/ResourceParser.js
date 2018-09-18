@@ -2,6 +2,7 @@ const SectionTypes = require('../SectionTypes');
 const RegExpStrings = require('../RegExpStrings');
 const utils = require('../utils');
 const ResourceElement = require('./elements/ResourceElement');
+const StringElement = require('./elements/StringElement');
 
 const ResourceHeaderRegex = new RegExp(`^(${RegExpStrings.requestMethods}\\s+)?${RegExpStrings.uriTemplate}(\\s+${RegExpStrings.resourcePrototype})?$`);
 const NamedResourceHeaderRegex = new RegExp(`^${RegExpStrings.symbolIdentifier}\\s+\\[${RegExpStrings.uriTemplate}](\\s+${RegExpStrings.resourcePrototype})?$`);
@@ -17,6 +18,7 @@ module.exports = (Parsers) => {
 
       const subject = utils.headerText(node, context.sourceLines);
 
+      let isNamedEndpoint = false;
       let matchData = ResourceHeaderRegex.exec(subject);
       if (matchData) {
         href = matchData[3];
@@ -27,6 +29,7 @@ module.exports = (Parsers) => {
           title = matchData[1];
           href = matchData[3];
           protoNames = matchData[5];
+          isNamedEndpoint = true;
         } else {
           matchData = NamedResourceHeaderRegex.exec(subject);
           title = matchData[1];
@@ -39,7 +42,15 @@ module.exports = (Parsers) => {
       const prototypes = protoNames ? protoNames.split(',').map(p => p.trim()) : [];
       context.resourcePrototypes.push(prototypes);
 
-      const result = new ResourceElement(title, href);
+      const sourceMap = context.sourceMapsEnabled ? utils.makeGenericSourceMap(node, context.sourceLines) : null;
+      const titleEl = new StringElement(title);
+      if (!isNamedEndpoint && title) {
+        titleEl.sourceMap = sourceMap;
+      }
+      const hrefEl = new StringElement(href);
+      hrefEl.sourceMap = sourceMap;
+      const result = new ResourceElement(titleEl, hrefEl);
+
       return [nodeToReturn, result];
     },
 

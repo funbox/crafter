@@ -4,6 +4,7 @@ const utils = require('../utils');
 const CrafterError = utils.CrafterError;
 
 const BlueprintElement = require('./elements/BlueprintElement');
+const StringElement = require('./elements/StringElement');
 
 module.exports = (Parsers) => {
   Parsers.BlueprintParser = {
@@ -12,9 +13,13 @@ module.exports = (Parsers) => {
 
       let curNode = node;
 
-      let title = '';
+      let title = null;
       if (curNode.type === 'heading') {
-        title = utils.headerText(curNode, context.sourceLines); // Что если внутри хедера ссылки и все такое?
+        const titleText = utils.headerText(curNode, context.sourceLines); // Что если внутри хедера ссылки и все такое?
+        title = new StringElement(titleText);
+        if (context.sourceMapsEnabled) {
+          title.sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines);
+        }
 
         curNode = curNode.next;
       } else {
@@ -23,7 +28,7 @@ module.exports = (Parsers) => {
 
       let description = '';
 
-      [curNode, description] = utils.extractDescription(curNode, context.sourceLines);
+      [curNode, description] = utils.extractDescription(curNode, context.sourceLines, context.sourceMapsEnabled);
 
       const result = new BlueprintElement(title, description);
 
