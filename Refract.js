@@ -9,6 +9,7 @@ module.exports = {
     transition: 'transition',
     hrefVariables: 'hrefVariables',
     member: 'member',
+    boolean: 'boolean',
     string: 'string',
     number: 'number',
     file: 'file',
