@@ -74,35 +74,34 @@
                             "content": [
                               {
                                 "element": "object",
-                                "content": {
-                                  "element": "member",
-                                  "content": {
-                                    "key": {
-                                      "element": "string",
-                                      "content": "posts"
-                                    },
-                                    "value": {
-                                      "element": "string",
-                                      "content": "true"
+                                "content": [
+                                  {
+                                    "element": "member",
+                                    "content": {
+                                      "key": {
+                                        "element": "string",
+                                        "content": "posts"
+                                      },
+                                      "value": {
+                                        "element": "string",
+                                        "content": "true"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "element": "member",
+                                    "content": {
+                                      "key": {
+                                        "element": "string",
+                                        "content": "comments"
+                                      },
+                                      "value": {
+                                        "element": "string",
+                                        "content": "true"
+                                      }
                                     }
                                   }
-                                }
-                              },
-                              {
-                                "element": "object",
-                                "content": {
-                                  "element": "member",
-                                  "content": {
-                                    "key": {
-                                      "element": "string",
-                                      "content": "comments"
-                                    },
-                                    "value": {
-                                      "element": "string",
-                                      "content": "true"
-                                    }
-                                  }
-                                }
+                                ]
                               }
                             ]
                           }
