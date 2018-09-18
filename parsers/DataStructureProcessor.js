@@ -22,7 +22,7 @@ class DataStructureProcessor {
       const [object, samples] = this.buildObject(curNode, context);
       valueMember.content = object;
 
-      if (samples) {
+      if (samples.length > 0) {
         valueMember.samples = samples;
       }
     }
@@ -54,12 +54,13 @@ class DataStructureProcessor {
 
   buildObject(node, context) {
     const objectElement = new ObjectElement();
-    let samples;
+    const samplesArray = [];
     let curNode = node;
 
     while (curNode) {
       let nextNode;
       let childResult;
+      let samplesElement;
 
       const sectionType = SectionTypes.calculateSectionType(curNode, context, [
         this.Parsers.SampleValueParser,
@@ -79,7 +80,7 @@ class DataStructureProcessor {
           [nextNode, childResult] = this.Parsers.OneOfTypeParser.parse(curNode, context);
           break;
         case SectionTypes.sampleValue:
-          [nextNode, samples] = this.Parsers.SampleValueParser.parse(curNode, context);
+          [nextNode, samplesElement] = this.Parsers.SampleValueParser.parse(curNode, context);
           break;
 
         default:
@@ -91,6 +92,10 @@ class DataStructureProcessor {
         objectElement.propertyMembers.push(childResult);
       }
 
+      if (samplesElement) {
+        samplesArray.push(samplesElement);
+      }
+
       // TODO Что если nextNode !== curNode.next ?
       if (curNode.next && nextNode !== curNode.next) {
         throw new utils.CrafterError('nextNode !== curNode.next');
@@ -98,7 +103,7 @@ class DataStructureProcessor {
       curNode = curNode.next;
     }
 
-    return [objectElement, samples];
+    return [objectElement, samplesArray];
   }
 
   buildEnum(node, context, type) {

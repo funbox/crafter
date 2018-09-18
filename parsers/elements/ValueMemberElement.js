@@ -62,9 +62,9 @@ class ValueMemberElement {
 
       result.attributes.samples = {
         element: Refract.elements.array,
-        content: this.samples.toRefract().map(value => ({
+        content: this.samples.map(sampleElement => ({
           element: type,
-          content: value,
+          content: sampleElement.toRefract(),
         })),
       };
     }
