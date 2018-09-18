@@ -1,8 +1,8 @@
 const Refract = require('../../Refract');
 
 class SampleValueElement {
-  constructor(value) {
-    this.members = value ? [value] : [];
+  constructor(values = []) {
+    this.members = values;
   }
 
   toRefract() {

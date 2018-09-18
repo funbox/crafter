@@ -9,8 +9,9 @@ module.exports = (Parsers) => {
   Parsers.SampleValueParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
       const text = utils.nodeText(node.firstChild, context.sourceLines);
-      const val = sampleValueRegex.exec(text);
-      const sampleValueElement = new SampleValueElement((val && val[1]) || undefined);
+      const valuesMatch = sampleValueRegex.exec(text);
+      const values = valuesMatch ? valuesMatch[1].split(',').map(val => val.trim()) : undefined;
+      const sampleValueElement = new SampleValueElement(values);
       return [(node.firstChild.next && node.firstChild.next.firstChild) || utils.nextNode(node), sampleValueElement];
     },
 
