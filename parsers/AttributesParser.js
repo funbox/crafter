@@ -1,6 +1,6 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
-const SignatureParser = require('../SignatureParser');
+const {parser: SignatureParser, traits: ParserTraits} = require('../SignatureParser');
 const AttributesElement = require('./elements/AttributesElement');
 const DataStructureProcessor = require('./DataStructureProcessor');
 
@@ -10,7 +10,7 @@ module.exports = (Parsers) => {
   Parsers.AttributesParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
       const text = utils.nodeText(node.firstChild, context.sourceLines);
-      const signature = new SignatureParser(text);
+      const signature = new SignatureParser(text, [ParserTraits.NAME, ParserTraits.ATTRIBUTES]);
       return [utils.nextNode(node.firstChild), new AttributesElement(signature.type, signature.typeAttributes)];
     },
 

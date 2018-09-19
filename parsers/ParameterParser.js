@@ -1,8 +1,7 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
 const ParameterElement = require('./elements/ParameterElement');
-
-const SignatureParser = require('../SignatureParser');
+const {parser: SignatureParser} = require('../SignatureParser');
 
 module.exports = (Parsers) => {
   Parsers.ParameterParser = Object.assign(Object.create(require('./AbstractParser')), {

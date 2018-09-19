@@ -1,6 +1,6 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
-const SignatureParser = require('../SignatureParser');
+const {parser: SignatureParser, traits: ParserTraits} = require('../SignatureParser');
 const MSONNamedTypeElement = require('./elements/MSONNamedTypeElement');
 const DataStructureProcessor = require('./DataStructureProcessor');
 
@@ -8,7 +8,7 @@ module.exports = (Parsers) => {
   Parsers.MSONNamedTypeParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
       const subject = utils.headerText(node, context.sourceLines);
-      const signature = new SignatureParser(subject);
+      const signature = new SignatureParser(subject, [ParserTraits.NAME, ParserTraits.ATTRIBUTES]);
 
       return [utils.nextNode(node), new MSONNamedTypeElement(signature.name, signature.type, signature.typeAttributes)];
     },

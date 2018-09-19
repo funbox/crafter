@@ -1,6 +1,6 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
-const SignatureParser = require('../SignatureParser');
+const {parser: SignatureParser, traits: ParserTraits} = require('../SignatureParser');
 const DefaultValueElement = require('./elements/DefaultValueElement');
 
 const defaultValueRegex = /^[Dd]efault:\s*`?(.+?)`?$/;
@@ -40,7 +40,7 @@ module.exports = (Parsers) => {
 
     processNestedSection(node, context, result) {
       const text = utils.nodeText(node.firstChild, context.sourceLines);
-      const value = new SignatureParser(text);
+      const value = new SignatureParser(text, [ParserTraits.NAME, ParserTraits.DESCRIPTION]);
       result.value = value.name;
 
       return [utils.nextNode(node), result];

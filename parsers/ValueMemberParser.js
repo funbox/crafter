@@ -1,13 +1,14 @@
 const utils = require('../utils');
 const ValueMemberElement = require('./elements/ValueMemberElement');
 const DataStructureProcessor = require('./DataStructureProcessor');
-const SignatureParser = require('../SignatureParser');
+const {parser: SignatureParser, traits: ParserTraits} = require('../SignatureParser');
 
+// TODO: Зарефакторить этот модуль
 module.exports = (Parsers) => {
   Parsers.ValueMemberParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
       const subject = utils.nodeText(node.firstChild, context.sourceLines);
-      const signature = new SignatureParser(subject, true);
+      const signature = new SignatureParser(subject, [ParserTraits.EXAMPLE, ParserTraits.ATTRIBUTES, ParserTraits.DESCRIPTION]);
 
       const result = new ValueMemberElement(
         signature.type,

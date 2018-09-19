@@ -1,5 +1,3 @@
-const identifierRegex = /^`?(([\w.-]|%[a-fA-F0-9]{2})+)`?/;
-
 const typeAttributes = [
   'required',
   'optional',
@@ -8,73 +6,135 @@ const typeAttributes = [
   'nullable',
 ];
 
+const parserTraits = {
+  NAME: 'NAME',
+  EXAMPLE: 'EXAMPLE',
+  ATTRIBUTES: 'ATTRIBUTES',
+  DESCRIPTION: 'DESCRIPTION',
+};
+
+parserTraits.all = Object.values(parserTraits);
+
+
+const VALUES_DELIMITER = ':';
+const ATTRIBUTES_BEGIN_DELIMITER = '(';
+const DESCRIPTION_DELIMITER = '-';
+
 class SignatureParser {
-  constructor(signature, forValueMember) {
+  constructor(origSignature, traits = parserTraits.all) {
+    this.traits = traits;
     this.attributes = [];
     this.typeAttributes = [];
     this.type = null;
 
-    if (!forValueMember) {
-      const matchData = identifierRegex.exec(signature);
+    let signature = origSignature;
 
-      if (!matchData) error(signature);
+    if (this.traits.includes(parserTraits.NAME)) {
+      signature = this.extractName(signature);
+    }
 
-      this.name = matchData[1];
+    if (this.traits.includes(parserTraits.EXAMPLE)) {
+      signature = this.extractExample(signature);
+    }
 
-      signature = signature.slice(matchData[0].length).trim();
-
-      if (signature[0] === ':') {
-        signature = this.extractExample(signature);
-      }
-    } else
-      if (signature[0] !== '(' && signature[0] !== '-') {
-        signature = this.extractExample(signature, true);
-      }
-
-    if (!signature) return;
-
-    if (signature[0] === '(') {
+    if (this.traits.includes(parserTraits.ATTRIBUTES)) {
       signature = this.extractAttributes(signature);
     }
 
-    if (!signature) return;
+    if (this.traits.includes(parserTraits.DESCRIPTION)) {
+      this.extractDescription(signature);
+      signature = '';
+    }
 
-    if (signature[0] === '-') {
-      this.description = signature.slice(1).trim();
-    } else {
+    if (signature) {
+      error(origSignature);
+    }
+  }
+
+  extractName(signature) {
+    const escapeCharacters = ['*', '_', '`']; // TODO: Оставить только ` ?
+    let i = 0;
+    let name = '';
+
+    while (i < signature.length) {
+      if (escapeCharacters.includes(signature[i])) {
+        const result = retrieveEscaped(signature, i);
+        if (result.result) {
+          name = `${name}${result.result}`;
+          signature = result.str;
+          i = 0;
+        } else {
+          name = `${name}${signature[i]}`;
+          i++;
+        }
+      } else if (
+        this.traits.includes(parserTraits.EXAMPLE) && signature[i] === VALUES_DELIMITER ||
+        this.traits.includes(parserTraits.ATTRIBUTES) && signature[i] === ATTRIBUTES_BEGIN_DELIMITER ||
+        this.traits.includes(parserTraits.DESCRIPTION) && signature[i] === DESCRIPTION_DELIMITER
+      ) {
+        break;
+      } else {
+        name = `${name}${signature[i]}`;
+        i++;
+      }
+    }
+
+    this.name = stripBackticks(name.trim());
+
+    const nameRegex = /^(([\w.-]|%[a-fA-F0-9]{2})+)$/;
+    if (!this.name || !nameRegex.exec(this.name)) {
       error(signature);
     }
+
+    return signature.substr(i);
   }
 
   extractExample(signature, forValueMember) {
-    if (!forValueMember) {
+    signature = signature.trim();
+    if (signature[0] === VALUES_DELIMITER) {
       signature = signature.slice(1).trim();
     }
-    let searchSymbol = '(';
-    let pos = 0;
-    this.example = '';
 
-    if (signature[0] === '`') {
-      pos = 1;
-      searchSymbol = '`';
+    let i = 0;
+    let example = '';
+
+    while (i < signature.length) {
+      if (signature[i] === '`') {
+        const result = retrieveEscaped(signature, i);
+        if (result.result) {
+          example = `${example}${result.result}`;
+          signature = result.str;
+          i = 0;
+        } else {
+          i++;
+        }
+      } else if (
+        this.traits.includes(parserTraits.ATTRIBUTES) && signature[i] === ATTRIBUTES_BEGIN_DELIMITER ||
+        this.traits.includes(parserTraits.DESCRIPTION) && signature[i] === DESCRIPTION_DELIMITER
+      ) {
+        break;
+      } else {
+        example = `${example}${signature[i]}`;
+        i++;
+      }
     }
 
-    while (pos < signature.length && signature[pos] !== searchSymbol) {
-      this.example = `${this.example}${signature[pos]}`;
-      pos += 1;
-    }
+    this.example = stripBackticks(example.trim());
 
-    if (pos >= signature.length && searchSymbol === '`') error(signature);
-
-    if (pos < signature.length && searchSymbol === '(') {
-      this.example = this.example.trim();
-      pos -= 1;
-    }
-
-    return signature.slice(pos + 1).trim();
+    return signature.substr(i);
   }
 
   extractAttributes(signature) {
+    signature = signature.trim();
+
+    if (signature[0] === VALUES_DELIMITER) {
+      signature = signature.substr(1).trim();
+    }
+
+    if (signature[0] !== '(') {
+      return signature;
+    }
+
     const matchData = /^\(([^)]+)\)/.exec(signature);
 
     if (!matchData) error(signature);
@@ -91,12 +151,60 @@ class SignatureParser {
       }
     });
 
-    return signature.slice(matchData[0].length).trim();
+    return signature.slice(matchData[0].length);
   }
+
+  extractDescription(signature) {
+    signature = signature.trim();
+
+    if (signature[0] === DESCRIPTION_DELIMITER) {
+      signature = signature.substr(1).trim();
+    }
+
+    this.description = signature;
+  }
+}
+
+function retrieveEscaped(str, startPos) {
+  let levels = 0;
+  const escapeChar = str[startPos];
+
+  while (str[startPos + levels] === escapeChar) {
+    levels++;
+  }
+
+  const borderChars = str.substr(startPos, levels);
+  const endPos = str.substr(startPos + levels).indexOf(borderChars);
+
+  if (endPos === -1) {
+    return {
+      str,
+      result: '',
+    };
+  }
+
+  const result = str.substr(startPos, startPos + endPos + levels * 2);
+  str = str.substr(startPos + result.length);
+
+  return {
+    str,
+    result,
+  }
+}
+
+function stripBackticks(str) {
+  while (str[0] === '`' && str[str.length - 1] === '`') {
+    str = str.substr(1, str.length - 2);
+  }
+
+  return str.trim();
 }
 
 function error(sig) {
   throw new Error(`Invalid signature: ${sig}`);
 }
 
-module.exports = SignatureParser;
+module.exports = {
+  parser: SignatureParser,
+  traits: parserTraits,
+};
