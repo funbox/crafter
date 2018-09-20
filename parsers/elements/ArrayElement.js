@@ -1,5 +1,3 @@
-const utils = require('../../utils');
-
 class ArrayElement {
   constructor(members) {
     this.members = members;

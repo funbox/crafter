@@ -89,7 +89,7 @@ class SignatureParser {
     return signature.substr(i);
   }
 
-  extractExample(signature, forValueMember) {
+  extractExample(signature) {
     signature = signature.trim();
     if (signature[0] === VALUES_DELIMITER) {
       signature = signature.slice(1).trim();
@@ -189,7 +189,7 @@ function retrieveEscaped(str, startPos) {
   return {
     str,
     result,
-  }
+  };
 }
 
 function stripBackticks(str) {

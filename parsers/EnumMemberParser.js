@@ -2,7 +2,7 @@ const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
 const EnumMemberElement = require('./elements/EnumMemberElement');
 
-const {parser: SignatureParser, traits: ParserTraits} = require('../SignatureParser');
+const { parser: SignatureParser, traits: ParserTraits } = require('../SignatureParser');
 
 module.exports = (Parsers) => {
   Parsers.EnumMemberParser = Object.assign(Object.create(require('./AbstractParser')), {

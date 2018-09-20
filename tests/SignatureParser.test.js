@@ -1,4 +1,4 @@
-const {parser: SignatureParser, traits: ParserTraits} = require('../SignatureParser');
+const { parser: SignatureParser, traits: ParserTraits } = require('../SignatureParser');
 
 // TODO: Нужно больше тестов
 

@@ -1,7 +1,7 @@
 const utils = require('../utils');
 const ValueMemberElement = require('./elements/ValueMemberElement');
 const DataStructureProcessor = require('./DataStructureProcessor');
-const {parser: SignatureParser, traits: ParserTraits} = require('../SignatureParser');
+const { parser: SignatureParser, traits: ParserTraits } = require('../SignatureParser');
 
 module.exports = (Parsers) => {
   Parsers.ArrayMemberParser = Object.assign(Object.create(require('./AbstractParser')), {

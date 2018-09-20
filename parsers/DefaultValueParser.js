@@ -1,6 +1,6 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
-const {parser: SignatureParser, traits: ParserTraits} = require('../SignatureParser');
+const { parser: SignatureParser, traits: ParserTraits } = require('../SignatureParser');
 const DefaultValueElement = require('./elements/DefaultValueElement');
 
 const defaultValueRegex = /^[Dd]efault:\s*`?(.+?)`?$/;

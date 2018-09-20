@@ -2,7 +2,7 @@ const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
 const PropertyMemberElement = require('./elements/PropertyMemberElement');
 const DataStructureProcessor = require('./DataStructureProcessor');
-const {parser: SignatureParser} = require('../SignatureParser');
+const { parser: SignatureParser } = require('../SignatureParser');
 
 module.exports = (Parsers) => {
   // TODO Сделать обработку nestedSection
@@ -34,7 +34,7 @@ module.exports = (Parsers) => {
         const text = utils.nodeText(node.firstChild, context.sourceLines);
 
         try {
-          new SignatureParser(text);
+          new SignatureParser(text); // eslint-disable-line no-new
           return SectionTypes.msonAttribute;
         } catch (e) { // eslint-disable-line no-empty
         }
