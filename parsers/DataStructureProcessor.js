@@ -40,9 +40,9 @@ class DataStructureProcessor {
     let curNode = node;
 
     while (curNode) {
-      const [nextNode, childResult] = this.Parsers.ValueMemberParser.parse(curNode, context);
+      const [nextNode, childResult] = this.Parsers.ArrayMemberParser.parse(curNode, context);
 
-      arrayElement.valueMembers.push(childResult);
+      arrayElement.members.push(childResult);
 
       // TODO Что если nextNode !== curNode.next ?
       if (curNode.next && nextNode !== curNode.next) {

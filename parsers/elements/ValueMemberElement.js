@@ -17,8 +17,8 @@ class ValueMemberElement {
 
     if (this.isArray()) {
       const resolvedType = utils.resolveType(type);
-      const valueMembers = resolvedType.nestedTypes.map(t => new ValueMemberElement(t));
-      this.content = new ArrayElement(valueMembers);
+      const members = resolvedType.nestedTypes.map(t => new ValueMemberElement(t));
+      this.content = new ArrayElement(members);
     }
   }
 

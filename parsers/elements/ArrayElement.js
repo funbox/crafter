@@ -1,12 +1,12 @@
 const utils = require('../../utils');
 
 class ArrayElement {
-  constructor(valueMembers) {
-    this.valueMembers = valueMembers;
+  constructor(members) {
+    this.members = members;
   }
 
   toRefract() {
-    return this.valueMembers.map(element => element.toRefract());
+    return this.members.map(element => element.toRefract());
   }
 }
 
