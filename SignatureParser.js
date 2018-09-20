@@ -1,10 +1,10 @@
-const typeAttributes = [
-  'required',
-  'optional',
-  'fixed',
-  'fixed-type',
-  'nullable',
-];
+const typeAttributes = {
+  required: 'required',
+  optional: 'optional',
+  fixed: 'fixed',
+  'fixed-type': 'fixedType',
+  nullable: 'nullable',
+};
 
 const parserTraits = {
   NAME: 'NAME',
@@ -142,8 +142,8 @@ class SignatureParser {
     this.attributes = matchData[1].split(/,(?![^[\]]*])/).map(a => a.trim());
 
     this.attributes.forEach((a) => {
-      if (typeAttributes.indexOf(a) !== -1) {
-        this.typeAttributes.push(a);
+      if (Object.keys(typeAttributes).indexOf(a) !== -1) {
+        this.typeAttributes.push(typeAttributes[a]);
       } else if (!this.type) {
         this.type = a;
       } else {
