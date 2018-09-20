@@ -27,8 +27,14 @@ class PropertyMemberElement {
       result.attributes = utils.typeAttributesToRefract(this.typeAttributes);
     }
 
+
     if (this.description) {
-      result.meta = utils.descriptionToRefract(this.description);
+      result.meta = {
+        description: {
+          element: Refract.elements.string,
+          content: this.description,
+        },
+      };
     }
 
     return result;

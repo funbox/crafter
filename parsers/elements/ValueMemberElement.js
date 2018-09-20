@@ -44,7 +44,12 @@ class ValueMemberElement {
     };
 
     if (this.description && !this.isObject()) {
-      result.meta = utils.descriptionToRefract(this.description);
+      result.meta = {
+        description: {
+          element: Refract.elements.string,
+          content: this.description,
+        },
+      };
     }
 
     if (this.typeAttributes.length) {
