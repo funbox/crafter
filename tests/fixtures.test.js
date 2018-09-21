@@ -1,4 +1,5 @@
 const fs = require('fs');
+const resolvePath = require('path').resolve;
 const Crafter = require('../Crafter');
 const CrafterError = require('../utils').CrafterError;
 
@@ -24,6 +25,9 @@ const testPath = {
   },
   get fixturesWithErrors() {
     return `${this.base}/fixtures-with-errors`;
+  },
+  get fixturesWithWarnings() {
+    return `${this.base}/fixtures-with-warnings`;
   },
   get copy() {
     return `${this.base}/copy`;
@@ -86,6 +90,31 @@ describe('fixtures with errors', () => {
       it(f, () => {
         const filePath = `${path}/${f}`;
         expect(() => Crafter.parseFile(filePath)).toThrow(CrafterError);
+      });
+    }
+  });
+});
+
+describe('fixtures with warnings', () => {
+  const path = testPath.fixturesWithWarnings;
+  const files = fs.readdirSync(path);
+  files.forEach((f) => {
+    if (apibRegex.exec(f)) {
+      it('should create warnings via logger', () => {
+        const data = readFile(f, path);
+        const logger = {
+          store: undefined,
+          warn(text) {
+            this.store = text;
+          },
+        };
+        const opts = {
+          currentFile: resolvePath(__dirname, f),
+          logger,
+        };
+        Crafter.parse(data, opts).toRefract();
+        expect(logger.store).toBeDefined();
+        expect(typeof logger.store).toBe('string');
       });
     }
   });
