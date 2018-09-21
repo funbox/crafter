@@ -6,6 +6,8 @@ const ParametersRegex = /^[Pp]arameters?$/;
 
 module.exports = (Parsers) => {
   Parsers.ParametersParser = Object.assign(Object.create(require('./AbstractParser')), {
+    allowLeavingNode: false,
+
     processSignature(node) {
       const parametersList = node.firstChild.next;
       return [(parametersList && parametersList.firstChild) || utils.nextNode(node), new ParametersElement()];

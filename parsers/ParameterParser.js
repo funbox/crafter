@@ -5,6 +5,8 @@ const { parser: SignatureParser } = require('../SignatureParser');
 
 module.exports = (Parsers) => {
   Parsers.ParameterParser = Object.assign(Object.create(require('./AbstractParser')), {
+    allowLeavingNode: false,
+
     processSignature(node, context) {
       const text = utils.nodeText(node.firstChild, context.sourceLines);
       const signature = new SignatureParser(text);

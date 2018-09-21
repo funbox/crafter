@@ -8,6 +8,8 @@ const attributesRegex = /^[Aa]ttributes?$/;
 
 module.exports = (Parsers) => {
   Parsers.AttributesParser = Object.assign(Object.create(require('./AbstractParser')), {
+    allowLeavingNode: false,
+
     processSignature(node, context) {
       const text = utils.nodeText(node.firstChild, context.sourceLines);
       const signature = new SignatureParser(text, [ParserTraits.NAME, ParserTraits.ATTRIBUTES]);

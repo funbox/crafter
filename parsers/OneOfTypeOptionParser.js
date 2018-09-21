@@ -6,6 +6,8 @@ const oneOfTypeOptionRegex = /^[Pp]roperties$/;
 
 module.exports = (Parsers) => {
   Parsers.OneOfTypeOptionParser = Object.assign(Object.create(require('./AbstractParser')), {
+    allowLeavingNode: false,
+
     processSignature(node) {
       const optionMembersList = node.firstChild.next;
       const nextNode = (optionMembersList && optionMembersList.firstChild) || utils.nextNode(node);

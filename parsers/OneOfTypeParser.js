@@ -7,6 +7,8 @@ const oneOfTypeRegex = /^[Oo]ne\s+[Oo]f$/;
 
 module.exports = (Parsers) => {
   Parsers.OneOfTypeParser = Object.assign(Object.create(require('./AbstractParser')), {
+    allowLeavingNode: false,
+
     processSignature(node) {
       const optionsList = node.firstChild.next;
       const nextNode = (optionsList && optionsList.firstChild) || utils.nextNode(node);

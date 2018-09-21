@@ -8,6 +8,8 @@ const responseRegex = new RegExp(`^[Rr]esponse(\\s+(\\d+))?${RegExpStrings.media
 // TODO: Объединить с RequestParser, т.к. много общего?
 module.exports = (Parsers) => {
   Parsers.ResponseParser = Object.assign(Object.create(require('./AbstractParser')), {
+    allowLeavingNode: false,
+
     processSignature(node, context) {
       const subject = utils.headerText(node.firstChild, context.sourceLines);
       const matchData = responseRegex.exec(subject);

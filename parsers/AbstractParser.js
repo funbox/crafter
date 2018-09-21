@@ -16,16 +16,27 @@ class DescriptionElement {
 }
 
 module.exports = {
+  allowLeavingNode: true,
+
   parse(node, context) {
     let result;
+    const oldRootNode = context.rootNode;
+    context.rootNode = node;
     let curNode = node;
 
     [curNode, result] = this.processSignature(curNode, context);
-    [curNode, result] = this.processDescription(curNode, context, result);
-    [curNode, result] = this.processNestedSections(curNode, context, result);
+
+    if (this.allowLeavingNode || this.isCurrentNodeOrChild(curNode, context.rootNode)) {
+      [curNode, result] = this.processDescription(curNode, context, result);
+
+      if (this.allowLeavingNode || this.isCurrentNodeOrChild(curNode, context.rootNode)) {
+        [curNode, result] = this.processNestedSections(curNode, context, result);
+      }
+    }
 
     result = this.finalize(context, result);
 
+    context.rootNode = oldRootNode;
     return [curNode, result];
   },
 
@@ -48,7 +59,11 @@ module.exports = {
   processNestedSections(node, context, result) {
     let curNode = node;
 
-    while (curNode && this.nestedSectionType(curNode, context) !== SectionTypes.undefined) {
+    while (
+      curNode &&
+      (this.allowLeavingNode || this.isCurrentNodeOrChild(curNode, context.rootNode)) &&
+      this.nestedSectionType(curNode, context) !== SectionTypes.undefined
+      ) {
       [curNode, result] = this.processNestedSection(curNode, context, result);
     }
 
@@ -69,5 +84,17 @@ module.exports = {
 
   finalize(context, result) {
     return result;
+  },
+
+  isCurrentNodeOrChild(node, rootNode) {
+    while (node) {
+      if (node === rootNode) {
+        return true;
+      }
+
+      node = node.parent;
+    }
+
+    return false;
   },
 };

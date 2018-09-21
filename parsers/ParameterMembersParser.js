@@ -7,6 +7,8 @@ const parameterMembersRegex = /^[Mm]embers$/;
 
 module.exports = (Parsers) => {
   Parsers.ParameterMembersParser = Object.assign(Object.create(require('./AbstractParser')), {
+    allowLeavingNode: false,
+
     processSignature(node) {
       const nextNode = (node.firstChild.next && node.firstChild.next.firstChild) || utils.nextNode(node);
       return [nextNode, new ParameterMembersElement()];

@@ -8,6 +8,8 @@ const RequestElement = require('./elements/RequestElement');
 
 module.exports = (Parsers) => {
   Parsers.RequestParser = Object.assign(Object.create(require('./AbstractParser')), {
+    allowLeavingNode: false,
+
     processSignature(node, context) {
       const subject = utils.headerText(node.firstChild, context.sourceLines);
       const matchData = requestRegexp.exec(subject);
