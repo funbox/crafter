@@ -52,12 +52,11 @@ class SignatureParser {
   }
 
   extractName(signature) {
-    const escapeCharacters = ['*', '_', '`']; // TODO: Оставить только ` ?
     let i = 0;
     let name = '';
 
     while (i < signature.length) {
-      if (escapeCharacters.includes(signature[i])) {
+      if (signature[i] === '`') {
         const result = retrieveEscaped(signature, i);
         if (result.result) {
           name = `${name}${result.result}`;
