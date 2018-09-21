@@ -8,15 +8,25 @@ class Context {
     this.data = {};
     this.frames = [];
     this.resourcePrototypes = [];
-    this.sectionKeywordSignatureParsers = [];
+
+    this.sectionKeywordSignatureParsers = [
+      'DefaultValue',
+      'MSONMixin',
+      'OneOfType',
+      'Headers',
+      'Attributes',
+      'Request',
+      'Response',
+      'Parameters',
+      'Resource',
+      'Action',
+      'ResourceGroup',
+      'DataStructureGroup',
+      'ResourcePrototypes',
+    ].map(name => parsers[`${name}Parser`]);
+
     this.typeResolver = new TypeResolver();
     this.resourcePrototypeResolver = new PrototypeResolver();
-
-    Object.values(parsers).forEach((parser) => {
-      if (!parser.skipSectionKeywordSignature) {
-        this.sectionKeywordSignatureParsers.push(parser);
-      }
-    });
   }
 
   addType(type) {
@@ -34,7 +44,6 @@ class Context {
   }
 
   sectionKeywordSignature(node) {
-    // TODO: в drafter эта функция зависит от порядка, нужно ли сделать тут так же?
     return SectionTypes.calculateSectionType(node, this, this.sectionKeywordSignatureParsers);
   }
 

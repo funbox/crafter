@@ -36,7 +36,5 @@ module.exports = (Parsers) => {
 
       return [utils.nextNode(contentNode), result];
     },
-
-    skipSectionKeywordSignature: true,
   });
 };

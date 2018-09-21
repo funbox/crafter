@@ -93,7 +93,5 @@ module.exports = (Parsers) => {
       context.typeResolver.resolveRegisteredTypes();
       context.resourcePrototypeResolver.resolveRegisteredPrototypes();
     },
-
-    skipSectionKeywordSignature: true,
   };
 };
