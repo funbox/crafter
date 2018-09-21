@@ -81,11 +81,6 @@ class SignatureParser {
 
     this.name = stripBackticks(name.trim());
 
-    const nameRegex = /^(([\w.-]|%[a-fA-F0-9]{2})+)$/;
-    if (!this.name || !nameRegex.exec(this.name)) {
-      error(signature);
-    }
-
     return signature.substr(i);
   }
 

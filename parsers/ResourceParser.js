@@ -56,11 +56,10 @@ module.exports = (Parsers) => {
     },
 
     nestedSectionType(node, context) {
-      const actionSectionType = Parsers.ActionParser.sectionType(node, context);
-
-      if (actionSectionType !== SectionTypes.undefined) return actionSectionType;
-
-      return Parsers.ParametersParser.sectionType(node, context);
+      return SectionTypes.calculateSectionType(node, context, [
+        Parsers.ActionParser,
+        Parsers.ParametersParser,
+      ]);
     },
 
     processNestedSection(node, context, result) {
@@ -71,7 +70,7 @@ module.exports = (Parsers) => {
         [nextNode, childResult] = Parsers.ActionParser.parse(node, context);
         result.actions.push(childResult);
       } else {
-        [nextNode, childResult] = Parsers.ParametersParser.parse(node.firstChild, context);
+        [nextNode, childResult] = Parsers.ParametersParser.parse(node, context);
         result.parameters = childResult;
       }
 

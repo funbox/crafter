@@ -63,9 +63,9 @@ class DataStructureProcessor {
 
       const sectionType = SectionTypes.calculateSectionType(curNode, context, [
         this.Parsers.SampleValueParser,
-        this.Parsers.MSONAttributeParser,
         this.Parsers.MSONMixinParser,
         this.Parsers.OneOfTypeParser,
+        this.Parsers.MSONAttributeParser,
       ]);
 
       switch (sectionType) {
