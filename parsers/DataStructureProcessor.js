@@ -28,7 +28,7 @@ class DataStructureProcessor {
     }
 
     if (valueMember.isArray()) {
-      this.processArray(valueMember.content, curNode, context);
+      this.processArray(valueMember, curNode, context);
     }
 
     if (valueMember.isEnum()) {
@@ -38,17 +38,31 @@ class DataStructureProcessor {
 
   processArray(arrayElement, node, context) {
     let curNode = node;
+    const arrayMembers = arrayElement.content.members;
+    const samplesArray = [];
 
     while (curNode) {
-      const [nextNode, childResult] = this.Parsers.ArrayMemberParser.parse(curNode, context);
+      let nextNode;
+      let childResult;
+      let samplesElement;
 
-      arrayElement.members.push(childResult);
+      if (this.Parsers.SampleValueParser.sectionType(curNode, context) !== SectionTypes.undefined) {
+        [nextNode, samplesElement] = this.Parsers.SampleValueParser.parse(curNode, context);
+        samplesArray.push(samplesElement);
+      } else {
+        [nextNode, childResult] = this.Parsers.ArrayMemberParser.parse(curNode, context);
+        arrayMembers.push(childResult);
+      }
 
       // TODO Что если nextNode !== curNode.next ?
       if (curNode.next && nextNode !== curNode.next) {
         throw new utils.CrafterError('nextNode !== curNode.next');
       }
       curNode = curNode.next;
+    }
+
+    if (samplesArray.length) {
+      arrayElement.samples = samplesArray;
     }
   }
 
