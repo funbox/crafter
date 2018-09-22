@@ -6,6 +6,8 @@ const typeAttributes = {
   nullable: 'nullable',
 };
 
+const fakeTypeAttributes = { sample: 'sample' };
+
 const parserTraits = {
   NAME: 'NAME',
   VALUE: 'VALUE',
@@ -26,6 +28,7 @@ class SignatureParser {
     this.attributes = [];
     this.typeAttributes = [];
     this.type = null;
+    this.isSample = false;
 
     let signature = origSignature;
 
@@ -140,10 +143,12 @@ class SignatureParser {
         this.typeAttributes.push(typeAttributes[a]);
       } else if (!this.type) {
         this.type = a;
-      } else {
+      } else if (a !== fakeTypeAttributes.sample) {
         error(a);
       }
     });
+
+    this.isSample = this.attributes.some(a => a === fakeTypeAttributes.sample);
 
     return signature.slice(matchData[0].length);
   }
