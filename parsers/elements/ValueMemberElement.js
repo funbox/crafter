@@ -24,7 +24,7 @@ class ValueMemberElement {
         const inlineValues = this.value.split(',').map(val => val.trim());
         const inlineValuesType = resolvedType.nestedTypes.length === 1 ? resolvedType.nestedTypes[0] : 'string';
         const inlineMembers = inlineValues.map(val => new ValueMemberElement(inlineValuesType, [], val));
-        sampleElement = new SampleValueElement(inlineValues);
+        sampleElement = new SampleValueElement(inlineValues, inlineValuesType);
         members = members.length === 1 ? inlineMembers : inlineMembers.concat(members);
       }
 

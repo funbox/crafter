@@ -1,8 +1,7 @@
-const Refract = require('../../Refract');
-
 class SampleValueElement {
-  constructor(values = []) {
+  constructor(values = [], type = 'string') {
     this.members = values;
+    this.type = type;
   }
 
   toRefract() {
@@ -11,10 +10,13 @@ class SampleValueElement {
         return value.toRefract();
       }
 
-      return ({
-        element: Refract.elements.string,
-        content: value,
-      });
+      const content = convertType(value, this.type);
+      const result = { element: this.type };
+
+      if (content.valid) {
+        result.content = content.value;
+      }
+      return result;
     });
   }
 }

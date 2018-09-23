@@ -40,6 +40,7 @@ class DataStructureProcessor {
     let curNode = node;
     const arrayMembers = arrayElement.content.members;
     const samplesArray = [];
+    const predefinedType = arrayMembers.length ? arrayMembers[0].type : 'string';
 
     while (curNode) {
       let nextNode;
@@ -48,6 +49,7 @@ class DataStructureProcessor {
 
       if (this.Parsers.SampleValueParser.sectionType(curNode, context) !== SectionTypes.undefined) {
         [nextNode, samplesElement] = this.Parsers.SampleValueParser.parse(curNode, context);
+        samplesElement.type = predefinedType;
         samplesArray.push(samplesElement);
       } else {
         [nextNode, childResult] = this.Parsers.ArrayMemberParser.parse(curNode, context);
