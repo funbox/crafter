@@ -16,7 +16,15 @@ class ValueMemberElement {
     this.samples = null;
 
     if (this.isArray()) {
-      const members = resolvedType.nestedTypes.map(t => new ValueMemberElement(t));
+      let members = resolvedType.nestedTypes.map(t => new ValueMemberElement(t));
+
+      if (this.value) {
+        const inlineValues = this.value.split(',').map(val => val.trim());
+        const inlineValuesType = resolvedType.nestedTypes.length === 1 ? resolvedType.nestedTypes[0] : 'string';
+        const inlineMembers = inlineValues.map(val => new ValueMemberElement(inlineValuesType, [], val));
+        members = members.length === 1 ? inlineMembers : inlineMembers.concat(members);
+      }
+
       this.content = new ArrayElement(members);
     }
   }
