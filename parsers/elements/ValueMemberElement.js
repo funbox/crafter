@@ -2,9 +2,10 @@ const Refract = require('../../Refract');
 const utils = require('../../utils');
 const types = require('../../types');
 const ArrayElement = require('./ArrayElement');
+const SampleValueElement = require('./SampleValueElement');
 
 class ValueMemberElement {
-  constructor(type, typeAttributes = [], value, description) {
+  constructor(type, typeAttributes = [], value, description, isSample) {
     const resolvedType = utils.resolveType(type);
 
     this.rawType = type;
@@ -17,15 +18,22 @@ class ValueMemberElement {
 
     if (this.isArray()) {
       let members = resolvedType.nestedTypes.map(t => new ValueMemberElement(t));
+      let sampleElement;
 
       if (this.value) {
         const inlineValues = this.value.split(',').map(val => val.trim());
         const inlineValuesType = resolvedType.nestedTypes.length === 1 ? resolvedType.nestedTypes[0] : 'string';
         const inlineMembers = inlineValues.map(val => new ValueMemberElement(inlineValuesType, [], val));
+        sampleElement = new SampleValueElement(inlineValues);
         members = members.length === 1 ? inlineMembers : inlineMembers.concat(members);
       }
 
-      this.content = new ArrayElement(members);
+      if (isSample && !!sampleElement) {
+        this.samples = [sampleElement];
+        this.value = null;
+      } else {
+        this.content = new ArrayElement(members);
+      }
     }
   }
 
