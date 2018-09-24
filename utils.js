@@ -1,3 +1,4 @@
+const commonmark = require('commonmark');
 const Refract = require('./Refract');
 const types = require('./types');
 
@@ -109,6 +110,13 @@ module.exports = {
     }
 
     return true;
+  },
+
+  markdownSourceToAST(source) {
+    const parser = new commonmark.Parser({ sourcepos: true });
+    const ast = parser.parse(source);
+
+    return ast;
   },
 
   showWarningMessage(text) {

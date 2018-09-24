@@ -1,7 +1,7 @@
-const commonmark = require('commonmark');
 const fs = require('fs');
 const path = require('path');
 const Context = require('./Context');
+const utils = require('./utils');
 
 const Parsers = {};
 
@@ -16,8 +16,7 @@ fs.readdirSync('./parsers').forEach((pFile) => {
 
 module.exports = {
   parse(source, contextOptions) {
-    const parser = new commonmark.Parser({ sourcepos: true });
-    const ast = parser.parse(source);
+    const ast = utils.markdownSourceToAST(source);
     const context = new Context(source, Parsers, contextOptions);
     const result = Parsers.BlueprintParser.parse(ast.firstChild, context)[1];
 
