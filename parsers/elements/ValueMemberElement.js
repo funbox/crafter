@@ -1,6 +1,7 @@
 const Refract = require('../../Refract');
 const utils = require('../../utils');
 const types = require('../../types');
+const { splitValues } = require('../../SignatureParser');
 const ArrayElement = require('./ArrayElement');
 const SampleValueElement = require('./SampleValueElement');
 
@@ -21,7 +22,7 @@ class ValueMemberElement {
       let sampleElement;
 
       if (this.value) {
-        const inlineValues = this.value.split(',').map(val => val.trim());
+        const inlineValues = splitValues(this.value);
         const inlineValuesType = resolvedType.nestedTypes.length === 1 ? resolvedType.nestedTypes[0] : 'string';
         const inlineMembers = inlineValues.map(val => new ValueMemberElement(inlineValuesType, [], val));
         sampleElement = new SampleValueElement(inlineValues, inlineValuesType);

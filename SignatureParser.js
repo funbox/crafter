@@ -191,6 +191,17 @@ function retrieveEscaped(str, startPos) {
   };
 }
 
+function splitValues(values) {
+  const hasEscapedValue = /`.+`/.test(values);
+  const splitter = hasEscapedValue ? /(`.+`),/ : ',';
+  const splitted = values.split(splitter)
+    .filter(val => !!val)
+    .map(val => (val.startsWith('`') ? val : val.replace(',', '')))
+    .map(val => stripBackticks(val.trim()));
+
+  return splitted;
+}
+
 function stripBackticks(str) {
   while (str[0] === '`' && str[str.length - 1] === '`') {
     str = str.substr(1, str.length - 2);
@@ -206,4 +217,5 @@ function error(sig) {
 module.exports = {
   parser: SignatureParser,
   traits: parserTraits,
+  splitValues,
 };

@@ -1,6 +1,7 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
 const SampleValueElement = require('./elements/SampleValueElement');
+const { splitValues } = require('../SignatureParser');
 
 const sampleValueRegex = /^[Ss]ample:?\s*`?(.+?)`?$/;
 const listTypedSampleValueRegex = /^[Ss]ample$/;
@@ -10,7 +11,7 @@ module.exports = (Parsers) => {
     processSignature(node, context) {
       const text = utils.nodeText(node.firstChild, context.sourceLines);
       const valuesMatch = sampleValueRegex.exec(text);
-      const values = valuesMatch ? valuesMatch[1].split(',').map(val => val.trim()) : undefined;
+      const values = valuesMatch ? splitValues(valuesMatch[1]) : undefined;
       const sampleValueElement = new SampleValueElement(values);
       return [(node.firstChild.next && node.firstChild.next.firstChild) || utils.nextNode(node), sampleValueElement];
     },
