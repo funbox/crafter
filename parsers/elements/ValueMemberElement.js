@@ -4,13 +4,13 @@ const types = require('../../types');
 const ArrayElement = require('./ArrayElement');
 
 class ValueMemberElement {
-  constructor(type, typeAttributes = [], example, description) {
+  constructor(type, typeAttributes = [], value, description) {
     const resolvedType = utils.resolveType(type);
 
     this.rawType = type;
     this.type = resolvedType.type;
     this.typeAttributes = typeAttributes;
-    this.example = example;
+    this.value = value;
     this.description = description;
     this.content = null;
     this.samples = null;
@@ -69,8 +69,8 @@ class ValueMemberElement {
       };
     }
 
-    if (this.example) {
-      result.content = this.example;
+    if (this.value) {
+      result.content = this.value;
     }
 
     if (this.content) {

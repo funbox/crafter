@@ -2,11 +2,11 @@ const Refract = require('../../Refract');
 const utils = require('../../utils');
 
 class ParameterElement {
-  constructor(name, example, type, typeAttributes, description) {
+  constructor(name, value, type, typeAttributes, description) {
     const resolvedType = utils.resolveType(type);
 
     this.name = name;
-    this.example = example;
+    this.value = value;
     this.type = resolvedType.type;
     this.typeAttributes = typeAttributes;
     this.description = description;
@@ -36,14 +36,14 @@ class ParameterElement {
       result.content.value.element = Refract.elements.enum;
     }
 
-    if (this.example) {
-      const example = {
+    if (this.value) {
+      const value = {
         element: Refract.elements.string,
-        content: this.example,
+        content: this.value,
       };
 
       result.content.value = this.type === Refract.elements.enum ?
-        Object.assign({ content: example }, result.content.value) : example;
+        Object.assign({ content: value }, result.content.value) : value;
     }
 
     const typeAttributes = this.typeAttributes.length ? this.typeAttributes : ['required'];
