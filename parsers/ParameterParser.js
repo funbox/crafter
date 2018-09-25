@@ -13,7 +13,7 @@ module.exports = (Parsers) => {
 
       const result = new ParameterElement(
         signature.name,
-        signature.example,
+        signature.value,
         signature.type,
         signature.typeAttributes,
         signature.description,

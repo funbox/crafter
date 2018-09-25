@@ -8,10 +8,10 @@ module.exports = (Parsers) => {
   Parsers.EnumMemberParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
       const subject = utils.nodeText(node.firstChild, context.sourceLines);
-      const signature = new SignatureParser(subject, [ParserTraits.EXAMPLE, ParserTraits.ATTRIBUTES, ParserTraits.DESCRIPTION]);
+      const signature = new SignatureParser(subject, [ParserTraits.VALUE, ParserTraits.ATTRIBUTES, ParserTraits.DESCRIPTION]);
 
       const result = new EnumMemberElement(
-        signature.example,
+        signature.value,
         signature.description,
         signature.type,
       );
@@ -24,8 +24,8 @@ module.exports = (Parsers) => {
         const text = utils.nodeText(node.firstChild, context.sourceLines);
 
         try {
-          const signature = new SignatureParser(text, [ParserTraits.EXAMPLE, ParserTraits.ATTRIBUTES, ParserTraits.DESCRIPTION]);
-          if (signature.example) {
+          const signature = new SignatureParser(text, [ParserTraits.VALUE, ParserTraits.ATTRIBUTES, ParserTraits.DESCRIPTION]);
+          if (signature.value) {
             return SectionTypes.enumMember;
           }
         } catch (e) { // eslint-disable-line no-empty

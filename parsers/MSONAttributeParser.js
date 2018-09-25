@@ -14,7 +14,7 @@ module.exports = (Parsers) => {
       const result = new PropertyMemberElement(
         signature.name,
         signature.type,
-        signature.example,
+        signature.value,
         signature.typeAttributes,
         signature.description,
       );

@@ -7,12 +7,12 @@ module.exports = (Parsers) => {
   Parsers.ArrayMemberParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
       const subject = utils.nodeText(node.firstChild, context.sourceLines);
-      const signature = new SignatureParser(subject, [ParserTraits.EXAMPLE, ParserTraits.ATTRIBUTES, ParserTraits.DESCRIPTION]);
+      const signature = new SignatureParser(subject, [ParserTraits.VALUE, ParserTraits.ATTRIBUTES, ParserTraits.DESCRIPTION]);
 
       const result = new ValueMemberElement(
         signature.type,
         signature.typeAttributes,
-        signature.example,
+        signature.value,
         signature.description,
       );
 
