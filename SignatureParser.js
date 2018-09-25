@@ -8,7 +8,7 @@ const typeAttributes = {
 
 const parserTraits = {
   NAME: 'NAME',
-  EXAMPLE: 'EXAMPLE',
+  VALUE: 'VALUE',
   ATTRIBUTES: 'ATTRIBUTES',
   DESCRIPTION: 'DESCRIPTION',
 };
@@ -33,8 +33,8 @@ class SignatureParser {
       signature = this.extractName(signature);
     }
 
-    if (this.traits.includes(parserTraits.EXAMPLE)) {
-      signature = this.extractExample(signature);
+    if (this.traits.includes(parserTraits.VALUE)) {
+      signature = this.extractValue(signature);
     }
 
     if (this.traits.includes(parserTraits.ATTRIBUTES)) {
@@ -67,7 +67,7 @@ class SignatureParser {
           i++;
         }
       } else if (
-        this.traits.includes(parserTraits.EXAMPLE) && signature[i] === VALUES_DELIMITER ||
+        this.traits.includes(parserTraits.VALUE) && signature[i] === VALUES_DELIMITER ||
         this.traits.includes(parserTraits.ATTRIBUTES) && signature[i] === ATTRIBUTES_BEGIN_DELIMITER ||
         this.traits.includes(parserTraits.DESCRIPTION) && signature[i] === DESCRIPTION_DELIMITER
       ) {
@@ -83,20 +83,20 @@ class SignatureParser {
     return signature.substr(i);
   }
 
-  extractExample(signature) {
+  extractValue(signature) {
     signature = signature.trim();
     if (signature[0] === VALUES_DELIMITER) {
       signature = signature.slice(1).trim();
     }
 
     let i = 0;
-    let example = '';
+    let value = '';
 
     while (i < signature.length) {
       if (signature[i] === '`') {
         const result = retrieveEscaped(signature, i);
         if (result.result) {
-          example = `${example}${result.result}`;
+          value = `${value}${result.result}`;
           signature = result.str;
           i = 0;
         } else {
@@ -108,12 +108,12 @@ class SignatureParser {
       ) {
         break;
       } else {
-        example = `${example}${signature[i]}`;
+        value = `${value}${signature[i]}`;
         i++;
       }
     }
 
-    this.example = stripBackticks(example.trim());
+    this.value = stripBackticks(value.trim());
 
     return signature.substr(i);
   }
