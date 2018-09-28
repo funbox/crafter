@@ -1,0 +1,73 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": [
+          {
+            "element": "string",
+            "content": "api"
+          }
+        ],
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
+      },
+      "content": [
+        {
+          "element": "category",
+          "meta": {
+            "classes": [
+              "resourceGroup"
+            ],
+            "title": {
+              "element": "string",
+              "content": "Blog Post"
+            }
+          },
+          "content": [
+            {
+              "element": "resource",
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Blog 1"
+                }
+              },
+              "attributes": {
+                "href": {
+                  "element": "string",
+                  "content": "/resource1/{?limit}"
+                }
+              },
+              "content": [
+                {
+                  "element": "copy",
+                  "content": "# Unexpected Header\n\n# Second Unexpected Header"
+                }
+              ]
+            },
+            {
+              "element": "resource",
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Blog 1"
+                }
+              },
+              "attributes": {
+                "href": {
+                  "element": "string",
+                  "content": "/resource2/{?limit}"
+                }
+              },
+              "content": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

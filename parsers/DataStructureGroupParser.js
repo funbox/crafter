@@ -29,7 +29,6 @@ module.exports = (Parsers) => {
     upperSectionType(node, context) {
       return SectionTypes.calculateSectionType(node, context, [
         Parsers.ResourceGroupParser,
-        Parsers.ResourcePrototypeParser,
         Parsers.DataStructureGroupParser,
         Parsers.ResourcePrototypesParser,
       ]);
