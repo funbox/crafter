@@ -50,5 +50,9 @@ module.exports = (Parsers) => {
     processDescription(node, context, result) {
       return [node, result];
     },
+
+    isUnexpectedNode(node, context) {
+      return context.sectionKeywordSignature(node) === SectionTypes.undefined && node.type !== 'heading';
+    }
   });
 };

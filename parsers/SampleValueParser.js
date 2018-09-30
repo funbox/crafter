@@ -46,5 +46,9 @@ module.exports = (Parsers) => {
 
       return [nextNode, result];
     },
+
+    isUnexpectedNode(node, context) {
+      return false;
+    }
   });
 };

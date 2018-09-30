@@ -73,12 +73,21 @@ module.exports = {
   processNestedSections(node, context, result) {
     let curNode = node;
 
-    while (
-      curNode
-      && (this.allowLeavingNode || this.isCurrentNodeOrChild(curNode, context.rootNode))
-      && this.nestedSectionType(curNode, context) !== SectionTypes.undefined
-    ) {
-      [curNode, result] = this.processNestedSection(curNode, context, result);
+    while (curNode) {
+      if (this.nestedSectionType(curNode, context) !== SectionTypes.undefined) {
+        if ((this.allowLeavingNode || this.isCurrentNodeOrChild(curNode, context.rootNode))) {
+          [curNode, result] = this.processNestedSection(curNode, context, result);
+        } else {
+          break;
+        }
+      } else {
+        if (this.isUnexpectedNode(curNode, context)) {
+          console.log('ignoring unrecognized block ', utils.nodeText(curNode, context.sourceLines));
+          curNode = utils.nextNode(curNode);
+        } else {
+          break;
+        }
+      }
     }
 
     return [curNode, result];
@@ -119,5 +128,9 @@ module.exports = {
   isDescriptionNode(node, context) {
     return this.nestedSectionType(node, context) === SectionTypes.undefined &&
       this.upperSectionType(node, context) === SectionTypes.undefined;
+  },
+
+  isUnexpectedNode(node, context) {
+    return context.sectionKeywordSignature(node) === SectionTypes.undefined;
   }
 };

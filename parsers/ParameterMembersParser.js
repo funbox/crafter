@@ -44,5 +44,9 @@ module.exports = (Parsers) => {
     processDescription(node, context, result) {
       return [node, result];
     },
+
+    isUnexpectedNode(node, context) {
+      return false;
+    }
   });
 };

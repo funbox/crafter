@@ -23,5 +23,9 @@ module.exports = (Parsers) => {
 
       return SectionTypes.undefined;
     },
+
+    isUnexpectedNode(node, context) {
+      return false;
+    }
   });
 };
