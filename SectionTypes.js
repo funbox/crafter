@@ -22,6 +22,9 @@ const SectionTypes = Object.freeze({
   schema: 'schema',
   msonAttribute: 'msonAttribute',
   msonMixin: 'msonMixin',
+  msonObjectMemberGroup: 'msonObjectMemberGroup',
+  msonArrayMemberGroup: 'msonArrayMemberGroup',
+  msonEnumMemberGroup: 'msonEnumMemberGroup',
   oneOfType: 'oneOfType',
   oneOfTypeOption: 'oneOfTypeOption',
 

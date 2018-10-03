@@ -21,6 +21,7 @@ class Context {
     this.sectionKeywordSignatureParsers = [
       'DefaultValue',
       'MSONMixin',
+      'MSONMemberGroup',
       'OneOfType',
       'Headers',
       'Attributes',
