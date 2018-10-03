@@ -6,13 +6,14 @@ const EnumElement = require('./elements/EnumElement');
 const ObjectElement = require('./elements/ObjectElement');
 
 class DataStructureProcessor {
-  constructor(valueMemberRootNode, Parsers) {
+  constructor(valueMemberRootNode, Parsers, startNode) {
     this.valueMemberRootNode = valueMemberRootNode;
     this.Parsers = Parsers;
+    this.startNode = startNode;
   }
 
   fillValueMember(valueMember, context) {
-    const curNode = this.valueMemberRootNode.firstChild;
+    const curNode = this.startNode || this.valueMemberRootNode.firstChild;
 
     if (curNode && !(valueMember.isComplex())) {
       context.logger.warn('sub-types of primitive types should not have nested members, ignoring unrecognized block');
