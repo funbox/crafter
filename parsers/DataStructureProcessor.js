@@ -52,6 +52,9 @@ class DataStructureProcessor {
         [nextNode, samplesElement] = this.Parsers.SampleValueParser.parse(curNode, context);
         samplesElement.type = predefinedType;
         samplesArray.push(samplesElement);
+      } else if (this.Parsers.MSONMemberGroupParser.sectionType(curNode, context) === SectionTypes.msonArrayMemberGroup) {
+        [nextNode, childResult] = this.Parsers.MSONMemberGroupParser.parse(curNode, context);
+        arrayMembers.push(...childResult.members);
       } else {
         [nextNode, childResult] = this.Parsers.ArrayMemberParser.parse(curNode, context);
         arrayMembers.push(childResult);
