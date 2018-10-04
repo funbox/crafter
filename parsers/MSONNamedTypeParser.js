@@ -25,6 +25,7 @@ module.exports = (Parsers) => {
       return SectionTypes.calculateSectionType(node, context, [
         Parsers.OneOfTypeParser,
         Parsers.MSONAttributeParser,
+        Parsers.MSONMixinParser,
       ]);
     },
 

@@ -23,6 +23,21 @@ module.exports = (Parsers) => {
       return SectionTypes.undefined;
     },
 
+    upperSectionType(node, context) {
+      return SectionTypes.calculateSectionType(node, context, [
+        Parsers.BodyParser,
+        Parsers.HeadersParser,
+        Parsers.ParameterParser,
+        Parsers.RequestParser,
+        Parsers.ResponseParser,
+        Parsers.ActionParser,
+        Parsers.ResourceParser,
+        Parsers.ResourceGroupParser,
+        Parsers.DataStructureGroupParser,
+        Parsers.ResourcePrototypesParser,
+      ]);
+    },
+
     processDescription(node, context, result) {
       return [node, result];
     },

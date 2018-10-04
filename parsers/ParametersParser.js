@@ -28,6 +28,19 @@ module.exports = (Parsers) => {
       return Parsers.ParameterParser.sectionType(node, context);
     },
 
+    upperSectionType(node, context) {
+      return SectionTypes.calculateSectionType(node, context, [
+        Parsers.ParameterParser,
+        Parsers.RequestParser,
+        Parsers.ResponseParser,
+        Parsers.ActionParser,
+        Parsers.ResourceParser,
+        Parsers.ResourceGroupParser,
+        Parsers.DataStructureGroupParser,
+        Parsers.ResourcePrototypesParser,
+      ]);
+    },
+
     processNestedSection(node, context, result) {
       const [nextNode, childResult] = Parsers.ParameterParser.parse(node, context);
       result.parameters.push(childResult);

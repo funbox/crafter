@@ -129,6 +129,6 @@ module.exports = {
   },
 
   isUnexpectedNode(node, context) {
-    return context.sectionKeywordSignature(node) === SectionTypes.undefined;
+    return this.upperSectionType(node, context) === SectionTypes.undefined;
   }
 };
