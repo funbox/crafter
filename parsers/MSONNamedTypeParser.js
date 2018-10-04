@@ -24,8 +24,8 @@ module.exports = (Parsers) => {
     nestedSectionType(node, context) {
       return SectionTypes.calculateSectionType(node, context, [
         Parsers.OneOfTypeParser,
-        Parsers.MSONAttributeParser,
         Parsers.MSONMixinParser,
+        Parsers.MSONAttributeParser,
       ]);
     },
 
