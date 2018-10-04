@@ -11,7 +11,7 @@ function processApibFiles(dir) {
   dirContent.forEach((item) => {
     if (fs.statSync(path.join(dir, item)).isDirectory() && !excludedDirs.includes(item)) {
       processApibFiles(path.join(dir, item));
-    } else if (path.extname(item) === '.apib') {
+    } else if (path.extname(item) === '.apib' && !/-inner\.apib$/.test(item)) {
       const fileName = path.join(dir, item);
       const jsonFileName = fileName.slice(0, -5);
       fs.writeFileSync(`${jsonFileName}.json`, `${parseApibFile(fileName, 'json')}\n`);
