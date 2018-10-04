@@ -74,20 +74,18 @@ module.exports = {
     let curNode = node;
 
     while (curNode) {
-      if (this.nestedSectionType(curNode, context) !== SectionTypes.undefined) {
-        if ((this.allowLeavingNode || this.isCurrentNodeOrChild(curNode, context.rootNode))) {
-          [curNode, result] = this.processNestedSection(curNode, context, result);
-        } else {
-          break;
-        }
+
+      if (this.nestedSectionType(curNode, context) !== SectionTypes.undefined
+        && (this.allowLeavingNode || this.isCurrentNodeOrChild(curNode, context.rootNode))
+      ) {
+        [curNode, result] = this.processNestedSection(curNode, context, result);
+      } else if (this.isUnexpectedNode(curNode, context)) {
+        utils.showWarningMessage(`Warning ignoring unrecognized block "${utils.nodeText(curNode, context.sourceLines)}".`);
+        curNode = utils.nextNode(curNode);
       } else {
-        if (this.isUnexpectedNode(curNode, context)) {
-          console.log('ignoring unrecognized block ', utils.nodeText(curNode, context.sourceLines));
-          curNode = utils.nextNode(curNode);
-        } else {
-          break;
-        }
+        break;
       }
+
     }
 
     return [curNode, result];
