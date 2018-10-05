@@ -72,7 +72,7 @@ module.exports = (Parsers) => {
         }
       }
 
-      return new SourceMapElement(byteBlocks);
+      return new SourceMapElement(byteBlocks, node.file);
     },
   });
 };

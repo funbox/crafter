@@ -25,6 +25,7 @@ module.exports = {
 
   parseFile(file, contextOptions = {}) {
     contextOptions.currentFile = path.resolve(__dirname, file);
+    contextOptions.entryFile = contextOptions.currentFile;
     contextOptions.logger = utils.logger;
     return this.parse(fs.readFileSync(file, { encoding: 'utf-8' }), contextOptions);
   },

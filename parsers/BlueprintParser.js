@@ -135,7 +135,7 @@ module.exports = (Parsers) => {
             throw new CrafterError(`Invalid content of "${filename}". Expected content to be a section, instead got "${childAst.firstChild.type}".`);
           }
 
-          addSourceLines(childAst, childSourceLines);
+          addSourceLinesAndFilename(childAst, childSourceLines, context.resolvePathRelativeToEntryFile(filename));
           this.resolveImports(childAst.firstChild, childContext, usedFiles);
 
           let childNode = childAst.firstChild;
@@ -171,7 +171,7 @@ module.exports = (Parsers) => {
   };
 };
 
-function addSourceLines(ast, sourceLines) {
+function addSourceLinesAndFilename(ast, sourceLines, filename) {
   const walker = ast.walker();
   let event = walker.next();
   let node;
@@ -179,6 +179,7 @@ function addSourceLines(ast, sourceLines) {
   while (event) {
     node = event.node;
     node.sourceLines = sourceLines;
+    node.file = filename;
     event = walker.next();
   }
 }

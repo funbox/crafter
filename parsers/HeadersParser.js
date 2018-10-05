@@ -97,7 +97,7 @@ module.exports = (Parsers) => {
               block.offset = offset;
               offset += restBytes;
               block.length = offset - block.offset;
-              header.sourceMap = new SourceMapElement([block]);
+              header.sourceMap = new SourceMapElement([block], contentNode.file);
               offset += linefeedByte;
             }
 

@@ -16,6 +16,7 @@ class Context {
     this.currentFile = options.currentFile;
     this.logger = options.logger;
     this.sourceMapsEnabled = options.sourceMapsEnabled;
+    this.entryFile = options.entryFile;
 
     this.sectionKeywordSignatureParsers = [
       'DefaultValue',
@@ -88,9 +89,19 @@ class Context {
     }
 
     const ast = utils.markdownSourceToAST(file);
-    const context = new Context(file, [], { currentFile: fullPath });
+    const context = new Context(file, [], {
+      currentFile: fullPath,
+      entryFile: this.entryFile,
+    });
 
     return { ast, context };
+  }
+
+  resolvePathRelativeToEntryFile(filename) {
+    const entryDir = path.dirname(this.entryFile);
+    const currentDir = path.dirname(this.currentFile);
+    const absPath = path.resolve(currentDir, filename);
+    return path.relative(entryDir, absPath);
   }
 }
 

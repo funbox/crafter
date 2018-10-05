@@ -94,7 +94,7 @@ module.exports = {
       length += getTrailingEmptyLinesLengthInBytes(endLineIndex + 1, sourceLines);
     }
     const byteBlock = { offset: startOffset, length };
-    return new SourceMapElement([byteBlock]);
+    return new SourceMapElement([byteBlock], node.file);
   },
 
   makeSourceMapForDescription(startNode, sourceLines) {
@@ -137,7 +137,7 @@ module.exports = {
     if (indentation === 0) {
       byteBlocks.push(byteBlock);
     }
-    return new SourceMapElement(byteBlocks);
+    return new SourceMapElement(byteBlocks, startNode.file);
   },
 
   nodeText(node, sourceLines) {
