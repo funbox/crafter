@@ -29,7 +29,7 @@ function convertType(literal, type) {
       }
       break;
     case 'number':
-      if (!isNaN(literal)) {
+      if (!Number.isNaN(Number(literal))) {
         return { valid: true, value: parseFloat(literal) };
       }
       break;

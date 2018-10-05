@@ -42,8 +42,8 @@ class ParameterElement {
         content: this.value,
       };
 
-      result.content.value = this.type === Refract.elements.enum ?
-        Object.assign({ content: value }, result.content.value) : value;
+      result.content.value = this.type === Refract.elements.enum
+        ? Object.assign({ content: value }, result.content.value) : value;
     }
 
     const typeAttributes = this.typeAttributes.length ? this.typeAttributes : ['required'];

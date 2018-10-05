@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "regenerate-fixtures": "node ./scripts/regenerate-fixtures.js",
-    "lint": "eslint --cache -c node_modules/eslint-config-funbox/.eslintrc --ext .js ./"
+    "lint": "eslint --cache -c .eslintrc --ext .js ./"
   },
   "keywords": [
     "drafter",
@@ -21,8 +21,11 @@
     "crafter": "node ./cli.js"
   },
   "devDependencies": {
-    "eslint": "3.19.0",
-    "eslint-config-funbox": "2.1.0",
+    "@funboxteam/eslint-config": "4.8.0",
+    "eslint": "5.3.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.1",
     "jest": "^22.4.3"
   },
   "dependencies": {

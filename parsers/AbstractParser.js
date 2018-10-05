@@ -60,10 +60,10 @@ module.exports = {
     let curNode = node;
 
     while (
-      curNode &&
-      (this.allowLeavingNode || this.isCurrentNodeOrChild(curNode, context.rootNode)) &&
-      this.nestedSectionType(curNode, context) !== SectionTypes.undefined
-      ) {
+      curNode
+      && (this.allowLeavingNode || this.isCurrentNodeOrChild(curNode, context.rootNode))
+      && this.nestedSectionType(curNode, context) !== SectionTypes.undefined
+    ) {
       [curNode, result] = this.processNestedSection(curNode, context, result);
     }
 

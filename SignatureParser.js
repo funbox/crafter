@@ -70,9 +70,9 @@ class SignatureParser {
           i++;
         }
       } else if (
-        this.traits.includes(parserTraits.VALUE) && signature[i] === VALUES_DELIMITER ||
-        this.traits.includes(parserTraits.ATTRIBUTES) && signature[i] === ATTRIBUTES_BEGIN_DELIMITER ||
-        this.traits.includes(parserTraits.DESCRIPTION) && signature[i] === DESCRIPTION_DELIMITER
+        this.traits.includes(parserTraits.VALUE) && signature[i] === VALUES_DELIMITER
+        || this.traits.includes(parserTraits.ATTRIBUTES) && signature[i] === ATTRIBUTES_BEGIN_DELIMITER
+        || this.traits.includes(parserTraits.DESCRIPTION) && signature[i] === DESCRIPTION_DELIMITER
       ) {
         break;
       } else {
@@ -106,8 +106,8 @@ class SignatureParser {
           i++;
         }
       } else if (
-        this.traits.includes(parserTraits.ATTRIBUTES) && signature[i] === ATTRIBUTES_BEGIN_DELIMITER ||
-        this.traits.includes(parserTraits.DESCRIPTION) && signature[i] === DESCRIPTION_DELIMITER
+        this.traits.includes(parserTraits.ATTRIBUTES) && signature[i] === ATTRIBUTES_BEGIN_DELIMITER
+        || this.traits.includes(parserTraits.DESCRIPTION) && signature[i] === DESCRIPTION_DELIMITER
       ) {
         break;
       } else {
