@@ -45,12 +45,14 @@ module.exports = {
   },
 
   processDescription(node, context, result) {
-    let [curNode, description] = utils.extractDescription(node, context.sourceLines);
+    const descriptionResult = utils.extractDescription(node, context.sourceLines);
+    let curNode = descriptionResult[0];
+    const description = descriptionResult[1];
 
     let fullDescription = '';
 
     if (description) {
-      fullDescription+= description;
+      fullDescription += description;
     }
 
     while (curNode && this.isDescriptionNode(curNode, context)) {
@@ -74,7 +76,6 @@ module.exports = {
     let curNode = node;
 
     while (curNode) {
-
       if (this.nestedSectionType(curNode, context) !== SectionTypes.undefined
         && (this.allowLeavingNode || this.isCurrentNodeOrChild(curNode, context.rootNode))
       ) {
@@ -85,7 +86,6 @@ module.exports = {
       } else {
         break;
       }
-
     }
 
     return [curNode, result];
@@ -124,11 +124,11 @@ module.exports = {
   },
 
   isDescriptionNode(node, context) {
-    return this.nestedSectionType(node, context) === SectionTypes.undefined &&
-      this.upperSectionType(node, context) === SectionTypes.undefined;
+    return this.nestedSectionType(node, context) === SectionTypes.undefined
+      && this.upperSectionType(node, context) === SectionTypes.undefined;
   },
 
   isUnexpectedNode(node, context) {
     return this.upperSectionType(node, context) === SectionTypes.undefined;
-  }
+  },
 };

@@ -58,8 +58,8 @@ module.exports = (Parsers) => {
       return [nextNode, result];
     },
 
-    isUnexpectedNode(node, context) {
+    isUnexpectedNode() {
       return false;
-    }
+    },
   });
 };

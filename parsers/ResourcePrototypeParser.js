@@ -53,6 +53,6 @@ module.exports = (Parsers) => {
 
     isUnexpectedNode(node, context) {
       return context.sectionKeywordSignature(node) === SectionTypes.undefined && node.type !== 'heading';
-    }
+    },
   });
 };
