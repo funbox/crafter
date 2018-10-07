@@ -36,6 +36,10 @@ module.exports = (Parsers) => {
       return Parsers.MSONAttributeParser.sectionType(node, context);
     },
 
+    processDescription(node, context, result) {
+      return [node, result];
+    },
+
     processNestedSections(node, context, result) {
       if (!node) {
         return [node, result];

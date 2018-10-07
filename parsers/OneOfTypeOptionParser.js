@@ -32,6 +32,10 @@ module.exports = (Parsers) => {
       return SectionTypes.undefined;
     },
 
+    processDescription(node, context, result) {
+      return [node, result];
+    },
+
     processNestedSection(node, context, result) {
       if (!node) {
         return [node, result];
