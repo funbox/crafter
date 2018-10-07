@@ -12,6 +12,10 @@ module.exports = (Parsers) => {
       return [utils.nextNode(node), new MSONMixinElement(MSONMixinRegex.exec(text)[1].trim())];
     },
 
+    processDescription(node, context, result) {
+      return [node, result];
+    },
+
     sectionType(node, context) {
       if (node.type === 'item') {
         const text = utils.nodeText(node.firstChild, context.sourceLines);

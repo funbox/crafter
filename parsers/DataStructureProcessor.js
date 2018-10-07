@@ -74,6 +74,7 @@ class DataStructureProcessor {
     let curNode = node;
 
     while (curNode) {
+      let nextNode;
       let childResult;
       let samplesElement;
 
@@ -86,16 +87,16 @@ class DataStructureProcessor {
 
       switch (sectionType) {
         case SectionTypes.msonAttribute:
-          [, childResult] = this.Parsers.MSONAttributeParser.parse(curNode, context);
+          [nextNode, childResult] = this.Parsers.MSONAttributeParser.parse(curNode, context);
           break;
         case SectionTypes.msonMixin:
-          [, childResult] = this.Parsers.MSONMixinParser.parse(curNode, context);
+          [nextNode, childResult] = this.Parsers.MSONMixinParser.parse(curNode, context);
           break;
         case SectionTypes.oneOfType:
-          [, childResult] = this.Parsers.OneOfTypeParser.parse(curNode, context);
+          [nextNode, childResult] = this.Parsers.OneOfTypeParser.parse(curNode, context);
           break;
         case SectionTypes.sampleValue:
-          [, samplesElement] = this.Parsers.SampleValueParser.parse(curNode, context);
+          [nextNode, samplesElement] = this.Parsers.SampleValueParser.parse(curNode, context);
           break;
 
         default:
@@ -109,6 +110,11 @@ class DataStructureProcessor {
 
       if (samplesElement) {
         samplesArray.push(samplesElement);
+      }
+
+      // TODO Что если nextNode !== curNode.next ?
+      if (curNode.next && nextNode !== curNode.next) {
+        throw new utils.CrafterError('nextNode !== curNode.next');
       }
 
       curNode = curNode.next;
