@@ -57,7 +57,7 @@ module.exports = {
 
     while (curNode && this.isDescriptionNode(curNode, context)) {
       if (fullDescription) {
-        fullDescription = utils.twoNewLines(fullDescription);
+        fullDescription = utils.appendDescriptionDelimiter(fullDescription);
       }
 
       fullDescription += utils.nodeText(curNode, context.sourceLines);

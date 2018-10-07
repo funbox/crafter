@@ -27,7 +27,7 @@ module.exports = {
 
     while (curNode && curNode.type === 'paragraph') {
       if (description) {
-        description += '\n\n';
+        description = this.appendDescriptionDelimiter(description);
       }
       description += this.nodeText(curNode, sourceLines);
       curNode = this.nextNode(curNode);
@@ -127,7 +127,7 @@ module.exports = {
     console.log('\x1b[33m%s\x1b[0m', text); // font yellow color
   },
 
-  twoNewLines(s) {
+  appendDescriptionDelimiter(s) {
     if (s[s.length - 1] !== '\n') {
       s += '\n';
     }
