@@ -114,7 +114,41 @@ module.exports = (Parsers) => {
       });
 
       context.resourcePrototypes.pop();
+
+      const { href, parameters } = result;
+      if (href) {
+        let expectedParameters = getUriVariables(href);
+
+        if (parameters && parameters.parameters) {
+          expectedParameters = expectedParameters.filter(name => !parameters.parameters.find(p => p.name === name));
+        }
+
+        if (expectedParameters.length > 0) {
+          context.logger.warn(`Action is missing parameter definitions: ${expectedParameters.join(', ')}.`);
+        }
+      }
+
       return result;
     },
   });
 };
+
+function getUriVariables(uriTemplate) {
+  const URI_VARIABLE_REGEX = /{(.*?)}/g;
+  const URI_TEMPLATE_EXPRESSION_REGEX = /^(?:[?|#|+|&]?(([A-Z|a-z|0-9|_|,])*|(?:%[A-F|a-f|0-9]{2})*)*\\*?)$/;
+
+  const result = [];
+
+  let match = URI_VARIABLE_REGEX.exec(uriTemplate);
+
+  while (match) {
+    const names = match[1].split(',');
+    const cleanNames = names.map(str => URI_TEMPLATE_EXPRESSION_REGEX.exec(str)[1]);
+
+    result.push(...cleanNames);
+
+    match = URI_VARIABLE_REGEX.exec(uriTemplate);
+  }
+
+  return result;
+}
