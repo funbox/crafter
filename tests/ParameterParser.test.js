@@ -13,28 +13,57 @@ fs.readdirSync('./parsers').forEach((pFile) => {
 });
 
 function parse(source) {
+  const warnings = [];
   const ast = utils.markdownSourceToAST(source);
-  const context = new Context(source, Parsers, {});
+  const context = new Context(source, Parsers, {
+    logger: {
+      warn(text) {
+        warnings.push(text);
+      },
+    },
+  });
+  const result = Parsers.ParameterParser.parse(ast, context)[1];
 
-  return Parsers.ParameterParser.parse(ast, context)[1];
+  return { result, warnings };
 }
 
 describe('ParameterParser', () => {
   it('parses parameter signature with name, example, type, type attributes and description', () => {
     const source = 'id: 42 (number, required) - user id';
 
-    const result = parse(source);
+    const {
+      result: { name, value, type, typeAttributes, description },
+      warnings,
+    } = parse(source);
 
-    expect(result.name).toBe('id');
-    expect(result.value).toBe('42');
-    expect(result.type).toBe('number');
-    expect(result.typeAttributes).toEqual(['required']);
-    expect(result.description).toBe('user id');
+    expect(warnings.length).toBe(0);
+    expect(name).toBe('id');
+    expect(value).toBe('42');
+    expect(type).toBe('number');
+    expect(typeAttributes).toEqual(['required']);
+    expect(description).toBe('user id');
   });
 
   it('throws an error if a parameter is specified as both required and optional', () => {
     const source = 'name: `John` (required, optional) - user name';
 
     expect(() => parse(source)).toThrow(utils.CrafterError);
+  });
+
+  it('parses required parameter with default value, creates warnings via logger', () => {
+    const source = 'name: `John` (string, required) - user name\n+ Default: `Ivan`\n';
+
+    const {
+      result: { name, value, type, typeAttributes, description, defaultValue },
+      warnings,
+    } = parse(source);
+
+    expect(warnings.length).toBe(1);
+    expect(name).toBe('name');
+    expect(value).toBe('John');
+    expect(type).toBe('string');
+    expect(typeAttributes).toEqual(['required']);
+    expect(description).toBe('user name');
+    expect(defaultValue).toEqual({ value: 'Ivan' });
   });
 });

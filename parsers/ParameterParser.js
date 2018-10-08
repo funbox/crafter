@@ -69,9 +69,15 @@ module.exports = (Parsers) => {
     },
 
     finalize(context, result) {
-      const { typeAttributes } = result;
-      if (typeAttributes.includes('optional') && typeAttributes.includes('required')) {
-        throw new utils.CrafterError(`Parameter "${result.name}" must not be specified as both required and optional.`);
+      const { name, typeAttributes, defaultValue } = result;
+      if (typeAttributes.includes('required')) {
+        if (typeAttributes.includes('optional')) {
+          throw new utils.CrafterError(`Parameter "${name}" must not be specified as both required and optional.`);
+        }
+
+        if (defaultValue) {
+          context.logger.warn(`Specifying parameter ${name} as required supersedes its default value, declare the parameter as 'optional' to specify its default value.`);
+        }
       }
 
       return result;
