@@ -1,4 +1,5 @@
 const SectionTypes = require('../SectionTypes');
+const types = require('../types');
 const utils = require('../utils');
 const PropertyMemberElement = require('./elements/PropertyMemberElement');
 const DataStructureProcessor = require('./DataStructureProcessor');
@@ -51,6 +52,15 @@ module.exports = (Parsers) => {
 
     isUnexpectedNode() {
       return false;
+    },
+
+    finalize(context, result) {
+      const { name, value: { type, content } } = result;
+      if (type === types.enum && !(content && content.members && content.members.length > 0)) {
+        context.logger.warn(`Enum element "${name}" should include members.`);
+      }
+
+      return result;
     },
   });
 };
