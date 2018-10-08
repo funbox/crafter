@@ -44,5 +44,9 @@ module.exports = (Parsers) => {
 
       return [utils.nextNode(contentNode), result];
     },
+
+    processDescription(node, context, result) {
+      return [node, result]; // TODO: Сделать обработку description для этого парсера
+    },
   });
 };
