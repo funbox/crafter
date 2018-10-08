@@ -6,18 +6,26 @@ const headersRegex = /^[Hh]eaders$/;
 
 module.exports = (Parsers) => {
   Parsers.HeadersParser = Object.assign(Object.create(require('./AbstractParser')), {
-    // TODO: Обработать кривые заголовки (когда не в формате Name: Value)
-    processSignature(node) {
+    processSignature(node, context) {
       const headersContentNode = node.firstChild.next;
+      const headerLineRegex = /^([\w-]+)\s*:(.*)/;
 
-      let headers = [];
-      if (headersContentNode) {
-        headers = (headersContentNode.literal || '').trim().split('\n').map((headerLine) => {
-          const [key, val] = headerLine.split(':');
-          return {
-            key: key.trim(),
-            val: val.trim(),
-          };
+      const headers = [];
+      if (headersContentNode && headersContentNode.literal) {
+        headersContentNode.literal.trim().split('\n').forEach((headerLine) => {
+          headerLine = headerLine.trim();
+
+          if (headerLineRegex.test(headerLine)) {
+            // На случай, если значение хэдера содержит двоеточия - так оно целиком попадет в val.
+            const [key, val] = headerLine.split(/:(.+)/);
+
+            headers.push({
+              key: key.trim(),
+              val: val.trim(),
+            });
+          } else {
+            context.logger.warn(`Ignoring unrecognized HTTP header "${headerLine}", expected "<header name>: <header value>", one header per line.`);
+          }
         });
       }
 
