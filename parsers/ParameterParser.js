@@ -67,5 +67,14 @@ module.exports = (Parsers) => {
     isUnexpectedNode() {
       return false;
     },
+
+    finalize(context, result) {
+      const { typeAttributes } = result;
+      if (typeAttributes.includes('optional') && typeAttributes.includes('required')) {
+        throw new utils.CrafterError(`Parameter "${result.name}" must not be specified as both required and optional.`);
+      }
+
+      return result;
+    },
   });
 };
