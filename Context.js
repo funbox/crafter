@@ -12,8 +12,9 @@ class Context {
     this.sourceLines = source.split('\n');
     this.data = {};
     this.frames = [];
-    this.currentFile = options.currentFile;
     this.resourcePrototypes = [];
+    this.currentFile = options.currentFile;
+    this.logger = options.logger;
 
     this.sectionKeywordSignatureParsers = [
       'DefaultValue',
