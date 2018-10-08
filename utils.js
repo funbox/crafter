@@ -5,6 +5,12 @@ const types = require('./types');
 class CrafterError extends Error {
 }
 
+const logger = {
+  warn(text) {
+    console.log('\x1b[33m%s\x1b[0m', `Warning: ${text}`); // yellow color
+  },
+};
+
 module.exports = {
   typeAttributesToRefract(typeAttributes) {
     return {
@@ -123,10 +129,6 @@ module.exports = {
     return ast;
   },
 
-  showWarningMessage(text) {
-    console.log('\x1b[33m%s\x1b[0m', text); // font yellow color
-  },
-
   appendDescriptionDelimiter(s) {
     if (s[s.length - 1] !== '\n') {
       s += '\n';
@@ -139,4 +141,6 @@ module.exports = {
   },
 
   CrafterError,
+
+  logger,
 };
