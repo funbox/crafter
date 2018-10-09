@@ -81,7 +81,7 @@ module.exports = {
       ) {
         [curNode, result] = this.processNestedSection(curNode, context, result);
       } else if (this.isUnexpectedNode(curNode, context)) {
-        utils.showWarningMessage(`Warning ignoring unrecognized block "${utils.nodeText(curNode, context.sourceLines)}".`);
+        context.logger.warn(`Warning ignoring unrecognized block "${utils.nodeText(curNode, context.sourceLines)}".`);
         curNode = utils.nextNode(curNode);
       } else {
         break;

@@ -163,7 +163,7 @@ class DataStructureProcessor {
     }
 
     if (!standardTypes.includes(enumElement.type)) {
-      utils.showWarningMessage('Enum must not use named types as a sub-type. Sub-type "string" will be used instead.');
+      context.logger.warn('Enum must not use named types as a sub-type. Sub-type "string" will be used instead.');
       enumElement.type = 'string';
     }
 
@@ -171,7 +171,7 @@ class DataStructureProcessor {
       const typesMatch = utils.compareAttributeTypes(enumElement, member);
 
       if (!typesMatch) {
-        utils.showWarningMessage(`Invalid value format "${member.name}" for enum type '${enumElement.type}'.`);
+        context.logger.warn(`Invalid value format "${member.name}" for enum type '${enumElement.type}'.`);
       }
 
       if (!member.type) member.type = enumElement.type;
