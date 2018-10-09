@@ -1,4 +1,5 @@
 const SectionTypes = require('../SectionTypes');
+const { standardTypes } = require('../types');
 const utils = require('../utils');
 
 const EnumElement = require('./elements/EnumElement');
@@ -160,6 +161,21 @@ class DataStructureProcessor {
       }
       curNode = curNode.next;
     }
+
+    if (!standardTypes.includes(enumElement.type)) {
+      utils.showWarningMessage('Enum must not use named types as a sub-type. Sub-type "string" will be used instead.');
+      enumElement.type = 'string';
+    }
+
+    enumElement.members.forEach((member) => {
+      const typesMatch = utils.compareAttributeTypes(enumElement, member);
+
+      if (!typesMatch) {
+        utils.showWarningMessage(`Invalid value format "${member.name}" for enum type '${enumElement.type}'.`);
+      }
+
+      if (!member.type) member.type = enumElement.type;
+    });
 
     return enumElement;
   }
