@@ -81,20 +81,24 @@ module.exports = {
     return result;
   },
 
-  makeGenericSourceMap(node, sourceLines) {
-    const startLineIndex = node.sourcepos[0][0] - 1;
-    const startColumnIndex = node.sourcepos[0][1] - 1;
-    const endLineIndex = node.sourcepos[1][0] - 1;
-    const endColumnIndex = node.sourcepos[1][1] - 1;
+  makeGenericSourceMapFromStartAndEndNodes(startNode, endNode, sourceLines) {
+    const startLineIndex = startNode.sourcepos[0][0] - 1;
+    const startColumnIndex = startNode.sourcepos[0][1] - 1;
+    const endLineIndex = endNode.sourcepos[1][0] - 1;
+    const endColumnIndex = endNode.sourcepos[1][1] - 1;
     const startOffset = this.getOffsetFromStartOfFileInBytes(startLineIndex, startColumnIndex, sourceLines);
     const endOffset = this.getOffsetFromStartOfFileInBytes(endLineIndex, endColumnIndex + 1, sourceLines);
     let length = endOffset - startOffset;
     length += getEndingLinefeedLengthInBytes(endLineIndex, sourceLines);
-    if (node.next) {
+    if (endNode.next) {
       length += getTrailingEmptyLinesLengthInBytes(endLineIndex + 1, sourceLines);
     }
     const byteBlock = { offset: startOffset, length };
-    return new SourceMapElement([byteBlock], node.file);
+    return new SourceMapElement([byteBlock], startNode.file);
+  },
+
+  makeGenericSourceMap(node, sourceLines) {
+    return this.makeGenericSourceMapFromStartAndEndNodes(node, node, sourceLines);
   },
 
   makeSourceMapForDescription(startNode, sourceLines) {

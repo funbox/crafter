@@ -1,5 +1,6 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
+const DescriptionElement = require('./elements/DescriptionElement');
 
 module.exports = {
   allowLeavingNode: true,
@@ -33,26 +34,36 @@ module.exports = {
   processDescription(node, context, result) {
     const descriptionResult = utils.extractDescription(node, context.sourceLines, context.sourceMapsEnabled);
     let curNode = descriptionResult[0];
-    const descriptionEl = descriptionResult[1];
+    let descriptionEl = descriptionResult[1];
 
-    let fullDescription = '';
+    if (!descriptionEl) {
+      let fullDescription = '';
+
+      if (curNode) {
+        const startNode = curNode;
+        let endNode;
+
+        while (curNode && this.isDescriptionNode(curNode, context)) {
+          if (fullDescription) {
+            fullDescription = utils.appendDescriptionDelimiter(fullDescription);
+          }
+
+          fullDescription += utils.nodeText(curNode, context.sourceLines);
+
+          endNode = curNode;
+          curNode = utils.nextNode(curNode);
+        }
+
+        if (fullDescription) {
+          descriptionEl = new DescriptionElement(fullDescription);
+          if (context.sourceMapsEnabled) {
+            descriptionEl.sourceMap = utils.makeGenericSourceMapFromStartAndEndNodes(startNode, endNode, context.sourceLines);
+          }
+        }
+      }
+    }
 
     if (descriptionEl) {
-      fullDescription += descriptionEl.description;
-    }
-
-    while (curNode && this.isDescriptionNode(curNode, context)) {
-      if (fullDescription) {
-        fullDescription = utils.appendDescriptionDelimiter(fullDescription);
-      }
-
-      fullDescription += utils.nodeText(curNode, context.sourceLines);
-
-      curNode = utils.nextNode(curNode);
-    }
-
-    if (fullDescription) {
-      descriptionEl.description = fullDescription;
       result.description = descriptionEl;
     }
 
