@@ -38,6 +38,11 @@ module.exports = (Parsers) => {
     processNestedSection(node, context, result) {
       const [nextNode, childResult] = Parsers.MSONNamedTypeParser.parse(node, context);
       result.dataStructures.push(childResult);
+
+      if (!context.getType(childResult.name)) {
+        context.addType(childResult);
+      }
+
       return [nextNode, result];
     },
 

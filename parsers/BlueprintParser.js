@@ -75,15 +75,11 @@ module.exports = (Parsers) => {
 
       while (curNode) {
         const nodeType = this.nestedSectionType(curNode, context);
-        let dataStructuresGroup;
         let resourcePrototypeGroup;
 
         switch (nodeType) {
           case SectionTypes.dataStructureGroup:
-            [curNode, dataStructuresGroup] = Parsers.DataStructureGroupParser.parse(curNode, context);
-            dataStructuresGroup.dataStructures.forEach((ds) => {
-              context.addType(ds);
-            });
+            [curNode] = Parsers.DataStructureGroupParser.parse(curNode, context);
             break;
           case SectionTypes.resourcePrototypes:
             [curNode, resourcePrototypeGroup] = Parsers.ResourcePrototypesParser.parse(curNode, context);

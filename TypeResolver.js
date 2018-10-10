@@ -1,7 +1,9 @@
-const CrafterError = require('./utils').CrafterError;
 const standardTypes = require('./types').standardTypes;
 const MSONMixinElement = require('./parsers/elements/MSONMixinElement');
 const PropertyMemberElement = require('./parsers/elements/PropertyMemberElement');
+const utils = require('./utils');
+
+const CrafterError = utils.CrafterError;
 
 class TypeResolver {
   constructor() {
@@ -58,6 +60,20 @@ class TypeResolver {
     Object.entries(this.types).forEach(([name, valueMember]) => {
       resolveType(name, valueMember);
     });
+  }
+
+  checkTypeExists(typeName) {
+    if (typeName !== null) {
+      const types = [...standardTypes, ...Object.keys(this.types)];
+      const isTypeDefined = t => types.includes(t);
+
+      const { type, nestedTypes } = utils.resolveType(typeName);
+      const typeIsDefined = nestedTypes ? nestedTypes.every(isTypeDefined) : isTypeDefined(type);
+
+      if (!typeIsDefined) {
+        throw new CrafterError(`Base type "${typeName}" is not defined in the document.`);
+      }
+    }
   }
 
   checkMixinExists(mixinName) {

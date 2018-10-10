@@ -43,6 +43,14 @@ class Context {
     this.typeResolver.types[type.name] = type.content;
   }
 
+  getType(typeName) {
+    return this.typeResolver.types[typeName];
+  }
+
+  checkTypeExists(typeName) {
+    return this.typeResolver.checkTypeExists(typeName);
+  }
+
   addResourcePrototype(prototype) {
     if (this.resourcePrototypeResolver.prototypes[prototype.title]) {
       console.error(`${prototype.title} resource prototype already defined`);

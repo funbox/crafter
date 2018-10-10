@@ -60,6 +60,8 @@ module.exports = (Parsers) => {
         context.logger.warn(`Enum element "${name}" should include members.`);
       }
 
+      context.checkTypeExists(result.value.rawType);
+
       return result;
     },
   });
