@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const parseApibFile = require('../parseApibFile');
 
-const excludedDirs = ['fixtures-with-errors'];
+const excludedDirs = ['fixtures-with-errors', 'fixtures-with-warnings'];
 
 processApibFiles(path.resolve('tests/fixtures'));
 
