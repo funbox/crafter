@@ -66,27 +66,7 @@ module.exports = (Parsers) => {
               offset += indentationBytes;
             }
 
-            const colonIndex = contentLine.indexOf(':');
-            if (colonIndex < 0) {
-              throw new utils.CrafterError(`Header doesn't contain colon: ${contentLine}`);
-            }
-
-            const beforeColon = contentLine.slice(0, colonIndex);
-            const afterColon = contentLine.slice(colonIndex + 1);
-
-            const keyMatch = beforeColon.match(/^\s*(\S+)\s*$/);
-            if (!keyMatch) {
-              throw new utils.CrafterError(`Failed to parse header key: ${contentLine}`);
-            }
-            const key = keyMatch[1];
-
-            const valMatch = afterColon.match(/^\s*(\S.*)$/);
-            if (!valMatch) {
-              throw new utils.CrafterError(`Failed to parse header value: ${contentLine}`);
-            }
-            const val = valMatch[1];
-
-            const header = { key, val };
+            const header = this.parseHeader(contentLine, context);
 
             if (context.sourceMapsEnabled) {
               const match = contentLine.match(/^(\s*)(.*)$/);
@@ -97,11 +77,15 @@ module.exports = (Parsers) => {
               block.offset = offset;
               offset += restBytes;
               block.length = offset - block.offset;
-              header.sourceMap = new SourceMapElement([block], contentNode.file);
+              if (header) {
+                header.sourceMap = new SourceMapElement([block], contentNode.file);
+              }
               offset += linefeedByte;
             }
 
-            headers.push(header);
+            if (header) {
+              headers.push(header);
+            }
           } else if (context.sourceMapsEnabled) {
             const sourceLine = context.sourceLines[startLineIndex + contentLineIndex];
             offset += Buffer.byteLength(sourceLine);
@@ -111,6 +95,37 @@ module.exports = (Parsers) => {
       }
 
       return headers;
+    },
+
+    parseHeader(headerLine, context) {
+      const logWarning = () => {
+        context.logger.warn(`Ignoring unrecognized HTTP header "${headerLine.trim()}", expected "<header name>: <header value>", one header per line.`);
+      };
+
+      const colonIndex = headerLine.indexOf(':');
+      if (colonIndex < 0) {
+        logWarning();
+        return null;
+      }
+
+      const beforeColon = headerLine.slice(0, colonIndex);
+      const afterColon = headerLine.slice(colonIndex + 1);
+
+      const keyMatch = beforeColon.match(/^\s*(\S+)\s*$/);
+      if (!keyMatch) {
+        logWarning();
+        return null;
+      }
+      const key = keyMatch[1];
+
+      const valMatch = afterColon.match(/^\s*(\S.*)$/);
+      if (!valMatch) {
+        logWarning();
+        return null;
+      }
+      const val = valMatch[1];
+
+      return { key, val };
     },
   });
 };
