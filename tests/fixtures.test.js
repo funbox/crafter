@@ -48,14 +48,24 @@ const testFilesFrom = (location) => {
   files.forEach((f) => {
     if (apibRegex.exec(f) && ((location.exclude && !location.exclude.test(f)) || !location.exclude)) {
       test(f, () => {
+        const logger = {
+          store: undefined,
+          warn(text) {
+            this.store = text;
+          },
+        };
         const filePath = `${path}/${f}`;
         const example = JSON.parse(readFile(f.replace(apibRegex, '.json'), path));
-        const result = Crafter.parseFile(filePath);
+        const result = Crafter.parseFile(filePath, { logger });
         expect(result.toRefract()).toEqual(example);
 
         const exampleSm = JSON.parse(readFile(f.replace(apibRegex, '.sm.json'), path));
-        const resultSm = Crafter.parseFile(filePath, { sourceMapsEnabled: true });
+        const resultSm = Crafter.parseFile(filePath, { logger, sourceMapsEnabled: true });
         expect(resultSm.toRefract()).toEqual(exampleSm);
+
+        if (logger.store && !/has-warning/.test(f)) {
+          throw new Error(`Unexpected warning in file "${f}".\nAdd the postfix "has-warning" to filename, if the file is supposed to emit a warning.`);
+        }
       });
     }
   });
