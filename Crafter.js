@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const Context = require('./Context');
 const utils = require('./utils');
+const Logger = require('./utils').Logger;
 
 const Parsers = {};
 
@@ -26,7 +27,7 @@ module.exports = {
   parseFile(file, contextOptions = {}) {
     contextOptions.currentFile = path.resolve(__dirname, file);
     contextOptions.entryFile = contextOptions.currentFile;
-    contextOptions.logger = contextOptions.logger || utils.logger;
+    contextOptions.logger = contextOptions.logger || new Logger();
     return this.parse(fs.readFileSync(file, { encoding: 'utf-8' }), contextOptions);
   },
 };

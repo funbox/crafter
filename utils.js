@@ -7,11 +7,11 @@ const DescriptionElement = require('./parsers/elements/DescriptionElement');
 class CrafterError extends Error {
 }
 
-const logger = {
+class Logger {
   warn(text) {
     console.log('\x1b[33m%s\x1b[0m', `Warning: ${text}`); // yellow color
-  },
-};
+  }
+}
 
 const utils = {
   typeAttributesToRefract(typeAttributes) {
@@ -205,7 +205,7 @@ const utils = {
 
   CrafterError,
 
-  logger,
+  Logger,
 
   linefeedBytes: 1,
 };
