@@ -64,6 +64,6 @@ describe('ParameterParser', () => {
     expect(type).toBe('string');
     expect(typeAttributes).toEqual(['required']);
     expect(description).toBe('user name');
-    expect(defaultValue).toEqual({ value: 'Ivan' });
+    expect(defaultValue).toEqual({ value: 'Ivan', sourceMap: null });
   });
 });

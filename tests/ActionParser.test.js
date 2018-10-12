@@ -35,7 +35,7 @@ describe('ActionParser', () => {
 
     expect(warnings.length).toBe(0);
     expect(title).toBe('List users');
-    expect(method).toBe('GET');
+    expect(method.string).toBe('GET');
     expect(href).toBe('/users');
     expect(responses[0].statusCode).toBe('200');
   });
@@ -53,7 +53,7 @@ describe('ActionParser', () => {
 
     expect(warnings.length).toBe(0);
     expect(title).toBe('List users');
-    expect(method).toBe('GET');
+    expect(method.string).toBe('GET');
     expect(href).toBe('/users/{id}');
     expect(parameters.parameters[0].name).toBe('id');
     expect(responses[0].statusCode).toBe('200');
@@ -72,7 +72,7 @@ describe('ActionParser', () => {
 
     expect(warnings.length).toBe(1);
     expect(title).toBe('List users');
-    expect(method).toBe('GET');
+    expect(method.string).toBe('GET');
     expect(href).toBe('/users/{id}{?name}');
     expect(parameters.parameters[0].name).toBe('id');
     expect(responses[0].statusCode).toBe('200');

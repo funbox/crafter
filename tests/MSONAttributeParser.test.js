@@ -39,13 +39,13 @@ describe('MSONAttributeParser', () => {
     const { result: { name, value: { type, content } }, warnings } = parse(source);
 
     expect(warnings.length).toBe(0);
-    expect(name).toBe('kind');
+    expect(name.string).toBe('kind');
     expect(type).toBe('enum');
     expect(content.members).toEqual([
-      { name: 'movement', description: 'описание 1', type: 'string' },
-      { name: 'track', description: 'описание 2', type: 'string' },
-      { name: 'sms', description: 'описание 3', type: 'string' },
-      { name: 'zone', description: 'описание 4', type: 'string' },
+      { name: 'movement', description: 'описание 1', type: 'string', sourceMap: null },
+      { name: 'track', description: 'описание 2', type: 'string', sourceMap: null },
+      { name: 'sms', description: 'описание 3', type: 'string', sourceMap: null },
+      { name: 'zone', description: 'описание 4', type: 'string', sourceMap: null },
     ]);
   });
 
@@ -65,15 +65,15 @@ describe('MSONAttributeParser', () => {
     } = parse(source);
 
     expect(warnings.length).toBe(0);
-    expect(name).toBe('kind');
+    expect(name.string).toBe('kind');
     expect(type).toBe('enum');
-    expect(defaultValue).toEqual({ value: 'track' });
-    expect(sampleValue).toEqual({ type: 'string', members: ['sms'] });
+    expect(defaultValue).toEqual({ value: 'track', sourceMap: null });
+    expect(sampleValue).toEqual({ type: 'string', members: [{ sourceMap: null, string: 'sms' }] });
     expect(members).toEqual([
-      { name: 'movement', description: 'описание 1', type: 'string' },
-      { name: 'track', description: 'описание 2', type: 'string' },
-      { name: 'sms', description: 'описание 3', type: 'string' },
-      { name: 'zone', description: 'описание 4', type: 'string' },
+      { name: 'movement', description: 'описание 1', type: 'string', sourceMap: null },
+      { name: 'track', description: 'описание 2', type: 'string', sourceMap: null },
+      { name: 'sms', description: 'описание 3', type: 'string', sourceMap: null },
+      { name: 'zone', description: 'описание 4', type: 'string', sourceMap: null },
     ]);
   });
 
@@ -83,7 +83,7 @@ describe('MSONAttributeParser', () => {
     const { result: { name, value: { type, content } }, warnings } = parse(source);
 
     expect(warnings.length).toBe(1);
-    expect(name).toBe('kind');
+    expect(name.string).toBe('kind');
     expect(type).toBe('enum');
     expect(content).toBeNull();
   });
@@ -97,9 +97,9 @@ describe('MSONAttributeParser', () => {
     } = parse(source);
 
     expect(warnings.length).toBe(1);
-    expect(name).toBe('kind');
+    expect(name.string).toBe('kind');
     expect(type).toBe('enum');
-    expect(sampleValue).toEqual({ type: 'string', members: ['track'] });
+    expect(sampleValue).toEqual({ type: 'string', members: [{ sourceMap: null, string: 'track' }] });
     expect(members).toEqual([]);
   });
 });
