@@ -53,6 +53,8 @@ const testFilesFrom = (location) => {
           warn(text) {
             this.store = text;
           },
+          enableWarnings() {},
+          suppressWarnings() {},
         };
         const filePath = `${path}/${f}`;
         const example = JSON.parse(readFile(f.replace(apibRegex, '.json'), path));
@@ -124,6 +126,8 @@ describe('fixtures with warnings', () => {
           warn(text) {
             this.store = text;
           },
+          enableWarnings() {},
+          suppressWarnings() {},
         };
         const opts = {
           currentFile: resolvePath(__dirname, f),

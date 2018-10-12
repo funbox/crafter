@@ -8,8 +8,22 @@ class CrafterError extends Error {
 }
 
 class Logger {
+  constructor() {
+    this.warningsEnabled = true;
+  }
+
   warn(text) {
-    console.log('\x1b[33m%s\x1b[0m', `Warning: ${text}`); // yellow color
+    if (this.warningsEnabled) {
+      console.log('\x1b[33m%s\x1b[0m', `Warning: ${text}`); // yellow color
+    }
+  }
+
+  enableWarnings() {
+    this.warningsEnabled = true;
+  }
+
+  suppressWarnings() {
+    this.warningsEnabled = false;
   }
 }
 

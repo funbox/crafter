@@ -75,6 +75,7 @@ module.exports = (Parsers) => {
     preprocessNestedSections(node, context) {
       const usedFiles = [context.currentFileName()];
       let curNode = node;
+      context.logger.suppressWarnings();
 
       this.resolveImports(curNode, context, usedFiles);
 
@@ -99,6 +100,7 @@ module.exports = (Parsers) => {
 
       context.typeResolver.resolveRegisteredTypes();
       context.resourcePrototypeResolver.resolveRegisteredPrototypes();
+      context.logger.enableWarnings();
     },
 
     resolveImports(entryNode, context, usedFiles) {
