@@ -1,8 +1,8 @@
 const yaml = require('yamljs');
 const Crafter = require('./Crafter.js');
 
-module.exports = function parseApibFile(fileName, outputFormat, contextOptions) {
-  const result = Crafter.parseFile(fileName, contextOptions);
+module.exports = function parseApibFile(fileName, outputFormat, sourceMapsEnabled) {
+  const result = Crafter.parseFile(fileName, { sourceMapsEnabled });
   if (outputFormat === 'json') {
     return JSON.stringify(result.toRefract(), null, 2);
   }

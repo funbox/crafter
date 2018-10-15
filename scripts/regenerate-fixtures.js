@@ -15,7 +15,7 @@ function processApibFiles(dir) {
       const fileName = path.join(dir, item);
       const jsonFileName = fileName.slice(0, -5);
       fs.writeFileSync(`${jsonFileName}.json`, `${parseApibFile(fileName, 'json')}\n`);
-      fs.writeFileSync(`${jsonFileName}.sm.json`, `${parseApibFile(fileName, 'json', { sourceMapsEnabled: true })}\n`);
+      fs.writeFileSync(`${jsonFileName}.sm.json`, `${parseApibFile(fileName, 'json', true)}\n`);
     }
   });
 }
