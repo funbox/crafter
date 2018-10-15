@@ -15,12 +15,26 @@
           "content": "My API",
           "attributes": {
             "sourceMap": {
-              "element": "sourceMap",
+              "element": "array",
               "content": [
-                [
-                  0,
-                  10
-                ]
+                {
+                  "element": "sourceMap",
+                  "content": [
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 0
+                        },
+                        {
+                          "element": "number",
+                          "content": 10
+                        }
+                      ]
+                    }
+                  ]
+                }
               ]
             }
           }
@@ -38,14 +52,28 @@
               "content": "Payments",
               "attributes": {
                 "sourceMap": {
-                  "element": "sourceMap",
+                  "element": "array",
                   "content": [
-                    [
-                      0,
-                      10
-                    ]
-                  ],
-                  "file": "group-inner.apib"
+                    {
+                      "element": "sourceMap",
+                      "content": [
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 0
+                            },
+                            {
+                              "element": "number",
+                              "content": 10
+                            }
+                          ]
+                        }
+                      ],
+                      "file": "group-inner.apib"
+                    }
+                  ]
                 }
               }
             }
@@ -59,14 +87,28 @@
                   "content": "Payment",
                   "attributes": {
                     "sourceMap": {
-                      "element": "sourceMap",
+                      "element": "array",
                       "content": [
-                        [
-                          10,
-                          24
-                        ]
-                      ],
-                      "file": "group-inner.apib"
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 10
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 24
+                                }
+                              ]
+                            }
+                          ],
+                          "file": "group-inner.apib"
+                        }
+                      ]
                     }
                   }
                 }
@@ -77,14 +119,28 @@
                   "content": "/payments",
                   "attributes": {
                     "sourceMap": {
-                      "element": "sourceMap",
+                      "element": "array",
                       "content": [
-                        [
-                          10,
-                          24
-                        ]
-                      ],
-                      "file": "group-inner.apib"
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 10
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 24
+                                }
+                              ]
+                            }
+                          ],
+                          "file": "group-inner.apib"
+                        }
+                      ]
                     }
                   }
                 }
@@ -98,14 +154,28 @@
                       "content": "Send payment",
                       "attributes": {
                         "sourceMap": {
-                          "element": "sourceMap",
+                          "element": "array",
                           "content": [
-                            [
-                              37,
-                              15
-                            ]
-                          ],
-                          "file": "group-inner.apib"
+                            {
+                              "element": "sourceMap",
+                              "content": [
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "number",
+                                      "content": 37
+                                    },
+                                    {
+                                      "element": "number",
+                                      "content": 15
+                                    }
+                                  ]
+                                }
+                              ],
+                              "file": "group-inner.apib"
+                            }
+                          ]
                         }
                       }
                     }
@@ -122,14 +192,28 @@
                               "content": "POST",
                               "attributes": {
                                 "sourceMap": {
-                                  "element": "sourceMap",
+                                  "element": "array",
                                   "content": [
-                                    [
-                                      37,
-                                      15
-                                    ]
-                                  ],
-                                  "file": "group-inner.apib"
+                                    {
+                                      "element": "sourceMap",
+                                      "content": [
+                                        {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "number",
+                                              "content": 37
+                                            },
+                                            {
+                                              "element": "number",
+                                              "content": 15
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "file": "group-inner.apib"
+                                    }
+                                  ]
                                 }
                               }
                             }
@@ -145,26 +229,54 @@
                               "content": "200",
                               "attributes": {
                                 "sourceMap": {
-                                  "element": "sourceMap",
+                                  "element": "array",
                                   "content": [
-                                    [
-                                      95,
-                                      1
-                                    ]
-                                  ],
-                                  "file": "group-inner.apib"
+                                    {
+                                      "element": "sourceMap",
+                                      "content": [
+                                        {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "number",
+                                              "content": 95
+                                            },
+                                            {
+                                              "element": "number",
+                                              "content": 1
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "file": "group-inner.apib"
+                                    }
+                                  ]
                                 }
                               }
                             },
                             "sourceMap": {
-                              "element": "sourceMap",
+                              "element": "array",
                               "content": [
-                                [
-                                  95,
-                                  1
-                                ]
-                              ],
-                              "file": "group-inner.apib"
+                                {
+                                  "element": "sourceMap",
+                                  "content": [
+                                    {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "number",
+                                          "content": 95
+                                        },
+                                        {
+                                          "element": "number",
+                                          "content": 1
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "file": "group-inner.apib"
+                                }
+                              ]
                             }
                           }
                         }
@@ -177,14 +289,28 @@
                       "content": "/payments/{id}",
                       "attributes": {
                         "sourceMap": {
-                          "element": "sourceMap",
+                          "element": "array",
                           "content": [
-                            [
-                              37,
-                              15
-                            ]
-                          ],
-                          "file": "group-inner.apib"
+                            {
+                              "element": "sourceMap",
+                              "content": [
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "number",
+                                      "content": 37
+                                    },
+                                    {
+                                      "element": "number",
+                                      "content": 15
+                                    }
+                                  ]
+                                }
+                              ],
+                              "file": "group-inner.apib"
+                            }
+                          ]
                         }
                       }
                     },
@@ -199,14 +325,28 @@
                               "content": "id",
                               "attributes": {
                                 "sourceMap": {
-                                  "element": "sourceMap",
+                                  "element": "array",
                                   "content": [
-                                    [
-                                      69,
-                                      1
-                                    ]
-                                  ],
-                                  "file": "group-inner.apib"
+                                    {
+                                      "element": "sourceMap",
+                                      "content": [
+                                        {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "number",
+                                              "content": 69
+                                            },
+                                            {
+                                              "element": "number",
+                                              "content": 1
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "file": "group-inner.apib"
+                                    }
+                                  ]
                                 }
                               }
                             },
@@ -215,14 +355,28 @@
                               "content": "42",
                               "attributes": {
                                 "sourceMap": {
-                                  "element": "sourceMap",
+                                  "element": "array",
                                   "content": [
-                                    [
-                                      69,
-                                      1
-                                    ]
-                                  ],
-                                  "file": "group-inner.apib"
+                                    {
+                                      "element": "sourceMap",
+                                      "content": [
+                                        {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "number",
+                                              "content": 69
+                                            },
+                                            {
+                                              "element": "number",
+                                              "content": 1
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "file": "group-inner.apib"
+                                    }
+                                  ]
                                 }
                               }
                             }
@@ -244,14 +398,28 @@
                               "content": "number",
                               "attributes": {
                                 "sourceMap": {
-                                  "element": "sourceMap",
+                                  "element": "array",
                                   "content": [
-                                    [
-                                      69,
-                                      1
-                                    ]
-                                  ],
-                                  "file": "group-inner.apib"
+                                    {
+                                      "element": "sourceMap",
+                                      "content": [
+                                        {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "number",
+                                              "content": 69
+                                            },
+                                            {
+                                              "element": "number",
+                                              "content": 1
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "file": "group-inner.apib"
+                                    }
+                                  ]
                                 }
                               }
                             }
@@ -276,12 +444,26 @@
               "content": "Users",
               "attributes": {
                 "sourceMap": {
-                  "element": "sourceMap",
+                  "element": "array",
                   "content": [
-                    [
-                      37,
-                      15
-                    ]
+                    {
+                      "element": "sourceMap",
+                      "content": [
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 37
+                            },
+                            {
+                              "element": "number",
+                              "content": 15
+                            }
+                          ]
+                        }
+                      ]
+                    }
                   ]
                 }
               }
@@ -296,12 +478,26 @@
                   "content": "User",
                   "attributes": {
                     "sourceMap": {
-                      "element": "sourceMap",
+                      "element": "array",
                       "content": [
-                        [
-                          52,
-                          18
-                        ]
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 52
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 18
+                                }
+                              ]
+                            }
+                          ]
+                        }
                       ]
                     }
                   }
@@ -313,12 +509,26 @@
                   "content": "/users",
                   "attributes": {
                     "sourceMap": {
-                      "element": "sourceMap",
+                      "element": "array",
                       "content": [
-                        [
-                          52,
-                          18
-                        ]
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 52
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 18
+                                }
+                              ]
+                            }
+                          ]
+                        }
                       ]
                     }
                   }
@@ -333,12 +543,26 @@
                       "content": "List all users",
                       "attributes": {
                         "sourceMap": {
-                          "element": "sourceMap",
+                          "element": "array",
                           "content": [
-                            [
-                              70,
-                              26
-                            ]
+                            {
+                              "element": "sourceMap",
+                              "content": [
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "number",
+                                      "content": 70
+                                    },
+                                    {
+                                      "element": "number",
+                                      "content": 26
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
                           ]
                         }
                       }
@@ -356,12 +580,26 @@
                               "content": "GET",
                               "attributes": {
                                 "sourceMap": {
-                                  "element": "sourceMap",
+                                  "element": "array",
                                   "content": [
-                                    [
-                                      70,
-                                      26
-                                    ]
+                                    {
+                                      "element": "sourceMap",
+                                      "content": [
+                                        {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "number",
+                                              "content": 70
+                                            },
+                                            {
+                                              "element": "number",
+                                              "content": 26
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
                                   ]
                                 }
                               }
@@ -378,23 +616,51 @@
                               "content": "200",
                               "attributes": {
                                 "sourceMap": {
-                                  "element": "sourceMap",
+                                  "element": "array",
                                   "content": [
-                                    [
-                                      98,
-                                      13
-                                    ]
+                                    {
+                                      "element": "sourceMap",
+                                      "content": [
+                                        {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "number",
+                                              "content": 98
+                                            },
+                                            {
+                                              "element": "number",
+                                              "content": 13
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
                                   ]
                                 }
                               }
                             },
                             "sourceMap": {
-                              "element": "sourceMap",
+                              "element": "array",
                               "content": [
-                                [
-                                  98,
-                                  13
-                                ]
+                                {
+                                  "element": "sourceMap",
+                                  "content": [
+                                    {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "number",
+                                          "content": 98
+                                        },
+                                        {
+                                          "element": "number",
+                                          "content": 13
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
                               ]
                             }
                           }

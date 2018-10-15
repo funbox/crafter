@@ -7,14 +7,30 @@ class SourceMapElement {
   }
 
   toRefract() {
-    const result = {
+    const sourceMapEl = {
       element: Refract.elements.sourceMap,
-      content: this.byteBlocks.map(block => [block.offset, block.length]),
+      content: this.byteBlocks.map(block => ({
+        element: 'array',
+        content: [
+          {
+            element: 'number',
+            content: block.offset,
+          },
+          {
+            element: 'number',
+            content: block.length,
+          },
+        ],
+      })),
     };
     if (this.file) {
-      result.file = this.file;
+      const platformIndependentPath = this.file.replace(/\\/g, '/');
+      sourceMapEl.file = platformIndependentPath;
     }
-    return result;
+    return {
+      element: 'array',
+      content: [sourceMapEl],
+    };
   }
 }
 

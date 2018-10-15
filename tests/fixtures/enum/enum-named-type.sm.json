@@ -15,12 +15,26 @@
           "content": "My API",
           "attributes": {
             "sourceMap": {
-              "element": "sourceMap",
+              "element": "array",
               "content": [
-                [
-                  0,
-                  10
-                ]
+                {
+                  "element": "sourceMap",
+                  "content": [
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 0
+                        },
+                        {
+                          "element": "number",
+                          "content": 10
+                        }
+                      ]
+                    }
+                  ]
+                }
               ]
             }
           }
@@ -56,12 +70,26 @@
                             ]
                           },
                           "sourceMap": {
-                            "element": "sourceMap",
+                            "element": "array",
                             "content": [
-                              [
-                                50,
-                                3
-                              ]
+                              {
+                                "element": "sourceMap",
+                                "content": [
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 50
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 3
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
                             ]
                           }
                         },
@@ -76,12 +104,26 @@
                     "content": "EnumType",
                     "attributes": {
                       "sourceMap": {
-                        "element": "sourceMap",
+                        "element": "array",
                         "content": [
-                          [
-                            29,
-                            19
-                          ]
+                          {
+                            "element": "sourceMap",
+                            "content": [
+                              {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "number",
+                                    "content": 29
+                                  },
+                                  {
+                                    "element": "number",
+                                    "content": 19
+                                  }
+                                ]
+                              }
+                            ]
+                          }
                         ]
                       }
                     }

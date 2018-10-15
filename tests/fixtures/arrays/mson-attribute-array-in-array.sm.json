@@ -15,12 +15,26 @@
           "content": "My API",
           "attributes": {
             "sourceMap": {
-              "element": "sourceMap",
+              "element": "array",
               "content": [
-                [
-                  0,
-                  10
-                ]
+                {
+                  "element": "sourceMap",
+                  "content": [
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 0
+                        },
+                        {
+                          "element": "number",
+                          "content": 10
+                        }
+                      ]
+                    }
+                  ]
+                }
               ]
             }
           }
@@ -48,12 +62,26 @@
                         "content": "bar",
                         "attributes": {
                           "sourceMap": {
-                            "element": "sourceMap",
+                            "element": "array",
                             "content": [
-                              [
-                                37,
-                                33
-                              ]
+                              {
+                                "element": "sourceMap",
+                                "content": [
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 37
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 33
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
                             ]
                           }
                         }
@@ -72,12 +100,26 @@
                                 "content": "description 1",
                                 "attributes": {
                                   "sourceMap": {
-                                    "element": "sourceMap",
+                                    "element": "array",
                                     "content": [
-                                      [
-                                        76,
-                                        35
-                                      ]
+                                      {
+                                        "element": "sourceMap",
+                                        "content": [
+                                          {
+                                            "element": "array",
+                                            "content": [
+                                              {
+                                                "element": "number",
+                                                "content": 76
+                                              },
+                                              {
+                                                "element": "number",
+                                                "content": 35
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
                                     ]
                                   }
                                 }
@@ -86,12 +128,26 @@
                             "content": "example 1",
                             "attributes": {
                               "sourceMap": {
-                                "element": "sourceMap",
+                                "element": "array",
                                 "content": [
-                                  [
-                                    76,
-                                    35
-                                  ]
+                                  {
+                                    "element": "sourceMap",
+                                    "content": [
+                                      {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "number",
+                                            "content": 76
+                                          },
+                                          {
+                                            "element": "number",
+                                            "content": 35
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
                                 ]
                               }
                             }
@@ -109,12 +165,26 @@
                                 ]
                               },
                               "sourceMap": {
-                                "element": "sourceMap",
+                                "element": "array",
                                 "content": [
-                                  [
-                                    117,
-                                    20
-                                  ]
+                                  {
+                                    "element": "sourceMap",
+                                    "content": [
+                                      {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "number",
+                                            "content": 117
+                                          },
+                                          {
+                                            "element": "number",
+                                            "content": 20
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
                                 ]
                               }
                             },
@@ -123,12 +193,26 @@
                                 "element": "number",
                                 "attributes": {
                                   "sourceMap": {
-                                    "element": "sourceMap",
+                                    "element": "array",
                                     "content": [
-                                      [
-                                        147,
-                                        9
-                                      ]
+                                      {
+                                        "element": "sourceMap",
+                                        "content": [
+                                          {
+                                            "element": "array",
+                                            "content": [
+                                              {
+                                                "element": "number",
+                                                "content": 147
+                                              },
+                                              {
+                                                "element": "number",
+                                                "content": 9
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
                                     ]
                                   }
                                 }
@@ -138,12 +222,26 @@
                         ],
                         "attributes": {
                           "sourceMap": {
-                            "element": "sourceMap",
+                            "element": "array",
                             "content": [
-                              [
-                                37,
-                                33
-                              ]
+                              {
+                                "element": "sourceMap",
+                                "content": [
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 37
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 33
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
                             ]
                           }
                         }
@@ -168,12 +266,26 @@
                     "content": "Foo",
                     "attributes": {
                       "sourceMap": {
-                        "element": "sourceMap",
+                        "element": "array",
                         "content": [
-                          [
-                            29,
-                            6
-                          ]
+                          {
+                            "element": "sourceMap",
+                            "content": [
+                              {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "number",
+                                    "content": 29
+                                  },
+                                  {
+                                    "element": "number",
+                                    "content": 6
+                                  }
+                                ]
+                              }
+                            ]
+                          }
                         ]
                       }
                     }
