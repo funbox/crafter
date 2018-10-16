@@ -13,7 +13,7 @@ const logger = {
   },
 };
 
-module.exports = {
+const utils = {
   typeAttributesToRefract(typeAttributes) {
     return {
       typeAttributes: {
@@ -87,45 +87,15 @@ module.exports = {
 
   makeSourceMapForDescription(startNode, sourceLines) {
     const indentation = startNode.sourcepos[0][1] - 1;
-    const lineFeedByte = 1;
-    const byteBlocks = [];
-    let byteBlock = { offset: 0, length: 0 };
-    let isFirstParagraph = true;
-    for (let node = startNode; node && node.type === 'paragraph'; node = node.next) {
-      const startLineIndex = node.sourcepos[0][0] - 1;
-      const startColumnIndex = node.sourcepos[0][1] - 1;
-      const endLineIndex = node.sourcepos[1][0] - 1;
-      let offset = this.getOffsetFromStartOfFileInBytes(startLineIndex, startColumnIndex, sourceLines);
-      if (isFirstParagraph || indentation > 0) {
-        isFirstParagraph = false;
-        byteBlock.offset = offset;
-      }
-      for (let lineIndex = startLineIndex; lineIndex <= endLineIndex; lineIndex += 1) {
-        const line = sourceLines[lineIndex];
-        const lineWithoutIndentation = line.slice(indentation);
-        const length = Buffer.byteLength(lineWithoutIndentation) + lineFeedByte;
-        byteBlock.length += length;
-        offset += length;
-        if (indentation > 0 && lineIndex !== endLineIndex) {
-          byteBlocks.push(byteBlock);
-          offset += indentation;
-          byteBlock = { offset, length: 0 };
-        }
-      }
-      if (indentation === 0) {
-        byteBlock.length += getTrailingEmptyLinesLengthInBytes(endLineIndex + 1, sourceLines);
-      } else if (node.next && node.next.type === 'paragraph') {
-        byteBlock.length += 1;
-      }
-      if (indentation > 0) {
-        byteBlocks.push(byteBlock);
-        byteBlock = { offset: 0, length: 0 };
-      }
+    if (indentation > 0) {
+      return makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, indentation);
     }
-    if (indentation === 0) {
-      byteBlocks.push(byteBlock);
+
+    let endNode = startNode;
+    while (endNode.next && endNode.next.type === 'paragraph') {
+      endNode = endNode.next;
     }
-    return new SourceMapElement(byteBlocks, startNode.file);
+    return this.makeGenericSourceMapFromStartAndEndNodes(startNode, endNode, sourceLines);
   },
 
   nodeText(node, sourceLines) {
@@ -246,3 +216,34 @@ function getTrailingEmptyLinesLengthInBytes(lineIndex, sourceLines) {
   }
   return result;
 }
+
+function makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, indentation) {
+  const lineFeedByte = 1;
+  const byteBlocks = [];
+  for (let node = startNode; node && node.type === 'paragraph'; node = node.next) {
+    const startLineIndex = node.sourcepos[0][0] - 1;
+    const startColumnIndex = node.sourcepos[0][1] - 1;
+    const endLineIndex = node.sourcepos[1][0] - 1;
+    let offset = utils.getOffsetFromStartOfFileInBytes(startLineIndex, startColumnIndex, sourceLines);
+    let byteBlock = { offset, length: 0 };
+    for (let lineIndex = startLineIndex; lineIndex <= endLineIndex; lineIndex += 1) {
+      const line = sourceLines[lineIndex];
+      const lineWithoutIndentation = line.slice(indentation);
+      const length = Buffer.byteLength(lineWithoutIndentation) + lineFeedByte;
+      byteBlock.length += length;
+      offset += length;
+      if (lineIndex !== endLineIndex) {
+        byteBlocks.push(byteBlock);
+        offset += indentation;
+        byteBlock = { offset, length: 0 };
+      }
+    }
+    if (node.next && node.next.type === 'paragraph') {
+      byteBlock.length += lineFeedByte;
+    }
+    byteBlocks.push(byteBlock);
+  }
+  return new SourceMapElement(byteBlocks, startNode.file);
+}
+
+module.exports = utils;
