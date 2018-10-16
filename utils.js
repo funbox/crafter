@@ -13,22 +13,6 @@ const logger = {
   },
 };
 
-function getEndingLinefeedLengthInBytes(lineIndex, sourceLines) {
-  if (lineIndex < sourceLines.length - 1) {
-    return 1;
-  }
-  return 0;
-}
-
-function getTrailingEmptyLinesLengthInBytes(lineIndex, sourceLines) {
-  let result = 0;
-  for (let i = lineIndex; i < sourceLines.length && !/\S/.test(sourceLines[i]); i += 1) {
-    result += sourceLines[i].length;
-    result += getEndingLinefeedLengthInBytes(lineIndex, sourceLines);
-  }
-  return result;
-}
-
 module.exports = {
   typeAttributesToRefract(typeAttributes) {
     return {
@@ -246,3 +230,19 @@ module.exports = {
 
   logger,
 };
+
+function getEndingLinefeedLengthInBytes(lineIndex, sourceLines) {
+  if (lineIndex < sourceLines.length - 1) {
+    return 1;
+  }
+  return 0;
+}
+
+function getTrailingEmptyLinesLengthInBytes(lineIndex, sourceLines) {
+  let result = 0;
+  for (let i = lineIndex; i < sourceLines.length && !/\S/.test(sourceLines[i]); i += 1) {
+    result += sourceLines[i].length;
+    result += getEndingLinefeedLengthInBytes(lineIndex, sourceLines);
+  }
+  return result;
+}
