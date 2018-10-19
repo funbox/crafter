@@ -199,11 +199,13 @@ const utils = {
   CrafterError,
 
   logger,
+
+  linefeedBytes: 1,
 };
 
 function getEndingLinefeedLengthInBytes(lineIndex, sourceLines) {
   if (lineIndex < sourceLines.length - 1) {
-    return 1;
+    return utils.linefeedBytes;
   }
   return 0;
 }
@@ -218,7 +220,6 @@ function getTrailingEmptyLinesLengthInBytes(lineIndex, sourceLines) {
 }
 
 function makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, indentation) {
-  const lineFeedByte = 1;
   const byteBlocks = [];
   for (let node = startNode; node && node.type === 'paragraph'; node = node.next) {
     const startLineIndex = node.sourcepos[0][0] - 1;
@@ -229,7 +230,7 @@ function makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, inde
     for (let lineIndex = startLineIndex; lineIndex <= endLineIndex; lineIndex += 1) {
       const line = sourceLines[lineIndex];
       const lineWithoutIndentation = line.slice(indentation);
-      const length = Buffer.byteLength(lineWithoutIndentation) + lineFeedByte;
+      const length = Buffer.byteLength(lineWithoutIndentation) + utils.linefeedBytes;
       byteBlock.length += length;
       offset += length;
       if (lineIndex !== endLineIndex) {
@@ -239,7 +240,7 @@ function makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, inde
       }
     }
     if (node.next && node.next.type === 'paragraph') {
-      byteBlock.length += lineFeedByte;
+      byteBlock.length += utils.linefeedBytes;
     }
     byteBlocks.push(byteBlock);
   }

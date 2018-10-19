@@ -53,7 +53,6 @@ module.exports = (Parsers) => {
       const startColumnIndex = node.sourcepos[0][1] - 1;
       const endLineIndex = node.sourcepos[1][0] - 1;
       const numSpacesPerIndentLevel = 4;
-      const linefeedByte = 1;
       const indentation = Math.floor(startColumnIndex / numSpacesPerIndentLevel) * numSpacesPerIndentLevel;
       let offset = utils.getOffsetFromStartOfFileInBytes(startLineIndex, indentation, context.sourceLines);
       for (let lineIndex = startLineIndex; lineIndex <= endLineIndex; lineIndex += 1) {
@@ -62,13 +61,13 @@ module.exports = (Parsers) => {
           const lineWithoutIndentation = line.slice(indentation);
           let length = Buffer.byteLength(lineWithoutIndentation);
           if (lineIndex < context.sourceLines.length - 1) {
-            length += linefeedByte;
+            length += utils.linefeedBytes;
           }
           byteBlocks.push({ offset, length });
           offset += length;
           offset += indentation;
         } else {
-          offset += Buffer.byteLength(line) + linefeedByte;
+          offset += Buffer.byteLength(line) + utils.linefeedBytes;
         }
       }
 

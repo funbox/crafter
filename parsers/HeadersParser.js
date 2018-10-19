@@ -50,7 +50,6 @@ module.exports = (Parsers) => {
         const startLineIndex = contentNode.sourcepos[0][0] - 1;
         const startColumnIndex = contentNode.sourcepos[0][1] - 1;
 
-        const linefeedByte = 1;
         const indentationBytes = startColumnIndex;
 
         let offset = context.sourceMapsEnabled ? utils.getOffsetFromStartOfFileInBytes(startLineIndex, startColumnIndex, context.sourceLines) : 0;
@@ -80,7 +79,7 @@ module.exports = (Parsers) => {
               if (header) {
                 header.sourceMap = new SourceMapElement([block], contentNode.file);
               }
-              offset += linefeedByte;
+              offset += utils.linefeedBytes;
             }
 
             if (header) {
@@ -89,7 +88,7 @@ module.exports = (Parsers) => {
           } else if (context.sourceMapsEnabled) {
             const sourceLine = context.sourceLines[startLineIndex + contentLineIndex];
             offset += Buffer.byteLength(sourceLine);
-            offset += linefeedByte;
+            offset += utils.linefeedBytes;
           }
         }
       }
