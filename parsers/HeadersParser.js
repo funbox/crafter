@@ -55,8 +55,7 @@ module.exports = (Parsers) => {
       let offset = context.sourceMapsEnabled ? utils.getOffsetFromStartOfFileInBytes(startLineIndex, startColumnIndex, context.sourceLines) : 0;
       const contentLines = contentNode.literal.trimRight().split('\n');
 
-      for (let contentLineIndex = 0; contentLineIndex < contentLines.length; contentLineIndex += 1) {
-        const contentLine = contentLines[contentLineIndex];
+      contentLines.forEach((contentLine, contentLineIndex) => {
         const lineHasNonWhitespace = /\S/.exec(contentLine);
 
         if (lineHasNonWhitespace) {
@@ -89,8 +88,7 @@ module.exports = (Parsers) => {
           offset += Buffer.byteLength(sourceLine);
           offset += utils.linefeedBytes;
         }
-      }
-
+      });
       return headers;
     },
 
