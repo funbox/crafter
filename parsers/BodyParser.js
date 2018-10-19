@@ -49,9 +49,7 @@ module.exports = (Parsers) => {
 
     makeSourceMap(node, context) {
       const byteBlocks = [];
-      const startLineIndex = node.sourcepos[0][0] - 1;
-      const startColumnIndex = node.sourcepos[0][1] - 1;
-      const endLineIndex = node.sourcepos[1][0] - 1;
+      const { startLineIndex, startColumnIndex, endLineIndex } = utils.getSourcePosZeroBased(node);
       const numSpacesPerIndentLevel = 4;
       const indentation = Math.floor(startColumnIndex / numSpacesPerIndentLevel) * numSpacesPerIndentLevel;
       let offset = utils.getOffsetFromStartOfFileInBytes(startLineIndex, indentation, context.sourceLines);

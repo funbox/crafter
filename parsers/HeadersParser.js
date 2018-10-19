@@ -47,8 +47,7 @@ module.exports = (Parsers) => {
       const headers = [];
 
       if (contentNode) {
-        const startLineIndex = contentNode.sourcepos[0][0] - 1;
-        const startColumnIndex = contentNode.sourcepos[0][1] - 1;
+        const { startLineIndex, startColumnIndex } = utils.getSourcePosZeroBased(contentNode);
 
         const indentationBytes = startColumnIndex;
 

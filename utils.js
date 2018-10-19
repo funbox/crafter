@@ -66,10 +66,8 @@ const utils = {
   },
 
   makeGenericSourceMapFromStartAndEndNodes(startNode, endNode, sourceLines) {
-    const startLineIndex = startNode.sourcepos[0][0] - 1;
-    const startColumnIndex = startNode.sourcepos[0][1] - 1;
-    const endLineIndex = endNode.sourcepos[1][0] - 1;
-    const endColumnIndex = endNode.sourcepos[1][1] - 1;
+    const { startLineIndex, startColumnIndex } = utils.getSourcePosZeroBased(startNode);
+    const { endLineIndex, endColumnIndex } = utils.getSourcePosZeroBased(endNode);
     const startOffset = this.getOffsetFromStartOfFileInBytes(startLineIndex, startColumnIndex, sourceLines);
     const endOffset = this.getOffsetFromStartOfFileInBytes(endLineIndex, endColumnIndex + 1, sourceLines);
     let length = endOffset - startOffset;
@@ -96,6 +94,15 @@ const utils = {
       endNode = endNode.next;
     }
     return this.makeGenericSourceMapFromStartAndEndNodes(startNode, endNode, sourceLines);
+  },
+
+  getSourcePosZeroBased(node) {
+    return {
+      startLineIndex: node.sourcepos[0][0] - 1,
+      startColumnIndex: node.sourcepos[0][1] - 1,
+      endLineIndex: node.sourcepos[1][0] - 1,
+      endColumnIndex: node.sourcepos[1][1] - 1,
+    };
   },
 
   nodeText(node, sourceLines) {
@@ -222,9 +229,7 @@ function getTrailingEmptyLinesLengthInBytes(lineIndex, sourceLines) {
 function makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, indentation) {
   const byteBlocks = [];
   for (let node = startNode; node && node.type === 'paragraph'; node = node.next) {
-    const startLineIndex = node.sourcepos[0][0] - 1;
-    const startColumnIndex = node.sourcepos[0][1] - 1;
-    const endLineIndex = node.sourcepos[1][0] - 1;
+    const { startLineIndex, startColumnIndex, endLineIndex } = utils.getSourcePosZeroBased(node);
     let offset = utils.getOffsetFromStartOfFileInBytes(startLineIndex, startColumnIndex, sourceLines);
     let byteBlock = { offset, length: 0 };
     for (let lineIndex = startLineIndex; lineIndex <= endLineIndex; lineIndex += 1) {
