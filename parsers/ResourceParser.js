@@ -42,13 +42,18 @@ module.exports = (Parsers) => {
       const prototypes = protoNames ? protoNames.split(',').map(p => p.trim()) : [];
       context.resourcePrototypes.push(prototypes);
 
-      const sourceMap = context.sourceMapsEnabled ? utils.makeGenericSourceMap(node, context.sourceLines) : null;
       const titleEl = new StringElement(title);
-      if (!isNamedEndpoint && title) {
-        titleEl.sourceMap = sourceMap;
-      }
       const hrefEl = new StringElement(href);
-      hrefEl.sourceMap = sourceMap;
+
+      if (context.sourceMapsEnabled) {
+        const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines);
+        if (!isNamedEndpoint && title) {
+          titleEl.sourceMap = sourceMap;
+        }
+
+        hrefEl.sourceMap = sourceMap;
+      }
+
       const result = new ResourceElement(titleEl, hrefEl);
 
       return [nodeToReturn, result];
