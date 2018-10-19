@@ -52,15 +52,19 @@ module.exports = (Parsers) => {
 
       const { startLineIndex, startColumnIndex } = utils.getSourcePosZeroBased(contentNode);
       const indentationBytes = startColumnIndex;
-      let offset = context.sourceMapsEnabled ? utils.getOffsetFromStartOfFileInBytes(startLineIndex, startColumnIndex, context.sourceLines) : 0;
+      let offset = 0;
       const contentLines = contentNode.literal.trimRight().split('\n');
 
       contentLines.forEach((contentLine, contentLineIndex) => {
         const lineHasNonWhitespace = /\S/.exec(contentLine);
 
         if (lineHasNonWhitespace) {
-          if (context.sourceMapsEnabled && contentLineIndex > 0) {
-            offset += indentationBytes;
+          if (context.sourceMapsEnabled) {
+            if (contentLineIndex === 0) {
+              offset = utils.getOffsetFromStartOfFileInBytes(startLineIndex, startColumnIndex, context.sourceLines);
+            } else {
+              offset += indentationBytes;
+            }
           }
 
           const header = this.parseHeader(contentLine, context);
