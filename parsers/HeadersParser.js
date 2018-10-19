@@ -46,49 +46,48 @@ module.exports = (Parsers) => {
       const contentNode = node.firstChild.next;
       const headers = [];
 
-      if (contentNode) {
-        const { startLineIndex, startColumnIndex } = utils.getSourcePosZeroBased(contentNode);
+      if (!contentNode) {
+        return headers;
+      }
 
-        const indentationBytes = startColumnIndex;
+      const { startLineIndex, startColumnIndex } = utils.getSourcePosZeroBased(contentNode);
+      const indentationBytes = startColumnIndex;
+      let offset = context.sourceMapsEnabled ? utils.getOffsetFromStartOfFileInBytes(startLineIndex, startColumnIndex, context.sourceLines) : 0;
+      const contentLines = contentNode.literal.trimRight().split('\n');
 
-        let offset = context.sourceMapsEnabled ? utils.getOffsetFromStartOfFileInBytes(startLineIndex, startColumnIndex, context.sourceLines) : 0;
+      for (let contentLineIndex = 0; contentLineIndex < contentLines.length; contentLineIndex += 1) {
+        const contentLine = contentLines[contentLineIndex];
+        const lineHasNonWhitespace = /\S/.exec(contentLine);
 
-        const contentLines = contentNode.literal.trimRight().split('\n');
+        if (lineHasNonWhitespace) {
+          if (context.sourceMapsEnabled && contentLineIndex > 0) {
+            offset += indentationBytes;
+          }
 
-        for (let contentLineIndex = 0; contentLineIndex < contentLines.length; contentLineIndex += 1) {
-          const contentLine = contentLines[contentLineIndex];
-          const lineHasNonWhitespace = /\S/.exec(contentLine);
+          const header = this.parseHeader(contentLine, context);
 
-          if (lineHasNonWhitespace) {
-            if (context.sourceMapsEnabled && contentLineIndex > 0) {
-              offset += indentationBytes;
-            }
-
-            const header = this.parseHeader(contentLine, context);
-
-            if (context.sourceMapsEnabled) {
-              const match = contentLine.match(/^(\s*)(.*)$/);
-              const leadingWhitespaceBytes = Buffer.byteLength(match[1]);
-              const restBytes = Buffer.byteLength(match[2]);
-              const block = {};
-              offset += leadingWhitespaceBytes;
-              block.offset = offset;
-              offset += restBytes;
-              block.length = offset - block.offset;
-              if (header) {
-                header.sourceMap = new SourceMapElement([block], contentNode.file);
-              }
-              offset += utils.linefeedBytes;
-            }
-
+          if (context.sourceMapsEnabled) {
+            const match = contentLine.match(/^(\s*)(.*)$/);
+            const leadingWhitespaceBytes = Buffer.byteLength(match[1]);
+            const restBytes = Buffer.byteLength(match[2]);
+            const block = {};
+            offset += leadingWhitespaceBytes;
+            block.offset = offset;
+            offset += restBytes;
+            block.length = offset - block.offset;
             if (header) {
-              headers.push(header);
+              header.sourceMap = new SourceMapElement([block], contentNode.file);
             }
-          } else if (context.sourceMapsEnabled) {
-            const sourceLine = context.sourceLines[startLineIndex + contentLineIndex];
-            offset += Buffer.byteLength(sourceLine);
             offset += utils.linefeedBytes;
           }
+
+          if (header) {
+            headers.push(header);
+          }
+        } else if (context.sourceMapsEnabled) {
+          const sourceLine = context.sourceLines[startLineIndex + contentLineIndex];
+          offset += Buffer.byteLength(sourceLine);
+          offset += utils.linefeedBytes;
         }
       }
 
