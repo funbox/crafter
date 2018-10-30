@@ -25,7 +25,7 @@ module.exports = (Parsers) => {
     },
 
     nestedSectionType(node, context) {
-      if (this.sectionType(node.parent.parent, context) !== SectionTypes.undefined) {
+      if (node.parent.parent && this.sectionType(node.parent.parent, context) !== SectionTypes.undefined) {
         return Parsers.MSONAttributeParser.sectionType(node, context);
       }
 
