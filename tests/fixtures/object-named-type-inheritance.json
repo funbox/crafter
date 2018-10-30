@@ -153,6 +153,21 @@
                           "content": {
                             "element": "Admin"
                           }
+                        },
+                        {
+                          "element": "asset",
+                          "meta": {
+                            "classes": [
+                              "messageBodySchema"
+                            ]
+                          },
+                          "attributes": {
+                            "contentType": {
+                              "element": "string",
+                              "content": "application/schema+json"
+                            }
+                          },
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"access_level\": {\n      \"type\": \"string\"\n    },\n    \"name\": {\n      \"type\": \"string\",\n      \"description\": \"user name\"\n    }\n  },\n  \"required\": [\n    \"access_level\",\n    \"name\"\n  ]\n}"
                         }
                       ],
                       "attributes": {

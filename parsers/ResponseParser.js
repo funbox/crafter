@@ -2,6 +2,7 @@ const SectionTypes = require('../SectionTypes');
 const RegExpStrings = require('../RegExpStrings');
 const utils = require('../utils');
 const ResponseElement = require('./elements/ResponseElement');
+const SchemaElement = require('./elements/SchemaElement');
 
 const responseRegex = new RegExp(`^[Rr]esponse(\\s+(\\d+))?${RegExpStrings.mediaType}?$`);
 
@@ -71,6 +72,14 @@ module.exports = (Parsers) => {
       }
 
       return [nextNode, result];
+    },
+
+    finalize(context, result) {
+      const schema = result.getSchema(context.typeResolver.types);
+      if (Object.keys(schema).length > 0) {
+        result.content.push(new SchemaElement(schema));
+      }
+      return result;
     },
   });
 };

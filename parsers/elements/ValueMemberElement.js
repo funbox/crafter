@@ -113,6 +113,44 @@ class ValueMemberElement {
 
     return result;
   }
+
+  getSchema(resolvedTypes, flags = {}) {
+    let schema = {};
+
+    const typeEl = resolvedTypes[this.type];
+    if (typeEl) {
+      schema = typeEl.content.getSchema(resolvedTypes);
+    }
+
+    if (this.content) {
+      schema = utils.mergeSchemas(schema, this.content.getSchema(resolvedTypes));
+    }
+
+    if (typeEl || this.content) {
+      return schema;
+    }
+
+    const type = (!this.type || this.type === 'file') ? 'string' : this.type;
+
+    if (flags.isNullable) {
+      schema.type = [
+        type,
+        'null',
+      ];
+    } else {
+      schema.type = type;
+    }
+
+    if (this.type === 'file') {
+      schema.contentEncoding = 'base64';
+    }
+
+    if (flags.isFixed) {
+      schema.enum = [this.value];
+    }
+
+    return schema;
+  }
 }
 
 module.exports = ValueMemberElement;

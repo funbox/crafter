@@ -37,6 +37,29 @@ class PropertyMemberElement {
 
     return result;
   }
+
+  getSchema(resolvedTypes) {
+    const schema = {};
+
+    const valueSchema = this.value.getSchema(resolvedTypes, {
+      isFixed: this.typeAttributes.includes('fixed'),
+      isNullable: this.typeAttributes.includes('nullable'),
+    });
+
+    if (this.description) {
+      valueSchema.description = this.description;
+    }
+
+    schema.properties = {
+      [this.name.string]: valueSchema,
+    };
+
+    if (this.typeAttributes.includes('required')) {
+      schema.required = [this.name.string];
+    }
+
+    return schema;
+  }
 }
 
 module.exports = PropertyMemberElement;

@@ -11,6 +11,12 @@ class OneOfTypeElement {
       content: this.options.map(option => option.toRefract()),
     };
   }
+
+  getSchema(resolvedTypes) {
+    return {
+      oneOf: this.options.map(option => option.getSchema(resolvedTypes)),
+    };
+  }
 }
 
 module.exports = OneOfTypeElement;

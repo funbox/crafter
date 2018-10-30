@@ -37,6 +37,17 @@ class EnumElement {
     }
     return result;
   }
+
+  getSchema() {
+    const schema = {
+      type: this.type,
+      enum: this.members.map(member => member.name),
+    };
+    if (this.defaultValue) {
+      schema.default = this.defaultValue.value;
+    }
+    return schema;
+  }
 }
 
 module.exports = EnumElement;

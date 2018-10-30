@@ -17,6 +17,11 @@ class MSONMixinElement {
       content: this.className,
     };
   }
+
+  getSchema(resolvedTypes) {
+    const typeEl = resolvedTypes[this.className];
+    return typeEl.getSchema(resolvedTypes);
+  }
 }
 
 module.exports = MSONMixinElement;

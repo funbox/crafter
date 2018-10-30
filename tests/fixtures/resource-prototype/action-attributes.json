@@ -71,6 +71,21 @@
                           }
                         ]
                       }
+                    },
+                    {
+                      "element": "asset",
+                      "meta": {
+                        "classes": [
+                          "messageBodySchema"
+                        ]
+                      },
+                      "attributes": {
+                        "contentType": {
+                          "element": "string",
+                          "content": "application/schema+json"
+                        }
+                      },
+                      "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"status\": {\n      \"type\": \"string\",\n      \"enum\": [\n        \"notFound\"\n      ]\n    }\n  },\n  \"required\": [\n    \"status\"\n  ]\n}"
                     }
                   ],
                   "attributes": {
@@ -196,6 +211,21 @@
                                   }
                                 ]
                               }
+                            },
+                            {
+                              "element": "asset",
+                              "meta": {
+                                "classes": [
+                                  "messageBodySchema"
+                                ]
+                              },
+                              "attributes": {
+                                "contentType": {
+                                  "element": "string",
+                                  "content": "application/schema+json"
+                                }
+                              },
+                              "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"status\": {\n      \"type\": \"string\",\n      \"enum\": [\n        \"notFound\"\n      ]\n    }\n  },\n  \"required\": [\n    \"status\"\n  ]\n}"
                             }
                           ],
                           "attributes": {

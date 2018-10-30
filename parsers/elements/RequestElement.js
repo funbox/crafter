@@ -1,4 +1,5 @@
 const Refract = require('../../Refract');
+const utils = require('../../utils');
 
 class RequestElement {
   constructor(contentType, title) {
@@ -71,6 +72,20 @@ class RequestElement {
     }
 
     return result;
+  }
+
+  getSchema(resolvedTypes) {
+    let schema = {};
+    this.content.forEach(item => {
+      schema = utils.mergeSchemas(schema, item.getSchema(resolvedTypes));
+    });
+    if (Object.keys(schema).length > 0) {
+      return {
+        $schema: 'http://json-schema.org/draft-04/schema#',
+        ...schema,
+      };
+    }
+    return schema;
   }
 }
 

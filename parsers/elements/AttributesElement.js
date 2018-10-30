@@ -11,6 +11,10 @@ class AttributesElement {
       content: this.content.toRefract(),
     };
   }
+
+  getSchema(resolvedTypes) {
+    return this.content.getSchema(resolvedTypes);
+  }
 }
 
 module.exports = AttributesElement;

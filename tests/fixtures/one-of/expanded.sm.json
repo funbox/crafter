@@ -537,6 +537,21 @@
                                   }
                                 }
                               }
+                            },
+                            {
+                              "element": "asset",
+                              "meta": {
+                                "classes": [
+                                  "messageBodySchema"
+                                ]
+                              },
+                              "attributes": {
+                                "contentType": {
+                                  "element": "string",
+                                  "content": "application/schema+json"
+                                }
+                              },
+                              "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"oneOf\": [\n    {\n      \"properties\": {\n        \"kind\": {\n          \"type\": \"string\",\n          \"description\": \"перевод на другой телефон\"\n        },\n        \"number\": {\n          \"type\": \"number\",\n          \"description\": \"номер телефона\"\n        }\n      }\n    },\n    {\n      \"properties\": {\n        \"kind\": {\n          \"type\": \"string\",\n          \"description\": \"перевод на дополнительное направление\"\n        },\n        \"gatewayId\": {\n          \"type\": \"string\",\n          \"description\": \"идентификатор платежного шлюза\"\n        }\n      }\n    }\n  ]\n}"
                             }
                           ],
                           "attributes": {

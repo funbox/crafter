@@ -217,6 +217,29 @@ const utils = {
     return s;
   },
 
+  mergeSchemas(schema1, schema2) {
+    const propsToMerge = ['properties', 'oneOf', 'required'];
+    const result = { ...schema1 };
+    Object.keys(schema2).forEach(key => {
+      if ((key in result) && propsToMerge.includes(key)) {
+        if (Array.isArray(result[key])) {
+          result[key] = [
+            ...result[key],
+            ...schema2[key],
+          ];
+        } else {
+          result[key] = {
+            ...result[key],
+            ...schema2[key],
+          };
+        }
+      } else {
+        result[key] = schema2[key];
+      }
+    });
+    return result;
+  },
+
   CrafterError,
 
   Logger,

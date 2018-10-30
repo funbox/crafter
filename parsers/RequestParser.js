@@ -5,6 +5,7 @@ const utils = require('../utils');
 const requestRegexp = new RegExp(`^[Rr]equest(\\s+${RegExpStrings.symbolIdentifier})?${RegExpStrings.mediaType}?$`);
 
 const RequestElement = require('./elements/RequestElement');
+const SchemaElement = require('./elements/SchemaElement');
 
 module.exports = (Parsers) => {
   Parsers.RequestParser = Object.assign(Object.create(require('./AbstractParser')), {
@@ -73,6 +74,14 @@ module.exports = (Parsers) => {
       }
 
       return [nextNode, result];
+    },
+
+    finalize(context, result) {
+      const schema = result.getSchema(context.typeResolver.types);
+      if (Object.keys(schema).length > 0) {
+        result.content.push(new SchemaElement(schema));
+      }
+      return result;
     },
   });
 };
