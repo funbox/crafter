@@ -44,12 +44,15 @@ const utils = {
     return this.nodeText(node, sourceLines).slice(node.level).trim();
   },
 
-  extractDescription(curNode, sourceLines, sourceMapsEnabled) {
+  extractDescription(curNode, sourceLines, sourceMapsEnabled, stopCallback) {
     const startNode = curNode;
     let description = '';
     let descriptionEl = null;
 
-    while (curNode && curNode.type === 'paragraph') {
+    while (curNode && (curNode.type === 'paragraph' || stopCallback)) {
+      if (stopCallback && stopCallback(curNode)) {
+        break;
+      }
       if (description) {
         description = this.appendDescriptionDelimiter(description);
       }
