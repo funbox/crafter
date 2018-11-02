@@ -64,7 +64,7 @@ module.exports = (Parsers) => {
     finalize(context, result) {
       const { name, value: { type, content } } = result;
       if (type === types.enum && !(content && content.members && content.members.length > 0)) {
-        context.logger.warn(`Enum element "${name}" should include members.`);
+        context.logger.warn(`Enum element "${name.string}" should include members.`);
       }
 
       context.checkTypeExists(result.value.rawType);
