@@ -118,7 +118,32 @@
                     "meta": {
                       "description": {
                         "element": "string",
-                        "content": "enum with no members"
+                        "content": "enum with no members",
+                        "attributes": {
+                          "sourceMap": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "sourceMap",
+                                "content": [
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 40
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 36
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
                       }
                     }
                   }
@@ -298,7 +323,32 @@
                     "meta": {
                       "description": {
                         "element": "string",
-                        "content": "enum with no members, but with default and sample values"
+                        "content": "enum with no members, but with default and sample values",
+                        "attributes": {
+                          "sourceMap": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "sourceMap",
+                                "content": [
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 88
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 71
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
                       }
                     }
                   }

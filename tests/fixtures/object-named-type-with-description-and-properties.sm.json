@@ -211,7 +211,32 @@
                   },
                   "description": {
                     "element": "string",
-                    "content": "Test description here."
+                    "content": "Test description here.",
+                    "attributes": {
+                      "sourceMap": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "sourceMap",
+                            "content": [
+                              {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "number",
+                                    "content": 37
+                                  },
+                                  {
+                                    "element": "number",
+                                    "content": 24
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
                   }
                 }
               }

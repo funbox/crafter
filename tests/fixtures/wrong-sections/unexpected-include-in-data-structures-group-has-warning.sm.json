@@ -130,7 +130,32 @@
                     "meta": {
                       "description": {
                         "element": "string",
-                        "content": "user name"
+                        "content": "user name",
+                        "attributes": {
+                          "sourceMap": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "sourceMap",
+                                "content": [
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 54
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 45
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
                       }
                     }
                   }

@@ -125,7 +125,32 @@
                             "meta": {
                               "description": {
                                 "element": "string",
-                                "content": "перевод на другой телефон"
+                                "content": "перевод на другой телефон",
+                                "attributes": {
+                                  "sourceMap": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "sourceMap",
+                                        "content": [
+                                          {
+                                            "element": "array",
+                                            "content": [
+                                              {
+                                                "element": "number",
+                                                "content": 56
+                                              },
+                                              {
+                                                "element": "number",
+                                                "content": 71
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                }
                               }
                             }
                           }
@@ -199,7 +224,32 @@
                             "meta": {
                               "description": {
                                 "element": "string",
-                                "content": "номер телефона"
+                                "content": "номер телефона",
+                                "attributes": {
+                                  "sourceMap": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "sourceMap",
+                                        "content": [
+                                          {
+                                            "element": "array",
+                                            "content": [
+                                              {
+                                                "element": "number",
+                                                "content": 131
+                                              },
+                                              {
+                                                "element": "number",
+                                                "content": 59
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                }
                               }
                             }
                           }

@@ -130,7 +130,32 @@
                     "meta": {
                       "description": {
                         "element": "string",
-                        "content": "user name"
+                        "content": "user name",
+                        "attributes": {
+                          "sourceMap": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "sourceMap",
+                                "content": [
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 39
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 44
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
                       }
                     }
                   },
@@ -394,7 +419,32 @@
                             "meta": {
                               "description": {
                                 "element": "string",
-                                "content": "allow user to access posts"
+                                "content": "allow user to access posts",
+                                "attributes": {
+                                  "sourceMap": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "sourceMap",
+                                        "content": [
+                                          {
+                                            "element": "array",
+                                            "content": [
+                                              {
+                                                "element": "number",
+                                                "content": 103
+                                              },
+                                              {
+                                                "element": "number",
+                                                "content": 45
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                }
                               }
                             }
                           },

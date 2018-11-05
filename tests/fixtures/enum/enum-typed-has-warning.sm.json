@@ -399,7 +399,32 @@
                     "meta": {
                       "description": {
                         "element": "string",
-                        "content": "typed enum, with a member with non-specified type"
+                        "content": "typed enum, with a member with non-specified type",
+                        "attributes": {
+                          "sourceMap": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "sourceMap",
+                                "content": [
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 40
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 70
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
                       }
                     }
                   }
@@ -787,7 +812,32 @@
                     "meta": {
                       "description": {
                         "element": "string",
-                        "content": "non-typed enum, by default string, with type overriding on last member"
+                        "content": "non-typed enum, by default string, with type overriding on last member",
+                        "attributes": {
+                          "sourceMap": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "sourceMap",
+                                "content": [
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 243
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 85
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
                       }
                     }
                   }
