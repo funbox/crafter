@@ -13,10 +13,10 @@ module.exports = {
 
     [curNode, result] = this.processSignature(curNode, context);
 
-    if (this.allowLeavingNode || this.isCurrentNodeOrChild(curNode, context.rootNode)) {
+    if (this.allowLeavingNode || utils.isCurrentNodeOrChild(curNode, context.rootNode)) {
       [curNode, result] = this.processDescription(curNode, context, result);
 
-      if (this.allowLeavingNode || this.isCurrentNodeOrChild(curNode, context.rootNode)) {
+      if (this.allowLeavingNode || utils.isCurrentNodeOrChild(curNode, context.rootNode)) {
         [curNode, result] = this.processNestedSections(curNode, context, result);
       }
     }
@@ -75,7 +75,7 @@ module.exports = {
 
     while (curNode) {
       if (this.nestedSectionType(curNode, context) !== SectionTypes.undefined
-        && (this.allowLeavingNode || this.isCurrentNodeOrChild(curNode, context.rootNode))
+        && (this.allowLeavingNode || utils.isCurrentNodeOrChild(curNode, context.rootNode))
       ) {
         [curNode, result] = this.processNestedSection(curNode, context, result);
       } else if (this.isUnexpectedNode(curNode, context)) {
@@ -107,18 +107,6 @@ module.exports = {
 
   finalize(context, result) {
     return result;
-  },
-
-  isCurrentNodeOrChild(node, rootNode) {
-    while (node) {
-      if (node === rootNode) {
-        return true;
-      }
-
-      node = node.parent;
-    }
-
-    return false;
   },
 
   isDescriptionNode(node, context) {
