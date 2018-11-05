@@ -110,6 +110,23 @@ const utils = {
     return this.makeGenericSourceMapFromStartAndEndNodes(startNode, endNode, sourceLines);
   },
 
+  makeSourceMapForLine(node, sourceLines) {
+    const { startLineIndex, startColumnIndex } = utils.getSourcePosZeroBased(node);
+    const lineIndex = startLineIndex;
+    const indentation = node.sourcepos[0][1] - 1;
+
+    const offset = utils.getOffsetFromStartOfFileInBytes(startLineIndex, startColumnIndex, sourceLines);
+    const byteBlock = { offset, length: 0 };
+    const line = sourceLines[lineIndex];
+    const lineWithoutIndentation = line.slice(indentation);
+
+    let length = Buffer.byteLength(lineWithoutIndentation);
+    length += getEndingLinefeedLengthInBytes(lineIndex, sourceLines);
+    byteBlock.length += length;
+
+    return new SourceMapElement([byteBlock], node.file);
+  },
+
   makeSourceMapForAsset(node, context) {
     const byteBlocks = [];
     const { startLineIndex, startColumnIndex, endLineIndex } = this.getSourcePosZeroBased(node);

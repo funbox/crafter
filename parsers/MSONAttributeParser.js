@@ -16,17 +16,24 @@ module.exports = (Parsers) => {
       signature.warnings.forEach(warning => context.logger.warn(warning));
 
       const name = new StringElement(signature.name);
+      let descriptionEl;
+      if (signature.description) {
+        descriptionEl = new StringElement(signature.description);
+      }
       const valueEl = new ValueMemberElement(signature.type, [], signature.value, '', signature.isSample);
       if (context.sourceMapsEnabled) {
         name.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);
         valueEl.sourceMap = name.sourceMap;
+        if (descriptionEl) {
+          descriptionEl.sourceMap = utils.makeSourceMapForLine(node.firstChild, context.sourceLines);
+        }
       }
 
       const result = new PropertyMemberElement(
         name,
         valueEl,
         signature.typeAttributes,
-        signature.description,
+        descriptionEl,
       );
 
       const nestedNode = node.firstChild.next;

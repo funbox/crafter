@@ -147,7 +147,7 @@ describe('schema', () => {
     });
 
     it('with description', () => {
-      const el = new PropertyMemberElement(new StringElement('foo'), new ValueMemberElement(), [], 'hello');
+      const el = new PropertyMemberElement(new StringElement('foo'), new ValueMemberElement(), [], new StringElement('hello'));
       expect(el.getSchema({})).toEqual({
         properties: {
           foo: {

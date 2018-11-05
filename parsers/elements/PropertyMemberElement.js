@@ -4,12 +4,12 @@ const StringElement = require('./StringElement');
 const utils = require('../../utils');
 
 class PropertyMemberElement {
-  constructor(name, value = new ValueMemberElement(), typeAttributes = [], description) {
+  constructor(name, value = new ValueMemberElement(), typeAttributes = [], descriptionEl) {
     this.name = name instanceof StringElement ? name : new StringElement(name);
     this.value = value;
 
     this.typeAttributes = typeAttributes;
-    this.description = description;
+    this.descriptionEl = descriptionEl;
   }
 
   toRefract() {
@@ -26,12 +26,9 @@ class PropertyMemberElement {
     }
 
 
-    if (this.description) {
+    if (this.descriptionEl) {
       result.meta = {
-        description: {
-          element: Refract.elements.string,
-          content: this.description,
-        },
+        description: this.descriptionEl.toRefract(),
       };
     }
 
@@ -46,8 +43,8 @@ class PropertyMemberElement {
       isNullable: this.typeAttributes.includes('nullable'),
     });
 
-    if (this.description) {
-      valueSchema.description = this.description;
+    if (this.descriptionEl) {
+      valueSchema.description = this.descriptionEl.string;
     }
 
     schema.properties = {
