@@ -198,7 +198,7 @@ describe('schema', () => {
 
   describe('RequestElement', () => {
     it('not empty', () => {
-      const el = new RequestElement();
+      const el = new RequestElement('application/json');
       el.content.push(new AttributesElement(new ValueMemberElement()));
       expect(el.getSchema({})).toEqual({
         $schema: 'http://json-schema.org/draft-04/schema#',
@@ -207,14 +207,20 @@ describe('schema', () => {
     });
 
     it('empty', () => {
+      const el = new RequestElement('application/json');
+      expect(el.getSchema({})).toEqual({});
+    });
+
+    it('Content-Type is not application/json', () => {
       const el = new RequestElement();
+      el.content.push(new AttributesElement(new ValueMemberElement()));
       expect(el.getSchema({})).toEqual({});
     });
   });
 
   describe('ResponseElement', () => {
     it('not empty', () => {
-      const el = new ResponseElement();
+      const el = new ResponseElement(200, 'application/json');
       el.content.push(new AttributesElement(new ValueMemberElement()));
       expect(el.getSchema({})).toEqual({
         $schema: 'http://json-schema.org/draft-04/schema#',
@@ -223,7 +229,13 @@ describe('schema', () => {
     });
 
     it('empty', () => {
-      const el = new ResponseElement();
+      const el = new ResponseElement(200, 'application/json');
+      expect(el.getSchema({})).toEqual({});
+    });
+
+    it('Content-Type is not application/json', () => {
+      const el = new ResponseElement(200);
+      el.content.push(new AttributesElement(new ValueMemberElement()));
       expect(el.getSchema({})).toEqual({});
     });
   });

@@ -76,6 +76,9 @@ class RequestElement {
 
   getSchema(resolvedTypes) {
     let schema = {};
+    if (this.contentType !== 'application/json') {
+      return schema;
+    }
     this.content.forEach(item => {
       schema = utils.mergeSchemas(schema, item.getSchema(resolvedTypes));
     });
