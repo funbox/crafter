@@ -2,13 +2,13 @@
 
 # Create user [POST /user]
 
-+ Request
++ Request (application/json)
     + Attributes
         + name: John (string, required) - User name
         + email: `admin@localhost` (string, optional)
         + age: 42 (number)
         + comment
 
-+ Response 200
++ Response 200 (application/json)
     + Attributes
         + status: `ok` (required, fixed)

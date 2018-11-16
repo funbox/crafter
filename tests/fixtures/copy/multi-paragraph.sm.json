@@ -607,7 +607,7 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 862
+                                              "content": 881
                                             },
                                             {
                                               "element": "number",
@@ -620,7 +620,7 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 894
+                                              "content": 913
                                             },
                                             {
                                               "element": "number",
@@ -633,7 +633,7 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 926
+                                              "content": 945
                                             },
                                             {
                                               "element": "number",
@@ -646,7 +646,7 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 963
+                                              "content": 982
                                             },
                                             {
                                               "element": "number",
@@ -659,7 +659,7 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 995
+                                              "content": 1014
                                             },
                                             {
                                               "element": "number",
@@ -696,7 +696,7 @@
                                                     "content": [
                                                       {
                                                         "element": "number",
-                                                        "content": 1051
+                                                        "content": 1070
                                                       },
                                                       {
                                                         "element": "number",
@@ -725,7 +725,7 @@
                                                     "content": [
                                                       {
                                                         "element": "number",
-                                                        "content": 1051
+                                                        "content": 1070
                                                       },
                                                       {
                                                         "element": "number",
@@ -769,7 +769,7 @@
                                             "content": [
                                               {
                                                 "element": "number",
-                                                "content": 1030
+                                                "content": 1049
                                               },
                                               {
                                                 "element": "number",
@@ -820,7 +820,7 @@
                                             },
                                             {
                                               "element": "number",
-                                              "content": 14
+                                              "content": 33
                                             }
                                           ]
                                         }
@@ -829,6 +829,49 @@
                                   ]
                                 }
                               }
+                            },
+                            "headers": {
+                              "element": "httpHeaders",
+                              "content": [
+                                {
+                                  "element": "member",
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "Content-Type"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "content": "application/json"
+                                    }
+                                  },
+                                  "attributes": {
+                                    "sourceMap": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "sourceMap",
+                                          "content": [
+                                            {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "number",
+                                                  "content": 844
+                                                },
+                                                {
+                                                  "element": "number",
+                                                  "content": 33
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              ]
                             },
                             "sourceMap": {
                               "element": "array",
@@ -845,7 +888,7 @@
                                         },
                                         {
                                           "element": "number",
-                                          "content": 14
+                                          "content": 33
                                         }
                                       ]
                                     }

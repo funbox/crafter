@@ -92,6 +92,24 @@
                     "statusCode": {
                       "element": "string",
                       "content": "404"
+                    },
+                    "headers": {
+                      "element": "httpHeaders",
+                      "content": [
+                        {
+                          "element": "member",
+                          "content": {
+                            "key": {
+                              "element": "string",
+                              "content": "Content-Type"
+                            },
+                            "value": {
+                              "element": "string",
+                              "content": "application/json"
+                            }
+                          }
+                        }
+                      ]
                     }
                   }
                 }
@@ -232,6 +250,24 @@
                             "statusCode": {
                               "element": "string",
                               "content": "404"
+                            },
+                            "headers": {
+                              "element": "httpHeaders",
+                              "content": [
+                                {
+                                  "element": "member",
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "Content-Type"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "content": "application/json"
+                                    }
+                                  }
+                                }
+                              ]
                             }
                           }
                         }
