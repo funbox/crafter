@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.1 (27.11.2018)
+
+* Fix `bin` field in package.json.
+
 ## 0.1.0 (17.11.2018)
 
 Initial project prototype. This project builds AST in the same way as Drafter does on master branch (v4.0.0-pre.2). Currently implemented functions:
