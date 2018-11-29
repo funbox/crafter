@@ -6,7 +6,7 @@ const Logger = require('./utils').Logger;
 
 const Parsers = {};
 
-fs.readdirSync('./parsers').forEach((pFile) => {
+fs.readdirSync(path.join(__dirname, 'parsers')).forEach((pFile) => {
   if (/Parser.js$/.exec(pFile)) {
     const defineParser = require(`./parsers/${pFile}`); // eslint-disable-line import/no-dynamic-require
     if (typeof defineParser === 'function') {
