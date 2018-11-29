@@ -78,7 +78,7 @@ class Context {
   }
 
   getApibAST(filename) {
-    const currentDir = path.dirname(this.currentFile);
+    const currentDir = this.currentFile ? path.dirname(this.currentFile) : '.';
     const fullPath = path.resolve(currentDir, filename);
     let file;
 
@@ -98,8 +98,8 @@ class Context {
   }
 
   resolvePathRelativeToEntryFile(filename) {
-    const entryDir = path.dirname(this.entryFile);
-    const currentDir = path.dirname(this.currentFile);
+    const entryDir = this.entryFile ? path.dirname(this.entryFile) : '.';
+    const currentDir = this.currentFile ? path.dirname(this.currentFile) : entryDir;
     const absPath = path.resolve(currentDir, filename);
     return path.relative(entryDir, absPath);
   }
