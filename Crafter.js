@@ -18,6 +18,7 @@ fs.readdirSync(path.join(__dirname, 'parsers')).forEach((pFile) => {
 module.exports = {
   parse(source, contextOptions) {
     const ast = utils.markdownSourceToAST(source);
+    contextOptions.logger = contextOptions.logger || new Logger();
     const context = new Context(source, Parsers, contextOptions);
     const result = Parsers.BlueprintParser.parse(ast.firstChild, context)[1];
 
