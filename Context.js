@@ -16,7 +16,7 @@ class Context {
     this.currentFile = options.currentFile;
     this.logger = options.logger;
     this.sourceMapsEnabled = options.sourceMapsEnabled;
-    this.entryFile = options.entryFile;
+    this.entryDir = options.entryDir;
 
     this.sectionKeywordSignatureParsers = [
       'DefaultValue',
@@ -78,7 +78,7 @@ class Context {
   }
 
   getApibAST(filename) {
-    const currentDir = this.currentFile ? path.dirname(this.currentFile) : '.';
+    const currentDir = this.currentFile ? path.dirname(this.currentFile) : this.entryDir;
     const fullPath = path.resolve(currentDir, filename);
     let file;
 
@@ -91,17 +91,16 @@ class Context {
     const ast = utils.markdownSourceToAST(file);
     const context = new Context(file, [], {
       currentFile: fullPath,
-      entryFile: this.entryFile,
+      entryDir: this.entryDir,
     });
 
     return { ast, context };
   }
 
-  resolvePathRelativeToEntryFile(filename) {
-    const entryDir = this.entryFile ? path.dirname(this.entryFile) : '.';
-    const currentDir = this.currentFile ? path.dirname(this.currentFile) : entryDir;
+  resolvePathRelativeToEntryDir(filename) {
+    const currentDir = this.currentFile ? path.dirname(this.currentFile) : this.entryDir;
     const absPath = path.resolve(currentDir, filename);
-    return path.relative(entryDir, absPath);
+    return path.relative(this.entryDir, absPath);
   }
 }
 

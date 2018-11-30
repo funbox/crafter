@@ -114,6 +114,10 @@ module.exports = (Parsers) => {
 
       while (curNode) {
         if (curNode.type === 'heading' && ImportRegex.test(textFromNode(curNode))) {
+          if (!context.entryDir) {
+            throw new CrafterError('Import error. Entry directory should be defined.');
+          }
+
           const filename = ImportRegex.exec(textFromNode(curNode))[1].trim();
 
           if (!/\.apib$/.test(filename)) {
@@ -137,7 +141,7 @@ module.exports = (Parsers) => {
             throw new CrafterError(`Invalid content of "${filename}". Expected content to be a section, instead got "${childAst.firstChild.type}".`);
           }
 
-          addSourceLinesAndFilename(childAst, childSourceLines, context.resolvePathRelativeToEntryFile(filename));
+          addSourceLinesAndFilename(childAst, childSourceLines, context.resolvePathRelativeToEntryDir(filename));
           this.resolveImports(childAst.firstChild, childContext, usedFiles);
 
           let childNode = childAst.firstChild;

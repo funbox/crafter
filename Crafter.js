@@ -20,14 +20,11 @@ module.exports = {
     const ast = utils.markdownSourceToAST(source);
     contextOptions.logger = contextOptions.logger || new Logger();
     const context = new Context(source, Parsers, contextOptions);
-    const result = Parsers.BlueprintParser.parse(ast.firstChild, context)[1];
-
-    return result;
+    return Parsers.BlueprintParser.parse(ast.firstChild, context)[1];
   },
 
   parseFile(file, contextOptions = {}) {
-    contextOptions.currentFile = path.resolve(__dirname, file);
-    contextOptions.entryFile = contextOptions.currentFile;
+    contextOptions.entryDir = path.dirname(file);
     contextOptions.logger = contextOptions.logger || new Logger();
     return this.parse(fs.readFileSync(file, { encoding: 'utf-8' }), contextOptions);
   },
