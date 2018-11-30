@@ -57,11 +57,11 @@ const testFilesFrom = (location) => {
           suppressWarnings() {},
         };
         const filePath = `${path}/${f}`;
-        const example = JSON.parse(readFile(f.replace(apibRegex, '.json'), path));
+        const example = getMatchingData(f, path);
         const result = Crafter.parseFile(filePath, { logger });
         expect(result.toRefract()).toEqual(example);
 
-        const exampleSm = JSON.parse(readFile(f.replace(apibRegex, '.sm.json'), path));
+        const exampleSm = getMatchingData(f, path, true);
         const resultSm = Crafter.parseFile(filePath, { logger, sourceMapsEnabled: true });
         expect(resultSm.toRefract()).toEqual(exampleSm);
 
@@ -149,6 +149,58 @@ describe('source maps fixtures', () => {
   testFilesFrom(testPath.sourceMaps);
 });
 
+it('parses from source without options passed', () => {
+  const file = 'simple.apib';
+  const path = testPath.base;
+  const options = {};
+
+  testFromSource(file, path, options);
+});
+
+it('parses from source and includes imports', () => {
+  const file = 'action.apib';
+  const path = testPath.import.path;
+  const options = { entryDir: path };
+
+  testFromSource(file, path, options);
+});
+
+it('parses from source and includes nested imports', () => {
+  const file = 'nested.apib';
+  const path = testPath.import.path;
+  const options = { entryDir: path };
+
+  testFromSource(file, path, options);
+});
+
+it('throws an error when parsing from source with imports and without entryDir option defined', () => {
+  const file = 'nested.apib';
+  const path = testPath.import.path;
+  const options = {};
+
+  const source = readFile(file, path);
+
+  expect(() => Crafter.parse(source, options)).toThrow(CrafterError);
+});
+
 function readFile(file, path) {
   return fs.readFileSync(`${path}/${file}`, { encoding: 'utf-8' });
+}
+
+function getMatchingData(file, path, isSourceMaps = false) {
+  const ext = !isSourceMaps ? '.json' : '.sm.json';
+  return JSON.parse(readFile(file.replace(apibRegex, ext), path));
+}
+
+function testFromSource(file, path, options) {
+  const source = readFile(file, path);
+
+  const result = Crafter.parse(source, options);
+  const example = getMatchingData(file, path);
+  expect(result.toRefract()).toEqual(example);
+
+  options.sourceMapsEnabled = true;
+  const resultSm = Crafter.parse(source, options);
+  const exampleSm = getMatchingData(file, path, options.sourceMapsEnabled);
+  expect(resultSm.toRefract()).toEqual(exampleSm);
 }
