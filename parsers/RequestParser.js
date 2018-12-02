@@ -40,6 +40,7 @@ module.exports = (Parsers) => {
       return SectionTypes.calculateSectionType(node, context, [
         Parsers.HeadersParser,
         Parsers.BodyParser,
+        Parsers.SchemaParser,
         Parsers.AttributesParser,
       ]);
     },
@@ -68,6 +69,9 @@ module.exports = (Parsers) => {
       } else if (Parsers.HeadersParser.sectionType(node, context) !== SectionTypes.undefined) {
         [nextNode, childResult] = Parsers.HeadersParser.parse(node, context);
         result.headersSections.push(childResult);
+      } else if (Parsers.SchemaParser.sectionType(node, context) !== SectionTypes.undefined) {
+        [nextNode, childResult] = Parsers.SchemaParser.parse(node, context);
+        result.content.push(childResult);
       } else {
         [nextNode, childResult] = Parsers.AttributesParser.parse(node, context);
         result.content.push(childResult);
@@ -77,6 +81,9 @@ module.exports = (Parsers) => {
     },
 
     finalize(context, result) {
+      if (result.content.find(item => (item instanceof SchemaElement))) {
+        return result;
+      }
       const schema = result.getSchema(context.typeResolver.types);
       if (Object.keys(schema).length > 0) {
         result.content.push(new SchemaElement(schema));
