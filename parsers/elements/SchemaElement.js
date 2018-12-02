@@ -3,10 +3,11 @@ const Refract = require('../../Refract');
 class SchemaElement {
   constructor(schema) {
     this.schema = schema;
+    this.sourceMap = null;
   }
 
   toRefract() {
-    return {
+    const result = {
       element: Refract.elements.asset,
       meta: {
         classes: [
@@ -21,6 +22,12 @@ class SchemaElement {
       },
       content: JSON.stringify(this.schema, null, 2),
     };
+
+    if (this.sourceMap) {
+      result.attributes.sourceMap = this.sourceMap.toRefract();
+    }
+
+    return result;
   }
 }
 
