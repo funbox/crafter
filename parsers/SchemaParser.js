@@ -1,7 +1,6 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
 const SchemaElement = require('./elements/SchemaElement');
-const SourceMapElement = require('./elements/SourceMapElement');
 
 const schemaRegex = /^[Ss]chema$/;
 
@@ -59,28 +58,7 @@ module.exports = (Parsers) => {
     },
 
     makeSourceMap(node, context) {
-      const byteBlocks = [];
-      const { startLineIndex, startColumnIndex, endLineIndex } = utils.getSourcePosZeroBased(node);
-      const numSpacesPerIndentLevel = 4;
-      const indentation = Math.floor(startColumnIndex / numSpacesPerIndentLevel) * numSpacesPerIndentLevel;
-      let offset = utils.getOffsetFromStartOfFileInBytes(startLineIndex, indentation, context.sourceLines);
-      for (let lineIndex = startLineIndex; lineIndex <= endLineIndex; lineIndex += 1) {
-        const line = context.sourceLines[lineIndex];
-        if (/\S/.test(line)) {
-          const lineWithoutIndentation = line.slice(indentation);
-          let length = Buffer.byteLength(lineWithoutIndentation);
-          if (lineIndex < context.sourceLines.length - 1) {
-            length += utils.linefeedBytes;
-          }
-          byteBlocks.push({ offset, length });
-          offset += length;
-          offset += indentation;
-        } else {
-          offset += Buffer.byteLength(line) + utils.linefeedBytes;
-        }
-      }
-
-      return new SourceMapElement(byteBlocks, node.file);
+      return utils.makeSourceMapForAsset(node, context);
     },
   });
 };
