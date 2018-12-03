@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.0 (03.12.2018)
+
+* Process Schema section.
+
 ## 0.2.0 (03.12.2018)
 
 * Add unit-tests for DataStructureProcessor.
