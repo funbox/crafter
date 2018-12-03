@@ -1,0 +1,25 @@
+# My API
+
+# List users [GET /users]
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "hello": "world"
+            }
+
+    + Schema
+
+            {
+                "$schema": "http://json-schema.org/draft-04/schema#",
+                "type": "object",
+                "required": [
+                    "hello"
+                ],
+                "properties": {
+                    "hello": {
+                        "type": "string"
+                    }
+                }
+            }
