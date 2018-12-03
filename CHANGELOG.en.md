@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.2 (03.12.2018)
+
+* Fix paths when dealing with imports
+
 ## 0.1.1 (27.11.2018)
 
 * Fix `bin` field in package.json.
