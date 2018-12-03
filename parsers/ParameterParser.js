@@ -10,6 +10,7 @@ module.exports = (Parsers) => {
     processSignature(node, context) {
       const text = utils.nodeText(node.firstChild, context.sourceLines);
       const signature = new SignatureParser(text);
+      signature.warnings.forEach(warning => context.logger.warn(warning));
 
       const result = new ParameterElement(
         signature.name,

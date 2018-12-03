@@ -29,15 +29,30 @@ class SignatureParser {
     this.typeAttributes = [];
     this.type = null;
     this.isSample = false;
+    this.warnings = [];
 
     let signature = origSignature;
 
     if (this.traits.includes(parserTraits.NAME)) {
       signature = this.extractName(signature);
+
+      if (!this.name) {
+        this.warnings.push(`No name specified: "${origSignature}"`);
+      }
     }
 
     if (this.traits.includes(parserTraits.VALUE)) {
-      signature = this.extractValue(signature);
+      if (!this.traits.includes(parserTraits.NAME)) {
+        signature = VALUES_DELIMITER + signature;
+      }
+
+      if (signature[0] === VALUES_DELIMITER) {
+        signature = this.extractValue(signature);
+
+        if (!this.value) {
+          this.warnings.push(`No value(s) specified: "${origSignature}"`);
+        }
+      }
     }
 
     if (this.traits.includes(parserTraits.ATTRIBUTES)) {

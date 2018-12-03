@@ -45,6 +45,8 @@ module.exports = (Parsers) => {
     processNestedSection(node, context, result) {
       const text = utils.nodeText(node.firstChild, context.sourceLines);
       const value = new SignatureParser(text, [ParserTraits.NAME, ParserTraits.DESCRIPTION]);
+      value.warnings.forEach(warning => context.logger.warn(warning));
+
       result.value = value.name;
       if (context.sourceMapsEnabled) {
         result.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);

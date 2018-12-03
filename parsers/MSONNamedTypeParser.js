@@ -10,6 +10,7 @@ module.exports = (Parsers) => {
     processSignature(node, context) {
       const subject = utils.headerText(node, context.sourceLines);
       const signature = new SignatureParser(subject, [ParserTraits.NAME, ParserTraits.ATTRIBUTES]);
+      signature.warnings.forEach(warning => context.logger.warn(warning));
 
       const name = new StringElement(signature.name);
       if (context.sourceMapsEnabled) {

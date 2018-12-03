@@ -14,6 +14,8 @@ module.exports = (Parsers) => {
     processSignature(node, context) {
       const text = utils.nodeText(node.firstChild, context.sourceLines);
       const signature = new SignatureParser(text, [ParserTraits.NAME, ParserTraits.ATTRIBUTES]);
+      signature.warnings.forEach(warning => context.logger.warn(warning));
+
       const memberEl = new ValueMemberElement(signature.type, signature.typeAttributes);
       if (context.sourceMapsEnabled) {
         memberEl.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);

@@ -87,8 +87,7 @@ describe('SignatureParser', () => {
     it('Parses signature with no name', () => {
       const signature = new SignatureParser('(string)');
       expect(signature.type).toBe('string');
-
-      // TODO: при парсинге такой сигнатуры должен появляться warning из-за отсутствия name.
+      expect(signature.warnings.length).toBe(1);
     });
   });
 
@@ -118,22 +117,19 @@ describe('SignatureParser', () => {
       const signature = new SignatureParser('(string) - Description', traits);
       expect(signature.type).toBe('string');
       expect(signature.description).toBe('Description');
-
-      // TODO: при парсинге такой сигнатуры должен появляться warning из-за отсутствия value (example).
+      expect(signature.warnings.length).toBe(1);
     });
 
     it('Parses signature with type only', () => {
       const signature = new SignatureParser('(number)', traits);
       expect(signature.type).toBe('number');
-
-      // TODO: при парсинге такой сигнатуры должен появляться warning из-за отсутствия value (example).
+      expect(signature.warnings.length).toBe(1);
     });
 
     it('Parses signature with description only', () => {
       const signature = new SignatureParser('- Description', traits);
       expect(signature.description).toBe('Description');
-
-      // TODO: при парсинге такой сигнатуры должен появляться warning из-за отсутствия value (example).
+      expect(signature.warnings.length).toBe(1);
     });
 
     it('Parses signature with example only', () => {

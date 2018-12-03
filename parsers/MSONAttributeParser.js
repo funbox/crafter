@@ -13,6 +13,7 @@ module.exports = (Parsers) => {
     processSignature(node, context) {
       const subject = utils.nodeText(node.firstChild, context.sourceLines); // TODO: часто берем text, может сделать отдельную функцию?
       const signature = new SignatureParser(subject);
+      signature.warnings.forEach(warning => context.logger.warn(warning));
 
       const name = new StringElement(signature.name);
       const valueEl = new ValueMemberElement(signature.type, [], signature.value, '', signature.isSample);
