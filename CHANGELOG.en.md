@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.0 (03.12.2018)
+
+* Add unit-tests for DataStructureProcessor.
+
 ## 0.1.2 (03.12.2018)
 
 * Fix paths when dealing with imports
