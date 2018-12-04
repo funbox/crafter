@@ -9,7 +9,7 @@ class MSONNamedTypeElement {
   }
 
   toRefract() {
-    return {
+    const result = {
       element: Refract.elements.dataStructure,
       content: Object.assign(this.content.toRefract(), {
         meta: {
@@ -17,6 +17,15 @@ class MSONNamedTypeElement {
         },
       }),
     };
+
+    if (this.description) {
+      result.content.meta.description = {
+        element: Refract.elements.string,
+        content: this.description.description,
+      };
+    }
+
+    return result;
   }
 }
 

@@ -41,7 +41,16 @@ module.exports = (Parsers) => {
         return [node, result];
       }
 
-      const contentNode = node.parent;
+      let contentNode = node.parent;
+
+      if (utils.headerText(node, context.sourceLines) === 'Properties') {
+        if (utils.nextNode(node).parent.type === 'list') {
+          contentNode = utils.nextNode(node).parent;
+        } else {
+          contentNode = node;
+        }
+      }
+
       if (contentNode.type === 'list') {
         const dataStructureProcessor = new DataStructureProcessor(contentNode, Parsers);
         dataStructureProcessor.fillValueMember(result.content, context);
@@ -53,7 +62,15 @@ module.exports = (Parsers) => {
     },
 
     processDescription(node, context, result) {
-      return [node, result]; // TODO: Сделать обработку description для этого парсера
+      if (node && node.type === 'paragraph') {
+        const [curNode, desc] = utils.extractDescription(node, context.sourceLines, context.sourceMapsEnabled);
+
+        result.description = desc;
+
+        return [curNode, result];
+      }
+
+      return [node, result];
     },
   });
 };
