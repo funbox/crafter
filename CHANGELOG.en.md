@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.0 (05.12.2018)
+
+* Add warnings to SignatureParser.
+* Add more tests for SignatureParser.
+
 ## 0.3.0 (03.12.2018)
 
 * Process Schema section.
