@@ -1,6 +1,7 @@
 const utils = require('../utils');
+const DataStructureProcessor = require('../DataStructureProcessor');
 const ValueMemberElement = require('./elements/ValueMemberElement');
-const DataStructureProcessor = require('./DataStructureProcessor');
+const ValueMemberProcessor = require('../ValueMemberProcessor');
 const { parser: SignatureParser, traits: ParserTraits } = require('../SignatureParser');
 
 module.exports = (Parsers) => {
@@ -15,6 +16,7 @@ module.exports = (Parsers) => {
         signature.value,
         signature.description,
       );
+      ValueMemberProcessor.fillBaseType(context, result);
 
       if (context.sourceMapsEnabled) {
         result.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);

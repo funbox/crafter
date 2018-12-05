@@ -39,10 +39,6 @@ module.exports = (Parsers) => {
       const [nextNode, childResult] = Parsers.MSONNamedTypeParser.parse(node, context);
       result.dataStructures.push(childResult);
 
-      if (!context.getType(childResult.name.string)) {
-        context.addType(childResult);
-      }
-
       return [nextNode, result];
     },
 

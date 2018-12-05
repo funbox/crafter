@@ -1,9 +1,9 @@
-const SectionTypes = require('../SectionTypes');
-const { standardTypes } = require('../types');
-const utils = require('../utils');
+const SectionTypes = require('./SectionTypes');
+const { standardTypes } = require('./types');
+const utils = require('./utils');
 
-const EnumElement = require('./elements/EnumElement');
-const ObjectElement = require('./elements/ObjectElement');
+const EnumElement = require('./parsers/elements/EnumElement');
+const ObjectElement = require('./parsers/elements/ObjectElement');
 
 class DataStructureProcessor {
   constructor(valueMemberRootNode, Parsers, startNode) {

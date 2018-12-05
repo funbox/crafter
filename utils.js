@@ -223,21 +223,16 @@ const utils = {
   },
 
   resolveType(type) {
-    const result = {};
+    const result = {
+      type,
+      nestedTypes: [],
+    };
 
-    const matchData = /^(array|enum)\s*(\[(.*)])?$/.exec(type);
-
-    if (matchData) {
-      const resolvedType = matchData[1];
-      result.type = types[resolvedType];
-      if (matchData[3]) {
-        result.nestedTypes = matchData[3].split(',').map(rawType => rawType.trim()).filter(t => !!t);
-      } else {
-        result.nestedTypes = [];
-      }
-    } else {
-      result.type = type;
-      result.nestedTypes = [];
+    const matchData = /^(.*?)\s*(\[(.*)])?$/.exec(type);
+    const resolvedType = matchData[1];
+    result.type = types[resolvedType] || resolvedType;
+    if (matchData[3]) {
+      result.nestedTypes = matchData[3].split(',').map(rawType => rawType.trim()).filter(t => !!t);
     }
 
     return result;

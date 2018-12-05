@@ -3,9 +3,10 @@ const types = require('../types');
 const utils = require('../utils');
 const PropertyMemberElement = require('./elements/PropertyMemberElement');
 const StringElement = require('./elements/StringElement');
-const ValueMemberElement = require('./elements/ValueMemberElement');
 const SourceMapElement = require('./elements/SourceMapElement');
-const DataStructureProcessor = require('./DataStructureProcessor');
+const DataStructureProcessor = require('../DataStructureProcessor');
+const ValueMemberElement = require('./elements/ValueMemberElement');
+const ValueMemberProcessor = require('../ValueMemberProcessor');
 const { parser: SignatureParser } = require('../SignatureParser');
 
 module.exports = (Parsers) => {
@@ -26,6 +27,7 @@ module.exports = (Parsers) => {
         descriptionEl = new StringElement(signature.description);
       }
       const valueEl = new ValueMemberElement(signature.type, [], signature.value, '', signature.isSample);
+      ValueMemberProcessor.fillBaseType(context, valueEl);
       if (context.sourceMapsEnabled) {
         name.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);
         valueEl.sourceMap = name.sourceMap;

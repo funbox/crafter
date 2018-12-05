@@ -4,10 +4,10 @@ const utils = require('../utils');
 const { parser: SignatureParser, traits: ParserTraits } = require('../SignatureParser');
 const MSONNamedTypeElement = require('./elements/MSONNamedTypeElement');
 const StringElement = require('./elements/StringElement');
-const ArrayElement = require('./elements/ArrayElement');
 const EnumElement = require('./elements/EnumElement');
 const ObjectElement = require('./elements/ObjectElement');
-const DataStructureProcessor = require('./DataStructureProcessor');
+const DataStructureProcessor = require('../DataStructureProcessor');
+const ValueMemberProcessor = require('../ValueMemberProcessor');
 
 module.exports = (Parsers) => {
   Parsers.MSONNamedTypeParser = Object.assign(Object.create(require('./AbstractParser')), {
@@ -21,7 +21,12 @@ module.exports = (Parsers) => {
         name.sourceMap = utils.makeGenericSourceMap(node, context.sourceLines);
       }
 
-      return [utils.nextNode(node), new MSONNamedTypeElement(name, signature.type, signature.typeAttributes)];
+      const typeElement = new MSONNamedTypeElement(name, signature.type, signature.typeAttributes);
+      if (!context.typeExtractingInProgress) {
+        ValueMemberProcessor.fillBaseType(context, typeElement.content);
+      }
+
+      return [utils.nextNode(node), typeElement];
     },
 
     sectionType(node, context) {
@@ -32,43 +37,32 @@ module.exports = (Parsers) => {
       return SectionTypes.undefined;
     },
 
-    nestedSectionType(node, context) {
-      return SectionTypes.calculateSectionType(node, context, [
-        Parsers.OneOfTypeParser,
-        Parsers.MSONMixinParser,
-        Parsers.MSONAttributeParser,
-      ]);
-    },
-
     processNestedSections(node, context, result) {
       if (!node) {
         return [node, result];
       }
-      let contentNode = node.parent;
+      const contentNode = node.parent;
 
-      let type = result.content.type || types.object;
+      if (!context.typeExtractingInProgress) {
+        let type = result.content.type || types.object;
 
-      if (context.typeResolver.types[type]) {
-        type = context.typeResolver.types[type].type || types.object;
-      }
+        if (context.typeResolver.types[type]) {
+          type = context.typeResolver.getStandardBaseType(type);
+        }
 
-      if (Parsers.NamedTypeMemberGroupParser.sectionType(node, context, type) !== SectionTypes.undefined) {
-        const [, childRes] = Parsers.NamedTypeMemberGroupParser.parse(node, context);
-        fillElementWithContent(result.content, type, childRes.members);
+        if (Parsers.NamedTypeMemberGroupParser.sectionType(node, context) !== SectionTypes.undefined) {
+          const [nextNode, childRes] = Parsers.NamedTypeMemberGroupParser.parse(node, context);
+          fillElementWithContent(result.content, type, childRes.members);
 
-        const nextNode = utils.nextNode(node);
-        contentNode = nextNode !== null && nextNode.parent.type === 'list'
-          ? nextNode.parent
-          : node;
+          return [nextNode, result];
+        }
 
-        return [utils.nextNode(contentNode), result];
-      }
-
-      if (contentNode.type === 'list') {
-        const dataStructureProcessor = new DataStructureProcessor(contentNode, Parsers);
-        dataStructureProcessor.fillValueMember(result.content, context);
-      } else {
-        return [node, result];
+        if (contentNode.type === 'list') {
+          const dataStructureProcessor = new DataStructureProcessor(contentNode, Parsers);
+          dataStructureProcessor.fillValueMember(result.content, context);
+        } else {
+          return [node, result];
+        }
       }
 
       return [utils.nextNode(contentNode), result];
@@ -102,7 +96,7 @@ function fillElementWithContent(rootElement, elementType, contentMembers) {
       newContentElement = existingContentElement || new EnumElement(rootElement.rawType);
       break;
     case types.array:
-      newContentElement = existingContentElement || new ArrayElement();
+      newContentElement = existingContentElement;
       break;
     default:
       break;

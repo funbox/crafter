@@ -1,3 +1,4 @@
+const types = require('./types');
 const standardTypes = require('./types').standardTypes;
 const MSONMixinElement = require('./parsers/elements/MSONMixinElement');
 const PropertyMemberElement = require('./parsers/elements/PropertyMemberElement');
@@ -64,8 +65,8 @@ class TypeResolver {
 
   checkTypeExists(typeName) {
     if (typeName !== null) {
-      const types = [...standardTypes, ...Object.keys(this.types)];
-      const isTypeDefined = t => types.includes(t);
+      const allTypes = [...standardTypes, ...Object.keys(this.types)];
+      const isTypeDefined = t => allTypes.includes(t);
 
       const { type, nestedTypes } = utils.resolveType(typeName);
       const typeIsDefined = nestedTypes ? nestedTypes.every(isTypeDefined) : isTypeDefined(type);
@@ -90,14 +91,41 @@ class TypeResolver {
       checkMixinExists(mixin.className);
     });
   }
+
+  getStandardBaseType(name) {
+    const usedTypes = [];
+
+    const getBaseType = () => {
+      if (usedTypes.includes(name)) {
+        throw new CrafterError(`Dependencies loop: ${usedTypes.concat([name]).join(' - ')}`);
+      }
+
+      usedTypes.push(name);
+
+      try {
+        name = this.types[name].type;
+      } catch (e) {
+        throw new CrafterError('Type not found');
+      }
+
+      if (name && !standardTypes.includes(name)) {
+        name = getBaseType(name);
+      }
+
+      return name;
+    };
+
+    return getBaseType() || types.object;
+  }
 }
 
 function copyNewAttributes(src, target) {
-  const parentAttributes = src.content.propertyMembers.filter(a => !hasAttribute(a));
-  target.content.propertyMembers = parentAttributes.concat(target.content.propertyMembers);
+  const members = (!src.baseType || src.baseType === types.object) ? 'propertyMembers' : 'members';
+  const parentAttributes = src.content[members].filter(a => !hasAttribute(a));
+  target.content[members] = parentAttributes.concat(target.content[members]);
 
   function hasAttribute(srcAttr) {
-    return !!target.content.propertyMembers.find(a => a.name === srcAttr.name);
+    return !!target.content[members].find(a => a.name === srcAttr.name);
   }
 }
 

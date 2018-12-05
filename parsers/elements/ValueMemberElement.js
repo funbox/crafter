@@ -1,16 +1,15 @@
 const Refract = require('../../Refract');
 const utils = require('../../utils');
 const types = require('../../types');
-const { splitValues } = require('../../SignatureParser');
-const ArrayElement = require('./ArrayElement');
-const SampleValueElement = require('./SampleValueElement');
 
 class ValueMemberElement {
   constructor(type, typeAttributes = [], value, description, isSample) {
-    const resolvedType = utils.resolveType(type);
+    const resolvedType = type ? utils.resolveType(type) : { type, nestedTypes: [] };
 
     this.rawType = type;
     this.type = resolvedType.type;
+    this.nestedTypes = resolvedType.nestedTypes;
+    this.baseType = null;
     this.typeAttributes = typeAttributes;
     this.value = value;
     this.description = description;
@@ -18,20 +17,6 @@ class ValueMemberElement {
     this.samples = null;
     this.sourceMap = null;
     this.isSample = isSample;
-
-    if (this.isArray()) {
-      const members = resolvedType.nestedTypes.map(t => new ValueMemberElement(t));
-
-      this.content = new ArrayElement(members);
-
-      if (this.value) {
-        const inlineValues = splitValues(this.value);
-        const inlineValuesType = resolvedType.nestedTypes.length === 1 ? resolvedType.nestedTypes[0] : 'string';
-        const sampleElement = new SampleValueElement(inlineValues, inlineValuesType);
-        this.samples = [sampleElement];
-        this.value = null;
-      }
-    }
   }
 
   isObject() {
@@ -39,15 +24,19 @@ class ValueMemberElement {
   }
 
   isArray() {
-    return this.type === types.array;
+    return this.type === types.array || this.baseType === types.array;
   }
 
   isEnum() {
-    return this.type === types.enum;
+    return this.type === types.enum || this.baseType === types.enum;
   }
 
   isComplex() {
     return !types.primitiveTypes.includes(this.type);
+  }
+
+  isStandardType() {
+    return types.standardTypes.includes(this.type) || !this.type;
   }
 
   toRefract() {

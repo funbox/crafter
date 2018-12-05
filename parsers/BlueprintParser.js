@@ -97,29 +97,58 @@ module.exports = (Parsers) => {
 
     preprocessNestedSections(node, context) {
       const usedFiles = context.currentFile ? [context.currentFileName()] : [];
-      let curNode = node;
-      context.logger.suppressWarnings();
 
-      this.resolveImports(curNode, context, usedFiles);
+      const walkAST = (sectionProcessors) => {
+        let curNode = node;
 
-      while (curNode) {
-        const nodeType = this.nestedSectionType(curNode, context);
-        let resourcePrototypeGroup;
-
-        switch (nodeType) {
-          case SectionTypes.dataStructureGroup:
-            [curNode] = Parsers.DataStructureGroupParser.parse(curNode, context);
-            break;
-          case SectionTypes.resourcePrototypes:
-            [curNode, resourcePrototypeGroup] = Parsers.ResourcePrototypesParser.parse(curNode, context);
-            resourcePrototypeGroup.resourcePrototypes.forEach((proto) => {
-              context.addResourcePrototype(proto);
-            });
-            break;
-          default:
+        while (curNode) {
+          const nodeType = this.nestedSectionType(curNode, context);
+          if (sectionProcessors[nodeType]) {
+            curNode = sectionProcessors[nodeType](curNode);
+          } else {
             curNode = curNode.next;
+          }
         }
-      }
+      };
+
+      context.logger.suppressWarnings();
+      context.typeExtractingInProgress = true;
+
+      this.resolveImports(node, context, usedFiles);
+
+      walkAST({
+        [SectionTypes.dataStructureGroup]: (curNode) => {
+          const [nextNode, dataStructureGroup] = Parsers.DataStructureGroupParser.parse(curNode, context);
+          dataStructureGroup.dataStructures.forEach((namedType) => {
+            const typeName = namedType.name.string;
+            if ((!context.getType(typeName))) {
+              context.addType(namedType);
+            } else {
+              throw new CrafterError(`${typeName} type already defined`);
+            }
+          });
+          return nextNode;
+        },
+      });
+
+      context.typeExtractingInProgress = false;
+
+      walkAST({
+        [SectionTypes.dataStructureGroup]: (curNode) => {
+          const [nextNode, dataStructureGroup] = Parsers.DataStructureGroupParser.parse(curNode, context);
+          dataStructureGroup.dataStructures.forEach((namedType) => {
+            context.addType(namedType);
+          });
+          return nextNode;
+        },
+        [SectionTypes.resourcePrototypes]: (curNode) => {
+          const [nextNode, resourcePrototypeGroup] = Parsers.ResourcePrototypesParser.parse(curNode, context);
+          resourcePrototypeGroup.resourcePrototypes.forEach((proto) => {
+            context.addResourcePrototype(proto);
+          });
+          return nextNode;
+        },
+      });
 
       context.typeResolver.resolveRegisteredTypes();
       context.resourcePrototypeResolver.resolveRegisteredPrototypes();

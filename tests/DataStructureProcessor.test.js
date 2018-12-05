@@ -3,7 +3,8 @@ const path = require('path');
 const Context = require('../Context');
 const utils = require('../utils');
 const { parser: SignatureParser } = require('../SignatureParser');
-const DataStructureProcessor = require('../parsers/DataStructureProcessor');
+const DataStructureProcessor = require('../DataStructureProcessor');
+const ValueMemberProcessor = require('../ValueMemberProcessor');
 const ValueMemberElement = require('../parsers/elements/ValueMemberElement');
 const ObjectElement = require('../parsers/elements/ObjectElement');
 const PropertyMemberElement = require('../parsers/elements/PropertyMemberElement');
@@ -35,6 +36,7 @@ function getFilledElementFromSource(source) {
   const signature = new SignatureParser(subject);
   signature.warnings.forEach(warning => context.logger.warn(warning));
   const valueElement = new ValueMemberElement(signature.type, [], signature.value);
+  ValueMemberProcessor.fillBaseType(context, valueElement);
   const nestedNode = ast.firstChild.next;
   const dataStructureProcessor = new DataStructureProcessor(nestedNode, Parsers);
   dataStructureProcessor.fillValueMember(valueElement, context);

@@ -17,6 +17,8 @@ class Context {
     this.logger = options.logger;
     this.sourceMapsEnabled = options.sourceMapsEnabled;
     this.entryDir = options.entryDir;
+    this.typeExtractingInProgress = false;
+    this.typeResolvingInProgress = false;
 
     this.sectionKeywordSignatureParsers = [
       'DefaultValue',
@@ -40,9 +42,6 @@ class Context {
   }
 
   addType(type) {
-    if (this.typeResolver.types[type.name.string]) {
-      console.error(`${type.name.string} type already defined`);
-    }
     this.typeResolver.types[type.name.string] = type.content;
   }
 

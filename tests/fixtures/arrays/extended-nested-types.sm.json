@@ -42,6 +42,35 @@
       },
       "content": [
         {
+          "element": "copy",
+          "content": "An array or enum Value Definition MAY specify the Type Specifications of implied Nested Member Types members in-line using [] as a Nested Type Name List.",
+          "attributes": {
+            "sourceMap": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "sourceMap",
+                  "content": [
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 10
+                        },
+                        {
+                          "element": "number",
+                          "content": 155
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
           "element": "category",
           "meta": {
             "classes": [
@@ -52,56 +81,16 @@
             {
               "element": "dataStructure",
               "content": {
-                "element": "enum",
-                "attributes": {
-                  "enumerations": {
-                    "element": "array",
-                    "content": [
-                      {
-                        "element": "string",
-                        "attributes": {
-                          "typeAttributes": {
-                            "element": "array",
-                            "content": [
-                              {
-                                "element": "string",
-                                "content": "fixed"
-                              }
-                            ]
-                          },
-                          "sourceMap": {
-                            "element": "array",
-                            "content": [
-                              {
-                                "element": "sourceMap",
-                                "content": [
-                                  {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "number",
-                                        "content": 50
-                                      },
-                                      {
-                                        "element": "number",
-                                        "content": 3
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        },
-                        "content": "m1"
-                      }
-                    ]
+                "element": "array",
+                "content": [
+                  {
+                    "element": "string"
                   }
-                },
+                ],
                 "meta": {
                   "id": {
                     "element": "string",
-                    "content": "EnumType",
+                    "content": "SimpleType",
                     "attributes": {
                       "sourceMap": {
                         "element": "array",
@@ -114,11 +103,11 @@
                                 "content": [
                                   {
                                     "element": "number",
-                                    "content": 29
+                                    "content": 184
                                   },
                                   {
                                     "element": "number",
-                                    "content": 19
+                                    "content": 31
                                   }
                                 ]
                               }
@@ -134,11 +123,16 @@
             {
               "element": "dataStructure",
               "content": {
-                "element": "EnumType",
+                "element": "SimpleType",
+                "content": [
+                  {
+                    "element": "number"
+                  }
+                ],
                 "meta": {
                   "id": {
                     "element": "string",
-                    "content": "EnumTypeExtended",
+                    "content": "MixedType",
                     "attributes": {
                       "sourceMap": {
                         "element": "array",
@@ -151,11 +145,11 @@
                                 "content": [
                                   {
                                     "element": "number",
-                                    "content": 54
+                                    "content": 215
                                   },
                                   {
                                     "element": "number",
-                                    "content": 31
+                                    "content": 35
                                   }
                                 ]
                               }
@@ -181,7 +175,7 @@
           "attributes": {
             "href": {
               "element": "string",
-              "content": "/options",
+              "content": "/mixed",
               "attributes": {
                 "sourceMap": {
                   "element": "array",
@@ -194,11 +188,11 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 91
+                              "content": 250
                             },
                             {
                               "element": "number",
-                              "content": 30
+                              "content": 28
                             }
                           ]
                         }
@@ -228,11 +222,11 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 91
+                                  "content": 250
                                 },
                                 {
                                   "element": "number",
-                                  "content": 30
+                                  "content": 28
                                 }
                               ]
                             }
@@ -265,11 +259,11 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 91
+                                          "content": 250
                                         },
                                         {
                                           "element": "number",
-                                          "content": 30
+                                          "content": 28
                                         }
                                       ]
                                     }
@@ -288,7 +282,7 @@
                         {
                           "element": "dataStructure",
                           "content": {
-                            "element": "EnumTypeExtended",
+                            "element": "MixedType",
                             "attributes": {
                               "sourceMap": {
                                 "element": "array",
@@ -301,11 +295,11 @@
                                         "content": [
                                           {
                                             "element": "number",
-                                            "content": 161
+                                            "content": 318
                                           },
                                           {
                                             "element": "number",
-                                            "content": 29
+                                            "content": 22
                                           }
                                         ]
                                       }
@@ -329,7 +323,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"string\",\n  \"enum\": [\n    \"m1\",\n    \"m2\"\n  ]\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"array\",\n  \"items\": {\n    \"type\": \"number\"\n  }\n}"
                         }
                       ],
                       "attributes": {
@@ -348,7 +342,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 123
+                                          "content": 280
                                         },
                                         {
                                           "element": "number",
@@ -389,7 +383,7 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 123
+                                              "content": 280
                                             },
                                             {
                                               "element": "number",
@@ -416,7 +410,7 @@
                                   "content": [
                                     {
                                       "element": "number",
-                                      "content": 123
+                                      "content": 280
                                     },
                                     {
                                       "element": "number",
@@ -436,7 +430,7 @@
               "attributes": {
                 "href": {
                   "element": "string",
-                  "content": "/options",
+                  "content": "/mixed",
                   "attributes": {
                     "sourceMap": {
                       "element": "array",
@@ -449,11 +443,11 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 91
+                                  "content": 250
                                 },
                                 {
                                   "element": "number",
-                                  "content": 30
+                                  "content": 28
                                 }
                               ]
                             }
