@@ -40,10 +40,10 @@ module.exports = (Parsers) => {
       if (!node) {
         return [node, result];
       }
-
+      const propertiesRegex = /^[Pp]roperties$/;
       let contentNode = node.parent;
 
-      if (utils.headerText(node, context.sourceLines) === 'Properties') {
+      if (propertiesRegex.exec(utils.headerText(node, context.sourceLines))) {
         if (utils.nextNode(node).parent.type === 'list') {
           contentNode = utils.nextNode(node).parent;
         } else {
