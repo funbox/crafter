@@ -36,7 +36,7 @@ describe('TypeResolver', () => {
     resolver.resolveRegisteredTypes();
 
     expect(resolver.types.bar.content.propertyMembers.length).toEqual(2);
-    expect(resolver.types.bar.content.propertyMembers[1]).toBe(foo.content.content.propertyMembers[0]);
+    expect(resolver.types.bar.content.propertyMembers[0]).toBe(foo.content.content.propertyMembers[0]);
   });
 
   it('resolves base type recursively', () => {
@@ -61,11 +61,11 @@ describe('TypeResolver', () => {
     resolver.resolveRegisteredTypes();
 
     expect(resolver.types.bar.content.propertyMembers.length).toEqual(2);
-    expect(resolver.types.bar.content.propertyMembers[1]).toBe(foo.content.content.propertyMembers[0]);
+    expect(resolver.types.bar.content.propertyMembers[0]).toBe(foo.content.content.propertyMembers[0]);
 
     expect(resolver.types.baz.content.propertyMembers.length).toEqual(2);
-    expect(resolver.types.baz.content.propertyMembers[0]).toBe(bar.content.content.propertyMembers[0]);
-    expect(resolver.types.baz.content.propertyMembers[1]).toBe(foo.content.content.propertyMembers[0]);
+    expect(resolver.types.baz.content.propertyMembers[1]).toBe(bar.content.content.propertyMembers[1]);
+    expect(resolver.types.baz.content.propertyMembers[0]).toBe(foo.content.content.propertyMembers[0]);
   });
 
   it('throws error on unknown type', () => {
