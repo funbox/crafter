@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.1 (06.12.2018)
+
+* Detect currentFile properly.
+
 ## 0.5.0 (06.12.2018)
 
 * Parse description and properties of MSONNamedTypeElement.
