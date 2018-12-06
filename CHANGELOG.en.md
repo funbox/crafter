@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.0 (06.12.2018)
+
+* Parse description and properties of MSONNamedTypeElement.
+
 ## 0.4.0 (05.12.2018)
 
 * Add warnings to SignatureParser.
