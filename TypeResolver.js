@@ -93,11 +93,8 @@ class TypeResolver {
 }
 
 function copyNewAttributes(src, target) {
-  src.content.propertyMembers.forEach((a) => {
-    if (!hasAttribute(a)) {
-      target.content.propertyMembers.push(a);
-    }
-  });
+  const parentAttributes = src.content.propertyMembers.filter(a => !hasAttribute(a));
+  target.content.propertyMembers = parentAttributes.concat(target.content.propertyMembers);
 
   function hasAttribute(srcAttr) {
     return !!target.content.propertyMembers.find(a => a.name === srcAttr.name);
