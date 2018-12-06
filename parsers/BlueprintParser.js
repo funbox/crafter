@@ -73,7 +73,7 @@ module.exports = (Parsers) => {
     },
 
     preprocessNestedSections(node, context) {
-      const usedFiles = this.currentFile ? [context.currentFileName()] : [];
+      const usedFiles = context.currentFile ? [context.currentFileName()] : [];
       let curNode = node;
       context.logger.suppressWarnings();
 
