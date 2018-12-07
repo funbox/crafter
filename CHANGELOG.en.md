@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.0 (07.12.2018)
+
+* Change attributes order in named types to behave more Drafter-way
+
 ## 0.5.1 (06.12.2018)
 
 * Detect currentFile properly.
