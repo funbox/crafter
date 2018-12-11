@@ -13,8 +13,9 @@ module.exports = (Parsers) => {
 
       let curNode = node;
 
-      let title = null;
-      if (curNode.type === 'heading') {
+      let title = new StringElement('');
+
+      if (curNode.type === 'heading' && context.sectionKeywordSignature(curNode) === 'undefined') {
         const titleText = utils.headerText(curNode, context.sourceLines); // Что если внутри хедера ссылки и все такое?
         title = new StringElement(titleText);
         if (context.sourceMapsEnabled) {
