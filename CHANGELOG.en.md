@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.1 (14.12.2018)
+
+* Fix parsing when documentation has no title.
+
 ## 0.6.0 (07.12.2018)
 
 * Change attributes order in named types to behave more Drafter-way
