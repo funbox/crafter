@@ -83,6 +83,7 @@ class DataStructureProcessor {
       let samplesElement;
 
       const sectionType = SectionTypes.calculateSectionType(curNode, context, [
+        this.Parsers.MSONMemberGroupParser,
         this.Parsers.SampleValueParser,
         this.Parsers.MSONMixinParser,
         this.Parsers.OneOfTypeParser,
@@ -98,6 +99,11 @@ class DataStructureProcessor {
           break;
         case SectionTypes.oneOfType:
           [nextNode, childResult] = this.Parsers.OneOfTypeParser.parse(curNode, context);
+          break;
+        case SectionTypes.msonObjectMemberGroup:
+          [nextNode, childResult] = this.Parsers.MSONMemberGroupParser.parse(curNode, context);
+          objectElement.propertyMembers.push(...childResult.members);
+          childResult = null;
           break;
         case SectionTypes.sampleValue:
           [nextNode, samplesElement] = this.Parsers.SampleValueParser.parse(curNode, context);
@@ -136,12 +142,18 @@ class DataStructureProcessor {
       let childResult;
 
       const sectionType = SectionTypes.calculateSectionType(curNode, context, [
+        this.Parsers.MSONMemberGroupParser,
         this.Parsers.DefaultValueParser,
         this.Parsers.SampleValueParser,
         this.Parsers.EnumMemberParser,
       ]);
 
       switch (sectionType) {
+        case SectionTypes.msonEnumMemberGroup:
+          [nextNode, childResult] = this.Parsers.MSONMemberGroupParser.parse(curNode, context);
+          enumElement.members.push(...childResult.members);
+          childResult = null;
+          break;
         case SectionTypes.defaultValue:
           [nextNode, childResult] = this.Parsers.DefaultValueParser.parse(curNode, context);
           enumElement.defaultValue = childResult;
