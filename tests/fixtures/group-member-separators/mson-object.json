@@ -1,0 +1,90 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": [
+          {
+            "element": "string",
+            "content": "api"
+          }
+        ],
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
+      },
+      "content": [
+        {
+          "element": "category",
+          "meta": {
+            "classes": [
+              "dataStructures"
+            ]
+          },
+          "content": [
+            {
+              "element": "dataStructure",
+              "content": {
+                "element": "object",
+                "content": [
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "bar"
+                      },
+                      "value": {
+                        "element": "object",
+                        "content": [
+                          {
+                            "element": "member",
+                            "content": {
+                              "key": {
+                                "element": "string",
+                                "content": "name"
+                              },
+                              "value": {
+                                "element": "string"
+                              }
+                            }
+                          },
+                          {
+                            "element": "member",
+                            "content": {
+                              "key": {
+                                "element": "string",
+                                "content": "example 1"
+                              },
+                              "value": {
+                                "element": "string"
+                              }
+                            },
+                            "meta": {
+                              "description": {
+                                "element": "string",
+                                "content": "description 1"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ],
+                "meta": {
+                  "id": {
+                    "element": "string",
+                    "content": "Foo"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

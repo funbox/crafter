@@ -1,0 +1,274 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": [
+          {
+            "element": "string",
+            "content": "api"
+          }
+        ],
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
+      },
+      "content": [
+        {
+          "element": "resource",
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Create user"
+            }
+          },
+          "attributes": {
+            "href": {
+              "element": "string",
+              "content": "/user"
+            }
+          },
+          "content": [
+            {
+              "element": "transition",
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Create user"
+                }
+              },
+              "content": [
+                {
+                  "element": "httpTransaction",
+                  "content": [
+                    {
+                      "element": "httpRequest",
+                      "attributes": {
+                        "method": {
+                          "element": "string",
+                          "content": "POST"
+                        },
+                        "headers": {
+                          "element": "httpHeaders",
+                          "content": [
+                            {
+                              "element": "member",
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "Content-Type"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "application/json"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "content": [
+                        {
+                          "element": "dataStructure",
+                          "content": {
+                            "element": "object",
+                            "content": [
+                              {
+                                "element": "member",
+                                "content": {
+                                  "key": {
+                                    "element": "string",
+                                    "content": "name"
+                                  },
+                                  "value": {
+                                    "element": "string",
+                                    "content": "John"
+                                  }
+                                },
+                                "attributes": {
+                                  "typeAttributes": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "required"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "meta": {
+                                  "description": {
+                                    "element": "string",
+                                    "content": "User name"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "element": "asset",
+                          "meta": {
+                            "classes": [
+                              "messageBodySchema"
+                            ]
+                          },
+                          "attributes": {
+                            "contentType": {
+                              "element": "string",
+                              "content": "application/schema+json"
+                            }
+                          },
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"name\": {\n      \"type\": \"string\",\n      \"description\": \"User name\"\n    }\n  },\n  \"required\": [\n    \"name\"\n  ]\n}"
+                        }
+                      ]
+                    },
+                    {
+                      "element": "httpResponse",
+                      "content": [
+                        {
+                          "element": "dataStructure",
+                          "content": {
+                            "element": "object",
+                            "content": [
+                              {
+                                "element": "member",
+                                "content": {
+                                  "key": {
+                                    "element": "string",
+                                    "content": "name"
+                                  },
+                                  "value": {
+                                    "element": "string",
+                                    "content": "John"
+                                  }
+                                },
+                                "attributes": {
+                                  "typeAttributes": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "required"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "meta": {
+                                  "description": {
+                                    "element": "string",
+                                    "content": "User name"
+                                  }
+                                }
+                              },
+                              {
+                                "element": "member",
+                                "content": {
+                                  "key": {
+                                    "element": "string",
+                                    "content": "email"
+                                  },
+                                  "value": {
+                                    "element": "string",
+                                    "content": "admin@localhost"
+                                  }
+                                },
+                                "attributes": {
+                                  "typeAttributes": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "optional"
+                                      }
+                                    ]
+                                  }
+                                }
+                              },
+                              {
+                                "element": "member",
+                                "content": {
+                                  "key": {
+                                    "element": "string",
+                                    "content": "age"
+                                  },
+                                  "value": {
+                                    "element": "number",
+                                    "content": "42"
+                                  }
+                                }
+                              },
+                              {
+                                "element": "member",
+                                "content": {
+                                  "key": {
+                                    "element": "string",
+                                    "content": "comment"
+                                  },
+                                  "value": {
+                                    "element": "string"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "element": "asset",
+                          "meta": {
+                            "classes": [
+                              "messageBodySchema"
+                            ]
+                          },
+                          "attributes": {
+                            "contentType": {
+                              "element": "string",
+                              "content": "application/schema+json"
+                            }
+                          },
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"name\": {\n      \"type\": \"string\",\n      \"description\": \"User name\"\n    },\n    \"email\": {\n      \"type\": \"string\"\n    },\n    \"age\": {\n      \"type\": \"number\"\n    },\n    \"comment\": {\n      \"type\": \"string\"\n    }\n  },\n  \"required\": [\n    \"name\"\n  ]\n}"
+                        }
+                      ],
+                      "attributes": {
+                        "statusCode": {
+                          "element": "string",
+                          "content": "200"
+                        },
+                        "headers": {
+                          "element": "httpHeaders",
+                          "content": [
+                            {
+                              "element": "member",
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "Content-Type"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "application/json"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "attributes": {
+                "href": {
+                  "element": "string",
+                  "content": "/user"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

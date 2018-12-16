@@ -38,6 +38,9 @@ const testPath = {
   get sourceMaps() {
     return `${this.base}/source-maps`;
   },
+  get groupMemberSeparators() {
+    return `${this.base}/group-member-separators`;
+  },
 };
 
 const apibRegex = /\.apib$/;
@@ -147,6 +150,10 @@ describe('copy fixtures', () => {
 
 describe('source maps fixtures', () => {
   testFilesFrom(testPath.sourceMaps);
+});
+
+describe('fixtures with member separators', () => {
+  testFilesFrom(testPath.groupMemberSeparators);
 });
 
 it('parses from source without options passed', () => {

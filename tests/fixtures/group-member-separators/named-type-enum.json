@@ -1,0 +1,180 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": [
+          {
+            "element": "string",
+            "content": "api"
+          }
+        ],
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
+      },
+      "content": [
+        {
+          "element": "category",
+          "meta": {
+            "classes": [
+              "dataStructures"
+            ]
+          },
+          "content": [
+            {
+              "element": "dataStructure",
+              "content": {
+                "element": "enum",
+                "attributes": {
+                  "enumerations": {
+                    "element": "array",
+                    "content": [
+                      {
+                        "element": "string",
+                        "attributes": {
+                          "typeAttributes": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "fixed"
+                              }
+                            ]
+                          }
+                        },
+                        "content": "name"
+                      },
+                      {
+                        "element": "string",
+                        "attributes": {
+                          "typeAttributes": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "fixed"
+                              }
+                            ]
+                          }
+                        },
+                        "content": "email"
+                      }
+                    ]
+                  }
+                },
+                "meta": {
+                  "id": {
+                    "element": "string",
+                    "content": "User"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "element": "resource",
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Get user"
+            }
+          },
+          "attributes": {
+            "href": {
+              "element": "string",
+              "content": "/user"
+            }
+          },
+          "content": [
+            {
+              "element": "transition",
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Get user"
+                }
+              },
+              "content": [
+                {
+                  "element": "httpTransaction",
+                  "content": [
+                    {
+                      "element": "httpRequest",
+                      "attributes": {
+                        "method": {
+                          "element": "string",
+                          "content": "GET"
+                        }
+                      },
+                      "content": []
+                    },
+                    {
+                      "element": "httpResponse",
+                      "content": [
+                        {
+                          "element": "dataStructure",
+                          "content": {
+                            "element": "User"
+                          }
+                        },
+                        {
+                          "element": "asset",
+                          "meta": {
+                            "classes": [
+                              "messageBodySchema"
+                            ]
+                          },
+                          "attributes": {
+                            "contentType": {
+                              "element": "string",
+                              "content": "application/schema+json"
+                            }
+                          },
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"string\",\n  \"enum\": [\n    \"name\",\n    \"email\"\n  ]\n}"
+                        }
+                      ],
+                      "attributes": {
+                        "statusCode": {
+                          "element": "string",
+                          "content": "200"
+                        },
+                        "headers": {
+                          "element": "httpHeaders",
+                          "content": [
+                            {
+                              "element": "member",
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "Content-Type"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "application/json"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "attributes": {
+                "href": {
+                  "element": "string",
+                  "content": "/user"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
