@@ -5,6 +5,7 @@
   "main": "Crafter.js",
   "scripts": {
     "test": "jest",
+    "test-drafter": "jest ./tests/drafterFixtures.test.js --config={}",
     "regenerate-fixtures": "node ./scripts/regenerate-fixtures.js",
     "lint": "eslint --cache -c .eslintrc --ext .js ./"
   },
@@ -26,14 +27,18 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.11.1",
-    "jest": "^22.4.3"
+    "jest": "^23.6.0"
   },
   "dependencies": {
     "commander": "2.15.1",
     "commonmark": "^0.28.1",
+    "rimraf": "2.6.2",
     "yamljs": "0.3.0"
   },
   "jest": {
+    "testPathIgnorePatterns": [
+      "drafterFixtures.test.js"
+    ],
     "roots": [
       "tests"
     ]
