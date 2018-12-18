@@ -19,10 +19,16 @@ class MSONNamedTypeElement {
     };
 
     if (this.description) {
-      result.content.meta.description = {
+      const description = {
         element: Refract.elements.string,
         content: this.description.description,
       };
+      if (this.description.sourceMap) {
+        description.attributes = {
+          sourceMap: this.description.sourceMap.toRefract(),
+        };
+      }
+      result.content.meta.description = description;
     }
 
     return result;
