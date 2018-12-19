@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.0 (19.12.2018)
+
+* Add tests from Drafter.
+
 ## 0.6.1 (14.12.2018)
 
 * Fix parsing when documentation has no title.
