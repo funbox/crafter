@@ -64,7 +64,7 @@ module.exports = (Parsers) => {
         const dataStructureProcessor = new DataStructureProcessor(contentNode, Parsers);
         dataStructureProcessor.fillValueMember(result.content, context);
       } else {
-        // TODO: Что делать в этом случае?
+        return [node, result];
       }
 
       return [utils.nextNode(contentNode), result];
