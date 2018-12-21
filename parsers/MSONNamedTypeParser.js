@@ -1,8 +1,12 @@
 const SectionTypes = require('../SectionTypes');
+const types = require('../types');
 const utils = require('../utils');
 const { parser: SignatureParser, traits: ParserTraits } = require('../SignatureParser');
 const MSONNamedTypeElement = require('./elements/MSONNamedTypeElement');
 const StringElement = require('./elements/StringElement');
+const ArrayElement = require('./elements/ArrayElement');
+const EnumElement = require('./elements/EnumElement');
+const ObjectElement = require('./elements/ObjectElement');
 const DataStructureProcessor = require('./DataStructureProcessor');
 
 module.exports = (Parsers) => {
@@ -40,15 +44,20 @@ module.exports = (Parsers) => {
       if (!node) {
         return [node, result];
       }
-      const propertiesRegex = /^[Pp]roperties$/;
       let contentNode = node.parent;
 
-      if (propertiesRegex.exec(utils.headerText(node, context.sourceLines))) {
-        if (utils.nextNode(node).parent.type === 'list') {
-          contentNode = utils.nextNode(node).parent;
-        } else {
-          contentNode = node;
-        }
+      let type = result.content.type || types.object;
+
+      if (context.typeResolver.types[type]) {
+        type = context.typeResolver.types[type].type || types.object;
+      }
+
+      if (Parsers.NamedTypeMemberGroupParser.sectionType(node, context, type) !== SectionTypes.undefined) {
+        const [, childRes] = Parsers.NamedTypeMemberGroupParser.parse(node, context);
+        fillElementWithContent(result.content, type, childRes.members);
+        contentNode = utils.nextNode(node).parent.type === 'list' ? utils.nextNode(node).parent : contentNode = node;
+
+        return [utils.nextNode(contentNode), result];
       }
 
       if (contentNode.type === 'list') {
@@ -74,3 +83,31 @@ module.exports = (Parsers) => {
     },
   });
 };
+
+function fillElementWithContent(rootElement, elementType, contentMembers) {
+  const existingContentElement = rootElement.content;
+  let newContentElement;
+
+  if (!rootElement.isComplex()) return;
+
+  switch (elementType) {
+    case types.object:
+      newContentElement = existingContentElement || new ObjectElement();
+      break;
+    case types.enum:
+      newContentElement = existingContentElement || new EnumElement(rootElement.rawType);
+      break;
+    case types.array:
+      newContentElement = existingContentElement || new ArrayElement();
+      break;
+    default:
+      break;
+  }
+
+  if (Array.isArray(contentMembers)) {
+    const membersField = elementType === types.object ? 'propertyMembers' : 'members';
+    newContentElement[membersField].push(...contentMembers);
+  }
+
+  rootElement.content = newContentElement;
+}

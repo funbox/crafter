@@ -221,6 +221,7 @@ const utils = {
       }
     } else {
       result.type = type;
+      result.nestedTypes = [];
     }
 
     return result;

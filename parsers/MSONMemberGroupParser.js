@@ -30,9 +30,11 @@ module.exports = (Parsers) => {
 
     processSignature(node, context) {
       let type;
-      const text = utils.nodeText(node.firstChild, context.sourceLines);
+      const text = node.type === 'heading'
+        ? utils.headerText(node, context.sourceLines)
+        : utils.nodeText(node.firstChild, context.sourceLines);
 
-      if (node.parent.prev.type === 'heading') {
+      if (node.parent.prev && node.parent.prev.type === 'heading') {
         throw new CrafterError(`Expected header-defined member type group "${text}", e.g. "## <text>"`);
       }
 
@@ -49,8 +51,10 @@ module.exports = (Parsers) => {
       let sectionType = SectionTypes.undefined;
 
       if (node.type === 'list') node = node.firstChild;
-      if (node.type === 'item') {
-        const text = utils.nodeText(node.firstChild, context.sourceLines);
+      if (node.type === 'item' || node.type === 'heading') {
+        const text = node.type === 'heading'
+          ? utils.headerText(node, context.sourceLines)
+          : utils.nodeText(node.firstChild, context.sourceLines);
         Object.keys(memberSeparatorRegex).forEach((key) => {
           if (memberSeparatorRegex[key].exec(text)) {
             sectionType = sectionTypes[key];
