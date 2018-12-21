@@ -31,7 +31,11 @@ class SignatureParser {
     this.isSample = false;
     this.warnings = [];
 
-    let signature = origSignature;
+    const [inlinePart, ...rest] = origSignature.split('\n');
+
+    let signature = inlinePart;
+
+    this.rest = rest.join('\n');
 
     if (this.traits.includes(parserTraits.NAME)) {
       signature = this.extractName(signature);

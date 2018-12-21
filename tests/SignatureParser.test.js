@@ -198,5 +198,13 @@ describe('SignatureParser', () => {
       expect(signature.type).toBe('string');
       expect(signature.typeAttributes).toEqual(['fixed']);
     });
+
+    it('Splits multiline signature', () => {
+      const signature = new SignatureParser('name: `Example` - Description\nBlockDescription1\nBlockDescription2');
+      expect(signature.name).toBe('name');
+      expect(signature.value).toBe('Example');
+      expect(signature.description).toBe('Description');
+      expect(signature.rest).toBe('BlockDescription1\nBlockDescription2');
+    });
   });
 });
