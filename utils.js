@@ -330,9 +330,12 @@ function makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, inde
     for (let lineIndex = startLineIndex; lineIndex <= endLineIndex; lineIndex += 1) {
       const line = sourceLines[lineIndex];
       const lineWithoutIndentation = line.slice(indentation);
-      const length = Buffer.byteLength(lineWithoutIndentation) + utils.linefeedBytes;
+      const leadingSpaces = lineWithoutIndentation.search(/\S/);
+      const unpaddedLine = lineWithoutIndentation.trim();
+      const length = Buffer.byteLength(unpaddedLine) + utils.linefeedBytes;
       byteBlock.length += length;
-      offset += length;
+      byteBlock.offset += leadingSpaces;
+      offset += length + leadingSpaces;
       if (lineIndex !== endLineIndex) {
         byteBlocks.push(byteBlock);
         offset += indentation;
