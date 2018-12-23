@@ -4,13 +4,15 @@ const utils = require('../utils');
 const PropertyMemberElement = require('./elements/PropertyMemberElement');
 const StringElement = require('./elements/StringElement');
 const ValueMemberElement = require('./elements/ValueMemberElement');
+const SourceMapElement = require('./elements/SourceMapElement');
 const DataStructureProcessor = require('./DataStructureProcessor');
 const { parser: SignatureParser } = require('../SignatureParser');
 
 module.exports = (Parsers) => {
-  // TODO Сделать обработку nestedSection
   Parsers.MSONAttributeParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
+      context.pushFrame();
+
       const subject = utils.nodeText(node.firstChild, context.sourceLines); // TODO: часто берем text, может сделать отдельную функцию?
       const signature = new SignatureParser(subject);
       signature.warnings.forEach(warning => context.logger.warn(warning));
@@ -29,6 +31,10 @@ module.exports = (Parsers) => {
         }
       }
 
+      if (signature.rest) {
+        context.data.startOffset = subject.length - signature.rest.length;
+      }
+
       const result = new PropertyMemberElement(
         name,
         valueEl,
@@ -36,14 +42,9 @@ module.exports = (Parsers) => {
         descriptionEl,
       );
 
-      const nestedNode = node.firstChild.next;
+      const nextNode = signature.rest ? node.firstChild : node.firstChild.next;
 
-      if (nestedNode) {
-        const dataStructureProcessor = new DataStructureProcessor(nestedNode, Parsers);
-        dataStructureProcessor.fillValueMember(result.value, context);
-      }
-
-      return [utils.nextNode(node), result];
+      return [nextNode, result];
     },
 
     sectionType(node, context) {
@@ -60,9 +61,57 @@ module.exports = (Parsers) => {
       return SectionTypes.undefined;
     },
 
-    // TODO: Корректно парсить многострочное описание параметра
-    processDescription(node, context, result) {
-      return [node, result];
+    processDescription(contentNode, context, result) {
+      const parentNode = contentNode && contentNode.parent;
+      const type = result.value.type || types.object;
+      const { startOffset } = context.data;
+
+      let dataStructureProcessorStartNode = contentNode;
+
+      if (contentNode) {
+        let stopCallback = null;
+        if (contentNode.type === 'paragraph' || !!startOffset) {
+          stopCallback = curNode => (
+            !utils.isCurrentNodeOrChild(curNode, parentNode)
+            || Parsers.MSONMemberGroupParser.sectionType(curNode, context, type) !== SectionTypes.undefined
+          );
+        }
+        contentNode.skipLines = startOffset ? 1 : 0;
+        const [
+          nextNode,
+          blockDescriptionEl,
+        ] = utils.extractDescription(contentNode, context.sourceLines, context.sourceMapsEnabled, stopCallback, startOffset);
+
+        delete contentNode.skipLines;
+
+        if (blockDescriptionEl) {
+          const stringDescriptionEl = new StringElement(blockDescriptionEl.description, blockDescriptionEl.sourceMap);
+          if (result.descriptionEl) {
+            result.descriptionEl.string = utils.appendDescriptionDelimiter(result.descriptionEl.string);
+            result.descriptionEl = mergeStringElements(result.descriptionEl, stringDescriptionEl);
+          } else {
+            result.descriptionEl = stringDescriptionEl;
+          }
+        }
+        dataStructureProcessorStartNode = nextNode;
+      }
+
+      if (dataStructureProcessorStartNode !== contentNode) {
+        context.data.descriptionExtracted = true;
+      }
+      return [dataStructureProcessorStartNode, result];
+    },
+
+    processNestedSections(node, context, result) {
+      const nestedSectionsContentNode = context.data.descriptionExtracted ? (node && node.parent) : node;
+      const startNode = context.data.descriptionExtracted ? node : undefined;
+
+      if (nestedSectionsContentNode && nestedSectionsContentNode.type === 'list') {
+        const dataStructureProcessor = new DataStructureProcessor(nestedSectionsContentNode, Parsers, startNode);
+        dataStructureProcessor.fillValueMember(result.value, context);
+      }
+
+      return [utils.nextNode(context.rootNode), result];
     },
 
     isUnexpectedNode() {
@@ -76,8 +125,19 @@ module.exports = (Parsers) => {
       }
 
       context.checkTypeExists(result.value.rawType);
+      context.popFrame();
 
       return result;
     },
   });
 };
+
+function mergeStringElements(first, second) {
+  const merged = new StringElement();
+  merged.string = first.string + second.string;
+  if (first.sourceMap && second.sourceMap) {
+    merged.sourceMap = new SourceMapElement();
+    merged.sourceMap.byteBlocks = [...first.sourceMap.byteBlocks, ...second.sourceMap.byteBlocks];
+  }
+  return merged;
+}
