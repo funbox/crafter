@@ -1,9 +1,9 @@
 const Refract = require('../../Refract');
 
 class StringElement {
-  constructor(string) {
+  constructor(string, sourceMap) {
     this.string = string;
-    this.sourceMap = null;
+    this.sourceMap = sourceMap;
   }
 
   toRefract() {

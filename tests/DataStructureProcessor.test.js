@@ -86,8 +86,8 @@ fields (object)
     const sampleElement = samples[0];
     expect(sampleElement).toBeInstanceOf(SampleValueElement);
     expect(sampleElement.members).toHaveLength(2);
-    expect(sampleElement.members[0].name).toEqual({ string: 'amount', sourceMap: null });
-    expect(sampleElement.members[1].name).toEqual({ string: 'msisdn', sourceMap: null });
+    expect(sampleElement.members[0].name).toEqual({ string: 'amount', sourceMap: undefined });
+    expect(sampleElement.members[1].name).toEqual({ string: 'msisdn', sourceMap: undefined });
   });
 
   it('fills an object with properties and multiple samples', () => {
