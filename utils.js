@@ -63,7 +63,7 @@ const utils = {
     if (description) {
       descriptionEl = new DescriptionElement(description);
       if (sourceMapsEnabled) {
-        descriptionEl.sourceMap = this.makeSourceMapForDescription(startNode, sourceLines);
+        descriptionEl.sourceMap = this.makeSourceMapForDescription(startNode, sourceLines, stopCallback);
       }
     }
 
@@ -100,10 +100,10 @@ const utils = {
     return this.makeGenericSourceMapFromStartAndEndNodes(node, node, sourceLines);
   },
 
-  makeSourceMapForDescription(startNode, sourceLines) {
+  makeSourceMapForDescription(startNode, sourceLines, stopCallback) {
     const indentation = startNode.sourcepos[0][1] - 1;
     if (indentation > 0) {
-      return makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, indentation);
+      return makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, indentation, stopCallback);
     }
 
     let endNode = startNode;
@@ -321,9 +321,10 @@ function getTrailingEmptyLinesLengthInBytes(lineIndex, sourceLines) {
   return result;
 }
 
-function makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, indentation) {
+function makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, indentation, stopCallback) {
   const byteBlocks = [];
-  for (let node = startNode; node && node.type === 'paragraph'; node = node.next) {
+  const iterationCondition = (node) => (stopCallback ? !stopCallback(node) : (node && node.type === 'paragraph'));
+  for (let node = startNode; iterationCondition(node); node = node.next) {
     const zeroBasedSourcePos = utils.getSourcePosZeroBased(node);
     let { startLineIndex } = zeroBasedSourcePos;
     const { startColumnIndex, endLineIndex } = zeroBasedSourcePos;
