@@ -1,5 +1,6 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
+const types = require('../types');
 const { parser: SignatureParser, traits: ParserTraits } = require('../SignatureParser');
 const AttributesElement = require('./elements/AttributesElement');
 const DataStructureProcessor = require('./DataStructureProcessor');
@@ -12,15 +13,23 @@ module.exports = (Parsers) => {
     allowLeavingNode: false,
 
     processSignature(node, context) {
+      context.pushFrame();
+
       const text = utils.nodeText(node.firstChild, context.sourceLines);
       const signature = new SignatureParser(text, [ParserTraits.NAME, ParserTraits.ATTRIBUTES]);
       signature.warnings.forEach(warning => context.logger.warn(warning));
 
+      if (signature.rest) {
+        context.data.startOffset = text.length - signature.rest.length;
+      }
+
       const memberEl = new ValueMemberElement(signature.type, signature.typeAttributes);
       if (context.sourceMapsEnabled) {
-        memberEl.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);
+        memberEl.sourceMap = utils.makeSourceMapForLine(node.firstChild, context.sourceLines);
       }
-      return [utils.nextNode(node.firstChild), new AttributesElement(memberEl)];
+      const nextNode = signature.rest ? node.firstChild : node.firstChild.next;
+
+      return [nextNode, new AttributesElement(memberEl)];
     },
 
     sectionType(node, context) {
@@ -43,25 +52,67 @@ module.exports = (Parsers) => {
       return Parsers.MSONAttributeParser.sectionType(node, context);
     },
 
-    processDescription(node, context, result) {
-      return [node, result];
+    processDescription(contentNode, context, result) {
+      const parentNode = contentNode && contentNode.parent;
+      let type = result.content.type || types.object;
+      const { startOffset } = context.data;
+
+      if (context.typeResolver.types[type]) {
+        type = context.typeResolver.types[type].type || types.object;
+      }
+
+      let dataStructureProcessorStartNode = contentNode;
+
+      if (contentNode) {
+        let stopCallback = null;
+        if (contentNode.type === 'paragraph' || !!startOffset) {
+          stopCallback = curNode => (
+            !utils.isCurrentNodeOrChild(curNode, parentNode)
+            || Parsers.MSONMemberGroupParser.sectionType(curNode, context, type) !== SectionTypes.undefined
+          );
+        }
+        contentNode.skipLines = startOffset ? 1 : 0;
+        const [
+          nextNode,
+          blockDescriptionEl,
+        ] = utils.extractDescription(contentNode, context.sourceLines, context.sourceMapsEnabled, stopCallback, startOffset);
+
+        delete contentNode.skipLines;
+
+        if (blockDescriptionEl) {
+          result.content.description = blockDescriptionEl.description;
+          if (context.sourceMapsEnabled) {
+            result.content.sourceMap.byteBlocks.push(...blockDescriptionEl.sourceMap.byteBlocks);
+          }
+        }
+        dataStructureProcessorStartNode = nextNode;
+      }
+
+      if (dataStructureProcessorStartNode !== contentNode) {
+        context.data.descriptionExtracted = true;
+      }
+      return [dataStructureProcessorStartNode, result];
     },
 
     processNestedSections(node, context, result) {
-      if (!node) {
-        return [node, result];
-      }
+      const nestedSectionsContentNode = context.data.descriptionExtracted ? (node && node.parent) : node;
+      const startNode = context.data.descriptionExtracted ? node : undefined;
 
-      const contentNode = node.parent;
-      if (contentNode.type === 'list') {
-        const dataStructureProcessor = new DataStructureProcessor(contentNode, Parsers);
+      if (nestedSectionsContentNode && nestedSectionsContentNode.type === 'list') {
+        const dataStructureProcessor = new DataStructureProcessor(nestedSectionsContentNode, Parsers, startNode);
         dataStructureProcessor.fillValueMember(result.content, context);
       } else {
         // TODO: Что делать в этом случае?
       }
 
       context.typeResolver.checkUsedMixins(result.content);
-      return [utils.nextNode(contentNode), result];
+      return [utils.nextNode(context.rootNode), result];
+    },
+
+    finalize(context, result) {
+      context.popFrame();
+
+      return result;
     },
   });
 };
