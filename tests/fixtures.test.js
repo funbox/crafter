@@ -41,6 +41,9 @@ const testPath = {
   get groupMemberSeparators() {
     return `${this.base}/group-member-separators`;
   },
+  get blockDescription() {
+    return `${this.base}/block-description`;
+  },
 };
 
 const apibRegex = /\.apib$/;
@@ -154,6 +157,10 @@ describe('source maps fixtures', () => {
 
 describe('fixtures with member separators', () => {
   testFilesFrom(testPath.groupMemberSeparators);
+});
+
+describe('fixtures with block description', () => {
+  testFilesFrom(testPath.blockDescription);
 });
 
 it('parses from source without options passed', () => {

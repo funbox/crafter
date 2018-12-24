@@ -1,0 +1,24 @@
+# Контроль Кадров
+
+# Data Structures
+
+## AlreadyExistsError (object)
++ status: alreadyExists (required, fixed)
+
+## NormalResponse (object)
++ status: ok (required, fixed) - штатный ответ
+
+# Group Сотрудники
+
+## Группы сотрудников [/employee_groups{?search,page}]
+
+### Создать группу сотрудников [POST /employee_groups]
+
++ Response 200 (application/json)
+    + Attributes (AlreadyExistsError, required)
+        группа с указанным названием уже существует
+        + Properties
+            + id: 5 (string)
+
++ Response 200 (application/json)
+    + Attributes (NormalResponse, required)
