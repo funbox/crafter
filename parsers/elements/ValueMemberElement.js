@@ -62,7 +62,7 @@ class ValueMemberElement {
       element: type,
     };
 
-    if (this.description && !this.isObject()) {
+    if (this.description) {
       result.meta = {
         description: {
           element: Refract.elements.string,
