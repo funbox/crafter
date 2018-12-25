@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.0 (25.12.2018)
+
+* Parse block description in arrays
+
 ## 0.7.0 (19.12.2018)
 
 * Add tests from Drafter.
