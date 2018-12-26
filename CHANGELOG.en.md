@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.2 (26.12.2018)
+
+* Fix parsing of empty named types
+
 ## 0.8.1 (26.12.2018)
 
 * Return correct nextNode from Attributes section.
