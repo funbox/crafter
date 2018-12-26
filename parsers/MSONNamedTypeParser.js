@@ -55,7 +55,11 @@ module.exports = (Parsers) => {
       if (Parsers.NamedTypeMemberGroupParser.sectionType(node, context, type) !== SectionTypes.undefined) {
         const [, childRes] = Parsers.NamedTypeMemberGroupParser.parse(node, context);
         fillElementWithContent(result.content, type, childRes.members);
-        contentNode = utils.nextNode(node) !== null && utils.nextNode(node).parent.type === 'list' ? utils.nextNode(node).parent : contentNode = node;
+
+        const nextNode = utils.nextNode(node);
+        contentNode = nextNode !== null && nextNode.parent.type === 'list'
+          ? nextNode.parent
+          : node;
 
         return [utils.nextNode(contentNode), result];
       }
