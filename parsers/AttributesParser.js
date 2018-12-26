@@ -27,7 +27,11 @@ module.exports = (Parsers) => {
       if (context.sourceMapsEnabled) {
         memberEl.sourceMap = utils.makeSourceMapForLine(node.firstChild, context.sourceLines);
       }
-      const nextNode = signature.rest ? node.firstChild : node.firstChild.next;
+      let nextNode = signature.rest ? node.firstChild : node.firstChild.next;
+
+      if (!nextNode) {
+        nextNode = utils.nextNode(node.firstChild);
+      }
 
       return [nextNode, new AttributesElement(memberEl)];
     },
