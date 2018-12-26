@@ -52,7 +52,7 @@ module.exports = (Parsers) => {
             [curNode, childResult] = Parsers.ResourcePrototypesParser.parse(curNode, context);
             break;
           default:
-            console.log('unknown node');
+            context.logger.warn('unknown node');
             curNode = curNode.next;
         }
 
