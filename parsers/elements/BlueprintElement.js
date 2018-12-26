@@ -1,10 +1,11 @@
 const Refract = require('../../Refract');
 
 class BlueprintElement {
-  constructor(title, description) {
+  constructor(title, description, meta) {
     this.title = title;
     this.description = description;
     this.content = [];
+    this.meta = meta;
   }
 
   toRefract() {
@@ -22,6 +23,15 @@ class BlueprintElement {
 
     if (this.description) {
       result.content.unshift(this.description.toRefract());
+    }
+
+    if (this.meta.length) {
+      result.attributes = {
+        metadata: {
+          element: Refract.elements.array,
+          content: this.meta.map(metaElement => metaElement.toRefract()),
+        },
+      };
     }
 
     return {
