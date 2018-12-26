@@ -5,6 +5,7 @@ const CrafterError = utils.CrafterError;
 
 const BlueprintElement = require('./elements/BlueprintElement');
 const StringElement = require('./elements/StringElement');
+const MetaDataElement = require('./elements/MetaDataElement');
 
 module.exports = (Parsers) => {
   Parsers.BlueprintParser = {
@@ -14,6 +15,21 @@ module.exports = (Parsers) => {
       let curNode = node;
 
       let title = new StringElement('');
+      const metadataArray = [];
+
+      while (curNode.type === 'paragraph') {
+        const nodeText = utils.nodeText(curNode, context.sourceLines);
+        nodeText.split('\n').forEach(line => {
+          const [key, ...rest] = line.split(':');
+          const value = rest.join(':');
+          if (key && value) {
+            metadataArray.push(new MetaDataElement(key, value));
+          } else {
+            context.logger.warn('ignoring possible metadata, expected "<key> : <value>", one per line');
+          }
+        });
+        curNode = curNode.next;
+      }
 
       if (curNode.type === 'heading' && context.sectionKeywordSignature(curNode) === 'undefined') {
         const titleText = utils.headerText(curNode, context.sourceLines); // Что если внутри хедера ссылки и все такое?
@@ -31,7 +47,7 @@ module.exports = (Parsers) => {
 
       [curNode, description] = utils.extractDescription(curNode, context.sourceLines, context.sourceMapsEnabled);
 
-      const result = new BlueprintElement(title, description);
+      const result = new BlueprintElement(title, description, metadataArray);
 
       while (curNode) {
         const nodeType = this.nestedSectionType(curNode, context);
