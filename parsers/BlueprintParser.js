@@ -24,7 +24,7 @@ module.exports = (Parsers) => {
 
         curNode = curNode.next;
       } else {
-        // Сделать warning
+        context.logger.warn('expected API name, e.g. "# <API Name>"');
       }
 
       let description = '';
