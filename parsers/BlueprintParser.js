@@ -19,11 +19,15 @@ module.exports = (Parsers) => {
 
       while (curNode.type === 'paragraph') {
         const nodeText = utils.nodeText(curNode, context.sourceLines);
-        nodeText.split('\n').forEach(line => {
+        nodeText.split('\n').forEach(line => { // eslint-disable-line no-loop-func
           const [key, ...rest] = line.split(':');
           const value = rest.join(':');
           if (key && value) {
-            metadataArray.push(new MetaDataElement(key, value));
+            const element = new MetaDataElement(key, value);
+            if (context.sourceMapsEnabled) {
+              element.sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines);
+            }
+            metadataArray.push(element);
           } else {
             context.logger.warn('ignoring possible metadata, expected "<key> : <value>", one per line');
           }

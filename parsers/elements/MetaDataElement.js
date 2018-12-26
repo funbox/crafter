@@ -4,10 +4,11 @@ class MetaDataElement {
   constructor(key, value) {
     this.key = key;
     this.value = value;
+    this.sourceMap = null;
   }
 
   toRefract() {
-    return {
+    const result = {
       element: Refract.elements.member,
       content: {
         key: {
@@ -29,6 +30,13 @@ class MetaDataElement {
         },
       },
     };
+
+    if (this.sourceMap) {
+      result.attributes = {
+        sourceMap: this.sourceMap.toRefract(),
+      };
+    }
+    return result;
   }
 }
 
