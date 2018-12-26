@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.8.1 (26.12.2018)
+
+* Return correct nextNode from Attributes section.
+
 ## 0.8.0 (25.12.2018)
 
 * Parse block description in arrays
