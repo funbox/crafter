@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.0 (27.12.2018)
+
+* Parse metadata section.
+
 ## 0.8.2 (26.12.2018)
 
 * Fix parsing of empty named types
