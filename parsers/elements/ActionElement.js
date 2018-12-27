@@ -41,6 +41,7 @@ class ActionElement {
     }
 
     if (this.parameters) {
+      result.attributes = result.attributes || {};
       result.attributes.hrefVariables = this.parameters.toRefract();
     }
 

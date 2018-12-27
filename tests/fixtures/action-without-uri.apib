@@ -1,0 +1,38 @@
+FORMAT: 1A
+
+# Контроль Кадров
+
+API проекта Контроль Кадров.
+
+# Data Structures
+
+## UnauthorizedError (object)
++ status (enum, required)
+    + unauthorized - ошибка при выполнении аутентификации (не валидный токен)
+    + notAvailable - аутентификация недоступна (ошибка при проверки токена)
+    + accessDenied - пользователю запрещен доступ в сервис
+
+## NormalResponse (object)
++ status: ok (required, fixed) - штатный ответ
+
+# Resource Prototypes
+
+## UserResource
+
++ Response 200 (application/json)
+    + Attributes (UnauthorizedError, required)
+
+# Group Сотрудники (UserResource)
+
+## Группы сотрудников [/employee_groups{?search,page}]
+
+### Получить список всех групп сотрудников [GET]
+
++ Parameters
+    + search (string, optional) - возвращать только группы, у которых название содержит эту строку или в группе есть сотрудник, имя, msisdn или комментарий которого содержат эту строку. Если название группы содержит эту строку, то поиск по сотрудникам не производится.
+    + page (number, optional) - номер страницы выдачи
+
++ Response 200 (application/json)
+    + Attributes (NormalResponse, required)
+        + result
+        + pagination
