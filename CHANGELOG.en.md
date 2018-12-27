@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.2 (27.12.2018)
+
+* Fix Action section parsing when action uri is missing.
+
 ## 0.9.1 (27.12.2018)
 
 * Add a return condition when getting a document description.
