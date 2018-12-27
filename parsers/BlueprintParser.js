@@ -49,7 +49,9 @@ module.exports = (Parsers) => {
 
       let description = '';
 
-      [curNode, description] = utils.extractDescription(curNode, context.sourceLines, context.sourceMapsEnabled);
+      const stopCallback = cNode => (cNode.type === 'heading' && context.sectionKeywordSignature(cNode) !== SectionTypes.undefined);
+
+      [curNode, description] = utils.extractDescription(curNode, context.sourceLines, context.sourceMapsEnabled, stopCallback);
 
       const result = new BlueprintElement(title, description, metadataArray);
 
