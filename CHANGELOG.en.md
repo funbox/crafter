@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.1 (27.12.2018)
+
+* Add a return condition when getting a document description.
+
 ## 0.9.0 (27.12.2018)
 
 * Parse metadata section.
