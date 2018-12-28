@@ -189,23 +189,25 @@
                       },
                       "value": {
                         "element": "array",
-                        "content": [
-                          {
-                            "element": "string",
-                            "content": "1"
-                          },
-                          {
-                            "element": "string",
-                            "content": "2"
-                          },
-                          {
-                            "element": "Note"
-                          },
-                          {
-                            "element": "string"
-                          }
-                        ],
                         "attributes": {
+                          "samples": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "string",
+                                    "content": "1"
+                                  },
+                                  {
+                                    "element": "string",
+                                    "content": "2"
+                                  }
+                                ]
+                              }
+                            ]
+                          },
                           "sourceMap": {
                             "element": "array",
                             "content": [
@@ -229,7 +231,15 @@
                               }
                             ]
                           }
-                        }
+                        },
+                        "content": [
+                          {
+                            "element": "Note"
+                          },
+                          {
+                            "element": "string"
+                          }
+                        ]
                       }
                     }
                   },
@@ -267,17 +277,25 @@
                       },
                       "value": {
                         "element": "array",
-                        "content": [
-                          {
-                            "element": "number",
-                            "content": "1"
-                          },
-                          {
-                            "element": "number",
-                            "content": "2"
-                          }
-                        ],
                         "attributes": {
+                          "samples": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "number",
+                                    "content": 1
+                                  },
+                                  {
+                                    "element": "number",
+                                    "content": 2
+                                  }
+                                ]
+                              }
+                            ]
+                          },
                           "sourceMap": {
                             "element": "array",
                             "content": [
@@ -301,7 +319,12 @@
                               }
                             ]
                           }
-                        }
+                        },
+                        "content": [
+                          {
+                            "element": "number"
+                          }
+                        ]
                       }
                     }
                   }

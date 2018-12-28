@@ -289,13 +289,21 @@
                               },
                               "value": {
                                 "element": "array",
-                                "content": [
-                                  {
-                                    "element": "number",
-                                    "content": "1"
-                                  }
-                                ],
                                 "attributes": {
+                                  "samples": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "number",
+                                            "content": 1
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
                                   "sourceMap": {
                                     "element": "array",
                                     "content": [
@@ -319,7 +327,12 @@
                                       }
                                     ]
                                   }
-                                }
+                                },
+                                "content": [
+                                  {
+                                    "element": "number"
+                                  }
+                                ]
                               }
                             }
                           }

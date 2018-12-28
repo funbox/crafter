@@ -89,10 +89,25 @@
                               },
                               "value": {
                                 "element": "array",
+                                "attributes": {
+                                  "samples": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "number",
+                                            "content": 1
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                },
                                 "content": [
                                   {
-                                    "element": "number",
-                                    "content": "1"
+                                    "element": "number"
                                   }
                                 ]
                               }

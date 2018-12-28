@@ -165,7 +165,12 @@
                                           }
                                         ]
                                       }
-                                    }
+                                    },
+                                    "content": [
+                                      {
+                                        "element": "number"
+                                      }
+                                    ]
                                   }
                                 }
                               },
@@ -200,7 +205,12 @@
                                           }
                                         ]
                                       }
-                                    }
+                                    },
+                                    "content": [
+                                      {
+                                        "element": "boolean"
+                                      }
+                                    ]
                                   }
                                 }
                               }
@@ -220,7 +230,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"a1\": {\n      \"type\": \"array\"\n    },\n    \"a2\": {\n      \"type\": \"array\"\n    },\n    \"a3\": {\n      \"type\": \"array\"\n    }\n  }\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"a1\": {\n      \"type\": \"array\"\n    },\n    \"a2\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"number\"\n      }\n    },\n    \"a3\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"boolean\"\n      }\n    }\n  }\n}"
                         }
                       ],
                       "attributes": {
