@@ -6,7 +6,7 @@ const ArrayElement = require('./ArrayElement');
 const SampleValueElement = require('./SampleValueElement');
 
 class ValueMemberElement {
-  constructor(type, typeAttributes = [], value, description, isSample) {
+  constructor(type, typeAttributes = [], value, description) {
     const resolvedType = utils.resolveType(type);
 
     this.rawType = type;
@@ -19,22 +19,16 @@ class ValueMemberElement {
     this.sourceMap = null;
 
     if (this.isArray()) {
-      let members = resolvedType.nestedTypes.map(t => new ValueMemberElement(t));
-      let sampleElement;
+      const members = resolvedType.nestedTypes.map(t => new ValueMemberElement(t));
+
+      this.content = new ArrayElement(members);
 
       if (this.value) {
         const inlineValues = splitValues(this.value);
         const inlineValuesType = resolvedType.nestedTypes.length === 1 ? resolvedType.nestedTypes[0] : 'string';
-        const inlineMembers = inlineValues.map(val => new ValueMemberElement(inlineValuesType, [], val));
-        sampleElement = new SampleValueElement(inlineValues, inlineValuesType);
-        members = members.length === 1 ? inlineMembers : inlineMembers.concat(members);
-      }
-
-      if (isSample && !!sampleElement) {
+        const sampleElement = new SampleValueElement(inlineValues, inlineValuesType);
         this.samples = [sampleElement];
         this.value = null;
-      } else {
-        this.content = new ArrayElement(members);
       }
     }
   }

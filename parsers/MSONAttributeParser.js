@@ -22,7 +22,7 @@ module.exports = (Parsers) => {
       if (signature.description) {
         descriptionEl = new StringElement(signature.description);
       }
-      const valueEl = new ValueMemberElement(signature.type, [], signature.value, '', signature.isSample);
+      const valueEl = new ValueMemberElement(signature.type, [], signature.value);
       if (context.sourceMapsEnabled) {
         name.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);
         valueEl.sourceMap = name.sourceMap;
