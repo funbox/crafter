@@ -12,21 +12,29 @@ module.exports = (Parsers) => {
     allowLeavingNode: false,
 
     processSignature(node, context) {
-      const subject = utils.headerText(node.firstChild, context.sourceLines);
-      const matchData = responseRegex.exec(subject);
+      context.pushFrame();
+
+      const subject = (utils.headerText(node.firstChild, context.sourceLines)).split('\n');
+      const matchData = responseRegex.exec(subject[0]);
+
+      if (subject.length > 1) {
+        context.data.startOffset = subject[0].length + 1;
+      }
 
       const result = new ResponseElement(matchData[2], matchData[4]);
       if (context.sourceMapsEnabled) {
         result.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);
       }
 
-      return [utils.nextNode(node.firstChild), result];
+      const nextNode = subject.length > 1 ? node.firstChild : utils.nextNode(node.firstChild);
+
+      return [nextNode, result];
     },
 
     sectionType(node, context) {
       if (node.type === 'item') {
-        const text = utils.nodeText(node.firstChild, context.sourceLines);
-        if (responseRegex.exec(text)) {
+        const text = (utils.nodeText(node.firstChild, context.sourceLines)).split('\n');
+        if (responseRegex.exec(text[0])) {
           return SectionTypes.response;
         }
       }
@@ -56,6 +64,22 @@ module.exports = (Parsers) => {
       ]);
     },
 
+    processDescription(node, context, result) {
+      const parentNode = node && node.parent;
+
+      const stopCallback = curNode => (!utils.isCurrentNodeOrChild(curNode, parentNode) || this.nestedSectionType(curNode, context) !== SectionTypes.undefined);
+
+      node.skipLines = context.data.startOffset ? 1 : 0;
+      const [curNode, descriptionEl] = utils.extractDescription(node, context.sourceLines, context.sourceMapsEnabled, stopCallback, context.data.startOffset);
+      delete node.skipLines;
+
+      if (descriptionEl) {
+        result.description = descriptionEl;
+      }
+
+      return [curNode, result];
+    },
+
     processNestedSection(node, context, result) {
       let nextNode;
       let childResult;
@@ -79,6 +103,8 @@ module.exports = (Parsers) => {
     },
 
     finalize(context, result) {
+      context.popFrame();
+
       if (result.content.find(item => (item instanceof SchemaElement))) {
         return result;
       }

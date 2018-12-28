@@ -328,7 +328,7 @@ function getTrailingEmptyLinesLengthInBytes(lineIndex, sourceLines) {
 function makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, indentation, stopCallback) {
   const byteBlocks = [];
   const iterationCondition = (node) => (stopCallback ? !stopCallback(node) : (node && node.type === 'paragraph'));
-  for (let node = startNode; iterationCondition(node); node = node.next) {
+  for (let node = startNode; iterationCondition(node); node = utils.nextNode(node)) {
     const zeroBasedSourcePos = utils.getSourcePosZeroBased(node);
     let { startLineIndex } = zeroBasedSourcePos;
     const { startColumnIndex, endLineIndex } = zeroBasedSourcePos;
