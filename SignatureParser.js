@@ -68,6 +68,10 @@ class SignatureParser {
       signature = '';
     }
 
+    if (this.isSample && !this.value) {
+      this.warnings.push(`no value present when "sample" is specified: "${origSignature}"`);
+    }
+
     if (signature) {
       error(origSignature);
     }
