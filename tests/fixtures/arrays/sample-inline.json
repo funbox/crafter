@@ -142,6 +142,11 @@
                                   },
                                   "value": {
                                     "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number"
+                                      }
+                                    ],
                                     "attributes": {
                                       "samples": {
                                         "element": "array",
@@ -165,12 +170,7 @@
                                           }
                                         ]
                                       }
-                                    },
-                                    "content": [
-                                      {
-                                        "element": "number"
-                                      }
-                                    ]
+                                    }
                                   }
                                 }
                               },
@@ -183,6 +183,11 @@
                                   },
                                   "value": {
                                     "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "boolean"
+                                      }
+                                    ],
                                     "attributes": {
                                       "samples": {
                                         "element": "array",
@@ -205,12 +210,7 @@
                                           }
                                         ]
                                       }
-                                    },
-                                    "content": [
-                                      {
-                                        "element": "boolean"
-                                      }
-                                    ]
+                                    }
                                   }
                                 }
                               }

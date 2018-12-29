@@ -189,6 +189,14 @@
                       },
                       "value": {
                         "element": "array",
+                        "content": [
+                          {
+                            "element": "Note"
+                          },
+                          {
+                            "element": "string"
+                          }
+                        ],
                         "attributes": {
                           "samples": {
                             "element": "array",
@@ -231,15 +239,7 @@
                               }
                             ]
                           }
-                        },
-                        "content": [
-                          {
-                            "element": "Note"
-                          },
-                          {
-                            "element": "string"
-                          }
-                        ]
+                        }
                       }
                     }
                   },
@@ -277,6 +277,11 @@
                       },
                       "value": {
                         "element": "array",
+                        "content": [
+                          {
+                            "element": "number"
+                          }
+                        ],
                         "attributes": {
                           "samples": {
                             "element": "array",
@@ -319,12 +324,7 @@
                               }
                             ]
                           }
-                        },
-                        "content": [
-                          {
-                            "element": "number"
-                          }
-                        ]
+                        }
                       }
                     }
                   }

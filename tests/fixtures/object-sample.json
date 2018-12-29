@@ -68,6 +68,38 @@
                       },
                       "value": {
                         "element": "object",
+                        "content": [
+                          {
+                            "element": "member",
+                            "content": {
+                              "key": {
+                                "element": "string",
+                                "content": "posts"
+                              },
+                              "value": {
+                                "element": "boolean"
+                              }
+                            },
+                            "meta": {
+                              "description": {
+                                "element": "string",
+                                "content": "allow user to access posts"
+                              }
+                            }
+                          },
+                          {
+                            "element": "member",
+                            "content": {
+                              "key": {
+                                "element": "string",
+                                "content": "comments"
+                              },
+                              "value": {
+                                "element": "boolean"
+                              }
+                            }
+                          }
+                        ],
                         "attributes": {
                           "samples": {
                             "element": "array",
@@ -105,39 +137,7 @@
                               }
                             ]
                           }
-                        },
-                        "content": [
-                          {
-                            "element": "member",
-                            "content": {
-                              "key": {
-                                "element": "string",
-                                "content": "posts"
-                              },
-                              "value": {
-                                "element": "boolean"
-                              }
-                            },
-                            "meta": {
-                              "description": {
-                                "element": "string",
-                                "content": "allow user to access posts"
-                              }
-                            }
-                          },
-                          {
-                            "element": "member",
-                            "content": {
-                              "key": {
-                                "element": "string",
-                                "content": "comments"
-                              },
-                              "value": {
-                                "element": "boolean"
-                              }
-                            }
-                          }
-                        ]
+                        }
                       }
                     }
                   }

@@ -289,6 +289,11 @@
                               },
                               "value": {
                                 "element": "array",
+                                "content": [
+                                  {
+                                    "element": "number"
+                                  }
+                                ],
                                 "attributes": {
                                   "samples": {
                                     "element": "array",
@@ -327,12 +332,7 @@
                                       }
                                     ]
                                   }
-                                },
-                                "content": [
-                                  {
-                                    "element": "number"
-                                  }
-                                ]
+                                }
                               }
                             }
                           }

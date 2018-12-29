@@ -62,15 +62,6 @@ class ValueMemberElement {
       result.attributes = utils.typeAttributesToRefract(this.typeAttributes);
     }
 
-    if (this.samples) {
-      if (!result.attributes) result.attributes = {};
-
-      result.attributes.samples = {
-        element: Refract.elements.array,
-        content: this.samples.map(sampleElement => sampleElement.toRefract()),
-      };
-    }
-
     if (this.value) {
       result.content = this.value;
     }
@@ -81,6 +72,15 @@ class ValueMemberElement {
       } else {
         result.content = this.content.toRefract();
       }
+    }
+
+    if (this.samples) {
+      if (!result.attributes) result.attributes = {};
+
+      result.attributes.samples = {
+        element: Refract.elements.array,
+        content: this.samples.map(sampleElement => sampleElement.toRefract()),
+      };
     }
 
     if (!result.content || !result.content[0]) {
