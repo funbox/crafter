@@ -15,6 +15,7 @@ module.exports = (Parsers) => {
         signature.typeAttributes,
         signature.value,
         signature.description,
+        signature.isSample,
       );
       ValueMemberProcessor.fillBaseType(context, result);
 

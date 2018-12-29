@@ -1,8 +1,9 @@
 const Refract = require('../../Refract');
 
 class EnumMemberElement {
-  constructor(name, description, type) {
+  constructor(name, description, type, isSample) {
     this.name = name;
+    this.sample = isSample ? name : null;
     this.description = description;
     this.type = type;
     this.sourceMap = null;
@@ -12,17 +13,30 @@ class EnumMemberElement {
     const result = {
       element: Refract.elements[this.type || 'string'],
       attributes: {
-        typeAttributes: {
-          element: Refract.elements.array,
-          content: [{
-            element: Refract.elements.string,
-            content: 'fixed',
-          }],
-        },
+        ...(this.sample ? {} : {
+          typeAttributes: {
+            element: Refract.elements.array,
+            content: [{
+              element: Refract.elements.string,
+              content: 'fixed',
+            }],
+          },
+        }),
         ...(this.sourceMap ? { sourceMap: this.sourceMap.toRefract() } : {}),
       },
-      content: this.name,
     };
+
+    if (this.sample) {
+      result.attributes.samples = {
+        element: Refract.elements.array,
+        content: [{
+          element: this.type,
+          content: this.sample,
+        }],
+      };
+    } else {
+      result.content = this.name;
+    }
 
     if (this.description) {
       result.meta = {

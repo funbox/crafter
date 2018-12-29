@@ -15,6 +15,7 @@ module.exports = (Parsers) => {
         signature.value,
         signature.description,
         signature.type,
+        signature.isSample,
       );
 
       if (context.sourceMapsEnabled) {
