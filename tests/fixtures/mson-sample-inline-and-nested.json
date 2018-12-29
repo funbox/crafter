@@ -1,0 +1,159 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": [
+          {
+            "element": "string",
+            "content": "api"
+          }
+        ],
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
+      },
+      "content": [
+        {
+          "element": "category",
+          "meta": {
+            "classes": [
+              "dataStructures"
+            ]
+          },
+          "content": [
+            {
+              "element": "dataStructure",
+              "content": {
+                "element": "object",
+                "content": [
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "kind"
+                      },
+                      "value": {
+                        "element": "enum",
+                        "attributes": {
+                          "enumerations": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "attributes": {
+                                  "typeAttributes": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "fixed"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "content": "track"
+                              },
+                              {
+                                "element": "string",
+                                "attributes": {
+                                  "typeAttributes": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "fixed"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "content": "time"
+                              }
+                            ]
+                          },
+                          "samples": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "enum",
+                                "content": {
+                                  "element": "string",
+                                  "content": "track"
+                                }
+                              },
+                              {
+                                "element": "enum",
+                                "content": {
+                                  "element": "string",
+                                  "content": "time"
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "tags"
+                      },
+                      "value": {
+                        "element": "array",
+                        "attributes": {
+                          "samples": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "string",
+                                    "content": "user"
+                                  },
+                                  {
+                                    "element": "string",
+                                    "content": "admin"
+                                  }
+                                ]
+                              },
+                              {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "string",
+                                    "content": "user2"
+                                  },
+                                  {
+                                    "element": "string",
+                                    "content": "admin2"
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                ],
+                "meta": {
+                  "id": {
+                    "element": "string",
+                    "content": "User"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
