@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.10.0 (09.01.2019)
+
+* Use array's inline-defined values as array samples.
+
 ## 0.9.2 (27.12.2018)
 
 * Fix Action section parsing when action uri is missing.
