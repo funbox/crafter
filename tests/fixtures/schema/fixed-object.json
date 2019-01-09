@@ -106,7 +106,17 @@
                                           },
                                           "value": {
                                             "element": "string",
-                                            "content": "bar"
+                                            "attributes": {
+                                              "samples": {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "string",
+                                                    "content": "bar"
+                                                  }
+                                                ]
+                                              }
+                                            }
                                           }
                                         }
                                       }

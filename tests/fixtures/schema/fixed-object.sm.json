@@ -331,8 +331,16 @@
                                           },
                                           "value": {
                                             "element": "string",
-                                            "content": "bar",
                                             "attributes": {
+                                              "samples": {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "string",
+                                                    "content": "bar"
+                                                  }
+                                                ]
+                                              },
                                               "sourceMap": {
                                                 "element": "array",
                                                 "content": [

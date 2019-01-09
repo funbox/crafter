@@ -212,6 +212,10 @@ foo (array[number])
     expect(samples).toHaveLength(1);
     const sampleElement = samples[0];
     expect(sampleElement).toBeInstanceOf(SampleValueElement);
-    expect(sampleElement.type).toBe('number');
+    expect(sampleElement.type).toBe('array');
+    expect(sampleElement.content).toHaveLength(2);
+    sampleElement.content.forEach(member => {
+      expect(member.element).toBe('number');
+    });
   });
 });
