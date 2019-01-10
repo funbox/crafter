@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.10.1 (10.01.2019)
+
+* Fix description processing for requests and responses.
+
 ## 0.10.0 (09.01.2019)
 
 * Use array's inline-defined values as array samples.
