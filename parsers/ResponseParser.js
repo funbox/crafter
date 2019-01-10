@@ -114,6 +114,15 @@ module.exports = (Parsers) => {
     finalize(context, result) {
       context.popFrame();
 
+      const contentTypeHeader = result.headersSections.length && result.headersSections.reduce((prevHeader, section) => {
+        const ctHeader = section.headers.find(h => h.key === 'Content-Type');
+        return ctHeader || prevHeader;
+      }, null);
+
+      if (contentTypeHeader && !result.contentType) {
+        result.contentType = contentTypeHeader.val;
+      }
+
       if (result.content.find(item => (item instanceof SchemaElement))) {
         return result;
       }
