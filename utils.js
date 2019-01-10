@@ -107,7 +107,7 @@ const utils = {
   makeSourceMapForDescription(startNode, sourceLines, stopCallback) {
     const indentation = startNode.sourcepos[0][1] - 1;
     if (indentation > 0) {
-      return makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, indentation, stopCallback);
+      return makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, stopCallback);
     }
 
     let endNode = startNode;
@@ -325,7 +325,7 @@ function getTrailingEmptyLinesLengthInBytes(lineIndex, sourceLines) {
   return result;
 }
 
-function makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, indentation, stopCallback) {
+function makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, stopCallback) {
   const byteBlocks = [];
   const iterationCondition = (node) => (stopCallback ? !stopCallback(node) : (node && node.type === 'paragraph'));
   for (let node = startNode; iterationCondition(node); node = utils.nextNode(node)) {
@@ -336,16 +336,18 @@ function makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, inde
       startLineIndex += node.skipLines;
     }
     let offset = utils.getOffsetFromStartOfFileInBytes(startLineIndex, startColumnIndex, sourceLines);
+    const indentation = node.sourcepos[0][1] - 1;
     let byteBlock = { offset, length: 0 };
     for (let lineIndex = startLineIndex; lineIndex <= endLineIndex; lineIndex += 1) {
       const line = sourceLines[lineIndex];
-      const lineWithoutIndentation = line.slice(indentation);
-      const leadingSpaces = lineWithoutIndentation.search(/\S/);
-      const unpaddedLine = lineWithoutIndentation.trim();
+      let leadingSpaces = line.search(/\S/);
+      leadingSpaces = leadingSpaces < 0 ? 0 : leadingSpaces;
+      const lineIndentation = leadingSpaces - indentation;
+      const unpaddedLine = line.trim();
       const length = Buffer.byteLength(unpaddedLine) + utils.linefeedBytes;
       byteBlock.length += length;
-      byteBlock.offset += leadingSpaces;
-      offset += length + leadingSpaces;
+      byteBlock.offset += lineIndentation;
+      offset += length + lineIndentation;
       if (lineIndex !== endLineIndex) {
         byteBlocks.push(byteBlock);
         offset += indentation;
