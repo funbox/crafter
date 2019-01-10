@@ -6,6 +6,7 @@ const requestRegexp = new RegExp(`^[Rr]equest(\\s+${RegExpStrings.symbolIdentifi
 
 const RequestElement = require('./elements/RequestElement');
 const SchemaElement = require('./elements/SchemaElement');
+const HeadersElement = require('./elements/HeadersElement');
 
 module.exports = (Parsers) => {
   Parsers.RequestParser = Object.assign(Object.create(require('./AbstractParser')), {
@@ -27,6 +28,15 @@ module.exports = (Parsers) => {
       const result = new RequestElement(contentType, title);
       if (context.sourceMapsEnabled) {
         result.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);
+      }
+
+      if (result.contentType) {
+        const headersElement = new HeadersElement([{
+          key: 'Content-Type',
+          val: result.contentType,
+          sourceMap: result.sourceMap,
+        }]);
+        result.headersSections.push(headersElement);
       }
 
       const nextNode = subject.length > 1 ? node.firstChild : utils.nextNode(node.firstChild);

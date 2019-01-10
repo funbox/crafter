@@ -26,28 +26,6 @@ class ResponseElement {
       },
     };
 
-    if (this.contentType) {
-      result.attributes.headers = {
-        element: Refract.elements.httpHeaders,
-        content: [{
-          element: Refract.elements.member,
-          content: {
-            key: {
-              element: Refract.elements.string,
-              content: 'Content-Type',
-            },
-            value: {
-              element: Refract.elements.string,
-              content: this.contentType,
-            },
-          },
-          ...(this.sourceMap ? {
-            attributes: { sourceMap: this.sourceMap.toRefract() },
-          } : {}),
-        }],
-      };
-    }
-
     this.headersSections.forEach((headers) => {
       if (result.attributes.headers) {
         result.attributes.headers.content = result.attributes.headers.content.concat(headers.toRefract().content);

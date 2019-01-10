@@ -21,28 +21,6 @@ class RequestElement {
       content: this.content.map(c => c.toRefract()),
     };
 
-    if (this.contentType) {
-      result.attributes.headers = {
-        element: Refract.elements.httpHeaders,
-        content: [{
-          element: Refract.elements.member,
-          content: {
-            key: {
-              element: Refract.elements.string,
-              content: 'Content-Type',
-            },
-            value: {
-              element: Refract.elements.string,
-              content: this.contentType,
-            },
-          },
-          ...(this.sourceMap ? {
-            attributes: { sourceMap: this.sourceMap.toRefract() },
-          } : {}),
-        }],
-      };
-    }
-
     if (this.title) {
       result.meta = {
         title: {

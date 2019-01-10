@@ -3,6 +3,7 @@ const RegExpStrings = require('../RegExpStrings');
 const utils = require('../utils');
 const ResponseElement = require('./elements/ResponseElement');
 const SchemaElement = require('./elements/SchemaElement');
+const HeadersElement = require('./elements/HeadersElement');
 
 const responseRegex = new RegExp(`^[Rr]esponse(\\s+(\\d+))?${RegExpStrings.mediaType}?$`);
 
@@ -24,6 +25,14 @@ module.exports = (Parsers) => {
       const result = new ResponseElement(matchData[2], matchData[4]);
       if (context.sourceMapsEnabled) {
         result.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);
+      }
+      if (result.contentType) {
+        const headersElement = new HeadersElement([{
+          key: 'Content-Type',
+          val: result.contentType,
+          sourceMap: result.sourceMap,
+        }]);
+        result.headersSections.push(headersElement);
       }
 
       const nextNode = subject.length > 1 ? node.firstChild : utils.nextNode(node.firstChild);
