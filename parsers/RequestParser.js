@@ -7,6 +7,7 @@ const requestRegexp = new RegExp(`^[Rr]equest(\\s+${RegExpStrings.symbolIdentifi
 const RequestElement = require('./elements/RequestElement');
 const SchemaElement = require('./elements/SchemaElement');
 const HeadersElement = require('./elements/HeadersElement');
+const BodyElement = require('./elements/BodyElement');
 
 module.exports = (Parsers) => {
   Parsers.RequestParser = Object.assign(Object.create(require('./AbstractParser')), {
@@ -123,16 +124,27 @@ module.exports = (Parsers) => {
         return ctHeader || prevHeader;
       }, null);
 
+      const hasCustomBody = result.content.find(item => (item instanceof BodyElement));
+      const hasCustomSchema = result.content.find(item => (item instanceof SchemaElement));
+
       if (contentTypeHeader && !result.contentType) {
         result.contentType = contentTypeHeader.val;
       }
 
-      if (result.content.find(item => (item instanceof SchemaElement))) {
-        return result;
+      if (!hasCustomBody) {
+        const body = result.getBody(context.typeResolver.types);
+        if (Object.keys(body).length > 0) {
+          const bodyElement = new BodyElement(body);
+          bodyElement.contentType = result.contentType;
+          result.content.push(bodyElement);
+        }
       }
-      const schema = result.getSchema(context.typeResolver.types);
-      if (Object.keys(schema).length > 0) {
-        result.content.push(new SchemaElement(schema));
+
+      if (!hasCustomSchema) {
+        const schema = result.getSchema(context.typeResolver.types);
+        if (Object.keys(schema).length > 0) {
+          result.content.push(new SchemaElement(schema));
+        }
       }
       return result;
     },
