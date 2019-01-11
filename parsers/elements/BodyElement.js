@@ -8,6 +8,8 @@ class BodyElement {
   }
 
   toRefract() {
+    const body = (typeof this.body === 'object') ? JSON.stringify(this.body, null, 2) : this.body;
+
     const result = {
       element: Refract.elements.asset,
       meta: {
@@ -15,7 +17,7 @@ class BodyElement {
           Refract.categoryClasses.messageBody,
         ],
       },
-      content: this.body,
+      content: body,
     };
 
     if (this.contentType) {
