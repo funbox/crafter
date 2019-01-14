@@ -9,10 +9,10 @@ class ObjectElement {
     return this.propertyMembers.map(element => element.toRefract());
   }
 
-  getSchema(resolvedTypes) {
+  getSchema(resolvedTypes, flags = {}) {
     let schema = { type: 'object' };
     this.propertyMembers.forEach(member => {
-      schema = utils.mergeSchemas(schema, member.getSchema(resolvedTypes));
+      schema = utils.mergeSchemas(schema, member.getSchema(resolvedTypes, flags));
     });
     return schema;
   }

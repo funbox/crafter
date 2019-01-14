@@ -13,10 +13,10 @@ class OneOfTypeOptionElement {
     };
   }
 
-  getSchema(resolvedTypes) {
+  getSchema(resolvedTypes, flags = {}) {
     let schema = {};
     this.members.forEach(member => {
-      schema = utils.mergeSchemas(schema, member.getSchema(resolvedTypes));
+      schema = utils.mergeSchemas(schema, member.getSchema(resolvedTypes, flags));
     });
     return schema;
   }

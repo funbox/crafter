@@ -184,6 +184,25 @@ describe('schema', () => {
       });
     });
 
+    it('fixed parent', () => {
+      const el = new PropertyMemberElement(
+        new StringElement('status'),
+        new ValueMemberElement('string', [], 'ok'),
+      );
+      expect(el.getSchema({}, { isFixed: true })).toEqual({
+        properties: {
+          status: {
+            type: 'string',
+            enum: ['ok'],
+          },
+        },
+        required: [
+          'status',
+        ],
+        additionalProperties: false,
+      });
+    });
+
     it('nullable', () => {
       const el = new PropertyMemberElement(new StringElement('foo'), new ValueMemberElement(), ['nullable']);
       expect(el.getSchema({})).toEqual({

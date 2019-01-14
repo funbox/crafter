@@ -113,11 +113,11 @@ class ValueMemberElement {
 
     const typeEl = resolvedTypes[this.type];
     if (typeEl) {
-      schema = typeEl.content.getSchema(resolvedTypes);
+      schema = typeEl.content.getSchema(resolvedTypes, flags);
     }
 
     if (this.content) {
-      schema = utils.mergeSchemas(schema, this.content.getSchema(resolvedTypes));
+      schema = utils.mergeSchemas(schema, this.content.getSchema(resolvedTypes, flags));
     }
 
     if (typeEl || this.content) {

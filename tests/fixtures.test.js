@@ -44,6 +44,9 @@ const testPath = {
   get blockDescription() {
     return `${this.base}/block-description`;
   },
+  get schema() {
+    return `${this.base}/schema`;
+  },
 };
 
 const apibRegex = /\.apib$/;
@@ -161,6 +164,10 @@ describe('fixtures with member separators', () => {
 
 describe('fixtures with block description', () => {
   testFilesFrom(testPath.blockDescription);
+});
+
+describe('schema fixtures', () => {
+  testFilesFrom(testPath.schema);
 });
 
 it('parses from source without options passed', () => {

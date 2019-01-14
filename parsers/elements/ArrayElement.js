@@ -7,14 +7,14 @@ class ArrayElement {
     return this.members.map(element => element.toRefract());
   }
 
-  getSchema(resolvedTypes) {
+  getSchema(resolvedTypes, flags = {}) {
     const schema = { type: 'array' };
     if (this.members.length > 1) {
       schema.items = {
-        anyOf: this.members.map(member => member.getSchema(resolvedTypes)),
+        anyOf: this.members.map(member => member.getSchema(resolvedTypes, flags)),
       };
     } else if (this.members.length === 1) {
-      schema.items = this.members[0].getSchema(resolvedTypes);
+      schema.items = this.members[0].getSchema(resolvedTypes, flags);
     }
     return schema;
   }

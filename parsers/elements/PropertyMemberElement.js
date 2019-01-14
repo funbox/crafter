@@ -35,11 +35,11 @@ class PropertyMemberElement {
     return result;
   }
 
-  getSchema(resolvedTypes) {
+  getSchema(resolvedTypes, flags = {}) {
     const schema = {};
 
     const valueSchema = this.value.getSchema(resolvedTypes, {
-      isFixed: this.typeAttributes.includes('fixed'),
+      isFixed: flags.isFixed || this.typeAttributes.includes('fixed'),
       isNullable: this.typeAttributes.includes('nullable'),
     });
 
@@ -51,8 +51,12 @@ class PropertyMemberElement {
       [this.name.string]: valueSchema,
     };
 
-    if (this.typeAttributes.includes('required')) {
+    if (flags.isFixed || this.typeAttributes.includes('required')) {
       schema.required = [this.name.string];
+    }
+
+    if (flags.isFixed) {
+      schema.additionalProperties = false;
     }
 
     return schema;

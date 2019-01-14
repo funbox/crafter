@@ -12,8 +12,8 @@ class AttributesElement {
     };
   }
 
-  getSchema(resolvedTypes) {
-    return this.content.getSchema(resolvedTypes);
+  getSchema(resolvedTypes, flags = {}) {
+    return this.content.getSchema(resolvedTypes, flags);
   }
 }
 

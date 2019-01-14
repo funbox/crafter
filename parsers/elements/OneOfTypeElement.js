@@ -12,9 +12,9 @@ class OneOfTypeElement {
     };
   }
 
-  getSchema(resolvedTypes) {
+  getSchema(resolvedTypes, flags = {}) {
     return {
-      oneOf: this.options.map(option => option.getSchema(resolvedTypes)),
+      oneOf: this.options.map(option => option.getSchema(resolvedTypes, flags)),
     };
   }
 }
