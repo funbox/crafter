@@ -44,6 +44,33 @@ describe('schema', () => {
         },
       });
     });
+
+    it('fixed', () => {
+      const el = new ArrayElement([
+        new ValueMemberElement('string', [], 'hello'),
+        new ValueMemberElement('number', [], 42),
+        new ValueMemberElement('boolean', [], true),
+      ]);
+      expect(el.getSchema({}, { isFixed: true })).toEqual({
+        type: 'array',
+        minItems: 3,
+        items: [
+          {
+            type: 'string',
+            enum: ['hello'],
+          },
+          {
+            type: 'number',
+            enum: [42],
+          },
+          {
+            type: 'boolean',
+            enum: [true],
+          },
+        ],
+        additionalItems: false,
+      });
+    });
   });
 
   describe('EnumElement', () => {
