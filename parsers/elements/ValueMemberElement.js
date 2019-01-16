@@ -6,7 +6,7 @@ const ArrayElement = require('./ArrayElement');
 const SampleValueElement = require('./SampleValueElement');
 
 class ValueMemberElement {
-  constructor(type, typeAttributes = [], value, description) {
+  constructor(type, typeAttributes = [], value, description, isSample) {
     const resolvedType = utils.resolveType(type);
 
     this.rawType = type;
@@ -17,6 +17,7 @@ class ValueMemberElement {
     this.content = null;
     this.samples = null;
     this.sourceMap = null;
+    this.isSample = isSample;
 
     if (this.isArray()) {
       const members = resolvedType.nestedTypes.map(t => new ValueMemberElement(t));
@@ -139,7 +140,7 @@ class ValueMemberElement {
       schema.contentEncoding = 'base64';
     }
 
-    if (flags.isFixed) {
+    if (flags.isFixed && !this.isSample) {
       schema.enum = [this.value];
     }
 

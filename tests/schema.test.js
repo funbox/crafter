@@ -356,6 +356,13 @@ describe('schema', () => {
       });
     });
 
+    it('fixed/sample', () => {
+      const el = new ValueMemberElement('string', [], 'ok', '', true);
+      expect(el.getSchema({}, { isFixed: true })).toEqual({
+        type: 'string',
+      });
+    });
+
     it('type is "string" by default', () => {
       const el = new ValueMemberElement();
       expect(el.getSchema({})).toEqual({
