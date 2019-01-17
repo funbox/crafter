@@ -9,6 +9,14 @@ class ObjectElement {
     return this.propertyMembers.map(element => element.toRefract());
   }
 
+  getBody(resolvedTypes) {
+    let body = {};
+    this.propertyMembers.forEach(member => {
+      body = utils.mergeBodies(body, member.getBody(resolvedTypes));
+    });
+    return body;
+  }
+
   getSchema(resolvedTypes, flags = {}) {
     let schema = { type: 'object' };
     this.propertyMembers.forEach(member => {

@@ -38,6 +38,26 @@ class EnumElement {
     return result;
   }
 
+  getBody() {
+    const body = {};
+    if (this.defaultValue) {
+      body.value = this.defaultValue.value;
+      return body;
+    }
+    if (this.members.length) {
+      body.value = this.members[0].name;
+      return body;
+    }
+    if (this.sampleValue) {
+      const sampleBodyVariants = this.sampleValue.getBody();
+      if (sampleBodyVariants.length) {
+        body.value = sampleBodyVariants[0];
+        return body;
+      }
+    }
+    return body;
+  }
+
   getSchema() {
     const schema = {
       type: this.type,

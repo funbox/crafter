@@ -7,6 +7,17 @@ class ArrayElement {
     return this.members.map(element => element.toRefract());
   }
 
+  getBody(resolvedTypes) {
+    const body = {
+      value: [],
+    };
+    this.members.forEach(member => {
+      const memberBody = member.getBody(resolvedTypes);
+      body.value.push(memberBody.value !== undefined ? memberBody.value : memberBody);
+    });
+    return body;
+  }
+
   getSchema(resolvedTypes, flags = {}) {
     const schema = { type: 'array' };
     if (flags.isFixed) {

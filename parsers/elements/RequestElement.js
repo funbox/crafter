@@ -52,6 +52,17 @@ class RequestElement {
     return result;
   }
 
+  getBody(resolvedTypes) {
+    let body = {};
+    if (this.contentType !== 'application/json') {
+      return body;
+    }
+    this.content.forEach(item => {
+      body = utils.mergeBodies(body, item.getBody(resolvedTypes));
+    });
+    return body;
+  }
+
   getSchema(resolvedTypes) {
     let schema = {};
     if (this.contentType !== 'application/json') {

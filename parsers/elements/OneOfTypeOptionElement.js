@@ -13,6 +13,15 @@ class OneOfTypeOptionElement {
     };
   }
 
+  getBody(resolvedTypes) {
+    let body = {};
+    this.members.forEach(member => {
+      body = utils.mergeBodies(body, member.getBody(resolvedTypes));
+    });
+
+    return body;
+  }
+
   getSchema(resolvedTypes, flags = {}) {
     let schema = {};
     this.members.forEach(member => {

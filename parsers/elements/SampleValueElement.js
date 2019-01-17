@@ -26,6 +26,18 @@ class SampleValueElement {
       return result;
     });
   }
+
+  getBody() {
+    const body = this.members.map(member => {
+      if (member.getBody) {
+        return member.getBody();
+      }
+
+      return member;
+    });
+
+    return body;
+  }
 }
 
 function convertType(literal, type) {

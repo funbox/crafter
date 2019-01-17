@@ -290,6 +290,14 @@ const utils = {
     return result;
   },
 
+  mergeBodies(body1, body2) {
+    const result = {
+      ...body1,
+      ...body2,
+    };
+    return result;
+  },
+
   isCurrentNodeOrChild(node, rootNode) {
     while (node) {
       if (node === rootNode) {

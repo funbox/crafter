@@ -35,6 +35,17 @@ class PropertyMemberElement {
     return result;
   }
 
+  getBody(resolvedTypes) {
+    const key = this.name.string;
+    const valueObj = this.value.getBody(resolvedTypes);
+    const value = valueObj.value !== undefined ? valueObj.value : valueObj;
+
+    const body = {
+      [key]: value,
+    };
+    return body;
+  }
+
   getSchema(resolvedTypes, flags = {}) {
     const schema = {};
 

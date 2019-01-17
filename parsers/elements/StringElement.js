@@ -18,6 +18,10 @@ class StringElement {
     }
     return result;
   }
+
+  getBody() {
+    return this.string;
+  }
 }
 
 module.exports = StringElement;

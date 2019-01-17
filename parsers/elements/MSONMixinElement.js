@@ -18,6 +18,11 @@ class MSONMixinElement {
     };
   }
 
+  getBody(resolvedTypes) {
+    const typeEl = resolvedTypes[this.className];
+    return typeEl.getBody(resolvedTypes);
+  }
+
   getSchema(resolvedTypes, flags = {}) {
     const typeEl = resolvedTypes[this.className];
     return typeEl.getSchema(resolvedTypes, flags);

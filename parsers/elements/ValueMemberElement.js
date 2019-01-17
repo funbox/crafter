@@ -109,6 +109,32 @@ class ValueMemberElement {
     return result;
   }
 
+  getBody(resolvedTypes) {
+    let body = {};
+    const type = this.type || (this.content ? 'object' : 'string');
+    const value = this.value || defaultValue(type);
+
+    const typeEl = resolvedTypes[this.type];
+    if (typeEl) {
+      body = typeEl.content.getBody(resolvedTypes);
+    }
+
+    if (this.content) {
+      body = utils.mergeBodies(body, this.content.getBody(resolvedTypes));
+    }
+
+    if (Array.isArray(body.value) && this.samples && this.samples.length) {
+      const sampleBody = this.samples[0].getBody();
+      body.value.push(...sampleBody);
+    }
+
+    if (Object.keys(body).length === 0) {
+      body.value = value;
+    }
+
+    return body;
+  }
+
   getSchema(resolvedTypes, flags = {}) {
     let schema = {};
 
@@ -146,6 +172,19 @@ class ValueMemberElement {
 
     return schema;
   }
+}
+
+function defaultValue(type) {
+  const valueByType = {
+    boolean: false,
+    number: 0,
+    string: '',
+    array: [],
+    object: {},
+    file: '',
+    enum: null,
+  };
+  return valueByType[type] === undefined ? '' : valueByType[type];
 }
 
 module.exports = ValueMemberElement;
