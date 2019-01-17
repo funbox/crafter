@@ -156,6 +156,21 @@
                           "element": "asset",
                           "meta": {
                             "classes": [
+                              "messageBody"
+                            ]
+                          },
+                          "content": "{\n  \"name\": \"John\",\n  \"email\": \"\",\n  \"phone\": \"\",\n  \"age\": 0\n}",
+                          "attributes": {
+                            "contentType": {
+                              "element": "string",
+                              "content": "application/json"
+                            }
+                          }
+                        },
+                        {
+                          "element": "asset",
+                          "meta": {
+                            "classes": [
                               "messageBodySchema"
                             ]
                           },

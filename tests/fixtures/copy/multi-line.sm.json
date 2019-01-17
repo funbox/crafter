@@ -550,6 +550,21 @@
                               "element": "asset",
                               "meta": {
                                 "classes": [
+                                  "messageBody"
+                                ]
+                              },
+                              "content": "{\n  \"name\": \"\"\n}",
+                              "attributes": {
+                                "contentType": {
+                                  "element": "string",
+                                  "content": "application/json"
+                                }
+                              }
+                            },
+                            {
+                              "element": "asset",
+                              "meta": {
+                                "classes": [
                                   "messageBodySchema"
                                 ]
                               },
@@ -729,6 +744,21 @@
                                       }
                                     ]
                                   }
+                                }
+                              }
+                            },
+                            {
+                              "element": "asset",
+                              "meta": {
+                                "classes": [
+                                  "messageBody"
+                                ]
+                              },
+                              "content": "{\n  \"status\": \"ok\"\n}",
+                              "attributes": {
+                                "contentType": {
+                                  "element": "string",
+                                  "content": "application/json"
                                 }
                               }
                             },

@@ -112,6 +112,21 @@
                           "element": "asset",
                           "meta": {
                             "classes": [
+                              "messageBody"
+                            ]
+                          },
+                          "content": "{\n  \"name\": \"John\"\n}",
+                          "attributes": {
+                            "contentType": {
+                              "element": "string",
+                              "content": "application/json"
+                            }
+                          }
+                        },
+                        {
+                          "element": "asset",
+                          "meta": {
+                            "classes": [
                               "messageBodySchema"
                             ]
                           },
@@ -213,6 +228,21 @@
                                 }
                               }
                             ]
+                          }
+                        },
+                        {
+                          "element": "asset",
+                          "meta": {
+                            "classes": [
+                              "messageBody"
+                            ]
+                          },
+                          "content": "{\n  \"name\": \"John\",\n  \"email\": \"admin@localhost\",\n  \"age\": \"42\",\n  \"comment\": \"\"\n}",
+                          "attributes": {
+                            "contentType": {
+                              "element": "string",
+                              "content": "application/json"
+                            }
                           }
                         },
                         {

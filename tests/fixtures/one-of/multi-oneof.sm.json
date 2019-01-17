@@ -534,6 +534,21 @@
                               "element": "asset",
                               "meta": {
                                 "classes": [
+                                  "messageBody"
+                                ]
+                              },
+                              "content": "{\n  \"month\": \"march\",\n  \"numberOfOccurences\": \"5\"\n}",
+                              "attributes": {
+                                "contentType": {
+                                  "element": "string",
+                                  "content": "application/json"
+                                }
+                              }
+                            },
+                            {
+                              "element": "asset",
+                              "meta": {
+                                "classes": [
                                   "messageBodySchema"
                                 ]
                               },

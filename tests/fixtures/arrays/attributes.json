@@ -107,6 +107,21 @@
                           "element": "asset",
                           "meta": {
                             "classes": [
+                              "messageBody"
+                            ]
+                          },
+                          "content": "[\n  {\n    \"text\": \"\"\n  }\n]",
+                          "attributes": {
+                            "contentType": {
+                              "element": "string",
+                              "content": "application/json"
+                            }
+                          }
+                        },
+                        {
+                          "element": "asset",
+                          "meta": {
+                            "classes": [
                               "messageBodySchema"
                             ]
                           },
