@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.10.3 (18.01.2019)
+
+* Delete duplicated "Warning" word in a warning message.
+
 ## 0.10.2 (18.01.2019)
 
 * JSON schema creation now correctly applies "fixed" attribute.
