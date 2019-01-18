@@ -29,7 +29,7 @@ module.exports = (Parsers) => {
             }
             metadataArray.push(element);
           } else {
-            context.logger.warn('ignoring possible metadata, expected "<key> : <value>", one per line');
+            context.logger.warn('ignoring possible metadata, expected "<key> : <value>", one per line', utils.getDetailsForLogger(curNode));
           }
         });
         curNode = curNode.next;
@@ -44,7 +44,7 @@ module.exports = (Parsers) => {
 
         curNode = curNode.next;
       } else {
-        context.logger.warn('expected API name, e.g. "# <API Name>"');
+        context.logger.warn('expected API name, e.g. "# <API Name>"', utils.getDetailsForLogger(curNode));
       }
 
       let description = '';
@@ -74,7 +74,7 @@ module.exports = (Parsers) => {
             [curNode, childResult] = Parsers.ResourcePrototypesParser.parse(curNode, context);
             break;
           default:
-            context.logger.warn('unknown node');
+            context.logger.warn('unknown node', utils.getDetailsForLogger(curNode));
             curNode = curNode.next;
         }
 

@@ -17,7 +17,7 @@ module.exports = (Parsers) => {
 
       const text = utils.nodeText(node.firstChild, context.sourceLines);
       const signature = new SignatureParser(text, [ParserTraits.NAME, ParserTraits.ATTRIBUTES]);
-      signature.warnings.forEach(warning => context.logger.warn(warning));
+      signature.warnings.forEach(warning => context.logger.warn(warning), utils.getDetailsForLogger(node.firstChild));
 
       if (signature.rest) {
         context.data.startOffset = text.length - signature.rest.length;

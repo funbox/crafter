@@ -10,7 +10,11 @@ module.exports = (Parsers) => {
     processSignature(node, context) {
       const text = utils.nodeText(node.firstChild, context.sourceLines);
       const signature = new SignatureParser(text);
-      signature.warnings.forEach(warning => context.logger.warn(warning));
+
+      context.pushFrame();
+      const parameterSignatureDetails = utils.getDetailsForLogger(node.firstChild);
+      context.data.parameterSignatureDetails = parameterSignatureDetails;
+      signature.warnings.forEach(warning => context.logger.warn(warning, parameterSignatureDetails));
 
       const result = new ParameterElement(
         signature.name,
@@ -75,13 +79,16 @@ module.exports = (Parsers) => {
 
     finalize(context, result) {
       const { name, typeAttributes, defaultValue } = result;
+      const { parameterSignatureDetails } = context.data;
+
+      context.popFrame();
       if (typeAttributes.includes('required')) {
         if (typeAttributes.includes('optional')) {
           throw new utils.CrafterError(`Parameter "${name}" must not be specified as both required and optional.`);
         }
 
         if (defaultValue) {
-          context.logger.warn(`Specifying parameter ${name} as required supersedes its default value, declare the parameter as 'optional' to specify its default value.`);
+          context.logger.warn(`Specifying parameter ${name} as required supersedes its default value, declare the parameter as 'optional' to specify its default value.`, parameterSignatureDetails);
         }
       }
 

@@ -16,7 +16,7 @@ class DataStructureProcessor {
     const curNode = this.startNode || this.valueMemberRootNode.firstChild;
 
     if (curNode && !(valueMember.isComplex())) {
-      context.logger.warn('sub-types of primitive types should not have nested members, ignoring unrecognized block');
+      context.logger.warn('sub-types of primitive types should not have nested members, ignoring unrecognized block', utils.getDetailsForLogger(curNode));
       return;
     }
 
@@ -136,6 +136,7 @@ class DataStructureProcessor {
 
   buildEnum(node, context, type) {
     const enumElement = new EnumElement(type);
+    const enumSignatureDetails = utils.getDetailsForLogger(this.valueMemberRootNode.parent);
     let curNode = node;
 
     while (curNode) {
@@ -179,7 +180,7 @@ class DataStructureProcessor {
     }
 
     if (!standardTypes.includes(enumElement.type)) {
-      context.logger.warn('Enum must not use named types as a sub-type. Sub-type "string" will be used instead.');
+      context.logger.warn('Enum must not use named types as a sub-type. Sub-type "string" will be used instead.', enumSignatureDetails);
       enumElement.type = 'string';
     }
 
@@ -187,7 +188,7 @@ class DataStructureProcessor {
       const typesMatch = utils.compareAttributeTypes(enumElement, member);
 
       if (!typesMatch) {
-        context.logger.warn(`Invalid value format "${member.name}" for enum type '${enumElement.type}'.`);
+        context.logger.warn(`Invalid value format "${member.name}" for enum type '${enumElement.type}'.`, enumSignatureDetails);
       }
 
       if (!member.type) member.type = enumElement.type;

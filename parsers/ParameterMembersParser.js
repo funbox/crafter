@@ -37,7 +37,7 @@ module.exports = (Parsers) => {
     processNestedSection(node, context, result) {
       const text = utils.nodeText(node.firstChild, context.sourceLines);
       const member = new SignatureParser(text, [ParserTraits.NAME, ParserTraits.DESCRIPTION]);
-      member.warnings.forEach(warning => context.logger.warn(warning));
+      member.warnings.forEach(warning => context.logger.warn(warning, utils.getDetailsForLogger(node.firstChild)));
       const name = new StringElement(member.name);
       if (context.sourceMapsEnabled) {
         name.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);

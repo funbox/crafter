@@ -54,6 +54,7 @@ module.exports = (Parsers) => {
       const indentationBytes = startColumnIndex;
       let offset = 0;
       const contentLines = contentNode.literal.trimRight().split('\n');
+      const [, currentFile] = utils.getDetailsForLogger(contentNode);
 
       contentLines.forEach((contentLine, contentLineIndex) => {
         const lineHasNonWhitespace = /\S/.exec(contentLine);
@@ -67,7 +68,7 @@ module.exports = (Parsers) => {
             }
           }
 
-          const header = this.parseHeader(contentLine, context);
+          const header = this.parseHeader(contentLine, context, [startLineIndex + contentLineIndex + 1, currentFile]);
 
           if (context.sourceMapsEnabled) {
             const match = contentLine.match(/^(\s*)(.*)$/);
@@ -96,9 +97,9 @@ module.exports = (Parsers) => {
       return headers;
     },
 
-    parseHeader(headerLine, context) {
+    parseHeader(headerLine, context, headerNodeDetails) {
       const logWarning = () => {
-        context.logger.warn(`Ignoring unrecognized HTTP header "${headerLine.trim()}", expected "<header name>: <header value>", one header per line.`);
+        context.logger.warn(`Ignoring unrecognized HTTP header "${headerLine.trim()}", expected "<header name>: <header value>", one header per line.`, headerNodeDetails);
       };
 
       const colonIndex = headerLine.indexOf(':');

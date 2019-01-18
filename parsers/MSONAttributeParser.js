@@ -15,7 +15,10 @@ module.exports = (Parsers) => {
 
       const subject = utils.nodeText(node.firstChild, context.sourceLines); // TODO: часто берем text, может сделать отдельную функцию?
       const signature = new SignatureParser(subject);
-      signature.warnings.forEach(warning => context.logger.warn(warning));
+      const attributeSignatureDetails = utils.getDetailsForLogger(node.firstChild);
+
+      context.data.attributeSignatureDetails = attributeSignatureDetails;
+      signature.warnings.forEach(warning => context.logger.warn(warning), attributeSignatureDetails);
 
       const name = new StringElement(signature.name);
       let descriptionEl;
@@ -120,8 +123,9 @@ module.exports = (Parsers) => {
 
     finalize(context, result) {
       const { name, value: { type, content } } = result;
+      const { attributeSignatureDetails } = context.data;
       if (type === types.enum && !(content && content.members && content.members.length > 0)) {
-        context.logger.warn(`Enum element "${name.string}" should include members.`);
+        context.logger.warn(`Enum element "${name.string}" should include members.`, attributeSignatureDetails);
       }
 
       context.checkTypeExists(result.value.rawType);

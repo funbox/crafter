@@ -313,6 +313,11 @@ const utils = {
     return false;
   },
 
+  getDetailsForLogger(node) {
+    const { startLineIndex } = this.getSourcePosZeroBased(node);
+    return [startLineIndex + 1, node.file];
+  },
+
   CrafterError,
 
   Logger,

@@ -16,7 +16,7 @@ module.exports = (Parsers) => {
         const warnMessage = (!schemaText && schemaContentNode.type !== 'code_block')
           ? `message-schema at line ${node.sourcepos[0][0]} is expected to be a pre-formatted code block, every of its line indented by exactly 12 spaces or 3 tabs`
           : `invalid JSON Schema at line ${node.sourcepos[0][0]}`;
-        context.logger.warn(warnMessage);
+        context.logger.warn(warnMessage, utils.getDetailsForLogger(schemaContentNode));
         schemaObj = {};
       }
       const schemaEl = new SchemaElement(schemaObj);

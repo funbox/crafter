@@ -20,7 +20,10 @@ module.exports = (Parsers) => {
       let method = '';
       let protoNames = '';
 
+      context.pushFrame();
+
       const subject = utils.headerText(node, context.sourceLines);
+      context.data.actionSignatureDetails = utils.getDetailsForLogger(node);
 
       let matchData = ActionHeaderRegex.exec(subject);
       if (matchData) {
@@ -112,6 +115,7 @@ module.exports = (Parsers) => {
     },
 
     finalize(context, result) {
+      const { actionSignatureDetails } = context.data;
       const registeredProtos = context.resourcePrototypeResolver.prototypes;
       const resourcePrototypesChain = context.resourcePrototypes.reduce((res, el) => res.concat(el), []);
       [...new Set(resourcePrototypesChain)].forEach((pName) => {
@@ -123,6 +127,7 @@ module.exports = (Parsers) => {
       });
 
       context.resourcePrototypes.pop();
+      context.popFrame();
 
       const { href, parameters } = result;
       if (href) {
@@ -133,7 +138,7 @@ module.exports = (Parsers) => {
         }
 
         if (expectedParameters.length > 0) {
-          context.logger.warn(`Action is missing parameter definitions: ${expectedParameters.join(', ')}.`);
+          context.logger.warn(`Action is missing parameter definitions: ${expectedParameters.join(', ')}.`, actionSignatureDetails);
         }
       }
 
