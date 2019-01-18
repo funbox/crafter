@@ -215,6 +215,9 @@ function retrieveEscaped(str, startPos) {
 }
 
 function splitValues(values) {
+  if (typeof values !== 'string') {
+    return [values];
+  }
   const hasEscapedValue = /`.+`/.test(values);
   const splitter = hasEscapedValue ? /(`.+`),/ : ',';
   const splitted = values.split(splitter)
