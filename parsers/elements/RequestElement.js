@@ -74,13 +74,13 @@ class RequestElement {
     return result;
   }
 
-  getSchema(resolvedTypes, flags = {}) {
+  getSchema(resolvedTypes) {
     let schema = {};
     if (this.contentType !== 'application/json') {
       return schema;
     }
     this.content.forEach(item => {
-      schema = utils.mergeSchemas(schema, item.getSchema(resolvedTypes, flags));
+      schema = utils.mergeSchemas(schema, item.getSchema(resolvedTypes));
     });
     if (Object.keys(schema).length > 0) {
       return {
