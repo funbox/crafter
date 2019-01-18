@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.10.2 (18.01.2019)
+
+* JSON schema creation now correctly applies "fixed" attribute.
+
 ## 0.10.1 (10.01.2019)
 
 * Fix description processing for requests and responses.
