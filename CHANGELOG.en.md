@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.11.0 (22.01.2019)
+
+* Generate messageBody.
+
 ## 0.10.3 (18.01.2019)
 
 * Delete duplicated "Warning" word in a warning message.
