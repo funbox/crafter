@@ -137,18 +137,18 @@ const utils = {
     return new SourceMapElement([byteBlock], node.file);
   },
 
-  makeSourceMapForAsset(node, context) {
+  makeSourceMapForAsset(node, sourceLines) {
     const byteBlocks = [];
     const { startLineIndex, startColumnIndex, endLineIndex } = this.getSourcePosZeroBased(node);
     const numSpacesPerIndentLevel = 4;
     const indentation = Math.floor(startColumnIndex / numSpacesPerIndentLevel) * numSpacesPerIndentLevel;
-    let offset = this.getOffsetFromStartOfFileInBytes(startLineIndex, indentation, context.sourceLines);
+    let offset = this.getOffsetFromStartOfFileInBytes(startLineIndex, indentation, sourceLines);
     for (let lineIndex = startLineIndex; lineIndex <= endLineIndex; lineIndex += 1) {
-      const line = context.sourceLines[lineIndex];
+      const line = sourceLines[lineIndex];
       if (/\S/.test(line)) {
         const lineWithoutIndentation = line.slice(indentation);
         let length = Buffer.byteLength(lineWithoutIndentation);
-        if (lineIndex < context.sourceLines.length - 1) {
+        if (lineIndex < sourceLines.length - 1) {
           length += this.linefeedBytes;
         }
         byteBlocks.push({ offset, length });
