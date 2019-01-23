@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.12.0 (23.01.2019)
+
+* Define line and current file in a warning message.
+
 ## 0.11.0 (22.01.2019)
 
 * Generate messageBody.
