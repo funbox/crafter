@@ -90,6 +90,10 @@ const utils = {
   },
 
   makeGenericSourceMapFromStartAndEndNodes(startNode, endNode, sourceLines) {
+    sourceLines = startNode.sourceLines || sourceLines;
+    if (startNode.sourceLines && !endNode.sourceLines) {
+      throw new CrafterError('startNode and endNode belong to different files');
+    }
     const { startLineIndex, startColumnIndex } = utils.getSourcePosZeroBased(startNode);
     const { endLineIndex, endColumnIndex } = utils.getSourcePosZeroBased(endNode);
     const startOffset = this.getOffsetFromStartOfFileInBytes(startLineIndex, startColumnIndex, sourceLines);
@@ -121,6 +125,7 @@ const utils = {
   },
 
   makeSourceMapForLine(node, sourceLines) {
+    sourceLines = node.sourceLines || sourceLines;
     const { startLineIndex, startColumnIndex } = utils.getSourcePosZeroBased(node);
     const lineIndex = startLineIndex;
     const indentation = node.sourcepos[0][1] - 1;
@@ -138,6 +143,7 @@ const utils = {
   },
 
   makeSourceMapForAsset(node, sourceLines) {
+    sourceLines = node.sourceLines || sourceLines;
     const byteBlocks = [];
     const { startLineIndex, startColumnIndex, endLineIndex } = this.getSourcePosZeroBased(node);
     const numSpacesPerIndentLevel = 4;
@@ -342,6 +348,7 @@ function getTrailingEmptyLinesLengthInBytes(lineIndex, sourceLines) {
 }
 
 function makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, stopCallback) {
+  sourceLines = startNode.sourceLines || sourceLines;
   const byteBlocks = [];
   const iterationCondition = (node) => (stopCallback ? !stopCallback(node) : (node && node.type === 'paragraph'));
   for (let node = startNode; iterationCondition(node); node = utils.nextNode(node)) {
