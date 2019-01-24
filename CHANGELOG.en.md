@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.12.1 (24.01.2019)
+
+* Fix wrong sourcemaps from imported files.
+
 ## 0.12.0 (23.01.2019)
 
 * Define line and current file in a warning message.
