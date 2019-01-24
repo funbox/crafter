@@ -109,7 +109,11 @@ class ValueMemberElement {
     }
 
     if (this.content) {
-      body = utils.mergeBodies(body, this.content.getBody(resolvedTypes));
+      if (body.value && this.isArray()) {
+        body.value.push(...this.content.getBody(resolvedTypes).value);
+      } else {
+        body = utils.mergeBodies(body, this.content.getBody(resolvedTypes));
+      }
     }
 
     if (Array.isArray(body.value) && this.samples && this.samples.length) {
