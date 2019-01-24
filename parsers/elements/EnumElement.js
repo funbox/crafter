@@ -45,8 +45,8 @@ class EnumElement {
       body.value = this.members[0].name;
       return body;
     }
-    if (this.sampleValue) {
-      const sampleBodyVariants = this.sampleValue.getBody();
+    if (this.sampleValues) {
+      const sampleBodyVariants = this.sampleValues[0].getBody();
       if (sampleBodyVariants.length) {
         body.value = sampleBodyVariants[0];
         return body;

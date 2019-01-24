@@ -16,10 +16,10 @@ class SampleValueElement {
     return result;
   }
 
-  getBody() {
+  getBody(resolvedTypes) {
     const body = this.members.map(member => {
       if (member.getBody) {
-        return member.getBody();
+        return member.getBody(resolvedTypes);
       }
 
       return member;

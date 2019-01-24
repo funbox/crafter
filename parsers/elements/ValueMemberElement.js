@@ -105,6 +105,7 @@ class ValueMemberElement {
     let body = {};
     const type = this.type || (this.content ? 'object' : 'string');
     const value = this.value || defaultValue(type);
+    const isEmpty = (localBody) => (Object.keys(localBody).length === 0);
 
     const typeEl = resolvedTypes[this.type];
     if (typeEl) {
@@ -119,12 +120,16 @@ class ValueMemberElement {
       }
     }
 
-    if (Array.isArray(body.value) && this.samples && this.samples.length) {
-      const sampleBody = this.samples[0].getBody();
-      body.value.push(...sampleBody);
+    if (this.samples && this.samples.length) {
+      const sampleBody = this.samples[0].getBody(resolvedTypes);
+      if (Array.isArray(body.value)) {
+        body.value.push(...sampleBody);
+      } else if (isEmpty(body)) {
+        body.value = sampleBody[0];
+      }
     }
 
-    if (Object.keys(body).length === 0) {
+    if (isEmpty(body)) {
       body.value = value;
     }
 
