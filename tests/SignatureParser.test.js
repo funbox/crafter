@@ -89,6 +89,19 @@ describe('SignatureParser', () => {
       expect(signature.type).toBe('string');
       expect(signature.warnings.length).toBe(1);
     });
+
+    it('Parses signature with type, name, sample attribute and with no value', () => {
+      const signature = new SignatureParser('name (string, sample)');
+      expect(signature.type).toBe('string');
+      expect(signature.warnings.length).toBe(1);
+      expect(signature.warnings[0]).toBe('no value present when "sample" is specified: "name (string, sample)"');
+    });
+
+    it('Parses signature with type and sample attribute only', () => {
+      const signature = new SignatureParser('(string, sample)');
+      expect(signature.type).toBe('string');
+      expect(signature.warnings.length).toBe(2);
+    });
   });
 
   describe('Element signature', () => {
