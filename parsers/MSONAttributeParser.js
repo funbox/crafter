@@ -19,7 +19,7 @@ module.exports = (Parsers) => {
       const attributeSignatureDetails = utils.getDetailsForLogger(node.firstChild);
 
       context.data.attributeSignatureDetails = attributeSignatureDetails;
-      signature.warnings.forEach(warning => context.logger.warn(warning), attributeSignatureDetails);
+      signature.warnings.forEach(warning => context.logger.warn(warning, attributeSignatureDetails));
 
       const name = new StringElement(signature.name);
       let descriptionEl;
