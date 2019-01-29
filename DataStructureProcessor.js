@@ -1,9 +1,13 @@
 const SectionTypes = require('./SectionTypes');
-const { standardTypes } = require('./types');
+const types = require('./types');
 const utils = require('./utils');
 
 const EnumElement = require('./parsers/elements/EnumElement');
 const ObjectElement = require('./parsers/elements/ObjectElement');
+const SampleValueElement = require('./parsers/elements/SampleValueElement');
+const SampleValueProcessor = require('./parsers/SampleValueProcessor');
+
+const { standardTypes } = types;
 
 class DataStructureProcessor {
   constructor(valueMemberRootNode, Parsers, startNode) {
@@ -41,18 +45,18 @@ class DataStructureProcessor {
   processArray(arrayElement, node, context) {
     let curNode = node;
     const arrayMembers = arrayElement.content.members;
-    const samplesArray = [];
+    const samples = [];
     const predefinedType = arrayMembers.length ? arrayMembers[0].type : 'string';
 
     while (curNode) {
       let nextNode;
       let childResult;
-      let samplesElement;
 
       if (this.Parsers.SampleValueParser.sectionType(curNode, context) !== SectionTypes.undefined) {
-        [nextNode, samplesElement] = this.Parsers.SampleValueParser.parse(curNode, context);
-        samplesElement.type = predefinedType;
-        samplesArray.push(samplesElement);
+        [nextNode, childResult] = this.Parsers.SampleValueParser.parse(curNode, context);
+        const sampleValueProcessor = new SampleValueProcessor(childResult, predefinedType);
+        sampleValueProcessor.buildSamplesFor(types.array);
+        samples.push(childResult);
       } else if (this.Parsers.MSONMemberGroupParser.sectionType(curNode, context) === SectionTypes.msonArrayMemberGroup) {
         [nextNode, childResult] = this.Parsers.MSONMemberGroupParser.parse(curNode, context);
         arrayMembers.push(...childResult.members);
@@ -68,14 +72,14 @@ class DataStructureProcessor {
       curNode = curNode.next;
     }
 
-    if (samplesArray.length) {
-      arrayElement.samples = samplesArray;
+    if (samples.length) {
+      arrayElement.samples = samples;
     }
   }
 
   buildObject(node, context) {
     const objectElement = new ObjectElement();
-    const samplesArray = [];
+    const samples = [];
     let curNode = node;
 
     while (curNode) {
@@ -120,7 +124,9 @@ class DataStructureProcessor {
       }
 
       if (samplesElement) {
-        samplesArray.push(samplesElement);
+        const sampleValueProcessor = new SampleValueProcessor(samplesElement);
+        sampleValueProcessor.buildSamplesFor(types.object);
+        samples.push(samplesElement);
       }
 
       // TODO Что если nextNode !== curNode.next ?
@@ -131,12 +137,13 @@ class DataStructureProcessor {
       curNode = curNode.next;
     }
 
-    return [objectElement, samplesArray];
+    return [objectElement, samples];
   }
 
   buildEnum(node, context, type) {
     const enumElement = new EnumElement(type);
     const enumSignatureDetails = utils.getDetailsForLogger(this.valueMemberRootNode.parent);
+    const samples = [];
     let curNode = node;
 
     while (curNode) {
@@ -162,7 +169,7 @@ class DataStructureProcessor {
           break;
         case SectionTypes.sampleValue:
           [nextNode, childResult] = this.Parsers.SampleValueParser.parse(curNode, context);
-          enumElement.sampleValue = childResult;
+          samples.push(...childResult.members);
           break;
         case SectionTypes.enumMember:
           [nextNode, childResult] = this.Parsers.EnumMemberParser.parse(curNode, context);
@@ -177,6 +184,15 @@ class DataStructureProcessor {
         throw new utils.CrafterError('nextNode !== curNode.next');
       }
       curNode = curNode.next;
+    }
+
+    if (samples.length) {
+      enumElement.sampleValues = samples.map(sampleMember => {
+        const sampleElement = new SampleValueElement([sampleMember]);
+        const sampleValueProcessor = new SampleValueProcessor(sampleElement, enumElement.type);
+        sampleValueProcessor.buildSamplesFor(types.enum);
+        return sampleElement;
+      });
     }
 
     if (!standardTypes.includes(enumElement.type)) {

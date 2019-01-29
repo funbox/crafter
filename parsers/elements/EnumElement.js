@@ -7,7 +7,7 @@ class EnumElement {
 
     this.members = [];
     this.defaultValue = null;
-    this.sampleValue = null;
+    this.sampleValues = null;
     this.type = (resolvedType.nestedTypes[0] ? resolvedType.nestedTypes[0] : 'string');
   }
 
@@ -26,13 +26,10 @@ class EnumElement {
       };
     }
 
-    if (this.sampleValue) {
+    if (this.sampleValues) {
       result.samples = {
         element: Refract.elements.array,
-        content: this.sampleValue.toRefract().map(value => ({
-          element: Refract.elements.enum,
-          content: value,
-        })),
+        content: this.sampleValues.map(sampleElement => sampleElement.toRefract()),
       };
     }
     return result;

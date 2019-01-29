@@ -1,9 +1,11 @@
 const { splitValues } = require('./SignatureParser');
 const { CrafterError } = require('./utils');
+const types = require('./types');
 
 const ArrayElement = require('./parsers/elements/ArrayElement');
 const SampleValueElement = require('./parsers/elements/SampleValueElement');
 const ValueMemberElement = require('./parsers/elements/ValueMemberElement');
+const SampleValueProcessor = require('./parsers/SampleValueProcessor');
 
 const ValueMemberProcessor = {
   fillBaseType(context, element) {
@@ -29,7 +31,9 @@ const ValueMemberProcessor = {
       if (element.value) {
         const inlineValues = splitValues(element.value);
         const inlineValuesType = element.nestedTypes.length === 1 ? element.nestedTypes[0] : 'string';
-        const sampleElement = new SampleValueElement(inlineValues, inlineValuesType);
+        const sampleElement = new SampleValueElement(inlineValues);
+        const sampleValueProcessor = new SampleValueProcessor(sampleElement, inlineValuesType);
+        sampleValueProcessor.buildSamplesFor(types.array);
         element.samples = [sampleElement];
         element.value = null;
       }
