@@ -77,9 +77,15 @@ class ValueMemberElement {
     if (this.samples) {
       if (!result.attributes) result.attributes = {};
 
+      const existingSamplesContent = (result.attributes.samples && result.attributes.samples.content) || [];
+      const samplesContent = [
+        ...(this.samples.map(sampleElement => sampleElement.toRefract())),
+        ...existingSamplesContent,
+      ];
+
       result.attributes.samples = {
         element: Refract.elements.array,
-        content: this.samples.map(sampleElement => sampleElement.toRefract()),
+        content: samplesContent,
       };
     }
 

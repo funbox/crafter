@@ -73,7 +73,8 @@ class DataStructureProcessor {
     }
 
     if (samples.length) {
-      arrayElement.samples = samples;
+      arrayElement.samples = arrayElement.samples || [];
+      arrayElement.samples.push(...samples);
     }
   }
 
