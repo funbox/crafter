@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.13.0 (29.01.2019)
+
+* Preprocess types.
+
 ## 0.12.1 (24.01.2019)
 
 * Fix wrong sourcemaps from imported files.
