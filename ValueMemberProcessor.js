@@ -1,6 +1,5 @@
 const { splitValues } = require('./SignatureParser');
 const { CrafterError } = require('./utils');
-const types = require('./types');
 
 const ArrayElement = require('./parsers/elements/ArrayElement');
 const SampleValueElement = require('./parsers/elements/SampleValueElement');
@@ -19,25 +18,33 @@ const ValueMemberProcessor = {
       throw new CrafterError(`Invalid type ${element.rawType}. Nested types should be present only for types which are sub typed from either array or enum structure type`);
     }
 
+    const { value } = element;
+    let sampleElement;
+
+    if (value) {
+      const inlineValues = splitValues(value);
+      let inlineValuesType;
+      if (element.isComplex()) {
+        inlineValuesType = element.nestedTypes.length === 1 ? element.nestedTypes[0] : 'string';
+      } else {
+        inlineValuesType = element.type || 'string';
+      }
+      sampleElement = new SampleValueElement(inlineValues);
+      const sampleValueProcessor = new SampleValueProcessor(sampleElement, inlineValuesType);
+      sampleValueProcessor.buildSamplesFor(element.type);
+    }
+
     if (element.isArray()) {
       const members = element.nestedTypes.map((t) => {
         const el = new ValueMemberElement(t);
         ValueMemberProcessor.fillBaseType(context, el);
         return el;
       });
-
       element.content = new ArrayElement(members);
-
-      if (element.value) {
-        const inlineValues = splitValues(element.value);
-        const inlineValuesType = element.nestedTypes.length === 1 ? element.nestedTypes[0] : 'string';
-        const sampleElement = new SampleValueElement(inlineValues);
-        const sampleValueProcessor = new SampleValueProcessor(sampleElement, inlineValuesType);
-        sampleValueProcessor.buildSamplesFor(types.array);
-        element.samples = [sampleElement];
-        element.value = null;
-      }
     }
+
+    element.samples = sampleElement && (element.isSample || element.isArray()) ? [sampleElement] : null;
+    element.value = (element.isSample || element.isArray()) ? null : value;
   },
 };
 
