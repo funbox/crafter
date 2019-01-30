@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.0 (30.01.2019)
+
+* Process the "sample" attribute in MSON elements declaration.
+
 ## 0.13.0 (29.01.2019)
 
 * Preprocess types.
