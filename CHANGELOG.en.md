@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1 (06.02.2019)
+
+* Fix the Crafter.parse method when it is used along with the utils.promisify helper.
+
 ## 1.0.0 (30.01.2019)
 
 * Process the "sample" attribute in MSON elements declaration.
