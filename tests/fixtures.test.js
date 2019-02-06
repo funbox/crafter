@@ -170,6 +170,45 @@ describe('schema fixtures', () => {
   testFilesFrom(testPath.schema);
 });
 
+describe('Crafter with callback', () => {
+  it('Parses a source with and without options', (done) => {
+    const file = 'simple.apib';
+    const path = testPath.base;
+    const options = {};
+    const source = readFile(file, path);
+    const example = getMatchingData(file, path);
+
+    Crafter.parse(source, options, (error, result) => {
+      expect(error).toBeUndefined();
+      expect(result.toRefract()).toEqual(example);
+
+      Crafter.parse(source, (error2, result2) => {
+        expect(error2).toBeUndefined();
+        expect(result2.toRefract()).toEqual(example);
+        done();
+      });
+    });
+  });
+
+  it('Returns an error with and without options', (done) => {
+    const file = 'undefined-data-type.apib';
+    const path = testPath.fixturesWithErrors;
+    const options = {};
+    const source = readFile(file, path);
+
+    Crafter.parse(source, options, (error, result) => {
+      expect(error).toBeInstanceOf(CrafterError);
+      expect(result).toBeUndefined();
+
+      Crafter.parse(source, (error2, result2) => {
+        expect(error2).toBeInstanceOf(CrafterError);
+        expect(result2).toBeUndefined();
+        done();
+      });
+    });
+  });
+});
+
 it('parses from source without options passed', () => {
   const file = 'simple.apib';
   const path = testPath.base;
