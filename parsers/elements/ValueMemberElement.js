@@ -20,7 +20,7 @@ class ValueMemberElement {
   }
 
   isObject() {
-    return !types.nonObjectTypes.includes(this.type);
+    return !types.nonObjectTypes.includes(this.type) && !types.nonObjectTypes.includes(this.baseType);
   }
 
   isArray() {
