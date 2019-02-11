@@ -1,0 +1,335 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": [
+          {
+            "element": "string",
+            "content": "api"
+          }
+        ],
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
+      },
+      "content": [
+        {
+          "element": "category",
+          "meta": {
+            "classes": [
+              "dataStructures"
+            ]
+          },
+          "content": [
+            {
+              "element": "dataStructure",
+              "content": {
+                "element": "object",
+                "meta": {
+                  "id": {
+                    "element": "string",
+                    "content": "EmptyObject"
+                  }
+                }
+              }
+            },
+            {
+              "element": "dataStructure",
+              "content": {
+                "element": "EmptyObject",
+                "content": [
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "access_level"
+                      },
+                      "value": {
+                        "element": "string",
+                        "content": "all"
+                      }
+                    },
+                    "attributes": {
+                      "typeAttributes": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "required"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ],
+                "meta": {
+                  "id": {
+                    "element": "string",
+                    "content": "FilledObject"
+                  }
+                }
+              }
+            },
+            {
+              "element": "dataStructure",
+              "content": {
+                "element": "enum",
+                "attributes": {
+                  "enumerations": {
+                    "element": "array",
+                    "content": []
+                  }
+                },
+                "meta": {
+                  "id": {
+                    "element": "string",
+                    "content": "EmptyEnum"
+                  }
+                }
+              }
+            },
+            {
+              "element": "dataStructure",
+              "content": {
+                "element": "EmptyEnum",
+                "attributes": {
+                  "enumerations": {
+                    "element": "array",
+                    "content": [
+                      {
+                        "element": "string",
+                        "attributes": {
+                          "typeAttributes": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "fixed"
+                              }
+                            ]
+                          }
+                        },
+                        "content": "track"
+                      },
+                      {
+                        "element": "string",
+                        "attributes": {
+                          "typeAttributes": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "fixed"
+                              }
+                            ]
+                          }
+                        },
+                        "content": "movement"
+                      }
+                    ]
+                  }
+                },
+                "meta": {
+                  "id": {
+                    "element": "string",
+                    "content": "FilledEnum"
+                  }
+                }
+              }
+            },
+            {
+              "element": "dataStructure",
+              "content": {
+                "element": "array",
+                "meta": {
+                  "id": {
+                    "element": "string",
+                    "content": "EmptyArray"
+                  }
+                }
+              }
+            },
+            {
+              "element": "dataStructure",
+              "content": {
+                "element": "EmptyArray",
+                "content": [
+                  {
+                    "element": "string",
+                    "content": "user1"
+                  },
+                  {
+                    "element": "string",
+                    "content": "user2"
+                  }
+                ],
+                "meta": {
+                  "id": {
+                    "element": "string",
+                    "content": "FilledArray"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "element": "resource",
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Get test"
+            }
+          },
+          "attributes": {
+            "href": {
+              "element": "string",
+              "content": "/test"
+            }
+          },
+          "content": [
+            {
+              "element": "transition",
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Get test"
+                }
+              },
+              "content": [
+                {
+                  "element": "httpTransaction",
+                  "content": [
+                    {
+                      "element": "httpRequest",
+                      "attributes": {
+                        "method": {
+                          "element": "string",
+                          "content": "GET"
+                        }
+                      },
+                      "content": []
+                    },
+                    {
+                      "element": "httpResponse",
+                      "content": [
+                        {
+                          "element": "dataStructure",
+                          "content": {
+                            "element": "object",
+                            "content": [
+                              {
+                                "element": "member",
+                                "content": {
+                                  "key": {
+                                    "element": "string",
+                                    "content": "test"
+                                  },
+                                  "value": {
+                                    "element": "FilledObject"
+                                  }
+                                }
+                              },
+                              {
+                                "element": "member",
+                                "content": {
+                                  "key": {
+                                    "element": "string",
+                                    "content": "test2"
+                                  },
+                                  "value": {
+                                    "element": "FilledEnum"
+                                  }
+                                }
+                              },
+                              {
+                                "element": "member",
+                                "content": {
+                                  "key": {
+                                    "element": "string",
+                                    "content": "test3"
+                                  },
+                                  "value": {
+                                    "element": "FilledArray"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "element": "asset",
+                          "meta": {
+                            "classes": [
+                              "messageBody"
+                            ]
+                          },
+                          "content": "{\n  \"test\": {\n    \"access_level\": \"all\"\n  },\n  \"test2\": \"track\",\n  \"test3\": [\n    \"user1\",\n    \"user2\"\n  ]\n}",
+                          "attributes": {
+                            "contentType": {
+                              "element": "string",
+                              "content": "application/json"
+                            }
+                          }
+                        },
+                        {
+                          "element": "asset",
+                          "meta": {
+                            "classes": [
+                              "messageBodySchema"
+                            ]
+                          },
+                          "attributes": {
+                            "contentType": {
+                              "element": "string",
+                              "content": "application/schema+json"
+                            }
+                          },
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"test\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"access_level\": {\n          \"type\": \"string\"\n        }\n      },\n      \"required\": [\n        \"access_level\"\n      ]\n    },\n    \"test2\": {\n      \"type\": \"string\",\n      \"enum\": [\n        \"track\",\n        \"movement\"\n      ]\n    },\n    \"test3\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"anyOf\": [\n          {\n            \"type\": \"string\"\n          },\n          {\n            \"type\": \"string\"\n          }\n        ]\n      }\n    }\n  }\n}"
+                        }
+                      ],
+                      "attributes": {
+                        "statusCode": {
+                          "element": "string",
+                          "content": "200"
+                        },
+                        "headers": {
+                          "element": "httpHeaders",
+                          "content": [
+                            {
+                              "element": "member",
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "Content-Type"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "application/json"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "attributes": {
+                "href": {
+                  "element": "string",
+                  "content": "/test"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

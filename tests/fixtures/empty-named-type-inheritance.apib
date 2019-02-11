@@ -1,0 +1,31 @@
+# My API
+
+# Data Structures
+
+## EmptyObject
+
+## FilledObject (EmptyObject)
+
++ `access_level`: `all` (string, required)
+
+## EmptyEnum (enum)
+
+## FilledEnum (EmptyEnum)
+
++ track
++ movement
+
+## EmptyArray (array)
+
+## FilledArray (EmptyArray)
+
++ user1
++ user2
+
+# Get test [GET /test]
+
++ Response 200 (application/json)
+    + Attributes
+        + test (FilledObject)
+        + test2 (FilledEnum)
+        + test3 (FilledArray)
