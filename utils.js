@@ -222,6 +222,15 @@ const utils = {
     return this.nextNode(node.parent);
   },
 
+  nextNodeOfType(node, type) {
+    const result = this.nextNode(node);
+    if (!result) return result;
+    if (result.type === type) {
+      return result;
+    }
+    return this.nextNodeOfType(result, type);
+  },
+
   resolveType(type) {
     const result = {
       type,

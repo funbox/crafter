@@ -63,6 +63,10 @@ module.exports = (Parsers) => {
         } else {
           return [node, result];
         }
+      } else if (node.type === 'heading') {
+        const returnNode = Parsers.NamedTypeMemberGroupParser.sectionType(node, context) !== SectionTypes.undefined
+          ? utils.nextNodeOfType(node, 'heading') : node;
+        return [returnNode, result];
       }
 
       return [utils.nextNode(contentNode), result];
