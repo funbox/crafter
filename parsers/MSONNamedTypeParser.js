@@ -79,6 +79,19 @@ module.exports = (Parsers) => {
 
       return [node, result];
     },
+
+    finalize(context, result) {
+      const valueMemberContent = result.content.content;
+      if (!valueMemberContent) {
+        let type = result.content.type || types.object;
+
+        if (context.typeResolver.types[type]) {
+          type = context.typeResolver.getStandardBaseType(type);
+        }
+        fillElementWithContent(result.content, type);
+      }
+      return result;
+    },
   });
 };
 
