@@ -104,7 +104,7 @@ class ValueMemberElement {
   getBody(resolvedTypes) {
     let body = {};
     const type = this.type || (this.content ? 'object' : 'string');
-    const value = this.value || defaultValue(type);
+    const value = convertType(this.value, type) || defaultValue(type);
     const isEmpty = (localBody) => (Object.keys(localBody).length === 0);
 
     const typeEl = resolvedTypes[this.type];
@@ -186,6 +186,28 @@ function defaultValue(type) {
     enum: null,
   };
   return valueByType[type] === undefined ? '' : valueByType[type];
+}
+
+function convertType(value, requiredType) {
+  const isNumber = (v) => (typeof v === 'number' || v instanceof Number);
+  const isString = (v) => (typeof v === 'string' || v instanceof String);
+  const isBoolean = (v) => (typeof v === 'boolean' || v instanceof Boolean);
+
+  if (!value) return value;
+
+  switch (requiredType) {
+    case 'number':
+      if (isNumber(value)) return value;
+      return Number(value);
+    case 'boolean':
+      if (isBoolean(value)) return value;
+      return (value === 'true');
+    case 'string':
+      if (isString(value)) return value;
+      return String(value);
+    default:
+      return value;
+  }
 }
 
 module.exports = ValueMemberElement;
