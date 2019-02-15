@@ -106,6 +106,7 @@ class ValueMemberElement {
     const type = this.type || (this.content ? 'object' : 'string');
     const value = convertType(this.value, type) || defaultValue(type);
     const isEmpty = (localBody) => (Object.keys(localBody).length === 0);
+    const hasSamples = this.samples && this.samples.length;
 
     const typeEl = resolvedTypes[this.type];
     if (typeEl) {
@@ -114,13 +115,13 @@ class ValueMemberElement {
 
     if (this.content) {
       if (body.value && this.isArray()) {
-        body.value.push(...this.content.getBody(resolvedTypes).value);
+        body.value.push(...this.content.getBody(resolvedTypes, { hasSamples }).value);
       } else {
-        body = utils.mergeBodies(body, this.content.getBody(resolvedTypes));
+        body = utils.mergeBodies(body, this.content.getBody(resolvedTypes, { hasSamples }));
       }
     }
 
-    if (this.samples && this.samples.length) {
+    if (hasSamples) {
       const sampleBody = this.samples[0].getBody(resolvedTypes);
       if (Array.isArray(body.value)) {
         body.value.push(...sampleBody);

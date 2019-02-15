@@ -7,10 +7,12 @@ class ArrayElement {
     return this.members.map(element => element.toRefract());
   }
 
-  getBody(resolvedTypes) {
+  getBody(resolvedTypes, options) {
+    const hasSamples = options && options.hasSamples;
     const body = {
       value: [],
     };
+    if (hasSamples) return body;
     this.members.forEach(member => {
       const memberBody = member.getBody(resolvedTypes);
       body.value.push(memberBody.value !== undefined ? memberBody.value : memberBody);
