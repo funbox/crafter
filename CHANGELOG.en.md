@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.3 (16.02.2019)
+
+* Fix body generation.
+
 ## 1.0.2 (11.02.2019)
 
 * Fix inheritance from an empty named type.
