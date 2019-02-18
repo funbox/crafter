@@ -8,6 +8,7 @@ const ValueMemberElement = require('./elements/ValueMemberElement');
 const ValueMemberProcessor = require('../ValueMemberProcessor');
 
 const attributesRegex = /^[Aa]ttributes?$/;
+const { CrafterError } = utils;
 
 module.exports = (Parsers) => {
   Parsers.AttributesParser = Object.assign(Object.create(require('./AbstractParser')), {
@@ -17,7 +18,14 @@ module.exports = (Parsers) => {
       context.pushFrame();
 
       const text = utils.nodeText(node.firstChild, context.sourceLines);
-      const signature = new SignatureParser(text, [ParserTraits.NAME, ParserTraits.ATTRIBUTES]);
+      let signature;
+      try {
+        signature = new SignatureParser(text, [ParserTraits.NAME, ParserTraits.ATTRIBUTES]);
+      } catch (e) {
+        const [line, file] = utils.getDetailsForLogger(node.firstChild);
+        const message = 'Invalid Attributes signature. Expected format: "Attributes (Type Definition)".';
+        throw new CrafterError(message, line, file);
+      }
       signature.warnings.forEach(warning => context.logger.warn(warning), utils.getDetailsForLogger(node.firstChild));
 
       if (signature.rest) {
