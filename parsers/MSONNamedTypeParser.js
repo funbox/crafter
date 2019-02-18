@@ -9,11 +9,21 @@ const ObjectElement = require('./elements/ObjectElement');
 const DataStructureProcessor = require('../DataStructureProcessor');
 const ValueMemberProcessor = require('../ValueMemberProcessor');
 
+const { CrafterError } = utils;
+
 module.exports = (Parsers) => {
   Parsers.MSONNamedTypeParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
       const subject = utils.headerText(node, context.sourceLines);
-      const signature = new SignatureParser(subject, [ParserTraits.NAME, ParserTraits.ATTRIBUTES]);
+      let signature;
+      try {
+        signature = new SignatureParser(subject, [ParserTraits.NAME, ParserTraits.ATTRIBUTES]);
+      } catch (e) {
+        const hashSymbols = Array(node.level).fill('#').join('');
+        const [line, file] = utils.getDetailsForLogger(node);
+        const message = `Invalid NamedType definition. Expected format: "${hashSymbols} Type Name (Type Attributes)".`;
+        throw new CrafterError(message, line, file);
+      }
       signature.warnings.forEach(warning => context.logger.warn(warning, utils.getDetailsForLogger(node)));
 
       const name = new StringElement(signature.name);
