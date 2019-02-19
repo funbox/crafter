@@ -13,7 +13,7 @@ class ValueMemberElement {
     this.nestedTypes = resolvedType.nestedTypes;
     this.baseType = null;
     this.typeAttributes = typeAttributes;
-    this.value = value;
+    this.value = convertType(value, this.type).value;
     this.description = description;
     this.content = null;
     this.samples = null;
@@ -64,7 +64,7 @@ class ValueMemberElement {
       result.attributes = utils.typeAttributesToRefract(this.typeAttributes);
     }
 
-    if (this.value) {
+    if (this.value != null) { // проверяем null | undefined, разрешаем false
       result.content = this.value;
     }
 
@@ -91,7 +91,7 @@ class ValueMemberElement {
       };
     }
 
-    if (!result.content || !result.content[0]) {
+    if (result.content == null || result.content === '' || (Array.isArray(result.content) && !result.content[0])) {
       delete result.content;
     }
 
@@ -106,7 +106,7 @@ class ValueMemberElement {
   getBody(resolvedTypes) {
     let body = {};
     const type = this.type || (this.content ? 'object' : 'string');
-    const value = convertType(this.value, type) || defaultValue(type);
+    const value = convertType(this.value, type).value || defaultValue(type);
     const isEmpty = (localBody) => (Object.keys(localBody).length === 0);
     const hasSamples = this.samples && this.samples.length;
 

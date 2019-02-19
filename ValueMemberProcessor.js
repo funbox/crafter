@@ -1,5 +1,5 @@
 const { splitValues } = require('./SignatureParser');
-const { CrafterError } = require('./utils');
+const { CrafterError, convertType } = require('./utils');
 
 const ArrayElement = require('./parsers/elements/ArrayElement');
 const SampleValueElement = require('./parsers/elements/SampleValueElement');
@@ -22,13 +22,13 @@ const ValueMemberProcessor = {
     let sampleElement;
 
     if (value) {
-      const inlineValues = splitValues(value);
       let inlineValuesType;
       if (element.isComplex()) {
         inlineValuesType = element.nestedTypes.length === 1 ? element.nestedTypes[0] : 'string';
       } else {
         inlineValuesType = element.type || 'string';
       }
+      const inlineValues = splitValues(value).map(val => convertType(val, inlineValuesType).value);
       sampleElement = new SampleValueElement(inlineValues);
       const sampleValueProcessor = new SampleValueProcessor(sampleElement, inlineValuesType);
       sampleValueProcessor.buildSamplesFor(element.type);
