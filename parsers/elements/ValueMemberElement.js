@@ -2,6 +2,8 @@ const Refract = require('../../Refract');
 const utils = require('../../utils');
 const types = require('../../types');
 
+const { convertType } = utils;
+
 class ValueMemberElement {
   constructor(type, typeAttributes = [], value, description, isSample) {
     const resolvedType = type ? utils.resolveType(type) : { type, nestedTypes: [] };
@@ -187,28 +189,6 @@ function defaultValue(type) {
     enum: null,
   };
   return valueByType[type] === undefined ? '' : valueByType[type];
-}
-
-function convertType(value, requiredType) {
-  const isNumber = (v) => (typeof v === 'number' || v instanceof Number);
-  const isString = (v) => (typeof v === 'string' || v instanceof String);
-  const isBoolean = (v) => (typeof v === 'boolean' || v instanceof Boolean);
-
-  if (!value) return value;
-
-  switch (requiredType) {
-    case 'number':
-      if (isNumber(value)) return value;
-      return Number(value);
-    case 'boolean':
-      if (isBoolean(value)) return value;
-      return (value === 'true');
-    case 'string':
-      if (isString(value)) return value;
-      return String(value);
-    default:
-      return value;
-  }
 }
 
 module.exports = ValueMemberElement;

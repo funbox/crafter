@@ -328,6 +328,34 @@ const utils = {
     return [startLineIndex + 1, node.file];
   },
 
+  convertType(value, requiredType) {
+    const isNumber = (v) => (typeof v === 'number' || v instanceof Number);
+    const isString = (v) => (typeof v === 'string' || v instanceof String);
+    const isBoolean = (v) => (typeof v === 'boolean' || v instanceof Boolean);
+
+    if (value !== false && !value) return { valid: false, value };
+
+    switch (requiredType) {
+      case 'number':
+        if (isNumber(value)) return { valid: true, value };
+        if (Number.isNaN(Number(value))) {
+          return { valid: false, value };
+        }
+        return { valid: true, value: Number(value) };
+      case 'boolean':
+        if (isBoolean(value)) return { valid: true, value };
+        if (!['true', 'false'].includes(value)) {
+          return { valid: false, value };
+        }
+        return { valid: true, value: (value === 'true') };
+      case 'string':
+        if (isString(value)) return { valid: true, value };
+        return { valid: true, value: String(value) };
+      default:
+        return { valid: true, value };
+    }
+  },
+
   CrafterError,
 
   Logger,
