@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.4 (20.02.2019)
+
+* Improved conversion of values in MSON-attributes.
+
 ## 1.0.3 (16.02.2019)
 
 * Fix body generation.
