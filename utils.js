@@ -5,6 +5,13 @@ const SourceMapElement = require('./parsers/elements/SourceMapElement');
 const DescriptionElement = require('./parsers/elements/DescriptionElement');
 
 class CrafterError extends Error {
+  constructor(message, linePos, file) {
+    const positionText = linePos ? `at line ${linePos}` : '';
+    const fileText = file ? ` (see ${file})` : '';
+    const delimiter = positionText || fileText ? ': ' : '';
+    const errorText = `${positionText}${fileText}${delimiter}${message}`;
+    super(errorText);
+  }
 }
 
 class Logger {
