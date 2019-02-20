@@ -1,5 +1,6 @@
 const types = require('../types');
 const Refract = require('../Refract');
+const { convertType } = require('../utils');
 
 class SampleValueProcessor {
   constructor(sampleElement, membersType) {
@@ -38,7 +39,7 @@ function getContentItem(value, type) {
     }
     const content = convertType(refract.content, type);
     refract.element = type;
-    refract.content = content.value;
+    refract.content = content.valid ? content.value : undefined;
     return refract;
   }
   const contentValue = convertType(value, type);
@@ -48,29 +49,6 @@ function getContentItem(value, type) {
     contentItem.content = contentValue.value;
   }
   return contentItem;
-}
-
-function convertType(literal, type) {
-  switch (type) {
-    case 'boolean':
-      if (literal === 'true' || literal === 'false') {
-        return { valid: true, value: literal === 'true' };
-      }
-      break;
-    case 'number':
-      if (!Number.isNaN(Number(literal))) {
-        return { valid: true, value: parseFloat(literal) };
-      }
-      break;
-    case 'string':
-      if (literal !== '') {
-        return { valid: true, value: literal };
-      }
-      break;
-    default:
-      return { valid: false };
-  }
-  return { valid: false };
 }
 
 module.exports = SampleValueProcessor;
