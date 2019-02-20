@@ -114,10 +114,11 @@ class DataStructureProcessor {
         case SectionTypes.sampleValue:
           [nextNode, samplesElement] = this.Parsers.SampleValueParser.parse(curNode, context);
           break;
-
-        default:
+        default: {
           // TODO что делать в этом случае? Прерывать парсинг или пропускать ноду?
-          throw new utils.CrafterError(`invalid sectionType: ${sectionType}`);
+          const [line, file] = utils.getDetailsForLogger(curNode);
+          throw new utils.CrafterError(`invalid sectionType: ${sectionType}`, line, file);
+        }
       }
 
       if (childResult) {
@@ -176,8 +177,10 @@ class DataStructureProcessor {
           [nextNode, childResult] = this.Parsers.EnumMemberParser.parse(curNode, context);
           enumElement.members.push(childResult);
           break;
-        default:
-          throw new utils.CrafterError(`invalid sectionType: ${sectionType}`);
+        default: {
+          const [line, file] = utils.getDetailsForLogger(curNode);
+          throw new utils.CrafterError(`invalid sectionType: ${sectionType}`, line, file);
+        }
       }
 
       // TODO Что если nextNode !== curNode.next ?
