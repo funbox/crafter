@@ -419,7 +419,9 @@ function makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, stop
     if (node.next && node.next.type === 'paragraph') {
       byteBlock.length += utils.linefeedBytes;
     }
-    byteBlocks.push(byteBlock);
+    if (byteBlock.length > 1) {
+      byteBlocks.push(byteBlock);
+    }
   }
   return new SourceMapElement(byteBlocks, startNode.file);
 }
