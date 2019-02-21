@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.0 (21.02.2019)
+
+* Make error message more readable when error occurs in NamedType and Attributes sections.
+
 ## 1.0.4 (20.02.2019)
 
 * Improved conversion of values in MSON-attributes.
