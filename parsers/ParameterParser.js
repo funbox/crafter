@@ -2,6 +2,7 @@ const SectionTypes = require('../SectionTypes');
 const types = require('../types');
 const utils = require('../utils');
 const ParameterElement = require('./elements/ParameterElement');
+const ParameterMembersElement = require('./elements/ParameterMembersElement');
 const StringElement = require('./elements/StringElement');
 const SourceMapElement = require('./elements/SourceMapElement');
 const { parser: SignatureParser } = require('../SignatureParser');
@@ -61,6 +62,7 @@ module.exports = (Parsers) => {
       return SectionTypes.calculateSectionType(node, context, [
         Parsers.DefaultValueParser,
         Parsers.ParameterMembersParser,
+        Parsers.MSONAttributeParser,
       ]);
     },
 
@@ -68,7 +70,25 @@ module.exports = (Parsers) => {
       let nextNode;
       let childRes;
 
-      if (Parsers.DefaultValueParser.sectionType(node, context) !== SectionTypes.undefined) {
+      const sectionType = SectionTypes.calculateSectionType(node, context, [
+        Parsers.DefaultValueParser,
+        Parsers.ParameterMembersParser,
+        Parsers.MSONAttributeParser,
+      ]);
+
+      if (sectionType === SectionTypes.msonAttribute && result.type === types.enum) {
+        if (!result.enumerations) {
+          result.enumerations = new ParameterMembersElement();
+          const { parameterSignatureDetails: details } = context.data;
+          context.logger.warn('Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.', details);
+        }
+        [nextNode, childRes] = Parsers.ParameterEnumMemberParser.parse(node, context);
+        result.enumerations.members.push(childRes);
+        return [nextNode, result];
+      }
+
+
+      if (sectionType === SectionTypes.defaultValue) {
         [nextNode, childRes] = Parsers.DefaultValueParser.parse(node, context);
         result.defaultValue = childRes;
       } else {
