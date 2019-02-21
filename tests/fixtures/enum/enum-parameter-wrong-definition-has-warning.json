@@ -24,7 +24,7 @@
             ],
             "title": {
               "element": "string",
-              "content": "Группы клиентов"
+              "content": "Test"
             }
           },
           "content": [
@@ -33,13 +33,13 @@
               "meta": {
                 "title": {
                   "element": "string",
-                  "content": "Группы клиентов"
+                  "content": "Test1"
                 }
               },
               "attributes": {
                 "href": {
                   "element": "string",
-                  "content": "/client_groups"
+                  "content": "/report_templates{?kind}"
                 }
               },
               "content": [
@@ -48,7 +48,7 @@
                   "meta": {
                     "title": {
                       "element": "string",
-                      "content": "Получить список групп клиентов"
+                      "content": "Test1"
                     }
                   },
                   "content": [
@@ -72,24 +72,6 @@
                             "statusCode": {
                               "element": "string",
                               "content": "200"
-                            },
-                            "headers": {
-                              "element": "httpHeaders",
-                              "content": [
-                                {
-                                  "element": "member",
-                                  "content": {
-                                    "key": {
-                                      "element": "string",
-                                      "content": "Content-Type"
-                                    },
-                                    "value": {
-                                      "element": "string",
-                                      "content": "application/json"
-                                    }
-                                  }
-                                }
-                              ]
                             }
                           }
                         }
@@ -99,7 +81,7 @@
                   "attributes": {
                     "href": {
                       "element": "string",
-                      "content": "/client_groups{?sort_field}"
+                      "content": "/report_templates{?kind}"
                     },
                     "hrefVariables": {
                       "element": "hrefVariables",
@@ -109,59 +91,51 @@
                           "content": {
                             "key": {
                               "element": "string",
-                              "content": "sort_field"
+                              "content": "kind"
                             },
                             "value": {
-                              "content": {
-                                "element": "string",
-                                "content": "name"
-                              },
                               "element": "enum",
                               "attributes": {
-                                "default": {
-                                  "element": "string",
-                                  "content": "name"
-                                },
                                 "enumerations": {
                                   "element": "array",
                                   "content": [
                                     {
                                       "element": "string",
-                                      "content": "name",
+                                      "content": "movement",
                                       "meta": {
                                         "description": {
                                           "element": "string",
-                                          "content": "по названию"
+                                          "content": "шаблон отчета о перемещении сотрудников"
                                         }
                                       }
                                     },
                                     {
                                       "element": "string",
-                                      "content": "list_type",
+                                      "content": "track",
                                       "meta": {
                                         "description": {
                                           "element": "string",
-                                          "content": "по типу"
+                                          "content": "шаблон отчета по трекам"
                                         }
                                       }
                                     },
                                     {
                                       "element": "string",
-                                      "content": "numbers_count",
+                                      "content": "sms",
                                       "meta": {
                                         "description": {
                                           "element": "string",
-                                          "content": "по количеству номеров"
+                                          "content": "шаблон SMS-отчета"
                                         }
                                       }
                                     },
                                     {
                                       "element": "string",
-                                      "content": "created_at",
+                                      "content": "zone",
                                       "meta": {
                                         "description": {
                                           "element": "string",
-                                          "content": "по дате создания"
+                                          "content": "шаблон отчета о посещении зон"
                                         }
                                       }
                                     }
@@ -184,11 +158,11 @@
                           "meta": {
                             "description": {
                               "element": "string",
-                              "content": "поле, по которому производится сортировка"
+                              "content": "тип шаблона отчета (поиск шаблонов только указанного типа)"
                             },
                             "title": {
                               "element": "string",
-                              "content": "enum[string]"
+                              "content": "enum"
                             }
                           }
                         }

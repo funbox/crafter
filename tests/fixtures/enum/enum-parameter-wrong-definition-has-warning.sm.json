@@ -49,7 +49,7 @@
             ],
             "title": {
               "element": "string",
-              "content": "Группы клиентов",
+              "content": "Test",
               "attributes": {
                 "sourceMap": {
                   "element": "array",
@@ -66,7 +66,7 @@
                             },
                             {
                               "element": "number",
-                              "content": 39
+                              "content": 14
                             }
                           ]
                         }
@@ -83,38 +83,13 @@
               "meta": {
                 "title": {
                   "element": "string",
-                  "content": "Группы клиентов",
-                  "attributes": {
-                    "sourceMap": {
-                      "element": "array",
-                      "content": [
-                        {
-                          "element": "sourceMap",
-                          "content": [
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 49
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 51
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  }
+                  "content": "Test1"
                 }
               },
               "attributes": {
                 "href": {
                   "element": "string",
-                  "content": "/client_groups",
+                  "content": "/report_templates{?kind}",
                   "attributes": {
                     "sourceMap": {
                       "element": "array",
@@ -127,11 +102,11 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 49
+                                  "content": 24
                                 },
                                 {
                                   "element": "number",
-                                  "content": 51
+                                  "content": 39
                                 }
                               ]
                             }
@@ -148,7 +123,7 @@
                   "meta": {
                     "title": {
                       "element": "string",
-                      "content": "Получить список групп клиентов",
+                      "content": "Test1",
                       "attributes": {
                         "sourceMap": {
                           "element": "array",
@@ -161,11 +136,11 @@
                                   "content": [
                                     {
                                       "element": "number",
-                                      "content": 100
+                                      "content": 24
                                     },
                                     {
                                       "element": "number",
-                                      "content": 97
+                                      "content": 39
                                     }
                                   ]
                                 }
@@ -198,11 +173,11 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 100
+                                              "content": 24
                                             },
                                             {
                                               "element": "number",
-                                              "content": 97
+                                              "content": 39
                                             }
                                           ]
                                         }
@@ -234,11 +209,11 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 607
+                                              "content": 505
                                             },
                                             {
                                               "element": "number",
-                                              "content": 31
+                                              "content": 13
                                             }
                                           ]
                                         }
@@ -247,49 +222,6 @@
                                   ]
                                 }
                               }
-                            },
-                            "headers": {
-                              "element": "httpHeaders",
-                              "content": [
-                                {
-                                  "element": "member",
-                                  "content": {
-                                    "key": {
-                                      "element": "string",
-                                      "content": "Content-Type"
-                                    },
-                                    "value": {
-                                      "element": "string",
-                                      "content": "application/json"
-                                    }
-                                  },
-                                  "attributes": {
-                                    "sourceMap": {
-                                      "element": "array",
-                                      "content": [
-                                        {
-                                          "element": "sourceMap",
-                                          "content": [
-                                            {
-                                              "element": "array",
-                                              "content": [
-                                                {
-                                                  "element": "number",
-                                                  "content": 607
-                                                },
-                                                {
-                                                  "element": "number",
-                                                  "content": 31
-                                                }
-                                              ]
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                  }
-                                }
-                              ]
                             },
                             "sourceMap": {
                               "element": "array",
@@ -302,11 +234,11 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 607
+                                          "content": 505
                                         },
                                         {
                                           "element": "number",
-                                          "content": 31
+                                          "content": 13
                                         }
                                       ]
                                     }
@@ -322,7 +254,7 @@
                   "attributes": {
                     "href": {
                       "element": "string",
-                      "content": "/client_groups{?sort_field}",
+                      "content": "/report_templates{?kind}",
                       "attributes": {
                         "sourceMap": {
                           "element": "array",
@@ -335,11 +267,11 @@
                                   "content": [
                                     {
                                       "element": "number",
-                                      "content": 100
+                                      "content": 24
                                     },
                                     {
                                       "element": "number",
-                                      "content": 97
+                                      "content": 39
                                     }
                                   ]
                                 }
@@ -357,7 +289,7 @@
                           "content": {
                             "key": {
                               "element": "string",
-                              "content": "sort_field",
+                              "content": "kind",
                               "attributes": {
                                 "sourceMap": {
                                   "element": "array",
@@ -370,11 +302,11 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 216
+                                              "content": 82
                                             },
                                             {
                                               "element": "number",
-                                              "content": 124
+                                              "content": 132
                                             }
                                           ]
                                         }
@@ -385,72 +317,14 @@
                               }
                             },
                             "value": {
-                              "content": {
-                                "element": "string",
-                                "content": "name",
-                                "attributes": {
-                                  "sourceMap": {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "sourceMap",
-                                        "content": [
-                                          {
-                                            "element": "array",
-                                            "content": [
-                                              {
-                                                "element": "number",
-                                                "content": 216
-                                              },
-                                              {
-                                                "element": "number",
-                                                "content": 124
-                                              }
-                                            ]
-                                          }
-                                        ]
-                                      }
-                                    ]
-                                  }
-                                }
-                              },
                               "element": "enum",
                               "attributes": {
-                                "default": {
-                                  "element": "string",
-                                  "content": "name",
-                                  "attributes": {
-                                    "sourceMap": {
-                                      "element": "array",
-                                      "content": [
-                                        {
-                                          "element": "sourceMap",
-                                          "content": [
-                                            {
-                                              "element": "array",
-                                              "content": [
-                                                {
-                                                  "element": "number",
-                                                  "content": 350
-                                                },
-                                                {
-                                                  "element": "number",
-                                                  "content": 16
-                                                }
-                                              ]
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                  }
-                                },
                                 "enumerations": {
                                   "element": "array",
                                   "content": [
                                     {
                                       "element": "string",
-                                      "content": "name",
+                                      "content": "movement",
                                       "attributes": {
                                         "sourceMap": {
                                           "element": "array",
@@ -463,11 +337,11 @@
                                                   "content": [
                                                     {
                                                       "element": "number",
-                                                      "content": 398
+                                                      "content": 224
                                                     },
                                                     {
                                                       "element": "number",
-                                                      "content": 31
+                                                      "content": 86
                                                     }
                                                   ]
                                                 }
@@ -479,7 +353,7 @@
                                       "meta": {
                                         "description": {
                                           "element": "string",
-                                          "content": "по названию",
+                                          "content": "шаблон отчета о перемещении сотрудников",
                                           "attributes": {
                                             "sourceMap": {
                                               "element": "array",
@@ -492,11 +366,11 @@
                                                       "content": [
                                                         {
                                                           "element": "number",
-                                                          "content": 398
+                                                          "content": 224
                                                         },
                                                         {
                                                           "element": "number",
-                                                          "content": 31
+                                                          "content": 86
                                                         }
                                                       ]
                                                     }
@@ -510,7 +384,7 @@
                                     },
                                     {
                                       "element": "string",
-                                      "content": "list_type",
+                                      "content": "track",
                                       "attributes": {
                                         "sourceMap": {
                                           "element": "array",
@@ -523,11 +397,11 @@
                                                   "content": [
                                                     {
                                                       "element": "number",
-                                                      "content": 443
+                                                      "content": 320
                                                     },
                                                     {
                                                       "element": "number",
-                                                      "content": 28
+                                                      "content": 55
                                                     }
                                                   ]
                                                 }
@@ -539,7 +413,7 @@
                                       "meta": {
                                         "description": {
                                           "element": "string",
-                                          "content": "по типу",
+                                          "content": "шаблон отчета по трекам",
                                           "attributes": {
                                             "sourceMap": {
                                               "element": "array",
@@ -552,11 +426,11 @@
                                                       "content": [
                                                         {
                                                           "element": "number",
-                                                          "content": 443
+                                                          "content": 320
                                                         },
                                                         {
                                                           "element": "number",
-                                                          "content": 28
+                                                          "content": 55
                                                         }
                                                       ]
                                                     }
@@ -570,7 +444,7 @@
                                     },
                                     {
                                       "element": "string",
-                                      "content": "numbers_count",
+                                      "content": "sms",
                                       "attributes": {
                                         "sourceMap": {
                                           "element": "array",
@@ -583,11 +457,11 @@
                                                   "content": [
                                                     {
                                                       "element": "number",
-                                                      "content": 485
+                                                      "content": 385
                                                     },
                                                     {
                                                       "element": "number",
-                                                      "content": 59
+                                                      "content": 41
                                                     }
                                                   ]
                                                 }
@@ -599,7 +473,7 @@
                                       "meta": {
                                         "description": {
                                           "element": "string",
-                                          "content": "по количеству номеров",
+                                          "content": "шаблон SMS-отчета",
                                           "attributes": {
                                             "sourceMap": {
                                               "element": "array",
@@ -612,11 +486,11 @@
                                                       "content": [
                                                         {
                                                           "element": "number",
-                                                          "content": 485
+                                                          "content": 385
                                                         },
                                                         {
                                                           "element": "number",
-                                                          "content": 59
+                                                          "content": 41
                                                         }
                                                       ]
                                                     }
@@ -630,7 +504,7 @@
                                     },
                                     {
                                       "element": "string",
-                                      "content": "created_at",
+                                      "content": "zone",
                                       "attributes": {
                                         "sourceMap": {
                                           "element": "array",
@@ -643,11 +517,11 @@
                                                   "content": [
                                                     {
                                                       "element": "number",
-                                                      "content": 558
+                                                      "content": 436
                                                     },
                                                     {
                                                       "element": "number",
-                                                      "content": 46
+                                                      "content": 66
                                                     }
                                                   ]
                                                 }
@@ -659,7 +533,7 @@
                                       "meta": {
                                         "description": {
                                           "element": "string",
-                                          "content": "по дате создания",
+                                          "content": "шаблон отчета о посещении зон",
                                           "attributes": {
                                             "sourceMap": {
                                               "element": "array",
@@ -672,11 +546,11 @@
                                                       "content": [
                                                         {
                                                           "element": "number",
-                                                          "content": 558
+                                                          "content": 436
                                                         },
                                                         {
                                                           "element": "number",
-                                                          "content": 46
+                                                          "content": 66
                                                         }
                                                       ]
                                                     }
@@ -707,7 +581,7 @@
                           "meta": {
                             "description": {
                               "element": "string",
-                              "content": "поле, по которому производится сортировка",
+                              "content": "тип шаблона отчета (поиск шаблонов только указанного типа)",
                               "attributes": {
                                 "sourceMap": {
                                   "element": "array",
@@ -720,11 +594,11 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 216
+                                              "content": 82
                                             },
                                             {
                                               "element": "number",
-                                              "content": 124
+                                              "content": 132
                                             }
                                           ]
                                         }
@@ -736,7 +610,7 @@
                             },
                             "title": {
                               "element": "string",
-                              "content": "enum[string]",
+                              "content": "enum",
                               "attributes": {
                                 "sourceMap": {
                                   "element": "array",
@@ -749,11 +623,11 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 216
+                                              "content": 82
                                             },
                                             {
                                               "element": "number",
-                                              "content": 124
+                                              "content": 132
                                             }
                                           ]
                                         }
