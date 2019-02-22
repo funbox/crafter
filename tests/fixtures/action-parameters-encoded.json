@@ -1,0 +1,176 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": [
+          {
+            "element": "string",
+            "content": "api"
+          }
+        ],
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
+      },
+      "content": [
+        {
+          "element": "resource",
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "List users"
+            }
+          },
+          "attributes": {
+            "href": {
+              "element": "string",
+              "content": "/users.json{filter%5Bentity_name%5D,filter%5Buser_ids%5D,page}"
+            }
+          },
+          "content": [
+            {
+              "element": "transition",
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "List users"
+                }
+              },
+              "content": [
+                {
+                  "element": "httpTransaction",
+                  "content": [
+                    {
+                      "element": "httpRequest",
+                      "attributes": {
+                        "method": {
+                          "element": "string",
+                          "content": "GET"
+                        }
+                      },
+                      "content": []
+                    },
+                    {
+                      "element": "httpResponse",
+                      "content": [],
+                      "attributes": {
+                        "statusCode": {
+                          "element": "string",
+                          "content": "200"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "attributes": {
+                "href": {
+                  "element": "string",
+                  "content": "/users.json{filter%5Bentity_name%5D,filter%5Buser_ids%5D,page}"
+                },
+                "hrefVariables": {
+                  "element": "hrefVariables",
+                  "content": [
+                    {
+                      "element": "member",
+                      "content": {
+                        "key": {
+                          "element": "string",
+                          "content": "filter%5Bentity_name%5D"
+                        }
+                      },
+                      "attributes": {
+                        "typeAttributes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "optional"
+                            }
+                          ]
+                        }
+                      },
+                      "meta": {
+                        "description": {
+                          "element": "string",
+                          "content": "filter by entity_name"
+                        },
+                        "title": {
+                          "element": "string",
+                          "content": "string"
+                        }
+                      }
+                    },
+                    {
+                      "element": "member",
+                      "content": {
+                        "key": {
+                          "element": "string",
+                          "content": "filter%5Buser_ids%5D"
+                        }
+                      },
+                      "attributes": {
+                        "typeAttributes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "optional"
+                            }
+                          ]
+                        }
+                      },
+                      "meta": {
+                        "description": {
+                          "element": "string",
+                          "content": "filter by user_ids"
+                        },
+                        "title": {
+                          "element": "string",
+                          "content": "array"
+                        }
+                      }
+                    },
+                    {
+                      "element": "member",
+                      "content": {
+                        "key": {
+                          "element": "string",
+                          "content": "page"
+                        }
+                      },
+                      "attributes": {
+                        "typeAttributes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "optional"
+                            }
+                          ]
+                        }
+                      },
+                      "meta": {
+                        "description": {
+                          "element": "string",
+                          "content": "page number"
+                        },
+                        "title": {
+                          "element": "string",
+                          "content": "number"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
