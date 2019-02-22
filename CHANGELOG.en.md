@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.1 (22.02.2019)
+
+* Fixed processing of empty enum values.
+* Fixed parsing of a Resource Prototype section.
+
 ## 1.1.0 (21.02.2019)
 
 * Make error message more readable when error occurs in NamedType and Attributes sections.
