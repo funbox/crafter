@@ -131,7 +131,14 @@ module.exports = (Parsers) => {
 
       const { href, parameters } = result;
       if (href) {
-        let expectedParameters = getUriVariables(href);
+        let expectedParameters;
+
+        try {
+          expectedParameters = getUriVariables(href);
+        } catch (e) {
+          const [linePos, currentFile] = actionSignatureDetails;
+          throw new utils.CrafterError(`Could not retrieve URI parameters: ${href}`, linePos, currentFile);
+        }
 
         if (parameters && parameters.parameters) {
           expectedParameters = expectedParameters.filter(name => !parameters.parameters.find(p => p.name === name));
@@ -149,7 +156,7 @@ module.exports = (Parsers) => {
 
 function getUriVariables(uriTemplate) {
   const URI_VARIABLE_REGEX = /{(.*?)}/g;
-  const URI_TEMPLATE_EXPRESSION_REGEX = /^(?:[?|#|+|&]?(([A-Z|a-z|0-9|_|,])*|(?:%[A-F|a-f|0-9]{2})*)*\\*?)$/;
+  const URI_TEMPLATE_EXPRESSION_REGEX = /^(?:[?|&]?(((?:[A-Za-z0-9_])+|(?:%[A-Fa-f0-9]{2})+)+)\\*?)$/;
 
   const result = [];
 
