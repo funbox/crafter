@@ -53,7 +53,7 @@ class SignatureParser {
       if (signature[0] === VALUES_DELIMITER) {
         signature = this.extractValue(signature);
 
-        if (!this.value) {
+        if (!this.value && !this.rawValue) {
           this.warnings.push(`No value(s) specified: "${origSignature}"`);
         }
       }
@@ -121,8 +121,12 @@ class SignatureParser {
     while (i < signature.length) {
       if (signature[i] === '`') {
         const result = retrieveEscaped(signature, i);
+        this.rawValue = result.escaped;
         if (result.result) {
           value = `${value}${result.result}`;
+          signature = result.str;
+          i = 0;
+        } else if (result.escaped) {
           signature = result.str;
           i = 0;
         } else {
@@ -200,17 +204,18 @@ function retrieveEscaped(str, startPos) {
 
   if (endPos === -1) {
     return {
-      str,
+      str: str.substr(levels),
       result: '',
+      escaped: borderChars,
     };
   }
 
   const result = str.substr(startPos, startPos + endPos + levels * 2);
-  str = str.substr(startPos + result.length);
 
   return {
-    str,
+    str: str.substr(startPos + result.length),
     result,
+    escaped: str.substr(startPos, (levels - 1) * 2 + result.length),
   };
 }
 
