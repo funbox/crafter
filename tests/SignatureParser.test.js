@@ -11,6 +11,7 @@ describe('SignatureParser', () => {
       const signature = new SignatureParser('name: `Example`');
       expect(signature.name).toBe('name');
       expect(signature.value).toBe('Example');
+      expect(signature.rawValue).toBe('`Example`');
     });
 
     it('Parses signature with name and attributes', () => {
@@ -38,6 +39,7 @@ describe('SignatureParser', () => {
       const signature = new SignatureParser('name: `Example` - Description');
       expect(signature.name).toBe('name');
       expect(signature.value).toBe('Example');
+      expect(signature.rawValue).toBe('`Example`');
       expect(signature.description).toBe('Description');
     });
 
@@ -54,6 +56,7 @@ describe('SignatureParser', () => {
       const signature = new SignatureParser('name: `Example` (string, required) - Description');
       expect(signature.name).toBe('name');
       expect(signature.value).toBe('Example');
+      expect(signature.rawValue).toBe('`Example`');
       expect(signature.type).toBe('string');
       expect(signature.typeAttributes).toEqual(['required']);
       expect(signature.description).toBe('Description');
@@ -63,6 +66,7 @@ describe('SignatureParser', () => {
       const signature = new SignatureParser('`name`: `Example` - Description');
       expect(signature.name).toBe('name');
       expect(signature.value).toBe('Example');
+      expect(signature.rawValue).toBe('`Example`');
       expect(signature.description).toBe('Description');
     });
 
@@ -76,6 +80,7 @@ describe('SignatureParser', () => {
       const signature = new SignatureParser('name     : `Example`');
       expect(signature.name).toBe('name');
       expect(signature.value).toBe('Example');
+      expect(signature.rawValue).toBe('`Example`');
     });
 
     it('Parses signature with description delimeter inside description', () => {
@@ -110,6 +115,7 @@ describe('SignatureParser', () => {
     it('Parses signature with example, type and description', () => {
       const signature = new SignatureParser('`Example` (string) - Description', traits);
       expect(signature.value).toBe('Example');
+      expect(signature.rawValue).toBe('`Example`');
       expect(signature.type).toBe('string');
       expect(signature.description).toBe('Description');
     });
@@ -117,12 +123,14 @@ describe('SignatureParser', () => {
     it('Parses signature with example and type', () => {
       const signature = new SignatureParser('`Example` (string)', traits);
       expect(signature.value).toBe('Example');
+      expect(signature.rawValue).toBe('`Example`');
       expect(signature.type).toBe('string');
     });
 
     it('Parses signature with example and description', () => {
       const signature = new SignatureParser('`Example` - Description', traits);
       expect(signature.value).toBe('Example');
+      expect(signature.rawValue).toBe('`Example`');
       expect(signature.description).toBe('Description');
     });
 
@@ -148,6 +156,18 @@ describe('SignatureParser', () => {
     it('Parses signature with example only', () => {
       const signature = new SignatureParser('`Example`', traits);
       expect(signature.value).toBe('Example');
+      expect(signature.rawValue).toBe('`Example`');
+    });
+
+    it('Parses signature with an escaped empty string as value', () => {
+      let signature = new SignatureParser('`` - empty string', traits);
+      expect(signature.value).toBe('');
+      expect(signature.rawValue).toBe('``');
+      expect(signature.description).toBe('empty string');
+
+      signature = new SignatureParser('``', traits);
+      expect(signature.value).toBe('');
+      expect(signature.rawValue).toBe('``');
     });
   });
 
@@ -216,6 +236,7 @@ describe('SignatureParser', () => {
       const signature = new SignatureParser('name: `Example` - Description\nBlockDescription1\nBlockDescription2');
       expect(signature.name).toBe('name');
       expect(signature.value).toBe('Example');
+      expect(signature.rawValue).toBe('`Example`');
       expect(signature.description).toBe('Description');
       expect(signature.rest).toBe('BlockDescription1\nBlockDescription2');
     });
