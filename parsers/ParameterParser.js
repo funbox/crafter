@@ -1,6 +1,8 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
 const ParameterElement = require('./elements/ParameterElement');
+const StringElement = require('./elements/StringElement');
+const SourceMapElement = require('./elements/SourceMapElement');
 const { parser: SignatureParser } = require('../SignatureParser');
 
 module.exports = (Parsers) => {
@@ -13,6 +15,10 @@ module.exports = (Parsers) => {
 
       context.pushFrame();
       const parameterSignatureDetails = utils.getDetailsForLogger(node.firstChild);
+      let descriptionEl;
+      if (signature.description) {
+        descriptionEl = new StringElement(signature.description);
+      }
       context.data.parameterSignatureDetails = parameterSignatureDetails;
       signature.warnings.forEach(warning => context.logger.warn(warning, parameterSignatureDetails));
 
@@ -21,11 +27,14 @@ module.exports = (Parsers) => {
         signature.value,
         signature.type,
         signature.typeAttributes,
-        signature.description,
+        descriptionEl,
       );
 
       if (context.sourceMapsEnabled) {
         result.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);
+        if (result.description) {
+          result.description.sourceMap = utils.makeSourceMapForLine(node.firstChild, context.sourceLines);
+        }
       }
 
       return [(node.firstChild.next && node.firstChild.next.firstChild) || utils.nextNode(node), result];

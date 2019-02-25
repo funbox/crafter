@@ -64,13 +64,7 @@ class ParameterElement {
     }
 
     if (this.description) {
-      result.meta.description = {
-        element: Refract.elements.string,
-        content: this.description,
-        ...(this.sourceMap ? {
-          attributes: { sourceMap: this.sourceMap.toRefract() },
-        } : {}),
-      };
+      result.meta.description = this.description.toRefract();
     }
 
     if (this.type) {
