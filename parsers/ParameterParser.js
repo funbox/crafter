@@ -1,4 +1,5 @@
 const SectionTypes = require('../SectionTypes');
+const types = require('../types');
 const utils = require('../utils');
 const ParameterElement = require('./elements/ParameterElement');
 const StringElement = require('./elements/StringElement');
@@ -79,6 +80,33 @@ module.exports = (Parsers) => {
     },
 
     processDescription(node, context, result) {
+      const sectionType = SectionTypes.calculateSectionType(node, context, [
+        Parsers.DefaultValueParser,
+        Parsers.ParameterMembersParser,
+        Parsers.MSONAttributeParser,
+      ]);
+      if (sectionType === SectionTypes.msonAttribute && result.type !== types.enum) {
+        const descriptionContentNode = node.parent;
+        const stopCallback = curNode => (!utils.isCurrentNodeOrChild(curNode, descriptionContentNode));
+        const [
+          nextNode,
+          blockDescriptionEl,
+        ] = utils.extractDescription(node, context.sourceLines, context.sourceMapsEnabled, stopCallback);
+
+        if (blockDescriptionEl) {
+          const stringDescriptionEl = new StringElement(blockDescriptionEl.description, blockDescriptionEl.sourceMap);
+
+          if (result.description) {
+            result.description.string = utils.appendDescriptionDelimiter(result.description.string);
+            result.description = mergeStringElements(result.description, stringDescriptionEl);
+          } else {
+            result.description = stringDescriptionEl;
+          }
+        }
+
+        return [nextNode, result];
+      }
+
       return [node, result];
     },
 
@@ -105,3 +133,13 @@ module.exports = (Parsers) => {
     },
   });
 };
+
+function mergeStringElements(first, second) {
+  const merged = new StringElement();
+  merged.string = first.string + second.string;
+  if (first.sourceMap && second.sourceMap) {
+    merged.sourceMap = new SourceMapElement();
+    merged.sourceMap.byteBlocks = [...first.sourceMap.byteBlocks, ...second.sourceMap.byteBlocks];
+  }
+  return merged;
+}
