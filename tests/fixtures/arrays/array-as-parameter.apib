@@ -1,0 +1,15 @@
+# My API
+
+# Group Заявки
+
+## Список заявок [/applications]
+
+## Запрос списка заявок [GET /applications.json{?filter%5Bstates%5D}]
+
++ Parameters
+    + filter%5Bstates%5D (array[string], optional) - фильтр по статусу
+        + delayed_execution - отложенное выполнение
+        + delayed_partial_execution - отложенное частичное выполнение
+        + completed - выполнена
+
++ Response 200 (application/json)

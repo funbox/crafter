@@ -41,7 +41,7 @@ describe('ParameterParser', () => {
     expect(value).toBe('42');
     expect(type).toBe('number');
     expect(typeAttributes).toEqual(['required']);
-    expect(description).toBe('user id');
+    expect(description).toEqual({ sourceMap: undefined, string: 'user id' });
   });
 
   it('throws an error if a parameter is specified as both required and optional', () => {
@@ -63,7 +63,7 @@ describe('ParameterParser', () => {
     expect(value).toBe('John');
     expect(type).toBe('string');
     expect(typeAttributes).toEqual(['required']);
-    expect(description).toBe('user name');
+    expect(description).toEqual({ sourceMap: undefined, string: 'user name' });
     expect(defaultValue).toEqual({ value: 'Ivan', sourceMap: null });
   });
 });
