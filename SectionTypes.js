@@ -7,6 +7,7 @@ const SectionTypes = Object.freeze({
   resourcePrototype: 'resourcePrototype',
   MSONNamedType: 'MSONNamedType',
   action: 'action',
+  namedAction: 'namedAction',
   parameters: 'parameters',
   parameter: 'parameter',
   defaultValue: 'defaultValue',
