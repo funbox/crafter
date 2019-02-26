@@ -7,6 +7,7 @@ class ParameterElement {
 
     this.name = name;
     this.value = value;
+    this.rawType = type;
     this.type = resolvedType.type;
     this.typeAttributes = typeAttributes;
     this.description = description;
@@ -59,7 +60,7 @@ class ParameterElement {
       content: a,
     }));
 
-    if (this.description || this.type) {
+    if (this.description || this.rawType) {
       result.meta = {};
     }
 
@@ -67,10 +68,10 @@ class ParameterElement {
       result.meta.description = this.description.toRefract();
     }
 
-    if (this.type) {
+    if (this.rawType) {
       result.meta.title = {
         element: Refract.elements.string,
-        content: this.type,
+        content: this.rawType,
         ...(this.sourceMap ? {
           attributes: { sourceMap: this.sourceMap.toRefract() },
         } : {}),
