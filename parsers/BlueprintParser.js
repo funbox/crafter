@@ -61,6 +61,9 @@ module.exports = (Parsers) => {
         let childResult;
 
         switch (nodeType) {
+          case SectionTypes.namedAction:
+            [curNode, childResult] = Parsers.NamedEndpointParser.parse(curNode, context);
+            break;
           case SectionTypes.resource:
             [curNode, childResult] = Parsers.ResourceParser.parse(curNode, context);
             break;
@@ -88,6 +91,7 @@ module.exports = (Parsers) => {
 
     nestedSectionType(node, context) {
       return SectionTypes.calculateSectionType(node, context, [
+        Parsers.NamedEndpointParser,
         Parsers.ResourceParser,
         Parsers.ResourceGroupParser,
         Parsers.DataStructureGroupParser,
