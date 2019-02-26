@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.2 (26.02.2019)
+
+* Process nested elements of a href parameter as a description.
+
 ## 1.1.1 (22.02.2019)
 
 * Fixed processing of empty enum values.
