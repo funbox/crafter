@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.3 (27.02.2019)
+
+* Use stderr to output warnings.
+
 ## 1.1.2 (26.02.2019)
 
 * Process nested elements of a href parameter as a description.
