@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.6 (27.02.2019)
+
+* Delete empty strings from source map sections.
+
 ## 1.1.5 (27.02.2019)
 
 * Fix processing of a URI parameter with missing "+ Members".
