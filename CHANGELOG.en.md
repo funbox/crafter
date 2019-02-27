@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.4 (27.02.2019)
+
+* Add full URI parameter signature to output.
+
 ## 1.1.3 (27.02.2019)
 
 * Use stderr to output warnings.
