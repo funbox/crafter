@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.5 (27.02.2019)
+
+* Fix processing of a URI parameter with missing "+ Members".
+
 ## 1.1.4 (27.02.2019)
 
 * Add full URI parameter signature to output.
