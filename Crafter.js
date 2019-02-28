@@ -51,14 +51,30 @@ function parseFileSync(file, contextOptions = {}) {
   return parseSync(fs.readFileSync(file, { encoding: 'utf-8' }), contextOptions);
 }
 
-fs.readdirSync(path.join(__dirname, 'parsers')).forEach((pFile) => {
-  if (/Parser.js$/.exec(pFile)) {
-    const defineParser = require(`./parsers/${pFile}`); // eslint-disable-line import/no-dynamic-require
-    if (typeof defineParser === 'function') {
-      defineParser(Parsers);
+function defineParsers(parsers) {
+  const pendingParsers = [];
+  parsers.forEach((pFile) => {
+    if (/Parser.js$/.exec(pFile)) {
+      const defineParser = require(`./parsers/${pFile}`); // eslint-disable-line import/no-dynamic-require
+      if (typeof defineParser === 'function') {
+        const isDefined = defineParser(Parsers);
+        if (typeof isDefined !== 'boolean') {
+          throw new Error(`Expect parser function "${pFile}" to return "true" or "false", but it returned ${isDefined}.`);
+        }
+        if (!isDefined) {
+          pendingParsers.push(pFile);
+        }
+      }
     }
+  });
+  if (pendingParsers.length > 0) {
+    defineParsers(pendingParsers);
   }
-});
+}
+
+const parsers = fs.readdirSync(path.join(__dirname, 'parsers'));
+
+defineParsers(parsers);
 
 module.exports = {
   parse,
