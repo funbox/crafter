@@ -231,6 +231,7 @@ module.exports = (Parsers) => {
       }
     },
   };
+  return true;
 };
 
 function addSourceLinesAndFilename(ast, sourceLines, filename) {

@@ -46,4 +46,5 @@ module.exports = (Parsers) => {
       return [node, result];
     },
   });
+  return true;
 };

@@ -6,4 +6,5 @@ module.exports = (Parsers) => {
       allowLeavingNode: true,
     },
   );
+  return true;
 };

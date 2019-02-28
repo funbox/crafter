@@ -50,4 +50,5 @@ module.exports = (Parsers) => {
       return utils.makeSourceMapForAsset(node, context.sourceLines);
     },
   });
+  return true;
 };

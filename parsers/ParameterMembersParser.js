@@ -47,4 +47,5 @@ module.exports = (Parsers) => {
       return false;
     },
   });
+  return true;
 };

@@ -60,4 +60,5 @@ module.exports = (Parsers) => {
       return context.sectionKeywordSignature(node) === SectionTypes.undefined && node.type !== 'heading';
     },
   });
+  return true;
 };

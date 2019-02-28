@@ -128,4 +128,5 @@ module.exports = (Parsers) => {
       return { key, val };
     },
   });
+  return true;
 };

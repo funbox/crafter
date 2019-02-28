@@ -152,6 +152,7 @@ module.exports = (Parsers) => {
       return result;
     },
   });
+  return true;
 };
 
 function getUriVariables(uriTemplate) {

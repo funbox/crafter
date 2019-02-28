@@ -145,4 +145,5 @@ module.exports = (Parsers) => {
       return result;
     },
   });
+  return true;
 };
