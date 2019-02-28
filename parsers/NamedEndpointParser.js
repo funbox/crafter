@@ -5,9 +5,14 @@ const utils = require('../utils');
 const NamedEndpointHeaderRegex = new RegExp(`^${RegExpStrings.symbolIdentifier}\\s+\\[${RegExpStrings.requestMethods}\\s+${RegExpStrings.uriTemplate}](\\s+${RegExpStrings.resourcePrototype})?$`);
 
 module.exports = (Parsers) => {
+  const baseParsers = [
+    Parsers.ResourceParser,
+  ];
+  if (baseParsers.some(parser => !parser)) return false;
+
   Parsers.NamedEndpointParser = Object.assign(
     Object.create(require('./AbstractParser')),
-    Parsers.ResourceParser,
+    ...baseParsers,
     {
       allowLeavingNode: false,
 
