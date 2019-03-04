@@ -34,7 +34,7 @@ class ValueMemberElement {
   }
 
   isComplex() {
-    return !types.primitiveTypes.includes(this.type);
+    return !types.primitiveTypes.includes(this.baseType || this.type);
   }
 
   isStandardType() {
