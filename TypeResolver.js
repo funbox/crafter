@@ -38,7 +38,9 @@ class TypeResolver {
 
         resolveType(baseTypeName, baseType);
 
-        copyNewAttributes(baseType, targetType);
+        if (baseType.isComplex()) {
+          copyNewAttributes(baseType, targetType);
+        }
       }
 
       includedMixins.forEach((mixin) => {
