@@ -11,6 +11,8 @@ const { parser: SignatureParser } = require('../SignatureParser');
 
 module.exports = (Parsers) => {
   Parsers.MSONAttributeParser = Object.assign(Object.create(require('./AbstractParser')), {
+    allowLeavingNode: false,
+
     processSignature(node, context) {
       context.pushFrame();
 
@@ -47,7 +49,8 @@ module.exports = (Parsers) => {
         descriptionEl,
       );
 
-      const nextNode = signature.rest ? node.firstChild : node.firstChild.next;
+      const nextChildNode = signature.rest ? node.firstChild : node.firstChild.next;
+      const nextNode = nextChildNode || utils.nextNode(context.rootNode);
 
       return [nextNode, result];
     },
