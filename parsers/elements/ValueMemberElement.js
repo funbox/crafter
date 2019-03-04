@@ -112,7 +112,11 @@ class ValueMemberElement {
 
     const typeEl = resolvedTypes[this.type];
     if (typeEl) {
-      body = typeEl.content.getBody(resolvedTypes);
+      if (typeEl.isComplex()) {
+        body = typeEl.content.getBody(resolvedTypes);
+      } else {
+        body.value = defaultValue(typeEl.baseType);
+      }
     }
 
     if (this.content) {
@@ -144,7 +148,11 @@ class ValueMemberElement {
 
     const typeEl = resolvedTypes[this.type];
     if (typeEl) {
-      schema = typeEl.content.getSchema(resolvedTypes, flags);
+      if (typeEl.isComplex()) {
+        schema = typeEl.content.getSchema(resolvedTypes, flags);
+      } else {
+        schema.type = typeEl.baseType;
+      }
     }
 
     if (this.content) {
