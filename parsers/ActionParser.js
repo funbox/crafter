@@ -126,6 +126,10 @@ module.exports = (Parsers) => {
         }));
       });
 
+      if (!(result.responses.length > 0)) {
+        context.logger.warn('Аction is missing a response', actionSignatureDetails);
+      }
+
       context.resourcePrototypes.pop();
       context.popFrame();
 
