@@ -100,9 +100,16 @@ class DataStructureProcessor {
         case SectionTypes.msonAttribute:
           [nextNode, childResult] = this.Parsers.MSONAttributeParser.parse(curNode, context);
           break;
-        case SectionTypes.msonMixin:
+        case SectionTypes.msonMixin: {
           [nextNode, childResult] = this.Parsers.MSONMixinParser.parse(curNode, context);
+          const baseType = context.typeResolver.types[childResult.className];
+          if (baseType && !baseType.isComplex()) {
+            const details = utils.getDetailsForLogger(curNode);
+            context.logger.warn('Mixin may not include a type of a primitive sub-type', details);
+            childResult = null;
+          }
           break;
+        }
         case SectionTypes.oneOfType:
           [nextNode, childResult] = this.Parsers.OneOfTypeParser.parse(curNode, context);
           break;
