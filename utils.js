@@ -288,7 +288,13 @@ const utils = {
   },
 
   mergeSchemas(schema1, schema2) {
-    const propsToMerge = ['properties', 'oneOf', 'required'];
+    const propsToMerge = [
+      'properties',
+      'items',
+      'oneOf',
+      'required',
+      { name: 'minItems', action(first, second) { return first + second; } },
+    ];
     const result = { ...schema1 };
     Object.keys(schema2).forEach(key => {
       const foundProp = propsToMerge.find(prop => (prop === key || (prop.name && prop.name === key)));
