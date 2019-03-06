@@ -67,7 +67,12 @@ describe('MSONAttributeParser', () => {
     expect(warnings.length).toBe(0);
     expect(name.string).toBe('kind');
     expect(type).toBe('enum');
-    expect(defaultValue).toEqual({ value: 'track', sourceMap: null });
+    expect(defaultValue).toEqual({
+      values: ['track'],
+      content: { element: 'string', content: 'track' },
+      type: 'enum',
+      sourceMap: null,
+    });
     expect(sampleValues).toEqual([{ type: 'enum', members: [{ sourceMap: null, string: 'sms' }], content: { content: 'sms', element: 'string' } }]);
     expect(members).toEqual([
       { name: 'movement', description: 'описание 1', type: 'string', sourceMap: null, sample: null },

@@ -119,8 +119,11 @@
                               "element": "enum",
                               "attributes": {
                                 "default": {
-                                  "element": "string",
-                                  "content": "name"
+                                  "element": "enum",
+                                  "content": {
+                                    "element": "string",
+                                    "content": "name"
+                                  }
                                 },
                                 "enumerations": {
                                   "element": "array",

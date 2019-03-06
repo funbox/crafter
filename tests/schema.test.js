@@ -12,6 +12,7 @@ const OneOfTypeOptionElement = require('../parsers/elements/OneOfTypeOptionEleme
 const RequestElement = require('../parsers/elements/RequestElement');
 const AttributesElement = require('../parsers/elements/AttributesElement');
 const ResponseElement = require('../parsers/elements/ResponseElement');
+const DefaultValueProcessor = require('../parsers/DefaultValueProcessor');
 
 describe('schema', () => {
   describe('ArrayElement', () => {
@@ -90,7 +91,10 @@ describe('schema', () => {
     });
 
     it('with default value', () => {
-      el.defaultValue = new DefaultValueElement('hello');
+      const defaultElement = new DefaultValueElement(['hello']);
+      const defaultValueProcessor = new DefaultValueProcessor(defaultElement, 'string');
+      defaultValueProcessor.buildDefaultFor('enum');
+      el.defaultValue = defaultElement;
       expect(el.getSchema({})).toEqual({
         type: 'string',
         enum: ['foo', 'bar'],
