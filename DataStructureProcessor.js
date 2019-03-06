@@ -6,6 +6,7 @@ const EnumElement = require('./parsers/elements/EnumElement');
 const ObjectElement = require('./parsers/elements/ObjectElement');
 const SampleValueElement = require('./parsers/elements/SampleValueElement');
 const SampleValueProcessor = require('./parsers/SampleValueProcessor');
+const DefaultValueProcessor = require('./parsers/DefaultValueProcessor');
 
 const { standardTypes } = types;
 
@@ -153,6 +154,7 @@ class DataStructureProcessor {
     const enumElement = new EnumElement(type);
     const enumSignatureDetails = utils.getDetailsForLogger(this.valueMemberRootNode.parent);
     const samples = [];
+    const defaults = [];
     let curNode = node;
 
     while (curNode) {
@@ -174,7 +176,7 @@ class DataStructureProcessor {
           break;
         case SectionTypes.defaultValue:
           [nextNode, childResult] = this.Parsers.DefaultValueParser.parse(curNode, context);
-          enumElement.defaultValue = childResult;
+          defaults.push(childResult);
           break;
         case SectionTypes.sampleValue:
           [nextNode, childResult] = this.Parsers.SampleValueParser.parse(curNode, context);
@@ -204,6 +206,17 @@ class DataStructureProcessor {
         sampleValueProcessor.buildSamplesFor(types.enum);
         return sampleElement;
       });
+    }
+
+    if (defaults.length) {
+      if (defaults.length > 1) {
+        context.logger.warn('Multiple definitions of "default" value', enumSignatureDetails);
+        defaults.length = 1;
+      }
+      const defaultElement = defaults[0];
+      const defaultValueProcessor = new DefaultValueProcessor(defaultElement, enumElement.type);
+      defaultValueProcessor.buildDefaultFor(types.enum);
+      enumElement.defaultValue = defaultElement;
     }
 
     if (!standardTypes.includes(enumElement.type)) {

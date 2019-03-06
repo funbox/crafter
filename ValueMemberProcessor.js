@@ -6,6 +6,7 @@ const SampleValueElement = require('./parsers/elements/SampleValueElement');
 const DefaultValueElement = require('./parsers/elements/DefaultValueElement');
 const ValueMemberElement = require('./parsers/elements/ValueMemberElement');
 const SampleValueProcessor = require('./parsers/SampleValueProcessor');
+const DefaultValueProcessor = require('./parsers/DefaultValueProcessor');
 
 const ValueMemberProcessor = {
   fillBaseType(context, element) {
@@ -34,7 +35,9 @@ const ValueMemberProcessor = {
       sampleElement = new SampleValueElement(inlineValues);
       defaultElement = new DefaultValueElement(inlineValues, inlineValuesType);
       const sampleValueProcessor = new SampleValueProcessor(sampleElement, inlineValuesType);
+      const defaultValueProcessor = new DefaultValueProcessor(defaultElement, inlineValuesType);
       sampleValueProcessor.buildSamplesFor(element.type);
+      defaultValueProcessor.buildDefaultFor(element.type);
     }
 
     if (element.isArray()) {
@@ -46,7 +49,7 @@ const ValueMemberProcessor = {
       element.content = new ArrayElement(members);
     }
 
-    element.samples = sampleElement && (element.isSample || element.isArray()) ? [sampleElement] : null;
+    element.samples = sampleElement && !element.isDefault && (element.isSample || element.isArray()) ? [sampleElement] : null;
     element.default = element.isDefault && defaultElement;
     element.value = (element.isSample || element.isDefault || element.isArray()) ? null : value;
   },

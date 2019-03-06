@@ -1,20 +1,33 @@
-const Refract = require('../../Refract');
-
 class DefaultValueElement {
-  constructor(value, type) {
-    this.value = Array.isArray(value) ? value[0] : value;
+  constructor(values, type = 'string') {
+    this.values = values;
     this.type = type;
     this.sourceMap = null;
+    this.content = null;
   }
 
   toRefract() {
-    return {
-      element: this.type || Refract.elements.string,
-      content: this.value,
-      ...(this.sourceMap ? {
-        attributes: { sourceMap: this.sourceMap.toRefract() },
-      } : {}),
+    const result = {
+      element: this.type,
     };
+
+    if (this.content != null) {
+      result.content = this.content;
+    }
+
+    if (this.sourceMap) {
+      if (typeof this.content === 'object') {
+        result.content.attributes = {
+          sourceMap: this.sourceMap.toRefract(),
+        };
+      } else {
+        result.attributes = {
+          sourceMap: this.sourceMap.toRefract(),
+        };
+      }
+    }
+
+    return result;
   }
 }
 

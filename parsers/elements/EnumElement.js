@@ -20,10 +20,7 @@ class EnumElement {
     };
 
     if (this.defaultValue) {
-      result.default = {
-        element: Refract.elements.enum,
-        content: this.defaultValue.toRefract(),
-      };
+      result.default = this.defaultValue.toRefract();
     }
 
     if (this.sampleValues) {
@@ -38,7 +35,7 @@ class EnumElement {
   getBody() {
     const body = {};
     if (this.defaultValue) {
-      body.value = this.defaultValue.value;
+      body.value = this.defaultValue.content.content;
       return body;
     }
     if (this.members.length) {
@@ -61,7 +58,7 @@ class EnumElement {
       enum: this.members.map(member => member.name),
     };
     if (this.defaultValue) {
-      schema.default = this.defaultValue.value;
+      schema.default = this.defaultValue.content.content;
     }
     return schema;
   }
