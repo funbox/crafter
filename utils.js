@@ -318,6 +318,13 @@ const utils = {
     return result;
   },
 
+  mergeFlags(baseFlags, typeElement) {
+    return {
+      isFixed: baseFlags.isFixed || typeElement.typeAttributes.includes('fixed'),
+      isNullable: baseFlags.isNullable || typeElement.typeAttributes.includes('nullable'),
+    };
+  },
+
   isCurrentNodeOrChild(node, rootNode) {
     while (node) {
       if (node === rootNode) {
