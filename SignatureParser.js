@@ -6,7 +6,7 @@ const typeAttributes = {
   nullable: 'nullable',
 };
 
-const fakeTypeAttributes = { sample: 'sample' };
+const fakeTypeAttributes = { sample: 'sample', default: 'default' };
 
 const parserTraits = {
   NAME: 'NAME',
@@ -29,6 +29,7 @@ class SignatureParser {
     this.typeAttributes = [];
     this.type = null;
     this.isSample = false;
+    this.isDefault = false;
     this.warnings = [];
 
     const [inlinePart, ...rest] = origSignature.split('\n');
@@ -170,12 +171,18 @@ class SignatureParser {
         this.typeAttributes.push(typeAttributes[a]);
       } else if (!this.type) {
         this.type = a;
-      } else if (a !== fakeTypeAttributes.sample) {
+      } else if (!Object.values(fakeTypeAttributes).includes(a)) {
         error(a);
       }
     });
 
     this.isSample = this.attributes.some(a => a === fakeTypeAttributes.sample);
+    this.isDefault = this.attributes.some(a => a === fakeTypeAttributes.default);
+
+    if (this.isDefault && this.isSample) {
+      this.warnings.push('Cannot use "default" and "sample" together.');
+      this.isSample = false;
+    }
 
     return signature.slice(matchData[0].length);
   }

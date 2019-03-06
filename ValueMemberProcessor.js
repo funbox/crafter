@@ -3,6 +3,7 @@ const { CrafterError, convertType } = require('./utils');
 
 const ArrayElement = require('./parsers/elements/ArrayElement');
 const SampleValueElement = require('./parsers/elements/SampleValueElement');
+const DefaultValueElement = require('./parsers/elements/DefaultValueElement');
 const ValueMemberElement = require('./parsers/elements/ValueMemberElement');
 const SampleValueProcessor = require('./parsers/SampleValueProcessor');
 
@@ -20,8 +21,9 @@ const ValueMemberProcessor = {
 
     const { value } = element;
     let sampleElement;
+    let defaultElement;
 
-    if (value) {
+    if (value === false || !!value) {
       let inlineValuesType;
       if (element.isComplex()) {
         inlineValuesType = element.nestedTypes.length === 1 ? element.nestedTypes[0] : 'string';
@@ -30,6 +32,7 @@ const ValueMemberProcessor = {
       }
       const inlineValues = splitValues(value).map(val => convertType(val, inlineValuesType).value);
       sampleElement = new SampleValueElement(inlineValues);
+      defaultElement = new DefaultValueElement(inlineValues, inlineValuesType);
       const sampleValueProcessor = new SampleValueProcessor(sampleElement, inlineValuesType);
       sampleValueProcessor.buildSamplesFor(element.type);
     }
@@ -44,7 +47,8 @@ const ValueMemberProcessor = {
     }
 
     element.samples = sampleElement && (element.isSample || element.isArray()) ? [sampleElement] : null;
-    element.value = (element.isSample || element.isArray()) ? null : value;
+    element.default = element.isDefault && defaultElement;
+    element.value = (element.isSample || element.isDefault || element.isArray()) ? null : value;
   },
 };
 

@@ -107,6 +107,13 @@ describe('SignatureParser', () => {
       expect(signature.type).toBe('string');
       expect(signature.warnings.length).toBe(2);
     });
+
+    it('Prefers default attribute over sample when both are specified', () => {
+      const signature = new SignatureParser('name: John (string, default, sample)');
+      expect(signature.isDefault).toBeTruthy();
+      expect(signature.isSample).toBeFalsy();
+      expect(signature.warnings[0]).toBe('Cannot use "default" and "sample" together.');
+    });
   });
 
   describe('Element signature', () => {

@@ -5,7 +5,7 @@ const types = require('../../types');
 const { convertType } = utils;
 
 class ValueMemberElement {
-  constructor(type, typeAttributes = [], value, description, isSample) {
+  constructor(type, typeAttributes = [], value, description, isSample, isDefault) {
     const resolvedType = type ? utils.resolveType(type) : { type, nestedTypes: [] };
 
     this.rawType = type;
@@ -17,8 +17,10 @@ class ValueMemberElement {
     this.description = description;
     this.content = null;
     this.samples = null;
+    this.default = null;
     this.sourceMap = null;
     this.isSample = isSample;
+    this.isDefault = isDefault;
   }
 
   isObject() {
@@ -76,9 +78,11 @@ class ValueMemberElement {
       }
     }
 
-    if (this.samples) {
+    if (this.samples || this.default || this.sourceMap) {
       if (!result.attributes) result.attributes = {};
+    }
 
+    if (this.samples) {
       const existingSamplesContent = (result.attributes.samples && result.attributes.samples.content) || [];
       const samplesContent = [
         ...(this.samples.map(sampleElement => sampleElement.toRefract())),
@@ -91,12 +95,15 @@ class ValueMemberElement {
       };
     }
 
+    if (this.default) {
+      result.attributes.default = this.default.toRefract();
+    }
+
     if (result.content == null || result.content === '' || (Array.isArray(result.content) && !result.content[0])) {
       delete result.content;
     }
 
     if (this.sourceMap) {
-      if (!result.attributes) result.attributes = {};
       result.attributes.sourceMap = this.sourceMap.toRefract();
     }
 
