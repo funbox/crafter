@@ -10,7 +10,7 @@ class SampleValueElement {
       element: this.type,
     };
 
-    if (this.content) {
+    if (this.content != null) {
       result.content = this.content;
     }
     return result;

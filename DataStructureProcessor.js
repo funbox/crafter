@@ -20,9 +20,8 @@ class DataStructureProcessor {
   fillValueMember(valueMember, context) {
     const curNode = this.startNode || this.valueMemberRootNode.firstChild;
 
-    if (curNode && !(valueMember.isComplex())) {
-      context.logger.warn('sub-types of primitive types should not have nested members, ignoring unrecognized block', utils.getDetailsForLogger(curNode));
-      return;
+    if (!valueMember.isComplex()) {
+      this.processPrimitive(valueMember, curNode, context);
     }
 
     if (valueMember.isObject()) {
@@ -40,6 +39,63 @@ class DataStructureProcessor {
 
     if (valueMember.isEnum()) {
       valueMember.content = this.buildEnum(curNode, context, valueMember.rawType);
+    }
+  }
+
+  processPrimitive(primitiveElement, node, context) {
+    let curNode = node;
+    const samples = [];
+    const defaults = [];
+    const elementSignatureDetails = utils.getDetailsForLogger(this.valueMemberRootNode.parent);
+
+    while (curNode) {
+      let nextNode;
+      let childResult;
+
+      const sectionType = SectionTypes.calculateSectionType(curNode, context, [
+        this.Parsers.DefaultValueParser,
+        this.Parsers.SampleValueParser,
+      ]);
+
+      switch (sectionType) {
+        case SectionTypes.defaultValue:
+          [nextNode, childResult] = this.Parsers.DefaultValueParser.parse(curNode, context);
+          defaults.push(childResult);
+          break;
+        case SectionTypes.sampleValue:
+          [nextNode, childResult] = this.Parsers.SampleValueParser.parse(curNode, context);
+          samples.push(childResult);
+          break;
+        default:
+          context.logger.warn('sub-types of primitive types should not have nested members, ignoring unrecognized block', elementSignatureDetails);
+      }
+
+      // TODO Что если nextNode !== curNode.next ?
+      if (curNode.next && nextNode !== curNode.next) {
+        throw new utils.CrafterError('nextNode !== curNode.next');
+      }
+      curNode = curNode.next;
+    }
+
+    if (samples.length) {
+      primitiveElement.samples = primitiveElement.samples || [];
+      const processedSamples = samples.map(sampleMember => {
+        const sampleValueProcessor = new SampleValueProcessor(sampleMember, primitiveElement.type);
+        sampleValueProcessor.buildSamplesFor(primitiveElement.type);
+        return sampleMember;
+      });
+      primitiveElement.samples.push(...processedSamples);
+    }
+
+    if (defaults.length) {
+      if (defaults.length > 1) {
+        context.logger.warn('Multiple definitions of "default" value', elementSignatureDetails);
+        defaults.length = 1;
+      }
+      const defaultElement = defaults[0];
+      const defaultValueProcessor = new DefaultValueProcessor(defaultElement, primitiveElement.type);
+      defaultValueProcessor.buildDefaultFor(primitiveElement.type);
+      primitiveElement.default = defaultElement;
     }
   }
 
