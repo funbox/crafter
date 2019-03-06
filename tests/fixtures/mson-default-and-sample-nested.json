@@ -1,0 +1,157 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": [
+          {
+            "element": "string",
+            "content": "api"
+          }
+        ],
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
+      },
+      "content": [
+        {
+          "element": "category",
+          "meta": {
+            "classes": [
+              "dataStructures"
+            ]
+          },
+          "content": [
+            {
+              "element": "dataStructure",
+              "content": {
+                "element": "object",
+                "content": [
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "sms_notices"
+                      },
+                      "value": {
+                        "element": "boolean",
+                        "attributes": {
+                          "samples": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "boolean",
+                                "content": true
+                              },
+                              {
+                                "element": "boolean",
+                                "content": false
+                              }
+                            ]
+                          },
+                          "default": {
+                            "element": "boolean",
+                            "content": false
+                          }
+                        }
+                      }
+                    },
+                    "attributes": {
+                      "typeAttributes": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "required"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "balance"
+                      },
+                      "value": {
+                        "element": "number",
+                        "attributes": {
+                          "samples": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "number",
+                                "content": 200
+                              },
+                              {
+                                "element": "number",
+                                "content": 0
+                              }
+                            ]
+                          },
+                          "default": {
+                            "element": "number",
+                            "content": 100
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "username"
+                      },
+                      "value": {
+                        "element": "string",
+                        "attributes": {
+                          "samples": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "Leo"
+                              }
+                            ]
+                          },
+                          "default": {
+                            "element": "string",
+                            "content": "John"
+                          }
+                        }
+                      }
+                    },
+                    "attributes": {
+                      "typeAttributes": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "required"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ],
+                "meta": {
+                  "id": {
+                    "element": "string",
+                    "content": "Profile"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

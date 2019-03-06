@@ -1,0 +1,400 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": [
+          {
+            "element": "string",
+            "content": "api"
+          }
+        ],
+        "title": {
+          "element": "string",
+          "content": "My API",
+          "attributes": {
+            "sourceMap": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "sourceMap",
+                  "content": [
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 0
+                        },
+                        {
+                          "element": "number",
+                          "content": 10
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      },
+      "content": [
+        {
+          "element": "category",
+          "meta": {
+            "classes": [
+              "dataStructures"
+            ]
+          },
+          "content": [
+            {
+              "element": "dataStructure",
+              "content": {
+                "element": "object",
+                "content": [
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "sms_notices",
+                        "attributes": {
+                          "sourceMap": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "sourceMap",
+                                "content": [
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 45
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 48
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      },
+                      "value": {
+                        "element": "boolean",
+                        "attributes": {
+                          "default": {
+                            "element": "boolean",
+                            "content": false
+                          },
+                          "sourceMap": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "sourceMap",
+                                "content": [
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 45
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 48
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "attributes": {
+                      "typeAttributes": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "required"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "balance",
+                        "attributes": {
+                          "sourceMap": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "sourceMap",
+                                "content": [
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 95
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 31
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      },
+                      "value": {
+                        "element": "number",
+                        "attributes": {
+                          "default": {
+                            "element": "number",
+                            "content": 100
+                          },
+                          "sourceMap": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "sourceMap",
+                                "content": [
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 95
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 31
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "username",
+                        "attributes": {
+                          "sourceMap": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "sourceMap",
+                                "content": [
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 128
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 43
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      },
+                      "value": {
+                        "element": "string",
+                        "attributes": {
+                          "default": {
+                            "element": "string",
+                            "content": "John"
+                          },
+                          "sourceMap": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "sourceMap",
+                                "content": [
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 128
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 43
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "attributes": {
+                      "typeAttributes": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "required"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "favorites",
+                        "attributes": {
+                          "sourceMap": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "sourceMap",
+                                "content": [
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 173
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 58
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      },
+                      "value": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string"
+                          }
+                        ],
+                        "attributes": {
+                          "default": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "movies"
+                              },
+                              {
+                                "element": "string",
+                                "content": "coding"
+                              },
+                              {
+                                "element": "string",
+                                "content": "music"
+                              }
+                            ]
+                          },
+                          "sourceMap": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "sourceMap",
+                                "content": [
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 173
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 58
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                ],
+                "meta": {
+                  "id": {
+                    "element": "string",
+                    "content": "Profile",
+                    "attributes": {
+                      "sourceMap": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "sourceMap",
+                            "content": [
+                              {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "number",
+                                    "content": 30
+                                  },
+                                  {
+                                    "element": "number",
+                                    "content": 13
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

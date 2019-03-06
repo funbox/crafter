@@ -1,0 +1,158 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": [
+          {
+            "element": "string",
+            "content": "api"
+          }
+        ],
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
+      },
+      "content": [
+        {
+          "element": "category",
+          "meta": {
+            "classes": [
+              "dataStructures"
+            ]
+          },
+          "content": [
+            {
+              "element": "dataStructure",
+              "content": {
+                "element": "object",
+                "content": [
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "sms_notices"
+                      },
+                      "value": {
+                        "element": "boolean",
+                        "attributes": {
+                          "default": {
+                            "element": "boolean",
+                            "content": false
+                          }
+                        }
+                      }
+                    },
+                    "attributes": {
+                      "typeAttributes": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "required"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "balance"
+                      },
+                      "value": {
+                        "element": "number",
+                        "attributes": {
+                          "default": {
+                            "element": "number",
+                            "content": 100
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "username"
+                      },
+                      "value": {
+                        "element": "string",
+                        "attributes": {
+                          "default": {
+                            "element": "string",
+                            "content": "John"
+                          }
+                        }
+                      }
+                    },
+                    "attributes": {
+                      "typeAttributes": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "required"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "favorites"
+                      },
+                      "value": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string"
+                          }
+                        ],
+                        "attributes": {
+                          "default": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "movies"
+                              },
+                              {
+                                "element": "string",
+                                "content": "coding"
+                              },
+                              {
+                                "element": "string",
+                                "content": "music"
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                ],
+                "meta": {
+                  "id": {
+                    "element": "string",
+                    "content": "Profile"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
