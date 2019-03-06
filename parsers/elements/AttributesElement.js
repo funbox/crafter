@@ -1,4 +1,5 @@
 const Refract = require('../../Refract');
+const utils = require('../../utils');
 
 class AttributesElement {
   constructor(content) {
@@ -17,7 +18,7 @@ class AttributesElement {
   }
 
   getSchema(resolvedTypes, flags = {}) {
-    return this.content.getSchema(resolvedTypes, flags);
+    return this.content.getSchema(resolvedTypes, utils.mergeFlags(flags, this.content));
   }
 }
 

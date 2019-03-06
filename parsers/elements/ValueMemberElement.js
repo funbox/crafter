@@ -156,7 +156,7 @@ class ValueMemberElement {
     const typeEl = resolvedTypes[this.type];
     if (typeEl) {
       if (typeEl.isComplex()) {
-        schema = typeEl.content.getSchema(resolvedTypes, flags);
+        schema = typeEl.content.getSchema(resolvedTypes, utils.mergeFlags(flags, typeEl));
       } else {
         schema.type = typeEl.baseType;
       }
