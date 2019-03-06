@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.8 (06.03.2019)
+
+* Fix processing of named primitive types.
+
 ## 1.1.7 (01.02.2019)
 
 * Fix processing of a named endpoint.
