@@ -102,7 +102,9 @@ class DataStructureProcessor {
   processArray(arrayElement, node, context) {
     let curNode = node;
     const arrayMembers = arrayElement.content.members;
+    const arraySignatureDetails = utils.getDetailsForLogger(this.valueMemberRootNode.parent);
     const samples = [];
+    const defaults = [];
     const predefinedType = arrayMembers.length ? arrayMembers[0].type : 'string';
 
     while (curNode) {
@@ -114,6 +116,10 @@ class DataStructureProcessor {
         const sampleValueProcessor = new SampleValueProcessor(childResult, predefinedType);
         sampleValueProcessor.buildSamplesFor(types.array);
         samples.push(childResult);
+      } else if (this.Parsers.DefaultValueParser.sectionType(curNode, context) !== SectionTypes.undefined) {
+        [nextNode, childResult] = this.Parsers.DefaultValueParser.parse(curNode, context);
+        defaults.push(childResult);
+        break;
       } else if (this.Parsers.MSONMemberGroupParser.sectionType(curNode, context) === SectionTypes.msonArrayMemberGroup) {
         [nextNode, childResult] = this.Parsers.MSONMemberGroupParser.parse(curNode, context);
         arrayMembers.push(...childResult.members);
@@ -132,6 +138,17 @@ class DataStructureProcessor {
     if (samples.length) {
       arrayElement.samples = arrayElement.samples || [];
       arrayElement.samples.push(...samples);
+    }
+
+    if (defaults.length) {
+      if (defaults.length > 1) {
+        context.logger.warn('Multiple definitions of "default" value', arraySignatureDetails);
+        defaults.length = 1;
+      }
+      const defaultElement = defaults[0];
+      const defaultValueProcessor = new DefaultValueProcessor(defaultElement, predefinedType);
+      defaultValueProcessor.buildDefaultFor(types.array);
+      arrayElement.default = defaultElement;
     }
   }
 
