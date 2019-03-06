@@ -1,6 +1,6 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
-const { parser: SignatureParser, traits: ParserTraits, splitValues } = require('../SignatureParser');
+const { splitValues } = require('../SignatureParser');
 const DefaultValueElement = require('./elements/DefaultValueElement');
 
 const defaultValueRegex = /^[Dd]efault:\s*`?(.+?)`?$/;
@@ -43,17 +43,12 @@ module.exports = (Parsers) => {
     },
 
     processNestedSection(node, context, result) {
-      const text = utils.nodeText(node.firstChild, context.sourceLines);
-      const value = new SignatureParser(text, [ParserTraits.NAME, ParserTraits.DESCRIPTION]);
-      value.warnings.forEach(warning => context.logger.warn(warning, utils.getDetailsForLogger(node.firstChild)));
-
+      const [nextNode, childResult] = Parsers.MSONAttributeParser.parse(node, context);
+      const hasValue = !!(childResult.value.content || childResult.value.value);
       result.values = result.values || [];
-      result.values.push(value.name);
-      if (context.sourceMapsEnabled) {
-        result.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);
-      }
+      result.values.push(hasValue ? childResult : childResult.name);
 
-      return [utils.nextNode(node), result];
+      return [nextNode, result];
     },
 
     isUnexpectedNode() {

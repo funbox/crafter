@@ -25,11 +25,15 @@ class DataStructureProcessor {
     }
 
     if (valueMember.isObject()) {
-      const [object, samples] = this.buildObject(curNode, context);
+      const [object, samples, defaultElement] = this.buildObject(curNode, context);
       valueMember.content = object;
 
       if (samples.length > 0) {
         valueMember.samples = samples;
+      }
+
+      if (defaultElement) {
+        valueMember.default = defaultElement;
       }
     }
 
@@ -155,6 +159,8 @@ class DataStructureProcessor {
   buildObject(node, context) {
     const objectElement = new ObjectElement();
     const samples = [];
+    const defaults = [];
+    const objectSignatureDetails = utils.getDetailsForLogger(this.valueMemberRootNode.parent);
     let curNode = node;
 
     while (curNode) {
@@ -165,6 +171,7 @@ class DataStructureProcessor {
       const sectionType = SectionTypes.calculateSectionType(curNode, context, [
         this.Parsers.MSONMemberGroupParser,
         this.Parsers.SampleValueParser,
+        this.Parsers.DefaultValueParser,
         this.Parsers.MSONMixinParser,
         this.Parsers.OneOfTypeParser,
         this.Parsers.MSONAttributeParser,
@@ -195,6 +202,11 @@ class DataStructureProcessor {
         case SectionTypes.sampleValue:
           [nextNode, samplesElement] = this.Parsers.SampleValueParser.parse(curNode, context);
           break;
+        case SectionTypes.defaultValue:
+          [nextNode, childResult] = this.Parsers.DefaultValueParser.parse(curNode, context);
+          defaults.push(childResult);
+          childResult = null;
+          break;
         default: {
           // TODO что делать в этом случае? Прерывать парсинг или пропускать ноду?
           const [line, file] = utils.getDetailsForLogger(curNode);
@@ -220,7 +232,19 @@ class DataStructureProcessor {
       curNode = curNode.next;
     }
 
-    return [objectElement, samples];
+    let defaultElement;
+
+    if (defaults.length) {
+      if (defaults.length > 1) {
+        context.logger.warn('Multiple definitions of "default" value', objectSignatureDetails);
+        defaults.length = 1;
+      }
+      defaultElement = defaults[0];
+      const defaultValueProcessor = new DefaultValueProcessor(defaultElement);
+      defaultValueProcessor.buildDefaultFor(types.object);
+    }
+
+    return [objectElement, samples, defaultElement];
   }
 
   buildEnum(node, context, type) {
