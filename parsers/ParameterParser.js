@@ -5,6 +5,7 @@ const ParameterElement = require('./elements/ParameterElement');
 const ParameterMembersElement = require('./elements/ParameterMembersElement');
 const StringElement = require('./elements/StringElement');
 const SourceMapElement = require('./elements/SourceMapElement');
+const DefaultValueProcessor = require('./DefaultValueProcessor');
 const { parser: SignatureParser } = require('../SignatureParser');
 
 module.exports = (Parsers) => {
@@ -90,6 +91,9 @@ module.exports = (Parsers) => {
 
       if (sectionType === SectionTypes.defaultValue) {
         [nextNode, childRes] = Parsers.DefaultValueParser.parse(node, context);
+        const defaultValueProcessor = new DefaultValueProcessor(childRes, 'string');
+        const valueType = types.primitiveTypes.includes(result.type) ? 'string' : result.type;
+        defaultValueProcessor.buildDefaultFor(valueType);
         result.defaultValue = childRes;
       } else {
         [nextNode, childRes] = Parsers.ParameterMembersParser.parse(node, context);
