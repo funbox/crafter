@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.10 (07.03.2019)
+
+* Fix attributes parsing.
+
 ## 1.1.9 (07.03.2019)
 
 * Add a warning if action has no responses.
