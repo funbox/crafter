@@ -332,6 +332,7 @@ const utils = {
   mergeFlags(baseFlags, typeElement) {
     return {
       isFixed: baseFlags.isFixed || typeElement.typeAttributes.includes('fixed'),
+      isFixedType: baseFlags.isFixedType || typeElement.typeAttributes.includes('fixedType'),
       isNullable: baseFlags.isNullable || typeElement.typeAttributes.includes('nullable'),
     };
   },
