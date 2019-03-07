@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.11 (07.03.2019)
+
+* Improve Default section processing.
+* Add the ability to use nested Default and Sample sections in primitive types.
+
 ## 1.1.10 (07.03.2019)
 
 * Fix attributes parsing.
