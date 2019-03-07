@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.12 (07.03.2019)
+
+* Fix generation of JSON schemas for object with "fixed" and "fixed-type" attributes.
+
 ## 1.1.11 (07.03.2019)
 
 * Improve Default section processing.
