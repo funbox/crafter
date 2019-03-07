@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.9 (07.03.2019)
+
+* Add a warning if action has no responses.
+
 ## 1.1.8 (06.03.2019)
 
 * Fix processing of named primitive types.
