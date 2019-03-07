@@ -47,6 +47,9 @@ const testPath = {
   get schema() {
     return `${this.base}/schema`;
   },
+  get pattern() {
+    return `${this.base}/pattern`;
+  },
 };
 
 const apibRegex = /\.apib$/;
@@ -168,6 +171,10 @@ describe('fixtures with block description', () => {
 
 describe('schema fixtures', () => {
   testFilesFrom(testPath.schema);
+});
+
+describe('pattern fixtures', () => {
+  testFilesFrom(testPath.pattern);
 });
 
 describe('Crafter with callback', () => {

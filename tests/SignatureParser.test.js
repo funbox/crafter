@@ -114,6 +114,32 @@ describe('SignatureParser', () => {
       expect(signature.isSample).toBeFalsy();
       expect(signature.warnings[0]).toBe('Cannot use "default" and "sample" together.');
     });
+
+    it('Parses signature with name and type section, but without value delimiter', () => {
+      const signature = new SignatureParser('name (string)');
+      expect(signature.name).toBe('name');
+      expect(signature.type).toBe('string');
+      expect(signature.warnings.length).toBe(0);
+    });
+
+    it('Parses signature with "pattern" parameterized type attribute', () => {
+      const signature = new SignatureParser('(pattern="")');
+      expect(signature.typeAttributes).toEqual([['pattern', '']]);
+    });
+
+    it('Parses signature when "pattern" type attribute has a complex regex value', () => {
+      const signature = new SignatureParser('(string, pattern="(V|W)[0-9]{1,2} - [a-z]{, 6}")');
+      expect(signature.typeAttributes).toEqual([
+        ['pattern', '(V|W)[0-9]{1,2} - [a-z]{, 6}'],
+      ]);
+    });
+
+    it('Parses signature with name, static and parameterized type attributes', () => {
+      const signature = new SignatureParser('name (string, pattern="[a-zа-я]", required)');
+      expect(signature.name).toBe('name');
+      expect(signature.type).toEqual('string');
+      expect(signature.typeAttributes).toEqual([['pattern', '[a-zа-я]'], 'required']);
+    });
   });
 
   describe('Element signature', () => {
@@ -175,6 +201,18 @@ describe('SignatureParser', () => {
       signature = new SignatureParser('``', traits);
       expect(signature.value).toBe('');
       expect(signature.rawValue).toBe('``');
+    });
+
+    it('Raises an error if no closing bracket found', () => {
+      expect(() => {
+        new SignatureParser('Attributes (fixed', traits); // eslint-disable-line no-new
+      }).toThrow(Error);
+    });
+
+    it('Raises an error for unknown parameterized attribute', () => {
+      expect(() => {
+        new SignatureParser('Attributes (fixed, foo=bar)', traits); // eslint-disable-line no-new
+      }).toThrow(Error);
     });
   });
 

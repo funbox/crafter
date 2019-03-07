@@ -244,6 +244,18 @@ describe('schema', () => {
         },
       });
     });
+
+    it('pattern', () => {
+      const el = new PropertyMemberElement(new StringElement('foo'), new ValueMemberElement('string', [['pattern', '\\d{3,6}']]));
+      expect(el.getSchema({})).toEqual({
+        properties: {
+          foo: {
+            type: 'string',
+            pattern: '\\d{3,6}',
+          },
+        },
+      });
+    });
   });
 
   describe('RequestElement', () => {
