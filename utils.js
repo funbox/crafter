@@ -42,10 +42,27 @@ const utils = {
     return {
       typeAttributes: {
         element: Refract.elements.array,
-        content: typeAttributes.map(a => ({
-          element: Refract.elements.string,
-          content: a,
-        })),
+        content: typeAttributes.map(a => {
+          if (Array.isArray(a)) {
+            return {
+              element: Refract.elements.member,
+              content: {
+                key: {
+                  element: Refract.elements.string,
+                  content: a[0],
+                },
+                value: {
+                  element: Refract.elements.string,
+                  content: a[1],
+                },
+              },
+            };
+          }
+          return {
+            element: Refract.elements.string,
+            content: a,
+          };
+        }),
       },
     };
   },

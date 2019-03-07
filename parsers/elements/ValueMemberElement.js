@@ -198,23 +198,38 @@ class ValueMemberElement {
       return schema;
     }
 
-    const type = (!this.type || this.type === 'file') ? 'string' : this.type;
+    if (!this.type) {
+      this.type = 'string';
+    }
+
+    // Нормализуем тип, так как в json schema не сущетсвует типа 'file'
+    const normalizedType = (this.type === 'file') ? 'string' : this.type;
 
     if (flags.isNullable) {
       schema.type = [
-        type,
+        normalizedType,
         'null',
       ];
     } else {
-      schema.type = type;
+      schema.type = normalizedType;
+    }
+
+    if (flags.isFixed && !this.isSample) {
+      schema.enum = [this.value];
     }
 
     if (this.type === 'file') {
       schema.contentEncoding = 'base64';
     }
 
-    if (flags.isFixed && !this.isSample) {
-      schema.enum = [this.value];
+    if (this.type === 'string') {
+      const patternTypeAttribute = this.typeAttributes.find(a => Array.isArray(a) && a[0] === 'pattern');
+
+      const pattern = patternTypeAttribute && patternTypeAttribute[1];
+
+      if (pattern !== undefined) {
+        schema.pattern = pattern;
+      }
     }
 
     return schema;

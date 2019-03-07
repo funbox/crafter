@@ -6,6 +6,10 @@ const typeAttributes = {
   nullable: 'nullable',
 };
 
+const parameterizedTypeAttributes = {
+  pattern: 'pattern',
+};
+
 const fakeTypeAttributes = { sample: 'sample', default: 'default' };
 
 const parserTraits = {
@@ -20,12 +24,13 @@ parserTraits.all = Object.values(parserTraits);
 
 const VALUES_DELIMITER = ':';
 const ATTRIBUTES_BEGIN_DELIMITER = '(';
+const ATTRIBUTES_END_DELIMITER = ')';
+const ATTRIBUTES_COMMA_DELIMITER = ',';
 const DESCRIPTION_DELIMITER = '-';
 
 class SignatureParser {
   constructor(origSignature, traits = parserTraits.all) {
     this.traits = traits;
-    this.attributes = [];
     this.typeAttributes = [];
     this.type = null;
     this.isSample = false;
@@ -160,31 +165,61 @@ class SignatureParser {
       return signature;
     }
 
-    const matchData = /^\(([^)]+)\)/.exec(signature);
+    const { attributes, attributeString } = splitAttributes(signature);
 
-    if (!matchData) error(signature);
+    attributes.forEach((a) => {
+      const isParameterized = a.includes('=');
 
-    this.attributes = matchData[1].split(/,(?![^[\]]*])/).map(a => a.trim());
+      let attrName = a;
+      let attrValue;
 
-    this.attributes.forEach((a) => {
-      if (Object.keys(typeAttributes).indexOf(a) !== -1) {
+      if (isParameterized) {
+        [attrName, attrValue] = a.split(/=(.+)/);
+
+        if (attrValue[0] === '"' && attrValue[attrValue.length - 1] === '"') {
+          attrValue = attrValue.substring(1, attrValue.length - 1);
+
+          let escaping = false;
+          attrValue = attrValue.split('').reduce((acc, char) => {
+            if (char === '\\') {
+              if (escaping) {
+                acc += char;
+              }
+
+              escaping = !escaping;
+            } else {
+              acc += char;
+            }
+
+            return acc;
+          }, '');
+        }
+      }
+
+      if (this.hasTypeAttribute(attrName)) {
+        this.warnings.push(`Attribute ${attrName} has been defined more than once.`);
+      }
+
+      if (isParameterized && Object.keys(parameterizedTypeAttributes).includes(attrName)) {
+        this.typeAttributes.push([parameterizedTypeAttributes[attrName], attrValue]);
+      } else if (!isParameterized && Object.keys(typeAttributes).includes(attrName)) {
         this.typeAttributes.push(typeAttributes[a]);
-      } else if (!this.type) {
-        this.type = a;
+      } else if (!isParameterized && !this.type) {
+        this.type = attrName;
       } else if (!Object.values(fakeTypeAttributes).includes(a)) {
         error(a);
       }
     });
 
-    this.isSample = this.attributes.some(a => a === fakeTypeAttributes.sample);
-    this.isDefault = this.attributes.some(a => a === fakeTypeAttributes.default);
+    this.isSample = attributes.some(a => a === fakeTypeAttributes.sample);
+    this.isDefault = attributes.some(a => a === fakeTypeAttributes.default);
 
     if (this.isDefault && this.isSample) {
       this.warnings.push('Cannot use "default" and "sample" together.');
       this.isSample = false;
     }
 
-    return signature.slice(matchData[0].length);
+    return signature.slice(attributeString.length);
   }
 
   extractDescription(signature) {
@@ -195,6 +230,10 @@ class SignatureParser {
     }
 
     this.description = signature;
+  }
+
+  hasTypeAttribute(attrName) {
+    return !!this.typeAttributes.find(a => (Array.isArray(a) ? a[0] === attrName : a === attrName));
   }
 }
 
@@ -223,6 +262,63 @@ function retrieveEscaped(str, startPos) {
     str: str.substr(startPos + result.length),
     result,
     escaped: str.substr(startPos, (levels - 1) * 2 + result.length),
+  };
+}
+
+function splitAttributes(signature) {
+  const SUBTYPE_START_DELIMITER = '[';
+  const SUBTYPE_END_DELIMITER = ']';
+
+  let attributeValueContext = false;
+  let subTypeContext = false;
+
+  const attributes = [];
+
+  let lastSlicePos = 1;
+
+  let attributesEndDelimiterFound = false;
+
+  let slashesNumber = 0;
+
+  for (let i = 1; i < signature.length; i++) {
+    const char = signature[i];
+
+    if (char === '"' && slashesNumber % 2 === 0) {
+      attributeValueContext = !attributeValueContext;
+    }
+
+    if (char === '\\') {
+      slashesNumber++;
+    } else {
+      slashesNumber = 0;
+    }
+
+    if (char === SUBTYPE_START_DELIMITER || char === SUBTYPE_END_DELIMITER) {
+      subTypeContext = char === SUBTYPE_START_DELIMITER;
+    }
+
+    if (!attributeValueContext && !subTypeContext) {
+      if (char === ATTRIBUTES_COMMA_DELIMITER || char === ATTRIBUTES_END_DELIMITER) {
+        const attr = signature.slice(lastSlicePos, i).trim();
+        lastSlicePos = i + 1;
+
+        attributes.push(attr);
+      }
+
+      if (char === ATTRIBUTES_END_DELIMITER) {
+        attributesEndDelimiterFound = true;
+        break;
+      }
+    }
+  }
+
+  if (!attributesEndDelimiterFound) {
+    error(signature);
+  }
+
+  return {
+    attributes,
+    attributeString: signature.slice(0, lastSlicePos),
   };
 }
 

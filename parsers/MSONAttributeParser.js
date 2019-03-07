@@ -28,7 +28,19 @@ module.exports = (Parsers) => {
       if (signature.description) {
         descriptionEl = new StringElement(signature.description);
       }
-      const valueEl = new ValueMemberElement(signature.type, [], signature.value, '', signature.isSample, signature.isDefault);
+
+      const propertyTypeAttributes = [];
+      const valueTypeAttributes = [];
+
+      signature.typeAttributes.forEach((attr) => {
+        if (Array.isArray(attr) && attr[0] === 'pattern') {
+          valueTypeAttributes.push(attr);
+        } else {
+          propertyTypeAttributes.push(attr);
+        }
+      });
+
+      const valueEl = new ValueMemberElement(signature.type, valueTypeAttributes, signature.value, '', signature.isSample, signature.isDefault);
       ValueMemberProcessor.fillBaseType(context, valueEl);
       if (context.sourceMapsEnabled) {
         name.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);
@@ -45,7 +57,7 @@ module.exports = (Parsers) => {
       const result = new PropertyMemberElement(
         name,
         valueEl,
-        signature.typeAttributes,
+        propertyTypeAttributes,
         descriptionEl,
       );
 

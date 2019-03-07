@@ -49,7 +49,7 @@ module.exports = (Parsers) => {
 
         try {
           const signature = new SignatureParser(text);
-          if (signature.attributes.length <= 2) {
+          if (signature.typeAttributes.length <= 2) {
             return SectionTypes.parameter;
           }
         } catch (e) { // eslint-disable-line no-empty
