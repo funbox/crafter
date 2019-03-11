@@ -143,6 +143,15 @@ class ValueMemberElement {
       }
     }
 
+    if (this.default) {
+      const defaultMembers = this.default.getBody(resolvedTypes);
+      if (Array.isArray(body.value)) {
+        body.value = defaultMembers;
+      } else if (isEmpty(body)) {
+        body.value = defaultMembers[0];
+      }
+    }
+
     if (isEmpty(body)) {
       body.value = value;
     }

@@ -29,6 +29,16 @@ class DefaultValueElement {
 
     return result;
   }
+
+  getBody(resolvedTypes) {
+    const body = this.values.map(value => {
+      if (value.getBody) {
+        return value.getBody(resolvedTypes);
+      }
+      return value;
+    });
+    return body;
+  }
 }
 
 module.exports = DefaultValueElement;
