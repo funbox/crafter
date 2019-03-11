@@ -34,21 +34,69 @@
                     "content": {
                       "key": {
                         "element": "string",
-                        "content": "a1"
+                        "content": "name"
                       },
                       "value": {
+                        "element": "string",
+                        "content": "John"
+                      }
+                    },
+                    "attributes": {
+                      "typeAttributes": {
                         "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "required"
+                          }
+                        ]
+                      }
+                    },
+                    "meta": {
+                      "description": {
+                        "element": "string",
+                        "content": "user name"
+                      }
+                    }
+                  },
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "permissions"
+                      },
+                      "value": {
+                        "element": "object",
                         "attributes": {
                           "default": {
-                            "element": "array",
+                            "element": "object",
                             "content": [
                               {
-                                "element": "string",
-                                "content": "foo"
+                                "element": "member",
+                                "content": {
+                                  "key": {
+                                    "element": "string",
+                                    "content": "posts"
+                                  },
+                                  "value": {
+                                    "element": "string",
+                                    "content": "true"
+                                  }
+                                }
                               },
                               {
-                                "element": "string",
-                                "content": "bar"
+                                "element": "member",
+                                "content": {
+                                  "key": {
+                                    "element": "string",
+                                    "content": "comments"
+                                  },
+                                  "value": {
+                                    "element": "string",
+                                    "content": "true"
+                                  }
+                                }
                               }
                             ]
                           }
@@ -72,13 +120,13 @@
           "meta": {
             "title": {
               "element": "string",
-              "content": ""
+              "content": "Get user"
             }
           },
           "attributes": {
             "href": {
               "element": "string",
-              "content": "/foo"
+              "content": "/user"
             }
           },
           "content": [
@@ -87,7 +135,7 @@
               "meta": {
                 "title": {
                   "element": "string",
-                  "content": ""
+                  "content": "Get user"
                 }
               },
               "content": [
@@ -120,7 +168,7 @@
                               "messageBody"
                             ]
                           },
-                          "content": "{\n  \"a1\": [\n    \"foo\",\n    \"bar\"\n  ]\n}",
+                          "content": "{\n  \"name\": \"John\",\n  \"permissions\": {\n    \"posts\": \"true\",\n    \"comments\": \"true\"\n  }\n}",
                           "attributes": {
                             "contentType": {
                               "element": "string",
@@ -141,7 +189,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"a1\": {\n      \"type\": \"array\",\n      \"default\": [\n        \"foo\",\n        \"bar\"\n      ]\n    }\n  }\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"name\": {\n      \"type\": \"string\",\n      \"description\": \"user name\"\n    },\n    \"permissions\": {\n      \"type\": \"object\",\n      \"default\": {\n        \"posts\": \"true\",\n        \"comments\": \"true\"\n      }\n    }\n  },\n  \"required\": [\n    \"name\"\n  ]\n}"
                         }
                       ],
                       "attributes": {
@@ -175,7 +223,7 @@
               "attributes": {
                 "href": {
                   "element": "string",
-                  "content": "/foo"
+                  "content": "/user"
                 }
               }
             }

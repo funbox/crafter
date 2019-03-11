@@ -698,7 +698,7 @@
                               "messageBody"
                             ]
                           },
-                          "content": "{\n  \"name\": \"John\",\n  \"permissions\": {\n    \"posts\": false,\n    \"comments\": false\n  }\n}",
+                          "content": "{\n  \"name\": \"John\",\n  \"permissions\": {\n    \"posts\": \"true\",\n    \"comments\": \"true\"\n  }\n}",
                           "attributes": {
                             "contentType": {
                               "element": "string",
@@ -719,7 +719,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"name\": {\n      \"type\": \"string\",\n      \"description\": \"user name\"\n    },\n    \"permissions\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"posts\": {\n          \"type\": \"boolean\",\n          \"description\": \"allow user to access posts\"\n        },\n        \"comments\": {\n          \"type\": \"boolean\"\n        }\n      }\n    }\n  },\n  \"required\": [\n    \"name\"\n  ]\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"name\": {\n      \"type\": \"string\",\n      \"description\": \"user name\"\n    },\n    \"permissions\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"posts\": {\n          \"type\": \"boolean\",\n          \"description\": \"allow user to access posts\"\n        },\n        \"comments\": {\n          \"type\": \"boolean\"\n        }\n      },\n      \"default\": {\n        \"posts\": \"true\",\n        \"comments\": \"true\"\n      }\n    }\n  },\n  \"required\": [\n    \"name\"\n  ]\n}"
                         }
                       ],
                       "attributes": {
