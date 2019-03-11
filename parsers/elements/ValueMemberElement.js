@@ -147,6 +147,11 @@ class ValueMemberElement {
       const defaultMembers = this.default.getBody(resolvedTypes);
       if (Array.isArray(body.value)) {
         body.value = defaultMembers;
+      } else if (this.isObject()) {
+        body.value = defaultMembers.reduce((acc, val) => {
+          acc = utils.mergeBodies(acc, val);
+          return acc;
+        }, {});
       } else if (isEmpty(body)) {
         body.value = defaultMembers[0];
       }
@@ -179,6 +184,11 @@ class ValueMemberElement {
       const defaultMembers = this.default.getSchema(resolvedTypes);
       if (this.isArray()) {
         schema.default = defaultMembers;
+      } else if (this.isObject()) {
+        schema.default = defaultMembers.reduce((acc, val) => {
+          acc = utils.mergeSchemas(acc, val);
+          return acc;
+        }, {});
       } else {
         schema.default = defaultMembers[0];
       }
