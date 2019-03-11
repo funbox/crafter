@@ -175,6 +175,15 @@ class ValueMemberElement {
       schema = utils.mergeSchemas(schema, this.content.getSchema(resolvedTypes, flags));
     }
 
+    if (this.default) {
+      const defaultMembers = this.default.getSchema(resolvedTypes);
+      if (this.isArray()) {
+        schema.default = defaultMembers;
+      } else {
+        schema.default = defaultMembers[0];
+      }
+    }
+
     if (typeEl || this.content) {
       return schema;
     }

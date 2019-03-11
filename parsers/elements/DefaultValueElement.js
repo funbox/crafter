@@ -39,6 +39,16 @@ class DefaultValueElement {
     });
     return body;
   }
+
+  getSchema(resolvedTypes) {
+    const schema = this.values.map(value => {
+      if (value.getBody) {
+        return value.getBody(resolvedTypes);
+      }
+      return value;
+    });
+    return schema;
+  }
 }
 
 module.exports = DefaultValueElement;
