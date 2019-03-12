@@ -3,44 +3,44 @@ const Refract = require('../Refract');
 const { convertType } = require('../utils');
 
 class SampleValueProcessor {
-  constructor(sampleElement, membersType) {
+  constructor(sampleElement, valuesType) {
     this.sampleElement = sampleElement;
-    this.membersType = membersType;
+    this.valuesType = valuesType;
   }
 
   prepareValuesForBody() {
-    this.sampleElement.valuesForBody = this.sampleElement.members.map(value => {
+    this.sampleElement.valuesForBody = this.sampleElement.values.map(value => {
       if (value.toRefract) {
         const refract = value.toRefract();
         if (typeof refract.content === 'object') {
           return value; // we don't need to go deeper
         }
-        const converted = convertType(refract.content, this.membersType);
+        const converted = convertType(refract.content, this.valuesType);
         return converted.valid ? converted.value : undefined;
       }
-      const converted = convertType(value, this.membersType);
+      const converted = convertType(value, this.valuesType);
       return converted.valid ? converted.value : undefined;
     });
   }
 
   buildSamplesFor(structureType) {
-    const { members } = this.sampleElement;
+    const { values } = this.sampleElement;
     switch (structureType) {
       case types.enum:
         this.sampleElement.type = Refract.elements.enum;
-        this.sampleElement.content = getContentItem(members[0], this.membersType);
+        this.sampleElement.content = getContentItem(values[0], this.valuesType);
         break;
       case types.array:
         this.sampleElement.type = Refract.elements.array;
-        this.sampleElement.content = members.map((value) => getContentItem(value, this.membersType));
+        this.sampleElement.content = values.map((value) => getContentItem(value, this.valuesType));
         break;
       case types.object:
         this.sampleElement.type = Refract.elements.object;
-        this.sampleElement.content = members.map((value) => getContentItem(value, this.membersType));
+        this.sampleElement.content = values.map((value) => getContentItem(value, this.valuesType));
         break;
       default:
         this.sampleElement.type = structureType;
-        this.sampleElement.content = getContentItem(members[0], this.membersType).content;
+        this.sampleElement.content = getContentItem(values[0], this.valuesType).content;
         break;
     }
   }

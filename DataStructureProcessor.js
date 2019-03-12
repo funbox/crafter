@@ -283,7 +283,7 @@ class DataStructureProcessor {
           break;
         case SectionTypes.sampleValue:
           [nextNode, childResult] = this.Parsers.SampleValueParser.parse(curNode, context);
-          samples.push(...childResult.members);
+          samples.push(...childResult.values);
           break;
         case SectionTypes.enumMember:
           [nextNode, childResult] = this.Parsers.EnumMemberParser.parse(curNode, context);

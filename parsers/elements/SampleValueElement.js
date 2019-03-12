@@ -1,6 +1,6 @@
 class SampleValueElement {
   constructor(values = [], type = 'string') {
-    this.members = values;
+    this.values = values;
     this.type = type;
     this.content = null;
     this.valuesForBody = null;
@@ -18,7 +18,7 @@ class SampleValueElement {
   }
 
   getBody(resolvedTypes) {
-    const sourceField = this.valuesForBody || this.members;
+    const sourceField = this.valuesForBody || this.values;
     const body = sourceField.map(value => {
       if (value.getBody) {
         return value.getBody(resolvedTypes);

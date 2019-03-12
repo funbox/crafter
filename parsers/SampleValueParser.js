@@ -52,7 +52,7 @@ module.exports = (Parsers) => {
     processNestedSection(node, context, result) {
       const [nextNode, childResult] = Parsers.MSONAttributeParser.parse(node, context);
       const hasValue = !!(childResult.value.content || childResult.value.value);
-      result.members.push(hasValue ? childResult : childResult.name);
+      result.values.push(hasValue ? childResult : childResult.name);
 
       return [nextNode, result];
     },
