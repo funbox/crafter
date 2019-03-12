@@ -69,11 +69,12 @@ describe('MSONAttributeParser', () => {
     expect(type).toBe('enum');
     expect(defaultValue).toEqual({
       values: ['track'],
+      valuesForBody: ['track'],
       content: { element: 'string', content: 'track' },
       type: 'enum',
       sourceMap: null,
     });
-    expect(sampleValues).toEqual([{ type: 'enum', members: [{ sourceMap: null, string: 'sms' }], content: { content: 'sms', element: 'string' } }]);
+    expect(sampleValues).toEqual([{ type: 'enum', values: [{ sourceMap: null, string: 'sms' }], valuesForBody: ['sms'], content: { content: 'sms', element: 'string' } }]);
     expect(members).toEqual([
       { name: 'movement', description: 'описание 1', type: 'string', sourceMap: null, sample: null },
       { name: 'track', description: 'описание 2', type: 'string', sourceMap: null, sample: null },
@@ -104,7 +105,7 @@ describe('MSONAttributeParser', () => {
     expect(warnings.length).toBe(1);
     expect(name.string).toBe('kind');
     expect(type).toBe('enum');
-    expect(sampleValues).toEqual([{ type: 'enum', members: [{ sourceMap: null, string: 'track' }], content: { content: 'track', element: 'string' } }]);
+    expect(sampleValues).toEqual([{ type: 'enum', values: [{ sourceMap: null, string: 'track' }], valuesForBody: ['track'], content: { content: 'track', element: 'string' } }]);
     expect(members).toEqual([]);
   });
 });

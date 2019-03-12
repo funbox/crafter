@@ -87,9 +87,9 @@ fields (object)
     expect(samples).toHaveLength(1);
     const sampleElement = samples[0];
     expect(sampleElement).toBeInstanceOf(SampleValueElement);
-    expect(sampleElement.members).toHaveLength(2);
-    expect(sampleElement.members[0].name).toEqual({ string: 'amount', sourceMap: undefined });
-    expect(sampleElement.members[1].name).toEqual({ string: 'msisdn', sourceMap: undefined });
+    expect(sampleElement.values).toHaveLength(2);
+    expect(sampleElement.values[0].name).toEqual({ string: 'amount', sourceMap: undefined });
+    expect(sampleElement.values[1].name).toEqual({ string: 'msisdn', sourceMap: undefined });
   });
 
   it('fills an object with properties and multiple samples', () => {
@@ -112,8 +112,8 @@ fields (object)
       expect(sampleElement).toBeInstanceOf(SampleValueElement);
     });
     const [firstSample, secondSample] = samples;
-    expect(firstSample.members[0].value).toHaveProperty('value', '200');
-    expect(secondSample.members[0].value).toHaveProperty('value', '10');
+    expect(firstSample.values[0].value).toHaveProperty('value', '200');
+    expect(secondSample.values[0].value).toHaveProperty('value', '10');
   });
 
   it('fills an enum with members', () => {

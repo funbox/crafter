@@ -55,6 +55,38 @@
                         }
                       }
                     }
+                  },
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "a2"
+                      },
+                      "value": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "number"
+                          }
+                        ],
+                        "attributes": {
+                          "default": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "number",
+                                "content": 100
+                              },
+                              {
+                                "element": "number",
+                                "content": 200
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
                   }
                 ],
                 "meta": {
@@ -120,7 +152,7 @@
                               "messageBody"
                             ]
                           },
-                          "content": "{\n  \"a1\": [\n    \"foo\",\n    \"bar\"\n  ]\n}",
+                          "content": "{\n  \"a1\": [\n    \"foo\",\n    \"bar\"\n  ],\n  \"a2\": [\n    100,\n    200\n  ]\n}",
                           "attributes": {
                             "contentType": {
                               "element": "string",
@@ -141,7 +173,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"a1\": {\n      \"type\": \"array\",\n      \"default\": [\n        \"foo\",\n        \"bar\"\n      ]\n    }\n  }\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"a1\": {\n      \"type\": \"array\",\n      \"default\": [\n        \"foo\",\n        \"bar\"\n      ]\n    },\n    \"a2\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"number\"\n      },\n      \"default\": [\n        100,\n        200\n      ]\n    }\n  }\n}"
                         }
                       ],
                       "attributes": {

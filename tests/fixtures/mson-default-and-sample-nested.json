@@ -204,7 +204,7 @@
                               "messageBody"
                             ]
                           },
-                          "content": "{\n  \"sms_notices\": \"true\",\n  \"balance\": \"200\",\n  \"username\": \"Leo\"\n}",
+                          "content": "{\n  \"sms_notices\": true,\n  \"balance\": 200,\n  \"username\": \"Leo\"\n}",
                           "attributes": {
                             "contentType": {
                               "element": "string",
@@ -225,7 +225,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"sms_notices\": {\n      \"default\": \"false\",\n      \"type\": \"boolean\"\n    },\n    \"balance\": {\n      \"default\": \"100\",\n      \"type\": \"number\"\n    },\n    \"username\": {\n      \"default\": \"John\",\n      \"type\": \"string\"\n    }\n  },\n  \"required\": [\n    \"sms_notices\",\n    \"username\"\n  ]\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"sms_notices\": {\n      \"default\": false,\n      \"type\": \"boolean\"\n    },\n    \"balance\": {\n      \"default\": 100,\n      \"type\": \"number\"\n    },\n    \"username\": {\n      \"default\": \"John\",\n      \"type\": \"string\"\n    }\n  },\n  \"required\": [\n    \"sms_notices\",\n    \"username\"\n  ]\n}"
                         }
                       ],
                       "attributes": {
