@@ -3,6 +3,7 @@ class SampleValueElement {
     this.members = values;
     this.type = type;
     this.content = null;
+    this.valuesForBody = null;
   }
 
   toRefract() {
@@ -17,12 +18,13 @@ class SampleValueElement {
   }
 
   getBody(resolvedTypes) {
-    const body = this.members.map(member => {
-      if (member.getBody) {
-        return member.getBody(resolvedTypes);
+    const sourceField = this.valuesForBody || this.members;
+    const body = sourceField.map(value => {
+      if (value.getBody) {
+        return value.getBody(resolvedTypes);
       }
 
-      return member;
+      return value;
     });
 
     return body;

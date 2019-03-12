@@ -8,6 +8,21 @@ class SampleValueProcessor {
     this.membersType = membersType;
   }
 
+  prepareValuesForBody() {
+    this.sampleElement.valuesForBody = this.sampleElement.members.map(value => {
+      if (value.toRefract) {
+        const refract = value.toRefract();
+        if (typeof refract.content === 'object') {
+          return value; // we don't need to go deeper
+        }
+        const converted = convertType(refract.content, this.membersType);
+        return converted.valid ? converted.value : undefined;
+      }
+      const converted = convertType(value, this.membersType);
+      return converted.valid ? converted.value : undefined;
+    });
+  }
+
   buildSamplesFor(structureType) {
     const { members } = this.sampleElement;
     switch (structureType) {

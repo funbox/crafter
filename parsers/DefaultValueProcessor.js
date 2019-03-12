@@ -8,6 +8,21 @@ class DefaultValueProcessor {
     this.valuesType = valuesType;
   }
 
+  prepareValuesForBody() {
+    this.defaultElement.valuesForBody = this.defaultElement.values.map(value => {
+      if (value.toRefract) {
+        const refract = value.toRefract();
+        if (typeof refract.content === 'object') {
+          return value; // we don't need to go deeper
+        }
+        const converted = convertType(refract.content, this.valuesType);
+        return converted.valid ? converted.value : undefined;
+      }
+      const converted = convertType(value, this.valuesType);
+      return converted.valid ? converted.value : undefined;
+    });
+  }
+
   buildDefaultFor(structureType) {
     const { values } = this.defaultElement;
     switch (structureType) {

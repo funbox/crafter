@@ -4,6 +4,7 @@ class DefaultValueElement {
     this.type = type;
     this.sourceMap = null;
     this.content = null;
+    this.valuesForBody = null;
   }
 
   toRefract() {
@@ -31,7 +32,8 @@ class DefaultValueElement {
   }
 
   getBody(resolvedTypes) {
-    const body = this.values.map(value => {
+    const sourceField = this.valuesForBody || this.values;
+    const body = sourceField.map(value => {
       if (value.getBody) {
         return value.getBody(resolvedTypes);
       }
@@ -41,7 +43,8 @@ class DefaultValueElement {
   }
 
   getSchema(resolvedTypes) {
-    const schema = this.values.map(value => {
+    const sourceField = this.valuesForBody || this.values;
+    const schema = sourceField.map(value => {
       if (value.getBody) {
         return value.getBody(resolvedTypes);
       }
