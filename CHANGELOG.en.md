@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.13 (13.03.2019)
+
+* Use default values in body and JSON schema.
+
 ## 1.1.12 (07.03.2019)
 
 * Fix generation of JSON schemas for object with "fixed" and "fixed-type" attributes.
