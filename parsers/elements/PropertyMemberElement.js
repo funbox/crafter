@@ -59,7 +59,10 @@ class PropertyMemberElement {
       [this.name.string]: valueSchema,
     };
 
-    if (flags.isFixed || flags.isFixedType || this.typeAttributes.includes('required')) {
+    if (
+      (flags.isFixed || flags.isFixedType || this.typeAttributes.includes('required'))
+      && !this.typeAttributes.includes('optional')
+    ) {
       schema.required = [this.name.string];
     }
 
