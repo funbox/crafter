@@ -108,6 +108,17 @@
                                             "element": "string",
                                             "content": "bar"
                                           }
+                                        },
+                                        "attributes": {
+                                          "typeAttributes": {
+                                            "element": "array",
+                                            "content": [
+                                              {
+                                                "element": "string",
+                                                "content": "optional"
+                                              }
+                                            ]
+                                          }
                                         }
                                       }
                                     ]
@@ -156,7 +167,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"o\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"a\": {\n          \"type\": \"string\"\n        },\n        \"b\": {\n          \"type\": \"string\"\n        },\n        \"c\": {\n          \"type\": \"string\"\n        }\n      },\n      \"required\": [\n        \"a\",\n        \"b\",\n        \"c\"\n      ],\n      \"additionalProperties\": false\n    }\n  }\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"o\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"a\": {\n          \"type\": \"string\"\n        },\n        \"b\": {\n          \"type\": \"string\"\n        },\n        \"c\": {\n          \"type\": \"string\"\n        }\n      },\n      \"required\": [\n        \"a\",\n        \"b\"\n      ],\n      \"additionalProperties\": false\n    }\n  }\n}"
                         }
                       ],
                       "attributes": {

@@ -45,11 +45,41 @@
                     "content": {
                       "key": {
                         "element": "string",
-                        "content": "a1"
+                        "content": "a11"
                       },
                       "value": {
                         "element": "string",
-                        "content": "b1"
+                        "content": "b11"
+                      }
+                    },
+                    "meta": {
+                      "description": {
+                        "element": "string",
+                        "content": "description 1"
+                      }
+                    }
+                  },
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "a12"
+                      },
+                      "value": {
+                        "element": "string",
+                        "content": "b12"
+                      }
+                    },
+                    "attributes": {
+                      "typeAttributes": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "optional"
+                          }
+                        ]
                       }
                     },
                     "meta": {
@@ -78,11 +108,41 @@
                     "content": {
                       "key": {
                         "element": "string",
-                        "content": "a2"
+                        "content": "a21"
                       },
                       "value": {
                         "element": "string",
-                        "content": "b2"
+                        "content": "b21"
+                      }
+                    },
+                    "meta": {
+                      "description": {
+                        "element": "string",
+                        "content": "description 2"
+                      }
+                    }
+                  },
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "a22"
+                      },
+                      "value": {
+                        "element": "string",
+                        "content": "b22"
+                      }
+                    },
+                    "attributes": {
+                      "typeAttributes": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "optional"
+                          }
+                        ]
                       }
                     },
                     "meta": {
@@ -156,7 +216,7 @@
                               "messageBody"
                             ]
                           },
-                          "content": "{\n  \"a1\": \"b1\"\n}",
+                          "content": "{\n  \"a11\": \"b11\",\n  \"a12\": \"b12\"\n}",
                           "attributes": {
                             "contentType": {
                               "element": "string",
@@ -177,7 +237,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"a1\": {\n      \"type\": \"string\",\n      \"enum\": [\n        \"b1\"\n      ],\n      \"description\": \"description 1\"\n    }\n  },\n  \"required\": [\n    \"a1\"\n  ],\n  \"additionalProperties\": false\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"a11\": {\n      \"type\": \"string\",\n      \"enum\": [\n        \"b11\"\n      ],\n      \"description\": \"description 1\"\n    },\n    \"a12\": {\n      \"type\": \"string\",\n      \"enum\": [\n        \"b12\"\n      ],\n      \"description\": \"description 1\"\n    }\n  },\n  \"required\": [\n    \"a11\"\n  ],\n  \"additionalProperties\": false\n}"
                         }
                       ],
                       "attributes": {
@@ -247,7 +307,7 @@
                               "messageBody"
                             ]
                           },
-                          "content": "{\n  \"a2\": \"b2\"\n}",
+                          "content": "{\n  \"a21\": \"b21\",\n  \"a22\": \"b22\"\n}",
                           "attributes": {
                             "contentType": {
                               "element": "string",
@@ -268,7 +328,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"a2\": {\n      \"type\": \"string\",\n      \"enum\": [\n        \"b2\"\n      ],\n      \"description\": \"description 2\"\n    }\n  },\n  \"required\": [\n    \"a2\"\n  ],\n  \"additionalProperties\": false\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"a21\": {\n      \"type\": \"string\",\n      \"enum\": [\n        \"b21\"\n      ],\n      \"description\": \"description 2\"\n    },\n    \"a22\": {\n      \"type\": \"string\",\n      \"enum\": [\n        \"b22\"\n      ],\n      \"description\": \"description 2\"\n    }\n  },\n  \"required\": [\n    \"a21\"\n  ],\n  \"additionalProperties\": false\n}"
                         }
                       ],
                       "attributes": {
