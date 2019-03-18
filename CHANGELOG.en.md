@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.14 (18.03.2019)
+
+* JSON schema should consider "optional" attributes.
+
 ## 1.1.13 (13.03.2019)
 
 * Use default values in body and JSON schema.
