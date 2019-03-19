@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.0 (19.03.2019)
+
+* Add support of the "pattern" attribute for string-typed elements.
+
 ## 1.1.14 (18.03.2019)
 
 * JSON schema should consider "optional" attributes.
