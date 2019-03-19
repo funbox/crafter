@@ -42,6 +42,35 @@
       },
       "content": [
         {
+          "element": "copy",
+          "content": "Defines resource prototypes.",
+          "attributes": {
+            "sourceMap": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "sourceMap",
+                  "content": [
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 12
+                        },
+                        {
+                          "element": "number",
+                          "content": 30
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
           "element": "category",
           "meta": {
             "classes": [
@@ -67,7 +96,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 35
+                                  "content": 65
                                 },
                                 {
                                   "element": "number",
@@ -102,7 +131,7 @@
                                   "content": [
                                     {
                                       "element": "number",
-                                      "content": 50
+                                      "content": 80
                                     },
                                     {
                                       "element": "number",
@@ -127,7 +156,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 50
+                                  "content": 80
                                 },
                                 {
                                   "element": "number",
@@ -161,7 +190,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 64
+                                  "content": 94
                                 },
                                 {
                                   "element": "number",
@@ -196,11 +225,11 @@
                                   "content": [
                                     {
                                       "element": "number",
-                                      "content": 79
+                                      "content": 109
                                     },
                                     {
                                       "element": "number",
-                                      "content": 12
+                                      "content": 13
                                     }
                                   ]
                                 }
@@ -221,11 +250,11 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 79
+                                  "content": 109
                                 },
                                 {
                                   "element": "number",
-                                  "content": 12
+                                  "content": 13
                                 }
                               ]
                             }

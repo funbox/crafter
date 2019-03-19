@@ -17,6 +17,10 @@
       },
       "content": [
         {
+          "element": "copy",
+          "content": "Defines enum members without Members keyword.\nIt produces warning 'Use of enumerations in \"Parameters\" section without keyword \"Members\" violates API Blueprint Spec.'"
+        },
+        {
           "element": "category",
           "meta": {
             "classes": [

@@ -17,6 +17,10 @@
       },
       "content": [
         {
+          "element": "copy",
+          "content": "Defines data structure inherited from primitive type (string) and uses it as a mixin.\nIt produces warning 'Mixin may not include a type of a primitive sub-type'."
+        },
+        {
           "element": "category",
           "meta": {
             "classes": [

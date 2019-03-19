@@ -42,6 +42,35 @@
       },
       "content": [
         {
+          "element": "copy",
+          "content": "Uses Parameters section immediately inside Group.",
+          "attributes": {
+            "sourceMap": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "sourceMap",
+                  "content": [
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 10
+                        },
+                        {
+                          "element": "number",
+                          "content": 51
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
           "element": "category",
           "meta": {
             "classes": [
@@ -62,7 +91,7 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 10
+                              "content": 61
                             },
                             {
                               "element": "number",
@@ -93,7 +122,7 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 29
+                              "content": 80
                             },
                             {
                               "element": "number",
@@ -125,7 +154,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 77
+                                  "content": 128
                                 },
                                 {
                                   "element": "number",
@@ -156,7 +185,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 77
+                                  "content": 128
                                 },
                                 {
                                   "element": "number",

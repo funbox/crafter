@@ -42,6 +42,35 @@
       },
       "content": [
         {
+          "element": "copy",
+          "content": "Defines resource prototype and uses it for group of resources.",
+          "attributes": {
+            "sourceMap": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "sourceMap",
+                  "content": [
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 12
+                        },
+                        {
+                          "element": "number",
+                          "content": 64
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
           "element": "category",
           "meta": {
             "classes": [
@@ -67,7 +96,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 35
+                                  "content": 99
                                 },
                                 {
                                   "element": "number",
@@ -102,7 +131,7 @@
                                   "content": [
                                     {
                                       "element": "number",
-                                      "content": 50
+                                      "content": 114
                                     },
                                     {
                                       "element": "number",
@@ -127,7 +156,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 50
+                                  "content": 114
                                 },
                                 {
                                   "element": "number",
@@ -166,7 +195,7 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 64
+                              "content": 128
                             },
                             {
                               "element": "number",
@@ -197,7 +226,7 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 90
+                              "content": 154
                             },
                             {
                               "element": "number",
@@ -229,7 +258,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 154
+                                  "content": 218
                                 },
                                 {
                                   "element": "number",
@@ -260,7 +289,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 154
+                                  "content": 218
                                 },
                                 {
                                   "element": "number",
@@ -294,7 +323,7 @@
                                   "content": [
                                     {
                                       "element": "number",
-                                      "content": 172
+                                      "content": 236
                                     },
                                     {
                                       "element": "number",
@@ -331,7 +360,7 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 172
+                                              "content": 236
                                             },
                                             {
                                               "element": "number",
@@ -367,7 +396,7 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 200
+                                              "content": 264
                                             },
                                             {
                                               "element": "number",
@@ -392,7 +421,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 200
+                                          "content": 264
                                         },
                                         {
                                           "element": "number",
@@ -429,7 +458,7 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 172
+                                              "content": 236
                                             },
                                             {
                                               "element": "number",

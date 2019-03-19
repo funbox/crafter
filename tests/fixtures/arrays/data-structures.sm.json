@@ -42,6 +42,35 @@
       },
       "content": [
         {
+          "element": "copy",
+          "content": "Defines Notes named type as an array of Note named type elements.",
+          "attributes": {
+            "sourceMap": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "sourceMap",
+                  "content": [
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 10
+                        },
+                        {
+                          "element": "number",
+                          "content": 67
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
           "element": "category",
           "meta": {
             "classes": [
@@ -72,7 +101,7 @@
                                     "content": [
                                       {
                                         "element": "number",
-                                        "content": 39
+                                        "content": 106
                                       },
                                       {
                                         "element": "number",
@@ -100,7 +129,7 @@
                                     "content": [
                                       {
                                         "element": "number",
-                                        "content": 39
+                                        "content": 106
                                       },
                                       {
                                         "element": "number",
@@ -133,7 +162,7 @@
                                 "content": [
                                   {
                                     "element": "number",
-                                    "content": 29
+                                    "content": 96
                                   },
                                   {
                                     "element": "number",
@@ -175,7 +204,7 @@
                                 "content": [
                                   {
                                     "element": "number",
-                                    "content": 54
+                                    "content": 121
                                   },
                                   {
                                     "element": "number",

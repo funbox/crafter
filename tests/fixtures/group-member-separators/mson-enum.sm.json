@@ -42,6 +42,35 @@
       },
       "content": [
         {
+          "element": "copy",
+          "content": "Defines enum members with Members keyword inside MSON structure.",
+          "attributes": {
+            "sourceMap": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "sourceMap",
+                  "content": [
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 10
+                        },
+                        {
+                          "element": "number",
+                          "content": 66
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
           "element": "category",
           "meta": {
             "classes": [
@@ -72,7 +101,7 @@
                                     "content": [
                                       {
                                         "element": "number",
-                                        "content": 45
+                                        "content": 111
                                       },
                                       {
                                         "element": "number",
@@ -115,7 +144,7 @@
                                             "content": [
                                               {
                                                 "element": "number",
-                                                "content": 91
+                                                "content": 157
                                               },
                                               {
                                                 "element": "number",
@@ -145,7 +174,7 @@
                                                 "content": [
                                                   {
                                                     "element": "number",
-                                                    "content": 91
+                                                    "content": 157
                                                   },
                                                   {
                                                     "element": "number",
@@ -184,7 +213,7 @@
                                             "content": [
                                               {
                                                 "element": "number",
-                                                "content": 131
+                                                "content": 197
                                               },
                                               {
                                                 "element": "number",
@@ -214,7 +243,7 @@
                                                 "content": [
                                                   {
                                                     "element": "number",
-                                                    "content": 131
+                                                    "content": 197
                                                   },
                                                   {
                                                     "element": "number",
@@ -253,7 +282,7 @@
                                             "content": [
                                               {
                                                 "element": "number",
-                                                "content": 168
+                                                "content": 234
                                               },
                                               {
                                                 "element": "number",
@@ -283,7 +312,7 @@
                                                 "content": [
                                                   {
                                                     "element": "number",
-                                                    "content": 168
+                                                    "content": 234
                                                   },
                                                   {
                                                     "element": "number",
@@ -322,7 +351,7 @@
                                             "content": [
                                               {
                                                 "element": "number",
-                                                "content": 203
+                                                "content": 269
                                               },
                                               {
                                                 "element": "number",
@@ -352,7 +381,7 @@
                                                 "content": [
                                                   {
                                                     "element": "number",
-                                                    "content": 203
+                                                    "content": 269
                                                   },
                                                   {
                                                     "element": "number",
@@ -381,7 +410,7 @@
                                     "content": [
                                       {
                                         "element": "number",
-                                        "content": 45
+                                        "content": 111
                                       },
                                       {
                                         "element": "number",
@@ -425,7 +454,7 @@
                                 "content": [
                                   {
                                     "element": "number",
-                                    "content": 29
+                                    "content": 95
                                   },
                                   {
                                     "element": "number",

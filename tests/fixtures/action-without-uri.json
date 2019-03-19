@@ -18,7 +18,7 @@
       "content": [
         {
           "element": "copy",
-          "content": "API проекта Контроль Кадров."
+          "content": "Defines action's URI by resource URI template."
         },
         {
           "element": "category",
@@ -599,38 +599,7 @@
             }
           ]
         }
-      ],
-      "attributes": {
-        "metadata": {
-          "element": "array",
-          "content": [
-            {
-              "element": "member",
-              "content": {
-                "key": {
-                  "element": "string",
-                  "content": "FORMAT"
-                },
-                "value": {
-                  "element": "string",
-                  "content": " 1A"
-                }
-              },
-              "meta": {
-                "classes": {
-                  "element": "array",
-                  "content": [
-                    {
-                      "element": "string",
-                      "content": "user"
-                    }
-                  ]
-                }
-              }
-            }
-          ]
-        }
-      }
+      ]
     }
   ]
 }

@@ -42,6 +42,35 @@
       },
       "content": [
         {
+          "element": "copy",
+          "content": "Defines resource prototypes which are linked by inheritance (complex case).",
+          "attributes": {
+            "sourceMap": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "sourceMap",
+                  "content": [
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 12
+                        },
+                        {
+                          "element": "number",
+                          "content": 77
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
           "element": "category",
           "meta": {
             "classes": [
@@ -67,7 +96,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 35
+                                  "content": 112
                                 },
                                 {
                                   "element": "number",
@@ -115,7 +144,7 @@
                                   "content": [
                                     {
                                       "element": "number",
-                                      "content": 50
+                                      "content": 127
                                     },
                                     {
                                       "element": "number",
@@ -140,7 +169,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 50
+                                  "content": 127
                                 },
                                 {
                                   "element": "number",
@@ -174,7 +203,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 64
+                                  "content": 141
                                 },
                                 {
                                   "element": "number",
@@ -206,310 +235,6 @@
                     "statusCode": {
                       "element": "string",
                       "content": "201",
-                      "attributes": {
-                        "sourceMap": {
-                          "element": "array",
-                          "content": [
-                            {
-                              "element": "sourceMap",
-                              "content": [
-                                {
-                                  "element": "array",
-                                  "content": [
-                                    {
-                                      "element": "number",
-                                      "content": 76
-                                    },
-                                    {
-                                      "element": "number",
-                                      "content": 13
-                                    }
-                                  ]
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      }
-                    },
-                    "sourceMap": {
-                      "element": "array",
-                      "content": [
-                        {
-                          "element": "sourceMap",
-                          "content": [
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 76
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 13
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  }
-                }
-              ]
-            },
-            {
-              "element": "resourcePrototype",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "C",
-                  "attributes": {
-                    "sourceMap": {
-                      "element": "array",
-                      "content": [
-                        {
-                          "element": "sourceMap",
-                          "content": [
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 90
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 13
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  }
-                },
-                "basePrototypes": {
-                  "element": "array",
-                  "content": [
-                    {
-                      "element": "string",
-                      "content": "D"
-                    },
-                    {
-                      "element": "string",
-                      "content": "E"
-                    }
-                  ]
-                }
-              },
-              "content": [
-                {
-                  "element": "httpResponse",
-                  "content": [],
-                  "attributes": {
-                    "statusCode": {
-                      "element": "string",
-                      "content": "202",
-                      "attributes": {
-                        "sourceMap": {
-                          "element": "array",
-                          "content": [
-                            {
-                              "element": "sourceMap",
-                              "content": [
-                                {
-                                  "element": "array",
-                                  "content": [
-                                    {
-                                      "element": "number",
-                                      "content": 105
-                                    },
-                                    {
-                                      "element": "number",
-                                      "content": 13
-                                    }
-                                  ]
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      }
-                    },
-                    "sourceMap": {
-                      "element": "array",
-                      "content": [
-                        {
-                          "element": "sourceMap",
-                          "content": [
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 105
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 13
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  }
-                }
-              ]
-            },
-            {
-              "element": "resourcePrototype",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "D",
-                  "attributes": {
-                    "sourceMap": {
-                      "element": "array",
-                      "content": [
-                        {
-                          "element": "sourceMap",
-                          "content": [
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 119
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 10
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  }
-                },
-                "basePrototypes": {
-                  "element": "array",
-                  "content": [
-                    {
-                      "element": "string",
-                      "content": "E"
-                    }
-                  ]
-                }
-              },
-              "content": [
-                {
-                  "element": "httpResponse",
-                  "content": [],
-                  "attributes": {
-                    "statusCode": {
-                      "element": "string",
-                      "content": "203",
-                      "attributes": {
-                        "sourceMap": {
-                          "element": "array",
-                          "content": [
-                            {
-                              "element": "sourceMap",
-                              "content": [
-                                {
-                                  "element": "array",
-                                  "content": [
-                                    {
-                                      "element": "number",
-                                      "content": 131
-                                    },
-                                    {
-                                      "element": "number",
-                                      "content": 13
-                                    }
-                                  ]
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      }
-                    },
-                    "sourceMap": {
-                      "element": "array",
-                      "content": [
-                        {
-                          "element": "sourceMap",
-                          "content": [
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 131
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 13
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  }
-                }
-              ]
-            },
-            {
-              "element": "resourcePrototype",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "E",
-                  "attributes": {
-                    "sourceMap": {
-                      "element": "array",
-                      "content": [
-                        {
-                          "element": "sourceMap",
-                          "content": [
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 145
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 6
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  }
-                }
-              },
-              "content": [
-                {
-                  "element": "httpResponse",
-                  "content": [],
-                  "attributes": {
-                    "statusCode": {
-                      "element": "string",
-                      "content": "204",
                       "attributes": {
                         "sourceMap": {
                           "element": "array",
@@ -562,6 +287,310 @@
                   }
                 }
               ]
+            },
+            {
+              "element": "resourcePrototype",
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "C",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 167
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 13
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                },
+                "basePrototypes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "D"
+                    },
+                    {
+                      "element": "string",
+                      "content": "E"
+                    }
+                  ]
+                }
+              },
+              "content": [
+                {
+                  "element": "httpResponse",
+                  "content": [],
+                  "attributes": {
+                    "statusCode": {
+                      "element": "string",
+                      "content": "202",
+                      "attributes": {
+                        "sourceMap": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "sourceMap",
+                              "content": [
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "number",
+                                      "content": 182
+                                    },
+                                    {
+                                      "element": "number",
+                                      "content": 13
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    "sourceMap": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 182
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 13
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "element": "resourcePrototype",
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "D",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 196
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 10
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                },
+                "basePrototypes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "E"
+                    }
+                  ]
+                }
+              },
+              "content": [
+                {
+                  "element": "httpResponse",
+                  "content": [],
+                  "attributes": {
+                    "statusCode": {
+                      "element": "string",
+                      "content": "203",
+                      "attributes": {
+                        "sourceMap": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "sourceMap",
+                              "content": [
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "number",
+                                      "content": 208
+                                    },
+                                    {
+                                      "element": "number",
+                                      "content": 13
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    "sourceMap": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 208
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 13
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "element": "resourcePrototype",
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "E",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 222
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 6
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              "content": [
+                {
+                  "element": "httpResponse",
+                  "content": [],
+                  "attributes": {
+                    "statusCode": {
+                      "element": "string",
+                      "content": "204",
+                      "attributes": {
+                        "sourceMap": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "sourceMap",
+                              "content": [
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "number",
+                                      "content": 230
+                                    },
+                                    {
+                                      "element": "number",
+                                      "content": 13
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    "sourceMap": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 230
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 13
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
             }
           ]
         },
@@ -586,7 +615,7 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 167
+                              "content": 244
                             },
                             {
                               "element": "number",
@@ -626,7 +655,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 186
+                                  "content": 263
                                 },
                                 {
                                   "element": "number",
@@ -660,7 +689,7 @@
                                   "content": [
                                     {
                                       "element": "number",
-                                      "content": 186
+                                      "content": 263
                                     },
                                     {
                                       "element": "number",
@@ -697,7 +726,7 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 186
+                                              "content": 263
                                             },
                                             {
                                               "element": "number",
@@ -733,11 +762,11 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 211
+                                              "content": 288
                                             },
                                             {
                                               "element": "number",
-                                              "content": 12
+                                              "content": 13
                                             }
                                           ]
                                         }
@@ -758,11 +787,11 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 211
+                                          "content": 288
                                         },
                                         {
                                           "element": "number",
-                                          "content": 12
+                                          "content": 13
                                         }
                                       ]
                                     }
@@ -795,7 +824,7 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 186
+                                              "content": 263
                                             },
                                             {
                                               "element": "number",
@@ -845,7 +874,7 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 186
+                                              "content": 263
                                             },
                                             {
                                               "element": "number",
@@ -895,7 +924,7 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 186
+                                              "content": 263
                                             },
                                             {
                                               "element": "number",
@@ -945,7 +974,7 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 186
+                                              "content": 263
                                             },
                                             {
                                               "element": "number",
@@ -995,7 +1024,7 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 186
+                                              "content": 263
                                             },
                                             {
                                               "element": "number",
@@ -1041,7 +1070,7 @@
                                   "content": [
                                     {
                                       "element": "number",
-                                      "content": 186
+                                      "content": 263
                                     },
                                     {
                                       "element": "number",

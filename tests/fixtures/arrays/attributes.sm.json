@@ -42,6 +42,35 @@
       },
       "content": [
         {
+          "element": "copy",
+          "content": "Defines attributes as an array of named type elements.",
+          "attributes": {
+            "sourceMap": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "sourceMap",
+                  "content": [
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 10
+                        },
+                        {
+                          "element": "number",
+                          "content": 56
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
           "element": "category",
           "meta": {
             "classes": [
@@ -72,7 +101,7 @@
                                     "content": [
                                       {
                                         "element": "number",
-                                        "content": 39
+                                        "content": 95
                                       },
                                       {
                                         "element": "number",
@@ -100,7 +129,7 @@
                                     "content": [
                                       {
                                         "element": "number",
-                                        "content": 39
+                                        "content": 95
                                       },
                                       {
                                         "element": "number",
@@ -133,7 +162,7 @@
                                 "content": [
                                   {
                                     "element": "number",
-                                    "content": 29
+                                    "content": 85
                                   },
                                   {
                                     "element": "number",
@@ -176,7 +205,7 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 54
+                              "content": 110
                             },
                             {
                               "element": "number",
@@ -222,7 +251,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 54
+                                          "content": 110
                                         },
                                         {
                                           "element": "number",
@@ -263,7 +292,7 @@
                                         "content": [
                                           {
                                             "element": "number",
-                                            "content": 106
+                                            "content": 162
                                           },
                                           {
                                             "element": "number",
@@ -325,7 +354,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 68
+                                          "content": 124
                                         },
                                         {
                                           "element": "number",
@@ -366,7 +395,7 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 68
+                                              "content": 124
                                             },
                                             {
                                               "element": "number",
@@ -393,7 +422,7 @@
                                   "content": [
                                     {
                                       "element": "number",
-                                      "content": 68
+                                      "content": 124
                                     },
                                     {
                                       "element": "number",
@@ -426,7 +455,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 54
+                                  "content": 110
                                 },
                                 {
                                   "element": "number",

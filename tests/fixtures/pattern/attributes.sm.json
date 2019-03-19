@@ -42,6 +42,35 @@
       },
       "content": [
         {
+          "element": "copy",
+          "content": "Defines attributes of a string type with a regular expression pattern.",
+          "attributes": {
+            "sourceMap": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "sourceMap",
+                  "content": [
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 10
+                        },
+                        {
+                          "element": "number",
+                          "content": 72
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
           "element": "resource",
           "meta": {
             "title": {
@@ -59,7 +88,7 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 10
+                              "content": 82
                             },
                             {
                               "element": "number",
@@ -90,7 +119,7 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 10
+                              "content": 82
                             },
                             {
                               "element": "number",
@@ -124,7 +153,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 28
+                                  "content": 100
                                 },
                                 {
                                   "element": "number",
@@ -161,7 +190,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 28
+                                          "content": 100
                                         },
                                         {
                                           "element": "number",
@@ -215,7 +244,7 @@
                                         "content": [
                                           {
                                             "element": "number",
-                                            "content": 83
+                                            "content": 155
                                           },
                                           {
                                             "element": "number",
@@ -262,7 +291,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 45
+                                          "content": 117
                                         },
                                         {
                                           "element": "number",
@@ -303,7 +332,7 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 45
+                                              "content": 117
                                             },
                                             {
                                               "element": "number",
@@ -330,7 +359,7 @@
                                   "content": [
                                     {
                                       "element": "number",
-                                      "content": 45
+                                      "content": 117
                                     },
                                     {
                                       "element": "number",

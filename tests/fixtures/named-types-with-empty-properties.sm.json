@@ -42,6 +42,35 @@
       },
       "content": [
         {
+          "element": "copy",
+          "content": "Defines named type's properties with 'Properties' keyword.\nIt is allowed to leave all Properties sections empty.",
+          "attributes": {
+            "sourceMap": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "sourceMap",
+                  "content": [
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 10
+                        },
+                        {
+                          "element": "number",
+                          "content": 114
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
           "element": "category",
           "meta": {
             "classes": [
@@ -69,7 +98,7 @@
                                 "content": [
                                   {
                                     "element": "number",
-                                    "content": 30
+                                    "content": 144
                                   },
                                   {
                                     "element": "number",
@@ -106,7 +135,7 @@
                                 "content": [
                                   {
                                     "element": "number",
-                                    "content": 65
+                                    "content": 179
                                   },
                                   {
                                     "element": "number",
@@ -143,7 +172,7 @@
                                 "content": [
                                   {
                                     "element": "number",
-                                    "content": 101
+                                    "content": 215
                                   },
                                   {
                                     "element": "number",

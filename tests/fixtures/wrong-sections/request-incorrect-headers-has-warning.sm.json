@@ -42,6 +42,35 @@
       },
       "content": [
         {
+          "element": "copy",
+          "content": "Defines request headers using wrong format.\nIt produces warnings:\n'Ignoring unrecognized HTTP header \"Accept-Charset utf-8\", expected \"<header name>: <header value>\", one header per line.',\n'Ignoring unrecognized HTTP header \"Content Type _ multipart/form-data, boundary=AaB03x\", expected \"<header name>: <header value>\", one header per line.",
+          "attributes": {
+            "sourceMap": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "sourceMap",
+                  "content": [
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 10
+                        },
+                        {
+                          "element": "number",
+                          "content": 344
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
           "element": "resource",
           "meta": {
             "title": {
@@ -65,7 +94,7 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 10
+                              "content": 354
                             },
                             {
                               "element": "number",
@@ -99,7 +128,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 10
+                                  "content": 354
                                 },
                                 {
                                   "element": "number",
@@ -136,7 +165,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 10
+                                          "content": 354
                                         },
                                         {
                                           "element": "number",
@@ -177,7 +206,7 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 39
+                                              "content": 383
                                             },
                                             {
                                               "element": "number",
@@ -215,7 +244,7 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 126
+                                              "content": 470
                                             },
                                             {
                                               "element": "number",
@@ -242,7 +271,7 @@
                                   "content": [
                                     {
                                       "element": "number",
-                                      "content": 39
+                                      "content": 383
                                     },
                                     {
                                       "element": "number",
@@ -276,7 +305,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 217
+                                          "content": 561
                                         },
                                         {
                                           "element": "number",
@@ -301,7 +330,7 @@
                                   "content": [
                                     {
                                       "element": "number",
-                                      "content": 217
+                                      "content": 561
                                     },
                                     {
                                       "element": "number",
@@ -334,7 +363,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 10
+                                  "content": 354
                                 },
                                 {
                                   "element": "number",

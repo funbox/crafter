@@ -17,6 +17,10 @@
       },
       "content": [
         {
+          "element": "copy",
+          "content": "Defines request headers using wrong format.\nIt produces warnings:\n'Ignoring unrecognized HTTP header \"Accept-Charset utf-8\", expected \"<header name>: <header value>\", one header per line.',\n'Ignoring unrecognized HTTP header \"Content Type _ multipart/form-data, boundary=AaB03x\", expected \"<header name>: <header value>\", one header per line."
+        },
+        {
           "element": "resource",
           "meta": {
             "title": {

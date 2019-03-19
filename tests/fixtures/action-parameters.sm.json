@@ -42,6 +42,35 @@
       },
       "content": [
         {
+          "element": "copy",
+          "content": "Defines a URI parameter for an action.",
+          "attributes": {
+            "sourceMap": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "sourceMap",
+                  "content": [
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 10
+                        },
+                        {
+                          "element": "number",
+                          "content": 40
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
           "element": "resource",
           "meta": {
             "title": {
@@ -65,7 +94,7 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 10
+                              "content": 50
                             },
                             {
                               "element": "number",
@@ -99,7 +128,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 10
+                                  "content": 50
                                 },
                                 {
                                   "element": "number",
@@ -136,7 +165,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 10
+                                          "content": 50
                                         },
                                         {
                                           "element": "number",
@@ -172,7 +201,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 100
+                                          "content": 140
                                         },
                                         {
                                           "element": "number",
@@ -197,7 +226,7 @@
                                   "content": [
                                     {
                                       "element": "number",
-                                      "content": 100
+                                      "content": 140
                                     },
                                     {
                                       "element": "number",
@@ -230,7 +259,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 10
+                                  "content": 50
                                 },
                                 {
                                   "element": "number",
@@ -265,7 +294,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 61
+                                          "content": 101
                                         },
                                         {
                                           "element": "number",
@@ -294,7 +323,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 61
+                                          "content": 101
                                         },
                                         {
                                           "element": "number",
@@ -336,7 +365,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 61
+                                          "content": 101
                                         },
                                         {
                                           "element": "number",
@@ -365,7 +394,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 61
+                                          "content": 101
                                         },
                                         {
                                           "element": "number",

@@ -42,6 +42,35 @@
       },
       "content": [
         {
+          "element": "copy",
+          "content": "Defines request with a validation schema with 'Schema' keyword.",
+          "attributes": {
+            "sourceMap": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "sourceMap",
+                  "content": [
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 10
+                        },
+                        {
+                          "element": "number",
+                          "content": 65
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
           "element": "resource",
           "meta": {
             "title": {
@@ -65,7 +94,7 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 10
+                              "content": 75
                             },
                             {
                               "element": "number",
@@ -99,7 +128,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 10
+                                  "content": 75
                                 },
                                 {
                                   "element": "number",
@@ -136,7 +165,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 10
+                                          "content": 75
                                         },
                                         {
                                           "element": "number",
@@ -177,7 +206,7 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 39
+                                              "content": 104
                                             },
                                             {
                                               "element": "number",
@@ -204,7 +233,7 @@
                                   "content": [
                                     {
                                       "element": "number",
-                                      "content": 39
+                                      "content": 104
                                     },
                                     {
                                       "element": "number",
@@ -242,7 +271,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 86
+                                          "content": 151
                                         },
                                         {
                                           "element": "number",
@@ -255,7 +284,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 100
+                                          "content": 165
                                         },
                                         {
                                           "element": "number",
@@ -268,7 +297,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 133
+                                          "content": 198
                                         },
                                         {
                                           "element": "number",
@@ -305,7 +334,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 162
+                                          "content": 227
                                         },
                                         {
                                           "element": "number",
@@ -318,7 +347,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 176
+                                          "content": 241
                                         },
                                         {
                                           "element": "number",
@@ -331,7 +360,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 246
+                                          "content": 311
                                         },
                                         {
                                           "element": "number",
@@ -344,7 +373,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 280
+                                          "content": 345
                                         },
                                         {
                                           "element": "number",
@@ -357,7 +386,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 310
+                                          "content": 375
                                         },
                                         {
                                           "element": "number",
@@ -370,7 +399,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 338
+                                          "content": 403
                                         },
                                         {
                                           "element": "number",
@@ -383,7 +412,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 357
+                                          "content": 422
                                         },
                                         {
                                           "element": "number",
@@ -396,7 +425,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 389
+                                          "content": 454
                                         },
                                         {
                                           "element": "number",
@@ -409,7 +438,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 420
+                                          "content": 485
                                         },
                                         {
                                           "element": "number",
@@ -422,7 +451,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 461
+                                          "content": 526
                                         },
                                         {
                                           "element": "number",
@@ -435,7 +464,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 483
+                                          "content": 548
                                         },
                                         {
                                           "element": "number",
@@ -448,7 +477,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 501
+                                          "content": 566
                                         },
                                         {
                                           "element": "number",
@@ -484,7 +513,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 510
+                                          "content": 575
                                         },
                                         {
                                           "element": "number",
@@ -509,7 +538,7 @@
                                   "content": [
                                     {
                                       "element": "number",
-                                      "content": 510
+                                      "content": 575
                                     },
                                     {
                                       "element": "number",
@@ -542,7 +571,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 10
+                                  "content": 75
                                 },
                                 {
                                   "element": "number",
