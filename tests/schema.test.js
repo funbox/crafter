@@ -72,6 +72,52 @@ describe('schema', () => {
         additionalItems: false,
       });
     });
+
+    it('removes duplicating primitive types', () => {
+      const el = new ArrayElement([
+        new ValueMemberElement('string'),
+        new ValueMemberElement('string'),
+      ]);
+      expect(el.getSchema({}, { isFixedType: true })).toEqual({
+        type: 'array',
+        items: {
+          anyOf: [
+            { type: 'string' },
+          ],
+        },
+      });
+    });
+
+    it('removes duplicating complex types', () => {
+      const createObj = () => {
+        const obj = new ObjectElement();
+        obj.propertyMembers.push(new PropertyMemberElement(new StringElement('foo')));
+        obj.propertyMembers.push(new PropertyMemberElement(new StringElement('bar')));
+
+        const valueMember = new ValueMemberElement('object');
+        valueMember.content = obj;
+        return valueMember;
+      };
+
+      const el = new ArrayElement([
+        createObj(),
+        createObj(),
+      ]);
+      expect(el.getSchema({}, { isFixedType: true })).toEqual({
+        type: 'array',
+        items: {
+          anyOf: [
+            {
+              type: 'object',
+              properties: {
+                foo: { type: 'string' },
+                bar: { type: 'string' },
+              },
+            },
+          ],
+        },
+      });
+    });
   });
 
   describe('EnumElement', () => {
