@@ -7,7 +7,9 @@ const typeAttributes = {
 };
 
 const parameterizedTypeAttributes = {
-  pattern: 'pattern',
+  pattern: { alias: 'pattern' },
+  'min-length': { alias: 'minLength', dataType: 'number' },
+  'max-length': { alias: 'maxLength', dataType: 'number' },
 };
 
 const fakeTypeAttributes = { sample: 'sample', default: 'default' };
@@ -201,7 +203,10 @@ class SignatureParser {
       }
 
       if (isParameterized && Object.keys(parameterizedTypeAttributes).includes(attrName)) {
-        this.typeAttributes.push([parameterizedTypeAttributes[attrName], attrValue]);
+        const relevantAttribute = parameterizedTypeAttributes[attrName];
+        const { alias, dataType } = relevantAttribute;
+        attrValue = convertValue(attrValue, dataType);
+        this.typeAttributes.push([alias, attrValue]);
       } else if (!isParameterized && Object.keys(typeAttributes).includes(attrName)) {
         this.typeAttributes.push(typeAttributes[a]);
       } else if (!isParameterized && !this.type) {
@@ -218,6 +223,8 @@ class SignatureParser {
       this.warnings.push('Cannot use "default" and "sample" together.');
       this.isSample = false;
     }
+
+    compareSizeAttributes(this.typeAttributes, signature);
 
     return signature.slice(attributeString.length);
   }
@@ -342,6 +349,39 @@ function stripBackticks(str) {
   }
 
   return str.trim();
+}
+
+function compareSizeAttributes(attributes, signature) {
+  let minLength;
+  let maxLength;
+
+  attributes.forEach(attribute => {
+    if (!Array.isArray(attribute)) return;
+    if (attribute[0] === 'minLength') {
+      minLength = attribute[1];
+    } else if (attribute[0] === 'maxLength') {
+      maxLength = attribute[1];
+    }
+  });
+
+  if (!minLength || !maxLength) return;
+
+  if (maxLength < minLength || minLength < 0 || maxLength < 0) {
+    error(signature);
+  }
+}
+
+function convertValue(value, dataType) {
+  let converted = value;
+  if (!dataType) return value;
+
+  if (dataType === 'number') {
+    converted = Number(value);
+    if (Number.isNaN(converted)) {
+      throw new Error(`Invalid signature: ${value} is not a number`);
+    }
+  }
+  return converted;
 }
 
 function error(sig) {
