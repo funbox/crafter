@@ -171,8 +171,10 @@ class ValueMemberElement {
     if (typeEl) {
       if (typeEl.isComplex()) {
         schema = typeEl.content.getSchema(resolvedTypes, utils.mergeFlags(flags, typeEl));
+        schema = fillSchemaWithAttributes(schema, typeEl.typeAttributes);
       } else {
         schema.type = typeEl.baseType;
+        schema = fillSchemaWithAttributes(schema, typeEl.typeAttributes);
       }
     }
 
@@ -195,14 +197,7 @@ class ValueMemberElement {
     }
 
     if (this.isArray()) {
-      const minLengthAttribute = this.typeAttributes.find(a => Array.isArray(a) && a[0] === 'minLength');
-      const maxLengthAttribute = this.typeAttributes.find(a => Array.isArray(a) && a[0] === 'maxLength');
-
-      const minLength = minLengthAttribute && minLengthAttribute[1];
-      const maxLength = maxLengthAttribute && maxLengthAttribute[1];
-
-      if (minLength !== undefined) schema.minItems = minLength;
-      if (maxLength !== undefined) schema.maxItems = maxLength;
+      fillSchemaWithAttributes(schema, this.typeAttributes);
     }
 
     if (typeEl || this.content) {
@@ -233,24 +228,7 @@ class ValueMemberElement {
       schema.contentEncoding = 'base64';
     }
 
-    if (this.type === 'string') {
-      const patternTypeAttribute = this.typeAttributes.find(a => Array.isArray(a) && a[0] === 'pattern');
-
-      const pattern = patternTypeAttribute && patternTypeAttribute[1];
-
-      const minLengthAttribute = this.typeAttributes.find(a => Array.isArray(a) && a[0] === 'minLength');
-      const maxLengthAttribute = this.typeAttributes.find(a => Array.isArray(a) && a[0] === 'maxLength');
-
-      const minLength = minLengthAttribute && minLengthAttribute[1];
-      const maxLength = maxLengthAttribute && maxLengthAttribute[1];
-
-      if (minLength !== undefined) schema.minLength = minLength;
-      if (maxLength !== undefined) schema.maxLength = maxLength;
-
-      if (pattern !== undefined) {
-        schema.pattern = pattern;
-      }
-    }
+    fillSchemaWithAttributes(schema, this.typeAttributes);
 
     return schema;
   }
@@ -267,6 +245,34 @@ function defaultValue(type) {
     enum: null,
   };
   return valueByType[type] === undefined ? '' : valueByType[type];
+}
+
+function fillSchemaWithAttributes(schema, typeAttributes) {
+  const patternTypeAttribute = typeAttributes.find(a => Array.isArray(a) && a[0] === 'pattern');
+
+  const pattern = patternTypeAttribute && patternTypeAttribute[1];
+
+  const minLengthAttribute = typeAttributes.find(a => Array.isArray(a) && a[0] === 'minLength');
+  const maxLengthAttribute = typeAttributes.find(a => Array.isArray(a) && a[0] === 'maxLength');
+
+  const minLength = minLengthAttribute && minLengthAttribute[1];
+  const maxLength = maxLengthAttribute && maxLengthAttribute[1];
+
+  if (schema.type === 'string') {
+    if (minLength !== undefined) schema.minLength = minLength;
+    if (maxLength !== undefined) schema.maxLength = maxLength;
+
+    if (pattern !== undefined) {
+      schema.pattern = pattern;
+    }
+  }
+
+  if (schema.type === 'array') {
+    if (minLength !== undefined) schema.minItems = minLength;
+    if (maxLength !== undefined) schema.maxItems = maxLength;
+  }
+
+  return schema;
 }
 
 module.exports = ValueMemberElement;
