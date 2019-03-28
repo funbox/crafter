@@ -293,7 +293,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"test\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"access_level\": {\n          \"type\": \"string\"\n        }\n      },\n      \"required\": [\n        \"access_level\"\n      ]\n    },\n    \"test2\": {\n      \"type\": \"string\",\n      \"enum\": [\n        \"track\",\n        \"movement\"\n      ]\n    },\n    \"test3\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"anyOf\": [\n          {\n            \"type\": \"string\"\n          },\n          {\n            \"type\": \"string\"\n          }\n        ]\n      }\n    }\n  }\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"test\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"access_level\": {\n          \"type\": \"string\"\n        }\n      },\n      \"required\": [\n        \"access_level\"\n      ]\n    },\n    \"test2\": {\n      \"type\": \"string\",\n      \"enum\": [\n        \"track\",\n        \"movement\"\n      ]\n    },\n    \"test3\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"anyOf\": [\n          {\n            \"type\": \"string\"\n          }\n        ]\n      }\n    }\n  }\n}"
                         }
                       ],
                       "attributes": {
