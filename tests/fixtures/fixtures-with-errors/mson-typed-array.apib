@@ -1,0 +1,13 @@
+# My API
+
+Defines property member "address" as an fixed-size array with incorrectly defined "min-length" and "max-length" type attributes.
+It produces an error "Invalid signature: (array[string, number], min-length="10", max-length="5")"
+
+# Group Example
+# Resource [/example]
+
+## Action [GET]
+
++ Response 200 (application/json)
+    + Attributes
+        + address (array[string, number], min-length="10", max-length="5")

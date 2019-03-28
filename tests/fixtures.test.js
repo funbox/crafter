@@ -50,6 +50,9 @@ const testPath = {
   get pattern() {
     return `${this.base}/pattern`;
   },
+  get fixedSize() {
+    return `${this.base}/fixed-size`;
+  },
 };
 
 const apibRegex = /\.apib$/;
@@ -175,6 +178,10 @@ describe('schema fixtures', () => {
 
 describe('pattern fixtures', () => {
   testFilesFrom(testPath.pattern);
+});
+
+describe('fixed-size fixtures', () => {
+  testFilesFrom(testPath.fixedSize);
 });
 
 describe('Crafter with callback', () => {

@@ -1,0 +1,15 @@
+# My API
+
+Defines response attributes as a fixed-size array, which must include exactly two elements of named type
+
+# Data Structures
+
+# Point (object)
+
++ x (number) - coordinate on x-axis
++ y (number) - coordinate on y-axis
+
+# GET /foo
+
++ Response 200 (application/json)
+    + Attributes(array[Point], min-length="2", max-length="2")
