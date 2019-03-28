@@ -9,6 +9,8 @@ const ValueMemberElement = require('./elements/ValueMemberElement');
 const ValueMemberProcessor = require('../ValueMemberProcessor');
 const { parser: SignatureParser } = require('../SignatureParser');
 
+const valueAttributes = ['pattern', 'minLength', 'maxLength'];
+
 module.exports = (Parsers) => {
   Parsers.MSONAttributeParser = Object.assign(Object.create(require('./AbstractParser')), {
     allowLeavingNode: false,
@@ -33,7 +35,7 @@ module.exports = (Parsers) => {
       const valueTypeAttributes = [];
 
       signature.typeAttributes.forEach((attr) => {
-        if (Array.isArray(attr) && attr[0] === 'pattern') {
+        if (Array.isArray(attr) && valueAttributes.includes(attr[0])) {
           valueTypeAttributes.push(attr);
         } else {
           propertyTypeAttributes.push(attr);

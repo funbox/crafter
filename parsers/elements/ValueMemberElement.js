@@ -194,6 +194,17 @@ class ValueMemberElement {
       }
     }
 
+    if (this.isArray()) {
+      const minLengthAttribute = this.typeAttributes.find(a => Array.isArray(a) && a[0] === 'minLength');
+      const maxLengthAttribute = this.typeAttributes.find(a => Array.isArray(a) && a[0] === 'maxLength');
+
+      const minLength = minLengthAttribute && minLengthAttribute[1];
+      const maxLength = maxLengthAttribute && maxLengthAttribute[1];
+
+      if (minLength !== undefined) schema.minItems = minLength;
+      if (maxLength !== undefined) schema.maxItems = maxLength;
+    }
+
     if (typeEl || this.content) {
       return schema;
     }
@@ -226,6 +237,15 @@ class ValueMemberElement {
       const patternTypeAttribute = this.typeAttributes.find(a => Array.isArray(a) && a[0] === 'pattern');
 
       const pattern = patternTypeAttribute && patternTypeAttribute[1];
+
+      const minLengthAttribute = this.typeAttributes.find(a => Array.isArray(a) && a[0] === 'minLength');
+      const maxLengthAttribute = this.typeAttributes.find(a => Array.isArray(a) && a[0] === 'maxLength');
+
+      const minLength = minLengthAttribute && minLengthAttribute[1];
+      const maxLength = maxLengthAttribute && maxLengthAttribute[1];
+
+      if (minLength !== undefined) schema.minLength = minLength;
+      if (maxLength !== undefined) schema.maxLength = maxLength;
 
       if (pattern !== undefined) {
         schema.pattern = pattern;
