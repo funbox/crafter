@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.0 (30.03.2019)
+
+* Add a description to fixtures.
+
 ## 1.2.0 (19.03.2019)
 
 * Add support of the "pattern" attribute for string-typed elements.
