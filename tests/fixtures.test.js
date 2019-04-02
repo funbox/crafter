@@ -1,5 +1,4 @@
 const fs = require('fs');
-const resolvePath = require('path').resolve;
 const Crafter = require('../Crafter');
 const CrafterError = require('../utils').CrafterError;
 
@@ -85,7 +84,10 @@ const testFilesFrom = (location) => {
         const resultSm = Crafter.parseFileSync(filePath, { logger, sourceMapsEnabled: true });
         expect(resultSm.toRefract()).toEqual(exampleSm);
 
-        if (logger.store && !/has-warning/.test(f)) {
+        if (/has-warning/.test(f)) {
+          expect(logger.store).toBeDefined();
+          expect(typeof logger.store).toBe('string');
+        } else if (logger.store) {
           throw new Error(`Unexpected warning in file "${f}".\nAdd the postfix "has-warning" to filename, if the file is supposed to emit a warning.`);
         }
       });
@@ -135,30 +137,7 @@ describe('fixtures with errors', () => {
 });
 
 describe('fixtures with warnings', () => {
-  const path = testPath.fixturesWithWarnings;
-  const files = fs.readdirSync(path);
-  files.forEach((f) => {
-    if (apibRegex.exec(f)) {
-      it('should create warnings via logger', () => {
-        const data = readFile(f, path);
-        const logger = {
-          store: undefined,
-          warn(text) {
-            this.store = text;
-          },
-          enableWarnings() {},
-          suppressWarnings() {},
-        };
-        const opts = {
-          currentFile: resolvePath(__dirname, f),
-          logger,
-        };
-        Crafter.parseSync(data, opts).toRefract();
-        expect(logger.store).toBeDefined();
-        expect(typeof logger.store).toBe('string');
-      });
-    }
-  });
+  testFilesFrom(testPath.fixturesWithWarnings);
 });
 
 describe('copy fixtures', () => {
