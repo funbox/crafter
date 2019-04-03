@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.0 (03.04.2019)
+
+* Process min-length / max-length attributes.
+
 ## 1.3.0 (30.03.2019)
 
 * Add a description to fixtures.
