@@ -1,0 +1,13 @@
+# My API
+
+Defines request attribute's property Date as a string value in date-time format and response attribute's property Email as a string value in email format
+
+# Create schedule [POST /schedule]
+
++ Request (application/json)
+    + Attributes
+        + date: `2018-11-13T20:20:39+00:00` (string, format="date-time") - schedule date
+
++ Response 200
+    + Attributes
+      + email (string, format="email") - email address

@@ -50,6 +50,11 @@ const testPath = {
   get pattern() {
     return `${this.base}/pattern`;
   },
+
+  get format() {
+    return `${this.base}/format`;
+  },
+
   get fixedSize() {
     return `${this.base}/fixed-size`;
   },
@@ -178,6 +183,10 @@ describe('schema fixtures', () => {
 
 describe('pattern fixtures', () => {
   testFilesFrom(testPath.pattern);
+});
+
+describe('format fixtures', () => {
+  testFilesFrom(testPath.format);
 });
 
 describe('fixed-size fixtures', () => {

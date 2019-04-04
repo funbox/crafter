@@ -302,6 +302,18 @@ describe('schema', () => {
         },
       });
     });
+
+    it('format', () => {
+      const el = new PropertyMemberElement(new StringElement('foo'), new ValueMemberElement('string', [['format', 'date-time']]));
+      expect(el.getSchema({})).toEqual({
+        properties: {
+          foo: {
+            type: 'string',
+            format: 'date-time',
+          },
+        },
+      });
+    });
   });
 
   describe('RequestElement', () => {

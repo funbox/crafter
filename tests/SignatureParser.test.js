@@ -134,9 +134,16 @@ describe('SignatureParser', () => {
       ]);
     });
 
-    it('Parses signature with name, static and parameterized type attributes', () => {
-      const signature = new SignatureParser('name (string, pattern="[a-zа-я]", required)');
+    it('Parses signature with "format" parameterized type attribute', () => {
+      const signature = new SignatureParser('(format="date-time")');
+      expect(signature.typeAttributes).toEqual([['format', 'date-time']]);
+    });
+
+    it('Parses signature with name, value, description, static and parameterized type attributes', () => {
+      const signature = new SignatureParser('name: `John` (string, pattern="[a-zа-я]", required) - user name');
       expect(signature.name).toBe('name');
+      expect(signature.value).toBe('John');
+      expect(signature.description).toBe('user name');
       expect(signature.type).toEqual('string');
       expect(signature.typeAttributes).toEqual([['pattern', '[a-zа-я]'], 'required']);
     });
