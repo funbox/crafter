@@ -248,29 +248,29 @@ function defaultValue(type) {
 }
 
 function fillSchemaWithAttributes(schema, typeAttributes) {
-  const patternTypeAttribute = typeAttributes.find(a => Array.isArray(a) && a[0] === 'pattern');
+  const parameterizedAttributes = {
+    string: {
+      pattern: 'pattern',
+      format: 'format',
+      minLength: 'minLength',
+      maxLength: 'maxLength',
+    },
+    array: {
+      minLength: 'minItems',
+      maxLength: 'maxItems',
+    },
+  };
 
-  const pattern = patternTypeAttribute && patternTypeAttribute[1];
+  const allowedAttributes = parameterizedAttributes[schema.type];
+  if (allowedAttributes === undefined) return schema;
 
-  const minLengthAttribute = typeAttributes.find(a => Array.isArray(a) && a[0] === 'minLength');
-  const maxLengthAttribute = typeAttributes.find(a => Array.isArray(a) && a[0] === 'maxLength');
-
-  const minLength = minLengthAttribute && minLengthAttribute[1];
-  const maxLength = maxLengthAttribute && maxLengthAttribute[1];
-
-  if (schema.type === 'string') {
-    if (minLength !== undefined) schema.minLength = minLength;
-    if (maxLength !== undefined) schema.maxLength = maxLength;
-
-    if (pattern !== undefined) {
-      schema.pattern = pattern;
+  typeAttributes.forEach(a => {
+    if (!Array.isArray(a)) return;
+    const attrName = allowedAttributes[a[0]];
+    if (attrName) {
+      schema[attrName] = a[1];
     }
-  }
-
-  if (schema.type === 'array') {
-    if (minLength !== undefined) schema.minItems = minLength;
-    if (maxLength !== undefined) schema.maxItems = maxLength;
-  }
+  });
 
   return schema;
 }

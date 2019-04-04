@@ -8,6 +8,7 @@ const typeAttributes = {
 
 const parameterizedTypeAttributes = {
   pattern: { alias: 'pattern' },
+  format: { alias: 'format' },
   'min-length': { alias: 'minLength', dataType: 'number' },
   'max-length': { alias: 'maxLength', dataType: 'number' },
 };
@@ -22,7 +23,6 @@ const parserTraits = {
 };
 
 parserTraits.all = Object.values(parserTraits);
-
 
 const VALUES_DELIMITER = ':';
 const ATTRIBUTES_BEGIN_DELIMITER = '(';
