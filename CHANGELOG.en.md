@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.0 (05.04.2019)
+
+* Process "format" attribute.
+
 ## 1.4.0 (03.04.2019)
 
 * Process min-length / max-length attributes.
