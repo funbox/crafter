@@ -15,6 +15,8 @@ module.exports = (Parsers) => {
   Parsers.MSONNamedTypeParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
       const subject = utils.headerText(node, context.sourceLines);
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines);
+      const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(sourceMap, context.sourceBuffer, context.linefeedOffsets);
       let signature;
       try {
         signature = new SignatureParser(subject, [ParserTraits.NAME, ParserTraits.ATTRIBUTES]);
@@ -24,7 +26,7 @@ module.exports = (Parsers) => {
         const message = `Invalid NamedType definition. Expected format: "${hashSymbols} Type Name (Type Attributes)".`;
         throw new CrafterError(message, line, file);
       }
-      signature.warnings.forEach(warning => context.logger.warn(warning, utils.getDetailsForLogger(node)));
+      signature.warnings.forEach(warning => context.addWarning(warning, charBlocks, sourceMap.file));
 
       context.data.attributeSignatureDetails = utils.getDetailsForLogger(node);
 

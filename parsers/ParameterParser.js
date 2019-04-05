@@ -17,13 +17,17 @@ module.exports = (Parsers) => {
       const signature = new SignatureParser(text);
 
       context.pushFrame();
-      const parameterSignatureDetails = utils.getDetailsForLogger(node.firstChild);
+
+      const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);
+      const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(sourceMap, context.sourceBuffer, context.linefeedOffsets);
+      const parameterSignatureDetails = { sourceMapBlocks: charBlocks, file: sourceMap.file };
+
       let descriptionEl;
       if (signature.description) {
         descriptionEl = new StringElement(signature.description);
       }
       context.data.parameterSignatureDetails = parameterSignatureDetails;
-      signature.warnings.forEach(warning => context.logger.warn(warning, parameterSignatureDetails));
+      signature.warnings.forEach(warning => context.addWarning(warning, charBlocks, sourceMap.file));
 
       const result = new ParameterElement(
         signature.name,
@@ -81,7 +85,7 @@ module.exports = (Parsers) => {
         if (!result.enumerations) {
           result.enumerations = new ParameterMembersElement();
           const { parameterSignatureDetails: details } = context.data;
-          context.logger.warn('Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.', details);
+          context.addWarning('Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.', details.sourceMapBlocks, details.file);
         }
         [nextNode, childRes] = Parsers.ParameterEnumMemberParser.parse(node, context);
         result.enumerations.members.push(childRes);
@@ -140,7 +144,7 @@ module.exports = (Parsers) => {
 
     finalize(context, result) {
       const { name, typeAttributes, defaultValue } = result;
-      const { parameterSignatureDetails } = context.data;
+      const { parameterSignatureDetails: details } = context.data;
 
       context.popFrame();
       if (typeAttributes.includes('required')) {
@@ -149,7 +153,7 @@ module.exports = (Parsers) => {
         }
 
         if (defaultValue) {
-          context.logger.warn(`Specifying parameter ${name} as required supersedes its default value, declare the parameter as 'optional' to specify its default value.`, parameterSignatureDetails);
+          context.addWarning(`Specifying parameter ${name} as required supersedes its default value, declare the parameter as 'optional' to specify its default value.`, details.sourceMapBlocks, details.file);
         }
       }
 

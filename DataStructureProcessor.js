@@ -50,7 +50,9 @@ class DataStructureProcessor {
     let curNode = node;
     const samples = [];
     const defaults = [];
-    const elementSignatureDetails = utils.getDetailsForLogger(this.valueMemberRootNode.parent);
+
+    const sourceMap = utils.makeGenericSourceMap(this.valueMemberRootNode.parent, context.sourceLines);
+    const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(sourceMap, context.sourceBuffer, context.linefeedOffsets);
 
     while (curNode) {
       let nextNode;
@@ -71,7 +73,7 @@ class DataStructureProcessor {
           samples.push(childResult);
           break;
         default:
-          context.logger.warn('sub-types of primitive types should not have nested members, ignoring unrecognized block', elementSignatureDetails);
+          context.addWarning('sub-types of primitive types should not have nested members, ignoring unrecognized block', charBlocks, sourceMap.file);
       }
 
       // TODO Что если nextNode !== curNode.next ?
@@ -94,7 +96,7 @@ class DataStructureProcessor {
 
     if (defaults.length) {
       if (defaults.length > 1) {
-        context.logger.warn('Multiple definitions of "default" value', elementSignatureDetails);
+        context.addWarning('Multiple definitions of "default" value', charBlocks, sourceMap.file);
         defaults.length = 1;
       }
       const defaultElement = defaults[0];
@@ -108,7 +110,9 @@ class DataStructureProcessor {
   processArray(arrayElement, node, context) {
     let curNode = node;
     const arrayMembers = arrayElement.content.members;
-    const arraySignatureDetails = utils.getDetailsForLogger(this.valueMemberRootNode.parent);
+
+    const sourceMap = utils.makeGenericSourceMap(this.valueMemberRootNode.parent, context.sourceLines);
+    const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(sourceMap, context.sourceBuffer, context.linefeedOffsets);
     const samples = [];
     const defaults = [];
     const predefinedType = arrayMembers.length ? arrayMembers[0].type : 'string';
@@ -149,7 +153,7 @@ class DataStructureProcessor {
 
     if (defaults.length) {
       if (defaults.length > 1) {
-        context.logger.warn('Multiple definitions of "default" value', arraySignatureDetails);
+        context.addWarning('Multiple definitions of "default" value', charBlocks, sourceMap.file);
         defaults.length = 1;
       }
       const defaultElement = defaults[0];
@@ -164,7 +168,6 @@ class DataStructureProcessor {
     const objectElement = new ObjectElement();
     const samples = [];
     const defaults = [];
-    const objectSignatureDetails = utils.getDetailsForLogger(this.valueMemberRootNode.parent);
     let curNode = node;
 
     while (curNode) {
@@ -189,8 +192,9 @@ class DataStructureProcessor {
           [nextNode, childResult] = this.Parsers.MSONMixinParser.parse(curNode, context);
           const baseType = context.typeResolver.types[childResult.className];
           if (baseType && !baseType.isComplex()) {
-            const details = utils.getDetailsForLogger(curNode);
-            context.logger.warn('Mixin may not include a type of a primitive sub-type', details);
+            const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines);
+            const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(sourceMap, context.sourceBuffer, context.linefeedOffsets);
+            context.addWarning('Mixin may not include a type of a primitive sub-type', charBlocks, sourceMap.file);
             childResult = null;
           }
           break;
@@ -241,7 +245,9 @@ class DataStructureProcessor {
 
     if (defaults.length) {
       if (defaults.length > 1) {
-        context.logger.warn('Multiple definitions of "default" value', objectSignatureDetails);
+        const sourceMap = utils.makeGenericSourceMap(this.valueMemberRootNode.parent, context.sourceLines);
+        const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(sourceMap, context.sourceBuffer, context.linefeedOffsets);
+        context.addWarning('Multiple definitions of "default" value', charBlocks, sourceMap.file);
         defaults.length = 1;
       }
       defaultElement = defaults[0];
@@ -255,7 +261,8 @@ class DataStructureProcessor {
 
   buildEnum(node, context, type) {
     const enumElement = new EnumElement(type);
-    const enumSignatureDetails = utils.getDetailsForLogger(this.valueMemberRootNode.parent);
+    const sourceMap = utils.makeGenericSourceMap(this.valueMemberRootNode.parent, context.sourceLines);
+    const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(sourceMap, context.sourceBuffer, context.linefeedOffsets);
     const samples = [];
     const defaults = [];
     let curNode = node;
@@ -314,7 +321,7 @@ class DataStructureProcessor {
 
     if (defaults.length) {
       if (defaults.length > 1) {
-        context.logger.warn('Multiple definitions of "default" value', enumSignatureDetails);
+        context.addWarning('Multiple definitions of "default" value', charBlocks, sourceMap.file);
         defaults.length = 1;
       }
       const defaultElement = defaults[0];
@@ -325,7 +332,7 @@ class DataStructureProcessor {
     }
 
     if (!standardTypes.includes(enumElement.type)) {
-      context.logger.warn('Enum must not use named types as a sub-type. Sub-type "string" will be used instead.', enumSignatureDetails);
+      context.addWarning('Enum must not use named types as a sub-type. Sub-type "string" will be used instead.', charBlocks, sourceMap.file);
       enumElement.type = 'string';
     }
 
@@ -333,7 +340,7 @@ class DataStructureProcessor {
       const typesMatch = utils.compareAttributeTypes(enumElement, member);
 
       if (!typesMatch) {
-        context.logger.warn(`Invalid value format "${member.name}" for enum type '${enumElement.type}'.`, enumSignatureDetails);
+        context.addWarning(`Invalid value format "${member.name}" for enum type '${enumElement.type}'.`, charBlocks, sourceMap.file);
       }
 
       if (!member.type) member.type = enumElement.type;

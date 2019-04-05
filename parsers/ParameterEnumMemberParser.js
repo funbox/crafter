@@ -8,12 +8,14 @@ module.exports = (Parsers) => {
   Parsers.ParameterEnumMemberParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
       const subject = utils.nodeText(node.firstChild, context.sourceLines);
+      const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);
+      const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(sourceMap, context.sourceBuffer, context.linefeedOffsets);
       const signature = new SignatureParser(subject, [ParserTraits.VALUE, ParserTraits.DESCRIPTION]);
-      signature.warnings.forEach(warning => context.logger.warn(warning), utils.getDetailsForLogger(node.firstChild));
+      signature.warnings.forEach(warning => context.addWarning(warning, charBlocks, sourceMap.file));
 
       const result = new ParameterEnumMemberElement(signature.value, signature.description);
       if (context.sourceMapsEnabled) {
-        result.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);
+        result.sourceMap = sourceMap;
       }
 
       return [utils.nextNode(node), result];

@@ -119,6 +119,66 @@
               }
             }
           ]
+        },
+        {
+          "element": "annotation",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "warning"
+                }
+              ]
+            }
+          },
+          "attributes": {
+            "sourceMap": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "sourceMap",
+                  "content": [
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "attributes": {
+                            "line": {
+                              "element": "number",
+                              "content": 10
+                            },
+                            "column": {
+                              "element": "number",
+                              "content": 7
+                            }
+                          },
+                          "content": 289
+                        },
+                        {
+                          "element": "number",
+                          "attributes": {
+                            "line": {
+                              "element": "number",
+                              "content": 10
+                            },
+                            "column": {
+                              "element": "number",
+                              "content": 42
+                            }
+                          },
+                          "content": 36
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          },
+          "content": "Specifying parameter name as required supersedes its default value, declare the parameter as 'optional' to specify its default value."
         }
       ]
     }

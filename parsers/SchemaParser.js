@@ -8,6 +8,14 @@ module.exports = (Parsers) => {
   Parsers.SchemaParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
       const schemaContentNode = node.firstChild.next;
+
+      let sourceMap = null;
+      let charBlocks = null;
+      if (schemaContentNode) {
+        sourceMap = this.makeSourceMap(schemaContentNode, context);
+        charBlocks = utils.getCharacterBlocksWithLineColumnInfo(sourceMap, context.sourceBuffer, context.linefeedOffsets);
+      }
+
       const schemaText = (schemaContentNode && schemaContentNode.literal) || '';
       let schemaObj;
       try {
@@ -16,12 +24,12 @@ module.exports = (Parsers) => {
         const warnMessage = (!schemaText && schemaContentNode.type !== 'code_block')
           ? `message-schema at line ${node.sourcepos[0][0]} is expected to be a pre-formatted code block, every of its line indented by exactly 12 spaces or 3 tabs`
           : `invalid JSON Schema at line ${node.sourcepos[0][0]}`;
-        context.logger.warn(warnMessage, utils.getDetailsForLogger(schemaContentNode));
+        context.addWarning(warnMessage, charBlocks, sourceMap.file);
         schemaObj = {};
       }
       const schemaEl = new SchemaElement(schemaObj);
-      if (context.sourceMapsEnabled && schemaContentNode) {
-        schemaEl.sourceMap = this.makeSourceMap(schemaContentNode, context);
+      if (context.sourceMapsEnabled) {
+        schemaEl.sourceMap = sourceMap;
       }
       return [utils.nextNode(node), schemaEl];
     },

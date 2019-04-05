@@ -25,6 +25,7 @@ module.exports = {
     asset: 'asset',
     ref: 'ref',
     sourceMap: 'sourceMap',
+    annotation: 'annotation',
   },
   categoryClasses: {
     api: 'api',

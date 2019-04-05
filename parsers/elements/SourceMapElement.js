@@ -14,10 +14,34 @@ class SourceMapElement {
         content: [
           {
             element: 'number',
+            ...((block.startLine && block.startColumn) ? {
+              attributes: {
+                line: {
+                  element: 'number',
+                  content: block.startLine,
+                },
+                column: {
+                  element: 'number',
+                  content: block.startColumn,
+                },
+              },
+            } : {}),
             content: block.offset,
           },
           {
             element: 'number',
+            ...((block.endLine && block.endColumn) ? {
+              attributes: {
+                line: {
+                  element: 'number',
+                  content: block.endLine,
+                },
+                column: {
+                  element: 'number',
+                  content: block.endColumn,
+                },
+              },
+            } : {}),
             content: block.length,
           },
         ],

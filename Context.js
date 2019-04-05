@@ -10,6 +10,8 @@ const CrafterError = utils.CrafterError;
 class Context {
   constructor(source, parsers, options) {
     this.sourceLines = source.split('\n');
+    this.sourceBuffer = Buffer.from(source);
+    this.linefeedOffsets = getLinefeedOffsets(source);
     this.data = {};
     this.frames = [];
     this.resourcePrototypes = [];
@@ -19,6 +21,7 @@ class Context {
     this.entryDir = options.entryDir;
     this.typeExtractingInProgress = false;
     this.typeResolvingInProgress = false;
+    this.warnings = [];
 
     this.sectionKeywordSignatureParsers = [
       'DefaultValue',
@@ -102,6 +105,62 @@ class Context {
     const absPath = path.resolve(currentDir, filename);
     return path.relative(this.entryDir, absPath);
   }
+
+  addWarning(text, sourceMapBlocks, file) {
+    const warning = { text, sourceMapBlocks, file };
+    if (!isDuplicateWarning(warning, this.warnings)) {
+      this.warnings.push(warning);
+      this.logger.warn(text, [sourceMapBlocks[0].startLine, file]);
+    }
+  }
+}
+
+function getLinefeedOffsets(source) {
+  const offsets = [];
+  for (let i = 0; i < source.length; ++i) {
+    if (source[i] === '\n') {
+      offsets.push(i);
+    }
+  }
+  return offsets;
+}
+
+function isDuplicateWarning(warning, warnings) {
+  for (let i = 0; i < warnings.length; i += 1) {
+    if (sameWarnings(warning, warnings[i])) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function sameWarnings(warningA, warningB) {
+  if (warningA.text !== warningB.text) {
+    return false;
+  }
+  if (warningA.file !== warningB.file) {
+    return false;
+  }
+  if (warningA.sourceMapBlocks.length !== warningB.sourceMapBlocks.length) {
+    return false;
+  }
+  for (let i = 0; i < warningA.sourceMapBlocks.length; i += 1) {
+    if (!sameBlocks(warningA.sourceMapBlocks[i], warningB.sourceMapBlocks[i])) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function sameBlocks(blockA, blockB) {
+  const keys = ['offset', 'length', 'startLine', 'startColumn', 'endLine', 'endColumn'];
+  for (let i = 0; i < keys.length; i += 1) {
+    const key = keys[i];
+    if (blockA[key] !== blockB[key]) {
+      return false;
+    }
+  }
+  return true;
 }
 
 module.exports = Context;

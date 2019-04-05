@@ -20,10 +20,12 @@ module.exports = (Parsers) => {
 
       const subject = utils.nodeText(node.firstChild, context.sourceLines); // TODO: часто берем text, может сделать отдельную функцию?
       const signature = new SignatureParser(subject);
-      const attributeSignatureDetails = utils.getDetailsForLogger(node.firstChild);
 
-      context.data.attributeSignatureDetails = attributeSignatureDetails;
-      signature.warnings.forEach(warning => context.logger.warn(warning, attributeSignatureDetails));
+      const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);
+      const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(sourceMap, context.sourceBuffer, context.linefeedOffsets);
+      context.data.attributeSignatureDetails = { sourceMapBlocks: charBlocks, file: sourceMap.file };
+
+      signature.warnings.forEach(warning => context.addWarning(warning, charBlocks, sourceMap.file));
 
       const name = new StringElement(signature.name);
       let descriptionEl;
@@ -45,8 +47,8 @@ module.exports = (Parsers) => {
       const valueEl = new ValueMemberElement(signature.type, valueTypeAttributes, signature.value, '', signature.isSample, signature.isDefault);
       ValueMemberProcessor.fillBaseType(context, valueEl);
       if (context.sourceMapsEnabled) {
-        name.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);
-        valueEl.sourceMap = name.sourceMap;
+        name.sourceMap = sourceMap;
+        valueEl.sourceMap = sourceMap;
         if (descriptionEl) {
           descriptionEl.sourceMap = utils.makeSourceMapForLine(node.firstChild, context.sourceLines);
         }
@@ -142,17 +144,17 @@ module.exports = (Parsers) => {
 
     finalize(context, result) {
       const { name, value: { type, content } } = result;
-      const { attributeSignatureDetails } = context.data;
+      const { attributeSignatureDetails: details } = context.data;
 
       if (type === types.enum && !(content && content.members && content.members.length > 0)) {
-        context.logger.warn(`Enum element "${name.string}" should include members.`, attributeSignatureDetails);
+        context.addWarning(`Enum element "${name.string}" should include members.`, details.sourceMapBlocks, details.file);
       }
 
       context.checkTypeExists(result.value.rawType);
       context.popFrame();
 
       if (result.value.isArray() && result.typeAttributes.includes(typeAttributes['fixed-type'])) {
-        context.logger.warn('fixed-type keyword is redundant', attributeSignatureDetails);
+        context.logger.warn('fixed-type keyword is redundant', details);
         result.typeAttributes = result.typeAttributes.filter(x => x !== typeAttributes['fixed-type']);
       }
 

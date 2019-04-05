@@ -54,41 +54,39 @@ module.exports = (Parsers) => {
       const indentationBytes = startColumnIndex;
       let offset = 0;
       const contentLines = contentNode.literal.trimRight().split('\n');
-      const [, currentFile] = utils.getDetailsForLogger(contentNode);
 
       contentLines.forEach((contentLine, contentLineIndex) => {
         const lineHasNonWhitespace = /\S/.exec(contentLine);
 
         if (lineHasNonWhitespace) {
-          if (context.sourceMapsEnabled) {
-            if (contentLineIndex === 0) {
-              offset = utils.getOffsetFromStartOfFileInBytes(startLineIndex, startColumnIndex, context.sourceLines);
-            } else {
-              offset += indentationBytes;
-            }
+          if (contentLineIndex === 0) {
+            offset = utils.getOffsetFromStartOfFileInBytes(startLineIndex, startColumnIndex, context.sourceLines);
+          } else {
+            offset += indentationBytes;
           }
 
-          const header = this.parseHeader(contentLine, context, [startLineIndex + contentLineIndex + 1, currentFile]);
+          const match = contentLine.match(/^(\s*)(.*)$/);
+          const leadingWhitespaceBytes = Buffer.byteLength(match[1]);
+          const restBytes = Buffer.byteLength(match[2]);
+          const block = {};
+          offset += leadingWhitespaceBytes;
+          block.offset = offset;
+          offset += restBytes;
+          block.length = offset - block.offset;
+          const sourceMap = new SourceMapElement([block], contentNode.file);
+          const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(sourceMap, context.sourceBuffer, context.linefeedOffsets);
+          offset += utils.linefeedBytes;
 
-          if (context.sourceMapsEnabled) {
-            const match = contentLine.match(/^(\s*)(.*)$/);
-            const leadingWhitespaceBytes = Buffer.byteLength(match[1]);
-            const restBytes = Buffer.byteLength(match[2]);
-            const block = {};
-            offset += leadingWhitespaceBytes;
-            block.offset = offset;
-            offset += restBytes;
-            block.length = offset - block.offset;
-            if (header) {
-              header.sourceMap = new SourceMapElement([block], contentNode.file);
-            }
-            offset += utils.linefeedBytes;
+          const header = this.parseHeader(contentLine, context, { sourceMapBlocks: charBlocks, file: sourceMap.file });
+
+          if (context.sourceMapsEnabled && header) {
+            header.sourceMap = sourceMap;
           }
 
           if (header) {
             headers.push(header);
           }
-        } else if (context.sourceMapsEnabled) {
+        } else {
           const sourceLine = context.sourceLines[startLineIndex + contentLineIndex];
           offset += Buffer.byteLength(sourceLine);
           offset += utils.linefeedBytes;
@@ -99,7 +97,7 @@ module.exports = (Parsers) => {
 
     parseHeader(headerLine, context, headerNodeDetails) {
       const logWarning = () => {
-        context.logger.warn(`Ignoring unrecognized HTTP header "${headerLine.trim()}", expected "<header name>: <header value>", one header per line.`, headerNodeDetails);
+        context.addWarning(`Ignoring unrecognized HTTP header "${headerLine.trim()}", expected "<header name>: <header value>", one header per line.`, headerNodeDetails.sourceMapBlocks, headerNodeDetails.file);
       };
 
       const colonIndex = headerLine.indexOf(':');

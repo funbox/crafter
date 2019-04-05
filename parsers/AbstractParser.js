@@ -79,7 +79,9 @@ module.exports = {
       ) {
         [curNode, result] = this.processNestedSection(curNode, context, result);
       } else if (this.isUnexpectedNode(curNode, context)) {
-        context.logger.warn(`Ignoring unrecognized block "${utils.nodeText(curNode, context.sourceLines)}".`, utils.getDetailsForLogger(curNode));
+        const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines);
+        const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(sourceMap, context.sourceBuffer, context.linefeedOffsets);
+        context.addWarning(`Ignoring unrecognized block "${utils.nodeText(curNode, context.sourceLines)}".`, charBlocks, sourceMap.file);
         curNode = utils.nextNode(curNode);
       } else {
         break;

@@ -6,6 +6,8 @@ const CrafterError = utils.CrafterError;
 const BlueprintElement = require('./elements/BlueprintElement');
 const StringElement = require('./elements/StringElement');
 const MetaDataElement = require('./elements/MetaDataElement');
+const AnnotationElement = require('./elements/AnnotationElement');
+const SourceMapElement = require('./elements/SourceMapElement');
 
 module.exports = (Parsers) => {
   Parsers.BlueprintParser = {
@@ -29,7 +31,9 @@ module.exports = (Parsers) => {
             }
             metadataArray.push(element);
           } else {
-            context.logger.warn('ignoring possible metadata, expected "<key> : <value>", one per line', utils.getDetailsForLogger(curNode));
+            const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines);
+            const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(sourceMap, context.sourceBuffer, context.linefeedOffsets);
+            context.addWarning('ignoring possible metadata, expected "<key> : <value>", one per line', charBlocks, sourceMap.file);
           }
         });
         curNode = curNode.next;
@@ -44,7 +48,9 @@ module.exports = (Parsers) => {
 
         curNode = curNode.next;
       } else {
-        context.logger.warn('expected API name, e.g. "# <API Name>"', utils.getDetailsForLogger(curNode));
+        const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines);
+        const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(sourceMap, context.sourceBuffer, context.linefeedOffsets);
+        context.addWarning('expected API name, e.g. "# <API Name>"', charBlocks, sourceMap.file);
       }
 
       let description = '';
@@ -76,15 +82,23 @@ module.exports = (Parsers) => {
           case SectionTypes.resourcePrototypes:
             [curNode, childResult] = Parsers.ResourcePrototypesParser.parse(curNode, context);
             break;
-          default:
-            context.logger.warn('unknown node', utils.getDetailsForLogger(curNode));
+          default: {
+            const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines);
+            const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(sourceMap, context.sourceBuffer, context.linefeedOffsets);
+            context.addWarning('unknown node', charBlocks, sourceMap.file);
             curNode = curNode.next;
+          }
         }
 
         if (childResult) {
           result.content.push(childResult);
         }
       }
+
+      context.warnings.forEach(warning => {
+        const sourceMap = new SourceMapElement(warning.sourceMapBlocks, warning.file);
+        result.content.push(new AnnotationElement('warning', warning.text, sourceMap));
+      });
 
       return [null, result];
     },

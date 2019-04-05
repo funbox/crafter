@@ -18,6 +18,8 @@ module.exports = (Parsers) => {
       context.pushFrame();
 
       const text = utils.nodeText(node.firstChild, context.sourceLines);
+      const sourceMap = utils.makeSourceMapForLine(node.firstChild, context.sourceLines);
+      const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(sourceMap, context.sourceBuffer, context.linefeedOffsets);
       let signature;
       try {
         signature = new SignatureParser(text, [ParserTraits.NAME, ParserTraits.ATTRIBUTES]);
@@ -26,7 +28,7 @@ module.exports = (Parsers) => {
         const message = 'Invalid Attributes signature. Expected format: "Attributes (Type Definition)".';
         throw new CrafterError(message, line, file);
       }
-      signature.warnings.forEach(warning => context.logger.warn(warning), utils.getDetailsForLogger(node.firstChild));
+      signature.warnings.forEach(warning => context.addWarning(warning, charBlocks, sourceMap.file));
 
       context.data.attributeSignatureDetails = utils.getDetailsForLogger(node.firstChild);
 
@@ -38,7 +40,7 @@ module.exports = (Parsers) => {
       ValueMemberProcessor.fillBaseType(context, memberEl);
 
       if (context.sourceMapsEnabled) {
-        memberEl.sourceMap = utils.makeSourceMapForLine(node.firstChild, context.sourceLines);
+        memberEl.sourceMap = sourceMap;
       }
       let nextNode = signature.rest ? node.firstChild : node.firstChild.next;
 

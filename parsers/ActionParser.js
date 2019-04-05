@@ -23,7 +23,10 @@ module.exports = (Parsers) => {
       context.pushFrame();
 
       const subject = utils.headerText(node, context.sourceLines);
-      context.data.actionSignatureDetails = utils.getDetailsForLogger(node);
+
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines);
+      const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(sourceMap, context.sourceBuffer, context.linefeedOffsets);
+      context.data.actionSignatureDetails = { sourceMapBlocks: charBlocks, file: sourceMap.file };
 
       let matchData = ActionHeaderRegex.exec(subject);
       if (matchData) {
@@ -56,11 +59,10 @@ module.exports = (Parsers) => {
       const prototypes = protoNames ? protoNames.split(',').map(p => p.trim()) : [];
       context.resourcePrototypes.push(prototypes);
 
-      const sourceMap = context.sourceMapsEnabled ? utils.makeGenericSourceMap(node, context.sourceLines) : null;
       const methodEl = new StringElement(method);
-      methodEl.sourceMap = sourceMap;
+      methodEl.sourceMap = context.sourceMapsEnabled ? sourceMap : null;
       const result = new ActionElement(title, href, methodEl);
-      result.sourceMap = sourceMap;
+      result.sourceMap = context.sourceMapsEnabled ? sourceMap : null;
 
       return [utils.nextNode(node), result];
     },
@@ -115,7 +117,7 @@ module.exports = (Parsers) => {
     },
 
     finalize(context, result) {
-      const { actionSignatureDetails } = context.data;
+      const { actionSignatureDetails: details } = context.data;
       const registeredProtos = context.resourcePrototypeResolver.prototypes;
       const resourcePrototypesChain = context.resourcePrototypes.reduce((res, el) => res.concat(el), []);
       [...new Set(resourcePrototypesChain)].forEach((pName) => {
@@ -127,7 +129,7 @@ module.exports = (Parsers) => {
       });
 
       if (!(result.responses.length > 0)) {
-        context.logger.warn('Аction is missing a response', actionSignatureDetails);
+        context.addWarning('Аction is missing a response', details.sourceMapBlocks, details.file);
       }
 
       context.resourcePrototypes.pop();
@@ -140,8 +142,7 @@ module.exports = (Parsers) => {
         try {
           expectedParameters = getUriVariables(href);
         } catch (e) {
-          const [linePos, currentFile] = actionSignatureDetails;
-          throw new utils.CrafterError(`Could not retrieve URI parameters: ${href}`, linePos, currentFile);
+          throw new utils.CrafterError(`Could not retrieve URI parameters: ${href}`, details.sourceMapBlocks[0].startLine, details.file);
         }
 
         if (parameters && parameters.parameters) {
@@ -149,7 +150,7 @@ module.exports = (Parsers) => {
         }
 
         if (expectedParameters.length > 0) {
-          context.logger.warn(`Action is missing parameter definitions: ${expectedParameters.join(', ')}.`, actionSignatureDetails);
+          context.addWarning(`Action is missing parameter definitions: ${expectedParameters.join(', ')}.`, details.sourceMapBlocks, details.file);
         }
       }
 

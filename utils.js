@@ -192,6 +192,14 @@ const utils = {
     return new SourceMapElement(byteBlocks, node.file);
   },
 
+  getCharacterBlocksWithLineColumnInfo(sourceMapWithByteBlocks, sourceBuffer, linefeedOffsets) {
+    return sourceMapWithByteBlocks.blocks.map(byteBlock => {
+      const charBlock = byteBlockToCharacterBlock(byteBlock, sourceBuffer);
+      const info = getLineColumnInfo(charBlock, linefeedOffsets);
+      return { ...charBlock, ...info };
+    });
+  },
+
   getSourcePosZeroBased(node) {
     return {
       startLineIndex: node.sourcepos[0][0] - 1,
@@ -460,6 +468,28 @@ function makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, stop
     }
   }
   return new SourceMapElement(byteBlocks, startNode.file);
+}
+
+function byteBlockToCharacterBlock(byteBlock, sourceBuffer) {
+  const charOffset = sourceBuffer.slice(0, byteBlock.offset).toString().length;
+  const charLength = sourceBuffer.slice(byteBlock.offset, byteBlock.offset + byteBlock.length).toString().length;
+  return { offset: charOffset, length: charLength };
+}
+
+function getLineColumnInfo(characterBlock, linefeedOffsets) {
+  const startOffset = characterBlock.offset;
+  const length = characterBlock.length;
+
+  const startLinefeedIndex = linefeedOffsets.findIndex(linefeedOffset => linefeedOffset > startOffset);
+  const startLine = startLinefeedIndex + 1;
+  const startColumn = (startLinefeedIndex > 0) ? (startOffset - linefeedOffsets[startLinefeedIndex - 1]) : (startOffset + 1);
+
+  const endOffset = (startOffset + length - 1);
+  const endLinefeedIndex = linefeedOffsets.findIndex(linefeedOffset => linefeedOffset >= endOffset);
+  const endLine = endLinefeedIndex + 1;
+  const endColumn = (endLinefeedIndex > 0) ? (endOffset - linefeedOffsets[endLinefeedIndex - 1]) : (endOffset + 1);
+
+  return { startLine, startColumn, endLine, endColumn };
 }
 
 module.exports = utils;
