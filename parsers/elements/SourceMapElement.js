@@ -1,15 +1,15 @@
 const Refract = require('../../Refract');
 
 class SourceMapElement {
-  constructor(byteBlocks, file) {
-    this.byteBlocks = byteBlocks;
+  constructor(blocks, file) {
+    this.blocks = blocks;
     this.file = file;
   }
 
   toRefract() {
     const sourceMapEl = {
       element: Refract.elements.sourceMap,
-      content: this.byteBlocks.map(block => ({
+      content: this.blocks.map(block => ({
         element: 'array',
         content: [
           {

@@ -99,7 +99,7 @@ module.exports = (Parsers) => {
         if (blockDescriptionEl) {
           result.content.description = blockDescriptionEl.description;
           if (context.sourceMapsEnabled) {
-            result.content.sourceMap.byteBlocks.push(...blockDescriptionEl.sourceMap.byteBlocks);
+            result.content.sourceMap.blocks.push(...blockDescriptionEl.sourceMap.blocks);
           }
         }
         dataStructureProcessorStartNode = nextNode;

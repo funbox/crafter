@@ -164,7 +164,7 @@ function mergeStringElements(first, second) {
   merged.string = first.string + second.string;
   if (first.sourceMap && second.sourceMap) {
     merged.sourceMap = new SourceMapElement();
-    merged.sourceMap.byteBlocks = [...first.sourceMap.byteBlocks, ...second.sourceMap.byteBlocks];
+    merged.sourceMap.blocks = [...first.sourceMap.blocks, ...second.sourceMap.blocks];
   }
   return merged;
 }
