@@ -392,4 +392,5 @@ module.exports = {
   parser: SignatureParser,
   traits: parserTraits,
   splitValues,
+  typeAttributes,
 };

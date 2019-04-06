@@ -184,7 +184,7 @@ kind (enum[number])
 
   it('fills an array with list-defined items', () => {
     const source = `
-bar (array[boolean], fixed-type)
+bar (array[boolean])
   + example 2 (string) - description 2
 `;
     const { valueElement } = getFilledElementFromSource(source);

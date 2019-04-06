@@ -1,7 +1,7 @@
 const SectionTypes = require('../SectionTypes');
 const types = require('../types');
 const utils = require('../utils');
-const { parser: SignatureParser, traits: ParserTraits } = require('../SignatureParser');
+const { parser: SignatureParser, traits: ParserTraits, typeAttributes } = require('../SignatureParser');
 const MSONNamedTypeElement = require('./elements/MSONNamedTypeElement');
 const StringElement = require('./elements/StringElement');
 const EnumElement = require('./elements/EnumElement');
@@ -25,6 +25,8 @@ module.exports = (Parsers) => {
         throw new CrafterError(message, line, file);
       }
       signature.warnings.forEach(warning => context.logger.warn(warning, utils.getDetailsForLogger(node)));
+
+      context.data.attributeSignatureDetails = utils.getDetailsForLogger(node);
 
       const name = new StringElement(signature.name);
       if (context.sourceMapsEnabled) {
@@ -96,6 +98,8 @@ module.exports = (Parsers) => {
 
     finalize(context, result) {
       const valueMemberContent = result.content.content;
+      const { attributeSignatureDetails } = context.data;
+
       if (!valueMemberContent) {
         let type = result.content.type || types.object;
 
@@ -104,6 +108,12 @@ module.exports = (Parsers) => {
         }
         fillElementWithContent(result.content, type);
       }
+
+      if (result.content.isArray() && result.content.typeAttributes.includes(typeAttributes['fixed-type'])) {
+        context.logger.warn('fixed-type keyword is redundant', attributeSignatureDetails);
+        result.content.typeAttributes = result.content.typeAttributes.filter(x => x !== typeAttributes['fixed-type']);
+      }
+
       return result;
     },
   });

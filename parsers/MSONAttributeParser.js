@@ -7,7 +7,7 @@ const SourceMapElement = require('./elements/SourceMapElement');
 const DataStructureProcessor = require('../DataStructureProcessor');
 const ValueMemberElement = require('./elements/ValueMemberElement');
 const ValueMemberProcessor = require('../ValueMemberProcessor');
-const { parser: SignatureParser } = require('../SignatureParser');
+const { parser: SignatureParser, typeAttributes } = require('../SignatureParser');
 
 const valueAttributes = ['pattern', 'format', 'minLength', 'maxLength'];
 
@@ -143,12 +143,18 @@ module.exports = (Parsers) => {
     finalize(context, result) {
       const { name, value: { type, content } } = result;
       const { attributeSignatureDetails } = context.data;
+
       if (type === types.enum && !(content && content.members && content.members.length > 0)) {
         context.logger.warn(`Enum element "${name.string}" should include members.`, attributeSignatureDetails);
       }
 
       context.checkTypeExists(result.value.rawType);
       context.popFrame();
+
+      if (result.value.isArray() && result.typeAttributes.includes(typeAttributes['fixed-type'])) {
+        context.logger.warn('fixed-type keyword is redundant', attributeSignatureDetails);
+        result.typeAttributes = result.typeAttributes.filter(x => x !== typeAttributes['fixed-type']);
+      }
 
       return result;
     },
