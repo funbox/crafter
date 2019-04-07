@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.6.0 (07.04.2019)
+
+* Delete from tree "fixed-type" keyword in array element.
+
 ## 1.5.0 (05.04.2019)
 
 * Process "format" attribute.
