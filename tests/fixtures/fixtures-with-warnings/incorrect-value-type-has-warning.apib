@@ -1,0 +1,35 @@
+# My API
+
+Defines attributes pattern and format for non-string type value.
+It produces warnings 'Attribute "format" can be used in string value type only' and 'Attribute "pattern" can be used in string value type only'
+
+# Data Structures
+
+# First (number, pattern="^fooboo$")
+
+# Second (boolean)
+
+# Third (Second, format="date")
+
+# Block [/users]
+
+## Request [GET]
+
++ Response 200 (application/json)
+    + Attributes(First)
+
++ Response 200 (application/json)
+    + Attributes(Second, format="date")
+
++ Response 200 (application/json)
+    + Attributes(object, pattern='"^fooboo$"')
+
++ Response 200 (application/json)
+    + Attributes
+        + boo (Third)
+        + foo (Second, format="date")
+        + booFoo (object, pattern='"^fooboo$"')
+        + fooBoo (array, required)
+            + `first example` (First)
+            + `second example` (Second, format="date")
+            + `third example` (object, pattern='"^fooboo$"')
