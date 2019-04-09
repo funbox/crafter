@@ -11,7 +11,10 @@ module.exports = (Parsers) => {
 
       const subject = utils.nodeText(node.firstChild, context.sourceLines);
       const signature = new SignatureParser(subject, [ParserTraits.VALUE, ParserTraits.ATTRIBUTES, ParserTraits.DESCRIPTION]);
-      context.data.attributeSignatureDetails = utils.getDetailsForLogger(node.firstChild);
+
+      const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);
+      const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(sourceMap, context.sourceBuffer, context.linefeedOffsets);
+      context.data.attributeSignatureDetails = { sourceMapBlocks: charBlocks, file: sourceMap.file };
 
       const result = new ValueMemberElement(
         signature.type,
@@ -49,7 +52,7 @@ module.exports = (Parsers) => {
       context.popFrame();
 
       if (result.isArray() && result.typeAttributes.includes(typeAttributes['fixed-type'])) {
-        context.logger.warn('fixed-type keyword is redundant', attributeSignatureDetails);
+        context.addWarning('fixed-type keyword is redundant', attributeSignatureDetails.sourceMapBlocks, attributeSignatureDetails.file);
         result.typeAttributes = result.typeAttributes.filter(x => x !== typeAttributes['fixed-type']);
       }
 

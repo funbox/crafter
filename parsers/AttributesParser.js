@@ -30,7 +30,7 @@ module.exports = (Parsers) => {
       }
       signature.warnings.forEach(warning => context.addWarning(warning, charBlocks, sourceMap.file));
 
-      context.data.attributeSignatureDetails = utils.getDetailsForLogger(node.firstChild);
+      context.data.attributeSignatureDetails = { sourceMapBlocks: charBlocks, file: sourceMap.file };
 
       if (signature.rest) {
         context.data.startOffset = text.length - signature.rest.length;
@@ -134,7 +134,7 @@ module.exports = (Parsers) => {
       context.popFrame();
 
       if (result.content.isArray() && result.content.typeAttributes.includes(typeAttributes['fixed-type'])) {
-        context.logger.warn('fixed-type keyword is redundant', attributeSignatureDetails);
+        context.addWarning('fixed-type keyword is redundant', attributeSignatureDetails.sourceMapBlocks, attributeSignatureDetails.file);
         result.content.typeAttributes = result.content.typeAttributes.filter(x => x !== typeAttributes['fixed-type']);
       }
 

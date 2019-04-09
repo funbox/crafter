@@ -154,7 +154,7 @@ module.exports = (Parsers) => {
       context.popFrame();
 
       if (result.value.isArray() && result.typeAttributes.includes(typeAttributes['fixed-type'])) {
-        context.logger.warn('fixed-type keyword is redundant', details);
+        context.addWarning('fixed-type keyword is redundant', details.sourceMapBlocks, details.file);
         result.typeAttributes = result.typeAttributes.filter(x => x !== typeAttributes['fixed-type']);
       }
 
