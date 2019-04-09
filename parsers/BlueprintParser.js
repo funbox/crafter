@@ -97,7 +97,7 @@ module.exports = (Parsers) => {
 
       context.warnings.forEach(warning => {
         const sourceMap = new SourceMapElement(warning.sourceMapBlocks, warning.file);
-        result.content.push(new AnnotationElement('warning', warning.text, sourceMap));
+        result.annotations.push(new AnnotationElement('warning', warning.text, sourceMap));
       });
 
       return [null, result];

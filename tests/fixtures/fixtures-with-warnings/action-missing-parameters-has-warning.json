@@ -117,68 +117,68 @@
               }
             }
           ]
-        },
-        {
-          "element": "annotation",
-          "meta": {
-            "classes": {
-              "element": "array",
-              "content": [
-                {
-                  "element": "string",
-                  "content": "warning"
-                }
-              ]
+        }
+      ]
+    },
+    {
+      "element": "annotation",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "warning"
             }
-          },
-          "attributes": {
-            "sourceMap": {
-              "element": "array",
+          ]
+        }
+      },
+      "attributes": {
+        "sourceMap": {
+          "element": "array",
+          "content": [
+            {
+              "element": "sourceMap",
               "content": [
                 {
-                  "element": "sourceMap",
+                  "element": "array",
                   "content": [
                     {
-                      "element": "array",
-                      "content": [
-                        {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
                           "element": "number",
-                          "attributes": {
-                            "line": {
-                              "element": "number",
-                              "content": 6
-                            },
-                            "column": {
-                              "element": "number",
-                              "content": 1
-                            }
-                          },
-                          "content": 179
+                          "content": 6
                         },
-                        {
+                        "column": {
                           "element": "number",
-                          "attributes": {
-                            "line": {
-                              "element": "number",
-                              "content": 7
-                            },
-                            "column": {
-                              "element": "number",
-                              "content": 1
-                            }
-                          },
-                          "content": 50
+                          "content": 1
                         }
-                      ]
+                      },
+                      "content": 179
+                    },
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 7
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 1
+                        }
+                      },
+                      "content": 50
                     }
                   ]
                 }
               ]
             }
-          },
-          "content": "Action is missing parameter definitions: groupId, status."
+          ]
         }
-      ]
+      },
+      "content": "Action is missing parameter definitions: groupId, status."
     }
   ]
 }

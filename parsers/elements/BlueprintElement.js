@@ -5,6 +5,7 @@ class BlueprintElement {
     this.title = title;
     this.description = description;
     this.content = [];
+    this.annotations = [];
     this.meta = meta;
   }
 
@@ -36,7 +37,7 @@ class BlueprintElement {
 
     return {
       element: Refract.elements.parseResult,
-      content: [result],
+      content: [result].concat(this.annotations.map(annotation => annotation.toRefract())),
     };
   }
 }

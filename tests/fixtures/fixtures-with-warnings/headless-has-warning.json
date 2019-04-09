@@ -111,128 +111,128 @@
               }
             }
           ]
-        },
-        {
-          "element": "annotation",
-          "meta": {
-            "classes": {
-              "element": "array",
-              "content": [
-                {
-                  "element": "string",
-                  "content": "warning"
-                }
-              ]
-            }
-          },
-          "attributes": {
-            "sourceMap": {
-              "element": "array",
-              "content": [
-                {
-                  "element": "sourceMap",
-                  "content": [
-                    {
-                      "element": "array",
-                      "content": [
-                        {
-                          "element": "number",
-                          "attributes": {
-                            "line": {
-                              "element": "number",
-                              "content": 1
-                            },
-                            "column": {
-                              "element": "number",
-                              "content": 1
-                            }
-                          },
-                          "content": 0
-                        },
-                        {
-                          "element": "number",
-                          "attributes": {
-                            "line": {
-                              "element": "number",
-                              "content": 3
-                            },
-                            "column": {
-                              "element": "number",
-                              "content": 1
-                            }
-                          },
-                          "content": 101
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          },
-          "content": "ignoring possible metadata, expected \"<key> : <value>\", one per line"
-        },
-        {
-          "element": "annotation",
-          "meta": {
-            "classes": {
-              "element": "array",
-              "content": [
-                {
-                  "element": "string",
-                  "content": "warning"
-                }
-              ]
-            }
-          },
-          "attributes": {
-            "sourceMap": {
-              "element": "array",
-              "content": [
-                {
-                  "element": "sourceMap",
-                  "content": [
-                    {
-                      "element": "array",
-                      "content": [
-                        {
-                          "element": "number",
-                          "attributes": {
-                            "line": {
-                              "element": "number",
-                              "content": 4
-                            },
-                            "column": {
-                              "element": "number",
-                              "content": 1
-                            }
-                          },
-                          "content": 101
-                        },
-                        {
-                          "element": "number",
-                          "attributes": {
-                            "line": {
-                              "element": "number",
-                              "content": 5
-                            },
-                            "column": {
-                              "element": "number",
-                              "content": 1
-                            }
-                          },
-                          "content": 19
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          },
-          "content": "expected API name, e.g. \"# <API Name>\""
         }
       ]
+    },
+    {
+      "element": "annotation",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "warning"
+            }
+          ]
+        }
+      },
+      "attributes": {
+        "sourceMap": {
+          "element": "array",
+          "content": [
+            {
+              "element": "sourceMap",
+              "content": [
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 1
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 1
+                        }
+                      },
+                      "content": 0
+                    },
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 3
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 1
+                        }
+                      },
+                      "content": 101
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "content": "ignoring possible metadata, expected \"<key> : <value>\", one per line"
+    },
+    {
+      "element": "annotation",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "warning"
+            }
+          ]
+        }
+      },
+      "attributes": {
+        "sourceMap": {
+          "element": "array",
+          "content": [
+            {
+              "element": "sourceMap",
+              "content": [
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 4
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 1
+                        }
+                      },
+                      "content": 101
+                    },
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 5
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 1
+                        }
+                      },
+                      "content": 19
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "content": "expected API name, e.g. \"# <API Name>\""
     }
   ]
 }

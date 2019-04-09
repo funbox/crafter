@@ -416,128 +416,128 @@
               }
             }
           ]
-        },
-        {
-          "element": "annotation",
-          "meta": {
-            "classes": {
-              "element": "array",
-              "content": [
-                {
-                  "element": "string",
-                  "content": "warning"
-                }
-              ]
-            }
-          },
-          "attributes": {
-            "sourceMap": {
-              "element": "array",
-              "content": [
-                {
-                  "element": "sourceMap",
-                  "content": [
-                    {
-                      "element": "array",
-                      "content": [
-                        {
-                          "element": "number",
-                          "attributes": {
-                            "line": {
-                              "element": "number",
-                              "content": 9
-                            },
-                            "column": {
-                              "element": "number",
-                              "content": 3
-                            }
-                          },
-                          "content": 230
-                        },
-                        {
-                          "element": "number",
-                          "attributes": {
-                            "line": {
-                              "element": "number",
-                              "content": 9
-                            },
-                            "column": {
-                              "element": "number",
-                              "content": 38
-                            }
-                          },
-                          "content": 36
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          },
-          "content": "Enum element \"state\" should include members."
-        },
-        {
-          "element": "annotation",
-          "meta": {
-            "classes": {
-              "element": "array",
-              "content": [
-                {
-                  "element": "string",
-                  "content": "warning"
-                }
-              ]
-            }
-          },
-          "attributes": {
-            "sourceMap": {
-              "element": "array",
-              "content": [
-                {
-                  "element": "sourceMap",
-                  "content": [
-                    {
-                      "element": "array",
-                      "content": [
-                        {
-                          "element": "number",
-                          "attributes": {
-                            "line": {
-                              "element": "number",
-                              "content": 12
-                            },
-                            "column": {
-                              "element": "number",
-                              "content": 3
-                            }
-                          },
-                          "content": 278
-                        },
-                        {
-                          "element": "number",
-                          "attributes": {
-                            "line": {
-                              "element": "number",
-                              "content": 12
-                            },
-                            "column": {
-                              "element": "number",
-                              "content": 73
-                            }
-                          },
-                          "content": 71
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          },
-          "content": "Enum element \"kind\" should include members."
         }
       ]
+    },
+    {
+      "element": "annotation",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "warning"
+            }
+          ]
+        }
+      },
+      "attributes": {
+        "sourceMap": {
+          "element": "array",
+          "content": [
+            {
+              "element": "sourceMap",
+              "content": [
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 9
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 3
+                        }
+                      },
+                      "content": 230
+                    },
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 9
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 38
+                        }
+                      },
+                      "content": 36
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "content": "Enum element \"state\" should include members."
+    },
+    {
+      "element": "annotation",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "warning"
+            }
+          ]
+        }
+      },
+      "attributes": {
+        "sourceMap": {
+          "element": "array",
+          "content": [
+            {
+              "element": "sourceMap",
+              "content": [
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 12
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 3
+                        }
+                      },
+                      "content": 278
+                    },
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 12
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 73
+                        }
+                      },
+                      "content": 71
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "content": "Enum element \"kind\" should include members."
     }
   ]
 }

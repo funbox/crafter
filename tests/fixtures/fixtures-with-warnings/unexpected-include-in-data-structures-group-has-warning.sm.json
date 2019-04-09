@@ -223,68 +223,68 @@
               }
             }
           ]
-        },
-        {
-          "element": "annotation",
-          "meta": {
-            "classes": {
-              "element": "array",
-              "content": [
-                {
-                  "element": "string",
-                  "content": "warning"
-                }
-              ]
+        }
+      ]
+    },
+    {
+      "element": "annotation",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "warning"
             }
-          },
-          "attributes": {
-            "sourceMap": {
-              "element": "array",
+          ]
+        }
+      },
+      "attributes": {
+        "sourceMap": {
+          "element": "array",
+          "content": [
+            {
+              "element": "sourceMap",
               "content": [
                 {
-                  "element": "sourceMap",
+                  "element": "array",
                   "content": [
                     {
-                      "element": "array",
-                      "content": [
-                        {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
                           "element": "number",
-                          "attributes": {
-                            "line": {
-                              "element": "number",
-                              "content": 8
-                            },
-                            "column": {
-                              "element": "number",
-                              "content": 1
-                            }
-                          },
-                          "content": 137
+                          "content": 8
                         },
-                        {
+                        "column": {
                           "element": "number",
-                          "attributes": {
-                            "line": {
-                              "element": "number",
-                              "content": 9
-                            },
-                            "column": {
-                              "element": "number",
-                              "content": 1
-                            }
-                          },
-                          "content": 16
+                          "content": 1
                         }
-                      ]
+                      },
+                      "content": 137
+                    },
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 9
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 1
+                        }
+                      },
+                      "content": 16
                     }
                   ]
                 }
               ]
             }
-          },
-          "content": "Ignoring unrecognized block \"+ Include Rick\"."
+          ]
         }
-      ]
+      },
+      "content": "Ignoring unrecognized block \"+ Include Rick\"."
     }
   ]
 }

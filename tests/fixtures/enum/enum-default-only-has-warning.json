@@ -160,68 +160,68 @@
               }
             }
           ]
-        },
-        {
-          "element": "annotation",
-          "meta": {
-            "classes": {
-              "element": "array",
-              "content": [
-                {
-                  "element": "string",
-                  "content": "warning"
-                }
-              ]
+        }
+      ]
+    },
+    {
+      "element": "annotation",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "warning"
             }
-          },
-          "attributes": {
-            "sourceMap": {
-              "element": "array",
+          ]
+        }
+      },
+      "attributes": {
+        "sourceMap": {
+          "element": "array",
+          "content": [
+            {
+              "element": "sourceMap",
               "content": [
                 {
-                  "element": "sourceMap",
+                  "element": "array",
                   "content": [
                     {
-                      "element": "array",
-                      "content": [
-                        {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
                           "element": "number",
-                          "attributes": {
-                            "line": {
-                              "element": "number",
-                              "content": 12
-                            },
-                            "column": {
-                              "element": "number",
-                              "content": 11
-                            }
-                          },
-                          "content": 278
-                        },
-                        {
-                          "element": "number",
-                          "attributes": {
-                            "line": {
-                              "element": "number",
-                              "content": 12
-                            },
-                            "column": {
-                              "element": "number",
-                              "content": 22
-                            }
-                          },
                           "content": 12
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 11
                         }
-                      ]
+                      },
+                      "content": 278
+                    },
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 12
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 22
+                        }
+                      },
+                      "content": 12
                     }
                   ]
                 }
               ]
             }
-          },
-          "content": "Enum element \"kind\" should include members."
+          ]
         }
-      ]
+      },
+      "content": "Enum element \"kind\" should include members."
     }
   ]
 }

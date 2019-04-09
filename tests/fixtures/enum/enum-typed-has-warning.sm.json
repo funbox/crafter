@@ -905,68 +905,68 @@
               }
             }
           ]
-        },
-        {
-          "element": "annotation",
-          "meta": {
-            "classes": {
-              "element": "array",
-              "content": [
-                {
-                  "element": "string",
-                  "content": "warning"
-                }
-              ]
+        }
+      ]
+    },
+    {
+      "element": "annotation",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "warning"
             }
-          },
-          "attributes": {
-            "sourceMap": {
-              "element": "array",
+          ]
+        }
+      },
+      "attributes": {
+        "sourceMap": {
+          "element": "array",
+          "content": [
+            {
+              "element": "sourceMap",
               "content": [
                 {
-                  "element": "sourceMap",
+                  "element": "array",
                   "content": [
                     {
-                      "element": "array",
-                      "content": [
-                        {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
                           "element": "number",
-                          "attributes": {
-                            "line": {
-                              "element": "number",
-                              "content": 9
-                            },
-                            "column": {
-                              "element": "number",
-                              "content": 1
-                            }
-                          },
-                          "content": 141
+                          "content": 9
                         },
-                        {
+                        "column": {
                           "element": "number",
-                          "attributes": {
-                            "line": {
-                              "element": "number",
-                              "content": 14
-                            },
-                            "column": {
-                              "element": "number",
-                              "content": 1
-                            }
-                          },
-                          "content": 162
+                          "content": 1
                         }
-                      ]
+                      },
+                      "content": 141
+                    },
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 14
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 1
+                        }
+                      },
+                      "content": 162
                     }
                   ]
                 }
               ]
             }
-          },
-          "content": "Invalid value format \"sms\" for enum type 'number'."
+          ]
         }
-      ]
+      },
+      "content": "Invalid value format \"sms\" for enum type 'number'."
     }
   ]
 }
