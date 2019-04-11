@@ -20,6 +20,7 @@ module.exports = (Parsers) => {
       const metadataArray = [];
 
       while (curNode.type === 'paragraph') {
+        let isWarningAdded = false;
         const nodeText = utils.nodeText(curNode, context.sourceLines);
         nodeText.split('\n').forEach(line => { // eslint-disable-line no-loop-func
           const [key, ...rest] = line.split(':');
@@ -30,7 +31,8 @@ module.exports = (Parsers) => {
               element.sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines);
             }
             metadataArray.push(element);
-          } else {
+          } else if (!isWarningAdded) {
+            isWarningAdded = true;
             const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines);
             const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(sourceMap, context.sourceBuffer, context.linefeedOffsets);
             context.addWarning('ignoring possible metadata, expected "<key> : <value>", one per line', charBlocks, sourceMap.file);
