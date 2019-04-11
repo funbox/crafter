@@ -21,6 +21,7 @@ class Context {
     this.entryDir = options.entryDir;
     this.typeExtractingInProgress = false;
     this.typeResolvingInProgress = false;
+    this.warningsEnabled = true;
     this.warnings = [];
 
     this.sectionKeywordSignatureParsers = [
@@ -106,9 +107,19 @@ class Context {
     return path.relative(this.entryDir, absPath);
   }
 
+  enableWarnings() {
+    this.warningsEnabled = true;
+  }
+
+  suppressWarnings() {
+    this.warningsEnabled = false;
+  }
+
   addWarning(text, sourceMapBlocks, file) {
-    this.warnings.push({ text, sourceMapBlocks, file });
-    this.logger.warn(text, [sourceMapBlocks[0].startLine, file]);
+    if (this.warningsEnabled) {
+      this.warnings.push({ text, sourceMapBlocks, file });
+      this.logger.warn(text, [sourceMapBlocks[0].startLine, file]);
+    }
   }
 }
 

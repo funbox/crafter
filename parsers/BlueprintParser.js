@@ -129,7 +129,7 @@ module.exports = (Parsers) => {
         }
       };
 
-      context.logger.suppressWarnings();
+      context.suppressWarnings();
       context.typeExtractingInProgress = true;
 
       this.resolveImports(node, context, usedFiles);
@@ -170,7 +170,7 @@ module.exports = (Parsers) => {
 
       context.typeResolver.resolveRegisteredTypes();
       context.resourcePrototypeResolver.resolveRegisteredPrototypes();
-      context.logger.enableWarnings();
+      context.enableWarnings();
     },
 
     resolveImports(entryNode, context, usedFiles) {

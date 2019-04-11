@@ -72,8 +72,6 @@ const testFilesFrom = (location) => {
           warn(text) {
             this.store = text;
           },
-          enableWarnings() {},
-          suppressWarnings() {},
         };
         const filePath = `${path}/${f}`;
         const example = getMatchingData(f, path);

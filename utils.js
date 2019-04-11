@@ -15,25 +15,11 @@ class CrafterError extends Error {
 }
 
 class Logger {
-  constructor() {
-    this.warningsEnabled = true;
-  }
-
   warn(text, details) {
-    if (this.warningsEnabled) {
-      const [linePos, currentFile] = details;
-      const positionText = linePos ? ` at line ${linePos}` : '';
-      const fileText = currentFile ? ` (see ${currentFile})` : '';
-      console.error('\x1b[33m%s\x1b[0m', `Warning${positionText}${fileText}: ${text}`); // yellow color
-    }
-  }
-
-  enableWarnings() {
-    this.warningsEnabled = true;
-  }
-
-  suppressWarnings() {
-    this.warningsEnabled = false;
+    const [linePos, currentFile] = details;
+    const positionText = linePos ? ` at line ${linePos}` : '';
+    const fileText = currentFile ? ` (see ${currentFile})` : '';
+    console.error('\x1b[33m%s\x1b[0m', `Warning${positionText}${fileText}: ${text}`); // yellow color
   }
 }
 

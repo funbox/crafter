@@ -94,8 +94,6 @@ const apibFiles = getApibFiles();
 
 const logger = {
   warn() {},
-  enableWarnings() {},
-  suppressWarnings() {},
 };
 
 test.each(apibFiles)('%s', filepath => {
