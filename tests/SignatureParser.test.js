@@ -19,6 +19,7 @@ describe('SignatureParser', () => {
       expect(signature.name).toBe('name');
       expect(signature.type).toBe('string');
       expect(signature.typeAttributes).toEqual(['required']);
+      expect(signature.warnings.length).toBe(1);
     });
 
     it('Parses signature with name and description', () => {
@@ -50,6 +51,7 @@ describe('SignatureParser', () => {
       expect(signature.type).toBe('string');
       expect(signature.typeAttributes).toEqual(['required']);
       expect(signature.description).toBe('Description');
+      expect(signature.warnings.length).toBe(1);
     });
 
     it('Parses signature with name, attributes, example and description', () => {
@@ -178,13 +180,11 @@ describe('SignatureParser', () => {
       const signature = new SignatureParser('(string) - Description', traits);
       expect(signature.type).toBe('string');
       expect(signature.description).toBe('Description');
-      expect(signature.warnings.length).toBe(1);
     });
 
     it('Parses signature with type only', () => {
       const signature = new SignatureParser('(number)', traits);
       expect(signature.type).toBe('number');
-      expect(signature.warnings.length).toBe(1);
     });
 
     it('Parses signature with description only', () => {

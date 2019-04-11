@@ -54,16 +54,14 @@ class SignatureParser {
     }
 
     if (this.traits.includes(parserTraits.VALUE)) {
-      if (!this.traits.includes(parserTraits.NAME)) {
-        signature = VALUES_DELIMITER + signature;
-      }
-
       if (signature[0] === VALUES_DELIMITER) {
         signature = this.extractValue(signature);
 
         if (!this.value && !this.rawValue) {
           this.warnings.push(`No value(s) specified: "${origSignature}"`);
         }
+      } else {
+        signature = this.extractValue(signature);
       }
     }
 
@@ -73,6 +71,11 @@ class SignatureParser {
 
     if (this.traits.includes(parserTraits.DESCRIPTION)) {
       this.extractDescription(signature);
+
+      if (!this.name && !this.value && !this.type && this.typeAttributes.length === 0 && this.description) {
+        this.warnings.push(`No value(s) specified: "${origSignature}"`);
+      }
+
       signature = '';
     }
 
