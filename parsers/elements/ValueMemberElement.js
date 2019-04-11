@@ -43,6 +43,10 @@ class ValueMemberElement {
     return types.standardTypes.includes(this.type) || !this.type;
   }
 
+  isType(type) {
+    return (this.baseType === type || this.type === type);
+  }
+
   toRefract() {
     const type = this.type || (this.content ? 'object' : 'string');
 

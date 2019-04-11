@@ -116,6 +116,16 @@ module.exports = (Parsers) => {
         result.content.typeAttributes = result.content.typeAttributes.filter(x => x !== typeAttributes['fixed-type']);
       }
 
+      const stringParameterizedAttributes = result.content.typeAttributes
+        .filter(a => Array.isArray(a) && (a[0] === 'format' || a[0] === 'pattern'))
+        .map(a => a[0]);
+
+      if (!result.content.isType('string') && stringParameterizedAttributes.length > 0) {
+        stringParameterizedAttributes.forEach(a => {
+          context.addWarning(`Attribute "${a}" can be used in string value type only.`, attributeSignatureDetails.sourceMapBlocks, attributeSignatureDetails.file);
+        });
+      }
+
       return result;
     },
   });
