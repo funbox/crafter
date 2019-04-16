@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.7.0 (16.04.2019)
+
+* Add warnings to AST.
+
 ## 1.6.0 (07.04.2019)
 
 * Delete from tree "fixed-type" keyword in array element.
