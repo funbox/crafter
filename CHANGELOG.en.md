@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.8.1 (18.04.2019)
+
+* Fix processing of "Resource prototype" sections.
+
 ## 1.8.0 (18.04.2019)
 
 * Show a warning if the actual value type of "pattern"/"format" attributes cannot be casted to string type.
