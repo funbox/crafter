@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.8.0 (18.04.2019)
+
+* Show a warning if the actual value type of "pattern"/"format" attributes cannot be casted to string type.
+
 ## 1.7.0 (16.04.2019)
 
 * Add warnings to AST.
