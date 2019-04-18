@@ -161,6 +161,11 @@ module.exports = (Parsers) => {
           });
           return nextNode;
         },
+      });
+
+      context.typeResolver.resolveRegisteredTypes();
+
+      walkAST({
         [SectionTypes.resourcePrototypes]: (curNode) => {
           const [nextNode, resourcePrototypeGroup] = Parsers.ResourcePrototypesParser.parse(curNode, context);
           resourcePrototypeGroup.resourcePrototypes.forEach((proto) => {
@@ -170,7 +175,6 @@ module.exports = (Parsers) => {
         },
       });
 
-      context.typeResolver.resolveRegisteredTypes();
       context.resourcePrototypeResolver.resolveRegisteredPrototypes();
       context.enableWarnings();
     },
