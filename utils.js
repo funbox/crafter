@@ -280,6 +280,25 @@ const utils = {
     return true;
   },
 
+  validateAttributesСonsistency(context, result, attributeSignatureDetails, typeAttributes) {
+    if (result.isArray() && result.typeAttributes.includes(typeAttributes['fixed-type'])) {
+      context.addWarning('fixed-type keyword is redundant', attributeSignatureDetails.sourceMapBlocks, attributeSignatureDetails.file);
+      result.typeAttributes = result.typeAttributes.filter(x => x !== typeAttributes['fixed-type']);
+    }
+
+    const stringParameterizedAttributes = result.typeAttributes
+      .filter(a => Array.isArray(a) && (a[0] === 'format' || a[0] === 'pattern'))
+      .map(a => a[0]);
+
+    if (!result.isType('string') && stringParameterizedAttributes.length > 0) {
+      stringParameterizedAttributes.forEach(a => {
+        context.addWarning(`Attribute "${a}" can be used in string value type only.`, attributeSignatureDetails.sourceMapBlocks, attributeSignatureDetails.file);
+      });
+    }
+
+    return [context, result];
+  },
+
   markdownSourceToAST(source) {
     const parser = new commonmark.Parser({ sourcepos: true });
     const ast = parser.parse(source);

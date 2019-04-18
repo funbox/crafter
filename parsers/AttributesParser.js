@@ -133,20 +133,7 @@ module.exports = (Parsers) => {
 
       context.popFrame();
 
-      if (result.content.isArray() && result.content.typeAttributes.includes(typeAttributes['fixed-type'])) {
-        context.addWarning('fixed-type keyword is redundant', attributeSignatureDetails.sourceMapBlocks, attributeSignatureDetails.file);
-        result.content.typeAttributes = result.content.typeAttributes.filter(x => x !== typeAttributes['fixed-type']);
-      }
-
-      const stringParameterizedAttributes = result.content.typeAttributes
-        .filter(a => Array.isArray(a) && (a[0] === 'format' || a[0] === 'pattern'))
-        .map(a => a[0]);
-
-      if (!result.content.isType('string') && stringParameterizedAttributes.length > 0) {
-        stringParameterizedAttributes.forEach(a => {
-          context.addWarning(`Attribute "${a}" can be used in string value type only.`, attributeSignatureDetails.sourceMapBlocks, attributeSignatureDetails.file);
-        });
-      }
+      [context, result.content] = utils.validateAttributesСonsistency(context, result.content, attributeSignatureDetails, typeAttributes);
 
       return result;
     },
