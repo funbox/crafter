@@ -129,10 +129,10 @@ function copyNewAttributes(src, target) {
 
   function hasAttribute(srcAttr) {
     return !!target.content[members].find(a => {
-      if (a.name instanceof StringElement) {
+      if (a.name instanceof StringElement && srcAttr.name instanceof StringElement) {
         return a.name.string === srcAttr.name.string;
       }
-      if (a instanceof MSONMixinElement) {
+      if (a instanceof MSONMixinElement && srcAttr instanceof MSONMixinElement) {
         return a.className === srcAttr.className;
       }
       return a.name === srcAttr.name;
