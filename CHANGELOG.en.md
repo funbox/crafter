@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.8.2 (19.04.2019)
+
+* Fix check of matching attributes during inheritance routine.
+
 ## 1.8.1 (18.04.2019)
 
 * Fix processing of "Resource prototype" sections.
