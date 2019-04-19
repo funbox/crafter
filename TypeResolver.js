@@ -2,6 +2,7 @@ const types = require('./types');
 const standardTypes = require('./types').standardTypes;
 const MSONMixinElement = require('./parsers/elements/MSONMixinElement');
 const PropertyMemberElement = require('./parsers/elements/PropertyMemberElement');
+const StringElement = require('./parsers/elements/StringElement');
 const utils = require('./utils');
 
 const CrafterError = utils.CrafterError;
@@ -127,7 +128,15 @@ function copyNewAttributes(src, target) {
   target.content[members] = parentAttributes.concat(target.content[members]);
 
   function hasAttribute(srcAttr) {
-    return !!target.content[members].find(a => a.name === srcAttr.name);
+    return !!target.content[members].find(a => {
+      if (a.name instanceof StringElement) {
+        return a.name.string === srcAttr.name.string;
+      }
+      if (a instanceof MSONMixinElement) {
+        return a.className === srcAttr.className;
+      }
+      return a.name === srcAttr.name;
+    });
   }
 }
 
