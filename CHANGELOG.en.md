@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.8.3 (19.04.2019)
+
+* Fix attributes type check when attributes are being compared.
+
 ## 1.8.2 (19.04.2019)
 
 * Fix check of matching attributes during inheritance routine.
