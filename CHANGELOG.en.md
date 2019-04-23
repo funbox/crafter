@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.9.0 (23.04.2019)
+
+* Text blocks in description.
+
 ## 1.8.4 (23.04.2019)
 
 * Fix transfer of the "fixed-type" attribute to nested elements.
