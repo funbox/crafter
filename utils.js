@@ -280,7 +280,7 @@ const utils = {
     return true;
   },
 
-  validateAttributesСonsistency(context, result, attributeSignatureDetails, typeAttributes) {
+  validateAttributesConsistency(context, result, attributeSignatureDetails, typeAttributes) {
     if (result.isArray() && result.typeAttributes.includes(typeAttributes['fixed-type'])) {
       context.addWarning('fixed-type keyword is redundant', attributeSignatureDetails.sourceMapBlocks, attributeSignatureDetails.file);
       result.typeAttributes = result.typeAttributes.filter(x => x !== typeAttributes['fixed-type']);

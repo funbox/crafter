@@ -51,7 +51,7 @@ module.exports = (Parsers) => {
       const { attributeSignatureDetails } = context.data;
       context.popFrame();
 
-      [context, result] = utils.validateAttributesСonsistency(context, result, attributeSignatureDetails, typeAttributes);
+      [context, result] = utils.validateAttributesConsistency(context, result, attributeSignatureDetails, typeAttributes);
 
       return result;
     },
