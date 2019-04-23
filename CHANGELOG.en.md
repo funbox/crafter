@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.8.4 (23.04.2019)
+
+* Fix transfer of the "fixed-type" attribute to nested elements.
+
 ## 1.8.3 (19.04.2019)
 
 * Fix attributes type check when attributes are being compared.
