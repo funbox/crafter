@@ -1,0 +1,19 @@
+# My API
+
+Defines property member type as an array with the "fixed-type" type attribute, which contains elements of named type "A".
+The example given shows that the "fixed-type" type attribute must not propagate to nested members.
+
+# Data Structures
+
+## A
++ One Of
+    + Properties
+        + foo (string, required, fixed)
+    + Properties
+        + bar (string, required, fixed)
+
+## Получить местоположения [GET /users]
+
++ Response 200 (application/json)
+    + Attributes
+        + result (array[A], fixed-type)

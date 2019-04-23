@@ -62,6 +62,33 @@
                         "content": "description 1"
                       }
                     }
+                  },
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "c"
+                      },
+                      "value": {
+                        "element": "object",
+                        "content": [
+                          {
+                            "element": "member",
+                            "content": {
+                              "key": {
+                                "element": "string",
+                                "content": "test"
+                              },
+                              "value": {
+                                "element": "string",
+                                "content": "foo"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
                   }
                 ],
                 "meta": {
@@ -93,6 +120,33 @@
                       "description": {
                         "element": "string",
                         "content": "description 2"
+                      }
+                    }
+                  },
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "c"
+                      },
+                      "value": {
+                        "element": "object",
+                        "content": [
+                          {
+                            "element": "member",
+                            "content": {
+                              "key": {
+                                "element": "string",
+                                "content": "test"
+                              },
+                              "value": {
+                                "element": "string",
+                                "content": "foo"
+                              }
+                            }
+                          }
+                        ]
                       }
                     }
                   }
@@ -160,7 +214,7 @@
                               "messageBody"
                             ]
                           },
-                          "content": "{\n  \"a1\": \"b1\"\n}",
+                          "content": "{\n  \"a1\": \"b1\",\n  \"c\": {\n    \"test\": \"foo\"\n  }\n}",
                           "attributes": {
                             "contentType": {
                               "element": "string",
@@ -181,7 +235,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"a1\": {\n      \"type\": \"string\",\n      \"description\": \"description 1\"\n    }\n  },\n  \"required\": [\n    \"a1\"\n  ],\n  \"additionalProperties\": false\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"a1\": {\n      \"type\": \"string\",\n      \"description\": \"description 1\"\n    },\n    \"c\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"test\": {\n          \"type\": \"string\"\n        }\n      }\n    }\n  },\n  \"required\": [\n    \"a1\",\n    \"c\"\n  ],\n  \"additionalProperties\": false\n}"
                         }
                       ],
                       "attributes": {
@@ -251,7 +305,7 @@
                               "messageBody"
                             ]
                           },
-                          "content": "{\n  \"a2\": \"b2\"\n}",
+                          "content": "{\n  \"a2\": \"b2\",\n  \"c\": {\n    \"test\": \"foo\"\n  }\n}",
                           "attributes": {
                             "contentType": {
                               "element": "string",
@@ -272,7 +326,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"a2\": {\n      \"type\": \"string\",\n      \"description\": \"description 2\"\n    }\n  },\n  \"required\": [\n    \"a2\"\n  ],\n  \"additionalProperties\": false\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"a2\": {\n      \"type\": \"string\",\n      \"description\": \"description 2\"\n    },\n    \"c\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"test\": {\n          \"type\": \"string\"\n        }\n      }\n    }\n  },\n  \"required\": [\n    \"a2\",\n    \"c\"\n  ],\n  \"additionalProperties\": false\n}"
                         }
                       ],
                       "attributes": {
