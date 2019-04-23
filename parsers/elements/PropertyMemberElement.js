@@ -49,7 +49,7 @@ class PropertyMemberElement {
   getSchema(resolvedTypes, flags = {}) {
     const schema = {};
 
-    const valueSchema = this.value.getSchema(resolvedTypes, utils.mergeFlags(flags, this));
+    const valueSchema = this.value.getSchema(resolvedTypes, utils.mergeFlags(flags, this, { propagateFixedType: false }));
 
     if (this.descriptionEl) {
       valueSchema.description = this.descriptionEl.string;

@@ -359,10 +359,10 @@ const utils = {
     return result;
   },
 
-  mergeFlags(baseFlags, typeElement) {
+  mergeFlags(baseFlags, typeElement, options = { propagateFixedType: true }) {
     return {
       isFixed: baseFlags.isFixed || typeElement.typeAttributes.includes('fixed'),
-      isFixedType: baseFlags.isFixedType || typeElement.typeAttributes.includes('fixedType'),
+      isFixedType: (options.propagateFixedType && baseFlags.isFixedType) || typeElement.typeAttributes.includes('fixedType'),
       isNullable: baseFlags.isNullable || typeElement.typeAttributes.includes('nullable'),
     };
   },

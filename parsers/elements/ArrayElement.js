@@ -22,9 +22,12 @@ class ArrayElement {
 
   getSchema(resolvedTypes, flags = {}) {
     const schema = { type: 'array' };
+    const localFlags = { ...flags };
+    delete localFlags.isFixedType;
+
     if (flags.isFixed) {
       schema.minItems = this.members.length;
-      schema.items = this.members.map(member => member.getSchema(resolvedTypes, flags));
+      schema.items = this.members.map(member => member.getSchema(resolvedTypes, localFlags));
       schema.additionalItems = false;
     } else if (this.members.length > 1) {
       const map = new Map();
@@ -40,7 +43,7 @@ class ArrayElement {
         anyOf: items,
       };
     } else if (this.members.length === 1) {
-      schema.items = this.members[0].getSchema(resolvedTypes, flags);
+      schema.items = this.members[0].getSchema(resolvedTypes, localFlags);
     }
     return schema;
   }
