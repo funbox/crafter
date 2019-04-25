@@ -337,11 +337,14 @@ class DataStructureProcessor {
     }
 
     enumElement.members.forEach((member) => {
+      const converted = utils.convertType(member.name, enumElement.type);
       const typesMatch = utils.compareAttributeTypes(enumElement, member);
 
       if (!typesMatch) {
         context.addWarning(`Invalid value format "${member.name}" for enum type '${enumElement.type}'.`, charBlocks, sourceMap.file);
       }
+
+      member.name = converted.valid ? converted.value : utils.defaultValue(enumElement.type);
 
       if (!member.type) member.type = enumElement.type;
     });
