@@ -162,6 +162,12 @@ class DataStructureProcessor {
       defaultValueProcessor.buildDefaultFor(types.array);
       arrayElement.default = defaultElement;
     }
+
+    arrayMembers.forEach((member) => {
+      if (!member.type && types.primitiveTypes.includes(predefinedType)) {
+        member.type = predefinedType;
+      }
+    });
   }
 
   buildObject(node, context) {
