@@ -117,7 +117,7 @@ class ValueMemberElement {
   getBody(resolvedTypes) {
     let body = {};
     const type = this.type || (this.content ? 'object' : 'string');
-    const value = convertType(this.value, type).value || defaultValue(type);
+    const value = convertType(this.value, type).value || utils.defaultValue(type);
     const isEmpty = (localBody) => (Object.keys(localBody).length === 0);
     const hasSamples = this.samples && this.samples.length;
 
@@ -126,7 +126,7 @@ class ValueMemberElement {
       if (typeEl.isComplex()) {
         body = typeEl.content.getBody(resolvedTypes);
       } else {
-        body.value = defaultValue(typeEl.baseType);
+        body.value = utils.defaultValue(typeEl.baseType);
       }
     }
 
@@ -236,19 +236,6 @@ class ValueMemberElement {
 
     return schema;
   }
-}
-
-function defaultValue(type) {
-  const valueByType = {
-    boolean: false,
-    number: 0,
-    string: '',
-    array: [],
-    object: {},
-    file: '',
-    enum: null,
-  };
-  return valueByType[type] === undefined ? '' : valueByType[type];
 }
 
 function fillSchemaWithAttributes(schema, typeAttributes) {

@@ -412,6 +412,19 @@ const utils = {
     }
   },
 
+  defaultValue(type) {
+    const valueByType = {
+      boolean: false,
+      number: 0,
+      string: '',
+      array: [],
+      object: {},
+      file: '',
+      enum: null,
+    };
+    return valueByType[type] === undefined ? '' : valueByType[type];
+  },
+
   CrafterError,
 
   Logger,
