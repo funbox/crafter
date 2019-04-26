@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.9.1 (26.04.2019)
+
+* Copy nested elements of an enum.
+
 ## 1.9.0 (23.04.2019)
 
 * Text blocks in description.
