@@ -47,7 +47,7 @@ describe('SignatureParser', () => {
     it('Parses signature with name, attributes and description', () => {
       const signature = new SignatureParser('name: (string, required) - Description');
       expect(signature.name).toBe('name');
-      expect(signature.value).toBe('');
+      expect(signature.value).toBe(null);
       expect(signature.type).toBe('string');
       expect(signature.typeAttributes).toEqual(['required']);
       expect(signature.description).toBe('Description');
