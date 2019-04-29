@@ -154,7 +154,12 @@ class SignatureParser {
       }
     }
 
-    this.value = stripBackticks(value.trim());
+    const clarifiedValue = stripBackticks(value.trim());
+    if (this.rawValue && this.rawValue !== clarifiedValue) {
+      this.value = clarifiedValue;
+    } else {
+      this.value = clarifiedValue || null;
+    }
 
     return signature.substr(i);
   }
