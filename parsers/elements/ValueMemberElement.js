@@ -224,7 +224,7 @@ class ValueMemberElement {
       schema.type = normalizedType;
     }
 
-    if (flags.isFixed && !this.isSample) {
+    if (flags.isFixed && !this.isSample && this.value != null) {
       schema.enum = [this.value];
     }
 
