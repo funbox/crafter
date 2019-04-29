@@ -228,6 +228,10 @@ class ValueMemberElement {
       schema.enum = [this.value];
     }
 
+    if ((flags.isFixed || flags.isFixedType) && this.isObject()) {
+      schema.additionalProperties = false;
+    }
+
     if (this.type === 'file') {
       schema.contentEncoding = 'base64';
     }
