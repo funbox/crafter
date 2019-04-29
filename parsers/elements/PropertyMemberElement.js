@@ -66,10 +66,6 @@ class PropertyMemberElement {
       schema.required = [this.name.string];
     }
 
-    if (flags.isFixed || flags.isFixedType) {
-      schema.additionalProperties = false;
-    }
-
     return schema;
   }
 }

@@ -276,7 +276,6 @@ describe('schema', () => {
         required: [
           'status',
         ],
-        additionalProperties: false,
       });
     });
 

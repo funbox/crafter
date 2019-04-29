@@ -22,6 +22,9 @@ class ObjectElement {
     this.propertyMembers.forEach(member => {
       schema = utils.mergeSchemas(schema, member.getSchema(resolvedTypes, flags));
     });
+    if (flags.isFixed || flags.isFixedType) {
+      schema.additionalProperties = false;
+    }
     return schema;
   }
 }
