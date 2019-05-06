@@ -43,7 +43,7 @@
       "content": [
         {
           "element": "copy",
-          "content": "Defines property member \"result\" as an array of numbers, which includes untyped nested elements.\nThese elements should inherit type \"number\".",
+          "content": "Defines property member \"result\" as an array of numbers, which includes untyped nested elements.\nThese elements should inherit type \"number\" and the last element value should be replaced with \"0\".\nIt produces warning:\n'Invalid value \"test\" for \"number\" type'",
           "attributes": {
             "sourceMap": {
               "element": "array",
@@ -60,7 +60,7 @@
                         },
                         {
                           "element": "number",
-                          "content": 143
+                          "content": 260
                         }
                       ]
                     }
@@ -94,7 +94,7 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 153
+                              "content": 270
                             },
                             {
                               "element": "number",
@@ -140,7 +140,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 153
+                                          "content": 270
                                         },
                                         {
                                           "element": "number",
@@ -183,7 +183,7 @@
                                                 "content": [
                                                   {
                                                     "element": "number",
-                                                    "content": 224
+                                                    "content": 341
                                                   },
                                                   {
                                                     "element": "number",
@@ -205,35 +205,6 @@
                                       },
                                       {
                                         "element": "number",
-                                        "content": 0,
-                                        "attributes": {
-                                          "sourceMap": {
-                                            "element": "array",
-                                            "content": [
-                                              {
-                                                "element": "sourceMap",
-                                                "content": [
-                                                  {
-                                                    "element": "array",
-                                                    "content": [
-                                                      {
-                                                        "element": "number",
-                                                        "content": 259
-                                                      },
-                                                      {
-                                                        "element": "number",
-                                                        "content": 2
-                                                      }
-                                                    ]
-                                                  }
-                                                ]
-                                              }
-                                            ]
-                                          }
-                                        }
-                                      },
-                                      {
-                                        "element": "number",
                                         "content": 1,
                                         "attributes": {
                                           "sourceMap": {
@@ -247,7 +218,7 @@
                                                     "content": [
                                                       {
                                                         "element": "number",
-                                                        "content": 273
+                                                        "content": 376
                                                       },
                                                       {
                                                         "element": "number",
@@ -276,11 +247,40 @@
                                                     "content": [
                                                       {
                                                         "element": "number",
-                                                        "content": 287
+                                                        "content": 390
                                                       },
                                                       {
                                                         "element": "number",
                                                         "content": 2
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 0,
+                                        "attributes": {
+                                          "sourceMap": {
+                                            "element": "array",
+                                            "content": [
+                                              {
+                                                "element": "sourceMap",
+                                                "content": [
+                                                  {
+                                                    "element": "array",
+                                                    "content": [
+                                                      {
+                                                        "element": "number",
+                                                        "content": 404
+                                                      },
+                                                      {
+                                                        "element": "number",
+                                                        "content": 5
                                                       }
                                                     ]
                                                   }
@@ -303,7 +303,7 @@
                                                 "content": [
                                                   {
                                                     "element": "number",
-                                                    "content": 224
+                                                    "content": 341
                                                   },
                                                   {
                                                     "element": "number",
@@ -332,7 +332,7 @@
                                         "content": [
                                           {
                                             "element": "number",
-                                            "content": 205
+                                            "content": 322
                                           },
                                           {
                                             "element": "number",
@@ -354,7 +354,7 @@
                               "messageBody"
                             ]
                           },
-                          "content": "{\n  \"result\": [\n    0,\n    0,\n    1,\n    2\n  ]\n}",
+                          "content": "{\n  \"result\": [\n    0,\n    1,\n    2,\n    0\n  ]\n}",
                           "attributes": {
                             "contentType": {
                               "element": "string",
@@ -394,7 +394,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 167
+                                          "content": 284
                                         },
                                         {
                                           "element": "number",
@@ -435,7 +435,7 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 167
+                                              "content": 284
                                             },
                                             {
                                               "element": "number",
@@ -462,7 +462,7 @@
                                   "content": [
                                     {
                                       "element": "number",
-                                      "content": 167
+                                      "content": 284
                                     },
                                     {
                                       "element": "number",
@@ -495,7 +495,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 153
+                                  "content": 270
                                 },
                                 {
                                   "element": "number",
@@ -514,6 +514,66 @@
           ]
         }
       ]
+    },
+    {
+      "element": "annotation",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "warning"
+            }
+          ]
+        }
+      },
+      "attributes": {
+        "sourceMap": {
+          "element": "array",
+          "content": [
+            {
+              "element": "sourceMap",
+              "content": [
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 12
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 7
+                        }
+                      },
+                      "content": 339
+                    },
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 15
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 17
+                        }
+                      },
+                      "content": 70
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "content": "Invalid value \"test\" for \"number\" type"
     }
   ]
 }
