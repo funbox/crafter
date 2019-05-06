@@ -166,6 +166,11 @@ class DataStructureProcessor {
     arrayMembers.forEach((member) => {
       if (!member.type && types.primitiveTypes.includes(predefinedType)) {
         member.type = predefinedType;
+        const realValue = utils.convertType(member.value, predefinedType);
+        if (!realValue.valid) {
+          context.addWarning(`Invalid value "${member.value}" for "${predefinedType}" type`, charBlocks, sourceMap.file);
+        }
+        member.value = realValue.valid ? realValue.value : utils.defaultValue(predefinedType);
       }
     });
   }
