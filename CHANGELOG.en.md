@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.9.2 (07.05.2019)
+
+* Convert array elements that have no explicit type.
+
 ## 1.9.1 (26.04.2019)
 
 * Copy nested elements of an enum.
