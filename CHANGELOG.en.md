@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.9.4 (07.05.2019)
+
+* Fix parsing of a code block in a description.
+
 ## 1.9.3 (07.05.2019)
 
 * Fix JSON schema for "fixed" and "fixed-type" elements.
