@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.9.3 (07.05.2019)
+
+* Fix JSON schema for "fixed" and "fixed-type" elements.
+
 ## 1.9.2 (07.05.2019)
 
 * Convert array elements that have no explicit type.
