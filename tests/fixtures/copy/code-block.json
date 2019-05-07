@@ -1,0 +1,40 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": [
+          {
+            "element": "string",
+            "content": "api"
+          }
+        ],
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
+      },
+      "content": [
+        {
+          "element": "category",
+          "meta": {
+            "classes": [
+              "resourceGroup"
+            ],
+            "title": {
+              "element": "string",
+              "content": "Introduction"
+            }
+          },
+          "content": [
+            {
+              "element": "copy",
+              "content": "Error structure:\n\n```json\n{\n\"code\": 123,\n\"message\": \"ErrorType\",\n\"details\": \"Error detailed message\"\n}\n```"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
