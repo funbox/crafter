@@ -9,7 +9,7 @@ class BlueprintElement {
     this.meta = meta;
   }
 
-  toRefract() {
+  toRefract(sourceMapsEnabled) {
     const result = {
       element: Refract.elements.category,
       meta: {
@@ -17,27 +17,27 @@ class BlueprintElement {
           element: Refract.elements.string,
           content: Refract.categoryClasses.api,
         }],
-        title: this.title.toRefract(),
+        title: this.title.toRefract(sourceMapsEnabled),
       },
-      content: this.content.map(item => item.toRefract()),
+      content: this.content.map(item => item.toRefract(sourceMapsEnabled)),
     };
 
     if (this.description) {
-      result.content.unshift(this.description.toRefract());
+      result.content.unshift(this.description.toRefract(sourceMapsEnabled));
     }
 
     if (this.meta.length) {
       result.attributes = {
         metadata: {
           element: Refract.elements.array,
-          content: this.meta.map(metaElement => metaElement.toRefract()),
+          content: this.meta.map(metaElement => metaElement.toRefract(sourceMapsEnabled)),
         },
       };
     }
 
     return {
       element: Refract.elements.parseResult,
-      content: [result].concat(this.annotations.map(annotation => annotation.toRefract())),
+      content: [result].concat(this.annotations.map(annotation => annotation.toRefract(sourceMapsEnabled))),
     };
   }
 }

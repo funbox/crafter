@@ -8,12 +8,12 @@ class MSONNamedTypeElement {
     this.content = new ValueMemberElement(baseType, typeAttributes);
   }
 
-  toRefract() {
+  toRefract(sourceMapsEnabled) {
     const result = {
       element: Refract.elements.dataStructure,
-      content: Object.assign(this.content.toRefract(), {
+      content: Object.assign(this.content.toRefract(sourceMapsEnabled), {
         meta: {
-          id: this.name.toRefract(),
+          id: this.name.toRefract(sourceMapsEnabled),
         },
       }),
     };
@@ -25,7 +25,7 @@ class MSONNamedTypeElement {
       };
       if (this.description.sourceMap) {
         description.attributes = {
-          sourceMap: this.description.sourceMap.toRefract(),
+          sourceMap: this.description.sourceMap.toRefract(sourceMapsEnabled),
         };
       }
       result.content.meta.description = description;

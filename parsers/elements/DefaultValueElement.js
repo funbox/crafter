@@ -7,7 +7,7 @@ class DefaultValueElement {
     this.valuesForBody = null;
   }
 
-  toRefract() {
+  toRefract(sourceMapsEnabled) {
     const result = {
       element: this.type,
     };
@@ -19,11 +19,11 @@ class DefaultValueElement {
     if (this.sourceMap) {
       if (typeof this.content === 'object') {
         result.content.attributes = {
-          sourceMap: this.sourceMap.toRefract(),
+          sourceMap: this.sourceMap.toRefract(sourceMapsEnabled),
         };
       } else {
         result.attributes = {
-          sourceMap: this.sourceMap.toRefract(),
+          sourceMap: this.sourceMap.toRefract(sourceMapsEnabled),
         };
       }
     }

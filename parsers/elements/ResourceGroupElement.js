@@ -7,18 +7,18 @@ class ResourceGroupElement {
     this.resources = [];
   }
 
-  toRefract() {
+  toRefract(sourceMapsEnabled) {
     const result = {
       element: Refract.elements.category,
       meta: {
         classes: [Refract.categoryClasses.resourceGroup],
-        title: this.title.toRefract(),
+        title: this.title.toRefract(sourceMapsEnabled),
       },
-      content: this.resources.map(r => r.toRefract()),
+      content: this.resources.map(r => r.toRefract(sourceMapsEnabled)),
     };
 
     if (this.description) {
-      result.content.unshift(this.description.toRefract());
+      result.content.unshift(this.description.toRefract(sourceMapsEnabled));
     }
 
     return result;

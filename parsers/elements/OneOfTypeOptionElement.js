@@ -6,10 +6,10 @@ class OneOfTypeOptionElement {
     this.members = members;
   }
 
-  toRefract() {
+  toRefract(sourceMapsEnabled) {
     return {
       element: Refract.elements.option,
-      content: this.members.map(member => member.toRefract()),
+      content: this.members.map(member => member.toRefract(sourceMapsEnabled)),
     };
   }
 

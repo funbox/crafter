@@ -3,8 +3,8 @@ class ArrayElement {
     this.members = members;
   }
 
-  toRefract() {
-    return this.members.map(element => element.toRefract());
+  toRefract(sourceMapsEnabled) {
+    return this.members.map(element => element.toRefract(sourceMapsEnabled));
   }
 
   getBody(resolvedTypes, options) {

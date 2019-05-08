@@ -5,7 +5,7 @@ class DataStructureGroupElement {
     this.dataStructures = [];
   }
 
-  toRefract() {
+  toRefract(sourceMapsEnabled) {
     return {
       element: Refract.elements.category,
       meta: {
@@ -13,7 +13,7 @@ class DataStructureGroupElement {
           Refract.categoryClasses.dataStructures,
         ],
       },
-      content: this.dataStructures.map(ds => ds.toRefract()),
+      content: this.dataStructures.map(ds => ds.toRefract(sourceMapsEnabled)),
     };
   }
 }

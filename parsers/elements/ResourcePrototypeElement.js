@@ -8,7 +8,7 @@ class ResourcePrototypeElement {
     this.sourceMap = null;
   }
 
-  toRefract() {
+  toRefract(sourceMapsEnabled) {
     const result = {
       element: Refract.elements.resourcePrototype,
       meta: {
@@ -16,11 +16,11 @@ class ResourcePrototypeElement {
           element: Refract.elements.string,
           content: this.title,
           ...(this.sourceMap ? {
-            attributes: { sourceMap: this.sourceMap.toRefract() },
+            attributes: { sourceMap: this.sourceMap.toRefract(sourceMapsEnabled) },
           } : {}),
         },
       },
-      content: this.responses.map(r => r.toRefract()),
+      content: this.responses.map(r => r.toRefract(sourceMapsEnabled)),
     };
 
     if (this.basePrototypes.length > 0) {

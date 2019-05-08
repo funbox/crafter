@@ -13,7 +13,7 @@ class ActionElement {
     this.sourceMap = null;
   }
 
-  toRefract() {
+  toRefract(sourceMapsEnabled) {
     const result = {
       element: Refract.elements.transition,
       meta: {
@@ -21,7 +21,7 @@ class ActionElement {
           element: Refract.elements.string,
           content: this.title,
           ...(this.sourceMap && this.title ? {
-            attributes: { sourceMap: this.sourceMap.toRefract() },
+            attributes: { sourceMap: this.sourceMap.toRefract(sourceMapsEnabled) },
           } : {}),
         },
       },
@@ -34,7 +34,7 @@ class ActionElement {
           element: Refract.elements.string,
           content: this.href,
           ...(this.sourceMap ? {
-            attributes: { sourceMap: this.sourceMap.toRefract() },
+            attributes: { sourceMap: this.sourceMap.toRefract(sourceMapsEnabled) },
           } : {}),
         },
       };
@@ -42,7 +42,7 @@ class ActionElement {
 
     if (this.parameters) {
       result.attributes = result.attributes || {};
-      result.attributes.hrefVariables = this.parameters.toRefract();
+      result.attributes.hrefVariables = this.parameters.toRefract(sourceMapsEnabled);
     }
 
     let requests = this.requests;
@@ -59,15 +59,15 @@ class ActionElement {
         result.content.push({
           element: Refract.elements.httpTransaction,
           content: [
-            request.toRefract(),
-            response.toRefract(),
+            request.toRefract(sourceMapsEnabled),
+            response.toRefract(sourceMapsEnabled),
           ],
         });
       });
     });
 
     if (this.description) {
-      result.content.unshift(this.description.toRefract());
+      result.content.unshift(this.description.toRefract(sourceMapsEnabled));
     }
 
     return result;

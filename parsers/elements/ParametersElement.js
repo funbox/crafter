@@ -5,10 +5,10 @@ class ParametersElement {
     this.parameters = [];
   }
 
-  toRefract() {
+  toRefract(sourceMapsEnabled) {
     return {
       element: Refract.elements.hrefVariables,
-      content: this.parameters.map(p => p.toRefract()),
+      content: this.parameters.map(p => p.toRefract(sourceMapsEnabled)),
     };
   }
 }

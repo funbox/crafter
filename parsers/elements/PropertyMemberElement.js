@@ -12,12 +12,12 @@ class PropertyMemberElement {
     this.descriptionEl = descriptionEl;
   }
 
-  toRefract() {
+  toRefract(sourceMapsEnabled) {
     const result = {
       element: Refract.elements.member,
       content: {
-        key: this.name.toRefract(),
-        value: this.value.toRefract(),
+        key: this.name.toRefract(sourceMapsEnabled),
+        value: this.value.toRefract(sourceMapsEnabled),
       },
     };
 
@@ -28,7 +28,7 @@ class PropertyMemberElement {
 
     if (this.descriptionEl) {
       result.meta = {
-        description: this.descriptionEl.toRefract(),
+        description: this.descriptionEl.toRefract(sourceMapsEnabled),
       };
     }
 

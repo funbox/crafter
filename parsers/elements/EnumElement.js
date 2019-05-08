@@ -11,22 +11,22 @@ class EnumElement {
     this.type = (resolvedType.nestedTypes[0] ? resolvedType.nestedTypes[0] : 'string');
   }
 
-  toRefract() {
+  toRefract(sourceMapsEnabled) {
     const result = {
       enumerations: {
         element: Refract.elements.array,
-        content: this.members.map(e => e.toRefract()),
+        content: this.members.map(e => e.toRefract(sourceMapsEnabled)),
       },
     };
 
     if (this.defaultValue) {
-      result.default = this.defaultValue.toRefract();
+      result.default = this.defaultValue.toRefract(sourceMapsEnabled);
     }
 
     if (this.sampleValues) {
       result.samples = {
         element: Refract.elements.array,
-        content: this.sampleValues.map(sampleElement => sampleElement.toRefract()),
+        content: this.sampleValues.map(sampleElement => sampleElement.toRefract(sourceMapsEnabled)),
       };
     }
     return result;

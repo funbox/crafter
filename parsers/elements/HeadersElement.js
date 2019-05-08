@@ -5,7 +5,7 @@ class HeadersElement {
     this.headers = headers;
   }
 
-  toRefract() {
+  toRefract(sourceMapsEnabled) {
     return {
       element: Refract.elements.httpHeaders,
       content: this.headers.map(({ key, val, sourceMap }) => ({
@@ -21,7 +21,7 @@ class HeadersElement {
           },
         },
         ...(sourceMap ? {
-          attributes: { sourceMap: sourceMap.toRefract() },
+          attributes: { sourceMap: sourceMap.toRefract(sourceMapsEnabled) },
         } : {}),
       })),
     };

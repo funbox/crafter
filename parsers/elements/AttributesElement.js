@@ -6,10 +6,10 @@ class AttributesElement {
     this.content = content;
   }
 
-  toRefract() {
+  toRefract(sourceMapsEnabled) {
     return {
       element: Refract.elements.dataStructure,
-      content: this.content.toRefract(),
+      content: this.content.toRefract(sourceMapsEnabled),
     };
   }
 

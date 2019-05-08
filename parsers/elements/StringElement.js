@@ -6,14 +6,14 @@ class StringElement {
     this.sourceMap = sourceMap;
   }
 
-  toRefract() {
+  toRefract(sourceMapsEnabled) {
     const result = {
       element: Refract.elements.string,
       content: this.string,
     };
     if (this.sourceMap) {
       result.attributes = {
-        sourceMap: this.sourceMap.toRefract(),
+        sourceMap: this.sourceMap.toRefract(sourceMapsEnabled),
       };
     }
     return result;

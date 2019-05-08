@@ -7,7 +7,7 @@ class AnnotationElement {
     this.sourceMap = sourceMap;
   }
 
-  toRefract() {
+  toRefract(sourceMapsEnabled) {
     return {
       element: Refract.elements.annotation,
       meta: {
@@ -22,7 +22,7 @@ class AnnotationElement {
         },
       },
       attributes: {
-        sourceMap: this.sourceMap.toRefract(),
+        sourceMap: this.sourceMap.toRefract(sourceMapsEnabled),
       },
       content: this.text,
     };

@@ -9,24 +9,24 @@ class ResourceElement {
     this.actions = [];
   }
 
-  toRefract() {
+  toRefract(sourceMapsEnabled) {
     const result = {
       element: Refract.elements.resource,
       meta: {
-        title: this.title.toRefract(),
+        title: this.title.toRefract(sourceMapsEnabled),
       },
       attributes: {
-        href: this.href.toRefract(),
+        href: this.href.toRefract(sourceMapsEnabled),
       },
-      content: this.actions.map(a => a.toRefract()),
+      content: this.actions.map(a => a.toRefract(sourceMapsEnabled)),
     };
 
     if (this.parameters) {
-      result.attributes.hrefVariables = this.parameters.toRefract();
+      result.attributes.hrefVariables = this.parameters.toRefract(sourceMapsEnabled);
     }
 
     if (this.description) {
-      result.content.unshift(this.description.toRefract());
+      result.content.unshift(this.description.toRefract(sourceMapsEnabled));
     }
 
     return result;

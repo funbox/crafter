@@ -12,13 +12,13 @@ class RequestElement {
     this.sourceMap = null;
   }
 
-  toRefract() {
+  toRefract(sourceMapsEnabled) {
     const result = {
       element: Refract.elements.httpRequest,
       attributes: {
-        method: this.method.toRefract(),
+        method: this.method.toRefract(sourceMapsEnabled),
       },
-      content: this.content.map(c => c.toRefract()),
+      content: this.content.map(c => c.toRefract(sourceMapsEnabled)),
     };
 
     if (this.title) {
@@ -27,7 +27,7 @@ class RequestElement {
           element: Refract.elements.string,
           content: this.title,
           ...(this.sourceMap ? {
-            attributes: { sourceMap: this.sourceMap.toRefract() },
+            attributes: { sourceMap: this.sourceMap.toRefract(sourceMapsEnabled) },
           } : {}),
         },
       };
@@ -35,18 +35,18 @@ class RequestElement {
 
     this.headersSections.forEach((headers) => {
       if (result.attributes.headers) {
-        result.attributes.headers.content = result.attributes.headers.content.concat(headers.toRefract().content);
+        result.attributes.headers.content = result.attributes.headers.content.concat(headers.toRefract(sourceMapsEnabled).content);
       } else {
-        result.attributes.headers = headers.toRefract();
+        result.attributes.headers = headers.toRefract(sourceMapsEnabled);
       }
     });
 
     if (this.description) {
-      result.content.unshift(this.description.toRefract());
+      result.content.unshift(this.description.toRefract(sourceMapsEnabled));
     }
 
     if (this.sourceMap) {
-      result.attributes.sourceMap = this.sourceMap.toRefract();
+      result.attributes.sourceMap = this.sourceMap.toRefract(sourceMapsEnabled);
     }
 
     return result;

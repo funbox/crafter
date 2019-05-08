@@ -16,7 +16,7 @@ class ParameterElement {
     this.sourceMap = null;
   }
 
-  toRefract() {
+  toRefract(sourceMapsEnabled) {
     const result = {
       element: Refract.elements.member,
       content: {
@@ -24,7 +24,7 @@ class ParameterElement {
           element: Refract.elements.string,
           content: this.name,
           ...(this.sourceMap ? {
-            attributes: { sourceMap: this.sourceMap.toRefract() },
+            attributes: { sourceMap: this.sourceMap.toRefract(sourceMapsEnabled) },
           } : {}),
         },
         value: {},
@@ -46,7 +46,7 @@ class ParameterElement {
         element: Refract.elements.string,
         content: this.value,
         ...(this.sourceMap ? {
-          attributes: { sourceMap: this.sourceMap.toRefract() },
+          attributes: { sourceMap: this.sourceMap.toRefract(sourceMapsEnabled) },
         } : {}),
       };
 
@@ -65,7 +65,7 @@ class ParameterElement {
     }
 
     if (this.description) {
-      result.meta.description = this.description.toRefract();
+      result.meta.description = this.description.toRefract(sourceMapsEnabled);
     }
 
     if (this.rawType) {
@@ -73,7 +73,7 @@ class ParameterElement {
         element: Refract.elements.string,
         content: this.rawType,
         ...(this.sourceMap ? {
-          attributes: { sourceMap: this.sourceMap.toRefract() },
+          attributes: { sourceMap: this.sourceMap.toRefract(sourceMapsEnabled) },
         } : {}),
       };
     }
@@ -85,11 +85,11 @@ class ParameterElement {
     }
 
     if (this.defaultValue) {
-      result.content.value.attributes.default = this.defaultValue.toRefract();
+      result.content.value.attributes.default = this.defaultValue.toRefract(sourceMapsEnabled);
     }
 
     if (this.enumerations) {
-      result.content.value.attributes.enumerations = this.enumerations.toRefract();
+      result.content.value.attributes.enumerations = this.enumerations.toRefract(sourceMapsEnabled);
     }
 
     if (Object.keys(result.content.value).length === 0) {

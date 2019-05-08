@@ -6,7 +6,7 @@ class SchemaElement {
     this.sourceMap = null;
   }
 
-  toRefract() {
+  toRefract(sourceMapsEnabled) {
     const result = {
       element: Refract.elements.asset,
       meta: {
@@ -24,7 +24,7 @@ class SchemaElement {
     };
 
     if (this.sourceMap) {
-      result.attributes.sourceMap = this.sourceMap.toRefract();
+      result.attributes.sourceMap = this.sourceMap.toRefract(sourceMapsEnabled);
     }
 
     return result;

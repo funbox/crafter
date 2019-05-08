@@ -9,7 +9,7 @@ class EnumMemberElement {
     this.sourceMap = null;
   }
 
-  toRefract() {
+  toRefract(sourceMapsEnabled) {
     const result = {
       element: Refract.elements[this.type || 'string'],
       attributes: {
@@ -22,7 +22,7 @@ class EnumMemberElement {
             }],
           },
         }),
-        ...(this.sourceMap ? { sourceMap: this.sourceMap.toRefract() } : {}),
+        ...(this.sourceMap ? { sourceMap: this.sourceMap.toRefract(sourceMapsEnabled) } : {}),
       },
     };
 
@@ -44,7 +44,7 @@ class EnumMemberElement {
           element: Refract.elements.string,
           content: this.description,
           ...(this.sourceMap ? {
-            attributes: { sourceMap: this.sourceMap.toRefract() },
+            attributes: { sourceMap: this.sourceMap.toRefract(sourceMapsEnabled) },
           } : {}),
         },
       };

@@ -6,14 +6,14 @@ class DescriptionElement {
     this.sourceMap = null;
   }
 
-  toRefract() {
+  toRefract(sourceMapsEnabled) {
     const result = {
       element: Refract.elements.copy,
       content: this.description,
     };
     if (this.sourceMap) {
       result.attributes = {
-        sourceMap: this.sourceMap.toRefract(),
+        sourceMap: this.sourceMap.toRefract(sourceMapsEnabled),
       };
     }
     return result;

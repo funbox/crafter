@@ -7,7 +7,7 @@ class MetaDataElement {
     this.sourceMap = null;
   }
 
-  toRefract() {
+  toRefract(sourceMapsEnabled) {
     const result = {
       element: Refract.elements.member,
       content: {
@@ -33,7 +33,7 @@ class MetaDataElement {
 
     if (this.sourceMap) {
       result.attributes = {
-        sourceMap: this.sourceMap.toRefract(),
+        sourceMap: this.sourceMap.toRefract(sourceMapsEnabled),
       };
     }
     return result;

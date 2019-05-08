@@ -5,7 +5,7 @@ class ResourcePrototypesElement {
     this.resourcePrototypes = [];
   }
 
-  toRefract() {
+  toRefract(sourceMapsEnabled) {
     return {
       element: Refract.elements.category,
       meta: {
@@ -13,7 +13,7 @@ class ResourcePrototypesElement {
           Refract.categoryClasses.resourcePrototypes,
         ],
       },
-      content: this.resourcePrototypes.map(rp => rp.toRefract()),
+      content: this.resourcePrototypes.map(rp => rp.toRefract(sourceMapsEnabled)),
     };
   }
 }

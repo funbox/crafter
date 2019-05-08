@@ -7,7 +7,7 @@ class BodyElement {
     this.sourceMap = null;
   }
 
-  toRefract() {
+  toRefract(sourceMapsEnabled) {
     const body = (typeof this.body === 'object') ? JSON.stringify(this.body, null, 2) : this.body;
 
     const result = {
@@ -30,7 +30,7 @@ class BodyElement {
 
     if (this.sourceMap) {
       result.attributes = result.attributes || {};
-      result.attributes.sourceMap = this.sourceMap.toRefract();
+      result.attributes.sourceMap = this.sourceMap.toRefract(sourceMapsEnabled);
     }
 
     return result;

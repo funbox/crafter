@@ -5,8 +5,8 @@ class ObjectElement {
     this.propertyMembers = [];
   }
 
-  toRefract() {
-    return this.propertyMembers.map(element => element.toRefract());
+  toRefract(sourceMapsEnabled) {
+    return this.propertyMembers.map(element => element.toRefract(sourceMapsEnabled));
   }
 
   getBody(resolvedTypes) {

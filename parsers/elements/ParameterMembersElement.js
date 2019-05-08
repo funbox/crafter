@@ -5,10 +5,10 @@ class ParameterMembersElement {
     this.members = [];
   }
 
-  toRefract() {
+  toRefract(sourceMapsEnabled) {
     return {
       element: Refract.elements.array,
-      content: this.members.map(m => m.toRefract()),
+      content: this.members.map(m => m.toRefract(sourceMapsEnabled)),
     };
   }
 }

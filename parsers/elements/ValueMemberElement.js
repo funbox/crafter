@@ -47,7 +47,7 @@ class ValueMemberElement {
     return (this.baseType === type || this.type === type);
   }
 
-  toRefract() {
+  toRefract(sourceMapsEnabled) {
     const type = this.type || (this.content ? 'object' : 'string');
 
     const result = {
@@ -60,7 +60,7 @@ class ValueMemberElement {
           element: Refract.elements.string,
           content: this.description,
           ...(this.sourceMap ? {
-            attributes: { sourceMap: this.sourceMap.toRefract() },
+            attributes: { sourceMap: this.sourceMap.toRefract(sourceMapsEnabled) },
           } : {}),
         },
       };
@@ -76,9 +76,9 @@ class ValueMemberElement {
 
     if (this.content) {
       if (this.isEnum()) {
-        result.attributes = this.content.toRefract();
+        result.attributes = this.content.toRefract(sourceMapsEnabled);
       } else {
-        result.content = this.content.toRefract();
+        result.content = this.content.toRefract(sourceMapsEnabled);
       }
     }
 
@@ -89,7 +89,7 @@ class ValueMemberElement {
     if (this.samples) {
       const existingSamplesContent = (result.attributes.samples && result.attributes.samples.content) || [];
       const samplesContent = [
-        ...(this.samples.map(sampleElement => sampleElement.toRefract())),
+        ...(this.samples.map(sampleElement => sampleElement.toRefract(sourceMapsEnabled))),
         ...existingSamplesContent,
       ];
 
@@ -100,7 +100,7 @@ class ValueMemberElement {
     }
 
     if (this.default) {
-      result.attributes.default = this.default.toRefract();
+      result.attributes.default = this.default.toRefract(sourceMapsEnabled);
     }
 
     if (result.content == null || result.content === '' || (Array.isArray(result.content) && !result.content[0])) {
@@ -108,7 +108,7 @@ class ValueMemberElement {
     }
 
     if (this.sourceMap) {
-      result.attributes.sourceMap = this.sourceMap.toRefract();
+      result.attributes.sourceMap = this.sourceMap.toRefract(sourceMapsEnabled);
     }
 
     return result;

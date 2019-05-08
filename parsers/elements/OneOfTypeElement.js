@@ -5,10 +5,10 @@ class OneOfTypeElement {
     this.options = [];
   }
 
-  toRefract() {
+  toRefract(sourceMapsEnabled) {
     return {
       element: Refract.elements.select,
-      content: this.options.map(option => option.toRefract()),
+      content: this.options.map(option => option.toRefract(sourceMapsEnabled)),
     };
   }
 
