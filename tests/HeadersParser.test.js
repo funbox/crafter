@@ -1,6 +1,7 @@
 const Context = require('../Context');
 const defineParser = require('../parsers/HeadersParser');
 const utils = require('../utils');
+const SourceMapElement = require('../parsers/elements/SourceMapElement');
 
 const Parsers = {};
 defineParser(Parsers);
@@ -37,14 +38,17 @@ describe('HeadersParser', () => {
       {
         key: 'Accept-Charset',
         val: 'utf-8',
+        sourceMap: new SourceMapElement([{ offset: 13, length: 21 }]),
       },
       {
         key: 'Connection',
         val: 'keep-alive',
+        sourceMap: new SourceMapElement([{ offset: 39, length: 22 }]),
       },
       {
         key: 'Content-Type',
         val: 'multipart/form-data, boundary=AaB03x',
+        sourceMap: new SourceMapElement([{ offset: 66, length: 50 }]),
       },
     ]);
   });
@@ -65,14 +69,17 @@ describe('HeadersParser', () => {
       {
         key: 'Accept-Charset',
         val: 'utf:8',
+        sourceMap: new SourceMapElement([{ offset: 13, length: 21 }]),
       },
       {
         key: 'Connection',
         val: 'keep:alive',
+        sourceMap: new SourceMapElement([{ offset: 39, length: 22 }]),
       },
       {
         key: 'Content-Type',
         val: 'multipart:form-data, boundary=AaB03x',
+        sourceMap: new SourceMapElement([{ offset: 66, length: 50 }]),
       },
     ]);
   });
@@ -93,6 +100,7 @@ describe('HeadersParser', () => {
       {
         key: 'Connection',
         val: 'keep-alive',
+        sourceMap: new SourceMapElement([{ offset: 40, length: 22 }]),
       },
     ]);
   });

@@ -11,7 +11,7 @@ class DescriptionElement {
       element: Refract.elements.copy,
       content: this.description,
     };
-    if (this.sourceMap) {
+    if (sourceMapsEnabled && this.sourceMap) {
       result.attributes = {
         sourceMap: this.sourceMap.toRefract(sourceMapsEnabled),
       };

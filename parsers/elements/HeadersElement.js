@@ -20,7 +20,7 @@ class HeadersElement {
             content: val,
           },
         },
-        ...(sourceMap ? {
+        ...(sourceMapsEnabled && sourceMap ? {
           attributes: { sourceMap: sourceMap.toRefract(sourceMapsEnabled) },
         } : {}),
       })),

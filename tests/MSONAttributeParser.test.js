@@ -1,6 +1,7 @@
 const fs = require('fs');
 const Context = require('../Context');
 const utils = require('../utils');
+const SourceMapElement = require('../parsers/elements/SourceMapElement');
 
 const Parsers = {};
 fs.readdirSync('./parsers').forEach((pFile) => {
@@ -42,10 +43,10 @@ describe('MSONAttributeParser', () => {
     expect(name.string).toBe('kind');
     expect(type).toBe('enum');
     expect(content.members).toEqual([
-      { name: 'movement', description: 'описание 1', type: 'string', sourceMap: null, sample: null },
-      { name: 'track', description: 'описание 2', type: 'string', sourceMap: null, sample: null },
-      { name: 'sms', description: 'описание 3', type: 'string', sourceMap: null, sample: null },
-      { name: 'zone', description: 'описание 4', type: 'string', sourceMap: null, sample: null },
+      { name: 'movement', description: 'описание 1', type: 'string', sourceMap: new SourceMapElement([{ offset: 14, length: 30 }]), sample: null },
+      { name: 'track', description: 'описание 2', type: 'string', sourceMap: new SourceMapElement([{ offset: 46, length: 27 }]), sample: null },
+      { name: 'sms', description: 'описание 3', type: 'string', sourceMap: new SourceMapElement([{ offset: 75, length: 25 }]), sample: null },
+      { name: 'zone', description: 'описание 4', type: 'string', sourceMap: new SourceMapElement([{ offset: 102, length: 26 }]), sample: null },
     ]);
   });
 
@@ -72,14 +73,14 @@ describe('MSONAttributeParser', () => {
       valuesForBody: ['track'],
       content: { element: 'string', content: 'track' },
       type: 'enum',
-      sourceMap: null,
+      sourceMap: new SourceMapElement([{ offset: 14, length: 15 }]),
     });
-    expect(sampleValues).toEqual([{ type: 'enum', values: [{ sourceMap: null, string: 'sms' }], valuesForBody: ['sms'], content: { content: 'sms', element: 'string' } }]);
+    expect(sampleValues).toEqual([{ type: 'enum', values: [{ sourceMap: new SourceMapElement([{ offset: 31, length: 12 }]), string: 'sms' }], valuesForBody: ['sms'], content: { content: 'sms', element: 'string' } }]);
     expect(members).toEqual([
-      { name: 'movement', description: 'описание 1', type: 'string', sourceMap: null, sample: null },
-      { name: 'track', description: 'описание 2', type: 'string', sourceMap: null, sample: null },
-      { name: 'sms', description: 'описание 3', type: 'string', sourceMap: null, sample: null },
-      { name: 'zone', description: 'описание 4', type: 'string', sourceMap: null, sample: null },
+      { name: 'movement', description: 'описание 1', type: 'string', sourceMap: new SourceMapElement([{ offset: 45, length: 30 }]), sample: null },
+      { name: 'track', description: 'описание 2', type: 'string', sourceMap: new SourceMapElement([{ offset: 77, length: 27 }]), sample: null },
+      { name: 'sms', description: 'описание 3', type: 'string', sourceMap: new SourceMapElement([{ offset: 106, length: 25 }]), sample: null },
+      { name: 'zone', description: 'описание 4', type: 'string', sourceMap: new SourceMapElement([{ offset: 133, length: 26 }]), sample: null },
     ]);
   });
 
@@ -105,7 +106,7 @@ describe('MSONAttributeParser', () => {
     expect(warnings.length).toBe(1);
     expect(name.string).toBe('kind');
     expect(type).toBe('enum');
-    expect(sampleValues).toEqual([{ type: 'enum', values: [{ sourceMap: null, string: 'track' }], valuesForBody: ['track'], content: { content: 'track', element: 'string' } }]);
+    expect(sampleValues).toEqual([{ type: 'enum', values: [{ sourceMap: new SourceMapElement([{ offset: 14, length: 14 }]), string: 'track' }], valuesForBody: ['track'], content: { content: 'track', element: 'string' } }]);
     expect(members).toEqual([]);
   });
 });

@@ -39,9 +39,7 @@ module.exports = (Parsers) => {
       const memberEl = new ValueMemberElement(signature.type, signature.typeAttributes);
       ValueMemberProcessor.fillBaseType(context, memberEl);
 
-      if (context.sourceMapsEnabled) {
-        memberEl.sourceMap = sourceMap;
-      }
+      memberEl.sourceMap = sourceMap;
       let nextNode = signature.rest ? node.firstChild : node.firstChild.next;
 
       if (!nextNode) {
@@ -94,15 +92,13 @@ module.exports = (Parsers) => {
         const [
           nextNode,
           blockDescriptionEl,
-        ] = utils.extractDescription(contentNode, context.sourceLines, context.sourceMapsEnabled, stopCallback, startOffset);
+        ] = utils.extractDescription(contentNode, context.sourceLines, stopCallback, startOffset);
 
         delete contentNode.skipLines;
 
         if (blockDescriptionEl) {
           result.content.description = blockDescriptionEl.description;
-          if (context.sourceMapsEnabled) {
-            result.content.sourceMap.blocks.push(...blockDescriptionEl.sourceMap.blocks);
-          }
+          result.content.sourceMap.blocks.push(...blockDescriptionEl.sourceMap.blocks);
         }
         dataStructureProcessorStartNode = nextNode;
       }

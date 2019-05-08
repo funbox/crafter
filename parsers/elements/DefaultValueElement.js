@@ -16,7 +16,7 @@ class DefaultValueElement {
       result.content = this.content;
     }
 
-    if (this.sourceMap) {
+    if (sourceMapsEnabled && this.sourceMap) {
       if (typeof this.content === 'object') {
         result.content.attributes = {
           sourceMap: this.sourceMap.toRefract(sourceMapsEnabled),

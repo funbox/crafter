@@ -22,7 +22,7 @@ class EnumMemberElement {
             }],
           },
         }),
-        ...(this.sourceMap ? { sourceMap: this.sourceMap.toRefract(sourceMapsEnabled) } : {}),
+        ...(sourceMapsEnabled && this.sourceMap ? { sourceMap: this.sourceMap.toRefract(sourceMapsEnabled) } : {}),
       },
     };
 
@@ -43,7 +43,7 @@ class EnumMemberElement {
         description: {
           element: Refract.elements.string,
           content: this.description,
-          ...(this.sourceMap ? {
+          ...(sourceMapsEnabled && this.sourceMap ? {
             attributes: { sourceMap: this.sourceMap.toRefract(sourceMapsEnabled) },
           } : {}),
         },

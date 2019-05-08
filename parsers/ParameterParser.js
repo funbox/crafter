@@ -37,11 +37,9 @@ module.exports = (Parsers) => {
         descriptionEl,
       );
 
-      if (context.sourceMapsEnabled) {
-        result.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);
-        if (result.description) {
-          result.description.sourceMap = utils.makeSourceMapForLine(node.firstChild, context.sourceLines);
-        }
+      result.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);
+      if (result.description) {
+        result.description.sourceMap = utils.makeSourceMapForLine(node.firstChild, context.sourceLines);
       }
 
       return [(node.firstChild.next && node.firstChild.next.firstChild) || utils.nextNode(node), result];
@@ -97,7 +95,7 @@ module.exports = (Parsers) => {
         [nextNode, childRes] = Parsers.DefaultValueParser.parse(node, context);
         const defaultValueProcessor = new DefaultValueProcessor(childRes, 'string');
         const valueType = types.primitiveTypes.includes(result.type) ? 'string' : result.type;
-        defaultValueProcessor.buildDefaultFor(valueType);
+        defaultValueProcessor.buildDefaultFor(valueType, context.sourceMapsEnabled);
         result.defaultValue = childRes;
       } else {
         [nextNode, childRes] = Parsers.ParameterMembersParser.parse(node, context);
@@ -119,7 +117,7 @@ module.exports = (Parsers) => {
         const [
           nextNode,
           blockDescriptionEl,
-        ] = utils.extractDescription(node, context.sourceLines, context.sourceMapsEnabled, stopCallback);
+        ] = utils.extractDescription(node, context.sourceLines, stopCallback);
 
         if (blockDescriptionEl) {
           const stringDescriptionEl = new StringElement(blockDescriptionEl.description, blockDescriptionEl.sourceMap);

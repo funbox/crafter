@@ -12,6 +12,7 @@ const EnumElement = require('../parsers/elements/EnumElement');
 const EnumMemberElement = require('../parsers/elements/EnumMemberElement');
 const ArrayElement = require('../parsers/elements/ArrayElement');
 const SampleValueElement = require('../parsers/elements/SampleValueElement');
+const SourceMapElement = require('../parsers/elements/SourceMapElement');
 
 const parsersDir = path.resolve(__dirname, '../parsers');
 const Parsers = {};
@@ -88,8 +89,8 @@ fields (object)
     const sampleElement = samples[0];
     expect(sampleElement).toBeInstanceOf(SampleValueElement);
     expect(sampleElement.values).toHaveLength(2);
-    expect(sampleElement.values[0].name).toEqual({ string: 'amount', sourceMap: undefined });
-    expect(sampleElement.values[1].name).toEqual({ string: 'msisdn', sourceMap: undefined });
+    expect(sampleElement.values[0].name).toEqual({ string: 'amount', sourceMap: new SourceMapElement([{ offset: 74, length: 12 }]) });
+    expect(sampleElement.values[1].name).toEqual({ string: 'msisdn', sourceMap: new SourceMapElement([{ offset: 92, length: 20 }]) });
   });
 
   it('fills an object with properties and multiple samples', () => {

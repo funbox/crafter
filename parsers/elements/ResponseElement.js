@@ -19,7 +19,7 @@ class ResponseElement {
         statusCode: {
           element: Refract.elements.string,
           content: this.statusCode,
-          ...(this.sourceMap ? {
+          ...(sourceMapsEnabled && this.sourceMap ? {
             attributes: { sourceMap: this.sourceMap.toRefract(sourceMapsEnabled) },
           } : {}),
         },
@@ -38,7 +38,7 @@ class ResponseElement {
       result.content.unshift(this.description.toRefract(sourceMapsEnabled));
     }
 
-    if (this.sourceMap) {
+    if (sourceMapsEnabled && this.sourceMap) {
       result.attributes.sourceMap = this.sourceMap.toRefract(sourceMapsEnabled);
     }
 

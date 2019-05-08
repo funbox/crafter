@@ -46,12 +46,10 @@ module.exports = (Parsers) => {
 
       const valueEl = new ValueMemberElement(signature.type, valueTypeAttributes, signature.value, '', signature.isSample, signature.isDefault);
       ValueMemberProcessor.fillBaseType(context, valueEl);
-      if (context.sourceMapsEnabled) {
-        name.sourceMap = sourceMap;
-        valueEl.sourceMap = sourceMap;
-        if (descriptionEl) {
-          descriptionEl.sourceMap = utils.makeSourceMapForLine(node.firstChild, context.sourceLines);
-        }
+      name.sourceMap = sourceMap;
+      valueEl.sourceMap = sourceMap;
+      if (descriptionEl) {
+        descriptionEl.sourceMap = utils.makeSourceMapForLine(node.firstChild, context.sourceLines);
       }
 
       if (signature.rest) {
@@ -104,7 +102,7 @@ module.exports = (Parsers) => {
         const [
           nextNode,
           blockDescriptionEl,
-        ] = utils.extractDescription(contentNode, context.sourceLines, context.sourceMapsEnabled, stopCallback, startOffset);
+        ] = utils.extractDescription(contentNode, context.sourceLines, stopCallback, startOffset);
 
         delete contentNode.skipLines;
 

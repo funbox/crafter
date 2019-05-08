@@ -13,7 +13,7 @@ class ParameterEnumMemberElement {
       content: this.name,
     };
 
-    if (this.sourceMap) {
+    if (sourceMapsEnabled && this.sourceMap) {
       result.attributes = {
         sourceMap: this.sourceMap.toRefract(sourceMapsEnabled),
       };
@@ -24,7 +24,7 @@ class ParameterEnumMemberElement {
         description: {
           element: Refract.elements.string,
           content: this.description,
-          ...(this.sourceMap ? {
+          ...(sourceMapsEnabled && this.sourceMap ? {
             attributes: { sourceMap: this.sourceMap.toRefract(sourceMapsEnabled) },
           } : {}),
         },

@@ -60,9 +60,9 @@ module.exports = (Parsers) => {
       context.resourcePrototypes.push(prototypes);
 
       const methodEl = new StringElement(method);
-      methodEl.sourceMap = context.sourceMapsEnabled ? sourceMap : null;
+      methodEl.sourceMap = sourceMap;
       const result = new ActionElement(title, href, methodEl);
-      result.sourceMap = context.sourceMapsEnabled ? sourceMap : null;
+      result.sourceMap = sourceMap;
 
       return [utils.nextNode(node), result];
     },

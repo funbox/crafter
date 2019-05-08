@@ -23,7 +23,7 @@ class MSONNamedTypeElement {
         element: Refract.elements.string,
         content: this.description.description,
       };
-      if (this.description.sourceMap) {
+      if (sourceMapsEnabled && this.description.sourceMap) {
         description.attributes = {
           sourceMap: this.description.sourceMap.toRefract(sourceMapsEnabled),
         };

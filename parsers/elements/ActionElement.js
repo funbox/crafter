@@ -20,7 +20,7 @@ class ActionElement {
         title: {
           element: Refract.elements.string,
           content: this.title,
-          ...(this.sourceMap && this.title ? {
+          ...(sourceMapsEnabled && this.sourceMap && this.title ? {
             attributes: { sourceMap: this.sourceMap.toRefract(sourceMapsEnabled) },
           } : {}),
         },
@@ -33,7 +33,7 @@ class ActionElement {
         href: {
           element: Refract.elements.string,
           content: this.href,
-          ...(this.sourceMap ? {
+          ...(sourceMapsEnabled && this.sourceMap ? {
             attributes: { sourceMap: this.sourceMap.toRefract(sourceMapsEnabled) },
           } : {}),
         },

@@ -79,7 +79,7 @@ module.exports = (Parsers) => {
 
           const header = this.parseHeader(contentLine, context, { sourceMapBlocks: charBlocks, file: sourceMap.file });
 
-          if (context.sourceMapsEnabled && header) {
+          if (header) {
             header.sourceMap = sourceMap;
           }
 

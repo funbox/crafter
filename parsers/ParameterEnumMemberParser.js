@@ -14,9 +14,7 @@ module.exports = (Parsers) => {
       signature.warnings.forEach(warning => context.addWarning(warning, charBlocks, sourceMap.file));
 
       const result = new ParameterEnumMemberElement(signature.value, signature.description);
-      if (context.sourceMapsEnabled) {
-        result.sourceMap = sourceMap;
-      }
+      result.sourceMap = sourceMap;
 
       return [utils.nextNode(node), result];
     },

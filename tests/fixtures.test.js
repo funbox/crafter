@@ -80,7 +80,7 @@ const testFilesFrom = (location) => {
 
         const exampleSm = getMatchingData(f, path, true);
         const resultSm = Crafter.parseFileSync(filePath, { logger, sourceMapsEnabled: true });
-        expect(resultSm.toRefract()).toEqual(exampleSm);
+        expect(resultSm.toRefract(true)).toEqual(exampleSm);
 
         if (/has-warning/.test(f)) {
           expect(logger.store).toBeDefined();
@@ -262,5 +262,5 @@ function testFromSource(file, path, options) {
   options.sourceMapsEnabled = true;
   const resultSm = Crafter.parseSync(source, options);
   const exampleSm = getMatchingData(file, path, options.sourceMapsEnabled);
-  expect(resultSm.toRefract()).toEqual(exampleSm);
+  expect(resultSm.toRefract(true)).toEqual(exampleSm);
 }

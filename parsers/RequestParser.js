@@ -27,9 +27,7 @@ module.exports = (Parsers) => {
       }
 
       const result = new RequestElement(contentType, title);
-      if (context.sourceMapsEnabled) {
-        result.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);
-      }
+      result.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);
 
       if (result.contentType) {
         const headersElement = new HeadersElement([{
@@ -84,7 +82,7 @@ module.exports = (Parsers) => {
       const stopCallback = curNode => (!utils.isCurrentNodeOrChild(curNode, parentNode) || this.nestedSectionType(curNode, context) !== SectionTypes.undefined);
 
       node.skipLines = context.data.startOffset ? 1 : 0;
-      const [curNode, descriptionEl] = utils.extractDescription(node, context.sourceLines, context.sourceMapsEnabled, stopCallback, context.data.startOffset);
+      const [curNode, descriptionEl] = utils.extractDescription(node, context.sourceLines, stopCallback, context.data.startOffset);
       delete node.skipLines;
 
       if (descriptionEl) {

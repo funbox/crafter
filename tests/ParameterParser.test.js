@@ -1,6 +1,7 @@
 const fs = require('fs');
 const Context = require('../Context');
 const utils = require('../utils');
+const SourceMapElement = require('../parsers/elements/SourceMapElement');
 
 const Parsers = {};
 fs.readdirSync('./parsers').forEach((pFile) => {
@@ -41,7 +42,7 @@ describe('ParameterParser', () => {
     expect(value).toBe('42');
     expect(type).toBe('number');
     expect(typeAttributes).toEqual(['required']);
-    expect(description).toEqual({ sourceMap: undefined, string: 'user id' });
+    expect(description).toEqual({ sourceMap: new SourceMapElement([{ offset: 0, length: 35 }]), string: 'user id' });
   });
 
   it('throws an error if a parameter is specified as both required and optional', () => {
@@ -63,7 +64,7 @@ describe('ParameterParser', () => {
     expect(value).toBe('John');
     expect(type).toBe('string');
     expect(typeAttributes).toEqual(['required']);
-    expect(description).toEqual({ sourceMap: undefined, string: 'user name' });
-    expect(defaultValue).toEqual({ content: 'Ivan', values: ['Ivan'], valuesForBody: null, type: 'string', sourceMap: null });
+    expect(description).toEqual({ sourceMap: new SourceMapElement([{ offset: 0, length: 44 }]), string: 'user name' });
+    expect(defaultValue).toEqual({ content: 'Ivan', values: ['Ivan'], valuesForBody: null, type: 'string', sourceMap: new SourceMapElement([{ offset: 46, length: 16 }]) });
   });
 });

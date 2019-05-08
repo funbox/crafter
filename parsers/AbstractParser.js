@@ -33,7 +33,7 @@ module.exports = {
   processDescription(node, context, result) {
     const stopCallback = curNode => (curNode && !this.isDescriptionNode(curNode, context));
 
-    const [curNode, descriptionEl] = utils.extractDescription(node, context.sourceLines, context.sourceMapsEnabled, stopCallback);
+    const [curNode, descriptionEl] = utils.extractDescription(node, context.sourceLines, stopCallback);
 
     if (descriptionEl) {
       result.description = descriptionEl;

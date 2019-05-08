@@ -28,9 +28,7 @@ module.exports = (Parsers) => {
         schemaObj = {};
       }
       const schemaEl = new SchemaElement(schemaObj);
-      if (context.sourceMapsEnabled) {
-        schemaEl.sourceMap = sourceMap;
-      }
+      schemaEl.sourceMap = sourceMap;
       return [utils.nextNode(node), schemaEl];
     },
 

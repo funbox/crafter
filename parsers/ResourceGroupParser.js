@@ -12,9 +12,7 @@ module.exports = (Parsers) => {
       const matchData = GroupHeaderRegex.exec(utils.headerText(node, context.sourceLines));
       const prototypes = matchData[3] ? matchData[3].split(',').map(p => p.trim()) : [];
       const title = new StringElement(matchData[1]);
-      if (context.sourceMapsEnabled) {
-        title.sourceMap = utils.makeGenericSourceMap(node, context.sourceLines);
-      }
+      title.sourceMap = utils.makeGenericSourceMap(node, context.sourceLines);
       const result = new ResourceGroupElement(title);
 
       context.resourcePrototypes.push(prototypes);

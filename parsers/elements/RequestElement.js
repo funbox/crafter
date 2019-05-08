@@ -26,7 +26,7 @@ class RequestElement {
         title: {
           element: Refract.elements.string,
           content: this.title,
-          ...(this.sourceMap ? {
+          ...(sourceMapsEnabled && this.sourceMap ? {
             attributes: { sourceMap: this.sourceMap.toRefract(sourceMapsEnabled) },
           } : {}),
         },
@@ -45,7 +45,7 @@ class RequestElement {
       result.content.unshift(this.description.toRefract(sourceMapsEnabled));
     }
 
-    if (this.sourceMap) {
+    if (sourceMapsEnabled && this.sourceMap) {
       result.attributes.sourceMap = this.sourceMap.toRefract(sourceMapsEnabled);
     }
 

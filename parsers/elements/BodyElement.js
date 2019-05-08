@@ -28,7 +28,7 @@ class BodyElement {
       };
     }
 
-    if (this.sourceMap) {
+    if (sourceMapsEnabled && this.sourceMap) {
       result.attributes = result.attributes || {};
       result.attributes.sourceMap = this.sourceMap.toRefract(sourceMapsEnabled);
     }

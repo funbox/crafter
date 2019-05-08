@@ -10,7 +10,7 @@ module.exports = (Parsers) => {
       const bodyContentNode = node.firstChild.next;
       const body = (bodyContentNode && bodyContentNode.literal) || '';
       const bodyEl = new BodyElement(body);
-      if (context.sourceMapsEnabled && bodyContentNode) {
+      if (bodyContentNode) {
         bodyEl.sourceMap = this.makeSourceMap(bodyContentNode, context);
       }
       return [utils.nextNode(node), bodyEl];

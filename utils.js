@@ -57,7 +57,7 @@ const utils = {
     return this.nodeText(node, sourceLines).slice(node.level).trim();
   },
 
-  extractDescription(curNode, sourceLines, sourceMapsEnabled, stopCallback, startOffset) {
+  extractDescription(curNode, sourceLines, stopCallback, startOffset) {
     const startNode = curNode;
     let description = '';
     let descriptionEl = null;
@@ -79,9 +79,7 @@ const utils = {
 
     if (description) {
       descriptionEl = new DescriptionElement(description);
-      if (sourceMapsEnabled) {
-        descriptionEl.sourceMap = this.makeSourceMapForDescription(startNode, sourceLines, stopCallback);
-      }
+      descriptionEl.sourceMap = this.makeSourceMapForDescription(startNode, sourceLines, stopCallback);
     }
 
     return [curNode, descriptionEl];

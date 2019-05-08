@@ -59,7 +59,7 @@ class ValueMemberElement {
         description: {
           element: Refract.elements.string,
           content: this.description,
-          ...(this.sourceMap ? {
+          ...(sourceMapsEnabled && this.sourceMap ? {
             attributes: { sourceMap: this.sourceMap.toRefract(sourceMapsEnabled) },
           } : {}),
         },
@@ -82,7 +82,7 @@ class ValueMemberElement {
       }
     }
 
-    if (this.samples || this.default || this.sourceMap) {
+    if (this.samples || this.default || (this.sourceMap && sourceMapsEnabled)) {
       if (!result.attributes) result.attributes = {};
     }
 
@@ -107,7 +107,7 @@ class ValueMemberElement {
       delete result.content;
     }
 
-    if (this.sourceMap) {
+    if (sourceMapsEnabled && this.sourceMap) {
       result.attributes.sourceMap = this.sourceMap.toRefract(sourceMapsEnabled);
     }
 

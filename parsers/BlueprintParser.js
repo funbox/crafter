@@ -27,9 +27,7 @@ module.exports = (Parsers) => {
           const value = rest.join(':');
           if (key && value) {
             const element = new MetaDataElement(key, value);
-            if (context.sourceMapsEnabled) {
-              element.sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines);
-            }
+            element.sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines);
             metadataArray.push(element);
           } else if (!isWarningAdded) {
             isWarningAdded = true;
@@ -44,9 +42,7 @@ module.exports = (Parsers) => {
       if (curNode.type === 'heading' && context.sectionKeywordSignature(curNode) === 'undefined') {
         const titleText = utils.headerText(curNode, context.sourceLines); // Что если внутри хедера ссылки и все такое?
         title = new StringElement(titleText);
-        if (context.sourceMapsEnabled) {
-          title.sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines);
-        }
+        title.sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines);
 
         curNode = curNode.next;
       } else {
@@ -59,7 +55,7 @@ module.exports = (Parsers) => {
 
       const stopCallback = cNode => (cNode.type === 'heading' && context.sectionKeywordSignature(cNode) !== SectionTypes.undefined);
 
-      [curNode, description] = utils.extractDescription(curNode, context.sourceLines, context.sourceMapsEnabled, stopCallback);
+      [curNode, description] = utils.extractDescription(curNode, context.sourceLines, stopCallback);
 
       const result = new BlueprintElement(title, description, metadataArray);
 

@@ -87,8 +87,8 @@ class DataStructureProcessor {
       primitiveElement.samples = primitiveElement.samples || [];
       const processedSamples = samples.map(sampleMember => {
         const sampleValueProcessor = new SampleValueProcessor(sampleMember, primitiveElement.type);
-        sampleValueProcessor.prepareValuesForBody();
-        sampleValueProcessor.buildSamplesFor(primitiveElement.type);
+        sampleValueProcessor.prepareValuesForBody(context.sourceMapsEnabled);
+        sampleValueProcessor.buildSamplesFor(primitiveElement.type, context.sourceMapsEnabled);
         return sampleMember;
       });
       primitiveElement.samples.push(...processedSamples);
@@ -101,8 +101,8 @@ class DataStructureProcessor {
       }
       const defaultElement = defaults[0];
       const defaultValueProcessor = new DefaultValueProcessor(defaultElement, primitiveElement.type);
-      defaultValueProcessor.prepareValuesForBody();
-      defaultValueProcessor.buildDefaultFor(primitiveElement.type);
+      defaultValueProcessor.prepareValuesForBody(context.sourceMapsEnabled);
+      defaultValueProcessor.buildDefaultFor(primitiveElement.type, context.sourceMapsEnabled);
       primitiveElement.default = defaultElement;
     }
   }
@@ -124,8 +124,8 @@ class DataStructureProcessor {
       if (this.Parsers.SampleValueParser.sectionType(curNode, context) !== SectionTypes.undefined) {
         [nextNode, childResult] = this.Parsers.SampleValueParser.parse(curNode, context);
         const sampleValueProcessor = new SampleValueProcessor(childResult, predefinedType);
-        sampleValueProcessor.prepareValuesForBody();
-        sampleValueProcessor.buildSamplesFor(types.array);
+        sampleValueProcessor.prepareValuesForBody(context.sourceMapsEnabled);
+        sampleValueProcessor.buildSamplesFor(types.array, context.sourceMapsEnabled);
         samples.push(childResult);
       } else if (this.Parsers.DefaultValueParser.sectionType(curNode, context) !== SectionTypes.undefined) {
         [nextNode, childResult] = this.Parsers.DefaultValueParser.parse(curNode, context);
@@ -158,8 +158,8 @@ class DataStructureProcessor {
       }
       const defaultElement = defaults[0];
       const defaultValueProcessor = new DefaultValueProcessor(defaultElement, predefinedType);
-      defaultValueProcessor.prepareValuesForBody();
-      defaultValueProcessor.buildDefaultFor(types.array);
+      defaultValueProcessor.prepareValuesForBody(context.sourceMapsEnabled);
+      defaultValueProcessor.buildDefaultFor(types.array, context.sourceMapsEnabled);
       arrayElement.default = defaultElement;
     }
 
@@ -239,8 +239,8 @@ class DataStructureProcessor {
 
       if (samplesElement) {
         const sampleValueProcessor = new SampleValueProcessor(samplesElement);
-        sampleValueProcessor.prepareValuesForBody();
-        sampleValueProcessor.buildSamplesFor(types.object);
+        sampleValueProcessor.prepareValuesForBody(context.sourceMapsEnabled);
+        sampleValueProcessor.buildSamplesFor(types.object, context.sourceMapsEnabled);
         samples.push(samplesElement);
       }
 
@@ -263,8 +263,8 @@ class DataStructureProcessor {
       }
       defaultElement = defaults[0];
       const defaultValueProcessor = new DefaultValueProcessor(defaultElement);
-      defaultValueProcessor.prepareValuesForBody();
-      defaultValueProcessor.buildDefaultFor(types.object);
+      defaultValueProcessor.prepareValuesForBody(context.sourceMapsEnabled);
+      defaultValueProcessor.buildDefaultFor(types.object, context.sourceMapsEnabled);
     }
 
     return [objectElement, samples, defaultElement];
@@ -324,8 +324,8 @@ class DataStructureProcessor {
       enumElement.sampleValues = samples.map(sampleMember => {
         const sampleElement = new SampleValueElement([sampleMember]);
         const sampleValueProcessor = new SampleValueProcessor(sampleElement, enumElement.type);
-        sampleValueProcessor.prepareValuesForBody();
-        sampleValueProcessor.buildSamplesFor(types.enum);
+        sampleValueProcessor.prepareValuesForBody(context.sourceMapsEnabled);
+        sampleValueProcessor.buildSamplesFor(types.enum, context.sourceMapsEnabled);
         return sampleElement;
       });
     }
@@ -337,8 +337,8 @@ class DataStructureProcessor {
       }
       const defaultElement = defaults[0];
       const defaultValueProcessor = new DefaultValueProcessor(defaultElement, enumElement.type);
-      defaultValueProcessor.prepareValuesForBody();
-      defaultValueProcessor.buildDefaultFor(types.enum);
+      defaultValueProcessor.prepareValuesForBody(context.sourceMapsEnabled);
+      defaultValueProcessor.buildDefaultFor(types.enum, context.sourceMapsEnabled);
       enumElement.defaultValue = defaultElement;
     }
 

@@ -8,10 +8,10 @@ class DefaultValueProcessor {
     this.valuesType = valuesType;
   }
 
-  prepareValuesForBody() {
+  prepareValuesForBody(sourceMapsEnabled) {
     this.defaultElement.valuesForBody = this.defaultElement.values.map(value => {
       if (value.toRefract) {
-        const refract = value.toRefract();
+        const refract = value.toRefract(sourceMapsEnabled);
         if (typeof refract.content === 'object') {
           return value; // we don't need to go deeper
         }
@@ -23,32 +23,32 @@ class DefaultValueProcessor {
     });
   }
 
-  buildDefaultFor(structureType) {
+  buildDefaultFor(structureType, sourceMapsEnabled) {
     const { values } = this.defaultElement;
     switch (structureType) {
       case types.enum:
         this.defaultElement.type = Refract.elements.enum;
-        this.defaultElement.content = getContentItem(values[0], this.valuesType);
+        this.defaultElement.content = getContentItem(values[0], this.valuesType, sourceMapsEnabled);
         break;
       case types.array:
         this.defaultElement.type = Refract.elements.array;
-        this.defaultElement.content = values.map((value) => getContentItem(value, this.valuesType));
+        this.defaultElement.content = values.map((value) => getContentItem(value, this.valuesType, sourceMapsEnabled));
         break;
       case types.object:
         this.defaultElement.type = Refract.elements.object;
-        this.defaultElement.content = values.map((value) => getContentItem(value, this.valuesType));
+        this.defaultElement.content = values.map((value) => getContentItem(value, this.valuesType, sourceMapsEnabled));
         break;
       default:
         this.defaultElement.type = structureType;
-        this.defaultElement.content = getContentItem(values[0], this.valuesType).content;
+        this.defaultElement.content = getContentItem(values[0], this.valuesType, sourceMapsEnabled).content;
         break;
     }
   }
 }
 
-function getContentItem(value, type) {
+function getContentItem(value, type, sourceMapsEnabled) {
   if (value.toRefract) {
-    const refract = value.toRefract();
+    const refract = value.toRefract(sourceMapsEnabled);
     if (typeof refract.content === 'object') {
       return refract;
     }

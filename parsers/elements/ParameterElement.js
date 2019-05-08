@@ -23,7 +23,7 @@ class ParameterElement {
         key: {
           element: Refract.elements.string,
           content: this.name,
-          ...(this.sourceMap ? {
+          ...(sourceMapsEnabled && this.sourceMap ? {
             attributes: { sourceMap: this.sourceMap.toRefract(sourceMapsEnabled) },
           } : {}),
         },
@@ -45,7 +45,7 @@ class ParameterElement {
       const value = {
         element: Refract.elements.string,
         content: this.value,
-        ...(this.sourceMap ? {
+        ...(sourceMapsEnabled && this.sourceMap ? {
           attributes: { sourceMap: this.sourceMap.toRefract(sourceMapsEnabled) },
         } : {}),
       };
@@ -72,7 +72,7 @@ class ParameterElement {
       result.meta.title = {
         element: Refract.elements.string,
         content: this.rawType,
-        ...(this.sourceMap ? {
+        ...(sourceMapsEnabled && this.sourceMap ? {
           attributes: { sourceMap: this.sourceMap.toRefract(sourceMapsEnabled) },
         } : {}),
       };

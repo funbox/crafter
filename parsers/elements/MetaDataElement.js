@@ -31,7 +31,7 @@ class MetaDataElement {
       },
     };
 
-    if (this.sourceMap) {
+    if (sourceMapsEnabled && this.sourceMap) {
       result.attributes = {
         sourceMap: this.sourceMap.toRefract(sourceMapsEnabled),
       };

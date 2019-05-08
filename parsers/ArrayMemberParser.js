@@ -25,9 +25,7 @@ module.exports = (Parsers) => {
       );
       ValueMemberProcessor.fillBaseType(context, result);
 
-      if (context.sourceMapsEnabled) {
-        result.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);
-      }
+      result.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);
 
       const nestedNode = node.firstChild.next;
 

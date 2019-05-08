@@ -13,7 +13,7 @@ module.exports = (Parsers) => {
       const valMatch = defaultValueRegex.exec(text);
       const values = valMatch ? splitValues(valMatch[1]) : undefined;
       const defaultValueElement = new DefaultValueElement(values);
-      if (context.sourceMapsEnabled && values !== undefined) {
+      if (values !== undefined) {
         defaultValueElement.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);
       }
       return [(node.firstChild.next && node.firstChild.next.firstChild) || utils.nextNode(node), defaultValueElement];

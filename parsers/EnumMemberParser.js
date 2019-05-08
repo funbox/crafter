@@ -20,9 +20,7 @@ module.exports = (Parsers) => {
         signature.isSample,
       );
 
-      if (context.sourceMapsEnabled) {
-        result.sourceMap = sourceMap;
-      }
+      result.sourceMap = sourceMap;
 
       return [utils.nextNode(node), result];
     },

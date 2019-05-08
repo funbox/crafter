@@ -15,7 +15,7 @@ class ResourcePrototypeElement {
         title: {
           element: Refract.elements.string,
           content: this.title,
-          ...(this.sourceMap ? {
+          ...(sourceMapsEnabled && this.sourceMap ? {
             attributes: { sourceMap: this.sourceMap.toRefract(sourceMapsEnabled) },
           } : {}),
         },
