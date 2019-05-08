@@ -33,7 +33,7 @@ module.exports = {
   processDescription(node, context, result) {
     const stopCallback = curNode => (curNode && !this.isDescriptionNode(curNode, context));
 
-    const [curNode, descriptionEl] = utils.extractDescription(node, context.sourceLines, stopCallback);
+    const [curNode, descriptionEl] = utils.extractDescription(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, stopCallback);
 
     if (descriptionEl) {
       result.description = descriptionEl;
@@ -51,9 +51,8 @@ module.exports = {
       ) {
         [curNode, result] = this.processNestedSection(curNode, context, result);
       } else if (this.isUnexpectedNode(curNode, context)) {
-        const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines);
-        const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(sourceMap, context.sourceBuffer, context.linefeedOffsets);
-        context.addWarning(`Ignoring unrecognized block "${utils.nodeText(curNode, context.sourceLines)}".`, charBlocks, sourceMap.file);
+        const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+        context.addWarning(`Ignoring unrecognized block "${utils.nodeText(curNode, context.sourceLines)}".`, sourceMap);
         curNode = utils.nextNode(curNode);
       } else {
         break;

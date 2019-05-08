@@ -1,7 +1,6 @@
 const commonmark = require('commonmark');
 const Refract = require('./Refract');
 const types = require('./types');
-const SourceMapElement = require('./parsers/elements/SourceMapElement');
 const DescriptionElement = require('./parsers/elements/DescriptionElement');
 
 class CrafterError extends Error {
@@ -57,7 +56,7 @@ const utils = {
     return this.nodeText(node, sourceLines).slice(node.level).trim();
   },
 
-  extractDescription(curNode, sourceLines, stopCallback, startOffset) {
+  extractDescription(curNode, sourceLines, sourceBuffer, linefeedOffsets, stopCallback, startOffset) {
     const startNode = curNode;
     let description = '';
     let descriptionEl = null;
@@ -79,7 +78,7 @@ const utils = {
 
     if (description) {
       descriptionEl = new DescriptionElement(description);
-      descriptionEl.sourceMap = this.makeSourceMapForDescription(startNode, sourceLines, stopCallback);
+      descriptionEl.sourceMap = this.makeSourceMapForDescription(startNode, sourceLines, sourceBuffer, linefeedOffsets, stopCallback);
     }
 
     return [curNode, descriptionEl];
@@ -97,7 +96,7 @@ const utils = {
     return result;
   },
 
-  makeGenericSourceMapFromStartAndEndNodes(startNode, endNode, sourceLines) {
+  makeGenericSourceMapFromStartAndEndNodes(startNode, endNode, sourceLines, sourceBuffer, linefeedOffsets) {
     sourceLines = startNode.sourceLines || sourceLines;
     if (startNode.sourceLines && !endNode.sourceLines) {
       throw new CrafterError('startNode and endNode belong to different files');
@@ -112,27 +111,29 @@ const utils = {
       length += getTrailingEmptyLinesLengthInBytes(endLineIndex + 1, sourceLines);
     }
     const byteBlock = { offset: startOffset, length };
-    return new SourceMapElement([byteBlock], startNode.file);
+    const byteBlocks = [byteBlock];
+    const charBlocks = this.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
+    return { byteBlocks, charBlocks, file: startNode.file };
   },
 
-  makeGenericSourceMap(node, sourceLines) {
-    return this.makeGenericSourceMapFromStartAndEndNodes(node, node, sourceLines);
+  makeGenericSourceMap(node, sourceLines, sourceBuffer, linefeedOffsets) {
+    return this.makeGenericSourceMapFromStartAndEndNodes(node, node, sourceLines, sourceBuffer, linefeedOffsets);
   },
 
-  makeSourceMapForDescription(startNode, sourceLines, stopCallback) {
+  makeSourceMapForDescription(startNode, sourceLines, sourceBuffer, linefeedOffsets, stopCallback) {
     const indentation = startNode.sourcepos[0][1] - 1;
     if (indentation > 0) {
-      return makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, stopCallback);
+      return makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, sourceBuffer, linefeedOffsets, stopCallback);
     }
 
     let endNode = startNode;
     while (endNode.next && endNode.next.type === 'paragraph') {
       endNode = endNode.next;
     }
-    return this.makeGenericSourceMapFromStartAndEndNodes(startNode, endNode, sourceLines);
+    return this.makeGenericSourceMapFromStartAndEndNodes(startNode, endNode, sourceLines, sourceBuffer, linefeedOffsets);
   },
 
-  makeSourceMapForLine(node, sourceLines) {
+  makeSourceMapForLine(node, sourceLines, sourceBuffer, linefeedOffsets) {
     sourceLines = node.sourceLines || sourceLines;
     const { startLineIndex, startColumnIndex } = utils.getSourcePosZeroBased(node);
     const lineIndex = startLineIndex;
@@ -147,10 +148,12 @@ const utils = {
     length += getEndingLinefeedLengthInBytes(lineIndex, sourceLines);
     byteBlock.length += length;
 
-    return new SourceMapElement([byteBlock], node.file);
+    const byteBlocks = [byteBlock];
+    const charBlocks = this.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
+    return { byteBlocks, charBlocks, file: node.file };
   },
 
-  makeSourceMapForAsset(node, sourceLines) {
+  makeSourceMapForAsset(node, sourceLines, sourceBuffer, linefeedOffsets) {
     sourceLines = node.sourceLines || sourceLines;
     const byteBlocks = [];
     const { startLineIndex, startColumnIndex, endLineIndex } = this.getSourcePosZeroBased(node);
@@ -173,11 +176,12 @@ const utils = {
       }
     }
 
-    return new SourceMapElement(byteBlocks, node.file);
+    const charBlocks = this.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
+    return { byteBlocks, charBlocks, file: node.file };
   },
 
-  getCharacterBlocksWithLineColumnInfo(sourceMapWithByteBlocks, sourceBuffer, linefeedOffsets) {
-    return sourceMapWithByteBlocks.blocks.map(byteBlock => {
+  getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets) {
+    return byteBlocks.map(byteBlock => {
       const charBlock = byteBlockToCharacterBlock(byteBlock, sourceBuffer);
       const info = getLineColumnInfo(charBlock, linefeedOffsets);
       return { ...charBlock, ...info };
@@ -283,7 +287,7 @@ const utils = {
 
   validateAttributesConsistency(context, result, attributeSignatureDetails, typeAttributes) {
     if (result.isArray() && result.typeAttributes.includes(typeAttributes['fixed-type'])) {
-      context.addWarning('fixed-type keyword is redundant', attributeSignatureDetails.sourceMapBlocks, attributeSignatureDetails.file);
+      context.addWarning('fixed-type keyword is redundant', attributeSignatureDetails.sourceMap);
       result.typeAttributes = result.typeAttributes.filter(x => x !== typeAttributes['fixed-type']);
     }
 
@@ -293,7 +297,7 @@ const utils = {
 
     if (!result.isType('string') && stringParameterizedAttributes.length > 0) {
       stringParameterizedAttributes.forEach(a => {
-        context.addWarning(`Attribute "${a}" can be used in string value type only.`, attributeSignatureDetails.sourceMapBlocks, attributeSignatureDetails.file);
+        context.addWarning(`Attribute "${a}" can be used in string value type only.`, attributeSignatureDetails.sourceMap);
       });
     }
 
@@ -449,7 +453,7 @@ function getTrailingEmptyLinesLengthInBytes(lineIndex, sourceLines) {
   return result;
 }
 
-function makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, stopCallback) {
+function makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, sourceBuffer, linefeedOffsets, stopCallback) {
   sourceLines = startNode.sourceLines || sourceLines;
   const byteBlocks = [];
   const iterationCondition = (node) => (stopCallback ? !stopCallback(node) : (node && node.type === 'paragraph'));
@@ -486,7 +490,8 @@ function makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, stop
       byteBlocks.push(byteBlock);
     }
   }
-  return new SourceMapElement(byteBlocks, startNode.file);
+  const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
+  return { byteBlocks, charBlocks, file: startNode.file };
 }
 
 function byteBlockToCharacterBlock(byteBlock, sourceBuffer) {

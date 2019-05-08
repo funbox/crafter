@@ -1,5 +1,6 @@
 const Refract = require('../../Refract');
 const utils = require('../../utils');
+const SourceMapElement = require('./SourceMapElement');
 
 class RequestElement {
   constructor(contentType, title) {
@@ -13,6 +14,8 @@ class RequestElement {
   }
 
   toRefract(sourceMapsEnabled) {
+    const sourceMapEl = sourceMapsEnabled && this.sourceMap ? new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file) : null;
+
     const result = {
       element: Refract.elements.httpRequest,
       attributes: {
@@ -26,8 +29,8 @@ class RequestElement {
         title: {
           element: Refract.elements.string,
           content: this.title,
-          ...(sourceMapsEnabled && this.sourceMap ? {
-            attributes: { sourceMap: this.sourceMap.toRefract(sourceMapsEnabled) },
+          ...(sourceMapEl ? {
+            attributes: { sourceMap: sourceMapEl.toRefract() },
           } : {}),
         },
       };
@@ -45,8 +48,8 @@ class RequestElement {
       result.content.unshift(this.description.toRefract(sourceMapsEnabled));
     }
 
-    if (sourceMapsEnabled && this.sourceMap) {
-      result.attributes.sourceMap = this.sourceMap.toRefract(sourceMapsEnabled);
+    if (sourceMapEl) {
+      result.attributes.sourceMap = sourceMapEl.toRefract();
     }
 
     return result;

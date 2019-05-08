@@ -1,4 +1,5 @@
 const Refract = require('../../Refract');
+const SourceMapElement = require('./SourceMapElement');
 
 class StringElement {
   constructor(string, sourceMap) {
@@ -7,13 +8,14 @@ class StringElement {
   }
 
   toRefract(sourceMapsEnabled) {
+    const sourceMapEl = sourceMapsEnabled && this.sourceMap ? new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file) : null;
     const result = {
       element: Refract.elements.string,
       content: this.string,
     };
-    if (sourceMapsEnabled && this.sourceMap) {
+    if (sourceMapEl) {
       result.attributes = {
-        sourceMap: this.sourceMap.toRefract(sourceMapsEnabled),
+        sourceMap: sourceMapEl.toRefract(),
       };
     }
     return result;

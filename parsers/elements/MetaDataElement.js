@@ -1,4 +1,5 @@
 const Refract = require('../../Refract');
+const SourceMapElement = require('./SourceMapElement');
 
 class MetaDataElement {
   constructor(key, value) {
@@ -8,6 +9,8 @@ class MetaDataElement {
   }
 
   toRefract(sourceMapsEnabled) {
+    const sourceMapEl = sourceMapsEnabled && this.sourceMap ? new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file) : null;
+
     const result = {
       element: Refract.elements.member,
       content: {
@@ -31,9 +34,9 @@ class MetaDataElement {
       },
     };
 
-    if (sourceMapsEnabled && this.sourceMap) {
+    if (sourceMapEl) {
       result.attributes = {
-        sourceMap: this.sourceMap.toRefract(sourceMapsEnabled),
+        sourceMap: sourceMapEl.toRefract(),
       };
     }
     return result;

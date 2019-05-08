@@ -47,7 +47,7 @@ module.exports = (Parsers) => {
     },
 
     makeSourceMap(node, context) {
-      return utils.makeSourceMapForAsset(node, context.sourceLines);
+      return utils.makeSourceMapForAsset(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
     },
   });
   return true;

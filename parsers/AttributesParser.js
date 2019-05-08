@@ -18,8 +18,7 @@ module.exports = (Parsers) => {
       context.pushFrame();
 
       const text = utils.nodeText(node.firstChild, context.sourceLines);
-      const sourceMap = utils.makeSourceMapForLine(node.firstChild, context.sourceLines);
-      const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(sourceMap, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utils.makeSourceMapForLine(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       let signature;
       try {
         signature = new SignatureParser(text, [ParserTraits.NAME, ParserTraits.ATTRIBUTES]);
@@ -28,9 +27,9 @@ module.exports = (Parsers) => {
         const message = 'Invalid Attributes signature. Expected format: "Attributes (Type Definition)".';
         throw new CrafterError(message, line, file);
       }
-      signature.warnings.forEach(warning => context.addWarning(warning, charBlocks, sourceMap.file));
+      signature.warnings.forEach(warning => context.addWarning(warning, sourceMap));
 
-      context.data.attributeSignatureDetails = { sourceMapBlocks: charBlocks, file: sourceMap.file };
+      context.data.attributeSignatureDetails = { sourceMap };
 
       if (signature.rest) {
         context.data.startOffset = text.length - signature.rest.length;
@@ -92,13 +91,14 @@ module.exports = (Parsers) => {
         const [
           nextNode,
           blockDescriptionEl,
-        ] = utils.extractDescription(contentNode, context.sourceLines, stopCallback, startOffset);
+        ] = utils.extractDescription(contentNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, stopCallback, startOffset);
 
         delete contentNode.skipLines;
 
         if (blockDescriptionEl) {
           result.content.description = blockDescriptionEl.description;
-          result.content.sourceMap.blocks.push(...blockDescriptionEl.sourceMap.blocks);
+          result.content.sourceMap.byteBlocks.push(...blockDescriptionEl.sourceMap.byteBlocks);
+          result.content.sourceMap.charBlocks.push(...blockDescriptionEl.sourceMap.charBlocks);
         }
         dataStructureProcessorStartNode = nextNode;
       }

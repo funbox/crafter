@@ -1,4 +1,5 @@
 const Refract = require('../../Refract');
+const SourceMapElement = require('./SourceMapElement');
 
 class HeadersElement {
   constructor(headers) {
@@ -21,7 +22,7 @@ class HeadersElement {
           },
         },
         ...(sourceMapsEnabled && sourceMap ? {
-          attributes: { sourceMap: sourceMap.toRefract(sourceMapsEnabled) },
+          attributes: { sourceMap: new SourceMapElement(sourceMap.byteBlocks, sourceMap.file).toRefract() },
         } : {}),
       })),
     };

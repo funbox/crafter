@@ -45,7 +45,7 @@ module.exports = (Parsers) => {
       const titleEl = new StringElement(title);
       const hrefEl = new StringElement(href);
 
-      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines);
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       if (!isNamedEndpoint && title) {
         titleEl.sourceMap = sourceMap;
       }

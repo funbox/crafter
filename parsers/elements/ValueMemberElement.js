@@ -1,6 +1,7 @@
 const Refract = require('../../Refract');
 const utils = require('../../utils');
 const types = require('../../types');
+const SourceMapElement = require('./SourceMapElement');
 
 const { convertType } = utils;
 
@@ -48,6 +49,7 @@ class ValueMemberElement {
   }
 
   toRefract(sourceMapsEnabled) {
+    const sourceMapEl = sourceMapsEnabled && this.sourceMap ? new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file) : null;
     const type = this.type || (this.content ? 'object' : 'string');
 
     const result = {
@@ -59,8 +61,8 @@ class ValueMemberElement {
         description: {
           element: Refract.elements.string,
           content: this.description,
-          ...(sourceMapsEnabled && this.sourceMap ? {
-            attributes: { sourceMap: this.sourceMap.toRefract(sourceMapsEnabled) },
+          ...(sourceMapEl ? {
+            attributes: { sourceMap: sourceMapEl.toRefract() },
           } : {}),
         },
       };
@@ -82,7 +84,7 @@ class ValueMemberElement {
       }
     }
 
-    if (this.samples || this.default || (this.sourceMap && sourceMapsEnabled)) {
+    if (this.samples || this.default || sourceMapEl) {
       if (!result.attributes) result.attributes = {};
     }
 
@@ -107,8 +109,8 @@ class ValueMemberElement {
       delete result.content;
     }
 
-    if (sourceMapsEnabled && this.sourceMap) {
-      result.attributes.sourceMap = this.sourceMap.toRefract(sourceMapsEnabled);
+    if (sourceMapEl) {
+      result.attributes.sourceMap = sourceMapEl.toRefract();
     }
 
     return result;

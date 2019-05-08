@@ -4,7 +4,6 @@ const utils = require('../utils');
 const ParameterElement = require('./elements/ParameterElement');
 const ParameterMembersElement = require('./elements/ParameterMembersElement');
 const StringElement = require('./elements/StringElement');
-const SourceMapElement = require('./elements/SourceMapElement');
 const DefaultValueProcessor = require('./DefaultValueProcessor');
 const { parser: SignatureParser } = require('../SignatureParser');
 
@@ -18,16 +17,15 @@ module.exports = (Parsers) => {
 
       context.pushFrame();
 
-      const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);
-      const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(sourceMap, context.sourceBuffer, context.linefeedOffsets);
-      const parameterSignatureDetails = { sourceMapBlocks: charBlocks, file: sourceMap.file };
+      const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const parameterSignatureDetails = { sourceMap };
 
       let descriptionEl;
       if (signature.description) {
         descriptionEl = new StringElement(signature.description);
       }
       context.data.parameterSignatureDetails = parameterSignatureDetails;
-      signature.warnings.forEach(warning => context.addWarning(warning, charBlocks, sourceMap.file));
+      signature.warnings.forEach(warning => context.addWarning(warning, sourceMap));
 
       const result = new ParameterElement(
         signature.name,
@@ -37,9 +35,9 @@ module.exports = (Parsers) => {
         descriptionEl,
       );
 
-      result.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);
+      result.sourceMap = sourceMap;
       if (result.description) {
-        result.description.sourceMap = utils.makeSourceMapForLine(node.firstChild, context.sourceLines);
+        result.description.sourceMap = utils.makeSourceMapForLine(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       }
 
       return [(node.firstChild.next && node.firstChild.next.firstChild) || utils.nextNode(node), result];
@@ -83,7 +81,7 @@ module.exports = (Parsers) => {
         if (!result.enumerations) {
           result.enumerations = new ParameterMembersElement();
           const { parameterSignatureDetails: details } = context.data;
-          context.addWarning('Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.', details.sourceMapBlocks, details.file);
+          context.addWarning('Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.', details.sourceMap);
         }
         [nextNode, childRes] = Parsers.ParameterEnumMemberParser.parse(node, context);
         result.enumerations.members.push(childRes);
@@ -117,7 +115,7 @@ module.exports = (Parsers) => {
         const [
           nextNode,
           blockDescriptionEl,
-        ] = utils.extractDescription(node, context.sourceLines, stopCallback);
+        ] = utils.extractDescription(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, stopCallback);
 
         if (blockDescriptionEl) {
           const stringDescriptionEl = new StringElement(blockDescriptionEl.description, blockDescriptionEl.sourceMap);
@@ -151,7 +149,7 @@ module.exports = (Parsers) => {
         }
 
         if (defaultValue) {
-          context.addWarning(`Specifying parameter ${name} as required supersedes its default value, declare the parameter as 'optional' to specify its default value.`, details.sourceMapBlocks, details.file);
+          context.addWarning(`Specifying parameter ${name} as required supersedes its default value, declare the parameter as 'optional' to specify its default value.`, details.sourceMap);
         }
       }
 
@@ -165,8 +163,9 @@ function mergeStringElements(first, second) {
   const merged = new StringElement();
   merged.string = first.string + second.string;
   if (first.sourceMap && second.sourceMap) {
-    merged.sourceMap = new SourceMapElement();
-    merged.sourceMap.blocks = [...first.sourceMap.blocks, ...second.sourceMap.blocks];
+    merged.sourceMap = {};
+    merged.sourceMap.byteBlocks = [...first.sourceMap.byteBlocks, ...second.sourceMap.byteBlocks];
+    merged.sourceMap.charBlocks = [...first.sourceMap.charBlocks, ...second.sourceMap.charBlocks];
   }
   return merged;
 }

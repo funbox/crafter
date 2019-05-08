@@ -1,4 +1,5 @@
 const Refract = require('../../Refract');
+const SourceMapElement = require('./SourceMapElement');
 
 class ResourcePrototypeElement {
   constructor(title, basePrototypes = []) {
@@ -9,14 +10,16 @@ class ResourcePrototypeElement {
   }
 
   toRefract(sourceMapsEnabled) {
+    const sourceMapEl = sourceMapsEnabled && this.sourceMap ? new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file) : null;
+
     const result = {
       element: Refract.elements.resourcePrototype,
       meta: {
         title: {
           element: Refract.elements.string,
           content: this.title,
-          ...(sourceMapsEnabled && this.sourceMap ? {
-            attributes: { sourceMap: this.sourceMap.toRefract(sourceMapsEnabled) },
+          ...(sourceMapEl ? {
+            attributes: { sourceMap: sourceMapEl.toRefract() },
           } : {}),
         },
       },

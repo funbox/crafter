@@ -24,9 +24,8 @@ module.exports = (Parsers) => {
 
       const subject = utils.headerText(node, context.sourceLines);
 
-      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines);
-      const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(sourceMap, context.sourceBuffer, context.linefeedOffsets);
-      context.data.actionSignatureDetails = { sourceMapBlocks: charBlocks, file: sourceMap.file };
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      context.data.actionSignatureDetails = { sourceMap };
 
       let matchData = ActionHeaderRegex.exec(subject);
       if (matchData) {
@@ -129,7 +128,7 @@ module.exports = (Parsers) => {
       });
 
       if (!(result.responses.length > 0)) {
-        context.addWarning('Аction is missing a response', details.sourceMapBlocks, details.file);
+        context.addWarning('Аction is missing a response', details.sourceMap);
       }
 
       context.resourcePrototypes.pop();
@@ -142,7 +141,7 @@ module.exports = (Parsers) => {
         try {
           expectedParameters = getUriVariables(href);
         } catch (e) {
-          throw new utils.CrafterError(`Could not retrieve URI parameters: ${href}`, details.sourceMapBlocks[0].startLine, details.file);
+          throw new utils.CrafterError(`Could not retrieve URI parameters: ${href}`, details.sourceMap.charBlocks[0].startLine, details.sourceMap.file);
         }
 
         if (parameters && parameters.parameters) {
@@ -150,7 +149,7 @@ module.exports = (Parsers) => {
         }
 
         if (expectedParameters.length > 0) {
-          context.addWarning(`Action is missing parameter definitions: ${expectedParameters.join(', ')}.`, details.sourceMapBlocks, details.file);
+          context.addWarning(`Action is missing parameter definitions: ${expectedParameters.join(', ')}.`, details.sourceMap);
         }
       }
 

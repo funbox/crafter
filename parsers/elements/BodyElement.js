@@ -1,4 +1,5 @@
 const Refract = require('../../Refract');
+const SourceMapElement = require('./SourceMapElement');
 
 class BodyElement {
   constructor(body) {
@@ -8,6 +9,7 @@ class BodyElement {
   }
 
   toRefract(sourceMapsEnabled) {
+    const sourceMapEl = sourceMapsEnabled && this.sourceMap ? new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file) : null;
     const body = (typeof this.body === 'object') ? JSON.stringify(this.body, null, 2) : this.body;
 
     const result = {
@@ -28,9 +30,9 @@ class BodyElement {
       };
     }
 
-    if (sourceMapsEnabled && this.sourceMap) {
+    if (sourceMapEl) {
       result.attributes = result.attributes || {};
-      result.attributes.sourceMap = this.sourceMap.toRefract(sourceMapsEnabled);
+      result.attributes.sourceMap = sourceMapEl.toRefract();
     }
 
     return result;

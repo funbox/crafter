@@ -7,7 +7,6 @@ const BlueprintElement = require('./elements/BlueprintElement');
 const StringElement = require('./elements/StringElement');
 const MetaDataElement = require('./elements/MetaDataElement');
 const AnnotationElement = require('./elements/AnnotationElement');
-const SourceMapElement = require('./elements/SourceMapElement');
 
 module.exports = (Parsers) => {
   Parsers.BlueprintParser = {
@@ -27,13 +26,12 @@ module.exports = (Parsers) => {
           const value = rest.join(':');
           if (key && value) {
             const element = new MetaDataElement(key, value);
-            element.sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines);
+            element.sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
             metadataArray.push(element);
           } else if (!isWarningAdded) {
             isWarningAdded = true;
-            const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines);
-            const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(sourceMap, context.sourceBuffer, context.linefeedOffsets);
-            context.addWarning('ignoring possible metadata, expected "<key> : <value>", one per line', charBlocks, sourceMap.file);
+            const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+            context.addWarning('ignoring possible metadata, expected "<key> : <value>", one per line', sourceMap);
           }
         });
         curNode = curNode.next;
@@ -42,20 +40,19 @@ module.exports = (Parsers) => {
       if (curNode.type === 'heading' && context.sectionKeywordSignature(curNode) === 'undefined') {
         const titleText = utils.headerText(curNode, context.sourceLines); // Что если внутри хедера ссылки и все такое?
         title = new StringElement(titleText);
-        title.sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines);
+        title.sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
         curNode = curNode.next;
       } else {
-        const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines);
-        const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(sourceMap, context.sourceBuffer, context.linefeedOffsets);
-        context.addWarning('expected API name, e.g. "# <API Name>"', charBlocks, sourceMap.file);
+        const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+        context.addWarning('expected API name, e.g. "# <API Name>"', sourceMap);
       }
 
       let description = '';
 
       const stopCallback = cNode => (cNode.type === 'heading' && context.sectionKeywordSignature(cNode) !== SectionTypes.undefined);
 
-      [curNode, description] = utils.extractDescription(curNode, context.sourceLines, stopCallback);
+      [curNode, description] = utils.extractDescription(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, stopCallback);
 
       const result = new BlueprintElement(title, description, metadataArray);
 
@@ -81,9 +78,8 @@ module.exports = (Parsers) => {
             [curNode, childResult] = Parsers.ResourcePrototypesParser.parse(curNode, context);
             break;
           default: {
-            const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines);
-            const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(sourceMap, context.sourceBuffer, context.linefeedOffsets);
-            context.addWarning('unknown node', charBlocks, sourceMap.file);
+            const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+            context.addWarning('unknown node', sourceMap);
             curNode = curNode.next;
           }
         }
@@ -94,8 +90,7 @@ module.exports = (Parsers) => {
       }
 
       context.warnings.forEach(warning => {
-        const sourceMap = new SourceMapElement(warning.sourceMapBlocks, warning.file);
-        result.annotations.push(new AnnotationElement('warning', warning.text, sourceMap));
+        result.annotations.push(new AnnotationElement('warning', warning.text, warning.sourceMap));
       });
 
       return [null, result];

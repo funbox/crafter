@@ -15,8 +15,7 @@ module.exports = (Parsers) => {
   Parsers.MSONNamedTypeParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
       const subject = utils.headerText(node, context.sourceLines);
-      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines);
-      const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(sourceMap, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       let signature;
       try {
         signature = new SignatureParser(subject, [ParserTraits.NAME, ParserTraits.ATTRIBUTES]);
@@ -26,12 +25,12 @@ module.exports = (Parsers) => {
         const message = `Invalid NamedType definition. Expected format: "${hashSymbols} Type Name (Type Attributes)".`;
         throw new CrafterError(message, line, file);
       }
-      signature.warnings.forEach(warning => context.addWarning(warning, charBlocks, sourceMap.file));
+      signature.warnings.forEach(warning => context.addWarning(warning, sourceMap));
 
-      context.data.attributeSignatureDetails = { sourceMapBlocks: charBlocks, file: sourceMap.file };
+      context.data.attributeSignatureDetails = { sourceMap };
 
       const name = new StringElement(signature.name);
-      name.sourceMap = utils.makeGenericSourceMap(node, context.sourceLines);
+      name.sourceMap = sourceMap;
 
       const typeElement = new MSONNamedTypeElement(name, signature.type, signature.typeAttributes);
       if (!context.typeExtractingInProgress) {
@@ -86,7 +85,7 @@ module.exports = (Parsers) => {
 
     processDescription(node, context, result) {
       if (node && node.type === 'paragraph') {
-        const [curNode, desc] = utils.extractDescription(node, context.sourceLines);
+        const [curNode, desc] = utils.extractDescription(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
         result.description = desc;
 

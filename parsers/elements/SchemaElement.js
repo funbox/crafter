@@ -1,4 +1,5 @@
 const Refract = require('../../Refract');
+const SourceMapElement = require('./SourceMapElement');
 
 class SchemaElement {
   constructor(schema) {
@@ -7,6 +8,8 @@ class SchemaElement {
   }
 
   toRefract(sourceMapsEnabled) {
+    const sourceMapEl = sourceMapsEnabled && this.sourceMap ? new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file) : null;
+
     const result = {
       element: Refract.elements.asset,
       meta: {
@@ -23,8 +26,8 @@ class SchemaElement {
       content: JSON.stringify(this.schema, null, 2),
     };
 
-    if (sourceMapsEnabled && this.sourceMap) {
-      result.attributes.sourceMap = this.sourceMap.toRefract(sourceMapsEnabled);
+    if (sourceMapEl) {
+      result.attributes.sourceMap = sourceMapEl.toRefract();
     }
 
     return result;

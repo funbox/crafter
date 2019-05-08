@@ -10,10 +10,8 @@ module.exports = (Parsers) => {
       const schemaContentNode = node.firstChild.next;
 
       let sourceMap = null;
-      let charBlocks = null;
       if (schemaContentNode) {
         sourceMap = this.makeSourceMap(schemaContentNode, context);
-        charBlocks = utils.getCharacterBlocksWithLineColumnInfo(sourceMap, context.sourceBuffer, context.linefeedOffsets);
       }
 
       const schemaText = (schemaContentNode && schemaContentNode.literal) || '';
@@ -24,7 +22,7 @@ module.exports = (Parsers) => {
         const warnMessage = (!schemaText && schemaContentNode.type !== 'code_block')
           ? `message-schema at line ${node.sourcepos[0][0]} is expected to be a pre-formatted code block, every of its line indented by exactly 12 spaces or 3 tabs`
           : `invalid JSON Schema at line ${node.sourcepos[0][0]}`;
-        context.addWarning(warnMessage, charBlocks, sourceMap.file);
+        context.addWarning(warnMessage, sourceMap);
         schemaObj = {};
       }
       const schemaEl = new SchemaElement(schemaObj);
@@ -64,7 +62,7 @@ module.exports = (Parsers) => {
     },
 
     makeSourceMap(node, context) {
-      return utils.makeSourceMapForAsset(node, context.sourceLines);
+      return utils.makeSourceMapForAsset(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
     },
   });
   return true;

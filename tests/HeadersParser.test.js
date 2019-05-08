@@ -1,7 +1,6 @@
 const Context = require('../Context');
 const defineParser = require('../parsers/HeadersParser');
 const utils = require('../utils');
-const SourceMapElement = require('../parsers/elements/SourceMapElement');
 
 const Parsers = {};
 defineParser(Parsers);
@@ -38,17 +37,68 @@ describe('HeadersParser', () => {
       {
         key: 'Accept-Charset',
         val: 'utf-8',
-        sourceMap: new SourceMapElement([{ offset: 13, length: 21 }]),
+        sourceMap: {
+          byteBlocks: [
+            {
+              offset: 13,
+              length: 21,
+            },
+          ],
+          charBlocks: [
+            {
+              offset: 13,
+              length: 21,
+              startLine: 3,
+              startColumn: 5,
+              endLine: 3,
+              endColumn: 25,
+            },
+          ],
+        },
       },
       {
         key: 'Connection',
         val: 'keep-alive',
-        sourceMap: new SourceMapElement([{ offset: 39, length: 22 }]),
+        sourceMap: {
+          byteBlocks: [
+            {
+              offset: 39,
+              length: 22,
+            },
+          ],
+          charBlocks: [
+            {
+              offset: 39,
+              length: 22,
+              startLine: 4,
+              startColumn: 5,
+              endLine: 4,
+              endColumn: 26,
+            },
+          ],
+        },
       },
       {
         key: 'Content-Type',
         val: 'multipart/form-data, boundary=AaB03x',
-        sourceMap: new SourceMapElement([{ offset: 66, length: 50 }]),
+        sourceMap: {
+          byteBlocks: [
+            {
+              offset: 66,
+              length: 50,
+            },
+          ],
+          charBlocks: [
+            {
+              offset: 66,
+              length: 50,
+              startLine: 5,
+              startColumn: 5,
+              endLine: 5,
+              endColumn: 54,
+            },
+          ],
+        },
       },
     ]);
   });
@@ -69,17 +119,68 @@ describe('HeadersParser', () => {
       {
         key: 'Accept-Charset',
         val: 'utf:8',
-        sourceMap: new SourceMapElement([{ offset: 13, length: 21 }]),
+        sourceMap: {
+          byteBlocks: [
+            {
+              offset: 13,
+              length: 21,
+            },
+          ],
+          charBlocks: [
+            {
+              offset: 13,
+              length: 21,
+              startLine: 3,
+              startColumn: 5,
+              endLine: 3,
+              endColumn: 25,
+            },
+          ],
+        },
       },
       {
         key: 'Connection',
         val: 'keep:alive',
-        sourceMap: new SourceMapElement([{ offset: 39, length: 22 }]),
+        sourceMap: {
+          byteBlocks: [
+            {
+              offset: 39,
+              length: 22,
+            },
+          ],
+          charBlocks: [
+            {
+              offset: 39,
+              length: 22,
+              startLine: 4,
+              startColumn: 5,
+              endLine: 4,
+              endColumn: 26,
+            },
+          ],
+        },
       },
       {
         key: 'Content-Type',
         val: 'multipart:form-data, boundary=AaB03x',
-        sourceMap: new SourceMapElement([{ offset: 66, length: 50 }]),
+        sourceMap: {
+          byteBlocks: [
+            {
+              offset: 66,
+              length: 50,
+            },
+          ],
+          charBlocks: [
+            {
+              offset: 66,
+              length: 50,
+              startLine: 5,
+              startColumn: 5,
+              endLine: 5,
+              endColumn: 54,
+            },
+          ],
+        },
       },
     ]);
   });
@@ -100,7 +201,24 @@ describe('HeadersParser', () => {
       {
         key: 'Connection',
         val: 'keep-alive',
-        sourceMap: new SourceMapElement([{ offset: 40, length: 22 }]),
+        sourceMap: {
+          byteBlocks: [
+            {
+              offset: 40,
+              length: 22,
+            },
+          ],
+          charBlocks: [
+            {
+              offset: 40,
+              length: 22,
+              startLine: 4,
+              startColumn: 5,
+              endLine: 4,
+              endColumn: 26,
+            },
+          ],
+        },
       },
     ]);
   });

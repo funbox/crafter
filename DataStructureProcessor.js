@@ -51,8 +51,7 @@ class DataStructureProcessor {
     const samples = [];
     const defaults = [];
 
-    const sourceMap = utils.makeGenericSourceMap(this.valueMemberRootNode.parent, context.sourceLines);
-    const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(sourceMap, context.sourceBuffer, context.linefeedOffsets);
+    const sourceMap = utils.makeGenericSourceMap(this.valueMemberRootNode.parent, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
     while (curNode) {
       let nextNode;
@@ -73,7 +72,7 @@ class DataStructureProcessor {
           samples.push(childResult);
           break;
         default:
-          context.addWarning('sub-types of primitive types should not have nested members, ignoring unrecognized block', charBlocks, sourceMap.file);
+          context.addWarning('sub-types of primitive types should not have nested members, ignoring unrecognized block', sourceMap);
       }
 
       // TODO Что если nextNode !== curNode.next ?
@@ -96,7 +95,7 @@ class DataStructureProcessor {
 
     if (defaults.length) {
       if (defaults.length > 1) {
-        context.addWarning('Multiple definitions of "default" value', charBlocks, sourceMap.file);
+        context.addWarning('Multiple definitions of "default" value', sourceMap);
         defaults.length = 1;
       }
       const defaultElement = defaults[0];
@@ -111,8 +110,7 @@ class DataStructureProcessor {
     let curNode = node;
     const arrayMembers = arrayElement.content.members;
 
-    const sourceMap = utils.makeGenericSourceMap(this.valueMemberRootNode.parent, context.sourceLines);
-    const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(sourceMap, context.sourceBuffer, context.linefeedOffsets);
+    const sourceMap = utils.makeGenericSourceMap(this.valueMemberRootNode.parent, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
     const samples = [];
     const defaults = [];
     const predefinedType = arrayMembers.length ? arrayMembers[0].type : 'string';
@@ -153,7 +151,7 @@ class DataStructureProcessor {
 
     if (defaults.length) {
       if (defaults.length > 1) {
-        context.addWarning('Multiple definitions of "default" value', charBlocks, sourceMap.file);
+        context.addWarning('Multiple definitions of "default" value', sourceMap);
         defaults.length = 1;
       }
       const defaultElement = defaults[0];
@@ -168,7 +166,7 @@ class DataStructureProcessor {
         member.type = predefinedType;
         const realValue = utils.convertType(member.value, predefinedType);
         if (!realValue.valid) {
-          context.addWarning(`Invalid value "${member.value}" for "${predefinedType}" type`, charBlocks, sourceMap.file);
+          context.addWarning(`Invalid value "${member.value}" for "${predefinedType}" type`, sourceMap);
         }
         member.value = realValue.valid ? realValue.value : utils.defaultValue(predefinedType);
       }
@@ -203,9 +201,8 @@ class DataStructureProcessor {
           [nextNode, childResult] = this.Parsers.MSONMixinParser.parse(curNode, context);
           const baseType = context.typeResolver.types[childResult.className];
           if (baseType && !baseType.isComplex()) {
-            const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines);
-            const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(sourceMap, context.sourceBuffer, context.linefeedOffsets);
-            context.addWarning('Mixin may not include a type of a primitive sub-type', charBlocks, sourceMap.file);
+            const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+            context.addWarning('Mixin may not include a type of a primitive sub-type', sourceMap);
             childResult = null;
           }
           break;
@@ -256,9 +253,8 @@ class DataStructureProcessor {
 
     if (defaults.length) {
       if (defaults.length > 1) {
-        const sourceMap = utils.makeGenericSourceMap(this.valueMemberRootNode.parent, context.sourceLines);
-        const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(sourceMap, context.sourceBuffer, context.linefeedOffsets);
-        context.addWarning('Multiple definitions of "default" value', charBlocks, sourceMap.file);
+        const sourceMap = utils.makeGenericSourceMap(this.valueMemberRootNode.parent, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+        context.addWarning('Multiple definitions of "default" value', sourceMap);
         defaults.length = 1;
       }
       defaultElement = defaults[0];
@@ -272,8 +268,7 @@ class DataStructureProcessor {
 
   buildEnum(node, context, type) {
     const enumElement = new EnumElement(type);
-    const sourceMap = utils.makeGenericSourceMap(this.valueMemberRootNode.parent, context.sourceLines);
-    const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(sourceMap, context.sourceBuffer, context.linefeedOffsets);
+    const sourceMap = utils.makeGenericSourceMap(this.valueMemberRootNode.parent, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
     const samples = [];
     const defaults = [];
     let curNode = node;
@@ -332,7 +327,7 @@ class DataStructureProcessor {
 
     if (defaults.length) {
       if (defaults.length > 1) {
-        context.addWarning('Multiple definitions of "default" value', charBlocks, sourceMap.file);
+        context.addWarning('Multiple definitions of "default" value', sourceMap);
         defaults.length = 1;
       }
       const defaultElement = defaults[0];
@@ -343,7 +338,7 @@ class DataStructureProcessor {
     }
 
     if (!standardTypes.includes(enumElement.type)) {
-      context.addWarning('Enum must not use named types as a sub-type. Sub-type "string" will be used instead.', charBlocks, sourceMap.file);
+      context.addWarning('Enum must not use named types as a sub-type. Sub-type "string" will be used instead.', sourceMap);
       enumElement.type = 'string';
     }
 
@@ -352,7 +347,7 @@ class DataStructureProcessor {
       const typesMatch = utils.compareAttributeTypes(enumElement, member);
 
       if (!typesMatch) {
-        context.addWarning(`Invalid value format "${member.name}" for enum type '${enumElement.type}'.`, charBlocks, sourceMap.file);
+        context.addWarning(`Invalid value format "${member.name}" for enum type '${enumElement.type}'.`, sourceMap);
       }
 
       member.name = converted.valid ? converted.value : utils.defaultValue(enumElement.type);

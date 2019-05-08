@@ -12,7 +12,6 @@ const EnumElement = require('../parsers/elements/EnumElement');
 const EnumMemberElement = require('../parsers/elements/EnumMemberElement');
 const ArrayElement = require('../parsers/elements/ArrayElement');
 const SampleValueElement = require('../parsers/elements/SampleValueElement');
-const SourceMapElement = require('../parsers/elements/SourceMapElement');
 
 const parsersDir = path.resolve(__dirname, '../parsers');
 const Parsers = {};
@@ -89,8 +88,48 @@ fields (object)
     const sampleElement = samples[0];
     expect(sampleElement).toBeInstanceOf(SampleValueElement);
     expect(sampleElement.values).toHaveLength(2);
-    expect(sampleElement.values[0].name).toEqual({ string: 'amount', sourceMap: new SourceMapElement([{ offset: 74, length: 12 }]) });
-    expect(sampleElement.values[1].name).toEqual({ string: 'msisdn', sourceMap: new SourceMapElement([{ offset: 92, length: 20 }]) });
+    expect(sampleElement.values[0].name).toEqual({
+      string: 'amount',
+      sourceMap: {
+        byteBlocks: [
+          {
+            offset: 74,
+            length: 12,
+          },
+        ],
+        charBlocks: [
+          {
+            offset: 74,
+            length: 12,
+            startLine: 6,
+            startColumn: 7,
+            endLine: 6,
+            endColumn: 18,
+          },
+        ],
+      },
+    });
+    expect(sampleElement.values[1].name).toEqual({
+      string: 'msisdn',
+      sourceMap: {
+        byteBlocks: [
+          {
+            offset: 92,
+            length: 20,
+          },
+        ],
+        charBlocks: [
+          {
+            offset: 92,
+            length: 20,
+            startLine: 7,
+            startColumn: 7,
+            endLine: 7,
+            endColumn: 26,
+          },
+        ],
+      },
+    });
   });
 
   it('fills an object with properties and multiple samples', () => {

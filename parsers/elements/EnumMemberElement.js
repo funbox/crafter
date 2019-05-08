@@ -1,4 +1,5 @@
 const Refract = require('../../Refract');
+const SourceMapElement = require('./SourceMapElement');
 
 class EnumMemberElement {
   constructor(name, description, type, isSample) {
@@ -10,6 +11,8 @@ class EnumMemberElement {
   }
 
   toRefract(sourceMapsEnabled) {
+    const sourceMapEl = sourceMapsEnabled && this.sourceMap ? new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file) : null;
+
     const result = {
       element: Refract.elements[this.type || 'string'],
       attributes: {
@@ -22,7 +25,7 @@ class EnumMemberElement {
             }],
           },
         }),
-        ...(sourceMapsEnabled && this.sourceMap ? { sourceMap: this.sourceMap.toRefract(sourceMapsEnabled) } : {}),
+        ...(sourceMapEl ? { sourceMap: sourceMapEl.toRefract() } : {}),
       },
     };
 
@@ -43,8 +46,8 @@ class EnumMemberElement {
         description: {
           element: Refract.elements.string,
           content: this.description,
-          ...(sourceMapsEnabled && this.sourceMap ? {
-            attributes: { sourceMap: this.sourceMap.toRefract(sourceMapsEnabled) },
+          ...(sourceMapEl ? {
+            attributes: { sourceMap: sourceMapEl.toRefract() },
           } : {}),
         },
       };

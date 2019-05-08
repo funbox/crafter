@@ -1,5 +1,6 @@
 const Refract = require('../../Refract');
 const utils = require('../../utils');
+const SourceMapElement = require('./SourceMapElement');
 
 class ParameterElement {
   constructor(name, value, type, typeAttributes, description) {
@@ -17,14 +18,16 @@ class ParameterElement {
   }
 
   toRefract(sourceMapsEnabled) {
+    const sourceMapEl = sourceMapsEnabled && this.sourceMap ? new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file) : null;
+
     const result = {
       element: Refract.elements.member,
       content: {
         key: {
           element: Refract.elements.string,
           content: this.name,
-          ...(sourceMapsEnabled && this.sourceMap ? {
-            attributes: { sourceMap: this.sourceMap.toRefract(sourceMapsEnabled) },
+          ...(sourceMapEl ? {
+            attributes: { sourceMap: sourceMapEl.toRefract() },
           } : {}),
         },
         value: {},
@@ -45,8 +48,8 @@ class ParameterElement {
       const value = {
         element: Refract.elements.string,
         content: this.value,
-        ...(sourceMapsEnabled && this.sourceMap ? {
-          attributes: { sourceMap: this.sourceMap.toRefract(sourceMapsEnabled) },
+        ...(sourceMapEl ? {
+          attributes: { sourceMap: sourceMapEl.toRefract() },
         } : {}),
       };
 
@@ -72,8 +75,8 @@ class ParameterElement {
       result.meta.title = {
         element: Refract.elements.string,
         content: this.rawType,
-        ...(sourceMapsEnabled && this.sourceMap ? {
-          attributes: { sourceMap: this.sourceMap.toRefract(sourceMapsEnabled) },
+        ...(sourceMapEl ? {
+          attributes: { sourceMap: sourceMapEl.toRefract() },
         } : {}),
       };
     }

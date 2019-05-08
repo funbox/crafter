@@ -1,5 +1,6 @@
 const Refract = require('../../Refract');
 const RequestElement = require('./RequestElement');
+const SourceMapElement = require('./SourceMapElement');
 
 class ActionElement {
   constructor(title, href, method) {
@@ -14,14 +15,16 @@ class ActionElement {
   }
 
   toRefract(sourceMapsEnabled) {
+    const sourceMapEl = sourceMapsEnabled && this.sourceMap ? new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file) : null;
+
     const result = {
       element: Refract.elements.transition,
       meta: {
         title: {
           element: Refract.elements.string,
           content: this.title,
-          ...(sourceMapsEnabled && this.sourceMap && this.title ? {
-            attributes: { sourceMap: this.sourceMap.toRefract(sourceMapsEnabled) },
+          ...(sourceMapEl && this.title ? {
+            attributes: { sourceMap: sourceMapEl.toRefract() },
           } : {}),
         },
       },
@@ -33,8 +36,8 @@ class ActionElement {
         href: {
           element: Refract.elements.string,
           content: this.href,
-          ...(sourceMapsEnabled && this.sourceMap ? {
-            attributes: { sourceMap: this.sourceMap.toRefract(sourceMapsEnabled) },
+          ...(sourceMapEl ? {
+            attributes: { sourceMap: sourceMapEl.toRefract() },
           } : {}),
         },
       };

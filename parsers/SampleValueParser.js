@@ -15,7 +15,7 @@ module.exports = (Parsers) => {
       const values = valuesMatch ? splitValues(valuesMatch[1]) : undefined;
       let valueEls;
       if (values) {
-        const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);
+        const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
         valueEls = values.map((value) => {
           const el = new StringElement(value);
           el.sourceMap = sourceMap;

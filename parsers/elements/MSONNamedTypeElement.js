@@ -1,6 +1,7 @@
 const Refract = require('../../Refract');
 
 const ValueMemberElement = require('./ValueMemberElement');
+const SourceMapElement = require('./SourceMapElement');
 
 class MSONNamedTypeElement {
   constructor(name, baseType, typeAttributes) {
@@ -25,7 +26,7 @@ class MSONNamedTypeElement {
       };
       if (sourceMapsEnabled && this.description.sourceMap) {
         description.attributes = {
-          sourceMap: this.description.sourceMap.toRefract(sourceMapsEnabled),
+          sourceMap: new SourceMapElement(this.description.sourceMap.byteBlocks, this.description.sourceMap.file).toRefract(),
         };
       }
       result.content.meta.description = description;

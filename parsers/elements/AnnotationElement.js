@@ -1,4 +1,5 @@
 const Refract = require('../../Refract');
+const SourceMapElement = require('./SourceMapElement');
 
 class AnnotationElement {
   constructor(type, text, sourceMap) {
@@ -7,7 +8,8 @@ class AnnotationElement {
     this.sourceMap = sourceMap;
   }
 
-  toRefract(sourceMapsEnabled) {
+  toRefract() {
+    const sourceMapEl = this.sourceMap ? new SourceMapElement(this.sourceMap.charBlocks, this.sourceMap.file) : null;
     return {
       element: Refract.elements.annotation,
       meta: {
@@ -21,9 +23,9 @@ class AnnotationElement {
           ],
         },
       },
-      attributes: {
-        sourceMap: this.sourceMap.toRefract(sourceMapsEnabled),
-      },
+      ...(sourceMapEl ? {
+        attributes: { sourceMap: sourceMapEl.toRefract() },
+      } : {}),
       content: this.text,
     };
   }

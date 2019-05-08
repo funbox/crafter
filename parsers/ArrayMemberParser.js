@@ -12,9 +12,8 @@ module.exports = (Parsers) => {
       const subject = utils.nodeText(node.firstChild, context.sourceLines);
       const signature = new SignatureParser(subject, [ParserTraits.VALUE, ParserTraits.ATTRIBUTES, ParserTraits.DESCRIPTION]);
 
-      const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);
-      const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(sourceMap, context.sourceBuffer, context.linefeedOffsets);
-      context.data.attributeSignatureDetails = { sourceMapBlocks: charBlocks, file: sourceMap.file };
+      const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      context.data.attributeSignatureDetails = { sourceMap };
 
       const result = new ValueMemberElement(
         signature.type,
@@ -25,7 +24,7 @@ module.exports = (Parsers) => {
       );
       ValueMemberProcessor.fillBaseType(context, result);
 
-      result.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);
+      result.sourceMap = sourceMap;
 
       const nestedNode = node.firstChild.next;
 

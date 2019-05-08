@@ -1,7 +1,6 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
 const HeadersElement = require('./elements/HeadersElement');
-const SourceMapElement = require('./elements/SourceMapElement');
 
 const headersRegex = /^[Hh]eaders$/;
 
@@ -73,11 +72,12 @@ module.exports = (Parsers) => {
           block.offset = offset;
           offset += restBytes;
           block.length = offset - block.offset;
-          const sourceMap = new SourceMapElement([block], contentNode.file);
-          const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(sourceMap, context.sourceBuffer, context.linefeedOffsets);
+          const byteBlocks = [block];
+          const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(byteBlocks, context.sourceBuffer, context.linefeedOffsets);
+          const sourceMap = { byteBlocks, charBlocks, file: contentNode.file };
           offset += utils.linefeedBytes;
 
-          const header = this.parseHeader(contentLine, context, { sourceMapBlocks: charBlocks, file: sourceMap.file });
+          const header = this.parseHeader(contentLine, context, { sourceMap });
 
           if (header) {
             header.sourceMap = sourceMap;
@@ -97,7 +97,7 @@ module.exports = (Parsers) => {
 
     parseHeader(headerLine, context, headerNodeDetails) {
       const logWarning = () => {
-        context.addWarning(`Ignoring unrecognized HTTP header "${headerLine.trim()}", expected "<header name>: <header value>", one header per line.`, headerNodeDetails.sourceMapBlocks, headerNodeDetails.file);
+        context.addWarning(`Ignoring unrecognized HTTP header "${headerLine.trim()}", expected "<header name>: <header value>", one header per line.`, headerNodeDetails.sourceMap);
       };
 
       const colonIndex = headerLine.indexOf(':');

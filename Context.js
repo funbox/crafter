@@ -115,10 +115,10 @@ class Context {
     this.warningsEnabled = false;
   }
 
-  addWarning(text, sourceMapBlocks, file) {
+  addWarning(text, sourceMap) {
     if (this.warningsEnabled) {
-      this.warnings.push({ text, sourceMapBlocks, file });
-      this.logger.warn(text, [sourceMapBlocks[0].startLine, file]);
+      this.warnings.push({ text, sourceMap });
+      this.logger.warn(text, [sourceMap.charBlocks[0].startLine, sourceMap.file]);
     }
   }
 }

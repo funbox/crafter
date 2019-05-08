@@ -1,7 +1,6 @@
 const fs = require('fs');
 const Context = require('../Context');
 const utils = require('../utils');
-const SourceMapElement = require('../parsers/elements/SourceMapElement');
 
 const Parsers = {};
 fs.readdirSync('./parsers').forEach((pFile) => {
@@ -43,10 +42,102 @@ describe('MSONAttributeParser', () => {
     expect(name.string).toBe('kind');
     expect(type).toBe('enum');
     expect(content.members).toEqual([
-      { name: 'movement', description: 'описание 1', type: 'string', sourceMap: new SourceMapElement([{ offset: 14, length: 30 }]), sample: null },
-      { name: 'track', description: 'описание 2', type: 'string', sourceMap: new SourceMapElement([{ offset: 46, length: 27 }]), sample: null },
-      { name: 'sms', description: 'описание 3', type: 'string', sourceMap: new SourceMapElement([{ offset: 75, length: 25 }]), sample: null },
-      { name: 'zone', description: 'описание 4', type: 'string', sourceMap: new SourceMapElement([{ offset: 102, length: 26 }]), sample: null },
+      {
+        name: 'movement',
+        sample: null,
+        description: 'описание 1',
+        type: 'string',
+        sourceMap: {
+          byteBlocks: [
+            {
+              offset: 14,
+              length: 30,
+            },
+          ],
+          charBlocks: [
+            {
+              offset: 14,
+              length: 22,
+              startLine: 2,
+              startColumn: 3,
+              endLine: 2,
+              endColumn: 24,
+            },
+          ],
+        },
+      },
+      {
+        name: 'track',
+        sample: null,
+        description: 'описание 2',
+        type: 'string',
+        sourceMap: {
+          byteBlocks: [
+            {
+              offset: 46,
+              length: 27,
+            },
+          ],
+          charBlocks: [
+            {
+              offset: 38,
+              length: 19,
+              startLine: 3,
+              startColumn: 3,
+              endLine: 3,
+              endColumn: 21,
+            },
+          ],
+        },
+      },
+      {
+        name: 'sms',
+        sample: null,
+        description: 'описание 3',
+        type: 'string',
+        sourceMap: {
+          byteBlocks: [
+            {
+              offset: 75,
+              length: 25,
+            },
+          ],
+          charBlocks: [
+            {
+              offset: 59,
+              length: 17,
+              startLine: 4,
+              startColumn: 3,
+              endLine: 4,
+              endColumn: 19,
+            },
+          ],
+        },
+      },
+      {
+        name: 'zone',
+        sample: null,
+        description: 'описание 4',
+        type: 'string',
+        sourceMap: {
+          byteBlocks: [
+            {
+              offset: 102,
+              length: 26,
+            },
+          ],
+          charBlocks: [
+            {
+              offset: 78,
+              length: 18,
+              startLine: 5,
+              startColumn: 3,
+              endLine: 5,
+              endColumn: 20,
+            },
+          ],
+        },
+      },
     ]);
   });
 
@@ -73,14 +164,157 @@ describe('MSONAttributeParser', () => {
       valuesForBody: ['track'],
       content: { element: 'string', content: 'track' },
       type: 'enum',
-      sourceMap: new SourceMapElement([{ offset: 14, length: 15 }]),
+      sourceMap: {
+        byteBlocks: [
+          {
+            offset: 14,
+            length: 15,
+          },
+        ],
+        charBlocks: [
+          {
+            offset: 14,
+            length: 15,
+            startLine: 2,
+            startColumn: 3,
+            endLine: 2,
+            endColumn: 17,
+          },
+        ],
+      },
     });
-    expect(sampleValues).toEqual([{ type: 'enum', values: [{ sourceMap: new SourceMapElement([{ offset: 31, length: 12 }]), string: 'sms' }], valuesForBody: ['sms'], content: { content: 'sms', element: 'string' } }]);
+    expect(sampleValues).toEqual([
+      {
+        values: [
+          {
+            string: 'sms',
+            sourceMap: {
+              byteBlocks: [
+                {
+                  offset: 31,
+                  length: 12,
+                },
+              ],
+              charBlocks: [
+                {
+                  offset: 31,
+                  length: 12,
+                  startLine: 3,
+                  startColumn: 3,
+                  endLine: 3,
+                  endColumn: 14,
+                },
+              ],
+            },
+          },
+        ],
+        type: 'enum',
+        content: {
+          element: 'string',
+          content: 'sms',
+        },
+        valuesForBody: [
+          'sms',
+        ],
+      },
+    ]);
     expect(members).toEqual([
-      { name: 'movement', description: 'описание 1', type: 'string', sourceMap: new SourceMapElement([{ offset: 45, length: 30 }]), sample: null },
-      { name: 'track', description: 'описание 2', type: 'string', sourceMap: new SourceMapElement([{ offset: 77, length: 27 }]), sample: null },
-      { name: 'sms', description: 'описание 3', type: 'string', sourceMap: new SourceMapElement([{ offset: 106, length: 25 }]), sample: null },
-      { name: 'zone', description: 'описание 4', type: 'string', sourceMap: new SourceMapElement([{ offset: 133, length: 26 }]), sample: null },
+      {
+        name: 'movement',
+        sample: null,
+        description: 'описание 1',
+        type: 'string',
+        sourceMap: {
+          byteBlocks: [
+            {
+              offset: 45,
+              length: 30,
+            },
+          ],
+          charBlocks: [
+            {
+              offset: 45,
+              length: 22,
+              startLine: 4,
+              startColumn: 3,
+              endLine: 4,
+              endColumn: 24,
+            },
+          ],
+        },
+      },
+      {
+        name: 'track',
+        sample: null,
+        description: 'описание 2',
+        type: 'string',
+        sourceMap: {
+          byteBlocks: [
+            {
+              offset: 77,
+              length: 27,
+            },
+          ],
+          charBlocks: [
+            {
+              offset: 69,
+              length: 19,
+              startLine: 5,
+              startColumn: 3,
+              endLine: 5,
+              endColumn: 21,
+            },
+          ],
+        },
+      },
+      {
+        name: 'sms',
+        sample: null,
+        description: 'описание 3',
+        type: 'string',
+        sourceMap: {
+          byteBlocks: [
+            {
+              offset: 106,
+              length: 25,
+            },
+          ],
+          charBlocks: [
+            {
+              offset: 90,
+              length: 17,
+              startLine: 6,
+              startColumn: 3,
+              endLine: 6,
+              endColumn: 19,
+            },
+          ],
+        },
+      },
+      {
+        name: 'zone',
+        sample: null,
+        description: 'описание 4',
+        type: 'string',
+        sourceMap: {
+          byteBlocks: [
+            {
+              offset: 133,
+              length: 26,
+            },
+          ],
+          charBlocks: [
+            {
+              offset: 109,
+              length: 18,
+              startLine: 7,
+              startColumn: 3,
+              endLine: 7,
+              endColumn: 20,
+            },
+          ],
+        },
+      },
     ]);
   });
 
@@ -106,7 +340,41 @@ describe('MSONAttributeParser', () => {
     expect(warnings.length).toBe(1);
     expect(name.string).toBe('kind');
     expect(type).toBe('enum');
-    expect(sampleValues).toEqual([{ type: 'enum', values: [{ sourceMap: new SourceMapElement([{ offset: 14, length: 14 }]), string: 'track' }], valuesForBody: ['track'], content: { content: 'track', element: 'string' } }]);
+    expect(sampleValues).toEqual([
+      {
+        values: [
+          {
+            string: 'track',
+            sourceMap: {
+              byteBlocks: [
+                {
+                  offset: 14,
+                  length: 14,
+                },
+              ],
+              charBlocks: [
+                {
+                  offset: 14,
+                  length: 14,
+                  startLine: 2,
+                  startColumn: 3,
+                  endLine: 2,
+                  endColumn: 16,
+                },
+              ],
+            },
+          },
+        ],
+        type: 'enum',
+        content: {
+          element: 'string',
+          content: 'track',
+        },
+        valuesForBody: [
+          'track',
+        ],
+      },
+    ]);
     expect(members).toEqual([]);
   });
 });

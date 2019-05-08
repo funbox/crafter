@@ -1,7 +1,6 @@
 const fs = require('fs');
 const Context = require('../Context');
 const utils = require('../utils');
-const SourceMapElement = require('../parsers/elements/SourceMapElement');
 
 const Parsers = {};
 fs.readdirSync('./parsers').forEach((pFile) => {
@@ -42,7 +41,27 @@ describe('ParameterParser', () => {
     expect(value).toBe('42');
     expect(type).toBe('number');
     expect(typeAttributes).toEqual(['required']);
-    expect(description).toEqual({ sourceMap: new SourceMapElement([{ offset: 0, length: 35 }]), string: 'user id' });
+    expect(description).toEqual({
+      string: 'user id',
+      sourceMap: {
+        byteBlocks: [
+          {
+            offset: 0,
+            length: 35,
+          },
+        ],
+        charBlocks: [
+          {
+            offset: 0,
+            length: 35,
+            startLine: 0,
+            startColumn: 1,
+            endLine: 0,
+            endColumn: 35,
+          },
+        ],
+      },
+    });
   });
 
   it('throws an error if a parameter is specified as both required and optional', () => {
@@ -64,7 +83,52 @@ describe('ParameterParser', () => {
     expect(value).toBe('John');
     expect(type).toBe('string');
     expect(typeAttributes).toEqual(['required']);
-    expect(description).toEqual({ sourceMap: new SourceMapElement([{ offset: 0, length: 44 }]), string: 'user name' });
-    expect(defaultValue).toEqual({ content: 'Ivan', values: ['Ivan'], valuesForBody: null, type: 'string', sourceMap: new SourceMapElement([{ offset: 46, length: 16 }]) });
+    expect(description).toEqual({
+      string: 'user name',
+      sourceMap: {
+        byteBlocks: [
+          {
+            offset: 0,
+            length: 44,
+          },
+        ],
+        charBlocks: [
+          {
+            offset: 0,
+            length: 44,
+            startLine: 1,
+            startColumn: 1,
+            endLine: 1,
+            endColumn: 44,
+          },
+        ],
+      },
+    });
+    expect(defaultValue).toEqual({
+      values: [
+        'Ivan',
+      ],
+      type: 'string',
+      sourceMap: {
+        byteBlocks: [
+          {
+            offset: 46,
+            length: 16,
+          },
+        ],
+        charBlocks: [
+          {
+            offset: 46,
+            length: 16,
+            startLine: 2,
+            startColumn: 3,
+            endLine: 2,
+            endColumn: 18,
+          },
+        ],
+      },
+      content: 'Ivan',
+      valuesForBody: null,
+    });
   });
 });

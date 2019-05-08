@@ -1,3 +1,5 @@
+const SourceMapElement = require('./SourceMapElement');
+
 class DefaultValueElement {
   constructor(values, type = 'string') {
     this.values = values;
@@ -8,6 +10,8 @@ class DefaultValueElement {
   }
 
   toRefract(sourceMapsEnabled) {
+    const sourceMapEl = sourceMapsEnabled && this.sourceMap ? new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file) : null;
+
     const result = {
       element: this.type,
     };
@@ -16,14 +20,14 @@ class DefaultValueElement {
       result.content = this.content;
     }
 
-    if (sourceMapsEnabled && this.sourceMap) {
+    if (sourceMapEl) {
       if (typeof this.content === 'object') {
         result.content.attributes = {
-          sourceMap: this.sourceMap.toRefract(sourceMapsEnabled),
+          sourceMap: sourceMapEl.toRefract(),
         };
       } else {
         result.attributes = {
-          sourceMap: this.sourceMap.toRefract(sourceMapsEnabled),
+          sourceMap: sourceMapEl.toRefract(),
         };
       }
     }

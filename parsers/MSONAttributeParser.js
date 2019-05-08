@@ -3,7 +3,6 @@ const types = require('../types');
 const utils = require('../utils');
 const PropertyMemberElement = require('./elements/PropertyMemberElement');
 const StringElement = require('./elements/StringElement');
-const SourceMapElement = require('./elements/SourceMapElement');
 const DataStructureProcessor = require('../DataStructureProcessor');
 const ValueMemberElement = require('./elements/ValueMemberElement');
 const ValueMemberProcessor = require('../ValueMemberProcessor');
@@ -21,11 +20,10 @@ module.exports = (Parsers) => {
       const subject = utils.nodeText(node.firstChild, context.sourceLines); // TODO: часто берем text, может сделать отдельную функцию?
       const signature = new SignatureParser(subject);
 
-      const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);
-      const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(sourceMap, context.sourceBuffer, context.linefeedOffsets);
-      context.data.attributeSignatureDetails = { sourceMapBlocks: charBlocks, file: sourceMap.file };
+      const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      context.data.attributeSignatureDetails = { sourceMap };
 
-      signature.warnings.forEach(warning => context.addWarning(warning, charBlocks, sourceMap.file));
+      signature.warnings.forEach(warning => context.addWarning(warning, sourceMap));
 
       const name = new StringElement(signature.name);
       let descriptionEl;
@@ -49,7 +47,7 @@ module.exports = (Parsers) => {
       name.sourceMap = sourceMap;
       valueEl.sourceMap = sourceMap;
       if (descriptionEl) {
-        descriptionEl.sourceMap = utils.makeSourceMapForLine(node.firstChild, context.sourceLines);
+        descriptionEl.sourceMap = utils.makeSourceMapForLine(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       }
 
       if (signature.rest) {
@@ -102,7 +100,7 @@ module.exports = (Parsers) => {
         const [
           nextNode,
           blockDescriptionEl,
-        ] = utils.extractDescription(contentNode, context.sourceLines, stopCallback, startOffset);
+        ] = utils.extractDescription(contentNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, stopCallback, startOffset);
 
         delete contentNode.skipLines;
 
@@ -145,7 +143,7 @@ module.exports = (Parsers) => {
       const { attributeSignatureDetails: details } = context.data;
 
       if (type === types.enum && !(content && content.members && content.members.length > 0)) {
-        context.addWarning(`Enum element "${name.string}" should include members.`, details.sourceMapBlocks, details.file);
+        context.addWarning(`Enum element "${name.string}" should include members.`, details.sourceMap);
       }
 
       context.checkTypeExists(result.value.rawType);
@@ -163,8 +161,9 @@ function mergeStringElements(first, second) {
   const merged = new StringElement();
   merged.string = first.string + second.string;
   if (first.sourceMap && second.sourceMap) {
-    merged.sourceMap = new SourceMapElement();
-    merged.sourceMap.blocks = [...first.sourceMap.blocks, ...second.sourceMap.blocks];
+    merged.sourceMap = {};
+    merged.sourceMap.byteBlocks = [...first.sourceMap.byteBlocks, ...second.sourceMap.byteBlocks];
+    merged.sourceMap.charBlocks = [...first.sourceMap.charBlocks, ...second.sourceMap.charBlocks];
   }
   return merged;
 }

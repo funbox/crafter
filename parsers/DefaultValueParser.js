@@ -14,7 +14,7 @@ module.exports = (Parsers) => {
       const values = valMatch ? splitValues(valMatch[1]) : undefined;
       const defaultValueElement = new DefaultValueElement(values);
       if (values !== undefined) {
-        defaultValueElement.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines);
+        defaultValueElement.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       }
       return [(node.firstChild.next && node.firstChild.next.firstChild) || utils.nextNode(node), defaultValueElement];
     },
