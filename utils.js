@@ -4,12 +4,9 @@ const types = require('./types');
 const DescriptionElement = require('./parsers/elements/DescriptionElement');
 
 class CrafterError extends Error {
-  constructor(message, linePos, file) {
-    const positionText = linePos ? `at line ${linePos}` : '';
-    const fileText = file ? ` (see ${file})` : '';
-    const delimiter = positionText || fileText ? ': ' : '';
-    const errorText = `${positionText}${fileText}${delimiter}${message}`;
-    super(errorText);
+  constructor(message, sourceMap) {
+    super(message);
+    this.sourceMap = sourceMap;
   }
 }
 
@@ -382,11 +379,6 @@ const utils = {
     }
 
     return false;
-  },
-
-  getDetailsForLogger(node) {
-    const { startLineIndex } = this.getSourcePosZeroBased(node);
-    return [startLineIndex + 1, node.file];
   },
 
   convertType(value, requiredType) {

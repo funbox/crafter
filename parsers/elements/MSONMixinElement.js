@@ -1,8 +1,9 @@
 const Refract = require('../../Refract');
 
 class MSONMixinElement {
-  constructor(className) {
+  constructor(className, sourceMap) {
     this.className = className;
+    this.sourceMap = sourceMap;
   }
 
   toRefract() {

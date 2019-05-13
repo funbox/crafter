@@ -11,7 +11,11 @@ const AnnotationElement = require('./elements/AnnotationElement');
 module.exports = (Parsers) => {
   Parsers.BlueprintParser = {
     parse(node, context) {
-      this.preprocessNestedSections(node, context);
+      try {
+        this.preprocessNestedSections(node, context);
+      } catch (error) {
+        context.error = error;
+      }
 
       let curNode = node;
 
@@ -61,32 +65,42 @@ module.exports = (Parsers) => {
 
         let childResult;
 
-        switch (nodeType) {
-          case SectionTypes.namedAction:
-            [curNode, childResult] = Parsers.NamedEndpointParser.parse(curNode, context);
-            break;
-          case SectionTypes.resource:
-            [curNode, childResult] = Parsers.ResourceParser.parse(curNode, context);
-            break;
-          case SectionTypes.resourceGroup:
-            [curNode, childResult] = Parsers.ResourceGroupParser.parse(curNode, context);
-            break;
-          case SectionTypes.dataStructureGroup:
-            [curNode, childResult] = Parsers.DataStructureGroupParser.parse(curNode, context);
-            break;
-          case SectionTypes.resourcePrototypes:
-            [curNode, childResult] = Parsers.ResourcePrototypesParser.parse(curNode, context);
-            break;
-          default: {
-            const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-            context.addWarning('unknown node', sourceMap);
-            curNode = curNode.next;
+        try {
+          switch (nodeType) {
+            case SectionTypes.namedAction:
+              [curNode, childResult] = Parsers.NamedEndpointParser.parse(curNode, context);
+              break;
+            case SectionTypes.resource:
+              [curNode, childResult] = Parsers.ResourceParser.parse(curNode, context);
+              break;
+            case SectionTypes.resourceGroup:
+              [curNode, childResult] = Parsers.ResourceGroupParser.parse(curNode, context);
+              break;
+            case SectionTypes.dataStructureGroup:
+              [curNode, childResult] = Parsers.DataStructureGroupParser.parse(curNode, context);
+              break;
+            case SectionTypes.resourcePrototypes:
+              [curNode, childResult] = Parsers.ResourcePrototypesParser.parse(curNode, context);
+              break;
+            default: {
+              const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+              context.addWarning('unknown node', sourceMap);
+              curNode = curNode.next;
+            }
           }
+        } catch (error) {
+          context.error = error;
+          break;
         }
 
         if (childResult) {
           result.content.push(childResult);
         }
+      }
+
+      if (context.error) {
+        result.isError = true;
+        result.annotations.push(new AnnotationElement('error', context.error.message, context.error.sourceMap));
       }
 
       context.warnings.forEach(warning => {
@@ -135,7 +149,7 @@ module.exports = (Parsers) => {
             if ((!context.getType(typeName))) {
               context.addType(namedType);
             } else {
-              throw new CrafterError(`${typeName} type already defined`);
+              throw new CrafterError(`${typeName} type already defined`, namedType.name.sourceMap);
             }
           });
           return nextNode;

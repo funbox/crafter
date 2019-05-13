@@ -9,7 +9,8 @@ module.exports = (Parsers) => {
     processSignature(node, context) {
       const text = utils.nodeText(node.firstChild, context.sourceLines);
 
-      return [utils.nextNode(node), new MSONMixinElement(MSONMixinRegex.exec(text)[1].trim())];
+      const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      return [utils.nextNode(node), new MSONMixinElement(MSONMixinRegex.exec(text)[1].trim(), sourceMap)];
     },
 
     processDescription(node, context, result) {

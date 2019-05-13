@@ -23,9 +23,8 @@ module.exports = (Parsers) => {
       try {
         signature = new SignatureParser(text, [ParserTraits.NAME, ParserTraits.ATTRIBUTES]);
       } catch (e) {
-        const [line, file] = utils.getDetailsForLogger(node.firstChild);
         const message = 'Invalid Attributes signature. Expected format: "Attributes (Type Definition)".';
-        throw new CrafterError(message, line, file);
+        throw new CrafterError(message, sourceMap);
       }
       signature.warnings.forEach(warning => context.addWarning(warning, sourceMap));
 

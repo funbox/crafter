@@ -225,8 +225,8 @@ class DataStructureProcessor {
           break;
         default: {
           // TODO что делать в этом случае? Прерывать парсинг или пропускать ноду?
-          const [line, file] = utils.getDetailsForLogger(curNode);
-          throw new utils.CrafterError(`invalid sectionType: ${sectionType}`, line, file);
+          const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+          throw new utils.CrafterError(`invalid sectionType: ${sectionType}`, sourceMap);
         }
       }
 
@@ -303,8 +303,8 @@ class DataStructureProcessor {
           enumElement.members.push(childResult);
           break;
         default: {
-          const [line, file] = utils.getDetailsForLogger(curNode);
-          throw new utils.CrafterError(`invalid sectionType: ${sectionType}`, line, file);
+          const errorSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+          throw new utils.CrafterError(`invalid sectionType: ${sectionType}`, errorSourceMap);
         }
       }
 

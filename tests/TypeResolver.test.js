@@ -77,6 +77,7 @@ describe('TypeResolver', () => {
   it('throws error on loop', () => {
     foo.content.type = 'bar';
     resolver.types = { foo: foo.content, bar: bar.content };
+    resolver.typeNames = { foo: foo.name, bar: bar.name };
     expect(() => resolver.resolveRegisteredTypes()).toThrow(CrafterError);
   });
 });

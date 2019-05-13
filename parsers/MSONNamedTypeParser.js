@@ -21,9 +21,8 @@ module.exports = (Parsers) => {
         signature = new SignatureParser(subject, [ParserTraits.NAME, ParserTraits.ATTRIBUTES]);
       } catch (e) {
         const hashSymbols = Array(node.level).fill('#').join('');
-        const [line, file] = utils.getDetailsForLogger(node);
         const message = `Invalid NamedType definition. Expected format: "${hashSymbols} Type Name (Type Attributes)".`;
-        throw new CrafterError(message, line, file);
+        throw new CrafterError(message, sourceMap);
       }
       signature.warnings.forEach(warning => context.addWarning(warning, sourceMap));
 
@@ -34,7 +33,14 @@ module.exports = (Parsers) => {
 
       const typeElement = new MSONNamedTypeElement(name, signature.type, signature.typeAttributes);
       if (!context.typeExtractingInProgress) {
-        ValueMemberProcessor.fillBaseType(context, typeElement.content);
+        try {
+          ValueMemberProcessor.fillBaseType(context, typeElement.content);
+        } catch (error) {
+          if (!error.sourceMap) {
+            error.sourceMap = typeElement.name.sourceMap;
+          }
+          throw error;
+        }
       }
 
       return [utils.nextNode(node), typeElement];

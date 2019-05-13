@@ -2,14 +2,12 @@ const path = require('path');
 const fs = require('fs');
 const parseApibFile = require('../parseApibFile');
 
-const excludedDirs = ['fixtures-with-errors'];
-
 processApibFiles(path.resolve('tests/fixtures'));
 
 function processApibFiles(dir) {
   const dirContent = fs.readdirSync(dir);
   dirContent.forEach((item) => {
-    if (fs.statSync(path.join(dir, item)).isDirectory() && !excludedDirs.includes(item)) {
+    if (fs.statSync(path.join(dir, item)).isDirectory()) {
       processApibFiles(path.join(dir, item));
     } else if (path.extname(item) === '.apib' && !/-inner\.apib$/.test(item)) {
       const fileName = path.join(dir, item);

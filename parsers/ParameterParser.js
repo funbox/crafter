@@ -145,7 +145,7 @@ module.exports = (Parsers) => {
       context.popFrame();
       if (typeAttributes.includes('required')) {
         if (typeAttributes.includes('optional')) {
-          throw new utils.CrafterError(`Parameter "${name}" must not be specified as both required and optional.`);
+          throw new utils.CrafterError(`Parameter "${name}" must not be specified as both required and optional.`, details.sourceMap);
         }
 
         if (defaultValue) {

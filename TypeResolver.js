@@ -10,6 +10,7 @@ const CrafterError = utils.CrafterError;
 class TypeResolver {
   constructor() {
     this.types = {};
+    this.typeNames = {};
     this.resolvedTypes = new Set();
   }
 
@@ -22,7 +23,7 @@ class TypeResolver {
       }
 
       if (usedTypes.includes(name)) {
-        throw new CrafterError(`Dependencies loop: ${usedTypes.concat([name]).join(' - ')}`);
+        throw new CrafterError(`Dependencies loop: ${usedTypes.concat([name]).join(' - ')}`, this.typeNames[name].sourceMap);
       }
 
       usedTypes.push(name);
@@ -48,7 +49,7 @@ class TypeResolver {
         const mixinName = mixin.className;
         const baseType = this.types[mixinName];
 
-        this.checkMixinExists(mixinName);
+        this.checkMixinExists(mixin);
 
         if (mixinName === name) {
           throw new CrafterError(`Base type '${name}' circularly referencing itself`);
@@ -80,9 +81,9 @@ class TypeResolver {
     }
   }
 
-  checkMixinExists(mixinName) {
-    if (!Object.prototype.hasOwnProperty.call(this.types, mixinName)) {
-      throw new CrafterError(`Mixin "${mixinName}" is not defined in the document.`);
+  checkMixinExists(mixin) {
+    if (!Object.prototype.hasOwnProperty.call(this.types, mixin.className)) {
+      throw new CrafterError(`Mixin "${mixin.className}" is not defined in the document.`, mixin.sourceMap);
     }
   }
 
@@ -91,7 +92,7 @@ class TypeResolver {
     const checkMixinExists = this.checkMixinExists.bind(this);
 
     includedMixins.forEach((mixin) => {
-      checkMixinExists(mixin.className);
+      checkMixinExists(mixin);
     });
   }
 
@@ -100,7 +101,7 @@ class TypeResolver {
 
     const getBaseType = () => {
       if (usedTypes.includes(name)) {
-        throw new CrafterError(`Dependencies loop: ${usedTypes.concat([name]).join(' - ')}`);
+        throw new CrafterError(`Dependencies loop: ${usedTypes.concat([name]).join(' - ')}`, this.typeNames[name].sourceMap);
       }
 
       usedTypes.push(name);

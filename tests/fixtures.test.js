@@ -1,6 +1,5 @@
 const fs = require('fs');
 const Crafter = require('../Crafter');
-const CrafterError = require('../utils').CrafterError;
 
 const testPath = {
   base: `${__dirname}/fixtures`,
@@ -122,16 +121,7 @@ describe('wrong-sections fixtures', () => {
 });
 
 describe('fixtures with errors', () => {
-  const path = testPath.fixturesWithErrors;
-  const files = fs.readdirSync(path);
-  files.forEach((f) => {
-    if (apibRegex.exec(f)) {
-      it(f, () => {
-        const filePath = `${path}/${f}`;
-        expect(() => Crafter.parseFileSync(filePath)).toThrow(CrafterError);
-      });
-    }
-  });
+  testFilesFrom(testPath.fixturesWithErrors);
 });
 
 describe('fixtures with warnings', () => {
@@ -181,10 +171,12 @@ describe('Crafter with callback', () => {
     Crafter.parse(source, options, (error, result) => {
       expect(error).toBeUndefined();
       expect(result.toRefract()).toEqual(example);
+      expect(result.isError).toBe(false);
 
       Crafter.parse(source, (error2, result2) => {
         expect(error2).toBeUndefined();
         expect(result2.toRefract()).toEqual(example);
+        expect(result2.isError).toBe(false);
         done();
       });
     });
@@ -197,12 +189,12 @@ describe('Crafter with callback', () => {
     const source = readFile(file, path);
 
     Crafter.parse(source, options, (error, result) => {
-      expect(error).toBeInstanceOf(CrafterError);
-      expect(result).toBeUndefined();
+      expect(error).toBeUndefined();
+      expect(result.isError).toBe(true);
 
       Crafter.parse(source, (error2, result2) => {
-        expect(error2).toBeInstanceOf(CrafterError);
-        expect(result2).toBeUndefined();
+        expect(error2).toBeUndefined();
+        expect(result2.isError).toBe(true);
         done();
       });
     });
@@ -240,7 +232,7 @@ it('throws an error when parsing from source with imports and without entryDir o
 
   const source = readFile(file, path);
 
-  expect(() => Crafter.parseSync(source, options)).toThrow(CrafterError);
+  expect(Crafter.parseSync(source, options).isError).toBe(true);
 });
 
 function readFile(file, path) {

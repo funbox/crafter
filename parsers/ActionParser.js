@@ -141,7 +141,7 @@ module.exports = (Parsers) => {
         try {
           expectedParameters = getUriVariables(href);
         } catch (e) {
-          throw new utils.CrafterError(`Could not retrieve URI parameters: ${href}`, details.sourceMap.charBlocks[0].startLine, details.sourceMap.file);
+          throw new utils.CrafterError(`Could not retrieve URI parameters: ${href}`, details.sourceMap);
         }
 
         if (parameters && parameters.parameters) {

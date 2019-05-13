@@ -43,7 +43,14 @@ const ValueMemberProcessor = {
     if (element.isArray()) {
       const members = element.nestedTypes.map((t) => {
         const el = new ValueMemberElement(t);
-        ValueMemberProcessor.fillBaseType(context, el);
+        try {
+          ValueMemberProcessor.fillBaseType(context, el);
+        } catch (error) {
+          if (!error.sourceMap) {
+            error.sourceMap = element.sourceMap;
+          }
+          throw error;
+        }
         return el;
       });
       element.content = new ArrayElement(members);

@@ -7,6 +7,7 @@ class BlueprintElement {
     this.content = [];
     this.annotations = [];
     this.meta = meta;
+    this.isError = false;
   }
 
   toRefract(sourceMapsEnabled) {
@@ -35,9 +36,14 @@ class BlueprintElement {
       };
     }
 
+    let content = this.annotations.map(annotation => annotation.toRefract(sourceMapsEnabled));
+    if (!this.isError) {
+      content = [result].concat(content);
+    }
+
     return {
       element: Refract.elements.parseResult,
-      content: [result].concat(this.annotations.map(annotation => annotation.toRefract(sourceMapsEnabled))),
+      content,
     };
   }
 }
