@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.10.0 (13.05.2019)
+
+* Put errors in AST.
+
 ## 1.9.4 (07.05.2019)
 
 * Fix parsing of a code block in a description.
