@@ -124,7 +124,10 @@ const utils = {
     }
 
     let endNode = startNode;
-    while (endNode.next && endNode.next.type === 'paragraph') {
+    const iterationCondition = (node) => (
+      !!node.next && (stopCallback ? !stopCallback(this.nextNode(node)) : node.next.type === 'paragraph')
+    );
+    while (iterationCondition(endNode)) {
       endNode = endNode.next;
     }
     return this.makeGenericSourceMapFromStartAndEndNodes(startNode, endNode, sourceLines, sourceBuffer, linefeedOffsets);
