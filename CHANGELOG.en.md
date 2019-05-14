@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.10.1 (14.05.2019)
+
+* Fix sourcemaps for block description with zero indentation.
+
 ## 1.10.0 (13.05.2019)
 
 * Put errors in AST.
