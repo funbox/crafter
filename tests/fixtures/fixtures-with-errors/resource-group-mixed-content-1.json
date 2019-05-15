@@ -1,0 +1,65 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "annotation",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "error"
+            }
+          ]
+        }
+      },
+      "attributes": {
+        "sourceMap": {
+          "element": "array",
+          "content": [
+            {
+              "element": "sourceMap",
+              "content": [
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 3
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 1
+                        }
+                      },
+                      "content": 10
+                    },
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 4
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 1
+                        }
+                      },
+                      "content": 24
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "content": "Found mixed content of subgroups and resources in group \"/chat_messages\""
+    }
+  ]
+}

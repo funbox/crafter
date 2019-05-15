@@ -48,13 +48,14 @@ const testPath = {
   get pattern() {
     return `${this.base}/pattern`;
   },
-
   get format() {
     return `${this.base}/format`;
   },
-
   get fixedSize() {
     return `${this.base}/fixed-size`;
+  },
+  get messageGroups() {
+    return `${this.base}/message-groups`;
   },
 };
 
@@ -158,6 +159,10 @@ describe('format fixtures', () => {
 
 describe('fixed-size fixtures', () => {
   testFilesFrom(testPath.fixedSize);
+});
+
+describe('fixtures with subgroups and messages', () => {
+  testFilesFrom(testPath.messageGroups);
 });
 
 describe('Crafter with callback', () => {

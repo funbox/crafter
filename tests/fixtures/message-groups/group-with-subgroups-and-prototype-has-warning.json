@@ -1,0 +1,175 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": [
+          {
+            "element": "string",
+            "content": "api"
+          }
+        ],
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
+      },
+      "content": [
+        {
+          "element": "category",
+          "meta": {
+            "classes": [
+              "resourcePrototypes"
+            ]
+          },
+          "content": [
+            {
+              "element": "resourcePrototype",
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "NotFound"
+                }
+              },
+              "content": [
+                {
+                  "element": "httpResponse",
+                  "content": [],
+                  "attributes": {
+                    "statusCode": {
+                      "element": "string",
+                      "content": "404"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "element": "category",
+          "meta": {
+            "classes": [
+              "resourceGroup"
+            ],
+            "title": {
+              "element": "string",
+              "content": "/chat_messages"
+            }
+          },
+          "content": [
+            {
+              "element": "category",
+              "meta": {
+                "classes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "subGroup"
+                    }
+                  ]
+                },
+                "title": {
+                  "element": "string",
+                  "content": "chat:1234"
+                }
+              },
+              "content": [
+                {
+                  "element": "copy",
+                  "content": "Block description of the channel with id \"1234\""
+                }
+              ]
+            },
+            {
+              "element": "category",
+              "meta": {
+                "classes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "subGroup"
+                    }
+                  ]
+                },
+                "title": {
+                  "element": "string",
+                  "content": "chat:5678"
+                }
+              },
+              "content": [
+                {
+                  "element": "copy",
+                  "content": "Block description of the channel with id \"5678\""
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "element": "annotation",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "warning"
+            }
+          ]
+        }
+      },
+      "attributes": {
+        "sourceMap": {
+          "element": "array",
+          "content": [
+            {
+              "element": "sourceMap",
+              "content": [
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 9
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 1
+                        }
+                      },
+                      "content": 62
+                    },
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 10
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 1
+                        }
+                      },
+                      "content": 35
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "content": "A group with subgroups should not use resource prototypes. Adding one will have no effect."
+    }
+  ]
+}
