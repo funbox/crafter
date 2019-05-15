@@ -9,12 +9,16 @@ const GroupHeaderRegex = new RegExp(`^[Gg]roup\\s+${RegExpStrings.symbolIdentifi
 module.exports = (Parsers) => {
   Parsers.ResourceGroupParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
+      context.pushFrame();
+
       const matchData = GroupHeaderRegex.exec(utils.headerText(node, context.sourceLines));
       const prototypes = matchData[3] ? matchData[3].split(',').map(p => p.trim()) : [];
       const title = new StringElement(matchData[1]);
-      title.sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      title.sourceMap = sourceMap;
       const result = new ResourceGroupElement(title);
 
+      context.data.groupSignatureDetails = { sourceMap };
       context.resourcePrototypes.push(prototypes);
       return [utils.nextNode(node), result];
     },
@@ -50,23 +54,41 @@ module.exports = (Parsers) => {
       let nextNode;
       let childResult;
 
+      const { groupSignatureDetails: { sourceMap } } = context.data;
+      const mixedContentError = new utils.CrafterError(`Found mixed content of subgroups and resources in group "${result.title.string}"`, sourceMap);
       const nestedSectionType = SectionTypes.calculateSectionType(node, context, [
         Parsers.SubgroupParser,
         Parsers.NamedEndpointParser,
         Parsers.ResourceParser,
       ]);
 
+      if (nestedSectionType === SectionTypes.subGroup) {
+        if (context.resourcePrototypes[0] && context.resourcePrototypes[0].length > 0) {
+          context.addWarning('A group with subgroups should not use resource prototypes. Adding one will have no effect.', sourceMap);
+          context.resourcePrototypes.pop(); // очищаем стек с прототипами данной группы ресурсов
+        }
+      }
+
       switch (nestedSectionType) {
         case SectionTypes.namedAction: {
+          if (result.subgroups.length > 0) {
+            throw mixedContentError;
+          }
           [nextNode, childResult] = Parsers.NamedEndpointParser.parse(node, context);
           result.resources.push(childResult);
           break;
         }
         case SectionTypes.subGroup:
+          if (result.resources.length > 0) {
+            throw mixedContentError;
+          }
           [nextNode, childResult] = Parsers.SubgroupParser.parse(node, context);
           result.subgroups.push(childResult);
           break;
         default:
+          if (result.subgroups.length > 0) {
+            throw mixedContentError;
+          }
           [nextNode, childResult] = Parsers.ResourceParser.parse(node, context);
           result.resources.push(childResult);
       }
