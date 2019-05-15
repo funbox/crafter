@@ -2,6 +2,7 @@ const SectionTypes = Object.freeze({
   undefined: 'undefined',
   resource: 'resource',
   resourceGroup: 'resourceGroup',
+  subGroup: 'subGroup',
   dataStructureGroup: 'dataStructureGroup',
   resourcePrototypes: 'resourcePrototypes',
   resourcePrototype: 'resourcePrototype',

@@ -30,6 +30,7 @@ module.exports = {
   categoryClasses: {
     api: 'api',
     resourceGroup: 'resourceGroup',
+    subGroup: 'subGroup',
     dataStructures: 'dataStructures',
     resourcePrototypes: 'resourcePrototypes',
     messageBody: 'messageBody',
