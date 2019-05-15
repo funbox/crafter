@@ -36,6 +36,7 @@ module.exports = (Parsers) => {
         Parsers.ResponseParser,
         Parsers.ActionParser,
         Parsers.ResourceParser,
+        Parsers.SubgroupParser,
         Parsers.ResourceGroupParser,
         Parsers.DataStructureGroupParser,
         Parsers.ResourcePrototypesParser,
