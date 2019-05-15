@@ -4,8 +4,9 @@ const utils = require('../utils');
 const ResourceElement = require('./elements/ResourceElement');
 const StringElement = require('./elements/StringElement');
 
-const ResourceHeaderRegex = new RegExp(`^(${RegExpStrings.requestMethods}\\s+)?${RegExpStrings.uriTemplate}(\\s+${RegExpStrings.resourcePrototype})?$`);
+const NamelessResourceHeaderRegex = new RegExp(`^${RegExpStrings.uriTemplate}(\\s+${RegExpStrings.resourcePrototype})?$`);
 const NamedResourceHeaderRegex = new RegExp(`^${RegExpStrings.symbolIdentifier}\\s+\\[${RegExpStrings.uriTemplate}](\\s+${RegExpStrings.resourcePrototype})?$`);
+const NamelessEndpointHeaderRegex = new RegExp(`^(${RegExpStrings.requestMethods})\\s+${RegExpStrings.uriTemplate}(\\s+${RegExpStrings.resourcePrototype})?$`);
 const NamedEndpointHeaderRegex = new RegExp(`^${RegExpStrings.symbolIdentifier}\\s+\\[${RegExpStrings.requestMethods}\\s+${RegExpStrings.uriTemplate}](\\s+${RegExpStrings.resourcePrototype})?$`);
 
 module.exports = (Parsers) => {
@@ -17,26 +18,33 @@ module.exports = (Parsers) => {
       let nodeToReturn = node;
 
       const subject = utils.headerText(node, context.sourceLines);
+      const [sectionType, matchData] = getSectionType(subject);
 
       let isNamedEndpoint = false;
-      let matchData = ResourceHeaderRegex.exec(subject);
-      if (matchData) {
-        href = matchData[3];
-        protoNames = matchData[5];
-      } else {
-        matchData = NamedEndpointHeaderRegex.exec(subject);
-        if (matchData) {
-          title = matchData[1];
-          href = matchData[3];
-          protoNames = matchData[5];
-          isNamedEndpoint = true;
-        } else {
-          matchData = NamedResourceHeaderRegex.exec(subject);
+
+      switch (sectionType) {
+        case 'NamedResource':
           title = matchData[1];
           href = matchData[2];
           protoNames = matchData[4];
           nodeToReturn = utils.nextNode(node);
-        }
+          break;
+        case 'NamelessResource':
+          href = matchData[1];
+          protoNames = matchData[3];
+          nodeToReturn = utils.nextNode(node);
+          break;
+        case 'NamelessEndpoint':
+          href = matchData[3];
+          protoNames = matchData[5];
+          break;
+        case 'NamedEndpoint':
+          title = matchData[1];
+          href = matchData[3];
+          isNamedEndpoint = true;
+          break;
+        default:
+          break;
       }
 
       const prototypes = protoNames ? protoNames.split(',').map(p => p.trim()) : [];
@@ -61,7 +69,7 @@ module.exports = (Parsers) => {
       if (node.type === 'heading') {
         const subject = utils.headerText(node, context.sourceLines);
 
-        if (ResourceHeaderRegex.exec(subject) || NamedResourceHeaderRegex.exec(subject) || NamedEndpointHeaderRegex.exec(subject)) {
+        if (NamelessEndpointHeaderRegex.exec(subject) || NamedResourceHeaderRegex.exec(subject) || NamedEndpointHeaderRegex.exec(subject) || NamelessResourceHeaderRegex.exec(subject)) {
           return SectionTypes.resource;
         }
       }
@@ -107,3 +115,19 @@ module.exports = (Parsers) => {
   });
   return true;
 };
+
+function getSectionType(subject) {
+  const names = new Map([
+    [NamelessResourceHeaderRegex, 'NamelessResource'],
+    [NamedResourceHeaderRegex, 'NamedResource'],
+    [NamelessEndpointHeaderRegex, 'NamelessEndpoint'],
+    [NamedEndpointHeaderRegex, 'NamedEndpoint'],
+  ]);
+
+  return [
+    NamelessResourceHeaderRegex,
+    NamedResourceHeaderRegex,
+    NamelessEndpointHeaderRegex,
+    NamedEndpointHeaderRegex,
+  ].reduce((acc, regx) => (regx.test(subject) ? [names.get(regx), regx.exec(subject)] : acc), []);
+}
