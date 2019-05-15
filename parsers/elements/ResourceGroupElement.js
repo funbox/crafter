@@ -5,16 +5,18 @@ class ResourceGroupElement {
     this.title = title;
     this.description = null;
     this.resources = [];
+    this.subgroups = [];
   }
 
   toRefract(sourceMapsEnabled) {
+    const content = this.resources.length > this.subgroups.length ? this.resources : this.subgroups;
     const result = {
       element: Refract.elements.category,
       meta: {
         classes: [Refract.categoryClasses.resourceGroup],
         title: this.title.toRefract(sourceMapsEnabled),
       },
-      content: this.resources.map(r => r.toRefract(sourceMapsEnabled)),
+      content: content.map(r => r.toRefract(sourceMapsEnabled)),
     };
 
     if (this.description) {

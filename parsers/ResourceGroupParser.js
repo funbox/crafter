@@ -32,6 +32,7 @@ module.exports = (Parsers) => {
 
     nestedSectionType(node, context) {
       return SectionTypes.calculateSectionType(node, context, [
+        Parsers.SubgroupParser,
         Parsers.NamedEndpointParser,
         Parsers.ResourceParser,
       ]);
@@ -49,12 +50,27 @@ module.exports = (Parsers) => {
       let nextNode;
       let childResult;
 
-      if (Parsers.NamedEndpointParser.sectionType(node, context) !== SectionTypes.undefined) {
-        [nextNode, childResult] = Parsers.NamedEndpointParser.parse(node, context);
-      } else {
-        [nextNode, childResult] = Parsers.ResourceParser.parse(node, context);
+      const nestedSectionType = SectionTypes.calculateSectionType(node, context, [
+        Parsers.SubgroupParser,
+        Parsers.NamedEndpointParser,
+        Parsers.ResourceParser,
+      ]);
+
+      switch (nestedSectionType) {
+        case SectionTypes.namedAction: {
+          [nextNode, childResult] = Parsers.NamedEndpointParser.parse(node, context);
+          result.resources.push(childResult);
+          break;
+        }
+        case SectionTypes.subGroup:
+          [nextNode, childResult] = Parsers.SubgroupParser.parse(node, context);
+          result.subgroups.push(childResult);
+          break;
+        default:
+          [nextNode, childResult] = Parsers.ResourceParser.parse(node, context);
+          result.resources.push(childResult);
       }
-      result.resources.push(childResult);
+
       return [nextNode, result];
     },
 
