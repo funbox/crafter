@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.10.2 (16.05.2019)
+
+* Change the way how to parse signature of a Resource section.
+
 ## 1.10.1 (14.05.2019)
 
 * Fix sourcemaps for block description with zero indentation.
