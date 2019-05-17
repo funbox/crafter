@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.11.0 (17.05.2019)
+
+* SubGroup section parsing.
+
 ## 1.10.2 (16.05.2019)
 
 * Change the way how to parse signature of a Resource section.
