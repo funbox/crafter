@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.11.1 (20.05.2019)
+
+* Fix parsing of URI parameters that have star symbol.
+
 ## 1.11.0 (17.05.2019)
 
 * SubGroup section parsing.
