@@ -22,14 +22,14 @@ It produces warnings 'Attribute "format" can be used in string value type only' 
     + Attributes(Second, format="date")
 
 + Response 200 (application/json)
-    + Attributes(object, pattern='"^fooboo$"')
+    + Attributes(object, pattern="^fooboo$")
 
 + Response 200 (application/json)
     + Attributes
         + boo (Third)
         + foo (Second, format="date")
-        + booFoo (object, pattern='"^fooboo$"')
+        + booFoo (object, pattern="^fooboo$")
         + fooBoo (array, required)
             + `first example` (First)
             + `second example` (Second, format="date")
-            + `third example` (object, pattern='"^fooboo$"')
+            + `third example` (object, pattern="^fooboo$")

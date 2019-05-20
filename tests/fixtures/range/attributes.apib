@@ -1,0 +1,12 @@
+# My API
+
+Defines request and response attribute's properties as a number in a set of ranges
+
+# Create user [POST /user]
+
++ Request (application/json)
+    + Attributes (number, minimum="2000", maximum="2019")
+
++ Response 200 (application/json)
+    + Attributes
+      + age (number, minimum="18", maximum="100")

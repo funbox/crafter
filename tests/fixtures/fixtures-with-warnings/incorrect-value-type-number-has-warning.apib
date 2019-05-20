@@ -1,0 +1,35 @@
+# My API
+
+Defines attributes minimum and maximum for non-number type value.
+It produces warnings 'Attribute "minimum" can be used in number value type only' and 'Attribute "maximum" can be used in number value type only'
+
+# Data Structures
+
+# First (string, minimum="18", maximum="100")
+
+# Second (boolean)
+
+# Third (Second, minimum="18")
+
+# Block [/users]
+
+## Request [GET]
+
++ Response 200 (application/json)
+    + Attributes(First)
+
++ Response 200 (application/json)
+    + Attributes(Second, maximum="100")
+
++ Response 200 (application/json)
+    + Attributes(object, minimum="18", maximum="100")
+
++ Response 200 (application/json)
+    + Attributes
+        + boo (Third)
+        + foo (Second, minimum="18")
+        + booFoo (object, maximum="100")
+        + fooBoo (array, required)
+            + `first example` (First)
+            + `second example` (Second, minimum="18", maximum="100")
+            + `third example` (object, minimum="18", maximum="100")
