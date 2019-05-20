@@ -291,15 +291,22 @@ const utils = {
       result.typeAttributes = result.typeAttributes.filter(x => x !== typeAttributes['fixed-type']);
     }
 
-    const stringParameterizedAttributes = result.typeAttributes
-      .filter(a => Array.isArray(a) && (a[0] === 'format' || a[0] === 'pattern'))
+    const attributesRequiredTypeValue = {
+      pattern: 'string',
+      format: 'string',
+      minimum: 'number',
+      maximum: 'number',
+    };
+
+    const attributesToCheck = result.typeAttributes
+      .filter(a => Array.isArray(a) && attributesRequiredTypeValue[a[0]] !== undefined)
       .map(a => a[0]);
 
-    if (!result.isType('string') && stringParameterizedAttributes.length > 0) {
-      stringParameterizedAttributes.forEach(a => {
-        context.addWarning(`Attribute "${a}" can be used in string value type only.`, attributeSignatureDetails.sourceMap);
-      });
-    }
+    attributesToCheck.forEach(a => {
+      if (!result.isType(attributesRequiredTypeValue[a])) {
+        context.addWarning(`Attribute "${a}" can be used in ${attributesRequiredTypeValue[a]} value type only.`, attributeSignatureDetails.sourceMap);
+      }
+    });
 
     return [context, result];
   },

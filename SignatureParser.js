@@ -11,6 +11,8 @@ const parameterizedTypeAttributes = {
   format: { alias: 'format' },
   'min-length': { alias: 'minLength', dataType: 'number' },
   'max-length': { alias: 'maxLength', dataType: 'number' },
+  minimum: { alias: 'minimum', dataType: 'number' },
+  maximum: { alias: 'maximum', dataType: 'number' },
 };
 
 const fakeTypeAttributes = { sample: 'sample', default: 'default' };

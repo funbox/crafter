@@ -8,7 +8,7 @@ const ValueMemberElement = require('./elements/ValueMemberElement');
 const ValueMemberProcessor = require('../ValueMemberProcessor');
 const { parser: SignatureParser, typeAttributes } = require('../SignatureParser');
 
-const valueAttributes = ['pattern', 'format', 'minLength', 'maxLength'];
+const valueAttributes = ['pattern', 'format', 'minLength', 'maxLength', 'minimum', 'maximum'];
 
 module.exports = (Parsers) => {
   Parsers.MSONAttributeParser = Object.assign(Object.create(require('./AbstractParser')), {

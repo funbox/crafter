@@ -256,6 +256,10 @@ function fillSchemaWithAttributes(schema, typeAttributes) {
       minLength: 'minItems',
       maxLength: 'maxItems',
     },
+    number: {
+      minimum: 'minimum',
+      maximum: 'maximum',
+    },
   };
 
   const allowedAttributes = parameterizedAttributes[schema.type];
