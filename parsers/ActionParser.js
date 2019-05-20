@@ -146,7 +146,7 @@ module.exports = (Parsers) => {
         }
 
         if (parameters && parameters.parameters) {
-          expectedParameters = expectedParameters.filter(name => !parameters.parameters.find(p => p.name === name));
+          expectedParameters = expectedParameters.filter(name => !parameters.parameters.find(p => p.name === name.replace(/\*$/, '')));
         }
 
         if (expectedParameters.length > 0) {
@@ -162,7 +162,7 @@ module.exports = (Parsers) => {
 
 function getUriVariables(uriTemplate) {
   const URI_VARIABLE_REGEX = /{(.*?)}/g;
-  const URI_TEMPLATE_EXPRESSION_REGEX = /^(?:[?|&]?(((?:[A-Za-z0-9_])+|(?:%[A-Fa-f0-9]{2})+)+)\\*?)$/;
+  const URI_TEMPLATE_EXPRESSION_REGEX = /^(?:[?|&]?(((?:[A-Za-z0-9_])+|(?:%[A-Fa-f0-9]{2})+)+)\*?)$/;
 
   const result = [];
 
