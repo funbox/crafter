@@ -1,0 +1,245 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": [
+          {
+            "element": "string",
+            "content": "api"
+          }
+        ],
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
+      },
+      "content": [
+        {
+          "element": "copy",
+          "content": "Defines wrong-indented request body.\nIt produces the next warning:\n\"Body\" is expected to be a pre-formatted code block, every of its line indented by exactly 12 spaces or 3 tabs."
+        },
+        {
+          "element": "resource",
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "List users"
+            }
+          },
+          "attributes": {
+            "href": {
+              "element": "string",
+              "content": "/users"
+            }
+          },
+          "content": [
+            {
+              "element": "transition",
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "List users"
+                }
+              },
+              "content": [
+                {
+                  "element": "httpTransaction",
+                  "content": [
+                    {
+                      "element": "httpRequest",
+                      "attributes": {
+                        "method": {
+                          "element": "string",
+                          "content": "GET"
+                        },
+                        "headers": {
+                          "element": "httpHeaders",
+                          "content": [
+                            {
+                              "element": "member",
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "Content-Type"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "application/json"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "content": [
+                        {
+                          "element": "asset",
+                          "meta": {
+                            "classes": [
+                              "messageBody"
+                            ]
+                          },
+                          "content": "",
+                          "attributes": {
+                            "contentType": {
+                              "element": "string",
+                              "content": "application/json"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "element": "httpResponse",
+                      "content": [],
+                      "attributes": {
+                        "statusCode": {
+                          "element": "string",
+                          "content": "200"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "attributes": {
+                "href": {
+                  "element": "string",
+                  "content": "/users"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "element": "annotation",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "warning"
+            }
+          ]
+        }
+      },
+      "attributes": {
+        "sourceMap": {
+          "element": "array",
+          "content": [
+            {
+              "element": "sourceMap",
+              "content": [
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 12
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 9
+                        }
+                      },
+                      "content": 266
+                    },
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 12
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 10
+                        }
+                      },
+                      "content": 2
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 13
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 9
+                        }
+                      },
+                      "content": 276
+                    },
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 13
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 29
+                        }
+                      },
+                      "content": 21
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 14
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 9
+                        }
+                      },
+                      "content": 305
+                    },
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 14
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 10
+                        }
+                      },
+                      "content": 2
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "content": "\"Body\" is expected to be a pre-formatted code block, every of its line indented by exactly 12 spaces or 3 tabs"
+    }
+  ]
+}

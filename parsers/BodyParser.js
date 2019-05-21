@@ -10,8 +10,12 @@ module.exports = (Parsers) => {
       const bodyContentNode = node.firstChild.next;
       const body = (bodyContentNode && bodyContentNode.literal) || '';
       const bodyEl = new BodyElement(body);
+      const sourceMap = this.makeSourceMap(bodyContentNode, context);
+      if (bodyContentNode.type !== 'code_block') {
+        context.addWarning('"Body" is expected to be a pre-formatted code block, every of its line indented by exactly 12 spaces or 3 tabs', sourceMap);
+      }
       if (bodyContentNode) {
-        bodyEl.sourceMap = this.makeSourceMap(bodyContentNode, context);
+        bodyEl.sourceMap = sourceMap;
       }
       return [utils.nextNode(node), bodyEl];
     },

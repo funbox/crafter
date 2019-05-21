@@ -51,7 +51,14 @@ module.exports = (Parsers) => {
       }
 
       const { startLineIndex, startColumnIndex } = utils.getSourcePosZeroBased(contentNode);
+      const headersSourceMap = utils.makeSourceMapForAsset(contentNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       const indentationBytes = startColumnIndex;
+
+      if (contentNode.type !== 'code_block') {
+        context.addWarning('"Headers" is expected to be a pre-formatted code block, every of its line indented by exactly 12 spaces or 3 tabs', headersSourceMap);
+        return headers;
+      }
+
       let offset = 0;
       const contentLines = contentNode.literal.trimRight().split('\n');
 

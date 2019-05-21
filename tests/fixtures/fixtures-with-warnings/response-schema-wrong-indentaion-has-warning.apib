@@ -1,0 +1,29 @@
+# My API
+
+Defines response with a validation schema with 'Schema' keyword.
+It produces the next warning:
+"message-schema at line 16 is expected to be a pre-formatted code block, every of its line indented by exactly 12 spaces or 3 tabs"
+
+# List users [GET /users]
+
++ Response 200 (application/json)
+    + Body
+
+            {
+                "hello": "world"
+            }
+
+    + Schema
+
+        {
+            "$schema": "http://json-schema.org/draft-04/schema#",
+            "type": "object",
+            "required": [
+                "hello"
+            ],
+            "properties": {
+                "hello": {
+                    "type": "string"
+                }
+            }
+        }

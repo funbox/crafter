@@ -1,0 +1,195 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": [
+          {
+            "element": "string",
+            "content": "api"
+          }
+        ],
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
+      },
+      "content": [
+        {
+          "element": "copy",
+          "content": "Defines wrong-indented request header.\nIt produces the next warning:\n\"Headers\" is expected to be a pre-formatted code block, every of its line indented by exactly 12 spaces or 3 tabs."
+        },
+        {
+          "element": "category",
+          "meta": {
+            "classes": [
+              "resourceGroup"
+            ],
+            "title": {
+              "element": "string",
+              "content": "Some Group"
+            }
+          },
+          "content": [
+            {
+              "element": "resource",
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Some Subgroup"
+                }
+              },
+              "attributes": {
+                "href": {
+                  "element": "string",
+                  "content": "/api/v1/foo"
+                }
+              },
+              "content": [
+                {
+                  "element": "transition",
+                  "meta": {
+                    "title": {
+                      "element": "string",
+                      "content": "Some Req"
+                    }
+                  },
+                  "content": [
+                    {
+                      "element": "httpTransaction",
+                      "content": [
+                        {
+                          "element": "httpRequest",
+                          "attributes": {
+                            "method": {
+                              "element": "string",
+                              "content": "PUT"
+                            },
+                            "headers": {
+                              "element": "httpHeaders",
+                              "content": [
+                                {
+                                  "element": "member",
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "Content-Type"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "content": "application/gzip"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "content": []
+                        },
+                        {
+                          "element": "httpResponse",
+                          "content": [],
+                          "attributes": {
+                            "statusCode": {
+                              "element": "string",
+                              "content": "200"
+                            },
+                            "headers": {
+                              "element": "httpHeaders",
+                              "content": [
+                                {
+                                  "element": "member",
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "Content-Type"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "content": "application/json"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "attributes": {
+                    "href": {
+                      "element": "string",
+                      "content": "/api/v1/foo/bar"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "element": "annotation",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "warning"
+            }
+          ]
+        }
+      },
+      "attributes": {
+        "sourceMap": {
+          "element": "array",
+          "content": [
+            {
+              "element": "sourceMap",
+              "content": [
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 17
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 9
+                        }
+                      },
+                      "content": 336
+                    },
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 17
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 19
+                        }
+                      },
+                      "content": 11
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "content": "\"Headers\" is expected to be a pre-formatted code block, every of its line indented by exactly 12 spaces or 3 tabs"
+    }
+  ]
+}
