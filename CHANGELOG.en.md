@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.12.1 (22.05.2019)
+
+* Show a warning when Headers and Body sections have wrong indentation.
+
 ## 1.12.0 (21.05.2019)
 
 * Add support of "minimum" and "maximum" attributes.
