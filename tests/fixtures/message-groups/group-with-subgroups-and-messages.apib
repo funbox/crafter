@@ -1,0 +1,16 @@
+# My API
+
+# Group WS /chat_messages
+
+## Message ClientToServerMessage
++ Attributes
+  + text: `Hello there` (string, required) - message text
+
+## SubGroup chat:1234
+
+Block description of the channel with id "1234"
+
+## Message ServerToClientMessage NewParticipant
+Notification about a new user being added to the channel
++ Attributes
+    + name: John (string, required) - user name

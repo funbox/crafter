@@ -1,0 +1,155 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": [
+          {
+            "element": "string",
+            "content": "api"
+          }
+        ],
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
+      },
+      "content": [
+        {
+          "element": "category",
+          "meta": {
+            "classes": [
+              "resourceGroup"
+            ],
+            "title": {
+              "element": "string",
+              "content": "WS /chat_messages"
+            }
+          },
+          "content": [
+            {
+              "element": "category",
+              "meta": {
+                "classes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "subGroup"
+                    }
+                  ]
+                },
+                "title": {
+                  "element": "string",
+                  "content": "chat:1234"
+                }
+              },
+              "content": [
+                {
+                  "element": "copy",
+                  "content": "Block description of the channel with id \"1234\""
+                },
+                {
+                  "element": "message",
+                  "content": [
+                    {
+                      "element": "copy",
+                      "content": "Notification about a new user being added to the channel"
+                    },
+                    {
+                      "element": "dataStructure",
+                      "content": {
+                        "element": "object",
+                        "content": [
+                          {
+                            "element": "member",
+                            "content": {
+                              "key": {
+                                "element": "string",
+                                "content": "name"
+                              },
+                              "value": {
+                                "element": "string"
+                              }
+                            },
+                            "attributes": {
+                              "typeAttributes": {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "string",
+                                    "content": "required"
+                                  }
+                                ]
+                              }
+                            },
+                            "meta": {
+                              "description": {
+                                "element": "string",
+                                "content": "user name"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "element": "asset",
+                      "meta": {
+                        "classes": [
+                          "messageBody"
+                        ]
+                      },
+                      "content": "{\n  \"name\": \"\"\n}"
+                    }
+                  ],
+                  "meta": {
+                    "title": {
+                      "element": "string",
+                      "content": {
+                        "element": "string",
+                        "content": "ServerToClientMessage NewParticipant"
+                      }
+                    }
+                  }
+                },
+                {
+                  "element": "message",
+                  "content": [
+                    {
+                      "element": "dataStructure",
+                      "content": {
+                        "element": "string",
+                        "attributes": {
+                          "typeAttributes": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "required"
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "meta": {
+                    "title": {
+                      "element": "string",
+                      "content": {
+                        "element": "string",
+                        "content": "ClientToServerMessage"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

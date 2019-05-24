@@ -1,0 +1,20 @@
+# My API
+
+# Data Structures
+
+## ChatMessage
++ id: 1 (number, required)
++ author
+  + id: 42 (number, required)
+  + name: `John Smith` (string, required)
++ text: `Hello there` (string, required)
+
+# Group WS /chat_messages
+
+## Message ServerToClientMessage NewParticipant
+Notification about a new user being added to the channel
++ Attributes
+    + name: John (string, required) - user name
+
+## Message ClientToServerMessage
++ Attributes (ChatMessage)

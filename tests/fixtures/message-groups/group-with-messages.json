@@ -1,0 +1,264 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": [
+          {
+            "element": "string",
+            "content": "api"
+          }
+        ],
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
+      },
+      "content": [
+        {
+          "element": "category",
+          "meta": {
+            "classes": [
+              "dataStructures"
+            ]
+          },
+          "content": [
+            {
+              "element": "dataStructure",
+              "content": {
+                "element": "object",
+                "content": [
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "id"
+                      },
+                      "value": {
+                        "element": "number",
+                        "content": 1
+                      }
+                    },
+                    "attributes": {
+                      "typeAttributes": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "required"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "author"
+                      },
+                      "value": {
+                        "element": "object",
+                        "content": [
+                          {
+                            "element": "member",
+                            "content": {
+                              "key": {
+                                "element": "string",
+                                "content": "id"
+                              },
+                              "value": {
+                                "element": "number",
+                                "content": 42
+                              }
+                            },
+                            "attributes": {
+                              "typeAttributes": {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "string",
+                                    "content": "required"
+                                  }
+                                ]
+                              }
+                            }
+                          },
+                          {
+                            "element": "member",
+                            "content": {
+                              "key": {
+                                "element": "string",
+                                "content": "name"
+                              },
+                              "value": {
+                                "element": "string",
+                                "content": "John Smith"
+                              }
+                            },
+                            "attributes": {
+                              "typeAttributes": {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "string",
+                                    "content": "required"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "text"
+                      },
+                      "value": {
+                        "element": "string",
+                        "content": "Hello there"
+                      }
+                    },
+                    "attributes": {
+                      "typeAttributes": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "required"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ],
+                "meta": {
+                  "id": {
+                    "element": "string",
+                    "content": "ChatMessage"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "element": "category",
+          "meta": {
+            "classes": [
+              "resourceGroup"
+            ],
+            "title": {
+              "element": "string",
+              "content": "WS /chat_messages"
+            }
+          },
+          "content": [
+            {
+              "element": "message",
+              "content": [
+                {
+                  "element": "copy",
+                  "content": "Notification about a new user being added to the channel"
+                },
+                {
+                  "element": "dataStructure",
+                  "content": {
+                    "element": "object",
+                    "content": [
+                      {
+                        "element": "member",
+                        "content": {
+                          "key": {
+                            "element": "string",
+                            "content": "name"
+                          },
+                          "value": {
+                            "element": "string",
+                            "content": "John"
+                          }
+                        },
+                        "attributes": {
+                          "typeAttributes": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "required"
+                              }
+                            ]
+                          }
+                        },
+                        "meta": {
+                          "description": {
+                            "element": "string",
+                            "content": "user name"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "element": "asset",
+                  "meta": {
+                    "classes": [
+                      "messageBody"
+                    ]
+                  },
+                  "content": "{\n  \"name\": \"John\"\n}"
+                }
+              ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": {
+                    "element": "string",
+                    "content": "ServerToClientMessage NewParticipant"
+                  }
+                }
+              }
+            },
+            {
+              "element": "message",
+              "content": [
+                {
+                  "element": "dataStructure",
+                  "content": {
+                    "element": "ChatMessage"
+                  }
+                },
+                {
+                  "element": "asset",
+                  "meta": {
+                    "classes": [
+                      "messageBody"
+                    ]
+                  },
+                  "content": "{\n  \"id\": 1,\n  \"author\": {\n    \"id\": 42,\n    \"name\": \"John Smith\"\n  },\n  \"text\": \"Hello there\"\n}"
+                }
+              ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": {
+                    "element": "string",
+                    "content": "ClientToServerMessage"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
