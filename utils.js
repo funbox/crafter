@@ -208,6 +208,7 @@ const utils = {
     // commonmark incorrectly detects the end column of a fenced code block:
     // https://github.com/commonmark/commonmark.js/issues/141
     const fixedEndcolumn = node.type === 'code_block' ? localSourceLines[endline - 1].length : endcolumn;
+    const keepWhitespaces = node.type === 'code_block';
 
     const result = [];
 
@@ -223,7 +224,7 @@ const utils = {
       result.push(localSourceLines[endline - 1].slice(0, fixedEndcolumn));
     }
 
-    return result.map(line => line.trim()).join('\n').trim();
+    return result.map(line => (keepWhitespaces ? line : line.trim())).join('\n').trim();
   },
 
   nextNode(node) {
