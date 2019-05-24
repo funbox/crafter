@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.13.0 (24.05.2019)
+
+* Add installation and use info to readme.md.
+
 ## 1.12.1 (22.05.2019)
 
 * Show a warning when Headers and Body sections have wrong indentation.
