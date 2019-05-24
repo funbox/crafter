@@ -29,8 +29,8 @@ module.exports = (Parsers) => {
       return SectionTypes.undefined;
     },
 
-    nestedSectionType() {
-      return SectionTypes.undefined;
+    nestedSectionType(node, context) {
+      return Parsers.MessageParser.sectionType(node, context);
     },
 
     upperSectionType(node, context) {
@@ -41,6 +41,13 @@ module.exports = (Parsers) => {
         Parsers.DataStructureGroupParser,
         Parsers.ResourcePrototypesParser,
       ]);
+    },
+
+    processNestedSection(node, context, result) {
+      const [nextNode, childResult] = Parsers.MessageParser.parse(node, context);
+
+      result.messages.push(childResult);
+      return [nextNode, result];
     },
   });
   return true;

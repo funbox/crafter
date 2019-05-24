@@ -36,6 +36,7 @@ module.exports = (Parsers) => {
 
     nestedSectionType(node, context) {
       return SectionTypes.calculateSectionType(node, context, [
+        Parsers.MessageParser,
         Parsers.SubgroupParser,
         Parsers.NamedEndpointParser,
         Parsers.ResourceParser,
@@ -57,12 +58,13 @@ module.exports = (Parsers) => {
       const { groupSignatureDetails: { sourceMap } } = context.data;
       const mixedContentError = new utils.CrafterError(`Found mixed content of subgroups and resources in group "${result.title.string}"`, sourceMap);
       const nestedSectionType = SectionTypes.calculateSectionType(node, context, [
+        Parsers.MessageParser,
         Parsers.SubgroupParser,
         Parsers.NamedEndpointParser,
         Parsers.ResourceParser,
       ]);
 
-      if (nestedSectionType === SectionTypes.subGroup) {
+      if ([SectionTypes.subGroup, SectionTypes.message].includes(nestedSectionType)) {
         if (context.resourcePrototypes[0] && context.resourcePrototypes[0].length > 0) {
           context.addWarning('A group with subgroups should not use resource prototypes. Adding one will have no effect.', sourceMap);
           context.resourcePrototypes.pop(); // очищаем стек с прототипами данной группы ресурсов
@@ -83,6 +85,13 @@ module.exports = (Parsers) => {
             throw mixedContentError;
           }
           [nextNode, childResult] = Parsers.SubgroupParser.parse(node, context);
+          result.subgroups.push(childResult);
+          break;
+        case SectionTypes.message:
+          if (result.resources.length > 0) {
+            throw mixedContentError;
+          }
+          [nextNode, childResult] = Parsers.MessageParser.parse(node, context);
           result.subgroups.push(childResult);
           break;
         default:
