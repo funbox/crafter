@@ -71,6 +71,7 @@ module.exports = (Parsers) => {
         Parsers.ActionParser,
         Parsers.ResourceParser,
         Parsers.SubgroupParser,
+        Parsers.MessageParser,
         Parsers.ResourceGroupParser,
         Parsers.DataStructureGroupParser,
         Parsers.ResourcePrototypesParser,

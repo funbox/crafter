@@ -88,6 +88,7 @@ module.exports = (Parsers) => {
       return SectionTypes.calculateSectionType(node, context, [
         Parsers.ResourceParser,
         Parsers.SubgroupParser,
+        Parsers.MessageParser,
         Parsers.ResourceGroupParser,
         Parsers.DataStructureGroupParser,
         Parsers.ResourcePrototypesParser,
