@@ -29,6 +29,7 @@ const SectionTypes = Object.freeze({
   msonEnumMemberGroup: 'msonEnumMemberGroup',
   oneOfType: 'oneOfType',
   oneOfTypeOption: 'oneOfTypeOption',
+  message: 'message',
 
   calculateSectionType(node, context, parsers) {
     let result = SectionTypes.undefined;

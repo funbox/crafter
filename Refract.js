@@ -26,6 +26,7 @@ module.exports = {
     ref: 'ref',
     sourceMap: 'sourceMap',
     annotation: 'annotation',
+    message: 'message',
   },
   categoryClasses: {
     api: 'api',
