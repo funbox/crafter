@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.14.0 (25.05.2019)
+
+* Message section parsing.
+
 ## 1.13.1 (24.05.2019)
 
 * Fix lost indentation in code_block.
