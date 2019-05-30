@@ -206,16 +206,12 @@ class ValueMemberElement {
       fillSchemaWithAttributes(schema, this.typeAttributes);
     }
 
-    if (typeEl || this.content) {
-      return schema;
-    }
-
-    if (!this.type) {
+    if (!this.type && !(typeEl || this.content)) {
       this.type = 'string';
     }
 
     // Нормализуем тип, так как в json schema не сущетсвует типа 'file'
-    const normalizedType = (this.type === 'file') ? 'string' : this.type;
+    const normalizedType = (this.type === 'file') ? 'string' : schema.type || this.type;
 
     if (flags.isNullable) {
       schema.type = [
@@ -224,6 +220,10 @@ class ValueMemberElement {
       ];
     } else {
       schema.type = normalizedType;
+    }
+
+    if (typeEl || this.content) {
+      return schema;
     }
 
     if (flags.isFixed && !this.isSample && this.value != null) {

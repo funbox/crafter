@@ -421,6 +421,51 @@ describe('schema', () => {
       });
     });
 
+    it('nullable object', () => {
+      const User = new ValueMemberElement();
+      User.content = new ObjectElement();
+      User.content.propertyMembers.push(new PropertyMemberElement(new StringElement('foo')));
+
+      const el = new ValueMemberElement('User');
+
+      expect(el.getSchema({ User }, { isNullable: true })).toEqual({
+        type: ['object', 'null'],
+        properties: {
+          foo: { type: 'string' },
+        },
+      });
+    });
+
+    it('nullable enum', () => {
+      const Foo = new ValueMemberElement();
+      Foo.content = new EnumElement('enum');
+      Foo.content.members.push(new EnumMemberElement('foo'));
+      Foo.content.members.push(new EnumMemberElement('bar'));
+
+      const el = new ValueMemberElement('Foo');
+
+      expect(el.getSchema({ Foo }, { isNullable: true })).toEqual({
+        type: ['string', 'null'],
+        enum: ['foo', 'bar'],
+      });
+    });
+
+    it('nullable array', () => {
+      const Barr = new ValueMemberElement();
+      Barr.content = new ArrayElement([
+        new ValueMemberElement('string'),
+      ]);
+
+      const el = new ValueMemberElement('Barr');
+
+      expect(el.getSchema({ Barr }, { isNullable: true })).toEqual({
+        type: ['array', 'null'],
+        items: {
+          type: 'string',
+        },
+      });
+    });
+
     it('fixed', () => {
       const el = new ValueMemberElement('string', [], 'ok');
       expect(el.getSchema({}, { isFixed: true })).toEqual({
