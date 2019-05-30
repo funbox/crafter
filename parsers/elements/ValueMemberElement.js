@@ -128,7 +128,7 @@ class ValueMemberElement {
       if (typeEl.isComplex()) {
         body = typeEl.content.getBody(resolvedTypes);
       } else {
-        body.value = utils.defaultValue(typeEl.baseType);
+        body.value = value || utils.defaultValue(typeEl.baseType);
       }
     }
 
