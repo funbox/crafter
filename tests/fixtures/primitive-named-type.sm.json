@@ -308,7 +308,7 @@
                                                   },
                                                   {
                                                     "element": "number",
-                                                    "content": 10
+                                                    "content": 15
                                                   }
                                                 ]
                                               }
@@ -320,6 +320,7 @@
                                   },
                                   "value": {
                                     "element": "Foo",
+                                    "content": "a",
                                     "attributes": {
                                       "sourceMap": {
                                         "element": "array",
@@ -336,7 +337,7 @@
                                                   },
                                                   {
                                                     "element": "number",
-                                                    "content": 10
+                                                    "content": 15
                                                   }
                                                 ]
                                               }
@@ -366,11 +367,11 @@
                                                 "content": [
                                                   {
                                                     "element": "number",
-                                                    "content": 215
+                                                    "content": 220
                                                   },
                                                   {
                                                     "element": "number",
-                                                    "content": 10
+                                                    "content": 15
                                                   }
                                                 ]
                                               }
@@ -382,6 +383,7 @@
                                   },
                                   "value": {
                                     "element": "Bar",
+                                    "content": "b",
                                     "attributes": {
                                       "sourceMap": {
                                         "element": "array",
@@ -394,11 +396,11 @@
                                                 "content": [
                                                   {
                                                     "element": "number",
-                                                    "content": 215
+                                                    "content": 220
                                                   },
                                                   {
                                                     "element": "number",
-                                                    "content": 10
+                                                    "content": 15
                                                   }
                                                 ]
                                               }
@@ -428,11 +430,11 @@
                                                 "content": [
                                                   {
                                                     "element": "number",
-                                                    "content": 235
+                                                    "content": 245
                                                   },
                                                   {
                                                     "element": "number",
-                                                    "content": 10
+                                                    "content": 14
                                                   }
                                                 ]
                                               }
@@ -444,6 +446,7 @@
                                   },
                                   "value": {
                                     "element": "Baz",
+                                    "content": 10,
                                     "attributes": {
                                       "sourceMap": {
                                         "element": "array",
@@ -456,11 +459,11 @@
                                                 "content": [
                                                   {
                                                     "element": "number",
-                                                    "content": 235
+                                                    "content": 245
                                                   },
                                                   {
                                                     "element": "number",
-                                                    "content": 10
+                                                    "content": 14
                                                   }
                                                 ]
                                               }
@@ -507,7 +510,7 @@
                               "messageBody"
                             ]
                           },
-                          "content": "{\n  \"foo\": \"\",\n  \"bar\": \"\",\n  \"baz\": 0\n}",
+                          "content": "{\n  \"foo\": \"a\",\n  \"bar\": \"b\",\n  \"baz\": 10\n}",
                           "attributes": {
                             "contentType": {
                               "element": "string",

@@ -119,7 +119,8 @@
                                     "content": "foo"
                                   },
                                   "value": {
-                                    "element": "Foo"
+                                    "element": "Foo",
+                                    "content": "a"
                                   }
                                 }
                               },
@@ -131,7 +132,8 @@
                                     "content": "bar"
                                   },
                                   "value": {
-                                    "element": "Bar"
+                                    "element": "Bar",
+                                    "content": "b"
                                   }
                                 }
                               },
@@ -143,7 +145,8 @@
                                     "content": "baz"
                                   },
                                   "value": {
-                                    "element": "Baz"
+                                    "element": "Baz",
+                                    "content": 10
                                   }
                                 }
                               }
@@ -157,7 +160,7 @@
                               "messageBody"
                             ]
                           },
-                          "content": "{\n  \"foo\": \"\",\n  \"bar\": \"\",\n  \"baz\": 0\n}",
+                          "content": "{\n  \"foo\": \"a\",\n  \"bar\": \"b\",\n  \"baz\": 10\n}",
                           "attributes": {
                             "contentType": {
                               "element": "string",
