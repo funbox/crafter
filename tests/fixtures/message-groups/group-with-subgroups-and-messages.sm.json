@@ -232,33 +232,30 @@
               "meta": {
                 "title": {
                   "element": "string",
-                  "content": {
-                    "element": "string",
-                    "content": "ClientToServerMessage",
-                    "attributes": {
-                      "sourceMap": {
-                        "element": "array",
-                        "content": [
-                          {
-                            "element": "sourceMap",
-                            "content": [
-                              {
-                                "element": "array",
-                                "content": [
-                                  {
-                                    "element": "number",
-                                    "content": 37
-                                  },
-                                  {
-                                    "element": "number",
-                                    "content": 33
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      }
+                  "content": "ClientToServerMessage",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 37
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 33
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
                     }
                   }
                 }
@@ -544,33 +541,30 @@
                   "meta": {
                     "title": {
                       "element": "string",
-                      "content": {
-                        "element": "string",
-                        "content": "ServerToClientMessage NewParticipant",
-                        "attributes": {
-                          "sourceMap": {
-                            "element": "array",
-                            "content": [
-                              {
-                                "element": "sourceMap",
-                                "content": [
-                                  {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "number",
-                                        "content": 214
-                                      },
-                                      {
-                                        "element": "number",
-                                        "content": 48
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          }
+                      "content": "ServerToClientMessage NewParticipant",
+                      "attributes": {
+                        "sourceMap": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "sourceMap",
+                              "content": [
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "number",
+                                      "content": 214
+                                    },
+                                    {
+                                      "element": "number",
+                                      "content": 48
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
                         }
                       }
                     }

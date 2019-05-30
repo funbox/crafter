@@ -20,10 +20,7 @@ class MessageElement {
 
     if (this.title) {
       result.meta = {
-        title: {
-          element: Refract.elements.string,
-          content: this.title.toRefract(sourceMapsEnabled),
-        },
+        title: this.title.toRefract(sourceMapsEnabled),
       };
     }
 
