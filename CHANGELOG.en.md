@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.14.1 (31.05.2019)
+
+* Fix refract for a title of Message section
+
 ## 1.14.0 (25.05.2019)
 
 * Message section parsing.
