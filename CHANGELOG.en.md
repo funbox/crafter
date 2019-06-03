@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.14.4 (03.06.2019)
+
+* Fix parsing of empty Body/Schema section.
+
 ## 1.14.3 (03.06.2019)
 
 * Add correct value to schema when inheritance of named types is applied.
