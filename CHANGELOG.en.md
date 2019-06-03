@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.14.3 (03.06.2019)
+
+* Add correct value to schema when inheritance of named types is applied.
+
 ## 1.14.2 (03.06.2019)
 
 * Fix generated JSON schema for complex objects with "nullable" attribute.
