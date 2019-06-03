@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.14.2 (03.06.2019)
+
+* Fix generated JSON schema for complex objects with "nullable" attribute.
+
 ## 1.14.1 (31.05.2019)
 
 * Fix refract for a title of Message section
