@@ -58,7 +58,7 @@ const ValueMemberProcessor = {
 
     element.samples = sampleElement && !element.isDefault && (element.isSample || element.isArray()) ? [sampleElement] : null;
     element.default = element.isDefault && defaultElement;
-    element.value = (element.isSample || element.isDefault || element.isArray()) ? null : value;
+    element.value = (element.isSample || element.isDefault || element.isArray()) ? null : convertType(value, element.baseType).value;
   },
 };
 
