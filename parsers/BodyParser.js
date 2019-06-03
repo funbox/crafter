@@ -8,15 +8,20 @@ module.exports = (Parsers) => {
   Parsers.BodyParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
       const bodyContentNode = node.firstChild.next;
-      const body = (bodyContentNode && bodyContentNode.literal) || '';
+
+      if (!bodyContentNode) {
+        const bodyEl = new BodyElement('');
+        bodyEl.sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+        return [utils.nextNode(node), bodyEl];
+      }
+
+      const body = bodyContentNode.literal || '';
       const bodyEl = new BodyElement(body);
       const sourceMap = this.makeSourceMap(bodyContentNode, context);
       if (bodyContentNode.type !== 'code_block') {
         context.addWarning('"Body" is expected to be a pre-formatted code block, every of its line indented by exactly 12 spaces or 3 tabs', sourceMap);
       }
-      if (bodyContentNode) {
-        bodyEl.sourceMap = sourceMap;
-      }
+      bodyEl.sourceMap = sourceMap;
       return [utils.nextNode(node), bodyEl];
     },
 

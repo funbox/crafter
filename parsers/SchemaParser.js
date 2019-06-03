@@ -9,12 +9,15 @@ module.exports = (Parsers) => {
     processSignature(node, context) {
       const schemaContentNode = node.firstChild.next;
 
-      let sourceMap = null;
-      if (schemaContentNode) {
-        sourceMap = this.makeSourceMap(schemaContentNode, context);
+      if (!schemaContentNode) {
+        const schemaEl = new SchemaElement({});
+        schemaEl.sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+        return [utils.nextNode(node), schemaEl];
       }
 
-      const schemaText = (schemaContentNode && schemaContentNode.literal) || '';
+      const sourceMap = this.makeSourceMap(schemaContentNode, context);
+
+      const schemaText = schemaContentNode.literal || '';
       let schemaObj;
       try {
         schemaObj = JSON.parse(schemaText);
