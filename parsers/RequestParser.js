@@ -133,7 +133,7 @@ module.exports = (Parsers) => {
 
       if (!hasCustomBody) {
         const body = result.getBody(context.typeResolver.types);
-        if (Object.keys(body).length > 0) {
+        if (typeof body === 'object' && Object.keys(body).length > 0 || typeof body !== 'object') {
           const bodyElement = new BodyElement(body);
           bodyElement.contentType = result.contentType;
           result.content.push(bodyElement);

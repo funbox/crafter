@@ -169,6 +169,21 @@
                           "element": "asset",
                           "meta": {
                             "classes": [
+                              "messageBody"
+                            ]
+                          },
+                          "content": "",
+                          "attributes": {
+                            "contentType": {
+                              "element": "string",
+                              "content": "application/json"
+                            }
+                          }
+                        },
+                        {
+                          "element": "asset",
+                          "meta": {
+                            "classes": [
                               "messageBodySchema"
                             ]
                           },
@@ -247,6 +262,21 @@
                                   }
                                 ]
                               }
+                            }
+                          }
+                        },
+                        {
+                          "element": "asset",
+                          "meta": {
+                            "classes": [
+                              "messageBody"
+                            ]
+                          },
+                          "content": false,
+                          "attributes": {
+                            "contentType": {
+                              "element": "string",
+                              "content": "application/json"
                             }
                           }
                         },

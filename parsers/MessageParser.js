@@ -75,10 +75,11 @@ module.exports = (Parsers) => {
 
       if (!hasCustomBody) {
         const body = result.getBody(context.typeResolver.types);
-        if (Object.keys(body).length > 0) {
-          const bodyElement = new BodyElement(body);
-          result.content.push(bodyElement);
+        if (typeof body === 'object' && Object.keys(body).length === 0) {
+          return result;
         }
+        const bodyElement = new BodyElement(body);
+        result.content.push(bodyElement);
       }
 
       return result;
