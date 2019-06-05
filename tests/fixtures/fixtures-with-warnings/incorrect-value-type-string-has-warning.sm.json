@@ -409,7 +409,7 @@
                               "messageBody"
                             ]
                           },
-                          "content": 0,
+                          "content": 1,
                           "attributes": {
                             "contentType": {
                               "element": "string",
@@ -630,7 +630,7 @@
                               "messageBody"
                             ]
                           },
-                          "content": false,
+                          "content": true,
                           "attributes": {
                             "contentType": {
                               "element": "string",
@@ -1461,7 +1461,7 @@
                               "messageBody"
                             ]
                           },
-                          "content": "{\n  \"boo\": false,\n  \"foo\": false,\n  \"booFoo\": {},\n  \"fooBoo\": [\n    \"first example\",\n    \"second example\",\n    \"third example\"\n  ]\n}",
+                          "content": "{\n  \"boo\": true,\n  \"foo\": true,\n  \"booFoo\": {},\n  \"fooBoo\": [\n    \"first example\",\n    \"second example\",\n    \"third example\"\n  ]\n}",
                           "attributes": {
                             "contentType": {
                               "element": "string",
