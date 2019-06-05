@@ -422,13 +422,13 @@ const utils = {
 
   defaultValue(type) {
     const valueByType = {
-      boolean: false,
-      number: 0,
-      string: '',
+      boolean: true,
+      number: 1,
+      string: 'hello',
       array: [],
       object: {},
-      file: '',
-      enum: null,
+      file: 'hello',
+      enum: 'hello',
     };
     return valueByType[type] === undefined ? '' : valueByType[type];
   },
