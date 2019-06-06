@@ -4,6 +4,7 @@ const SectionTypes = Object.freeze({
   resourceGroup: 'resourceGroup',
   subGroup: 'subGroup',
   dataStructureGroup: 'dataStructureGroup',
+  schemaStructureGroup: 'schemaStructureGroup',
   resourcePrototypes: 'resourcePrototypes',
   resourcePrototype: 'resourcePrototype',
   MSONNamedType: 'MSONNamedType',

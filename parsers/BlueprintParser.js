@@ -79,6 +79,9 @@ module.exports = (Parsers) => {
             case SectionTypes.dataStructureGroup:
               [curNode, childResult] = Parsers.DataStructureGroupParser.parse(curNode, context);
               break;
+            case SectionTypes.schemaStructureGroup:
+              [curNode, childResult] = Parsers.SchemaStructureGroupParser.parse(curNode, context);
+              break;
             case SectionTypes.resourcePrototypes:
               [curNode, childResult] = Parsers.ResourcePrototypesParser.parse(curNode, context);
               break;
@@ -116,6 +119,7 @@ module.exports = (Parsers) => {
         Parsers.ResourceParser,
         Parsers.ResourceGroupParser,
         Parsers.DataStructureGroupParser,
+        Parsers.SchemaStructureGroupParser,
         Parsers.ResourcePrototypesParser,
       ]);
     },

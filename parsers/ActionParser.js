@@ -94,6 +94,7 @@ module.exports = (Parsers) => {
         Parsers.SubgroupParser,
         Parsers.MessageParser,
         Parsers.DataStructureGroupParser,
+        Parsers.SchemaStructureGroupParser,
         Parsers.ResourcePrototypesParser,
       ]);
     },

@@ -1,21 +1,21 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
-const ResourcePrototypesElement = require('./elements/ResourcePrototypesElement');
+const SchemaStructureGroupElement = require('./elements/SchemaStructureGroupElement');
 
-const ResourcePrototypesRegex = /^[Rr]esource\s+[Pp]rototypes$/;
+const SchemaStructureGroupRegex = /^[Ss]chema\s+[Ss]tructures?$/;
 
 module.exports = (Parsers) => {
-  Parsers.ResourcePrototypesParser = Object.assign(Object.create(require('./AbstractParser')), {
+  Parsers.SchemaStructureGroupParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node) {
-      return [utils.nextNode(node), new ResourcePrototypesElement()];
+      return [utils.nextNode(node), new SchemaStructureGroupElement()];
     },
 
     sectionType(node, context) {
       if (node.type === 'heading') {
         const subject = utils.headerText(node, context.sourceLines);
 
-        if (ResourcePrototypesRegex.exec(subject)) {
-          return SectionTypes.resourcePrototypes;
+        if (SchemaStructureGroupRegex.exec(subject)) {
+          return SectionTypes.schemaStructureGroup;
         }
       }
 
@@ -23,11 +23,12 @@ module.exports = (Parsers) => {
     },
 
     nestedSectionType(node, context) {
-      return Parsers.ResourcePrototypeParser.sectionType(node, context);
+      return Parsers.MSONNamedTypeParser.sectionType(node, context);
     },
 
     upperSectionType(node, context) {
       return SectionTypes.calculateSectionType(node, context, [
+        Parsers.ResourceParser,
         Parsers.ResourceGroupParser,
         Parsers.DataStructureGroupParser,
         Parsers.SchemaStructureGroupParser,
@@ -36,8 +37,9 @@ module.exports = (Parsers) => {
     },
 
     processNestedSection(node, context, result) {
-      const [nextNode, childResult] = Parsers.ResourcePrototypeParser.parse(node, context);
-      result.resourcePrototypes.push(childResult);
+      const [nextNode, childResult] = Parsers.MSONNamedTypeParser.parse(node, context);
+      result.schemaStructures.push(childResult);
+
       return [nextNode, result];
     },
 

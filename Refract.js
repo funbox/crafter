@@ -33,6 +33,7 @@ module.exports = {
     resourceGroup: 'resourceGroup',
     subGroup: 'subGroup',
     dataStructures: 'dataStructures',
+    schemaStructures: 'schemaStructures',
     resourcePrototypes: 'resourcePrototypes',
     messageBody: 'messageBody',
     messageBodySchema: 'messageBodySchema',
