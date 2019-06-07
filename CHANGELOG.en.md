@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.14.5 (07.06.2019)
+
+* Generate correct body for primitive types without samples.
+
 ## 1.14.4 (03.06.2019)
 
 * Fix parsing of empty Body/Schema section.
