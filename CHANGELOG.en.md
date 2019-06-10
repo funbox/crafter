@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.15.0 (10.06.2019)
+
+* Schema Structures section implementation.
+
 ## 1.14.5 (07.06.2019)
 
 * Generate correct body for primitive types without samples.
