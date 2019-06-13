@@ -665,6 +665,21 @@
                     ]
                   },
                   "content": "{\n  \"name\": \"John\"\n}"
+                },
+                {
+                  "element": "asset",
+                  "meta": {
+                    "classes": [
+                      "messageBodySchema"
+                    ]
+                  },
+                  "attributes": {
+                    "contentType": {
+                      "element": "string",
+                      "content": "application/schema+json"
+                    }
+                  },
+                  "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"name\": {\n      \"type\": \"string\",\n      \"description\": \"user name\"\n    }\n  },\n  \"required\": [\n    \"name\"\n  ]\n}"
                 }
               ],
               "meta": {
@@ -766,6 +781,21 @@
                     ]
                   },
                   "content": "{\n  \"id\": 1,\n  \"author\": {\n    \"id\": 42,\n    \"name\": \"John Smith\"\n  },\n  \"text\": \"Hello there\"\n}"
+                },
+                {
+                  "element": "asset",
+                  "meta": {
+                    "classes": [
+                      "messageBodySchema"
+                    ]
+                  },
+                  "attributes": {
+                    "contentType": {
+                      "element": "string",
+                      "content": "application/schema+json"
+                    }
+                  },
+                  "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"id\": {\n      \"type\": \"number\"\n    },\n    \"author\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"id\": {\n          \"type\": \"number\"\n        },\n        \"name\": {\n          \"type\": \"string\"\n        }\n      },\n      \"required\": [\n        \"id\",\n        \"name\"\n      ]\n    },\n    \"text\": {\n      \"type\": \"string\"\n    }\n  },\n  \"required\": [\n    \"id\",\n    \"text\"\n  ]\n}"
                 }
               ],
               "meta": {
