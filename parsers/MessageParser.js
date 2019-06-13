@@ -4,6 +4,7 @@ const utils = require('../utils');
 const MessageElement = require('./elements/MessageElement');
 const StringElement = require('./elements/StringElement');
 const BodyElement = require('./elements/BodyElement');
+const SchemaElement = require('./elements/SchemaElement');
 
 const MessageHeaderRegex = new RegExp(`^[Mm]essage\\s*(${RegExpStrings.symbolIdentifier})?$`);
 
@@ -39,6 +40,7 @@ module.exports = (Parsers) => {
     nestedSectionType(node, context) {
       return SectionTypes.calculateSectionType(node, context, [
         Parsers.BodyParser,
+        Parsers.SchemaParser,
         Parsers.AttributesParser,
       ]);
     },
@@ -63,6 +65,9 @@ module.exports = (Parsers) => {
       if (Parsers.BodyParser.sectionType(node, context) !== SectionTypes.undefined) {
         [nextNode, childResult] = Parsers.BodyParser.parse(node, context);
         result.content.push(childResult);
+      } else if (Parsers.SchemaParser.sectionType(node, context) !== SectionTypes.undefined) {
+        [nextNode, childResult] = Parsers.SchemaParser.parse(node, context);
+        result.content.push(childResult);
       } else {
         [nextNode, childResult] = Parsers.AttributesParser.parse(node, context);
         result.content.push(childResult);
@@ -73,6 +78,7 @@ module.exports = (Parsers) => {
 
     finalize(context, result) {
       const hasCustomBody = result.content.find(item => (item instanceof BodyElement));
+      const hasCustomSchema = result.content.find(item => (item instanceof SchemaElement));
 
       if (!hasCustomBody) {
         const body = result.getBody(context.typeResolver.types);
@@ -81,6 +87,13 @@ module.exports = (Parsers) => {
         }
         const bodyElement = new BodyElement(body);
         result.content.push(bodyElement);
+      }
+
+      if (!hasCustomSchema) {
+        const schema = result.getSchema(context.typeResolver.types);
+        if (Object.keys(schema).length > 0) {
+          result.content.push(new SchemaElement(schema));
+        }
       }
 
       return result;
