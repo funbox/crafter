@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.16.0 (14.06.2019)
+
+* Generate json-schema for Message sections.
+
 ## 1.15.0 (10.06.2019)
 
 * Schema Structures section implementation.
