@@ -23,7 +23,7 @@ module.exports = (Parsers) => {
     },
 
     nestedSectionType(node, context) {
-      return Parsers.MSONNamedTypeParser.sectionType(node, context);
+      return Parsers.SchemaNamedTypeParser.sectionType(node, context);
     },
 
     upperSectionType(node, context) {
@@ -37,7 +37,7 @@ module.exports = (Parsers) => {
     },
 
     processNestedSection(node, context, result) {
-      const [nextNode, childResult] = Parsers.MSONNamedTypeParser.parse(node, context);
+      const [nextNode, childResult] = Parsers.SchemaNamedTypeParser.parse(node, context);
       result.schemaStructures.push(childResult);
 
       return [nextNode, result];

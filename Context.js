@@ -38,6 +38,7 @@ class Context {
       'Action',
       'ResourceGroup',
       'DataStructureGroup',
+      'SchemaStructureGroup',
       'ResourcePrototypes',
     ].map(name => parsers[`${name}Parser`]);
 

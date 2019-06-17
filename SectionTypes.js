@@ -8,6 +8,7 @@ const SectionTypes = Object.freeze({
   resourcePrototypes: 'resourcePrototypes',
   resourcePrototype: 'resourcePrototype',
   MSONNamedType: 'MSONNamedType',
+  schemaNamedType: 'schemaNamedType',
   action: 'action',
   namedAction: 'namedAction',
   parameters: 'parameters',

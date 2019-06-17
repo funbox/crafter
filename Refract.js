@@ -5,6 +5,7 @@ module.exports = {
     resource: 'resource',
     copy: 'copy',
     dataStructure: 'dataStructure',
+    schemaStructure: 'schemaStructure',
     resourcePrototype: 'resourcePrototype',
     transition: 'transition',
     hrefVariables: 'hrefVariables',
