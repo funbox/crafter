@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.17.0 (18.06.2019)
+
+* Add version option to cli.
+
 ## 1.16.0 (14.06.2019)
 
 * Generate json-schema for Message sections.
