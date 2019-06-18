@@ -1,0 +1,47 @@
+# My API
+
+Defines Schema Structures.
+
+# Schema Structures
+
+## Message
+Это описание структуры message
+
++ Body
+
+      {
+          "message": "Hello"
+      }
+
++ Schema
+
+      {
+          "$schema": "http://json-schema.org/draft-04/schema#",
+          "type": "object",
+          "properties": {
+              "message": {
+                  "type": "string"
+              }
+          }
+      }
+
+## User
+Это описание структуры user
+
++ Body
+
+      {
+          "user": "Ivan"
+      }
+
++ Schema
+
+      {
+          "$schema": "http://json-schema.org/draft-04/schema#",
+          "type": "object",
+          "properties": {
+              "user": {
+                  "type": "string"
+              }
+          }
+      }

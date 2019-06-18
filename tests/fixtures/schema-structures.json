@@ -1,0 +1,120 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": [
+          {
+            "element": "string",
+            "content": "api"
+          }
+        ],
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
+      },
+      "content": [
+        {
+          "element": "copy",
+          "content": "Defines Schema Structures."
+        },
+        {
+          "element": "category",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "schemaStructures"
+                }
+              ]
+            }
+          },
+          "content": [
+            {
+              "element": "schemaStructure",
+              "meta": {
+                "id": {
+                  "element": "string",
+                  "content": "Message"
+                },
+                "description": {
+                  "element": "string",
+                  "content": "Это описание структуры message"
+                }
+              },
+              "content": [
+                {
+                  "element": "asset",
+                  "meta": {
+                    "classes": [
+                      "messageBody"
+                    ]
+                  },
+                  "content": "{\n    \"message\": \"Hello\"\n}\n"
+                },
+                {
+                  "element": "asset",
+                  "meta": {
+                    "classes": [
+                      "messageBodySchema"
+                    ]
+                  },
+                  "attributes": {
+                    "contentType": {
+                      "element": "string",
+                      "content": "application/schema+json"
+                    }
+                  },
+                  "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"message\": {\n      \"type\": \"string\"\n    }\n  }\n}"
+                }
+              ]
+            },
+            {
+              "element": "schemaStructure",
+              "meta": {
+                "id": {
+                  "element": "string",
+                  "content": "User"
+                },
+                "description": {
+                  "element": "string",
+                  "content": "Это описание структуры user"
+                }
+              },
+              "content": [
+                {
+                  "element": "asset",
+                  "meta": {
+                    "classes": [
+                      "messageBody"
+                    ]
+                  },
+                  "content": "{\n    \"user\": \"Ivan\"\n}\n"
+                },
+                {
+                  "element": "asset",
+                  "meta": {
+                    "classes": [
+                      "messageBodySchema"
+                    ]
+                  },
+                  "attributes": {
+                    "contentType": {
+                      "element": "string",
+                      "content": "application/schema+json"
+                    }
+                  },
+                  "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"user\": {\n      \"type\": \"string\"\n    }\n  }\n}"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+# My API
+
+Defines body section in schema named type element as invalid JSON. It produces error: 'Body section in schema named type element is invalid JSON'.
+
+# Schema Structures
+
+## Message
+Это описание структуры message
+
++ Body
+
+      hello
+
++ Schema
+
+      {
+          "$schema": "http://json-schema.org/draft-04/schema#",
+          "type": "object",
+          "properties": {
+              "message": {
+                  "type": "string"
+              }
+          }
+      }
