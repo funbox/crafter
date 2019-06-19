@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.18.0 (19.06.2019)
+
+* Parse Schema Structures.
+
 ## 1.17.0 (18.06.2019)
 
 * Add version option to cli.
