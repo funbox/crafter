@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.18.1 (26.06.2019)
+
+* Fix JSON schema for nullable enum.
+
 ## 1.18.0 (19.06.2019)
 
 * Parse Schema Structures.
