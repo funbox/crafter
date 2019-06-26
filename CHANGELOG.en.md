@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.18.2 (26.06.2019)
+
+* Use "null" value for nullable enums in JSON schema.
+
 ## 1.18.1 (26.06.2019)
 
 * Fix JSON schema for nullable enum.
