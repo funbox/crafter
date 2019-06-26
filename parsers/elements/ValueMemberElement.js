@@ -219,7 +219,7 @@ class ValueMemberElement {
         'null',
       ];
 
-      if (schema.enum) schema.enum = [...schema.enum, 'null'];
+      if (schema.enum) schema.enum = [...schema.enum, null];
     } else {
       schema.type = normalizedType;
     }

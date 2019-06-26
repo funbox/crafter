@@ -446,7 +446,7 @@ describe('schema', () => {
 
       expect(el.getSchema({ Foo }, { isNullable: true })).toEqual({
         type: ['string', 'null'],
-        enum: ['foo', 'bar', 'null'],
+        enum: ['foo', 'bar', null],
       });
     });
 
