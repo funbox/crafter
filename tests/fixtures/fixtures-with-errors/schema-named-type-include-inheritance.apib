@@ -1,0 +1,36 @@
+# My API
+
+Defines inheritance from schema named type by using Include key word.
+It produces error "Mixin may not include a schema named type".
+
+# Data Structures
+
+# NamedType
++ Include SchemaNamedType
+
+# Schema Structures
+
+# SchemaNamedType
+
++ Body
+
+      {
+          "test": "Hello"
+      }
+
++ Schema
+
+      {
+          "$schema": "http://json-schema.org/draft-04/schema#",
+          "type": "array",
+          "members": {
+              "test": {
+                  "type": "string"
+              }
+          }
+      }
+
+# Get test [GET /test]
+
++ Response 200 (application/json)
+  + attributes (NamedType)

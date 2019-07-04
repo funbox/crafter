@@ -1,0 +1,30 @@
+# My API
+
+Defines attributes by using schema named type.
+
+# Schema Structures
+
+# SchemaNamedType
+
++ Body
+
+      {
+          "test": "Hello"
+      }
+
++ Schema
+
+      {
+          "$schema": "http://json-schema.org/draft-04/schema#",
+          "type": "object",
+          "properties": {
+              "test": {
+                  "type": "string"
+              }
+          }
+      }
+
+# Get test [GET /test]
+
++ Response 200 (application/json)
+  + attributes (SchemaNamedType)

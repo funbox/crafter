@@ -1,0 +1,34 @@
+# My API
+
+Defines named type inheritance from schema named type. It produces error "No inheritance allowed from schema named type".
+
+# Data Structures
+
+# NamedType (SchemaNamedType)
+
+# Schema Structures
+
+# SchemaNamedType
+
++ Body
+
+      {
+          "test": "Hello"
+      }
+
++ Schema
+
+      {
+          "$schema": "http://json-schema.org/draft-04/schema#",
+          "type": "object",
+          "properties": {
+              "test": {
+                  "type": "string"
+              }
+          }
+      }
+
+# Get test [GET /test]
+
++ Response 200 (application/json)
+  + attributes (NamedType)
