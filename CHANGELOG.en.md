@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.18.3 (10.07.2019)
+
+* Fix error when incorrect MSON-attribute encountered.
+
 ## 1.18.2 (26.06.2019)
 
 * Use "null" value for nullable enums in JSON schema.
