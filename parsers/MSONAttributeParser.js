@@ -74,7 +74,9 @@ module.exports = (Parsers) => {
         try {
           new SignatureParser(text); // eslint-disable-line no-new
           return SectionTypes.msonAttribute;
-        } catch (e) { // eslint-disable-line no-empty
+        } catch (e) {
+          const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+          throw new utils.CrafterError(e.message, sourceMap);
         }
       }
 
