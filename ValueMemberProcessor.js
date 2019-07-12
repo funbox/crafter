@@ -36,6 +36,7 @@ const ValueMemberProcessor = {
       defaultElement = new DefaultValueElement(inlineValues, inlineValuesType);
       const sampleValueProcessor = new SampleValueProcessor(sampleElement, inlineValuesType);
       const defaultValueProcessor = new DefaultValueProcessor(defaultElement, inlineValuesType);
+      sampleValueProcessor.prepareValuesForBody(context.sourceMapsEnabled);
       sampleValueProcessor.buildSamplesFor(element.type, context.sourceMapsEnabled);
       defaultValueProcessor.buildDefaultFor(element.type, context.sourceMapsEnabled);
     }

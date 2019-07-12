@@ -18,16 +18,16 @@ class SampleValueElement {
   }
 
   getBody(resolvedTypes) {
-    const sourceField = this.valuesForBody || this.values;
-    const body = sourceField.map(value => {
-      if (value.getBody) {
-        return value.getBody(resolvedTypes);
+    return this.valuesForBody.reduce((result, value) => {
+      if (value !== undefined) {
+        if (value.getBody) {
+          result.push(value.getBody(resolvedTypes));
+        } else {
+          result.push(value);
+        }
       }
-
-      return value;
-    });
-
-    return body;
+      return result;
+    }, []);
   }
 }
 
