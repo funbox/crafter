@@ -1,14 +1,16 @@
+const { elements: { string } } = require('../../Refract');
+
 class SampleValueElement {
-  constructor(values = [], type = 'string') {
+  constructor(values = [], refractType = string) {
     this.values = values;
-    this.type = type;
+    this.refractType = refractType;
     this.content = null;
     this.valuesForBody = null;
   }
 
   toRefract() {
     return {
-      element: this.type,
+      element: this.refractType,
       content: this.content,
     };
   }

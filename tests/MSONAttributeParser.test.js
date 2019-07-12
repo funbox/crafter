@@ -208,7 +208,7 @@ describe('MSONAttributeParser', () => {
             },
           },
         ],
-        type: 'enum',
+        refractType: 'enum',
         content: {
           element: 'string',
           content: 'sms',
@@ -365,7 +365,7 @@ describe('MSONAttributeParser', () => {
             },
           },
         ],
-        type: 'enum',
+        refractType: 'enum',
         content: {
           element: 'string',
           content: 'track',

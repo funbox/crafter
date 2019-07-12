@@ -27,19 +27,19 @@ class SampleValueProcessor {
     const { values } = this.sampleElement;
     switch (structureType) {
       case types.enum:
-        this.sampleElement.type = Refract.elements.enum;
+        this.sampleElement.refractType = Refract.elements.enum;
         this.sampleElement.content = getContentItem(values[0], this.valuesType, sourceMapsEnabled);
         break;
       case types.array:
-        this.sampleElement.type = Refract.elements.array;
+        this.sampleElement.refractType = Refract.elements.array;
         this.sampleElement.content = values.map((value) => getContentItem(value, this.valuesType, sourceMapsEnabled));
         break;
       case types.object:
-        this.sampleElement.type = Refract.elements.object;
+        this.sampleElement.refractType = Refract.elements.object;
         this.sampleElement.content = values.map((value) => getContentItem(value, this.valuesType, sourceMapsEnabled));
         break;
       default:
-        this.sampleElement.type = structureType;
+        this.sampleElement.refractType = structureType;
         this.sampleElement.content = getContentItem(values[0], this.valuesType, sourceMapsEnabled).content;
         break;
     }
