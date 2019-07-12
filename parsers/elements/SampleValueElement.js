@@ -7,14 +7,10 @@ class SampleValueElement {
   }
 
   toRefract() {
-    const result = {
+    return {
       element: this.type,
+      content: this.content,
     };
-
-    if (this.content != null) {
-      result.content = this.content;
-    }
-    return result;
   }
 
   getBody(resolvedTypes) {
