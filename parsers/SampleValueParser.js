@@ -13,7 +13,7 @@ module.exports = (Parsers) => {
       const text = utils.nodeText(node.firstChild, context.sourceLines);
       const valuesMatch = sampleValueRegex.exec(text);
       const values = valuesMatch ? splitValues(valuesMatch[1]) : undefined;
-      let valueEls;
+      let valueEls = [];
       if (values) {
         const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
         valueEls = values.map((value) => {

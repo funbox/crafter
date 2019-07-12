@@ -1,7 +1,7 @@
 const { elements: { string } } = require('../../Refract');
 
 class SampleValueElement {
-  constructor(values = [], refractType = string) {
+  constructor(values, refractType = string) {
     this.values = values;
     this.refractType = refractType;
     this.content = null;
