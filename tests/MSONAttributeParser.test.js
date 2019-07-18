@@ -185,37 +185,23 @@ describe('MSONAttributeParser', () => {
     });
     expect(sampleValues).toEqual([
       {
-        values: [
-          {
-            string: 'sms',
-            sourceMap: {
-              byteBlocks: [
-                {
-                  offset: 31,
-                  length: 12,
-                },
-              ],
-              charBlocks: [
-                {
-                  offset: 31,
-                  length: 12,
-                  startLine: 3,
-                  startColumn: 3,
-                  endLine: 3,
-                  endColumn: 14,
-                },
-              ],
-            },
-          },
-        ],
-        refractType: 'enum',
-        content: {
-          element: 'string',
-          content: 'sms',
+        value: 'sms',
+        type: 'string',
+        sourceMap: {
+          byteBlocks: [{
+            length: 12,
+            offset: 31,
+          }],
+          charBlocks: [{
+            offset: 31,
+            length: 12,
+            startLine: 3,
+            startColumn: 3,
+            endLine: 3,
+            endColumn: 14,
+          }],
+          file: undefined,
         },
-        valuesForBody: [
-          'sms',
-        ],
       },
     ]);
     expect(members).toEqual([
@@ -340,41 +326,25 @@ describe('MSONAttributeParser', () => {
     expect(warnings.length).toBe(1);
     expect(name.string).toBe('kind');
     expect(type).toBe('enum');
-    expect(sampleValues).toEqual([
-      {
-        values: [
-          {
-            string: 'track',
-            sourceMap: {
-              byteBlocks: [
-                {
-                  offset: 14,
-                  length: 14,
-                },
-              ],
-              charBlocks: [
-                {
-                  offset: 14,
-                  length: 14,
-                  startLine: 2,
-                  startColumn: 3,
-                  endLine: 2,
-                  endColumn: 16,
-                },
-              ],
-            },
-          },
-        ],
-        refractType: 'enum',
-        content: {
-          element: 'string',
-          content: 'track',
-        },
-        valuesForBody: [
-          'track',
-        ],
+    expect(sampleValues).toEqual([{
+      value: 'track',
+      type: 'string',
+      sourceMap: {
+        byteBlocks: [{
+          length: 14,
+          offset: 14,
+        }],
+        charBlocks: [{
+          endColumn: 16,
+          endLine: 2,
+          length: 14,
+          offset: 14,
+          startColumn: 3,
+          startLine: 2,
+        }],
+        file: undefined,
       },
-    ]);
+    }]);
     expect(members).toEqual([]);
   });
 });

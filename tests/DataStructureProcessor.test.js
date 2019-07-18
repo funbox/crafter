@@ -72,90 +72,6 @@ fields (object)
     });
   });
 
-  it('fills an object with properties and a single sample', () => {
-    const source = `
-fields (object)
-  + amount (number)
-  + msisdn (number)
-  + Sample
-    + amount: 200
-    + msisdn: 79250000000
-`;
-    const { valueElement } = getFilledElementFromSource(source);
-    const { samples } = valueElement;
-    expect(samples).toBeDefined();
-    expect(samples).toHaveLength(1);
-    const sampleElement = samples[0];
-    expect(sampleElement).toBeInstanceOf(SampleValueElement);
-    expect(sampleElement.values).toHaveLength(2);
-    expect(sampleElement.values[0].name).toEqual({
-      string: 'amount',
-      sourceMap: {
-        byteBlocks: [
-          {
-            offset: 74,
-            length: 12,
-          },
-        ],
-        charBlocks: [
-          {
-            offset: 74,
-            length: 12,
-            startLine: 6,
-            startColumn: 7,
-            endLine: 6,
-            endColumn: 18,
-          },
-        ],
-      },
-    });
-    expect(sampleElement.values[1].name).toEqual({
-      string: 'msisdn',
-      sourceMap: {
-        byteBlocks: [
-          {
-            offset: 92,
-            length: 20,
-          },
-        ],
-        charBlocks: [
-          {
-            offset: 92,
-            length: 20,
-            startLine: 7,
-            startColumn: 7,
-            endLine: 7,
-            endColumn: 26,
-          },
-        ],
-      },
-    });
-  });
-
-  it('fills an object with properties and multiple samples', () => {
-    const source = `
-fields (object)
-  + amount (number)
-  + msisdn (number)
-  + Sample
-    + amount: 200
-    + msisdn: 79250000000
-  + Sample
-    + amount: 10
-    + msisdn: 79991112233
-`;
-    const { valueElement } = getFilledElementFromSource(source);
-    const { samples } = valueElement;
-    expect(samples).toBeDefined();
-    expect(samples).toHaveLength(2);
-    samples.forEach(sampleElement => {
-      expect(sampleElement).toBeInstanceOf(SampleValueElement);
-    });
-    const [firstSample, secondSample] = samples;
-    expect(firstSample.values[0].value).toHaveProperty('value', '200');
-    expect(secondSample.values[0].value).toHaveProperty('value', '10');
-  });
-
   it('fills an enum with members', () => {
     const source = `
 kind (enum)
@@ -239,11 +155,11 @@ bar (array[boolean])
     expect(content.members[1].type).toBe('string');
   });
 
-  it('sets the type of an array sample the same as the array type', () => {
+  it('skips examples of invalid type', () => {
     const source = `
 foo (array[number])
   + Sample
-      + foo
+      + 1
       + bar
 `;
     const { valueElement } = getFilledElementFromSource(source);
@@ -252,10 +168,7 @@ foo (array[number])
     expect(samples).toHaveLength(1);
     const sampleElement = samples[0];
     expect(sampleElement).toBeInstanceOf(SampleValueElement);
-    expect(sampleElement.refractType).toBe('array');
-    expect(sampleElement.content).toHaveLength(2);
-    sampleElement.content.forEach(member => {
-      expect(member.element).toBe('number');
-    });
+    expect(sampleElement.type).toBe('number');
+    expect(sampleElement.value).toHaveLength(1);
   });
 });

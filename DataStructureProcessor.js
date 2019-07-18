@@ -84,7 +84,6 @@ class DataStructureProcessor {
       curNode = curNode.next;
     }
 
-    // TODO не забыть про inline примеры
     if (samples.length) {
       primitiveElement.samples = primitiveElement.samples || [];
       primitiveElement.samples.push(...samples);
