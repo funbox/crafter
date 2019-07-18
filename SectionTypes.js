@@ -15,6 +15,7 @@ const SectionTypes = Object.freeze({
   parameter: 'parameter',
   defaultValue: 'defaultValue',
   sampleValue: 'sampleValue',
+  sampleValueMember: 'sampleValueMember',
   parameterMembers: 'parameterMembers',
   parameterMember: 'parameterMember',
   enumMember: 'enumMember',

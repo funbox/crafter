@@ -10,32 +10,24 @@ class SampleValueProcessor {
 
   prepareValuesForBody(sourceMapsEnabled) {
     this.sampleElement.valuesForBody = this.sampleElement.values.map(value => {
-      if (value.toRefract) {
-        const refract = value.toRefract(sourceMapsEnabled);
-        if (typeof refract.content === 'object') {
-          return value; // we don't need to go deeper
-        }
-        const converted = convertType(refract.content, this.valuesType);
-        return converted.valid ? converted.value : undefined;
-      }
-      const converted = convertType(value, this.valuesType);
+      const refract = value.toRefract(sourceMapsEnabled);
+      const converted = convertType(refract.content, this.valuesType);
       return converted.valid ? converted.value : undefined;
     });
   }
 
+  // TODO Разобраться с этим методом
   buildSamplesFor(structureType, sourceMapsEnabled) {
     const { values } = this.sampleElement;
     switch (structureType) {
       case types.enum:
+        // Очень странно, что buildSamplesFor меняет не только content, но еще и refractType
         this.sampleElement.refractType = Refract.elements.enum;
+        // Почему values[0]? Надо сюда и положить один элемент в этом случае?
         this.sampleElement.content = getContentItem(values[0], this.valuesType, sourceMapsEnabled);
         break;
       case types.array:
         this.sampleElement.refractType = Refract.elements.array;
-        this.sampleElement.content = values.map((value) => getContentItem(value, this.valuesType, sourceMapsEnabled));
-        break;
-      case types.object:
-        this.sampleElement.refractType = Refract.elements.object;
         this.sampleElement.content = values.map((value) => getContentItem(value, this.valuesType, sourceMapsEnabled));
         break;
       default:

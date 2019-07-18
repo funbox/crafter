@@ -4,8 +4,6 @@ const utils = require('./utils');
 
 const EnumElement = require('./parsers/elements/EnumElement');
 const ObjectElement = require('./parsers/elements/ObjectElement');
-const SampleValueElement = require('./parsers/elements/SampleValueElement');
-const SampleValueProcessor = require('./parsers/SampleValueProcessor');
 const DefaultValueProcessor = require('./parsers/DefaultValueProcessor');
 
 const { standardTypes } = types;
@@ -68,8 +66,12 @@ class DataStructureProcessor {
           defaults.push(childResult);
           break;
         case SectionTypes.sampleValue:
+          context.data.typeForSamples = 'primitive';
+          context.data.valueType = primitiveElement.type;
           [nextNode, childResult] = this.Parsers.SampleValueParser.parse(curNode, context);
-          samples.push(childResult);
+          delete context.data.typeForSamples;
+          delete context.data.valueType;
+          samples.push(...childResult);
           break;
         default:
           context.addWarning('sub-types of primitive types should not have nested members, ignoring unrecognized block', sourceMap);
@@ -82,15 +84,10 @@ class DataStructureProcessor {
       curNode = curNode.next;
     }
 
+    // TODO не забыть про inline примеры
     if (samples.length) {
       primitiveElement.samples = primitiveElement.samples || [];
-      const processedSamples = samples.map(sampleMember => {
-        const sampleValueProcessor = new SampleValueProcessor(sampleMember, primitiveElement.type);
-        sampleValueProcessor.prepareValuesForBody(context.sourceMapsEnabled);
-        sampleValueProcessor.buildSamplesFor(primitiveElement.type, context.sourceMapsEnabled);
-        return sampleMember;
-      });
-      primitiveElement.samples.push(...processedSamples);
+      primitiveElement.samples.push(...samples);
     }
 
     if (defaults.length) {
@@ -120,11 +117,12 @@ class DataStructureProcessor {
       let childResult;
 
       if (this.Parsers.SampleValueParser.sectionType(curNode, context) !== SectionTypes.undefined) {
+        context.data.typeForSamples = 'array';
+        context.data.valueType = predefinedType;
         [nextNode, childResult] = this.Parsers.SampleValueParser.parse(curNode, context);
-        const sampleValueProcessor = new SampleValueProcessor(childResult, predefinedType);
-        sampleValueProcessor.prepareValuesForBody(context.sourceMapsEnabled);
-        sampleValueProcessor.buildSamplesFor(types.array, context.sourceMapsEnabled);
-        samples.push(childResult);
+        delete context.data.typeForSamples;
+        delete context.data.valueType;
+        samples.push(...childResult);
       } else if (this.Parsers.DefaultValueParser.sectionType(curNode, context) !== SectionTypes.undefined) {
         [nextNode, childResult] = this.Parsers.DefaultValueParser.parse(curNode, context);
         defaults.push(childResult);
@@ -182,11 +180,9 @@ class DataStructureProcessor {
     while (curNode) {
       let nextNode;
       let childResult;
-      let samplesElement;
 
       const sectionType = SectionTypes.calculateSectionType(curNode, context, [
         this.Parsers.MSONMemberGroupParser,
-        this.Parsers.SampleValueParser,
         this.Parsers.DefaultValueParser,
         this.Parsers.MSONMixinParser,
         this.Parsers.OneOfTypeParser,
@@ -215,9 +211,6 @@ class DataStructureProcessor {
           objectElement.propertyMembers.push(...childResult.members);
           childResult = null;
           break;
-        case SectionTypes.sampleValue:
-          [nextNode, samplesElement] = this.Parsers.SampleValueParser.parse(curNode, context);
-          break;
         case SectionTypes.defaultValue:
           [nextNode, childResult] = this.Parsers.DefaultValueParser.parse(curNode, context);
           defaults.push(childResult);
@@ -232,13 +225,6 @@ class DataStructureProcessor {
 
       if (childResult) {
         objectElement.propertyMembers.push(childResult);
-      }
-
-      if (samplesElement) {
-        const sampleValueProcessor = new SampleValueProcessor(samplesElement);
-        sampleValueProcessor.prepareValuesForBody(context.sourceMapsEnabled);
-        sampleValueProcessor.buildSamplesFor(types.object, context.sourceMapsEnabled);
-        samples.push(samplesElement);
       }
 
       // TODO Что если nextNode !== curNode.next ?
@@ -295,8 +281,12 @@ class DataStructureProcessor {
           defaults.push(childResult);
           break;
         case SectionTypes.sampleValue:
+          context.data.typeForSamples = 'enum';
+          context.data.valueType = enumElement.type;
           [nextNode, childResult] = this.Parsers.SampleValueParser.parse(curNode, context);
-          samples.push(...childResult.values);
+          samples.push(...childResult);
+          delete context.data.typeForSamples;
+          delete context.data.valueType;
           break;
         case SectionTypes.enumMember:
           [nextNode, childResult] = this.Parsers.EnumMemberParser.parse(curNode, context);
@@ -316,13 +306,7 @@ class DataStructureProcessor {
     }
 
     if (samples.length) {
-      enumElement.sampleValues = samples.map(sampleMember => {
-        const sampleElement = new SampleValueElement([sampleMember]);
-        const sampleValueProcessor = new SampleValueProcessor(sampleElement, enumElement.type);
-        sampleValueProcessor.prepareValuesForBody(context.sourceMapsEnabled);
-        sampleValueProcessor.buildSamplesFor(types.enum, context.sourceMapsEnabled);
-        return sampleElement;
-      });
+      enumElement.sampleValues = samples;
     }
 
     if (defaults.length) {

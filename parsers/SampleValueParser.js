@@ -13,17 +13,35 @@ module.exports = (Parsers) => {
       const text = utils.nodeText(node.firstChild, context.sourceLines);
       const valuesMatch = sampleValueRegex.exec(text);
       const values = valuesMatch ? splitValues(valuesMatch[1]) : undefined;
-      let valueEls = [];
+
+      const result = [];
+
       if (values) {
+        // TODO Сделать разные sourceMap на каждый StringElement
         const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-        valueEls = values.map((value) => {
-          const el = new StringElement(value);
-          el.sourceMap = sourceMap;
-          return el;
-        });
+
+        switch (context.data.typeForSamples) {
+          case 'primitive':
+          case 'enum':
+            values.forEach((value) => {
+              const converted = utils.convertType(value, context.data.valueType);
+
+              if (converted.valid) {
+                result.push(new SampleValueElement(converted.value, context.data.valueType, sourceMap));
+              }
+            });
+            break;
+          case 'array': {
+            const valueEls = values.map((value) => new StringElement(value, sourceMap));
+            result.push(new SampleValueElement(valueEls));
+            break;
+          }
+
+          // no default
+        }
       }
-      const sampleValueElement = new SampleValueElement(valueEls);
-      return [(node.firstChild.next && node.firstChild.next.firstChild) || utils.nextNode(node), sampleValueElement];
+
+      return [(node.firstChild.next && node.firstChild.next.firstChild) || utils.nextNode(node), result];
     },
 
     sectionType(node, context) {
@@ -37,9 +55,9 @@ module.exports = (Parsers) => {
       return SectionTypes.undefined;
     },
 
-    nestedSectionType(node, context) {
-      if (node.type === 'item' && this.sectionType(node.parent.parent, context) !== SectionTypes.undefined) {
-        return SectionTypes.msonAttribute;
+    nestedSectionType(node) {
+      if (node.type === 'item') {
+        return SectionTypes.sampleValueMember;
       }
 
       return SectionTypes.undefined;
@@ -50,16 +68,43 @@ module.exports = (Parsers) => {
     },
 
     processNestedSection(node, context, result) {
-      const [nextNode, childResult] = Parsers.MSONAttributeParser.parse(node, context);
-      const hasValue = !!(childResult.value.content || childResult.value.value);
-      result.values.push(hasValue ? childResult : childResult.name);
+      const text = utils.nodeText(node.firstChild, context.sourceLines);
+      const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
-      return [nextNode, result];
+      switch (context.data.typeForSamples) {
+        case 'primitive':
+        case 'enum': {
+          const converted = utils.convertType(text, context.data.valueType);
+
+          if (converted.valid) {
+            result.push(new SampleValueElement(converted.value, context.data.valueType, sourceMap));
+          }
+          break;
+        }
+        case 'array': {
+          const converted = utils.convertType(text, context.data.valueType);
+
+          if (converted.valid) {
+            if (!result.length) {
+              result.push(new SampleValueElement([], context.data.valueType, []));
+            }
+            const sample = result[result.length - 1];
+            sample.value.push(converted.value);
+            sample.sourceMap.push(sourceMap);
+          }
+
+          break;
+        }
+        // no default
+      }
+
+      return [utils.nextNode(node), result];
     },
 
     isUnexpectedNode() {
       return false;
     },
+    allowLeavingNode: false,
   });
   return true;
 };

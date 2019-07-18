@@ -5,7 +5,6 @@ const ArrayElement = require('./parsers/elements/ArrayElement');
 const SampleValueElement = require('./parsers/elements/SampleValueElement');
 const DefaultValueElement = require('./parsers/elements/DefaultValueElement');
 const ValueMemberElement = require('./parsers/elements/ValueMemberElement');
-const SampleValueProcessor = require('./parsers/SampleValueProcessor');
 const DefaultValueProcessor = require('./parsers/DefaultValueProcessor');
 
 const ValueMemberProcessor = {
@@ -21,23 +20,31 @@ const ValueMemberProcessor = {
     }
 
     const { value } = element;
-    let sampleElement;
+    let sampleElements = [];
     let defaultElement;
 
     if (value === false || !!value) {
       let inlineValuesType;
       if (element.isComplex()) {
+        // Видимо для массива и enum-а
+        // TODO Для объектов примеры считаются string-ами. Нужно либо запретить, либо проверять
         inlineValuesType = element.nestedTypes.length === 1 ? element.nestedTypes[0] : 'string';
       } else {
         inlineValuesType = element.type || 'string';
       }
+
+      // TODO Добавить проверку на то, что для объектов и сложных массивов не задан пример
       const inlineValues = splitValues(value).map(val => convertType(val, inlineValuesType).value);
-      sampleElement = new SampleValueElement(inlineValues);
+      // TODO Реализовать SourceMap-ы
+
+      if (element.isArray()) {
+        sampleElements = [new SampleValueElement(inlineValues, inlineValuesType, [])];
+      } else {
+        sampleElements = inlineValues.map(v => new SampleValueElement(v, inlineValuesType, null));
+      }
+
       defaultElement = new DefaultValueElement(inlineValues, inlineValuesType);
-      const sampleValueProcessor = new SampleValueProcessor(sampleElement, inlineValuesType);
       const defaultValueProcessor = new DefaultValueProcessor(defaultElement, inlineValuesType);
-      sampleValueProcessor.prepareValuesForBody(context.sourceMapsEnabled);
-      sampleValueProcessor.buildSamplesFor(element.type, context.sourceMapsEnabled);
       defaultValueProcessor.buildDefaultFor(element.type, context.sourceMapsEnabled);
     }
 
@@ -57,7 +64,7 @@ const ValueMemberProcessor = {
       element.content = new ArrayElement(members);
     }
 
-    element.samples = sampleElement && !element.isDefault && (element.isSample || element.isArray()) ? [sampleElement] : null;
+    element.samples = sampleElements.length && !element.isDefault && (element.isSample || element.isArray()) ? sampleElements : null;
     element.default = element.isDefault && defaultElement;
     element.value = (element.isSample || element.isDefault || element.isArray()) ? null : convertType(value, element.baseType).value;
   },

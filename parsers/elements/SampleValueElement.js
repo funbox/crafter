@@ -1,31 +1,61 @@
-const { elements: { string } } = require('../../Refract');
+const { elements: { array } } = require('../../Refract');
+const SourceMapElement = require('./SourceMapElement');
 
 class SampleValueElement {
-  constructor(values, refractType = string) {
-    this.values = values;
-    this.refractType = refractType;
-    this.content = null;
-    this.valuesForBody = null;
+  constructor(value, type, sourceMap) {
+    this.value = value;
+    this.type = type; // тут должен прийти либо примитивный тип, либо массив
+    this.sourceMap = sourceMap;
   }
 
-  toRefract() {
+  toRefract(sourceMapsEnabled) {
+    if (Array.isArray(this.value)) {
+      return this.toRefractForArray(sourceMapsEnabled);
+    }
+
+    return this.toRefractForPrimitive(sourceMapsEnabled);
+  }
+
+  toRefractForArray(sourceMapsEnabled) {
     return {
-      element: this.refractType,
-      content: this.content,
+      element: array,
+      content: this.value.map((v, i) => {
+        const result = {
+          element: this.type,
+          content: v,
+        };
+
+        if (sourceMapsEnabled && this.sourceMap[i]) {
+          const sourceMapEl = new SourceMapElement(this.sourceMap[i].byteBlocks, this.sourceMap[i].file);
+          result.attributes = {
+            sourceMap: sourceMapEl.toRefract(),
+          };
+        }
+
+        return result;
+      }),
     };
   }
 
-  getBody(resolvedTypes) {
-    return this.valuesForBody.reduce((result, value) => {
-      if (value !== undefined) {
-        if (value.getBody) {
-          result.push(value.getBody(resolvedTypes));
-        } else {
-          result.push(value);
-        }
-      }
-      return result;
-    }, []);
+  toRefractForPrimitive(sourceMapsEnabled) {
+    const result = {
+      element: this.type,
+      content: this.value,
+    };
+
+
+    if (sourceMapsEnabled && this.sourceMap) {
+      const sourceMapEl = new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file);
+      result.attributes = {
+        sourceMap: sourceMapEl.toRefract(),
+      };
+    }
+
+    return result;
+  }
+
+  getBody() {
+    return this.value;
   }
 }
 
