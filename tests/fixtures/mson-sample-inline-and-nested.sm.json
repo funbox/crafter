@@ -203,41 +203,35 @@
                             "element": "array",
                             "content": [
                               {
-                                "element": "enum",
-                                "content": {
-                                  "element": "string",
-                                  "content": "track"
-                                }
+                                "element": "string",
+                                "content": "track"
                               },
                               {
-                                "element": "enum",
-                                "content": {
-                                  "element": "string",
-                                  "content": "time",
-                                  "attributes": {
-                                    "sourceMap": {
-                                      "element": "array",
-                                      "content": [
-                                        {
-                                          "element": "sourceMap",
-                                          "content": [
-                                            {
-                                              "element": "array",
-                                              "content": [
-                                                {
-                                                  "element": "number",
-                                                  "content": 154
-                                                },
-                                                {
-                                                  "element": "number",
-                                                  "content": 13
-                                                }
-                                              ]
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    }
+                                "element": "string",
+                                "content": "time",
+                                "attributes": {
+                                  "sourceMap": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "sourceMap",
+                                        "content": [
+                                          {
+                                            "element": "array",
+                                            "content": [
+                                              {
+                                                "element": "number",
+                                                "content": 154
+                                              },
+                                              {
+                                                "element": "number",
+                                                "content": 13
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
                                   }
                                 }
                               }

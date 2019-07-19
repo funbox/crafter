@@ -43,11 +43,8 @@ class EnumElement {
       return body;
     }
     if (this.sampleValues) {
-      const sampleBodyVariants = this.sampleValues[0].getBody();
-      if (sampleBodyVariants.length) {
-        body.value = sampleBodyVariants[0];
-        return body;
-      }
+      body.value = this.sampleValues[0].getBody();
+      return body;
     }
     return body;
   }

@@ -145,7 +145,7 @@ class ValueMemberElement {
       if (Array.isArray(body.value)) {
         body.value.push(...sampleBody);
       } else if (isEmpty(body)) {
-        body.value = sampleBody[0];
+        body.value = sampleBody;
       }
     }
 

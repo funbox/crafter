@@ -338,7 +338,7 @@
                                 "content": {
                                   "key": {
                                     "element": "string",
-                                    "content": "a2",
+                                    "content": "a3",
                                     "attributes": {
                                       "sourceMap": {
                                         "element": "array",
@@ -427,7 +427,7 @@
                                 "content": {
                                   "key": {
                                     "element": "string",
-                                    "content": "a3",
+                                    "content": "a4",
                                     "attributes": {
                                       "sourceMap": {
                                         "element": "array",
@@ -475,9 +475,6 @@
                                               {
                                                 "element": "boolean",
                                                 "content": false
-                                              },
-                                              {
-                                                "element": "boolean"
                                               }
                                             ]
                                           }
@@ -545,7 +542,7 @@
                               "messageBody"
                             ]
                           },
-                          "content": "{\n  \"a1\": [\n    \"foo\",\n    \"bar\",\n    \"baz\"\n  ],\n  \"a2\": [\n    1.1,\n    3.5,\n    4\n  ],\n  \"a3\": [\n    true,\n    false\n  ]\n}",
+                          "content": "{\n  \"a1\": [\n    \"foo\",\n    \"bar\",\n    \"baz\"\n  ],\n  \"a2\": [\n    \"first\",\n    \"hello, world\",\n    \"second\"\n  ],\n  \"a3\": [\n    1.1,\n    3.5,\n    4\n  ],\n  \"a4\": [\n    true,\n    false\n  ]\n}",
                           "attributes": {
                             "contentType": {
                               "element": "string",
@@ -566,7 +563,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"a1\": {\n      \"type\": \"array\"\n    },\n    \"a2\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"number\"\n      }\n    },\n    \"a3\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"boolean\"\n      }\n    }\n  }\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"a1\": {\n      \"type\": \"array\"\n    },\n    \"a2\": {\n      \"type\": \"array\"\n    },\n    \"a3\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"number\"\n      }\n    },\n    \"a4\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"boolean\"\n      }\n    }\n  }\n}"
                         }
                       ],
                       "attributes": {

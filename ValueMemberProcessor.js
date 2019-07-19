@@ -34,7 +34,15 @@ const ValueMemberProcessor = {
       }
 
       // TODO Добавить проверку на то, что для объектов и сложных массивов не задан пример
-      const inlineValues = splitValues(value).map(val => convertType(val, inlineValuesType).value);
+      const inlineValues = splitValues(value).reduce((res, v) => {
+        const converted = convertType(v, inlineValuesType);
+
+        if (converted.valid) {
+          res.push(converted.value);
+        }
+        return res;
+      }, []);
+
       // TODO Реализовать SourceMap-ы
 
       if (element.isArray()) {

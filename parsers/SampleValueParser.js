@@ -2,7 +2,6 @@ const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
 const SampleValueElement = require('./elements/SampleValueElement');
 const { splitValues } = require('../SignatureParser');
-const StringElement = require('./elements/StringElement');
 
 const sampleValueRegex = /^[Ss]ample:?\s*`?(.+?)`?$/;
 const listTypedSampleValueRegex = /^[Ss]ample$/;
@@ -17,7 +16,7 @@ module.exports = (Parsers) => {
       const result = [];
 
       if (values) {
-        // TODO Сделать разные sourceMap на каждый StringElement
+        // TODO Сделать разные sourceMap на каждый SampleValueElement
         const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
         switch (context.data.typeForSamples) {
@@ -32,8 +31,16 @@ module.exports = (Parsers) => {
             });
             break;
           case 'array': {
-            const valueEls = values.map((value) => new StringElement(value, sourceMap));
-            result.push(new SampleValueElement(valueEls));
+            const preparedValues = values.reduce((res, v) => {
+              const converted = utils.convertType(v, context.data.valueType);
+
+              if (converted.valid) {
+                res.push(converted.value);
+              }
+              return res;
+            }, []);
+            const sourceMaps = preparedValues.map(() => sourceMap);
+            result.push(new SampleValueElement(preparedValues, context.data.valueType, sourceMaps));
             break;
           }
 
