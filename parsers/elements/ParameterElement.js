@@ -10,6 +10,7 @@ class ParameterElement {
     this.value = value;
     this.rawType = type;
     this.type = resolvedType.type;
+    this.nestedTypes = resolvedType.nestedTypes;
     this.typeAttributes = typeAttributes;
     this.description = description;
     this.defaultValue = null;

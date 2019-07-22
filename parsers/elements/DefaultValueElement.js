@@ -1,60 +1,61 @@
+const { elements: { array } } = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
 
 class DefaultValueElement {
-  constructor(values, type = 'string') {
-    this.values = values;
+  constructor(value, type, sourceMap) {
+    this.value = value;
     this.type = type;
-    this.sourceMap = null;
-    this.content = null;
-    this.valuesForBody = null;
+    this.sourceMap = sourceMap;
   }
 
   toRefract(sourceMapsEnabled) {
-    const sourceMapEl = sourceMapsEnabled && this.sourceMap ? new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file) : null;
-
-    const result = {
-      element: this.type,
-    };
-
-    if (this.content != null) {
-      result.content = this.content;
+    if (Array.isArray(this.value)) {
+      return this.toRefractForArray(sourceMapsEnabled);
     }
 
-    if (sourceMapEl) {
-      if (typeof this.content === 'object') {
-        result.content.attributes = {
-          sourceMap: sourceMapEl.toRefract(),
+    return this.toRefractForPrimitive(sourceMapsEnabled);
+  }
+
+  toRefractForArray(sourceMapsEnabled) {
+    return {
+      element: array,
+      content: this.value.map((v, i) => {
+        const result = {
+          element: this.type,
+          content: v,
         };
-      } else {
-        result.attributes = {
-          sourceMap: sourceMapEl.toRefract(),
-        };
-      }
+
+        if (sourceMapsEnabled && this.sourceMap[i]) {
+          const sourceMapEl = new SourceMapElement(this.sourceMap[i].byteBlocks, this.sourceMap[i].file);
+          result.attributes = {
+            sourceMap: sourceMapEl.toRefract(),
+          };
+        }
+
+        return result;
+      }),
+    };
+  }
+
+  toRefractForPrimitive(sourceMapsEnabled) {
+    const result = {
+      element: this.type,
+      content: this.value,
+    };
+
+
+    if (sourceMapsEnabled && this.sourceMap) {
+      const sourceMapEl = new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file);
+      result.attributes = {
+        sourceMap: sourceMapEl.toRefract(),
+      };
     }
 
     return result;
   }
 
-  getBody(resolvedTypes) {
-    const sourceField = this.valuesForBody || this.values;
-    const body = sourceField.map(value => {
-      if (value.getBody) {
-        return value.getBody(resolvedTypes);
-      }
-      return value;
-    });
-    return body;
-  }
-
-  getSchema(resolvedTypes) {
-    const sourceField = this.valuesForBody || this.values;
-    const schema = sourceField.map(value => {
-      if (value.getBody) {
-        return value.getBody(resolvedTypes);
-      }
-      return value;
-    });
-    return schema;
+  getBody() {
+    return this.value;
   }
 }
 

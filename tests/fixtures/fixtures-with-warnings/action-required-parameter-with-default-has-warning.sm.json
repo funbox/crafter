@@ -336,7 +336,7 @@
                               ]
                             },
                             "default": {
-                              "element": "null",
+                              "element": "string",
                               "content": "Ivan",
                               "attributes": {
                                 "sourceMap": {
@@ -382,6 +382,35 @@
                         "description": {
                           "element": "string",
                           "content": "user name",
+                          "attributes": {
+                            "sourceMap": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "sourceMap",
+                                  "content": [
+                                    {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "number",
+                                          "content": 289
+                                        },
+                                        {
+                                          "element": "number",
+                                          "content": 36
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        "title": {
+                          "element": "string",
+                          "content": "string",
                           "attributes": {
                             "sourceMap": {
                               "element": "array",

@@ -160,10 +160,8 @@ describe('MSONAttributeParser', () => {
     expect(name.string).toBe('kind');
     expect(type).toBe('enum');
     expect(defaultValue).toEqual({
-      values: ['track'],
-      valuesForBody: ['track'],
-      content: { element: 'string', content: 'track' },
-      type: 'enum',
+      value: 'track',
+      type: 'string',
       sourceMap: {
         byteBlocks: [
           {
@@ -181,6 +179,7 @@ describe('MSONAttributeParser', () => {
             endColumn: 17,
           },
         ],
+        file: undefined,
       },
     });
     expect(sampleValues).toEqual([

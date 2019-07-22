@@ -35,7 +35,7 @@ class EnumElement {
   getBody() {
     const body = {};
     if (this.defaultValue) {
-      body.value = this.defaultValue.content.content;
+      body.value = this.defaultValue.value;
       return body;
     }
     if (this.members.length) {
@@ -55,7 +55,7 @@ class EnumElement {
       enum: this.members.map(member => member.name),
     };
     if (this.defaultValue) {
-      schema.default = this.defaultValue.content.content;
+      schema.default = this.defaultValue.value;
     }
     return schema;
   }

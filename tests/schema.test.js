@@ -2,7 +2,6 @@ const ArrayElement = require('../parsers/elements/ArrayElement');
 const ValueMemberElement = require('../parsers/elements/ValueMemberElement');
 const EnumElement = require('../parsers/elements/EnumElement');
 const EnumMemberElement = require('../parsers/elements/EnumMemberElement');
-const DefaultValueElement = require('../parsers/elements/DefaultValueElement');
 const MSONMixinElement = require('../parsers/elements/MSONMixinElement');
 const ObjectElement = require('../parsers/elements/ObjectElement');
 const PropertyMemberElement = require('../parsers/elements/PropertyMemberElement');
@@ -12,7 +11,6 @@ const OneOfTypeOptionElement = require('../parsers/elements/OneOfTypeOptionEleme
 const RequestElement = require('../parsers/elements/RequestElement');
 const AttributesElement = require('../parsers/elements/AttributesElement');
 const ResponseElement = require('../parsers/elements/ResponseElement');
-const DefaultValueProcessor = require('../parsers/DefaultValueProcessor');
 
 describe('schema', () => {
   describe('ArrayElement', () => {
@@ -133,18 +131,6 @@ describe('schema', () => {
       expect(el.getSchema({})).toEqual({
         type: 'string',
         enum: ['foo', 'bar'],
-      });
-    });
-
-    it('with default value', () => {
-      const defaultElement = new DefaultValueElement(['hello']);
-      const defaultValueProcessor = new DefaultValueProcessor(defaultElement, 'string');
-      defaultValueProcessor.buildDefaultFor('enum');
-      el.defaultValue = defaultElement;
-      expect(el.getSchema({})).toEqual({
-        type: 'string',
-        enum: ['foo', 'bar'],
-        default: 'hello',
       });
     });
   });

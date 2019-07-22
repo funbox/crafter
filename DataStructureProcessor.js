@@ -4,7 +4,6 @@ const utils = require('./utils');
 
 const EnumElement = require('./parsers/elements/EnumElement');
 const ObjectElement = require('./parsers/elements/ObjectElement');
-const DefaultValueProcessor = require('./parsers/DefaultValueProcessor');
 
 const { standardTypes } = types;
 
@@ -23,15 +22,11 @@ class DataStructureProcessor {
     }
 
     if (valueMember.isObject()) {
-      const [object, samples, defaultElement] = this.buildObject(curNode, context);
+      const [object, samples] = this.buildObject(curNode, context);
       valueMember.content = object;
 
       if (samples.length > 0) {
         valueMember.samples = samples;
-      }
-
-      if (defaultElement) {
-        valueMember.default = defaultElement;
       }
     }
 
@@ -62,8 +57,12 @@ class DataStructureProcessor {
 
       switch (sectionType) {
         case SectionTypes.defaultValue:
+          context.data.typeForDefaults = 'primitive';
+          context.data.valueType = primitiveElement.type;
           [nextNode, childResult] = this.Parsers.DefaultValueParser.parse(curNode, context);
-          defaults.push(childResult);
+          delete context.data.typeForDefaults;
+          delete context.data.valueType;
+          defaults.push(...childResult);
           break;
         case SectionTypes.sampleValue:
           context.data.typeForSamples = 'primitive';
@@ -92,13 +91,8 @@ class DataStructureProcessor {
     if (defaults.length) {
       if (defaults.length > 1) {
         context.addWarning('Multiple definitions of "default" value', sourceMap);
-        defaults.length = 1;
       }
-      const defaultElement = defaults[0];
-      const defaultValueProcessor = new DefaultValueProcessor(defaultElement, primitiveElement.type);
-      defaultValueProcessor.prepareValuesForBody(context.sourceMapsEnabled);
-      defaultValueProcessor.buildDefaultFor(primitiveElement.type, context.sourceMapsEnabled);
-      primitiveElement.default = defaultElement;
+      primitiveElement.default = defaults[0];
     }
   }
 
@@ -123,8 +117,12 @@ class DataStructureProcessor {
         delete context.data.valueType;
         samples.push(...childResult);
       } else if (this.Parsers.DefaultValueParser.sectionType(curNode, context) !== SectionTypes.undefined) {
+        context.data.typeForDefaults = 'array';
+        context.data.valueType = predefinedType;
         [nextNode, childResult] = this.Parsers.DefaultValueParser.parse(curNode, context);
-        defaults.push(childResult);
+        delete context.data.typeForDefaults;
+        delete context.data.valueType;
+        defaults.push(...childResult);
         break;
       } else if (this.Parsers.MSONMemberGroupParser.sectionType(curNode, context) === SectionTypes.msonArrayMemberGroup) {
         [nextNode, childResult] = this.Parsers.MSONMemberGroupParser.parse(curNode, context);
@@ -149,13 +147,8 @@ class DataStructureProcessor {
     if (defaults.length) {
       if (defaults.length > 1) {
         context.addWarning('Multiple definitions of "default" value', sourceMap);
-        defaults.length = 1;
       }
-      const defaultElement = defaults[0];
-      const defaultValueProcessor = new DefaultValueProcessor(defaultElement, predefinedType);
-      defaultValueProcessor.prepareValuesForBody(context.sourceMapsEnabled);
-      defaultValueProcessor.buildDefaultFor(types.array, context.sourceMapsEnabled);
-      arrayElement.default = defaultElement;
+      arrayElement.default = defaults[0];
     }
 
     arrayMembers.forEach((member) => {
@@ -173,7 +166,6 @@ class DataStructureProcessor {
   buildObject(node, context) {
     const objectElement = new ObjectElement();
     const samples = [];
-    const defaults = [];
     let curNode = node;
 
     while (curNode) {
@@ -182,7 +174,6 @@ class DataStructureProcessor {
 
       const sectionType = SectionTypes.calculateSectionType(curNode, context, [
         this.Parsers.MSONMemberGroupParser,
-        this.Parsers.DefaultValueParser,
         this.Parsers.MSONMixinParser,
         this.Parsers.OneOfTypeParser,
         this.Parsers.MSONAttributeParser,
@@ -210,11 +201,6 @@ class DataStructureProcessor {
           objectElement.propertyMembers.push(...childResult.members);
           childResult = null;
           break;
-        case SectionTypes.defaultValue:
-          [nextNode, childResult] = this.Parsers.DefaultValueParser.parse(curNode, context);
-          defaults.push(childResult);
-          childResult = null;
-          break;
         default: {
           // TODO что делать в этом случае? Прерывать парсинг или пропускать ноду?
           const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
@@ -234,21 +220,7 @@ class DataStructureProcessor {
       curNode = curNode.next;
     }
 
-    let defaultElement;
-
-    if (defaults.length) {
-      if (defaults.length > 1) {
-        const sourceMap = utils.makeGenericSourceMap(this.valueMemberRootNode.parent, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-        context.addWarning('Multiple definitions of "default" value', sourceMap);
-        defaults.length = 1;
-      }
-      defaultElement = defaults[0];
-      const defaultValueProcessor = new DefaultValueProcessor(defaultElement);
-      defaultValueProcessor.prepareValuesForBody(context.sourceMapsEnabled);
-      defaultValueProcessor.buildDefaultFor(types.object, context.sourceMapsEnabled);
-    }
-
-    return [objectElement, samples, defaultElement];
+    return [objectElement, samples];
   }
 
   buildEnum(node, context, type) {
@@ -276,8 +248,12 @@ class DataStructureProcessor {
           childResult = null;
           break;
         case SectionTypes.defaultValue:
+          context.data.typeForDefaults = 'enum';
+          context.data.valueType = enumElement.type;
           [nextNode, childResult] = this.Parsers.DefaultValueParser.parse(curNode, context);
-          defaults.push(childResult);
+          defaults.push(...childResult);
+          delete context.data.typeForDefaults;
+          delete context.data.valueType;
           break;
         case SectionTypes.sampleValue:
           context.data.typeForSamples = 'enum';
@@ -311,13 +287,8 @@ class DataStructureProcessor {
     if (defaults.length) {
       if (defaults.length > 1) {
         context.addWarning('Multiple definitions of "default" value', sourceMap);
-        defaults.length = 1;
       }
-      const defaultElement = defaults[0];
-      const defaultValueProcessor = new DefaultValueProcessor(defaultElement, enumElement.type);
-      defaultValueProcessor.prepareValuesForBody(context.sourceMapsEnabled);
-      defaultValueProcessor.buildDefaultFor(types.enum, context.sourceMapsEnabled);
-      enumElement.defaultValue = defaultElement;
+      enumElement.defaultValue = defaults[0];
     }
 
     if (!standardTypes.includes(enumElement.type)) {

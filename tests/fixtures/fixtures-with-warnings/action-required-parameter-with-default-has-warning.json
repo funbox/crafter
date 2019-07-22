@@ -90,7 +90,7 @@
                           "content": "John",
                           "attributes": {
                             "default": {
-                              "element": "null",
+                              "element": "string",
                               "content": "Ivan"
                             }
                           }
@@ -111,6 +111,10 @@
                         "description": {
                           "element": "string",
                           "content": "user name"
+                        },
+                        "title": {
+                          "element": "string",
+                          "content": "string"
                         }
                       }
                     }

@@ -4,7 +4,7 @@ const SourceMapElement = require('./SourceMapElement');
 class SampleValueElement {
   constructor(value, type, sourceMap) {
     this.value = value;
-    this.type = type; // тут должен прийти либо примитивный тип, либо массив
+    this.type = type;
     this.sourceMap = sourceMap;
   }
 

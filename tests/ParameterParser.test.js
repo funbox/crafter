@@ -105,30 +105,23 @@ describe('ParameterParser', () => {
       },
     });
     expect(defaultValue).toEqual({
-      values: [
-        'Ivan',
-      ],
-      type: 'string',
       sourceMap: {
-        byteBlocks: [
-          {
-            offset: 46,
-            length: 16,
-          },
-        ],
-        charBlocks: [
-          {
-            offset: 46,
-            length: 16,
-            startLine: 2,
-            startColumn: 3,
-            endLine: 2,
-            endColumn: 18,
-          },
-        ],
+        byteBlocks: [{
+          length: 16,
+          offset: 46,
+        }],
+        charBlocks: [{
+          offset: 46,
+          length: 16,
+          startLine: 2,
+          startColumn: 3,
+          endLine: 2,
+          endColumn: 18,
+        }],
+        file: undefined,
       },
-      content: 'Ivan',
-      valuesForBody: null,
+      type: 'string',
+      value: 'Ivan',
     });
   });
 });

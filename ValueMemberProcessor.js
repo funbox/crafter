@@ -5,7 +5,6 @@ const ArrayElement = require('./parsers/elements/ArrayElement');
 const SampleValueElement = require('./parsers/elements/SampleValueElement');
 const DefaultValueElement = require('./parsers/elements/DefaultValueElement');
 const ValueMemberElement = require('./parsers/elements/ValueMemberElement');
-const DefaultValueProcessor = require('./parsers/DefaultValueProcessor');
 
 const ValueMemberProcessor = {
   fillBaseType(context, element) {
@@ -21,7 +20,7 @@ const ValueMemberProcessor = {
 
     const { value } = element;
     let sampleElements = [];
-    let defaultElement;
+    let defaultElements = [];
 
     if (value === false || !!value) {
       let inlineValuesType;
@@ -47,13 +46,11 @@ const ValueMemberProcessor = {
 
       if (element.isArray()) {
         sampleElements = [new SampleValueElement(inlineValues, inlineValuesType, [])];
+        defaultElements = [new DefaultValueElement(inlineValues, inlineValuesType, [])];
       } else {
         sampleElements = inlineValues.map(v => new SampleValueElement(v, inlineValuesType, null));
+        defaultElements = inlineValues.map(v => new DefaultValueElement(v, inlineValuesType, null));
       }
-
-      defaultElement = new DefaultValueElement(inlineValues, inlineValuesType);
-      const defaultValueProcessor = new DefaultValueProcessor(defaultElement, inlineValuesType);
-      defaultValueProcessor.buildDefaultFor(element.type, context.sourceMapsEnabled);
     }
 
     if (element.isArray()) {
@@ -73,7 +70,14 @@ const ValueMemberProcessor = {
     }
 
     element.samples = sampleElements.length && !element.isDefault && (element.isSample || element.isArray()) ? sampleElements : null;
-    element.default = element.isDefault && defaultElement;
+
+    if (element.isDefault && defaultElements.length) {
+      if (defaultElements.length > 1) {
+        context.addWarning('Multiple definitions of "default" value', context.data.attributeSignatureDetails.sourceMap);
+      }
+      element.default = defaultElements[0];
+    }
+
     element.value = (element.isSample || element.isDefault || element.isArray()) ? null : convertType(value, element.baseType).value;
   },
 };

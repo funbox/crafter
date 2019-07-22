@@ -4,7 +4,6 @@ const utils = require('../utils');
 const ParameterElement = require('./elements/ParameterElement');
 const ParameterMembersElement = require('./elements/ParameterMembersElement');
 const StringElement = require('./elements/StringElement');
-const DefaultValueProcessor = require('./DefaultValueProcessor');
 const { parser: SignatureParser } = require('../SignatureParser');
 
 module.exports = (Parsers) => {
@@ -30,7 +29,7 @@ module.exports = (Parsers) => {
       const result = new ParameterElement(
         signature.name,
         signature.value,
-        signature.type,
+        signature.type || 'string',
         signature.typeAttributes,
         descriptionEl,
       );
@@ -90,11 +89,17 @@ module.exports = (Parsers) => {
 
 
       if (sectionType === SectionTypes.defaultValue) {
+        if (types.primitiveTypes.includes(result.type)) {
+          context.data.typeForDefaults = 'primitive';
+          context.data.valueType = result.type;
+        } else {
+          context.data.typeForDefaults = result.type;
+          context.data.valueType = result.nestedTypes && result.nestedTypes[0] || 'string';
+        }
         [nextNode, childRes] = Parsers.DefaultValueParser.parse(node, context);
-        const defaultValueProcessor = new DefaultValueProcessor(childRes, 'string');
-        const valueType = types.primitiveTypes.includes(result.type) ? 'string' : result.type;
-        defaultValueProcessor.buildDefaultFor(valueType, context.sourceMapsEnabled);
-        result.defaultValue = childRes;
+        delete context.data.typeForDefaults;
+        delete context.data.valueType;
+        result.defaultValue = childRes[0];
       } else {
         [nextNode, childRes] = Parsers.ParameterMembersParser.parse(node, context);
         result.enumerations = childRes;
