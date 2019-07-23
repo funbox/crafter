@@ -113,37 +113,6 @@ module.exports = (Parsers) => {
       return [nextNode, result];
     },
 
-    processDescription(node, context, result) {
-      const sectionType = SectionTypes.calculateSectionType(node, context, [
-        Parsers.DefaultValueParser,
-        Parsers.ParameterMembersParser,
-        Parsers.MSONAttributeParser,
-      ]);
-      if (sectionType === SectionTypes.msonAttribute && result.type !== types.enum) {
-        const descriptionContentNode = node.parent;
-        const stopCallback = curNode => (!utils.isCurrentNodeOrChild(curNode, descriptionContentNode));
-        const [
-          nextNode,
-          blockDescriptionEl,
-        ] = utils.extractDescription(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, stopCallback);
-
-        if (blockDescriptionEl) {
-          const stringDescriptionEl = new StringElement(blockDescriptionEl.description, blockDescriptionEl.sourceMap);
-
-          if (result.description) {
-            result.description.string = utils.appendDescriptionDelimiter(result.description.string);
-            result.description = mergeStringElements(result.description, stringDescriptionEl);
-          } else {
-            result.description = stringDescriptionEl;
-          }
-        }
-
-        return [nextNode, result];
-      }
-
-      return [node, result];
-    },
-
     isUnexpectedNode() {
       return false;
     },
@@ -168,14 +137,3 @@ module.exports = (Parsers) => {
   });
   return true;
 };
-
-function mergeStringElements(first, second) {
-  const merged = new StringElement();
-  merged.string = first.string + second.string;
-  if (first.sourceMap && second.sourceMap) {
-    merged.sourceMap = {};
-    merged.sourceMap.byteBlocks = [...first.sourceMap.byteBlocks, ...second.sourceMap.byteBlocks];
-    merged.sourceMap.charBlocks = [...first.sourceMap.charBlocks, ...second.sourceMap.charBlocks];
-  }
-  return merged;
-}
