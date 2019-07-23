@@ -129,7 +129,7 @@ class ValueMemberElement {
 
     const typeEl = resolvedTypes[this.type];
     if (typeEl && typeEl.isComplex()) {
-      body = typeEl.content.getBody(resolvedTypes);
+      body = typeEl.getBody(resolvedTypes);
     }
 
     if (this.content) {
@@ -254,7 +254,7 @@ function mergeBodies(body1, body2) {
     return { ...body1, ...body2 };
   }
 
-  throw new Error(`Can not merge ${body1} and ${body2}`);
+  return body2;
 }
 
 module.exports = ValueMemberElement;
