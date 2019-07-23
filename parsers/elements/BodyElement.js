@@ -37,10 +37,6 @@ class BodyElement {
 
     return result;
   }
-
-  getSchema() {
-    return {};
-  }
 }
 
 module.exports = BodyElement;

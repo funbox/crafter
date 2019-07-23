@@ -33,20 +33,19 @@ class EnumElement {
   }
 
   getBody() {
-    const body = {};
     if (this.defaultValue) {
-      body.value = this.defaultValue.value;
-      return body;
+      return this.defaultValue.value;
     }
+
     if (this.members.length) {
-      body.value = this.members[0].name;
-      return body;
+      return this.members[0].name;
     }
+
     if (this.sampleValues) {
-      body.value = this.sampleValues[0].getBody();
-      return body;
+      return this.sampleValues[0].getBody();
     }
-    return body;
+
+    return undefined;
   }
 
   getSchema() {

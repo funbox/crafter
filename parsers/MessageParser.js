@@ -82,16 +82,15 @@ module.exports = (Parsers) => {
 
       if (!hasCustomBody) {
         const body = result.getBody(context.typeResolver.types);
-        if (typeof body === 'object' && Object.keys(body).length === 0) {
-          return result;
+        if (body !== undefined) {
+          const bodyElement = new BodyElement(body);
+          result.content.push(bodyElement);
         }
-        const bodyElement = new BodyElement(body);
-        result.content.push(bodyElement);
       }
 
       if (!hasCustomSchema) {
         const schema = result.getSchema(context.typeResolver.types);
-        if (Object.keys(schema).length > 0) {
+        if (schema) {
           result.content.push(new SchemaElement(schema));
         }
       }

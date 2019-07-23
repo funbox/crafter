@@ -117,52 +117,47 @@ class ValueMemberElement {
   }
 
   getBody(resolvedTypes) {
-    let body = {};
-    const type = this.type || (this.content ? 'object' : 'string');
-    const value = convertType(this.value, type).value || utils.defaultValue(type);
-    const isEmpty = (localBody) => (Object.keys(localBody).length === 0);
-    const hasSamples = this.samples && this.samples.length;
-
-    const typeEl = resolvedTypes[this.type];
-    if (typeEl) {
-      if (typeEl.isComplex()) {
-        body = typeEl.content.getBody(resolvedTypes);
-      } else {
-        body.value = value || utils.defaultValue(typeEl.baseType);
-      }
-    }
-
-    if (this.content) {
-      if (body.value && this.isArray()) {
-        body.value.push(...this.content.getBody(resolvedTypes, { hasSamples }).value);
-      } else {
-        body = utils.mergeBodies(body, this.content.getBody(resolvedTypes, { hasSamples }));
-      }
-    }
-
-    if (hasSamples) {
-      const sampleBody = this.samples[0].getBody(resolvedTypes);
-      if (Array.isArray(body.value)) {
-        body.value.push(...sampleBody);
-      } else if (isEmpty(body)) {
-        body.value = sampleBody;
-      }
+    if (this.samples && this.samples.length) {
+      return this.samples[0].getBody(resolvedTypes);
     }
 
     if (this.default) {
-      const defaultMembers = this.default.getBody(resolvedTypes);
-      if (Array.isArray(body.value)) {
-        body.value = defaultMembers;
-      } else if (isEmpty(body)) {
-        body.value = defaultMembers;
+      return this.default.getBody(resolvedTypes);
+    }
+
+    let body;
+
+    const typeEl = resolvedTypes[this.type];
+    if (typeEl && typeEl.isComplex()) {
+      body = typeEl.content.getBody(resolvedTypes);
+    }
+
+    if (this.content) {
+      body = mergeBodies(body, this.content.getBody(resolvedTypes));
+    }
+
+    if (body !== undefined) {
+      return body;
+    }
+
+    const type = (typeEl && typeEl.baseType) || this.type || (this.content ? 'object' : 'string');
+    return convertType(this.value, type).value || utils.defaultValue(type);
+
+    // TODO Выпилить этот метод
+    function mergeBodies(body1, body2) {
+      if (body1 === undefined) return body2;
+      if (body2 === undefined) return body1;
+
+      if (Array.isArray(body1) && Array.isArray(body2)) {
+        return [...body1, ...body2];
       }
-    }
 
-    if (isEmpty(body)) {
-      body.value = value;
-    }
+      if (typeof body1 === 'object' && typeof body2 === 'object') {
+        return { ...body1, ...body2 };
+      }
 
-    return body;
+      throw new Error(`Can not merge ${body1} and ${body2}`);
+    }
   }
 
   getSchema(resolvedTypes, flags = {}) {

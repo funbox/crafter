@@ -364,6 +364,7 @@ const utils = {
     return result;
   },
 
+  // TODO Этот метод точно должен так работать, а не мержить body.value рекурсивно?
   mergeBodies(body1, body2) {
     const result = {
       ...body1,

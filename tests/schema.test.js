@@ -313,13 +313,13 @@ describe('schema', () => {
 
     it('empty', () => {
       const el = new RequestElement('application/json');
-      expect(el.getSchema({})).toEqual({});
+      expect(el.getSchema({})).toEqual(undefined);
     });
 
     it('Content-Type is not application/json', () => {
       const el = new RequestElement();
       el.content.push(new AttributesElement(new ValueMemberElement()));
-      expect(el.getSchema({})).toEqual({});
+      expect(el.getSchema({})).toEqual(undefined);
     });
   });
 
@@ -335,13 +335,13 @@ describe('schema', () => {
 
     it('empty', () => {
       const el = new ResponseElement(200, 'application/json');
-      expect(el.getSchema({})).toEqual({});
+      expect(el.getSchema({})).toEqual(undefined);
     });
 
     it('Content-Type is not application/json', () => {
       const el = new ResponseElement(200);
       el.content.push(new AttributesElement(new ValueMemberElement()));
-      expect(el.getSchema({})).toEqual({});
+      expect(el.getSchema({})).toEqual(undefined);
     });
   });
 

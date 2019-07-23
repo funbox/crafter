@@ -32,10 +32,6 @@ class SchemaElement {
 
     return result;
   }
-
-  getBody() {
-    return {};
-  }
 }
 
 module.exports = SchemaElement;

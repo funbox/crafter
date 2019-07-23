@@ -1,6 +1,6 @@
 const Refract = require('../../Refract');
-const utils = require('../../utils');
 const SourceMapElement = require('./SourceMapElement');
+const AttributesElement = require('./AttributesElement');
 
 class MessageElement {
   constructor(title, sourceMap) {
@@ -36,19 +36,20 @@ class MessageElement {
   }
 
   getBody(resolvedTypes) {
-    let body = {};
-    this.content.forEach(item => {
-      body = utils.mergeBodies(body, item.getBody(resolvedTypes));
-    });
-    return body.value !== undefined ? body.value : body;
+    const attrsEl = this.content.find(item => item instanceof AttributesElement);
+    return attrsEl && attrsEl.getBody(resolvedTypes);
   }
 
   getSchema(resolvedTypes) {
-    let schema = {};
-    this.content.forEach(item => {
-      schema = utils.mergeSchemas(schema, item.getSchema(resolvedTypes));
-    });
-    if (Object.keys(schema).length > 0) {
+    let schema;
+
+    const attrsEl = this.content.find(item => item instanceof AttributesElement);
+    if (attrsEl) {
+      schema = attrsEl.getSchema(resolvedTypes);
+    }
+
+    // TODO Перенести это в AttributesElement
+    if (schema) {
       return {
         $schema: 'http://json-schema.org/draft-04/schema#',
         ...schema,
