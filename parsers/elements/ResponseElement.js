@@ -67,13 +67,6 @@ class ResponseElement {
       schema = attrsEl.getSchema(resolvedTypes);
     }
 
-    // TODO Перенести это в AttributesElement
-    if (schema) {
-      return {
-        $schema: 'http://json-schema.org/draft-04/schema#',
-        ...schema,
-      };
-    }
     return schema;
   }
 }

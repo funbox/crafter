@@ -18,7 +18,16 @@ class AttributesElement {
   }
 
   getSchema(resolvedTypes, flags = {}) {
-    return this.content.getSchema(resolvedTypes, utils.mergeFlags(flags, this.content));
+    const result = this.content.getSchema(resolvedTypes, utils.mergeFlags(flags, this.content));
+
+    if (result) {
+      return {
+        $schema: 'http://json-schema.org/draft-04/schema#',
+        ...result,
+      };
+    }
+
+    return result;
   }
 }
 
