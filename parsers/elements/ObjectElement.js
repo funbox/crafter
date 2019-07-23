@@ -10,11 +10,10 @@ class ObjectElement {
   }
 
   getBody(resolvedTypes) {
-    let body = {};
-    this.propertyMembers.forEach(member => {
-      body = utils.mergeBodies(body, member.getBody(resolvedTypes));
-    });
-    return body;
+    return this.propertyMembers.reduce((body, member) => ({
+      ...body,
+      ...member.getBody(resolvedTypes),
+    }), {});
   }
 
   getSchema(resolvedTypes, flags = {}) {

@@ -14,12 +14,10 @@ class OneOfTypeOptionElement {
   }
 
   getBody(resolvedTypes) {
-    let body = {};
-    this.members.forEach(member => {
-      body = utils.mergeBodies(body, member.getBody(resolvedTypes));
-    });
-
-    return body;
+    return this.members.reduce((body, member) => ({
+      ...body,
+      ...member.getBody(resolvedTypes),
+    }), {});
   }
 
   getSchema(resolvedTypes, flags = {}) {

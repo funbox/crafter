@@ -142,22 +142,6 @@ class ValueMemberElement {
 
     const type = (typeEl && typeEl.baseType) || this.type || (this.content ? 'object' : 'string');
     return convertType(this.value, type).value || utils.defaultValue(type);
-
-    // TODO Выпилить этот метод
-    function mergeBodies(body1, body2) {
-      if (body1 === undefined) return body2;
-      if (body2 === undefined) return body1;
-
-      if (Array.isArray(body1) && Array.isArray(body2)) {
-        return [...body1, ...body2];
-      }
-
-      if (typeof body1 === 'object' && typeof body2 === 'object') {
-        return { ...body1, ...body2 };
-      }
-
-      throw new Error(`Can not merge ${body1} and ${body2}`);
-    }
   }
 
   getSchema(resolvedTypes, flags = {}) {
@@ -256,6 +240,21 @@ function fillSchemaWithAttributes(schema, typeAttributes) {
   });
 
   return schema;
+}
+
+function mergeBodies(body1, body2) {
+  if (body1 === undefined) return body2;
+  if (body2 === undefined) return body1;
+
+  if (Array.isArray(body1) && Array.isArray(body2)) {
+    return [...body1, ...body2];
+  }
+
+  if (typeof body1 === 'object' && typeof body2 === 'object') {
+    return { ...body1, ...body2 };
+  }
+
+  throw new Error(`Can not merge ${body1} and ${body2}`);
 }
 
 module.exports = ValueMemberElement;
