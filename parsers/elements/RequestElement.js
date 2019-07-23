@@ -1,5 +1,4 @@
 const Refract = require('../../Refract');
-const utils = require('../../utils');
 const SourceMapElement = require('./SourceMapElement');
 const AttributesElement = require('./AttributesElement');
 
