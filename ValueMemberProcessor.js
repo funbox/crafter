@@ -25,14 +25,11 @@ const ValueMemberProcessor = {
     if (value === false || !!value) {
       let inlineValuesType;
       if (element.isComplex()) {
-        // Видимо для массива и enum-а
-        // TODO Для объектов примеры считаются string-ами. Нужно либо запретить, либо проверять
         inlineValuesType = element.nestedTypes.length === 1 ? element.nestedTypes[0] : 'string';
       } else {
         inlineValuesType = element.type || 'string';
       }
 
-      // TODO Добавить проверку на то, что для объектов и сложных массивов не задан пример
       const inlineValues = splitValues(value).reduce((res, v) => {
         const converted = convertType(v, inlineValuesType);
 
