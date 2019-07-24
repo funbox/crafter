@@ -1,0 +1,21 @@
+# My API
+
+Defines parameters with multiple default values.
+It produces warnings 'Multiple definitions of "default" value'.
+
+# GET /foo{?a,b,c}
+
++ Parameters
+    + a (string)
+        + Default
+            + x
+            + y
+    + b (string)
+        + Default: x, y
+    + c (string)
+        + Default
+            + x
+        + Default
+            + y
+
++ Response 200

@@ -99,6 +99,11 @@ module.exports = (Parsers) => {
         [nextNode, childRes] = Parsers.DefaultValueParser.parse(node, context);
         delete context.data.typeForDefaults;
         delete context.data.valueType;
+
+        if (result.defaultValue || childRes.length > 1) {
+          const { parameterSignatureDetails: details } = context.data;
+          context.addWarning('Multiple definitions of "default" value', details.sourceMap);
+        }
         result.defaultValue = childRes[0];
       } else {
         [nextNode, childRes] = Parsers.ParameterMembersParser.parse(node, context);
