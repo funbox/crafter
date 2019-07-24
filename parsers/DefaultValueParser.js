@@ -95,9 +95,9 @@ module.exports = (Parsers) => {
             if (!result.length) {
               result.push(new DefaultValueElement([], context.data.valueType, []));
             }
-            const sample = result[result.length - 1];
-            sample.value.push(converted.value);
-            sample.sourceMap.push(sourceMap);
+            const defaultEl = result[result.length - 1];
+            defaultEl.value.push(converted.value);
+            defaultEl.sourceMap.push(sourceMap);
           }
 
           break;
