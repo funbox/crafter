@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.20.0 (25.07.2019)
+
+* Refactor Default section.
+
 ## 1.19.0 (25.07.2019)
 
 * Refactor Samples section.
