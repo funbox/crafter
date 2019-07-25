@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.19.0 (25.07.2019)
+
+* Refactor Samples section.
+
 ## 1.18.3 (10.07.2019)
 
 * Fix error when incorrect MSON-attribute encountered.
