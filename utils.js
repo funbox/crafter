@@ -350,7 +350,7 @@ const utils = {
           result[key] = [
             ...result[key],
             ...schema2[key],
-          ];
+          ].filter((v, i, a) => a.indexOf(v) === i);
         } else {
           result[key] = {
             ...result[key],
