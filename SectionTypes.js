@@ -20,6 +20,7 @@ const SectionTypes = Object.freeze({
   parameterMembers: 'parameterMembers',
   parameterMember: 'parameterMember',
   enumMember: 'enumMember',
+  arrayMember: 'arrayMember',
   request: 'request',
   response: 'response',
   body: 'body',

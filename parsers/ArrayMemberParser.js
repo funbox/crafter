@@ -1,4 +1,5 @@
 const utils = require('../utils');
+const SectionTypes = require('../SectionTypes');
 const DataStructureProcessor = require('../DataStructureProcessor');
 const ValueMemberElement = require('./elements/ValueMemberElement');
 const ValueMemberProcessor = require('../ValueMemberProcessor');
@@ -34,6 +35,22 @@ module.exports = (Parsers) => {
       }
 
       return [utils.nextNode(node), result];
+    },
+
+    sectionType(node, context) {
+      if (node.type === 'item') {
+        const text = utils.nodeText(node.firstChild, context.sourceLines);
+
+        try {
+          const signature = new SignatureParser(text, [ParserTraits.VALUE, ParserTraits.ATTRIBUTES, ParserTraits.DESCRIPTION]);
+          if (signature.value || signature.rawValue) {
+            return SectionTypes.arrayMember;
+          }
+        } catch (e) { // eslint-disable-line no-empty
+        }
+      }
+
+      return SectionTypes.undefined;
     },
 
     processDescription(node, context, result) {
