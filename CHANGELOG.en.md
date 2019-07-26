@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.21.0 (26.07.2019)
+
+* Refactor getBody method.
+
 ## 1.20.0 (25.07.2019)
 
 * Refactor Default section.
