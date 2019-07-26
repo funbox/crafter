@@ -39,7 +39,56 @@ module.exports = (Parsers) => {
         result.description.sourceMap = utils.makeSourceMapForLine(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       }
 
-      return [(node.firstChild.next && node.firstChild.next.firstChild) || utils.nextNode(node), result];
+      if (signature.rest) {
+        context.data.startOffset = text.length - signature.rest.length;
+      }
+
+      const nextChildNode = signature.rest ? node.firstChild : node.firstChild.next;
+      const nextNode = nextChildNode || utils.nextNode(node.firstChild);
+
+      return [nextNode, result];
+    },
+
+    processDescription(contentNode, context, result) {
+      let stopCallback = null;
+      const parentNode = contentNode && contentNode.parent;
+      const { startOffset } = context.data;
+      const allowedSections = [
+        Parsers.DefaultValueParser,
+        Parsers.ParameterMembersParser,
+      ];
+      const isContentSection = (node) => SectionTypes.calculateSectionType(node, context, allowedSections) !== SectionTypes.undefined;
+
+      if (!contentNode) {
+        return [contentNode, result];
+      }
+
+      if (utils.isCurrentNodeOrChild(contentNode, parentNode) && contentNode.type === 'list') {
+        contentNode = contentNode.firstChild;
+      }
+
+      if (contentNode.type === 'paragraph' || !!startOffset || !isContentSection(contentNode)) {
+        stopCallback = curNode => (!utils.isCurrentNodeOrChild(curNode, parentNode) || isContentSection(curNode));
+      }
+
+      contentNode.skipLines = startOffset ? 1 : 0;
+      const [
+        nextNode,
+        blockDescriptionEl,
+      ] = utils.extractDescription(contentNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, stopCallback, startOffset);
+
+      delete contentNode.skipLines;
+
+      if (blockDescriptionEl) {
+        const stringDescriptionEl = new StringElement(blockDescriptionEl.description, blockDescriptionEl.sourceMap);
+        if (result.description) {
+          result.description.string = utils.appendDescriptionDelimiter(result.description.string);
+          result.description = mergeStringElements(result.description, stringDescriptionEl);
+        } else {
+          result.description = stringDescriptionEl;
+        }
+      }
+      return [nextNode, result];
     },
 
     sectionType(node, context) {
@@ -137,3 +186,14 @@ module.exports = (Parsers) => {
   });
   return true;
 };
+
+function mergeStringElements(first, second) {
+  const merged = new StringElement();
+  merged.string = first.string + second.string;
+  if (first.sourceMap && second.sourceMap) {
+    merged.sourceMap = {};
+    merged.sourceMap.byteBlocks = [...first.sourceMap.byteBlocks, ...second.sourceMap.byteBlocks];
+    merged.sourceMap.charBlocks = [...first.sourceMap.charBlocks, ...second.sourceMap.charBlocks];
+  }
+  return merged;
+}
