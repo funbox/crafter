@@ -2,7 +2,6 @@ const SectionTypes = require('../SectionTypes');
 const types = require('../types');
 const utils = require('../utils');
 const ParameterElement = require('./elements/ParameterElement');
-const ParameterMembersElement = require('./elements/ParameterMembersElement');
 const StringElement = require('./elements/StringElement');
 const { parser: SignatureParser } = require('../SignatureParser');
 
@@ -67,6 +66,15 @@ module.exports = (Parsers) => {
         contentNode = contentNode.firstChild;
       }
 
+      if (
+        result.type === types.enum
+        && !isContentSection(contentNode)
+        && Parsers.EnumMemberParser.sectionType(contentNode, context) !== SectionTypes.undefined
+      ) {
+        const { parameterSignatureDetails: details } = context.data;
+        context.addWarning('Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.', details.sourceMap);
+      }
+
       if (contentNode.type === 'paragraph' || !!startOffset || !isContentSection(contentNode)) {
         stopCallback = curNode => (!utils.isCurrentNodeOrChild(curNode, parentNode) || isContentSection(curNode));
       }
@@ -122,20 +130,7 @@ module.exports = (Parsers) => {
       const sectionType = SectionTypes.calculateSectionType(node, context, [
         Parsers.DefaultValueParser,
         Parsers.ParameterMembersParser,
-        Parsers.MSONAttributeParser,
       ]);
-
-      if (sectionType === SectionTypes.msonAttribute && result.type === types.enum) {
-        if (!result.enumerations) {
-          result.enumerations = new ParameterMembersElement();
-          const { parameterSignatureDetails: details } = context.data;
-          context.addWarning('Use of enumerations in "Parameters" section without keyword "Members" violates API Blueprint Spec.', details.sourceMap);
-        }
-        [nextNode, childRes] = Parsers.ParameterEnumMemberParser.parse(node, context);
-        result.enumerations.members.push(childRes);
-        return [nextNode, result];
-      }
-
 
       if (sectionType === SectionTypes.defaultValue) {
         if (types.primitiveTypes.includes(result.type)) {
