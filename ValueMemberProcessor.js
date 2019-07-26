@@ -34,8 +34,8 @@ const ValueMemberProcessor = {
 
     if (value === false || !!value) {
       let inlineValuesType;
-      if (element.isComplex()) {
-        inlineValuesType = element.nestedTypes.length === 1 ? element.nestedTypes[0] : 'string';
+      if (element.isArray() || element.isEnum()) {
+        inlineValuesType = element.nestedTypes.find(type => (context.typeResolver.getStandardBaseType(type) !== 'object')) || 'string';
       } else {
         inlineValuesType = element.type || 'string';
       }

@@ -119,6 +119,10 @@ class TypeResolver {
       return name;
     };
 
+    if (standardTypes.includes(name)) {
+      return name;
+    }
+
     return getBaseType() || types.object;
   }
 }
