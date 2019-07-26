@@ -21,6 +21,16 @@ const ValueMemberProcessor = {
     const { value } = element;
     let sampleElements = [];
     let defaultElements = [];
+    let useSample = false;
+    let useDefault = false;
+
+    if (!element.isStandardType()) {
+      const namedElement = context.typeResolver.types[element.type];
+      sampleElements = sampleElements.concat(namedElement.samples || []);
+      defaultElements = defaultElements.concat(namedElement.default ? [namedElement.default] : []);
+      useSample = !!sampleElements.length;
+      useDefault = !!defaultElements.length;
+    }
 
     if (value === false || !!value) {
       let inlineValuesType;
@@ -66,13 +76,14 @@ const ValueMemberProcessor = {
       element.content = new ArrayElement(members);
     }
 
-    element.samples = sampleElements.length && !element.isDefault && (element.isSample || element.isArray()) ? sampleElements : null;
+    useSample = useSample || sampleElements.length && !element.isDefault && (element.isSample || element.isArray());
+    useDefault = useDefault || element.isDefault && defaultElements.length;
 
-    if (element.isDefault && defaultElements.length) {
-      if (defaultElements.length > 1) {
-        context.addWarning('Multiple definitions of "default" value', context.data.attributeSignatureDetails.sourceMap);
-      }
-      element.default = defaultElements[0];
+    element.samples = useSample ? sampleElements : null;
+    element.default = useDefault ? defaultElements[0] : null;
+
+    if (useDefault && defaultElements.length > 1) {
+      context.addWarning('Multiple definitions of "default" value', context.data.attributeSignatureDetails.sourceMap);
     }
 
     element.value = (element.isSample || element.isDefault || element.isArray()) ? null : convertType(value, element.baseType).value;
