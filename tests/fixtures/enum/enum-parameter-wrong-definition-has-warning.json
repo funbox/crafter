@@ -98,54 +98,7 @@
                               "content": "kind"
                             },
                             "value": {
-                              "element": "enum",
-                              "attributes": {
-                                "enumerations": {
-                                  "element": "array",
-                                  "content": [
-                                    {
-                                      "element": "string",
-                                      "content": "movement",
-                                      "meta": {
-                                        "description": {
-                                          "element": "string",
-                                          "content": "шаблон отчета о перемещении сотрудников"
-                                        }
-                                      }
-                                    },
-                                    {
-                                      "element": "string",
-                                      "content": "track",
-                                      "meta": {
-                                        "description": {
-                                          "element": "string",
-                                          "content": "шаблон отчета по трекам"
-                                        }
-                                      }
-                                    },
-                                    {
-                                      "element": "string",
-                                      "content": "sms",
-                                      "meta": {
-                                        "description": {
-                                          "element": "string",
-                                          "content": "шаблон SMS-отчета"
-                                        }
-                                      }
-                                    },
-                                    {
-                                      "element": "string",
-                                      "content": "zone",
-                                      "meta": {
-                                        "description": {
-                                          "element": "string",
-                                          "content": "шаблон отчета о посещении зон"
-                                        }
-                                      }
-                                    }
-                                  ]
-                                }
-                              }
+                              "element": "enum"
                             }
                           },
                           "attributes": {
@@ -162,7 +115,7 @@
                           "meta": {
                             "description": {
                               "element": "string",
-                              "content": "тип шаблона отчета (поиск шаблонов только указанного типа)"
+                              "content": "тип шаблона отчета (поиск шаблонов только указанного типа)\n\n+ movement - шаблон отчета о перемещении сотрудников\n\n+ track    - шаблон отчета по трекам\n\n+ sms      - шаблон SMS-отчета\n\n+ zone     - шаблон отчета о посещении зон"
                             },
                             "title": {
                               "element": "string",
