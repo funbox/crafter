@@ -115,7 +115,7 @@ module.exports = (Parsers) => {
           const stringDescriptionEl = new StringElement(blockDescriptionEl.description, blockDescriptionEl.sourceMap);
           if (result.descriptionEl) {
             result.descriptionEl.string = utils.appendDescriptionDelimiter(result.descriptionEl.string);
-            result.descriptionEl = mergeStringElements(result.descriptionEl, stringDescriptionEl);
+            result.descriptionEl = utils.mergeStringElements(result.descriptionEl, stringDescriptionEl);
           } else {
             result.descriptionEl = stringDescriptionEl;
           }
@@ -163,14 +163,3 @@ module.exports = (Parsers) => {
   });
   return true;
 };
-
-function mergeStringElements(first, second) {
-  const merged = new StringElement();
-  merged.string = first.string + second.string;
-  if (first.sourceMap && second.sourceMap) {
-    merged.sourceMap = {};
-    merged.sourceMap.byteBlocks = [...first.sourceMap.byteBlocks, ...second.sourceMap.byteBlocks];
-    merged.sourceMap.charBlocks = [...first.sourceMap.charBlocks, ...second.sourceMap.charBlocks];
-  }
-  return merged;
-}

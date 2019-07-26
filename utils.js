@@ -2,6 +2,7 @@ const commonmark = require('commonmark');
 const Refract = require('./Refract');
 const types = require('./types');
 const DescriptionElement = require('./parsers/elements/DescriptionElement');
+const StringElement = require('./parsers/elements/StringElement');
 
 class CrafterError extends Error {
   constructor(message, sourceMap) {
@@ -370,6 +371,17 @@ const utils = {
       isFixedType: (options.propagateFixedType && baseFlags.isFixedType) || typeElement.typeAttributes.includes('fixedType'),
       isNullable: typeElement.typeAttributes.includes('nullable'),
     };
+  },
+
+  mergeStringElements(first, second) {
+    const merged = new StringElement();
+    merged.string = first.string + second.string;
+    if (first.sourceMap && second.sourceMap) {
+      merged.sourceMap = {};
+      merged.sourceMap.byteBlocks = [...first.sourceMap.byteBlocks, ...second.sourceMap.byteBlocks];
+      merged.sourceMap.charBlocks = [...first.sourceMap.charBlocks, ...second.sourceMap.charBlocks];
+    }
+    return merged;
   },
 
   isCurrentNodeOrChild(node, rootNode) {
