@@ -85,8 +85,13 @@ module.exports = (Parsers) => {
 
     processDescription(contentNode, context, result) {
       const parentNode = contentNode && contentNode.parent;
-      const type = result.value.type || types.object;
       const { startOffset } = context.data;
+      const allowedContentSections = [
+        Parsers.DefaultValueParser,
+        Parsers.SampleValueParser,
+        Parsers.MSONMemberGroupParser,
+      ];
+      const isContentSection = (node) => SectionTypes.calculateSectionType(node, context, allowedContentSections) !== SectionTypes.undefined;
 
       let dataStructureProcessorStartNode = contentNode;
 
@@ -95,7 +100,7 @@ module.exports = (Parsers) => {
         if (contentNode.type === 'paragraph' || !!startOffset) {
           stopCallback = curNode => (
             !utils.isCurrentNodeOrChild(curNode, parentNode)
-            || Parsers.MSONMemberGroupParser.sectionType(curNode, context, type) !== SectionTypes.undefined
+            || isContentSection(curNode)
           );
         }
         contentNode.skipLines = startOffset ? 1 : 0;

@@ -71,6 +71,12 @@ module.exports = (Parsers) => {
       const parentNode = contentNode && contentNode.parent;
       let type = result.content.type || types.object;
       const { startOffset } = context.data;
+      const allowedContentSections = [
+        Parsers.DefaultValueParser,
+        Parsers.SampleValueParser,
+        Parsers.MSONMemberGroupParser,
+      ];
+      const isContentSection = (node) => SectionTypes.calculateSectionType(node, context, allowedContentSections) !== SectionTypes.undefined;
 
       if (context.typeResolver.types[type]) {
         type = context.typeResolver.types[type].type || types.object;
@@ -83,7 +89,7 @@ module.exports = (Parsers) => {
         if (contentNode.type === 'paragraph' || !!startOffset) {
           stopCallback = curNode => (
             !utils.isCurrentNodeOrChild(curNode, parentNode)
-            || Parsers.MSONMemberGroupParser.sectionType(curNode, context, type) !== SectionTypes.undefined
+            || isContentSection(curNode)
           );
         }
         contentNode.skipLines = startOffset ? 1 : 0;
