@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.21.1 (29.07.2019)
+
+* Fix Sample / Default section added to a named type.
+
 ## 1.21.0 (26.07.2019)
 
 * Refactor getBody method.
