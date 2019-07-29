@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.21.2 (29.07.2019)
+
+* Fix processing of description of URI parameters.
+
 ## 1.21.1 (29.07.2019)
 
 * Fix Sample / Default section added to a named type.
