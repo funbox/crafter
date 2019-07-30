@@ -1450,8 +1450,7 @@
                                               }
                                             ]
                                           }
-                                        },
-                                        "content": "third example"
+                                        }
                                       }
                                     ],
                                     "attributes": {
@@ -1528,7 +1527,7 @@
                               "messageBody"
                             ]
                           },
-                          "content": "{\n  \"boo\": true,\n  \"foo\": true,\n  \"booFoo\": {},\n  \"fooBoo\": [\n    \"first example\",\n    \"second example\",\n    \"third example\"\n  ]\n}",
+                          "content": "{\n  \"boo\": true,\n  \"foo\": true,\n  \"booFoo\": {},\n  \"fooBoo\": [\n    \"first example\",\n    \"second example\",\n    {}\n  ]\n}",
                           "attributes": {
                             "contentType": {
                               "element": "string",
@@ -2257,6 +2256,66 @@
         }
       },
       "content": "Attribute \"maximum\" can be used in number value type only."
+    },
+    {
+      "element": "annotation",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "warning"
+            }
+          ]
+        }
+      },
+      "attributes": {
+        "sourceMap": {
+          "element": "array",
+          "content": [
+            {
+              "element": "sourceMap",
+              "content": [
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 35
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 15
+                        }
+                      },
+                      "content": 906
+                    },
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 35
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 68
+                        }
+                      },
+                      "content": 54
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "content": "\"object\" with value definition. You should use type definition without value, e.g., \"+ key (object)\""
     },
     {
       "element": "annotation",
