@@ -146,8 +146,12 @@ module.exports = (Parsers) => {
     },
 
     finalize(context, result) {
-      const { name, value: { type, content } } = result;
+      const { name, value: { type, content, value } } = result;
       const { attributeSignatureDetails: details } = context.data;
+
+      if (result.value.isObject() && content && value != null) {
+        context.addWarning('"object" with value definition. You should use type definition without value, e.g., "+ key (object)"', details.sourceMap);
+      }
 
       if (type === types.enum && !(content && content.members && content.members.length > 0)) {
         context.addWarning(`Enum element "${name.string}" should include members.`, details.sourceMap);

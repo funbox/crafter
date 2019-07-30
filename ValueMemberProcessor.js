@@ -23,6 +23,7 @@ const ValueMemberProcessor = {
     let defaultElements = [];
     let useSample = false;
     let useDefault = false;
+    let omitValue = element.isSample || element.isDefault || element.isArray();
 
     if (!element.isStandardType()) {
       const namedElement = context.typeResolver.types[element.type];
@@ -33,9 +34,14 @@ const ValueMemberProcessor = {
     }
 
     if (value === false || !!value) {
-      const [inlineSamples, inlineDefaults] = getSamplesAndDefaultsFromInline(element, value, context);
-      sampleElements = sampleElements.concat(inlineSamples);
-      defaultElements = defaultElements.concat(inlineDefaults);
+      if (element.type && element.isObject()) {
+        context.addWarning('"object" with value definition. You should use type definition without value, e.g., "+ key (object)"', context.data.attributeSignatureDetails.sourceMap);
+        omitValue = true;
+      } else {
+        const [inlineSamples, inlineDefaults] = getSamplesAndDefaultsFromInline(element, value, context);
+        sampleElements = sampleElements.concat(inlineSamples);
+        defaultElements = defaultElements.concat(inlineDefaults);
+      }
     }
 
     if (element.isArray()) {
@@ -64,7 +70,7 @@ const ValueMemberProcessor = {
       context.addWarning('Multiple definitions of "default" value', context.data.attributeSignatureDetails.sourceMap);
     }
 
-    element.value = (element.isSample || element.isDefault || element.isArray()) ? null : convertType(value, element.baseType).value;
+    element.value = omitValue ? null : convertType(value, element.baseType).value;
   },
 };
 
