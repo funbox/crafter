@@ -33,31 +33,9 @@ const ValueMemberProcessor = {
     }
 
     if (value === false || !!value) {
-      let inlineValuesType;
-      if (element.isArray() || element.isEnum()) {
-        inlineValuesType = element.nestedTypes.find(type => (context.typeResolver.getStandardBaseType(type) !== 'object')) || 'string';
-      } else {
-        inlineValuesType = element.type || 'string';
-      }
-
-      const inlineValues = splitValues(value).reduce((res, v) => {
-        const converted = convertType(v, inlineValuesType);
-
-        if (converted.valid) {
-          res.push(converted.value);
-        }
-        return res;
-      }, []);
-
-      // TODO Реализовать SourceMap-ы
-
-      if (element.isArray()) {
-        sampleElements = [new SampleValueElement(inlineValues, inlineValuesType, [])];
-        defaultElements = [new DefaultValueElement(inlineValues, inlineValuesType, [])];
-      } else {
-        sampleElements = inlineValues.map(v => new SampleValueElement(v, inlineValuesType, null));
-        defaultElements = inlineValues.map(v => new DefaultValueElement(v, inlineValuesType, null));
-      }
+      const [inlineSamples, inlineDefaults] = getSamplesAndDefaultsFromInline(element, value, context);
+      sampleElements = sampleElements.concat(inlineSamples);
+      defaultElements = defaultElements.concat(inlineDefaults);
     }
 
     if (element.isArray()) {
@@ -89,5 +67,37 @@ const ValueMemberProcessor = {
     element.value = (element.isSample || element.isDefault || element.isArray()) ? null : convertType(value, element.baseType).value;
   },
 };
+
+function getSamplesAndDefaultsFromInline(element, value, context) {
+  let inlineValuesType;
+  let sampleElements;
+  let defaultElements;
+
+  if (element.isArray() || element.isEnum()) {
+    inlineValuesType = element.nestedTypes.find(type => (context.typeResolver.getStandardBaseType(type) !== 'object')) || 'string';
+  } else {
+    inlineValuesType = element.type || 'string';
+  }
+
+  const inlineValues = splitValues(value).reduce((res, v) => {
+    const converted = convertType(v, inlineValuesType);
+
+    if (converted.valid) {
+      res.push(converted.value);
+    }
+    return res;
+  }, []);
+
+  // TODO Реализовать SourceMap-ы
+
+  if (element.isArray()) {
+    sampleElements = [new SampleValueElement(inlineValues, inlineValuesType, [])];
+    defaultElements = [new DefaultValueElement(inlineValues, inlineValuesType, [])];
+  } else {
+    sampleElements = inlineValues.map(v => new SampleValueElement(v, inlineValuesType, null));
+    defaultElements = inlineValues.map(v => new DefaultValueElement(v, inlineValuesType, null));
+  }
+  return [sampleElements, defaultElements];
+}
 
 module.exports = ValueMemberProcessor;
