@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.21.3 (30.07.2019)
+
+* Correctly detect type of inline-value of an array element.
+
 ## 1.21.2 (29.07.2019)
 
 * Fix processing of description of URI parameters.
