@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.22.0 (31.07.2019)
+
+* Show warning when a value doesnt match an expected data type.
+
 ## 1.21.4 (31.07.2019)
 
 * Show warning after the attempt to set an inline-value for an object.
