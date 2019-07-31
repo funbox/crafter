@@ -38,7 +38,7 @@ const ValueMemberProcessor = {
         context.addWarning('"object" with value definition. You should use type definition without value, e.g., "+ key (object)"', context.data.attributeSignatureDetails.sourceMap);
         omitValue = true;
       } else {
-        const [inlineSamples, inlineDefaults] = getSamplesAndDefaultsFromInline(element, value, context);
+        const [inlineSamples, inlineDefaults] = getSamplesAndDefaultsFromInline(element, value, context, context.data.attributeSignatureDetails.sourceMap);
         sampleElements = sampleElements.concat(inlineSamples);
         defaultElements = defaultElements.concat(inlineDefaults);
       }
@@ -74,7 +74,7 @@ const ValueMemberProcessor = {
   },
 };
 
-function getSamplesAndDefaultsFromInline(element, value, context) {
+function getSamplesAndDefaultsFromInline(element, value, context, sourceMap) {
   let inlineValuesType;
   let sampleElements;
   let defaultElements;
@@ -90,6 +90,8 @@ function getSamplesAndDefaultsFromInline(element, value, context) {
 
     if (converted.valid) {
       res.push(converted.value);
+    } else {
+      context.addTypeMismatchWarning(v, inlineValuesType, sourceMap);
     }
     return res;
   }, []);

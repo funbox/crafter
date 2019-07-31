@@ -27,6 +27,8 @@ module.exports = (Parsers) => {
 
               if (converted.valid) {
                 result.push(new SampleValueElement(converted.value, context.data.valueType, sourceMap));
+              } else {
+                context.addTypeMismatchWarning(value, context.data.valueType, sourceMap);
               }
             });
             break;
@@ -36,6 +38,8 @@ module.exports = (Parsers) => {
 
               if (converted.valid) {
                 res.push(converted.value);
+              } else {
+                context.addTypeMismatchWarning(v, context.data.valueType, sourceMap);
               }
               return res;
             }, []);
@@ -85,6 +89,8 @@ module.exports = (Parsers) => {
 
           if (converted.valid) {
             result.push(new SampleValueElement(converted.value, context.data.valueType, sourceMap));
+          } else {
+            context.addTypeMismatchWarning(text, context.data.valueType, sourceMap);
           }
           break;
         }
@@ -98,6 +104,8 @@ module.exports = (Parsers) => {
             const sample = result[result.length - 1];
             sample.value.push(converted.value);
             sample.sourceMap.push(sourceMap);
+          } else {
+            context.addTypeMismatchWarning(text, context.data.valueType, sourceMap);
           }
 
           break;

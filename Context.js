@@ -123,6 +123,10 @@ class Context {
       this.logger.warn(text, [sourceMap.charBlocks[0].startLine, sourceMap.file]);
     }
   }
+
+  addTypeMismatchWarning(value, requiredType, sourceMap) {
+    this.addWarning(`Invalid value format "${value}" for type "${requiredType}".`, sourceMap);
+  }
 }
 
 function getLinefeedOffsets(source) {

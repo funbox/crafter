@@ -301,7 +301,7 @@ class DataStructureProcessor {
       const typesMatch = utils.compareAttributeTypes(enumElement, member);
 
       if (!typesMatch) {
-        context.addWarning(`Invalid value format "${member.name}" for enum type '${enumElement.type}'.`, sourceMap);
+        context.addTypeMismatchWarning(member.name, enumElement.type, sourceMap);
       }
 
       member.name = converted.valid ? converted.value : utils.defaultValue(enumElement.type);
