@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.21.4 (31.07.2019)
+
+* Show warning after the attempt to set an inline-value for an object.
+
 ## 1.21.3 (30.07.2019)
 
 * Correctly detect type of inline-value of an array element.
