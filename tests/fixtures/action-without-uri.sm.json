@@ -649,9 +649,15 @@
                     {
                       "element": "asset",
                       "meta": {
-                        "classes": [
-                          "messageBody"
-                        ]
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "messageBody"
+                            }
+                          ]
+                        }
                       },
                       "content": "{\n  \"status\": \"unauthorized\"\n}",
                       "attributes": {
@@ -1125,9 +1131,15 @@
                             {
                               "element": "asset",
                               "meta": {
-                                "classes": [
-                                  "messageBody"
-                                ]
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "messageBody"
+                                    }
+                                  ]
+                                }
                               },
                               "content": "{\n  \"status\": \"ok\",\n  \"result\": \"hello\",\n  \"pagination\": \"hello\"\n}",
                               "attributes": {
@@ -1337,9 +1349,15 @@
                             {
                               "element": "asset",
                               "meta": {
-                                "classes": [
-                                  "messageBody"
-                                ]
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "messageBody"
+                                    }
+                                  ]
+                                }
                               },
                               "content": "{\n  \"status\": \"unauthorized\"\n}",
                               "attributes": {

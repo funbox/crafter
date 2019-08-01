@@ -116,9 +116,15 @@
                         {
                           "element": "asset",
                           "meta": {
-                            "classes": [
-                              "messageBody"
-                            ]
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "messageBody"
+                                }
+                              ]
+                            }
                           },
                           "content": "[\n  true,\n  {\n    \"id\": 1,\n    \"name\": \"hello\"\n  },\n  \"example 1\"\n]",
                           "attributes": {

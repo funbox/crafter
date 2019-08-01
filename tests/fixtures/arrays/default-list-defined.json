@@ -161,9 +161,15 @@
                         {
                           "element": "asset",
                           "meta": {
-                            "classes": [
-                              "messageBody"
-                            ]
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "messageBody"
+                                }
+                              ]
+                            }
                           },
                           "content": "{\n  \"a1\": [\n    \"foo\",\n    \"bar\"\n  ],\n  \"a2\": [\n    100,\n    200\n  ]\n}",
                           "attributes": {

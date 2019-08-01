@@ -53,9 +53,15 @@
                 {
                   "element": "asset",
                   "meta": {
-                    "classes": [
-                      "messageBody"
-                    ]
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "messageBody"
+                        }
+                      ]
+                    }
                   },
                   "content": "{\n    \"message\": \"Hello\"\n}\n"
                 },
@@ -92,9 +98,15 @@
                 {
                   "element": "asset",
                   "meta": {
-                    "classes": [
-                      "messageBody"
-                    ]
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "messageBody"
+                        }
+                      ]
+                    }
                   },
                   "content": "{\n    \"user\": \"Ivan\"\n}\n"
                 },

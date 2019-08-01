@@ -669,9 +669,15 @@
                 {
                   "element": "asset",
                   "meta": {
-                    "classes": [
-                      "messageBody"
-                    ]
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "messageBody"
+                        }
+                      ]
+                    }
                   },
                   "content": "{\n  \"name\": \"John\"\n}"
                 },
@@ -785,9 +791,15 @@
                 {
                   "element": "asset",
                   "meta": {
-                    "classes": [
-                      "messageBody"
-                    ]
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "messageBody"
+                        }
+                      ]
+                    }
                   },
                   "content": "{\n  \"id\": 1,\n  \"author\": {\n    \"id\": 42,\n    \"name\": \"John Smith\"\n  },\n  \"text\": \"Hello there\"\n}"
                 },

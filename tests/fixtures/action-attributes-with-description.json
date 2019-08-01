@@ -121,9 +121,15 @@
                             {
                               "element": "asset",
                               "meta": {
-                                "classes": [
-                                  "messageBody"
-                                ]
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "messageBody"
+                                    }
+                                  ]
+                                }
                               },
                               "content": "{\n  \"foo\": [\n    1\n  ],\n  \"bar\": \"hello\"\n}",
                               "attributes": {

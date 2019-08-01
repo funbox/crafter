@@ -462,9 +462,15 @@
                         {
                           "element": "asset",
                           "meta": {
-                            "classes": [
-                              "messageBody"
-                            ]
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "messageBody"
+                                }
+                              ]
+                            }
                           },
                           "content": "{\n  \"bar\": [\n    true,\n    \"example 1\",\n    [\n      1\n    ]\n  ]\n}",
                           "attributes": {

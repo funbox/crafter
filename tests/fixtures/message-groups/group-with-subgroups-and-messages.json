@@ -75,9 +75,15 @@
                 {
                   "element": "asset",
                   "meta": {
-                    "classes": [
-                      "messageBody"
-                    ]
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "messageBody"
+                        }
+                      ]
+                    }
                   },
                   "content": "{\n  \"text\": \"Hello there\"\n}"
                 },
@@ -174,9 +180,15 @@
                     {
                       "element": "asset",
                       "meta": {
-                        "classes": [
-                          "messageBody"
-                        ]
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "messageBody"
+                            }
+                          ]
+                        }
                       },
                       "content": "{\n  \"name\": \"John\"\n}"
                     },

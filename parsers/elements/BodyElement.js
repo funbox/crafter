@@ -15,9 +15,13 @@ class BodyElement {
     const result = {
       element: Refract.elements.asset,
       meta: {
-        classes: [
-          Refract.categoryClasses.messageBody,
-        ],
+        classes: {
+          element: Refract.elements.array,
+          content: [{
+            element: Refract.elements.string,
+            content: Refract.categoryClasses.messageBody,
+          }],
+        },
       },
       content: body,
     };

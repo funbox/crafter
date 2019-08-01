@@ -224,9 +224,15 @@
                         {
                           "element": "asset",
                           "meta": {
-                            "classes": [
-                              "messageBody"
-                            ]
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "messageBody"
+                                }
+                              ]
+                            }
                           },
                           "content": "{\n  \"a1\": [\n    \"foo\",\n    \"bar\",\n    \"baz\"\n  ],\n  \"a2\": [\n    \"first\",\n    \"hello, world\",\n    \"second\"\n  ],\n  \"a3\": [\n    1.1,\n    3.5,\n    4\n  ],\n  \"a4\": [\n    true,\n    false\n  ]\n}",
                           "attributes": {
