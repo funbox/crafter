@@ -76,9 +76,15 @@
         {
           "element": "category",
           "meta": {
-            "classes": [
-              "resourcePrototypes"
-            ]
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "resourcePrototypes"
+                }
+              ]
+            }
           },
           "content": [
             {

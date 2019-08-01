@@ -9,9 +9,13 @@ class ResourcePrototypesElement {
     return {
       element: Refract.elements.category,
       meta: {
-        classes: [
-          Refract.categoryClasses.resourcePrototypes,
-        ],
+        classes: {
+          element: Refract.elements.array,
+          content: [{
+            element: Refract.elements.string,
+            content: Refract.categoryClasses.resourcePrototypes,
+          }],
+        },
       },
       content: this.resourcePrototypes.map(rp => rp.toRefract(sourceMapsEnabled)),
     };
