@@ -1,6 +1,14 @@
 # My API
 
-Defines named type by extending another named type in-line using [].
+Defines named types:
+
+1) "SimpleType" as an array with nested member type list;
+2) "MixedType", which inherits from "SimpleType" and extends its nested type list.
+
+Expected result:
+
+Both string and number elements can be included in attributes body.
+Generated JSON schema must define response attributes as an array with items of type "string" or "number".
 
 # Data Structures
 

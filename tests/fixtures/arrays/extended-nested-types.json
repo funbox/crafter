@@ -21,7 +21,7 @@
       "content": [
         {
           "element": "copy",
-          "content": "Defines named type by extending another named type in-line using []."
+          "content": "Defines named types:\n\n1) \"SimpleType\" as an array with nested member type list;\n\n2) \"MixedType\", which inherits from \"SimpleType\" and extends its nested type list.\n\nExpected result:\n\nBoth string and number elements can be included in attributes body.\nGenerated JSON schema must define response attributes as an array with items of type \"string\" or \"number\"."
         },
         {
           "element": "category",
