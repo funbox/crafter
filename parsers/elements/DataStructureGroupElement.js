@@ -9,9 +9,13 @@ class DataStructureGroupElement {
     return {
       element: Refract.elements.category,
       meta: {
-        classes: [
-          Refract.categoryClasses.dataStructures,
-        ],
+        classes: {
+          element: Refract.elements.array,
+          content: [{
+            element: Refract.elements.string,
+            content: Refract.categoryClasses.dataStructures,
+          }],
+        },
       },
       content: this.dataStructures.map(ds => ds.toRefract(sourceMapsEnabled)),
     };
