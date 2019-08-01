@@ -13,9 +13,13 @@ class SchemaElement {
     const result = {
       element: Refract.elements.asset,
       meta: {
-        classes: [
-          Refract.categoryClasses.messageBodySchema,
-        ],
+        classes: {
+          element: Refract.elements.array,
+          content: [{
+            element: Refract.elements.string,
+            content: Refract.categoryClasses.messageBodySchema,
+          }],
+        },
       },
       attributes: {
         contentType: {
