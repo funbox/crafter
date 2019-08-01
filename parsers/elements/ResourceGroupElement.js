@@ -13,7 +13,13 @@ class ResourceGroupElement {
     const result = {
       element: Refract.elements.category,
       meta: {
-        classes: [Refract.categoryClasses.resourceGroup],
+        classes: {
+          element: Refract.elements.array,
+          content: [{
+            element: Refract.elements.string,
+            content: Refract.categoryClasses.resourceGroup,
+          }],
+        },
         title: this.title.toRefract(sourceMapsEnabled),
       },
       content: content.map(r => r.toRefract(sourceMapsEnabled)),
