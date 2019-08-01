@@ -1,4 +1,5 @@
 const commonmark = require('commonmark');
+const equal = require('fast-deep-equal');
 const Refract = require('./Refract');
 const types = require('./types');
 const DescriptionElement = require('./parsers/elements/DescriptionElement');
@@ -332,12 +333,38 @@ const utils = {
   },
 
   mergeSchemas(schema1, schema2) {
+    const uniquifySchemas = this.uniquifySchemas;
     const propsToMerge = [
       'properties',
-      'items',
       'oneOf',
       'required',
       { name: 'minItems', action(first, second) { return first + second; } },
+      {
+        name: 'items',
+        action(first, second) {
+          if (Array.isArray(first)) {
+            return [
+              ...first,
+              ...second,
+            ].filter((v, i, a) => a.indexOf(v) === i);
+          }
+
+          const schemaVariants = [
+            ...(first.anyOf ? first.anyOf : [first]),
+            ...(second.anyOf ? second.anyOf : [second]),
+          ];
+
+          const uniqueVariants = uniquifySchemas(schemaVariants);
+
+          if (uniqueVariants.length === 1) {
+            return uniqueVariants[0];
+          }
+
+          return {
+            anyOf: uniqueVariants,
+          };
+        },
+      },
     ];
     const result = { ...schema1 };
     Object.keys(schema2).forEach(key => {
@@ -363,6 +390,28 @@ const utils = {
       }
     });
     return result;
+  },
+
+  uniquifySchemas(schemaVariants) {
+    let primitiveVariants = [];
+    const complexVariants = [];
+    const equalTo = (item1) => (item2) => equal(item1, item2);
+
+    schemaVariants.forEach(variant => {
+      if (Object.keys(variant).length === 1 && variant.type) {
+        primitiveVariants.push(variant.type);
+        return;
+      }
+      if (!complexVariants.find(equalTo(variant))) {
+        complexVariants.push(variant);
+      }
+    });
+
+    primitiveVariants = primitiveVariants
+      .filter((v, i, a) => a.indexOf(v) === i)
+      .map((v) => ({ type: v }));
+
+    return primitiveVariants.concat(complexVariants);
   },
 
   mergeFlags(baseFlags, typeElement, options = { propagateFixedType: true }) {

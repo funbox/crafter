@@ -1,0 +1,24 @@
+# My API
+
+Defines named types:
+
+1) "SimpleType" as an array of string;
+2) "MixedType", which inherits from "SimpleType" and contains boolean element.
+
+Expected result:
+
+Both string and boolean elements can be included in attributes body.
+Generated JSON schema must define response attributes as an array with items of type "string" or "boolean".
+
+# Data Structures
+
+## SimpleType (array[string])
+
+## MixedType (SimpleType)
+
++ true (boolean)
+
+# Get options [GET /mixed]
+
++ Response 200 (application/json)
+    + Attributes(MixedType)

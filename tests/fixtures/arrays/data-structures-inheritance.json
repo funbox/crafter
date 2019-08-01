@@ -21,7 +21,7 @@
       "content": [
         {
           "element": "copy",
-          "content": "Defines named types:\n\n1) \"SimpleType\" as an array with nested member type list;\n\n2) \"MixedType\", which inherits from \"SimpleType\" and extends its nested type list.\n\nExpected result:\n\nBoth string and number elements can be included in attributes body.\nGenerated JSON schema must define response attributes as an array with items of type \"string\" or \"number\"."
+          "content": "Defines named types:\n\n1) \"SimpleType\" as an array of string;\n\n2) \"MixedType\", which inherits from \"SimpleType\" and contains boolean element.\n\nExpected result:\n\nBoth string and boolean elements can be included in attributes body.\nGenerated JSON schema must define response attributes as an array with items of type \"string\" or \"boolean\"."
         },
         {
           "element": "category",
@@ -60,7 +60,8 @@
                 "element": "SimpleType",
                 "content": [
                   {
-                    "element": "number"
+                    "element": "boolean",
+                    "content": true
                   }
                 ],
                 "meta": {
@@ -132,7 +133,7 @@
                               ]
                             }
                           },
-                          "content": "[\n  \"hello\",\n  1\n]",
+                          "content": "[\n  \"hello\",\n  true\n]",
                           "attributes": {
                             "contentType": {
                               "element": "string",
@@ -159,7 +160,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"array\",\n  \"items\": {\n    \"anyOf\": [\n      {\n        \"type\": \"string\"\n      },\n      {\n        \"type\": \"number\"\n      }\n    ]\n  }\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"array\",\n  \"items\": {\n    \"anyOf\": [\n      {\n        \"type\": \"string\"\n      },\n      {\n        \"type\": \"boolean\"\n      }\n    ]\n  }\n}"
                         }
                       ],
                       "attributes": {
