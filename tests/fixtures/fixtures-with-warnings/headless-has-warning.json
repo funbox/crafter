@@ -4,12 +4,15 @@
     {
       "element": "category",
       "meta": {
-        "classes": [
-          {
-            "element": "string",
-            "content": "api"
-          }
-        ],
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "api"
+            }
+          ]
+        },
         "title": {
           "element": "string",
           "content": ""

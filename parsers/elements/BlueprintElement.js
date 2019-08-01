@@ -14,10 +14,13 @@ class BlueprintElement {
     const result = {
       element: Refract.elements.category,
       meta: {
-        classes: [{
-          element: Refract.elements.string,
-          content: Refract.categoryClasses.api,
-        }],
+        classes: {
+          element: Refract.elements.array,
+          content: [{
+            element: Refract.elements.string,
+            content: Refract.categoryClasses.api,
+          }],
+        },
         title: this.title.toRefract(sourceMapsEnabled),
       },
       content: this.content.map(item => item.toRefract(sourceMapsEnabled)),
