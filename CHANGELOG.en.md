@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.23.0 (02.08.2019)
+
+* Fix refract to conform api-elements spec.
+
 ## 1.22.0 (31.07.2019)
 
 * Show warning when a value doesnt match an expected data type.
