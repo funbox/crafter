@@ -25,7 +25,7 @@ module.exports = (Parsers) => {
       if (context.error) {
         const errorResult = new BlueprintElement(title, undefined, metadataArray);
         preprocessErrorResult(errorResult, context);
-        return [null, errorResult];
+        return [null, errorResult, context.filePaths];
       }
 
       while (curNode.type === 'paragraph') {
@@ -115,7 +115,7 @@ module.exports = (Parsers) => {
         result.annotations.push(new AnnotationElement('warning', warning.text, warning.sourceMap));
       });
 
-      return [null, result];
+      return [null, result, context.filePaths];
     },
 
     nestedSectionType(node, context) {
@@ -232,6 +232,8 @@ module.exports = (Parsers) => {
           if (childAst.firstChild.type !== 'heading') {
             throw new CrafterError(`Invalid content of "${filename}". Expected content to be a section, instead got "${childAst.firstChild.type}".`);
           }
+
+          context.filePaths.push(`${context.resolvePathRelativeToEntryDir(filename)}`);
 
           addSourceLinesAndFilename(childAst, childSourceLines, childSourceBuffer, childLinefeedOffsets, context.resolvePathRelativeToEntryDir(filename));
           this.resolveImports(childAst.firstChild, childContext, usedFiles);
