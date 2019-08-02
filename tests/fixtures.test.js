@@ -1,5 +1,8 @@
 const fs = require('fs');
+const apiElements = require('api-elements');
 const Crafter = require('../Crafter');
+
+const elements = new apiElements.Namespace();
 
 const testPath = {
   base: `${__dirname}/fixtures`,
@@ -76,7 +79,11 @@ const testFilesFrom = (location) => {
         const filePath = `${path}/${f}`;
         const example = getMatchingData(f, path);
         const result = Crafter.parseFileSync(filePath, { logger });
-        expect(result.toRefract()).toEqual(example);
+        const refract = result.toRefract();
+        expect(refract).toEqual(example);
+        expect(() => {
+          elements.fromRefract(refract);
+        }).not.toThrowError();
 
         const exampleSm = getMatchingData(f, path, true);
         const resultSm = Crafter.parseFileSync(filePath, { logger, sourceMapsEnabled: true });
