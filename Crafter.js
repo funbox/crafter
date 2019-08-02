@@ -43,7 +43,7 @@ function parseSync(source, contextOptions) {
   const ast = utils.markdownSourceToAST(source);
   contextOptions.logger = contextOptions.logger || new Logger();
   const context = new Context(source, Parsers, contextOptions);
-  return Parsers.BlueprintParser.parse(ast.firstChild, context)[1];
+  return Parsers.BlueprintParser.parse(ast.firstChild, context).slice(1);
 }
 
 function parseFileSync(file, contextOptions = {}) {
