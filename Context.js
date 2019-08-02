@@ -23,6 +23,7 @@ class Context {
     this.typeResolvingInProgress = false;
     this.warningsEnabled = true;
     this.warnings = [];
+    this.filePaths = [];
 
     this.sectionKeywordSignatureParsers = [
       'DefaultValue',
