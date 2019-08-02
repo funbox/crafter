@@ -31,7 +31,9 @@ class ParameterElement {
             attributes: { sourceMap: sourceMapEl.toRefract() },
           } : {}),
         },
-        value: {},
+        value: {
+          element: Refract.elements.string,
+        },
       },
       attributes: {
         typeAttributes: {
@@ -94,10 +96,6 @@ class ParameterElement {
 
     if (this.enumerations) {
       result.content.value.attributes.enumerations = this.enumerations.toRefract(sourceMapsEnabled);
-    }
-
-    if (Object.keys(result.content.value).length === 0) {
-      delete result.content.value;
     }
 
     return result;
