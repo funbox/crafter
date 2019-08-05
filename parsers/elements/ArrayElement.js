@@ -1,3 +1,5 @@
+const utils = require('../../utils');
+
 class ArrayElement {
   constructor(members) {
     this.members = members;
@@ -21,15 +23,8 @@ class ArrayElement {
       schema.items = this.members.map(member => member.getSchema(resolvedTypes, localFlags));
       schema.additionalItems = false;
     } else if (this.members.length > 1) {
-      const map = new Map();
-      this.members.forEach(member => {
-        const memberSchema = member.getSchema(resolvedTypes);
-        const stringifiedSchema = JSON.stringify(memberSchema);
-        if (!map.has(stringifiedSchema)) {
-          map.set(stringifiedSchema, memberSchema);
-        }
-      });
-      const items = Array.from(map.values());
+      const memberSchemas = this.members.map(member => member.getSchema(resolvedTypes));
+      const items = utils.uniquifySchemas(memberSchemas);
       schema.items = {
         anyOf: items,
       };
