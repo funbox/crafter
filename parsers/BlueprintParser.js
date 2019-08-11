@@ -22,6 +22,12 @@ module.exports = (Parsers) => {
       let title = new StringElement('');
       const metadataArray = [];
 
+      if (context.error) {
+        const errorResult = new BlueprintElement(title, undefined, metadataArray);
+        preprocessErrorResult(errorResult, context);
+        return [null, errorResult];
+      }
+
       while (curNode.type === 'paragraph') {
         let isWarningAdded = false;
         const nodeText = utils.nodeText(curNode, context.sourceLines);
@@ -102,8 +108,7 @@ module.exports = (Parsers) => {
       }
 
       if (context.error) {
-        result.isError = true;
-        result.annotations.push(new AnnotationElement('error', context.error.message, context.error.sourceMap));
+        preprocessErrorResult(result, context);
       }
 
       context.warnings.forEach(warning => {
@@ -274,4 +279,9 @@ function addSourceLinesAndFilename(ast, sourceLines, filename) {
     node.file = filename;
     event = walker.next();
   }
+}
+
+function preprocessErrorResult(result, context) {
+  result.isError = true;
+  result.annotations.push(new AnnotationElement('error', context.error.message, context.error.sourceMap));
 }
