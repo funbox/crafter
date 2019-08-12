@@ -84,7 +84,7 @@ const testFilesFrom = (location) => {
         };
         const filePath = `${path}/${f}`;
         const example = getMatchingData(f, path);
-        const result = Crafter.parseFileSync(filePath, { logger });
+        const result = Crafter.parseFileSync(filePath, { logger })[0];
         const refract = result.toRefract();
         expect(refract).toEqual(example);
         expect(() => {
@@ -92,7 +92,7 @@ const testFilesFrom = (location) => {
         }).not.toThrowError();
 
         const exampleSm = getMatchingData(f, path, true);
-        const resultSm = Crafter.parseFileSync(filePath, { logger, sourceMapsEnabled: true });
+        const resultSm = Crafter.parseFileSync(filePath, { logger, sourceMapsEnabled: true })[0];
         expect(resultSm.toRefract(true)).toEqual(exampleSm);
 
         if (/has-warning/.test(f)) {
@@ -192,13 +192,13 @@ describe('Crafter with callback', () => {
 
     Crafter.parse(source, options, (error, result) => {
       expect(error).toBeUndefined();
-      expect(result.toRefract()).toEqual(example);
-      expect(result.isError).toBe(false);
+      expect(result[0].toRefract()).toEqual(example);
+      expect(result[0].isError).toBe(false);
 
       Crafter.parse(source, (error2, result2) => {
         expect(error2).toBeUndefined();
-        expect(result2.toRefract()).toEqual(example);
-        expect(result2.isError).toBe(false);
+        expect(result2[0].toRefract()).toEqual(example);
+        expect(result2[0].isError).toBe(false);
         done();
       });
     });
@@ -212,11 +212,11 @@ describe('Crafter with callback', () => {
 
     Crafter.parse(source, options, (error, result) => {
       expect(error).toBeUndefined();
-      expect(result.isError).toBe(true);
+      expect(result[0].isError).toBe(true);
 
       Crafter.parse(source, (error2, result2) => {
         expect(error2).toBeUndefined();
-        expect(result2.isError).toBe(true);
+        expect(result2[0].isError).toBe(true);
         done();
       });
     });
@@ -254,7 +254,7 @@ it('throws an error when parsing from source with imports and without entryDir o
 
   const source = readFile(file, path);
 
-  expect(Crafter.parseSync(source, options).isError).toBe(true);
+  expect(Crafter.parseSync(source, options)[0].isError).toBe(true);
 });
 
 function readFile(file, path) {
@@ -269,12 +269,12 @@ function getMatchingData(file, path, isSourceMaps = false) {
 function testFromSource(file, path, options) {
   const source = readFile(file, path);
 
-  const result = Crafter.parseSync(source, options);
+  const result = Crafter.parseSync(source, options)[0];
   const example = getMatchingData(file, path);
   expect(result.toRefract()).toEqual(example);
 
   options.sourceMapsEnabled = true;
-  const resultSm = Crafter.parseSync(source, options);
+  const resultSm = Crafter.parseSync(source, options)[0];
   const exampleSm = getMatchingData(file, path, options.sourceMapsEnabled);
   expect(resultSm.toRefract(true)).toEqual(exampleSm);
 }
