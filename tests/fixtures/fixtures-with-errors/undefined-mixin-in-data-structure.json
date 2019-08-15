@@ -1,0 +1,65 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "annotation",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "error"
+            }
+          ]
+        }
+      },
+      "attributes": {
+        "sourceMap": {
+          "element": "array",
+          "content": [
+            {
+              "element": "sourceMap",
+              "content": [
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 17
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 3
+                        }
+                      },
+                      "content": 216
+                    },
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 17
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 25
+                        }
+                      },
+                      "content": 23
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "content": "Mixin \"(BaseResponse)\" is not defined in the document."
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+FORMAT: 1A
+
+# Test
+
+# Group Test
+
+### Test [GET /api/v1/test]
+
++ Response 200 (application/json)
+    + Attributes (object, required)
+        + Include NormalResponse
+
+# Data Structures
+
+## NormalResponse (object)
+
++ Include (BaseResponse)
++ status: ok (required, fixed)
+
+## BaseResponse (object)
+
++ key: value
