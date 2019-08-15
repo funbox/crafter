@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.23.1 (15.08.2019)
+
+* Fix error message when expected block not found.
+
 ## 1.23.0 (02.08.2019)
 
 * Fix refract to conform api-elements spec.
