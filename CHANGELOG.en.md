@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.24.0 (15.08.2019)
+
+* Improve merge of "items" fields in helper method mergeSchemas.
+
 ## 1.23.1 (15.08.2019)
 
 * Fix error message when expected block not found.
