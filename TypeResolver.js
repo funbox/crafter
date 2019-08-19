@@ -58,6 +58,34 @@ class TypeResolver {
         resolveType(mixinName, baseType);
       });
 
+      if (targetType.content) {
+        if (targetType.content.propertyMembers) {
+          targetType.content.propertyMembers.forEach(member => {
+            if (member.value) {
+              if (member.value.type) {
+                if (this.types[member.value.type]) {
+                  resolveType(member.value.type, this.types[member.value.type]);
+                }
+              }
+              if (member.value.nestedTypes) {
+                member.value.nestedTypes.forEach(type => {
+                  if (this.types[type]) {
+                    resolveType(type, this.types[type]);
+                  }
+                });
+              }
+            }
+          });
+        }
+        if (targetType.content.members) {
+          targetType.content.members.forEach(member => {
+            if (this.types[member.type]) {
+              resolveType(member.type, this.types[member.type]);
+            }
+          });
+        }
+      }
+
       usedTypes.pop();
       this.resolvedTypes.add(name);
     };
