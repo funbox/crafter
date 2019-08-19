@@ -5,7 +5,7 @@ const Crafter = require('../Crafter');
 
 const DRAFTER_REPO_URL = 'https://github.com/apiaryio/drafter.git';
 const DRAFTER_BRANCH = 'master';
-const DRAFTER_COMMIT = '163898cd6ba51655b30ba5dc97395047ba860267'; // 17 ноября 2018.
+const DRAFTER_COMMIT = '01c6d6d181e489051fcac5badb03f08af232756c'; // Jul 4, 2019
 const FIXTURES_PATH = 'drafter/test/fixtures';
 const APIB_REGEX = /\.apib$/;
 
