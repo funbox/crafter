@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.24.1 (20.08.2019)
+
+* Fix error «Maximum call stack size exceeded».
+
 ## 1.24.0 (15.08.2019)
 
 * Improve merge of "items" fields in helper method mergeSchemas.
