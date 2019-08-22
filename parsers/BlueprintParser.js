@@ -222,6 +222,8 @@ module.exports = (Parsers) => {
 
           const { ast: childAst, context: childContext } = context.getApibAST(filename);
           const childSourceLines = childContext.sourceLines;
+          const childSourceBuffer = childContext.sourceBuffer;
+          const childLinefeedOffsets = childContext.linefeedOffsets;
 
           if (!childAst.firstChild) {
             throw new CrafterError(`File import error. File "${filename}" is empty.`);
@@ -231,7 +233,7 @@ module.exports = (Parsers) => {
             throw new CrafterError(`Invalid content of "${filename}". Expected content to be a section, instead got "${childAst.firstChild.type}".`);
           }
 
-          addSourceLinesAndFilename(childAst, childSourceLines, context.resolvePathRelativeToEntryDir(filename));
+          addSourceLinesAndFilename(childAst, childSourceLines, childSourceBuffer, childLinefeedOffsets, context.resolvePathRelativeToEntryDir(filename));
           this.resolveImports(childAst.firstChild, childContext, usedFiles);
 
           let childNode = childAst.firstChild;
@@ -268,7 +270,7 @@ module.exports = (Parsers) => {
   return true;
 };
 
-function addSourceLinesAndFilename(ast, sourceLines, filename) {
+function addSourceLinesAndFilename(ast, sourceLines, sourceBuffer, linefeedOffsets, filename) {
   const walker = ast.walker();
   let event = walker.next();
   let node;
@@ -276,6 +278,8 @@ function addSourceLinesAndFilename(ast, sourceLines, filename) {
   while (event) {
     node = event.node;
     node.sourceLines = sourceLines;
+    node.sourceBuffer = sourceBuffer;
+    node.linefeedOffsets = linefeedOffsets;
     node.file = filename;
     event = walker.next();
   }

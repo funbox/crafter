@@ -25,7 +25,10 @@ const testPath = {
     };
   },
   get fixturesWithErrors() {
-    return `${this.base}/fixtures-with-errors`;
+    return {
+      path: `${this.base}/fixtures-with-errors`,
+      exclude: /-inner\.apib$/,
+    };
   },
   get fixturesWithWarnings() {
     return `${this.base}/fixtures-with-warnings`;
@@ -203,7 +206,7 @@ describe('Crafter with callback', () => {
 
   it('Returns an error with and without options', (done) => {
     const file = 'undefined-data-type.apib';
-    const path = testPath.fixturesWithErrors;
+    const path = testPath.fixturesWithErrors.path;
     const options = {};
     const source = readFile(file, path);
 
