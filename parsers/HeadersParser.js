@@ -52,8 +52,12 @@ module.exports = (Parsers) => {
         return headers;
       }
 
+      const sourceLines = contentNode.sourceLines || context.sourceLines;
+      const sourceBuffer = contentNode.sourceBuffer || context.sourceBuffer;
+      const linefeedOffsets = contentNode.linefeedOffsets || context.linefeedOffsets;
+
       const { startLineIndex, startColumnIndex } = utils.getSourcePosZeroBased(contentNode);
-      const headersSourceMap = utils.makeSourceMapForAsset(contentNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const headersSourceMap = utils.makeSourceMapForAsset(contentNode, sourceLines, sourceBuffer, linefeedOffsets);
       const indentationBytes = startColumnIndex;
 
       if (contentNode.type !== 'code_block') {
@@ -69,7 +73,7 @@ module.exports = (Parsers) => {
 
         if (lineHasNonWhitespace) {
           if (contentLineIndex === 0) {
-            offset = utils.getOffsetFromStartOfFileInBytes(startLineIndex, startColumnIndex, context.sourceLines);
+            offset = utils.getOffsetFromStartOfFileInBytes(startLineIndex, startColumnIndex, sourceLines);
           } else {
             offset += indentationBytes;
           }
@@ -83,7 +87,7 @@ module.exports = (Parsers) => {
           offset += restBytes;
           block.length = offset - block.offset;
           const byteBlocks = [block];
-          const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(byteBlocks, context.sourceBuffer, context.linefeedOffsets);
+          const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
           const sourceMap = { byteBlocks, charBlocks, file: contentNode.file };
           offset += utils.linefeedBytes;
 
@@ -97,7 +101,7 @@ module.exports = (Parsers) => {
             headers.push(header);
           }
         } else {
-          const sourceLine = context.sourceLines[startLineIndex + contentLineIndex];
+          const sourceLine = sourceLines[startLineIndex + contentLineIndex];
           offset += Buffer.byteLength(sourceLine);
           offset += utils.linefeedBytes;
         }

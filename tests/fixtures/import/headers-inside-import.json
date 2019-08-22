@@ -1,0 +1,335 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "api"
+            }
+          ]
+        },
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
+      },
+      "content": [
+        {
+          "element": "category",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "resourceGroup"
+                }
+              ]
+            },
+            "title": {
+              "element": "string",
+              "content": "Управление списком детей"
+            }
+          },
+          "content": [
+            {
+              "element": "resource",
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Получение списка детей"
+                }
+              },
+              "attributes": {
+                "href": {
+                  "element": "string",
+                  "content": "/kids"
+                }
+              },
+              "content": [
+                {
+                  "element": "transition",
+                  "meta": {
+                    "title": {
+                      "element": "string",
+                      "content": "Получение списка детей"
+                    }
+                  },
+                  "content": [
+                    {
+                      "element": "httpTransaction",
+                      "content": [
+                        {
+                          "element": "httpRequest",
+                          "attributes": {
+                            "method": {
+                              "element": "string",
+                              "content": "GET"
+                            },
+                            "headers": {
+                              "element": "httpHeaders",
+                              "content": [
+                                {
+                                  "element": "member",
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "Content-Type"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "content": "application/json"
+                                    }
+                                  }
+                                },
+                                {
+                                  "element": "member",
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "X-SESSION-ID"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "content": "\"17d24529471dd7d72d2\" - токен сессии"
+                                    }
+                                  }
+                                },
+                                {
+                                  "element": "member",
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "X-VERSION"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "content": "\"android:1.5\" - платформа и версия мобильного приложения. android/ios"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "content": []
+                        },
+                        {
+                          "element": "httpResponse",
+                          "content": [
+                            {
+                              "element": "dataStructure",
+                              "content": {
+                                "element": "object",
+                                "content": [
+                                  {
+                                    "element": "member",
+                                    "content": {
+                                      "key": {
+                                        "element": "string",
+                                        "content": "result"
+                                      },
+                                      "value": {
+                                        "element": "object",
+                                        "content": [
+                                          {
+                                            "element": "member",
+                                            "content": {
+                                              "key": {
+                                                "element": "string",
+                                                "content": "status"
+                                              },
+                                              "value": {
+                                                "element": "object",
+                                                "content": [
+                                                  {
+                                                    "element": "member",
+                                                    "content": {
+                                                      "key": {
+                                                        "element": "string",
+                                                        "content": "name"
+                                                      },
+                                                      "value": {
+                                                        "element": "string",
+                                                        "content": "OK"
+                                                      }
+                                                    },
+                                                    "attributes": {
+                                                      "typeAttributes": {
+                                                        "element": "array",
+                                                        "content": [
+                                                          {
+                                                            "element": "string",
+                                                            "content": "required"
+                                                          },
+                                                          {
+                                                            "element": "string",
+                                                            "content": "fixed"
+                                                          }
+                                                        ]
+                                                      }
+                                                    },
+                                                    "meta": {
+                                                      "description": {
+                                                        "element": "string",
+                                                        "content": "код успешного результата"
+                                                      }
+                                                    }
+                                                  },
+                                                  {
+                                                    "element": "member",
+                                                    "content": {
+                                                      "key": {
+                                                        "element": "string",
+                                                        "content": "id"
+                                                      },
+                                                      "value": {
+                                                        "element": "string",
+                                                        "content": "1"
+                                                      }
+                                                    },
+                                                    "attributes": {
+                                                      "typeAttributes": {
+                                                        "element": "array",
+                                                        "content": [
+                                                          {
+                                                            "element": "string",
+                                                            "content": "required"
+                                                          },
+                                                          {
+                                                            "element": "string",
+                                                            "content": "fixed"
+                                                          }
+                                                        ]
+                                                      }
+                                                    },
+                                                    "meta": {
+                                                      "description": {
+                                                        "element": "string",
+                                                        "content": "числовой код успешного результата"
+                                                      }
+                                                    }
+                                                  }
+                                                ]
+                                              }
+                                            },
+                                            "attributes": {
+                                              "typeAttributes": {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "string",
+                                                    "content": "required"
+                                                  }
+                                                ]
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    "attributes": {
+                                      "typeAttributes": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "string",
+                                            "content": "required"
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "element": "asset",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "messageBody"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": "{\n  \"result\": {\n    \"status\": {\n      \"name\": \"OK\",\n      \"id\": \"1\"\n    }\n  }\n}",
+                              "attributes": {
+                                "contentType": {
+                                  "element": "string",
+                                  "content": "application/json"
+                                }
+                              }
+                            },
+                            {
+                              "element": "asset",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "messageBodySchema"
+                                    }
+                                  ]
+                                }
+                              },
+                              "attributes": {
+                                "contentType": {
+                                  "element": "string",
+                                  "content": "application/schema+json"
+                                }
+                              },
+                              "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"result\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"status\": {\n          \"type\": \"object\",\n          \"properties\": {\n            \"name\": {\n              \"type\": \"string\",\n              \"enum\": [\n                \"OK\"\n              ],\n              \"description\": \"код успешного результата\"\n            },\n            \"id\": {\n              \"type\": \"string\",\n              \"enum\": [\n                \"1\"\n              ],\n              \"description\": \"числовой код успешного результата\"\n            }\n          },\n          \"required\": [\n            \"name\",\n            \"id\"\n          ]\n        }\n      },\n      \"required\": [\n        \"status\"\n      ]\n    }\n  },\n  \"required\": [\n    \"result\"\n  ]\n}"
+                            }
+                          ],
+                          "attributes": {
+                            "statusCode": {
+                              "element": "string",
+                              "content": "200"
+                            },
+                            "headers": {
+                              "element": "httpHeaders",
+                              "content": [
+                                {
+                                  "element": "member",
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "Content-Type"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "content": "application/json"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "attributes": {
+                    "href": {
+                      "element": "string",
+                      "content": "/kids"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+# Group Управление списком детей
+
+## Получение списка детей [GET /kids]
+
++ Request (application/json)
+    + Headers
+
+            X-SESSION-ID: "17d24529471dd7d72d2" - токен сессии
+            X-VERSION: "android:1.5" - платформа и версия мобильного приложения. android/ios
+
++ Response 200 (application/json)
+	+ Attributes
+		+ result (object, required)
+			+ status (object, required)
+				+ name: OK (required, fixed) - код успешного результата
+				+ id: 1 (required, fixed) - числовой код успешного результата
