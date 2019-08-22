@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.24.2 (22.08.2019)
+
+* Fix line/column info in sourcemaps of imported file.
+
 ## 1.24.1 (20.08.2019)
 
 * Fix error «Maximum call stack size exceeded».
