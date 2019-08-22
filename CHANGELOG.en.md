@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.24.3 (22.08.2019)
+
+* Fix parsing of imported docs with the Headers section.
+
 ## 1.24.2 (22.08.2019)
 
 * Fix line/column info in sourcemaps of imported file.
