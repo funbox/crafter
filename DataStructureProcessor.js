@@ -4,6 +4,7 @@ const utils = require('./utils');
 
 const EnumElement = require('./parsers/elements/EnumElement');
 const ObjectElement = require('./parsers/elements/ObjectElement');
+const SchemaNamedTypeElement = require('./parsers/elements/SchemaNamedTypeElement');
 
 const { standardTypes } = types;
 
@@ -22,6 +23,12 @@ class DataStructureProcessor {
     }
 
     if (valueMember.isObject()) {
+      const baseType = context.typeResolver.types[valueMember.type];
+      if (baseType && baseType instanceof SchemaNamedTypeElement) {
+        const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+        throw new utils.CrafterError('No inheritance allowed from schema named type', sourceMap);
+      }
+
       const [object, samples] = this.buildObject(curNode, context);
       valueMember.content = object;
 
@@ -190,6 +197,11 @@ class DataStructureProcessor {
             const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
             context.addWarning('Mixin may not include a type of a primitive sub-type', sourceMap);
             childResult = null;
+          }
+
+          if (baseType && baseType instanceof SchemaNamedTypeElement) {
+            const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+            throw new utils.CrafterError('Mixin may not include a schema named type', sourceMap);
           }
           break;
         }

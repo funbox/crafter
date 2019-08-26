@@ -55,15 +55,15 @@ module.exports = (Parsers) => {
 
       if (Parsers.BodyParser.sectionType(node, context) !== SectionTypes.undefined) {
         [nextNode, childResult] = Parsers.BodyParser.parse(node, context);
-        if (!result.body) {
-          result.body = childResult;
+        if (!result.bodyEl) {
+          result.bodyEl = childResult;
         } else {
           throw new CrafterError('Schema named type could contain only one body section', details.sourceMap);
         }
       } else {
         [nextNode, childResult] = Parsers.SchemaParser.parse(node, context);
-        if (!result.schema) {
-          result.schema = childResult;
+        if (!result.schemaEl) {
+          result.schemaEl = childResult;
         } else {
           throw new CrafterError('Schema named type could contain only one schema section', details.sourceMap);
         }
@@ -75,11 +75,11 @@ module.exports = (Parsers) => {
     finalize(context, result) {
       const { attributeSignatureDetails: details } = context.data;
 
-      if (!result.body) throw new CrafterError('Schema named type element must contain body section', details.sourceMap);
-      if (!result.schema) throw new CrafterError('Schema named type element must contain schema section', details.sourceMap);
+      if (!result.bodyEl) throw new CrafterError('Schema named type element must contain body section', details.sourceMap);
+      if (!result.schemaEl) throw new CrafterError('Schema named type element must contain schema section', details.sourceMap);
 
       try {
-        JSON.parse(result.body.body);
+        result.body = JSON.parse(result.bodyEl.body);
       } catch (e) {
         throw new CrafterError('Body section in schema named type element is invalid JSON', details.sourceMap);
       }

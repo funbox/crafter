@@ -146,17 +146,30 @@ module.exports = (Parsers) => {
       };
 
       context.suppressWarnings();
+
       context.typeExtractingInProgress = true;
 
       this.resolveImports(node, context, usedFiles);
 
       walkAST({
+        [SectionTypes.schemaStructureGroup]: (curNode) => {
+          const [nextNode, schemaStructureGroup] = Parsers.SchemaStructureGroupParser.parse(curNode, context);
+          schemaStructureGroup.schemaStructures.forEach((schemaType) => {
+            const typeName = schemaType.name.string;
+            if ((!context.getType(typeName))) {
+              context.addType(schemaType, schemaType);
+            } else {
+              throw new CrafterError(`${typeName} type already defined`, schemaType.name.sourceMap);
+            }
+          });
+          return nextNode;
+        },
         [SectionTypes.dataStructureGroup]: (curNode) => {
           const [nextNode, dataStructureGroup] = Parsers.DataStructureGroupParser.parse(curNode, context);
           dataStructureGroup.dataStructures.forEach((namedType) => {
             const typeName = namedType.name.string;
             if ((!context.getType(typeName))) {
-              context.addType(namedType);
+              context.addType(namedType, namedType.content);
             } else {
               throw new CrafterError(`${typeName} type already defined`, namedType.name.sourceMap);
             }
@@ -171,7 +184,7 @@ module.exports = (Parsers) => {
         [SectionTypes.dataStructureGroup]: (curNode) => {
           const [nextNode, dataStructureGroup] = Parsers.DataStructureGroupParser.parse(curNode, context);
           dataStructureGroup.dataStructures.forEach((namedType) => {
-            context.addType(namedType);
+            context.addType(namedType, namedType.content);
           });
           return nextNode;
         },

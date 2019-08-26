@@ -47,8 +47,8 @@ class Context {
     this.resourcePrototypeResolver = new PrototypeResolver();
   }
 
-  addType(type) {
-    this.typeResolver.types[type.name.string] = type.content;
+  addType(type, content) {
+    this.typeResolver.types[type.name.string] = content;
     this.typeResolver.typeNames[type.name.string] = type.name;
   }
 

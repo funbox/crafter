@@ -40,7 +40,7 @@ class TypeResolver {
 
         resolveType(baseTypeName, baseType);
 
-        if (baseType.isComplex()) {
+        if (baseType.isComplex() && baseType.typeAttributes) {
           copyNewAttributes(baseType, targetType);
         }
       }

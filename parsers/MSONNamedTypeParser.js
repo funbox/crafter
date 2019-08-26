@@ -6,6 +6,7 @@ const MSONNamedTypeElement = require('./elements/MSONNamedTypeElement');
 const StringElement = require('./elements/StringElement');
 const EnumElement = require('./elements/EnumElement');
 const ObjectElement = require('./elements/ObjectElement');
+const SchemaNamedTypeElement = require('./elements/SchemaNamedTypeElement');
 const DataStructureProcessor = require('../DataStructureProcessor');
 const ValueMemberProcessor = require('../ValueMemberProcessor');
 
@@ -33,6 +34,11 @@ module.exports = (Parsers) => {
 
       const typeElement = new MSONNamedTypeElement(name, signature.type, signature.typeAttributes);
       if (!context.typeExtractingInProgress) {
+        const typeEl = context.typeResolver.types[signature.type];
+        if (typeEl && typeEl instanceof SchemaNamedTypeElement) {
+          throw new CrafterError('No inheritance allowed from schema named type.', sourceMap);
+        }
+
         try {
           ValueMemberProcessor.fillBaseType(context, typeElement.content);
         } catch (error) {

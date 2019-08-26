@@ -5,8 +5,21 @@ const SourceMapElement = require('./SourceMapElement');
 class SchemaNamedTypeElement {
   constructor(name) {
     this.name = name;
+    this.bodyEl = null;
+    this.schemaEl = null;
     this.body = null;
-    this.schema = null;
+  }
+
+  isComplex() {
+    return true;
+  }
+
+  getBody() {
+    return this.body;
+  }
+
+  getSchema() {
+    return this.schemaEl.schema;
   }
 
   toRefract(sourceMapsEnabled) {
@@ -15,7 +28,7 @@ class SchemaNamedTypeElement {
       meta: {
         id: this.name.toRefract(sourceMapsEnabled),
       },
-      content: [this.body.toRefract(sourceMapsEnabled), this.schema.toRefract(sourceMapsEnabled)],
+      content: [this.bodyEl.toRefract(sourceMapsEnabled), this.schemaEl.toRefract(sourceMapsEnabled)],
     };
 
     if (this.description) {
