@@ -266,7 +266,12 @@ class DataStructureProcessor {
         case SectionTypes.enumMember:
           [nextNode, childResult] = this.Parsers.EnumMemberParser.parse(curNode, context);
           if (childResult.name) {
-            enumElement.members.push(childResult);
+            const validEnumMemberTypes = ['string', 'number', 'boolean'];
+            if (!childResult.type || validEnumMemberTypes.includes(childResult.type)) {
+              enumElement.members.push(childResult);
+            } else {
+              context.addWarning(`Invalid enum member type: ${childResult.type}. Valid types: ${validEnumMemberTypes.join(', ')}.`, childResult.sourceMap);
+            }
           } else {
             context.addWarning(`Enum members must have names: ${childResult.type}`, childResult.sourceMap);
           }
