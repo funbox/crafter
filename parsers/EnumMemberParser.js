@@ -30,7 +30,7 @@ module.exports = (Parsers) => {
 
         try {
           const signature = new SignatureParser(text, [ParserTraits.VALUE, ParserTraits.ATTRIBUTES, ParserTraits.DESCRIPTION]);
-          if (signature.value || signature.rawValue) {
+          if (signature.value || signature.rawValue || signature.type) {
             return SectionTypes.enumMember;
           }
         } catch (e) { // eslint-disable-line no-empty

@@ -265,7 +265,11 @@ class DataStructureProcessor {
           break;
         case SectionTypes.enumMember:
           [nextNode, childResult] = this.Parsers.EnumMemberParser.parse(curNode, context);
-          enumElement.members.push(childResult);
+          if (childResult.name) {
+            enumElement.members.push(childResult);
+          } else {
+            context.addWarning(`Enum members must have names: ${childResult.type}`, childResult.sourceMap);
+          }
           break;
         default: {
           const errorSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
