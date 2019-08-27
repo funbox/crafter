@@ -276,6 +276,10 @@ class DataStructureProcessor {
             context.addWarning(`Enum members must have names: ${childResult.type}`, childResult.sourceMap);
           }
           break;
+        case SectionTypes.msonArrayMemberGroup: {
+          const errorSourceMap = utils.makeGenericSourceMap(curNode.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+          throw new utils.CrafterError('Enums must use "Members" instead of "Items" as member section name', errorSourceMap);
+        }
         default: {
           const errorSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
           throw new utils.CrafterError(`invalid sectionType: ${sectionType}`, errorSourceMap);
