@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.24.4 (28.08.2019)
+
+* Fix errors «invalid sectionType».
+
 ## 1.24.3 (22.08.2019)
 
 * Fix parsing of imported docs with the Headers section.
