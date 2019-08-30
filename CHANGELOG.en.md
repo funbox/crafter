@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.25.0 (30.08.2019)
+
+* Add the ability to get a list of files used to generate documentation.
+
 ## 1.24.4 (28.08.2019)
 
 * Fix errors «invalid sectionType».
