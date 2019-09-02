@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.26.0 (02.09.2019)
+
+* Allow to use Schema-types in different sections.
+
 ## 1.25.0 (30.08.2019)
 
 * Add the ability to get a list of files used to generate documentation.
