@@ -46,7 +46,7 @@ const logger = {
 };
 
 test.each(apibFiles)('%s', filepath => {
-  const result = Crafter.parseFileSync(filepath, { logger });
+  const result = Crafter.parseFileSync(filepath, { logger })[0];
 
   const jsonFilepath = filepath.replace(APIB_REGEX, '.json');
   const exampleFile = fs.readFileSync(jsonFilepath, { encoding: 'utf-8' });
