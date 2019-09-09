@@ -482,7 +482,7 @@ const utils = {
     const isString = (v) => (typeof v === 'string' || v instanceof String);
     const isBoolean = (v) => (typeof v === 'boolean' || v instanceof Boolean);
 
-    if (value !== false && !value) return { valid: false, value };
+    if (value !== false && value !== 0 && !value) return { valid: false, value };
 
     switch (requiredType) {
       case 'number':

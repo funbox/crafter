@@ -141,7 +141,8 @@ class ValueMemberElement {
     }
 
     const type = (typeEl && typeEl.baseType) || this.type || (this.content ? 'object' : 'string');
-    return convertType(this.value, type).value || utils.defaultValue(type);
+    const convertedValue = convertType(this.value, type).value;
+    return convertedValue !== undefined && convertedValue !== null ? convertedValue : utils.defaultValue(type);
   }
 
   getSchema(resolvedTypes, flags = {}) {
