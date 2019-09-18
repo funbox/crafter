@@ -61,38 +61,97 @@ module.exports = (Parsers) => {
     },
 
     processNestedSections(node, context, result) {
-      if (!node) {
-        return [node, result];
-      }
-      const contentNode = node.parent;
+      let curNode = node;
 
-      if (!context.typeExtractingInProgress) {
-        let type = result.content.type || types.object;
+      while (curNode) {
+        if (curNode.type === 'item') {
+          if (!context.typeExtractingInProgress) {
+            const dataStructureProcessor = new DataStructureProcessor(curNode.parent, Parsers);
+            dataStructureProcessor.fillValueMember(result.content, context);
+          }
 
-        if (context.typeResolver.types[type]) {
-          type = context.typeResolver.getStandardBaseType(type);
-        }
+          curNode = utils.nextNode(curNode.parent);
+        } else if (Parsers.NamedTypeMemberGroupParser.sectionType(curNode, context) !== SectionTypes.undefined) {
+          if (!context.typeExtractingInProgress) {
+            let type = result.content.type || types.object;
 
-        if (Parsers.NamedTypeMemberGroupParser.sectionType(node, context) !== SectionTypes.undefined) {
-          const [nextNode, childRes] = Parsers.NamedTypeMemberGroupParser.parse(node, context);
-          fillElementWithContent(result.content, type, childRes.members);
+            if (context.typeResolver.types[type]) {
+              type = context.typeResolver.getStandardBaseType(type);
+            }
 
-          return [nextNode, result];
-        }
+            const [nextNode, childRes] = Parsers.NamedTypeMemberGroupParser.parse(curNode, context);
+            fillElementWithContent(result.content, type, childRes.members);
+            curNode = nextNode;
+          } else {
+            curNode = utils.nextNodeOfType(curNode, 'heading');
+          }
+        } else if (Parsers.SampleHeaderParser.sectionType(curNode, context) !== SectionTypes.undefined) {
+          if (!context.typeExtractingInProgress) {
+            const valueMember = result.content;
+            let childResult;
 
-        if (contentNode.type === 'list') {
-          const dataStructureProcessor = new DataStructureProcessor(contentNode, Parsers);
-          dataStructureProcessor.fillValueMember(result.content, context);
+            if (!valueMember.isComplex()) {
+              const samples = [];
+
+              context.data.typeForSamples = 'primitive';
+              context.data.valueType = valueMember.type;
+              [, childResult] = Parsers.SampleHeaderParser.parse(curNode, context);
+              delete context.data.typeForSamples;
+              delete context.data.valueType;
+              samples.push(...childResult);
+
+              if (samples.length) {
+                valueMember.samples = valueMember.samples || [];
+                valueMember.samples.push(...samples);
+              }
+            }
+
+            if (valueMember.isObject()) {
+              const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+              throw new utils.CrafterError('Sample is not supported for objects', sourceMap);
+            }
+
+            if (valueMember.isArray()) {
+              const arrayMembers = valueMember.content.members;
+              const predefinedType = (arrayMembers.length && arrayMembers[0].type) || 'string';
+              const samples = [];
+
+              context.data.typeForSamples = 'array';
+              context.data.valueType = predefinedType;
+              [, childResult] = Parsers.SampleHeaderParser.parse(curNode, context);
+              delete context.data.typeForSamples;
+              delete context.data.valueType;
+              samples.push(...childResult);
+
+              if (samples.length) {
+                valueMember.samples = valueMember.samples || [];
+                valueMember.samples.push(...samples);
+              }
+            }
+
+            if (valueMember.isEnum()) {
+              const enumElement = valueMember.content;
+              const samples = [];
+
+              context.data.typeForSamples = 'enum';
+              context.data.valueType = enumElement.type;
+              [, childResult] = Parsers.SampleHeaderParser.parse(curNode, context);
+              samples.push(...childResult);
+              delete context.data.typeForSamples;
+              delete context.data.valueType;
+
+              if (samples.length) {
+                enumElement.sampleValues = samples;
+              }
+            }
+          }
+          curNode = utils.nextNodeOfType(curNode, 'heading');
         } else {
-          return [node, result];
+          return [curNode, result];
         }
-      } else if (node.type === 'heading') {
-        const returnNode = Parsers.NamedTypeMemberGroupParser.sectionType(node, context) !== SectionTypes.undefined
-          ? utils.nextNodeOfType(node, 'heading') : node;
-        return [returnNode, result];
       }
 
-      return [utils.nextNode(contentNode), result];
+      return [curNode, result];
     },
 
     processDescription(node, context, result) {

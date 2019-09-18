@@ -1,0 +1,209 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "api"
+            }
+          ]
+        },
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
+      },
+      "content": [
+        {
+          "element": "category",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "dataStructures"
+                }
+              ]
+            }
+          },
+          "content": [
+            {
+              "element": "dataStructure",
+              "content": {
+                "element": "string",
+                "attributes": {
+                  "samples": {
+                    "element": "array",
+                    "content": [
+                      {
+                        "element": "string",
+                        "content": "foo"
+                      },
+                      {
+                        "element": "string",
+                        "content": "bar"
+                      }
+                    ]
+                  }
+                },
+                "meta": {
+                  "id": {
+                    "element": "string",
+                    "content": "Obj"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "element": "resource",
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": ""
+            }
+          },
+          "attributes": {
+            "href": {
+              "element": "string",
+              "content": "/foo"
+            }
+          },
+          "content": [
+            {
+              "element": "transition",
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": ""
+                }
+              },
+              "content": [
+                {
+                  "element": "httpTransaction",
+                  "content": [
+                    {
+                      "element": "httpRequest",
+                      "attributes": {
+                        "method": {
+                          "element": "string",
+                          "content": "GET"
+                        }
+                      },
+                      "content": []
+                    },
+                    {
+                      "element": "httpResponse",
+                      "content": [
+                        {
+                          "element": "dataStructure",
+                          "content": {
+                            "element": "Obj",
+                            "attributes": {
+                              "samples": {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "string",
+                                    "content": "foo"
+                                  },
+                                  {
+                                    "element": "string",
+                                    "content": "bar"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "element": "asset",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "messageBody"
+                                }
+                              ]
+                            }
+                          },
+                          "content": "foo",
+                          "attributes": {
+                            "contentType": {
+                              "element": "string",
+                              "content": "application/json"
+                            }
+                          }
+                        },
+                        {
+                          "element": "asset",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "messageBodySchema"
+                                }
+                              ]
+                            }
+                          },
+                          "attributes": {
+                            "contentType": {
+                              "element": "string",
+                              "content": "application/schema+json"
+                            }
+                          },
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"string\"\n}"
+                        }
+                      ],
+                      "attributes": {
+                        "statusCode": {
+                          "element": "string",
+                          "content": "200"
+                        },
+                        "headers": {
+                          "element": "httpHeaders",
+                          "content": [
+                            {
+                              "element": "member",
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "Content-Type"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "application/json"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "attributes": {
+                "href": {
+                  "element": "string",
+                  "content": "/foo"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

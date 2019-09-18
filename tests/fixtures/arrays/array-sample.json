@@ -1,0 +1,152 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "api"
+            }
+          ]
+        },
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
+      },
+      "content": [
+        {
+          "element": "category",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "dataStructures"
+                }
+              ]
+            }
+          },
+          "content": [
+            {
+              "element": "dataStructure",
+              "content": {
+                "element": "array",
+                "content": [
+                  {
+                    "element": "string",
+                    "attributes": {
+                      "typeAttributes": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "fixed"
+                          }
+                        ]
+                      }
+                    },
+                    "content": "a"
+                  },
+                  {
+                    "element": "string",
+                    "attributes": {
+                      "typeAttributes": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "fixed"
+                          }
+                        ]
+                      }
+                    },
+                    "content": "b"
+                  },
+                  {
+                    "element": "string",
+                    "attributes": {
+                      "typeAttributes": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "fixed"
+                          }
+                        ]
+                      }
+                    },
+                    "content": "f"
+                  },
+                  {
+                    "element": "string",
+                    "attributes": {
+                      "typeAttributes": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "fixed"
+                          }
+                        ]
+                      }
+                    },
+                    "content": "g"
+                  }
+                ],
+                "attributes": {
+                  "samples": {
+                    "element": "array",
+                    "content": [
+                      {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "d"
+                          },
+                          {
+                            "element": "string",
+                            "content": "e"
+                          }
+                        ]
+                      },
+                      {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "h"
+                          },
+                          {
+                            "element": "string",
+                            "content": "j"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "meta": {
+                  "id": {
+                    "element": "string",
+                    "content": "ArraySample"
+                  },
+                  "description": {
+                    "element": "string",
+                    "content": "description"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -9,7 +9,9 @@ const listTypedSampleValueRegex = /^[Ss]ample$/;
 module.exports = (Parsers) => {
   Parsers.SampleValueParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
-      const text = utils.nodeText(node.firstChild, context.sourceLines);
+      const text = node.type === 'heading'
+        ? utils.headerText(node, context.sourceLines)
+        : utils.nodeText(node.firstChild, context.sourceLines);
       const valuesMatch = sampleValueRegex.exec(text);
       const values = valuesMatch ? splitValues(valuesMatch[1]) : undefined;
 
@@ -62,12 +64,18 @@ module.exports = (Parsers) => {
           return SectionTypes.sampleValue;
         }
       }
+      if (node.type === 'heading') {
+        const text = utils.headerText(node, context.sourceLines);
+        if (listTypedSampleValueRegex.exec(text)) {
+          return SectionTypes.sampleValue;
+        }
+      }
 
       return SectionTypes.undefined;
     },
 
     nestedSectionType(node) {
-      if (node.type === 'item') {
+      if (node.type === 'item' || node.type === 'paragraph') {
         return SectionTypes.sampleValueMember;
       }
 
@@ -79,8 +87,9 @@ module.exports = (Parsers) => {
     },
 
     processNestedSection(node, context, result) {
-      const text = utils.nodeText(node.firstChild, context.sourceLines);
-      const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const textNode = node.type === 'item' ? node.firstChild : node;
+      const text = utils.nodeText(textNode, context.sourceLines);
+      const sourceMap = utils.makeGenericSourceMap(textNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
       switch (context.data.typeForSamples) {
         case 'primitive':
