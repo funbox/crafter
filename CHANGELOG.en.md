@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.27.0 (18.09.2019)
+
+* Parse "Sample" sections defined as headers.
+
 ## 1.26.0 (02.09.2019)
 
 * Allow to use Schema-types in different sections.
