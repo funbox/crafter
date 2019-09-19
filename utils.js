@@ -341,6 +341,7 @@ const utils = {
   mergeSchemas(schema1, schema2) {
     const uniquifySchemas = this.uniquifySchemas;
     const propsToMerge = [
+      'enum',
       'properties',
       'oneOf',
       'required',
