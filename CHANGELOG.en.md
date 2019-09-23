@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.28.0 (23.09.2019)
+
+* Remove redundant copied content when inheriting one type from another type.
+
 ## 1.27.0 (18.09.2019)
 
 * Parse "Sample" sections defined as headers.
