@@ -1,4 +1,4 @@
-const commonmark = require('commonmark');
+const commonmark = require('@funbox/commonmark');
 const equal = require('fast-deep-equal');
 const Refract = require('./Refract');
 const types = require('./types');
