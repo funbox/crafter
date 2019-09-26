@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.29.0 (26.09.2019)
+
+* Use commonmark fork to correctly generate sourcepos of html comments.
+
 ## 1.28.0 (23.09.2019)
 
 * Remove redundant copied content when inheriting one type from another type.
