@@ -9,10 +9,8 @@ class ArrayElement {
     return this.members.map(element => element.toRefract(sourceMapsEnabled));
   }
 
-  getBody(resolvedTypes) {
-    return this.members.map(member => member.getBody(resolvedTypes));
-    // TODO Разобраться с генерацией Body для массивов
-    // return [];
+  getBody(resolvedTypes, namedTypesChain = []) {
+    return this.members.map(member => member.getBody(resolvedTypes, namedTypesChain));
   }
 
   getSchema(resolvedTypes, flags = {}) {

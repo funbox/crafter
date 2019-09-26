@@ -48,6 +48,15 @@ class ValueMemberElement {
     return (this.baseType === type || this.type === type);
   }
 
+  isRecursive(typesChain) {
+    if (typesChain.length < 2) return false;
+
+    const lastAddedType = typesChain[typesChain.length - 1];
+    const firstOccurrence = typesChain.indexOf(lastAddedType);
+
+    return firstOccurrence !== typesChain.length - 1;
+  }
+
   toRefract(sourceMapsEnabled) {
     const sourceMapEl = sourceMapsEnabled && this.sourceMap ? new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file) : null;
     const type = this.type || (this.content ? 'object' : 'string');
@@ -116,7 +125,7 @@ class ValueMemberElement {
     return result;
   }
 
-  getBody(resolvedTypes, flags = {}) {
+  getBody(resolvedTypes, namedTypesChain = []) {
     if (this.samples && this.samples.length) {
       return this.samples[0].getBody(resolvedTypes);
     }
@@ -125,19 +134,19 @@ class ValueMemberElement {
       return this.default.getBody(resolvedTypes);
     }
 
-    if (flags.singleNestingLevel && resolvedTypes[this.type]) {
-      return [];
-    }
-
     let body;
 
     const typeEl = resolvedTypes[this.type];
     if (typeEl && typeEl.isComplex()) {
-      body = typeEl.getBody(resolvedTypes, this.type);
+      body = typeEl.getBody(resolvedTypes, namedTypesChain.concat(this.type));
     }
 
     if (this.content) {
-      body = mergeBodies(body, this.content.getBody(resolvedTypes));
+      if (this.isArray() && this.isRecursive(namedTypesChain)) {
+        return [];
+      }
+
+      body = mergeBodies(body, this.content.getBody(resolvedTypes, namedTypesChain));
     }
 
     if (body !== undefined) {

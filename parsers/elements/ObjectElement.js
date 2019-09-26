@@ -9,10 +9,10 @@ class ObjectElement {
     return this.propertyMembers.map(element => element.toRefract(sourceMapsEnabled));
   }
 
-  getBody(resolvedTypes) {
+  getBody(resolvedTypes, namedTypesChain = []) {
     return this.propertyMembers.reduce((body, member) => ({
       ...body,
-      ...member.getBody(resolvedTypes),
+      ...member.getBody(resolvedTypes, namedTypesChain),
     }), {});
   }
 

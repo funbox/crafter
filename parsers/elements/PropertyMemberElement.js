@@ -35,9 +35,9 @@ class PropertyMemberElement {
     return result;
   }
 
-  getBody(resolvedTypes) {
+  getBody(resolvedTypes, namedTypesChain = []) {
     const key = this.name.string;
-    const value = this.value.getBody(resolvedTypes);
+    const value = this.value.getBody(resolvedTypes, namedTypesChain);
 
     return {
       [key]: value,
