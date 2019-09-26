@@ -511,7 +511,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"array\",\n  \"items\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"x\": {\n        \"type\": \"number\",\n        \"description\": \"coordinate on x-axis\"\n      },\n      \"y\": {\n        \"type\": \"number\",\n        \"description\": \"coordinate on y-axis\"\n      }\n    }\n  },\n  \"minItems\": 2,\n  \"maxItems\": 2\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"definitions\": {\n    \"Point\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"x\": {\n          \"type\": \"number\",\n          \"description\": \"coordinate on x-axis\"\n        },\n        \"y\": {\n          \"type\": \"number\",\n          \"description\": \"coordinate on y-axis\"\n        }\n      }\n    }\n  },\n  \"type\": \"array\",\n  \"items\": {\n    \"$ref\": \"#/definitions/Point\"\n  },\n  \"minItems\": 2,\n  \"maxItems\": 2\n}"
                         }
                       ],
                       "attributes": {

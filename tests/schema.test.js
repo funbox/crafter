@@ -18,12 +18,15 @@ describe('schema', () => {
       const el = new ArrayElement([
         new ValueMemberElement('string'),
       ]);
-      expect(el.getSchema({})).toEqual({
-        type: 'array',
-        items: {
-          type: 'string',
+      expect(el.getSchema({})).toEqual([
+        {
+          type: 'array',
+          items: {
+            type: 'string',
+          },
         },
-      });
+        [],
+      ]);
     });
 
     it('multiple members', () => {
@@ -32,16 +35,19 @@ describe('schema', () => {
         new ValueMemberElement('number'),
         new ValueMemberElement('boolean'),
       ]);
-      expect(el.getSchema({})).toEqual({
-        type: 'array',
-        items: {
-          anyOf: [
-            { type: 'string' },
-            { type: 'number' },
-            { type: 'boolean' },
-          ],
+      expect(el.getSchema({})).toEqual([
+        {
+          type: 'array',
+          items: {
+            anyOf: [
+              { type: 'string' },
+              { type: 'number' },
+              { type: 'boolean' },
+            ],
+          },
         },
-      });
+        [],
+      ]);
     });
 
     it('fixed', () => {
@@ -50,25 +56,28 @@ describe('schema', () => {
         new ValueMemberElement('number', [], 42),
         new ValueMemberElement('boolean', [], true),
       ]);
-      expect(el.getSchema({}, { isFixed: true })).toEqual({
-        type: 'array',
-        minItems: 3,
-        items: [
-          {
-            type: 'string',
-            enum: ['hello'],
-          },
-          {
-            type: 'number',
-            enum: [42],
-          },
-          {
-            type: 'boolean',
-            enum: [true],
-          },
-        ],
-        additionalItems: false,
-      });
+      expect(el.getSchema({}, { isFixed: true })).toEqual([
+        {
+          type: 'array',
+          minItems: 3,
+          items: [
+            {
+              type: 'string',
+              enum: ['hello'],
+            },
+            {
+              type: 'number',
+              enum: [42],
+            },
+            {
+              type: 'boolean',
+              enum: [true],
+            },
+          ],
+          additionalItems: false,
+        },
+        [],
+      ]);
     });
 
     it('removes duplicating primitive types', () => {
@@ -76,14 +85,17 @@ describe('schema', () => {
         new ValueMemberElement('string'),
         new ValueMemberElement('string'),
       ]);
-      expect(el.getSchema({}, { isFixedType: true })).toEqual({
-        type: 'array',
-        items: {
-          anyOf: [
-            { type: 'string' },
-          ],
+      expect(el.getSchema({}, { isFixedType: true })).toEqual([
+        {
+          type: 'array',
+          items: {
+            anyOf: [
+              { type: 'string' },
+            ],
+          },
         },
-      });
+        [],
+      ]);
     });
 
     it('removes duplicating complex types', () => {
@@ -101,20 +113,23 @@ describe('schema', () => {
         createObj(),
         createObj(),
       ]);
-      expect(el.getSchema({}, { isFixedType: true })).toEqual({
-        type: 'array',
-        items: {
-          anyOf: [
-            {
-              type: 'object',
-              properties: {
-                foo: { type: 'string' },
-                bar: { type: 'string' },
+      expect(el.getSchema({}, { isFixedType: true })).toEqual([
+        {
+          type: 'array',
+          items: {
+            anyOf: [
+              {
+                type: 'object',
+                properties: {
+                  foo: { type: 'string' },
+                  bar: { type: 'string' },
+                },
               },
-            },
-          ],
+            ],
+          },
         },
-      });
+        [],
+      ]);
     });
   });
 
@@ -128,10 +143,13 @@ describe('schema', () => {
     });
 
     it('without default value', () => {
-      expect(el.getSchema({})).toEqual({
-        type: 'string',
-        enum: ['foo', 'bar'],
-      });
+      expect(el.getSchema({})).toEqual([
+        {
+          type: 'string',
+          enum: ['foo', 'bar'],
+        },
+        [],
+      ]);
     });
   });
 
@@ -141,9 +159,12 @@ describe('schema', () => {
       const types = {
         User: new ValueMemberElement('boolean'),
       };
-      expect(el.getSchema(types)).toEqual({
-        type: 'boolean',
-      });
+      expect(el.getSchema(types)).toEqual([
+        {
+          type: 'boolean',
+        },
+        [],
+      ]);
     });
   });
 
@@ -152,13 +173,16 @@ describe('schema', () => {
       const el = new ObjectElement();
       el.propertyMembers.push(new PropertyMemberElement(new StringElement('foo')));
       el.propertyMembers.push(new PropertyMemberElement(new StringElement('bar')));
-      expect(el.getSchema({})).toEqual({
-        type: 'object',
-        properties: {
-          foo: { type: 'string' },
-          bar: { type: 'string' },
+      expect(el.getSchema({})).toEqual([
+        {
+          type: 'object',
+          properties: {
+            foo: { type: 'string' },
+            bar: { type: 'string' },
+          },
         },
-      });
+        [],
+      ]);
     });
   });
 
@@ -167,20 +191,23 @@ describe('schema', () => {
       const el = new OneOfTypeElement();
       el.options.push(new OneOfTypeOptionElement([new PropertyMemberElement(new StringElement('foo'))]));
       el.options.push(new OneOfTypeOptionElement([new PropertyMemberElement(new StringElement('bar'))]));
-      expect(el.getSchema({})).toEqual({
-        oneOf: [
-          {
-            properties: {
-              foo: { type: 'string' },
+      expect(el.getSchema({})).toEqual([
+        {
+          oneOf: [
+            {
+              properties: {
+                foo: { type: 'string' },
+              },
             },
-          },
-          {
-            properties: {
-              bar: { type: 'string' },
+            {
+              properties: {
+                bar: { type: 'string' },
+              },
             },
-          },
-        ],
-      });
+          ],
+        },
+        [],
+      ]);
     });
   });
 
@@ -190,45 +217,57 @@ describe('schema', () => {
         new PropertyMemberElement(new StringElement('foo')),
         new PropertyMemberElement(new StringElement('bar')),
       ]);
-      expect(el.getSchema({})).toEqual({
-        properties: {
-          foo: { type: 'string' },
-          bar: { type: 'string' },
+      expect(el.getSchema({})).toEqual([
+        {
+          properties: {
+            foo: { type: 'string' },
+            bar: { type: 'string' },
+          },
         },
-      });
+        [],
+      ]);
     });
   });
 
   describe('PropertyMemberElement', () => {
     it('without description', () => {
       const el = new PropertyMemberElement(new StringElement('foo'));
-      expect(el.getSchema({})).toEqual({
-        properties: {
-          foo: { type: 'string' },
+      expect(el.getSchema({})).toEqual([
+        {
+          properties: {
+            foo: { type: 'string' },
+          },
         },
-      });
+        [],
+      ]);
     });
 
     it('with description', () => {
       const el = new PropertyMemberElement(new StringElement('foo'), new ValueMemberElement(), [], new StringElement('hello'));
-      expect(el.getSchema({})).toEqual({
-        properties: {
-          foo: {
-            type: 'string',
-            description: 'hello',
+      expect(el.getSchema({})).toEqual([
+        {
+          properties: {
+            foo: {
+              type: 'string',
+              description: 'hello',
+            },
           },
         },
-      });
+        [],
+      ]);
     });
 
     it('required', () => {
       const el = new PropertyMemberElement(new StringElement('foo'), new ValueMemberElement(), ['required']);
-      expect(el.getSchema({})).toEqual({
-        properties: {
-          foo: { type: 'string' },
+      expect(el.getSchema({})).toEqual([
+        {
+          properties: {
+            foo: { type: 'string' },
+          },
+          required: ['foo'],
         },
-        required: ['foo'],
-      });
+        [],
+      ]);
     });
 
     it('fixed', () => {
@@ -237,14 +276,17 @@ describe('schema', () => {
         new ValueMemberElement('string', [], 'ok'),
         ['fixed'],
       );
-      expect(el.getSchema({})).toEqual({
-        properties: {
-          status: {
-            type: 'string',
-            enum: ['ok'],
+      expect(el.getSchema({})).toEqual([
+        {
+          properties: {
+            status: {
+              type: 'string',
+              enum: ['ok'],
+            },
           },
         },
-      });
+        [],
+      ]);
     });
 
     it('fixed parent', () => {
@@ -252,52 +294,64 @@ describe('schema', () => {
         new StringElement('status'),
         new ValueMemberElement('string', [], 'ok'),
       );
-      expect(el.getSchema({}, { isFixed: true })).toEqual({
-        properties: {
-          status: {
-            type: 'string',
-            enum: ['ok'],
+      expect(el.getSchema({}, { isFixed: true })).toEqual([
+        {
+          properties: {
+            status: {
+              type: 'string',
+              enum: ['ok'],
+            },
           },
+          required: [
+            'status',
+          ],
         },
-        required: [
-          'status',
-        ],
-      });
+        [],
+      ]);
     });
 
     it('nullable', () => {
       const el = new PropertyMemberElement(new StringElement('foo'), new ValueMemberElement(), ['nullable']);
-      expect(el.getSchema({})).toEqual({
-        properties: {
-          foo: {
-            type: ['string', 'null'],
+      expect(el.getSchema({})).toEqual([
+        {
+          properties: {
+            foo: {
+              type: ['string', 'null'],
+            },
           },
         },
-      });
+        [],
+      ]);
     });
 
     it('pattern', () => {
       const el = new PropertyMemberElement(new StringElement('foo'), new ValueMemberElement('string', [['pattern', '\\d{3,6}']]));
-      expect(el.getSchema({})).toEqual({
-        properties: {
-          foo: {
-            type: 'string',
-            pattern: '\\d{3,6}',
+      expect(el.getSchema({})).toEqual([
+        {
+          properties: {
+            foo: {
+              type: 'string',
+              pattern: '\\d{3,6}',
+            },
           },
         },
-      });
+        [],
+      ]);
     });
 
     it('format', () => {
       const el = new PropertyMemberElement(new StringElement('foo'), new ValueMemberElement('string', [['format', 'date-time']]));
-      expect(el.getSchema({})).toEqual({
-        properties: {
-          foo: {
-            type: 'string',
-            format: 'date-time',
+      expect(el.getSchema({})).toEqual([
+        {
+          properties: {
+            foo: {
+              type: 'string',
+              format: 'date-time',
+            },
           },
         },
-      });
+        [],
+      ]);
     });
   });
 
@@ -305,21 +359,23 @@ describe('schema', () => {
     it('not empty', () => {
       const el = new RequestElement('application/json');
       el.content.push(new AttributesElement(new ValueMemberElement()));
-      expect(el.getSchema({})).toEqual({
-        $schema: 'http://json-schema.org/draft-04/schema#',
-        type: 'string',
-      });
+      expect(el.getSchema({})).toEqual([
+        {
+          $schema: 'http://json-schema.org/draft-04/schema#',
+          type: 'string',
+        },
+      ]);
     });
 
     it('empty', () => {
       const el = new RequestElement('application/json');
-      expect(el.getSchema({})).toEqual(undefined);
+      expect(el.getSchema({})).toEqual([undefined]);
     });
 
     it('Content-Type is not application/json', () => {
       const el = new RequestElement();
       el.content.push(new AttributesElement(new ValueMemberElement()));
-      expect(el.getSchema({})).toEqual(undefined);
+      expect(el.getSchema({})).toEqual([undefined]);
     });
   });
 
@@ -327,21 +383,23 @@ describe('schema', () => {
     it('not empty', () => {
       const el = new ResponseElement(200, 'application/json');
       el.content.push(new AttributesElement(new ValueMemberElement()));
-      expect(el.getSchema({})).toEqual({
-        $schema: 'http://json-schema.org/draft-04/schema#',
-        type: 'string',
-      });
+      expect(el.getSchema({})).toEqual([
+        {
+          $schema: 'http://json-schema.org/draft-04/schema#',
+          type: 'string',
+        },
+      ]);
     });
 
     it('empty', () => {
       const el = new ResponseElement(200, 'application/json');
-      expect(el.getSchema({})).toEqual(undefined);
+      expect(el.getSchema({})).toEqual([undefined]);
     });
 
     it('Content-Type is not application/json', () => {
       const el = new ResponseElement(200);
       el.content.push(new AttributesElement(new ValueMemberElement()));
-      expect(el.getSchema({})).toEqual(undefined);
+      expect(el.getSchema({})).toEqual([undefined]);
     });
   });
 
@@ -353,12 +411,15 @@ describe('schema', () => {
 
       const el = new ValueMemberElement('User');
 
-      expect(el.getSchema({ User })).toEqual({
-        type: 'object',
-        properties: {
-          foo: { type: 'string' },
+      expect(el.getSchema({ User })).toEqual([
+        {
+          type: 'object',
+          properties: {
+            foo: { type: 'string' },
+          },
         },
-      });
+        [],
+      ]);
     });
 
     it('with content', () => {
@@ -366,12 +427,15 @@ describe('schema', () => {
       el.content = new ObjectElement();
       el.content.propertyMembers.push(new PropertyMemberElement(new StringElement('foo')));
 
-      expect(el.getSchema({})).toEqual({
-        type: 'object',
-        properties: {
-          foo: { type: 'string' },
+      expect(el.getSchema({})).toEqual([
+        {
+          type: 'object',
+          properties: {
+            foo: { type: 'string' },
+          },
         },
-      });
+        [],
+      ]);
     });
 
     it('with resolved type and content', () => {
@@ -383,28 +447,37 @@ describe('schema', () => {
       el.content = new ObjectElement();
       el.content.propertyMembers.push(new PropertyMemberElement(new StringElement('bar')));
 
-      expect(el.getSchema({ User })).toEqual({
-        type: 'object',
-        properties: {
-          foo: { type: 'string' },
-          bar: { type: 'string' },
+      expect(el.getSchema({ User })).toEqual([
+        {
+          type: 'object',
+          properties: {
+            foo: { type: 'string' },
+            bar: { type: 'string' },
+          },
         },
-      });
+        [],
+      ]);
     });
 
     it('file', () => {
       const el = new ValueMemberElement('file');
-      expect(el.getSchema({})).toEqual({
-        type: 'string',
-        contentEncoding: 'base64',
-      });
+      expect(el.getSchema({})).toEqual([
+        {
+          type: 'string',
+          contentEncoding: 'base64',
+        },
+        [],
+      ]);
     });
 
     it('nullable', () => {
       const el = new ValueMemberElement('number');
-      expect(el.getSchema({}, { isNullable: true })).toEqual({
-        type: ['number', 'null'],
-      });
+      expect(el.getSchema({}, { isNullable: true })).toEqual([
+        {
+          type: ['number', 'null'],
+        },
+        [],
+      ]);
     });
 
     it('nullable object', () => {
@@ -414,12 +487,15 @@ describe('schema', () => {
 
       const el = new ValueMemberElement('User');
 
-      expect(el.getSchema({ User }, { isNullable: true })).toEqual({
-        type: ['object', 'null'],
-        properties: {
-          foo: { type: 'string' },
+      expect(el.getSchema({ User }, { isNullable: true })).toEqual([
+        {
+          type: ['object', 'null'],
+          properties: {
+            foo: { type: 'string' },
+          },
         },
-      });
+        [],
+      ]);
     });
 
     it('nullable enum', () => {
@@ -430,10 +506,13 @@ describe('schema', () => {
 
       const el = new ValueMemberElement('Foo');
 
-      expect(el.getSchema({ Foo }, { isNullable: true })).toEqual({
-        type: ['string', 'null'],
-        enum: ['foo', 'bar', null],
-      });
+      expect(el.getSchema({ Foo }, { isNullable: true })).toEqual([
+        {
+          type: ['string', 'null'],
+          enum: ['foo', 'bar', null],
+        },
+        [],
+      ]);
     });
 
     it('nullable array', () => {
@@ -444,34 +523,46 @@ describe('schema', () => {
 
       const el = new ValueMemberElement('Barr');
 
-      expect(el.getSchema({ Barr }, { isNullable: true })).toEqual({
-        type: ['array', 'null'],
-        items: {
-          type: 'string',
+      expect(el.getSchema({ Barr }, { isNullable: true })).toEqual([
+        {
+          type: ['array', 'null'],
+          items: {
+            type: 'string',
+          },
         },
-      });
+        [],
+      ]);
     });
 
     it('fixed', () => {
       const el = new ValueMemberElement('string', [], 'ok');
-      expect(el.getSchema({}, { isFixed: true })).toEqual({
-        type: 'string',
-        enum: ['ok'],
-      });
+      expect(el.getSchema({}, { isFixed: true })).toEqual([
+        {
+          type: 'string',
+          enum: ['ok'],
+        },
+        [],
+      ]);
     });
 
     it('fixed/sample', () => {
       const el = new ValueMemberElement('string', [], 'ok', '', true);
-      expect(el.getSchema({}, { isFixed: true })).toEqual({
-        type: 'string',
-      });
+      expect(el.getSchema({}, { isFixed: true })).toEqual([
+        {
+          type: 'string',
+        },
+        [],
+      ]);
     });
 
     it('type is "string" by default', () => {
       const el = new ValueMemberElement();
-      expect(el.getSchema({})).toEqual({
-        type: 'string',
-      });
+      expect(el.getSchema({})).toEqual([
+        {
+          type: 'string',
+        },
+        [],
+      ]);
     });
   });
 });

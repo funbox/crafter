@@ -356,7 +356,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"array\",\n  \"items\": {\n    \"type\": \"object\",\n    \"properties\": {\n      \"text\": {\n        \"type\": \"string\"\n      }\n    }\n  }\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"definitions\": {\n    \"Note\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"text\": {\n          \"type\": \"string\"\n        }\n      }\n    }\n  },\n  \"type\": \"array\",\n  \"items\": {\n    \"$ref\": \"#/definitions/Note\"\n  }\n}"
                         }
                       ],
                       "attributes": {
