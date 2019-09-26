@@ -47,7 +47,7 @@ class PropertyMemberElement {
   getSchema(resolvedTypes, flags = {}) {
     const schema = {};
 
-    const valueSchema = this.value.getSchema(resolvedTypes, utils.mergeFlags(flags, this, { propagateFixedType: false }));
+    const [valueSchema, usedTypes] = this.value.getSchema(resolvedTypes, utils.mergeFlags(flags, this, { propagateFixedType: false }));
 
     if (this.descriptionEl) {
       valueSchema.description = this.descriptionEl.string;
@@ -64,7 +64,7 @@ class PropertyMemberElement {
       schema.required = [this.name.string];
     }
 
-    return schema;
+    return [schema, usedTypes];
   }
 }
 

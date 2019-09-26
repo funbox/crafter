@@ -14,10 +14,8 @@ class TypeResolver {
   }
 
   resolveRegisteredTypes() {
-    const usedTypes = [];
-
-    const resolveType = (name, targetType) => {
-      if (this.resolvedTypes.has(name)) {
+    const resolveType = (name, targetType, usedTypes = [], ignoredTypes = []) => {
+      if (this.resolvedTypes.has(name) || ignoredTypes.includes(name)) {
         return;
       }
 
@@ -37,7 +35,7 @@ class TypeResolver {
           throw new CrafterError(`Unknown type: ${baseTypeName}`);
         }
 
-        resolveType(baseTypeName, baseType);
+        resolveType(baseTypeName, baseType, usedTypes);
       }
 
       includedMixins.forEach((mixin) => {
@@ -50,7 +48,7 @@ class TypeResolver {
           throw new CrafterError(`Base type '${name}' circularly referencing itself`);
         }
 
-        resolveType(mixinName, baseType);
+        resolveType(mixinName, baseType, usedTypes);
       });
 
       if (targetType.content) {
@@ -59,13 +57,13 @@ class TypeResolver {
             if (member.value) {
               if (member.value.type) {
                 if (this.types[member.value.type]) {
-                  resolveType(member.value.type, this.types[member.value.type]);
+                  resolveType(member.value.type, this.types[member.value.type], usedTypes);
                 }
               }
               if (member.value.nestedTypes) {
                 member.value.nestedTypes.forEach(type => {
                   if (this.types[type]) {
-                    resolveType(type, this.types[type]);
+                    resolveType(type, this.types[type], [], usedTypes);
                   }
                 });
               }
@@ -75,13 +73,12 @@ class TypeResolver {
         if (targetType.content.members) {
           targetType.content.members.forEach(member => {
             if (this.types[member.type]) {
-              resolveType(member.type, this.types[member.type]);
+              resolveType(member.type, this.types[member.type], usedTypes);
             }
           });
         }
       }
 
-      usedTypes.pop();
       this.resolvedTypes.add(name);
     };
 

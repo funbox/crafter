@@ -49,6 +49,7 @@ class EnumElement {
   }
 
   getSchema() {
+    const usedTypes = [];
     const schema = {
       type: this.type,
       enum: this.members.map(member => member.name),
@@ -56,7 +57,7 @@ class EnumElement {
     if (this.defaultValue) {
       schema.default = this.defaultValue.value;
     }
-    return schema;
+    return [schema, usedTypes];
   }
 }
 

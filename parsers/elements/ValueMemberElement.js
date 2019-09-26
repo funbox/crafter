@@ -116,7 +116,7 @@ class ValueMemberElement {
     return result;
   }
 
-  getBody(resolvedTypes) {
+  getBody(resolvedTypes, flags = {}) {
     if (this.samples && this.samples.length) {
       return this.samples[0].getBody(resolvedTypes);
     }
@@ -125,11 +125,15 @@ class ValueMemberElement {
       return this.default.getBody(resolvedTypes);
     }
 
+    if (flags.singleNestingLevel && resolvedTypes[this.type]) {
+      return [];
+    }
+
     let body;
 
     const typeEl = resolvedTypes[this.type];
     if (typeEl && typeEl.isComplex()) {
-      body = typeEl.getBody(resolvedTypes);
+      body = typeEl.getBody(resolvedTypes, this.type);
     }
 
     if (this.content) {
@@ -147,20 +151,33 @@ class ValueMemberElement {
 
   getSchema(resolvedTypes, flags = {}) {
     let schema = {};
+    let usedTypes = [];
 
     const typeEl = resolvedTypes[this.type];
     if (typeEl) {
       if (typeEl.isComplex()) {
-        schema = typeEl.getSchema(resolvedTypes, typeEl.typeAttributes && utils.mergeFlags(flags, typeEl));
+        if (flags.skipTypesInlining) {
+          schema = { $ref: `#/definitions/${this.type}` };
+          usedTypes = [this.type];
+        } else {
+          [schema, usedTypes] = typeEl.getSchema(resolvedTypes, typeEl.typeAttributes && utils.mergeFlags(flags, typeEl));
+        }
         schema = fillSchemaWithAttributes(schema, typeEl.typeAttributes);
       } else {
-        schema.type = typeEl.baseType;
+        if (!schema.$ref) {
+          schema.type = typeEl.baseType;
+        }
         schema = fillSchemaWithAttributes(schema, typeEl.typeAttributes);
       }
     }
 
-    if (this.content) {
-      schema = utils.mergeSchemas(schema, this.content.getSchema(resolvedTypes, flags));
+    // TODO для массивов невозможна ситуация когда есть $ref и content одновременно,
+    // стоит обратить внимание на проверку (!schema.$ref) в будущем
+    // при реализации рекурсивных объектов
+    if (this.content && !schema.$ref) {
+      const [contentSchema, contentUsedTypes] = this.content.getSchema(resolvedTypes, flags);
+      schema = utils.mergeSchemas(schema, contentSchema);
+      usedTypes.push(...contentUsedTypes);
     }
 
     if (this.default) {
@@ -185,12 +202,12 @@ class ValueMemberElement {
       ];
 
       if (schema.enum) schema.enum = [...schema.enum, null];
-    } else {
+    } else if (!schema.$ref) {
       schema.type = normalizedType;
     }
 
     if (typeEl || this.content) {
-      return schema;
+      return [schema, usedTypes];
     }
 
     if (flags.isFixed && !this.isSample && this.value != null) {
@@ -207,7 +224,7 @@ class ValueMemberElement {
 
     fillSchemaWithAttributes(schema, this.typeAttributes);
 
-    return schema;
+    return [schema, usedTypes];
   }
 }
 

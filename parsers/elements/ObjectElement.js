@@ -18,13 +18,16 @@ class ObjectElement {
 
   getSchema(resolvedTypes, flags = {}) {
     let schema = { type: 'object' };
+    const usedTypes = [];
     this.propertyMembers.forEach(member => {
-      schema = utils.mergeSchemas(schema, member.getSchema(resolvedTypes, flags));
+      const [memberSchema, memberUsedTypes] = member.getSchema(resolvedTypes, flags);
+      schema = utils.mergeSchemas(schema, memberSchema);
+      usedTypes.push(...memberUsedTypes);
     });
     if (flags.isFixed || flags.isFixedType) {
       schema.additionalProperties = false;
     }
-    return schema;
+    return [schema, usedTypes];
   }
 }
 

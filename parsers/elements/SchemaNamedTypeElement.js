@@ -19,7 +19,8 @@ class SchemaNamedTypeElement {
   }
 
   getSchema() {
-    return this.schemaEl.schema;
+    const usedTypes = [];
+    return [this.schemaEl.schema, usedTypes];
   }
 
   toRefract(sourceMapsEnabled) {

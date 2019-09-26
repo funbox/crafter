@@ -11,27 +11,46 @@ class ArrayElement {
 
   getBody(resolvedTypes) {
     return this.members.map(member => member.getBody(resolvedTypes));
+    // TODO Разобраться с генерацией Body для массивов
+    // return [];
   }
 
   getSchema(resolvedTypes, flags = {}) {
     const schema = { type: 'array' };
     const localFlags = { ...flags };
     delete localFlags.isFixedType;
-
+    localFlags.skipTypesInlining = true;
+    const usedTypes = [];
     if (flags.isFixed) {
       schema.minItems = this.members.length;
-      schema.items = this.members.map(member => member.getSchema(resolvedTypes, localFlags));
+      const memberSchemas = [];
+
+      this.members.forEach(member => {
+        const [currentMemberSchema, currentMemberUsedTypes] = member.getSchema(resolvedTypes, localFlags);
+        memberSchemas.push(currentMemberSchema);
+        usedTypes.push(...currentMemberUsedTypes);
+      });
+      schema.items = memberSchemas;
       schema.additionalItems = false;
     } else if (this.members.length > 1) {
-      const memberSchemas = this.members.map(member => member.getSchema(resolvedTypes));
+      const memberSchemas = [];
+
+      this.members.forEach(member => {
+        const [currentMemberSchema, currentMemberUsedTypes] = member.getSchema(resolvedTypes, localFlags);
+        memberSchemas.push(currentMemberSchema);
+        usedTypes.push(...currentMemberUsedTypes);
+      });
+
       const items = utils.uniquifySchemas(memberSchemas);
       schema.items = {
         anyOf: items,
       };
     } else if (this.members.length === 1) {
-      schema.items = this.members[0].getSchema(resolvedTypes, localFlags);
+      const [memberSchema, memberUsedTypes] = this.members[0].getSchema(resolvedTypes, localFlags);
+      schema.items = memberSchema;
+      usedTypes.push(...memberUsedTypes);
     }
-    return schema;
+    return [schema, usedTypes];
   }
 }
 

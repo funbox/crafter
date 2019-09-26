@@ -22,10 +22,15 @@ class OneOfTypeOptionElement {
 
   getSchema(resolvedTypes, flags = {}) {
     let schema = {};
+    const usedTypes = [];
+
     this.members.forEach(member => {
-      schema = utils.mergeSchemas(schema, member.getSchema(resolvedTypes, flags));
+      const [memberSchema, memberUsedTypes] = member.getSchema(resolvedTypes, flags);
+      schema = utils.mergeSchemas(schema, memberSchema);
+      usedTypes.push(...memberUsedTypes);
     });
-    return schema;
+
+    return [schema, usedTypes];
   }
 }
 

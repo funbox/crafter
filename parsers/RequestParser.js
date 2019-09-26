@@ -142,7 +142,7 @@ module.exports = (Parsers) => {
       }
 
       if (!hasCustomSchema) {
-        const schema = result.getSchema(context.typeResolver.types);
+        const [schema] = result.getSchema(context.typeResolver.types);
         if (schema) {
           result.content.push(new SchemaElement(schema));
         }

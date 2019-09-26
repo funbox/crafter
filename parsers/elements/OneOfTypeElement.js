@@ -21,9 +21,16 @@ class OneOfTypeElement {
   }
 
   getSchema(resolvedTypes, flags = {}) {
-    return {
-      oneOf: this.options.map(option => option.getSchema(resolvedTypes, flags)),
+    const usedTypes = [];
+    const schema = {
+      oneOf: this.options.map(option => {
+        const [optionSchema, optionUsedTypes] = option.getSchema(resolvedTypes, flags);
+        usedTypes.push(...optionUsedTypes);
+        return optionSchema;
+      }),
     };
+
+    return [schema, usedTypes];
   }
 }
 

@@ -45,10 +45,11 @@ class MessageElement {
 
     const attrsEl = this.content.find(item => item instanceof AttributesElement);
     if (attrsEl) {
-      schema = attrsEl.getSchema(resolvedTypes);
+      const [attrsElSchema] = attrsEl.getSchema(resolvedTypes);
+      schema = attrsElSchema;
     }
 
-    return schema;
+    return [schema];
   }
 }
 

@@ -18,16 +18,38 @@ class AttributesElement {
   }
 
   getSchema(resolvedTypes, flags = {}) {
-    const result = this.content.getSchema(resolvedTypes, utils.mergeFlags(flags, this.content));
+    const [result, usedTypes] = this.content.getSchema(resolvedTypes, utils.mergeFlags(flags, this.content));
 
-    if (result) {
-      return {
-        $schema: 'http://json-schema.org/draft-04/schema#',
-        ...result,
-      };
+    const definitions = {};
+
+    if (usedTypes.length > 0) {
+      const types = usedTypes.filter((value, index) => usedTypes.indexOf(value) === index);
+
+      while (types.length > 0) {
+        const type = types.shift();
+        const typeEl = resolvedTypes[type];
+        const [typeSchema, typeUsedTypes] = typeEl.getSchema(resolvedTypes, { skipTypesInlining: true });
+        definitions[type] = typeSchema;
+
+        typeUsedTypes.forEach(t => {
+          if (!types.includes(t) && !definitions[t]) {
+            types.push(t);
+          }
+        });
+      }
     }
 
-    return result;
+    if (result) {
+      return [
+        {
+          $schema: 'http://json-schema.org/draft-04/schema#',
+          ...(Object.keys(definitions).length > 0 ? { definitions } : {}),
+          ...result,
+        },
+      ];
+    }
+
+    return [result];
   }
 }
 

@@ -66,15 +66,16 @@ class RequestElement {
 
   getSchema(resolvedTypes) {
     let schema;
+
     if (this.contentType !== 'application/json') {
-      return schema;
+      return [schema];
     }
     const attrsEl = this.content.find(item => item instanceof AttributesElement);
     if (attrsEl) {
-      schema = attrsEl.getSchema(resolvedTypes);
+      [schema] = attrsEl.getSchema(resolvedTypes);
     }
 
-    return schema;
+    return [schema];
   }
 }
 
