@@ -1,3 +1,5 @@
+const utils = require('./utils');
+
 const typeAttributes = {
   required: 'required',
   optional: 'optional',
@@ -388,14 +390,14 @@ function convertValue(value, dataType) {
   if (dataType === 'number') {
     converted = Number(value);
     if (Number.isNaN(converted)) {
-      throw new Error(`Invalid signature: ${value} is not a number`);
+      error(`Invalid signature: ${value} is not a number`);
     }
   }
   return converted;
 }
 
-function error(sig) {
-  throw new Error(`Invalid signature: ${sig}`);
+function error(sig, errorMsg) {
+  throw new utils.SignatureError(errorMsg || `Invalid signature: ${sig}`);
 }
 
 module.exports = {

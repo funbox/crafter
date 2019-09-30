@@ -18,7 +18,12 @@ module.exports = (Parsers) => {
       context.pushFrame();
 
       const subject = utils.nodeText(node.firstChild, context.sourceLines); // TODO: часто берем text, может сделать отдельную функцию?
-      const signature = new SignatureParser(subject);
+      let signature;
+      try {
+        signature = new SignatureParser(subject);
+      } catch (e) {
+        if (!(e instanceof utils.SignatureError)) throw e;
+      }
 
       const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       context.data.attributeSignatureDetails = { sourceMap };
@@ -75,8 +80,12 @@ module.exports = (Parsers) => {
           new SignatureParser(text); // eslint-disable-line no-new
           return SectionTypes.msonAttribute;
         } catch (e) {
-          const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-          throw new utils.CrafterError(e.message, sourceMap);
+          if (!(e instanceof utils.SignatureError)) {
+            throw e;
+          } else {
+            const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+            throw new utils.CrafterError(e.message, sourceMap);
+          }
         }
       }
 

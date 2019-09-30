@@ -11,7 +11,12 @@ module.exports = (Parsers) => {
 
     processSignature(node, context) {
       const text = utils.nodeText(node.firstChild, context.sourceLines);
-      const signature = new SignatureParser(text);
+      let signature;
+      try {
+        signature = new SignatureParser(text);
+      } catch (e) {
+        if (!(e instanceof utils.SignatureError)) throw e;
+      }
 
       context.pushFrame();
 
@@ -108,7 +113,8 @@ module.exports = (Parsers) => {
           if (signature.typeAttributes.length <= 2) {
             return SectionTypes.parameter;
           }
-        } catch (e) { // eslint-disable-line no-empty
+        } catch (e) {
+          if (!(e instanceof utils.SignatureError)) throw e;
         }
       }
 

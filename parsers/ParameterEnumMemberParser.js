@@ -9,7 +9,12 @@ module.exports = (Parsers) => {
     processSignature(node, context) {
       const subject = utils.nodeText(node.firstChild, context.sourceLines);
       const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-      const signature = new SignatureParser(subject, [ParserTraits.VALUE, ParserTraits.DESCRIPTION]);
+      let signature;
+      try {
+        signature = new SignatureParser(subject, [ParserTraits.VALUE, ParserTraits.DESCRIPTION]);
+      } catch (e) {
+        if (!(e instanceof utils.SignatureError)) throw e;
+      }
       signature.warnings.forEach(warning => context.addWarning(warning, sourceMap));
 
       const result = new ParameterEnumMemberElement(signature.value, signature.description);
@@ -28,6 +33,7 @@ module.exports = (Parsers) => {
             return SectionTypes.enumMember;
           }
         } catch (e) { // eslint-disable-line no-empty
+          if (!(e instanceof utils.SignatureError)) throw e;
         }
       }
 

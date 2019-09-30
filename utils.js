@@ -12,6 +12,8 @@ class CrafterError extends Error {
   }
 }
 
+class SignatureError extends Error {}
+
 class Logger {
   warn(text, details) {
     const [linePos, currentFile] = details;
@@ -494,6 +496,8 @@ const utils = {
   },
 
   CrafterError,
+
+  SignatureError,
 
   Logger,
 

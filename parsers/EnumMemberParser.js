@@ -9,7 +9,13 @@ module.exports = (Parsers) => {
     processSignature(node, context) {
       const subject = utils.nodeText(node.firstChild, context.sourceLines);
       const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-      const signature = new SignatureParser(subject, [ParserTraits.VALUE, ParserTraits.ATTRIBUTES, ParserTraits.DESCRIPTION]);
+      let signature;
+      try {
+        signature = new SignatureParser(subject, [ParserTraits.VALUE, ParserTraits.ATTRIBUTES, ParserTraits.DESCRIPTION]);
+      } catch (e) {
+        if (!(e instanceof utils.SignatureError)) throw e;
+      }
+
       signature.warnings.forEach(warning => context.addWarning(warning, sourceMap));
 
       const result = new EnumMemberElement(
@@ -33,7 +39,8 @@ module.exports = (Parsers) => {
           if (signature.value || signature.rawValue || signature.type) {
             return SectionTypes.enumMember;
           }
-        } catch (e) { // eslint-disable-line no-empty
+        } catch (e) {
+          if (!(e instanceof utils.SignatureError)) throw e;
         }
       }
 

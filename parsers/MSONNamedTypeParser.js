@@ -21,9 +21,13 @@ module.exports = (Parsers) => {
       try {
         signature = new SignatureParser(subject, [ParserTraits.NAME, ParserTraits.ATTRIBUTES]);
       } catch (e) {
-        const hashSymbols = Array(node.level).fill('#').join('');
-        const message = `Invalid NamedType definition. Expected format: "${hashSymbols} Type Name (Type Attributes)".`;
-        throw new CrafterError(message, sourceMap);
+        if (!(e instanceof utils.SignatureError)) {
+          throw e;
+        } else {
+          const hashSymbols = Array(node.level).fill('#').join('');
+          const message = `Invalid NamedType definition. Expected format: "${hashSymbols} Type Name (Type Attributes)".`;
+          throw new CrafterError(message, sourceMap);
+        }
       }
       signature.warnings.forEach(warning => context.addWarning(warning, sourceMap));
 
