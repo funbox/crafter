@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.30.0 (30.09.2019)
+
+* Add custom error SignatureError.
+
 ## 1.29.0 (26.09.2019)
 
 * Use commonmark fork to correctly generate sourcepos of html comments.
