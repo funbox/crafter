@@ -4,6 +4,6 @@ LABEL org.label-schema.description="Image for launching npm package \"@funbox/cr
 
 WORKDIR /app
 
-RUN npm install -g --silent @funbox/crafter
+RUN npm install -g --silent @funbox/crafter@latest
 
 ENTRYPOINT ["crafter"]
