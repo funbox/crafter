@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.31.0 (01.10.2019)
+
+* Add Dockerfile to build an image.
+
 ## 1.30.0 (30.09.2019)
 
 * Add custom error SignatureError.
