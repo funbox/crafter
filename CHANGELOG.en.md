@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.31.1 (01.10.2019)
+
+* Add a separate command to push the latest version of the image.
+
 ## 1.31.0 (01.10.2019)
 
 * Add Dockerfile to build an image.
