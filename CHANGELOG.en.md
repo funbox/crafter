@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.31.2 (01.10.2019)
+
+* Use the latest Crafter version to install into a container.
+
 ## 1.31.1 (01.10.2019)
 
 * Add a separate command to push the latest version of the image.
