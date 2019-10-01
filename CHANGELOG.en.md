@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.31.3 (01.10.2019)
+
+* Specify Crafter version in a container.
+
 ## 1.31.2 (01.10.2019)
 
 * Use the latest Crafter version to install into a container.
