@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.31.4 (02.10.2019)
+
+* Remove in-place correction of sourcepos for code_block sections.
+
 ## 1.31.3 (01.10.2019)
 
 * Specify Crafter version in a container.
