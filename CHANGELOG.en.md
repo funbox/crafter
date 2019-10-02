@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.32.0 (02.10.2019)
+
+* Add source maps to inline-defined samples.
+
 ## 1.31.4 (02.10.2019)
 
 * Remove in-place correction of sourcepos for code_block sections.
