@@ -1,0 +1,20 @@
+# My API
+
+Defines property member of named type as an array of recursive named type.
+
+# Data Structures
+
+## Author
+
++ name
++ comments (array[Comment])
+
+## Comment
+
++ text
++ children (array[Comment])
+
+# GET /comments
+
++ Response 200 (application/json)
+    + Attributes (Author)

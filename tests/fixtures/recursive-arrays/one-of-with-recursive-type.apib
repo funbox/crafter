@@ -1,0 +1,18 @@
+# My API
+
+Defines object property as either recursive type or boolean using One Of construction.
+
+# Data Structures
+
+## Comment
+
++ text
++ children (array[Comment])
+
+# GET /comments
+
++ Response 200 (application/json)
+    + Attributes
+        + One of
+            + foo (Comment)
+            + bar (boolean)
