@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.33.0 (02.10.2019)
+
+* Exclude tests from files to publish.
+
 ## 1.32.0 (02.10.2019)
 
 * Add source maps to inline-defined samples.
