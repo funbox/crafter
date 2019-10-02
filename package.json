@@ -8,7 +8,7 @@
     "test-drafter": "jest ./tests/drafterFixtures.test.js --config={}",
     "regenerate-fixtures": "node ./scripts/regenerate-fixtures.js",
     "lint": "eslint --cache -c .eslintrc --ext .js ./",
-    "docker": "bash ./build-docker.sh"
+    "postpublish": "bash ./build-docker.sh"
   },
   "keywords": [
     "drafter",
