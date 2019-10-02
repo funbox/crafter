@@ -46,7 +46,7 @@
       "content": [
         {
           "element": "copy",
-          "content": "Defines sample values using both inline and nested definitions.",
+          "content": "Defines sample values for a property member types with 'Sample' keyword.",
           "attributes": {
             "sourceMap": {
               "element": "array",
@@ -63,7 +63,7 @@
                         },
                         {
                           "element": "number",
-                          "content": 65
+                          "content": 74
                         }
                       ]
                     }
@@ -97,7 +97,7 @@
                     "content": {
                       "key": {
                         "element": "string",
-                        "content": "kind",
+                        "content": "a2",
                         "attributes": {
                           "sourceMap": {
                             "element": "array",
@@ -110,217 +110,11 @@
                                     "content": [
                                       {
                                         "element": "number",
-                                        "content": 104
+                                        "content": 114
                                       },
                                       {
                                         "element": "number",
-                                        "content": 27
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        }
-                      },
-                      "value": {
-                        "element": "enum",
-                        "attributes": {
-                          "enumerations": {
-                            "element": "array",
-                            "content": [
-                              {
-                                "element": "string",
-                                "attributes": {
-                                  "typeAttributes": {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "string",
-                                        "content": "fixed"
-                                      }
-                                    ]
-                                  },
-                                  "sourceMap": {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "sourceMap",
-                                        "content": [
-                                          {
-                                            "element": "array",
-                                            "content": [
-                                              {
-                                                "element": "number",
-                                                "content": 135
-                                              },
-                                              {
-                                                "element": "number",
-                                                "content": 6
-                                              }
-                                            ]
-                                          }
-                                        ]
-                                      }
-                                    ]
-                                  }
-                                },
-                                "content": "track"
-                              },
-                              {
-                                "element": "string",
-                                "attributes": {
-                                  "typeAttributes": {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "string",
-                                        "content": "fixed"
-                                      }
-                                    ]
-                                  },
-                                  "sourceMap": {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "sourceMap",
-                                        "content": [
-                                          {
-                                            "element": "array",
-                                            "content": [
-                                              {
-                                                "element": "number",
-                                                "content": 145
-                                              },
-                                              {
-                                                "element": "number",
-                                                "content": 5
-                                              }
-                                            ]
-                                          }
-                                        ]
-                                      }
-                                    ]
-                                  }
-                                },
-                                "content": "time"
-                              }
-                            ]
-                          },
-                          "samples": {
-                            "element": "array",
-                            "content": [
-                              {
-                                "element": "string",
-                                "content": "track",
-                                "attributes": {
-                                  "sourceMap": {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "sourceMap",
-                                        "content": [
-                                          {
-                                            "element": "array",
-                                            "content": [
-                                              {
-                                                "element": "number",
-                                                "content": 110
-                                              },
-                                              {
-                                                "element": "number",
-                                                "content": 5
-                                              }
-                                            ]
-                                          }
-                                        ]
-                                      }
-                                    ]
-                                  }
-                                }
-                              },
-                              {
-                                "element": "string",
-                                "content": "time",
-                                "attributes": {
-                                  "sourceMap": {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "sourceMap",
-                                        "content": [
-                                          {
-                                            "element": "array",
-                                            "content": [
-                                              {
-                                                "element": "number",
-                                                "content": 154
-                                              },
-                                              {
-                                                "element": "number",
-                                                "content": 13
-                                              }
-                                            ]
-                                          }
-                                        ]
-                                      }
-                                    ]
-                                  }
-                                }
-                              }
-                            ]
-                          },
-                          "sourceMap": {
-                            "element": "array",
-                            "content": [
-                              {
-                                "element": "sourceMap",
-                                "content": [
-                                  {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "number",
-                                        "content": 104
-                                      },
-                                      {
-                                        "element": "number",
-                                        "content": 27
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        }
-                      }
-                    }
-                  },
-                  {
-                    "element": "member",
-                    "content": {
-                      "key": {
-                        "element": "string",
-                        "content": "tags",
-                        "attributes": {
-                          "sourceMap": {
-                            "element": "array",
-                            "content": [
-                              {
-                                "element": "sourceMap",
-                                "content": [
-                                  {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "number",
-                                        "content": 169
-                                      },
-                                      {
-                                        "element": "number",
-                                        "content": 34
+                                        "content": 31
                                       }
                                     ]
                                   }
@@ -332,6 +126,11 @@
                       },
                       "value": {
                         "element": "array",
+                        "content": [
+                          {
+                            "element": "number"
+                          }
+                        ],
                         "attributes": {
                           "samples": {
                             "element": "array",
@@ -340,8 +139,8 @@
                                 "element": "array",
                                 "content": [
                                   {
-                                    "element": "string",
-                                    "content": "user",
+                                    "element": "number",
+                                    "content": 111,
                                     "attributes": {
                                       "sourceMap": {
                                         "element": "array",
@@ -354,11 +153,11 @@
                                                 "content": [
                                                   {
                                                     "element": "number",
-                                                    "content": 175
+                                                    "content": 118
                                                   },
                                                   {
                                                     "element": "number",
-                                                    "content": 4
+                                                    "content": 3
                                                   }
                                                 ]
                                               }
@@ -369,8 +168,8 @@
                                     }
                                   },
                                   {
-                                    "element": "string",
-                                    "content": "admin",
+                                    "element": "number",
+                                    "content": 22,
                                     "attributes": {
                                       "sourceMap": {
                                         "element": "array",
@@ -383,11 +182,40 @@
                                                 "content": [
                                                   {
                                                     "element": "number",
-                                                    "content": 181
+                                                    "content": 123
                                                   },
                                                   {
                                                     "element": "number",
-                                                    "content": 5
+                                                    "content": 2
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "element": "number",
+                                    "content": 3,
+                                    "attributes": {
+                                      "sourceMap": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "sourceMap",
+                                            "content": [
+                                              {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "number",
+                                                    "content": 127
+                                                  },
+                                                  {
+                                                    "element": "number",
+                                                    "content": 1
                                                   }
                                                 ]
                                               }
@@ -403,8 +231,8 @@
                                 "element": "array",
                                 "content": [
                                   {
-                                    "element": "string",
-                                    "content": "user2",
+                                    "element": "number",
+                                    "content": 1,
                                     "attributes": {
                                       "sourceMap": {
                                         "element": "array",
@@ -417,11 +245,11 @@
                                                 "content": [
                                                   {
                                                     "element": "number",
-                                                    "content": 207
+                                                    "content": 168
                                                   },
                                                   {
                                                     "element": "number",
-                                                    "content": 22
+                                                    "content": 2
                                                   }
                                                 ]
                                               }
@@ -432,8 +260,8 @@
                                     }
                                   },
                                   {
-                                    "element": "string",
-                                    "content": "admin2",
+                                    "element": "number",
+                                    "content": 2,
                                     "attributes": {
                                       "sourceMap": {
                                         "element": "array",
@@ -446,11 +274,11 @@
                                                 "content": [
                                                   {
                                                     "element": "number",
-                                                    "content": 207
+                                                    "content": 180
                                                   },
                                                   {
                                                     "element": "number",
-                                                    "content": 22
+                                                    "content": 2
                                                   }
                                                 ]
                                               }
@@ -475,11 +303,11 @@
                                     "content": [
                                       {
                                         "element": "number",
-                                        "content": 169
+                                        "content": 114
                                       },
                                       {
                                         "element": "number",
-                                        "content": 34
+                                        "content": 31
                                       }
                                     ]
                                   }
@@ -508,11 +336,11 @@
                                 "content": [
                                   {
                                     "element": "number",
-                                    "content": 94
+                                    "content": 103
                                   },
                                   {
                                     "element": "number",
-                                    "content": 8
+                                    "content": 9
                                   }
                                 ]
                               }

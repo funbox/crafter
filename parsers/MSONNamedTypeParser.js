@@ -31,7 +31,7 @@ module.exports = (Parsers) => {
       }
       signature.warnings.forEach(warning => context.addWarning(warning, sourceMap));
 
-      context.data.attributeSignatureDetails = { sourceMap };
+      context.data.attributeSignatureDetails = { sourceMap, node };
 
       const name = new StringElement(signature.name);
       name.sourceMap = sourceMap;

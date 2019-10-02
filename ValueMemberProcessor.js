@@ -1,5 +1,5 @@
 const { splitValues } = require('./SignatureParser');
-const { CrafterError, convertType } = require('./utils');
+const { CrafterError, convertType, makeSourceMapsForInlineValues } = require('./utils');
 
 const ArrayElement = require('./parsers/elements/ArrayElement');
 const SampleValueElement = require('./parsers/elements/SampleValueElement');
@@ -38,7 +38,7 @@ const ValueMemberProcessor = {
         context.addWarning('"object" with value definition. You should use type definition without value, e.g., "+ key (object)"', context.data.attributeSignatureDetails.sourceMap);
         omitValue = true;
       } else {
-        const [inlineSamples, inlineDefaults] = getSamplesAndDefaultsFromInline(element, value, context, context.data.attributeSignatureDetails.sourceMap);
+        const [inlineSamples, inlineDefaults] = getSamplesAndDefaultsFromInline(element, value, context);
         sampleElements = sampleElements.concat(inlineSamples);
         defaultElements = defaultElements.concat(inlineDefaults);
       }
@@ -74,7 +74,7 @@ const ValueMemberProcessor = {
   },
 };
 
-function getSamplesAndDefaultsFromInline(element, value, context, sourceMap) {
+function getSamplesAndDefaultsFromInline(element, value, context) {
   let inlineValuesType;
   let sampleElements;
   let defaultElements;
@@ -91,19 +91,19 @@ function getSamplesAndDefaultsFromInline(element, value, context, sourceMap) {
     if (converted.valid) {
       res.push(converted.value);
     } else {
-      context.addTypeMismatchWarning(v, inlineValuesType, sourceMap);
+      context.addTypeMismatchWarning(v, inlineValuesType, context.data.attributeSignatureDetails.sourceMap);
     }
     return res;
   }, []);
 
-  // TODO Реализовать SourceMap-ы
+  const sourceMaps = makeSourceMapsForInlineValues(value, inlineValues, context.data.attributeSignatureDetails.node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
   if (element.isArray()) {
-    sampleElements = [new SampleValueElement(inlineValues, inlineValuesType, [])];
-    defaultElements = [new DefaultValueElement(inlineValues, inlineValuesType, [])];
+    sampleElements = [new SampleValueElement(inlineValues, inlineValuesType, sourceMaps)];
+    defaultElements = [new DefaultValueElement(inlineValues, inlineValuesType, sourceMaps)];
   } else {
-    sampleElements = inlineValues.map(v => new SampleValueElement(v, inlineValuesType, null));
-    defaultElements = inlineValues.map(v => new DefaultValueElement(v, inlineValuesType, null));
+    sampleElements = inlineValues.map(v => new SampleValueElement(v, inlineValuesType, sourceMaps[0]));
+    defaultElements = inlineValues.map(v => new DefaultValueElement(v, inlineValuesType, sourceMaps[0]));
   }
   return [sampleElements, defaultElements];
 }

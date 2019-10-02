@@ -341,7 +341,32 @@
                                         "content": [
                                           {
                                             "element": "number",
-                                            "content": 1
+                                            "content": 1,
+                                            "attributes": {
+                                              "sourceMap": {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "sourceMap",
+                                                    "content": [
+                                                      {
+                                                        "element": "array",
+                                                        "content": [
+                                                          {
+                                                            "element": "number",
+                                                            "content": 222
+                                                          },
+                                                          {
+                                                            "element": "number",
+                                                            "content": 1
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            }
                                           }
                                         ]
                                       }

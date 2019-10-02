@@ -32,7 +32,7 @@ module.exports = (Parsers) => {
       }
       signature.warnings.forEach(warning => context.addWarning(warning, sourceMap));
 
-      context.data.attributeSignatureDetails = { sourceMap };
+      context.data.attributeSignatureDetails = { sourceMap, node: node.firstChild };
 
       if (signature.rest) {
         context.data.startOffset = text.length - signature.rest.length;

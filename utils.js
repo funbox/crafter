@@ -190,6 +190,32 @@ const utils = {
     return { byteBlocks, charBlocks, file: node.file };
   },
 
+  makeSourceMapsForInlineValues(value, inlineValues, node, sourceLines, sourceBuffer, linefeedOffsets) {
+    sourceLines = node.sourceLines || sourceLines;
+    sourceBuffer = node.sourceBuffer || sourceBuffer;
+    linefeedOffsets = node.linefeedOffsets || linefeedOffsets;
+    const { startLineIndex, startColumnIndex } = utils.getSourcePosZeroBased(node);
+
+    let lineStr = sourceLines[startLineIndex].slice(startColumnIndex);
+    let columnIndex = startColumnIndex + lineStr.indexOf(value);
+    lineStr = lineStr.slice(lineStr.indexOf(value));
+
+    return inlineValues.map(inlineValue => {
+      const inlineValueStr = String(inlineValue);
+      columnIndex += lineStr.indexOf(inlineValueStr);
+      lineStr = lineStr.slice(lineStr.indexOf(inlineValueStr));
+      const byteBlock = {
+        offset: utils.getOffsetFromStartOfFileInBytes(startLineIndex, columnIndex, sourceLines),
+        length: Buffer.byteLength(inlineValueStr),
+      };
+      lineStr = lineStr.slice(inlineValueStr.length);
+      columnIndex += inlineValueStr.length;
+      const byteBlocks = [byteBlock];
+      const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
+      return { byteBlocks, charBlocks, file: node.file };
+    });
+  },
+
   getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets) {
     return byteBlocks.map(byteBlock => {
       const charBlock = byteBlockToCharacterBlock(byteBlock, sourceBuffer);

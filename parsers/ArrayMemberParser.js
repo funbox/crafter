@@ -19,7 +19,7 @@ module.exports = (Parsers) => {
       }
 
       const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-      context.data.attributeSignatureDetails = { sourceMap };
+      context.data.attributeSignatureDetails = { sourceMap, node: node.firstChild };
 
       const result = new ValueMemberElement(
         signature.type,
