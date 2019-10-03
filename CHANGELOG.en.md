@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.34.1 (03.10.2019)
+
+* Fix body generation for falsy samples.
+
 ## 1.34.0 (03.10.2019)
 
 * Build Docker image at postpublish stage.
