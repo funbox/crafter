@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.34.0 (03.10.2019)
+
+* Build Docker image at postpublish stage.
+
 ## 1.33.0 (02.10.2019)
 
 * Exclude tests from files to publish.
