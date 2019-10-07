@@ -590,7 +590,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"foo\": {\n      \"type\": \"string\"\n    },\n    \"bar\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"string\"\n      }\n    }\n  },\n  \"required\": [\n    \"foo\"\n  ]\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"definitions\": {\n    \"SchemaNamedType\": {\n      \"type\": \"string\"\n    }\n  },\n  \"type\": \"object\",\n  \"properties\": {\n    \"foo\": {\n      \"type\": \"string\"\n    },\n    \"bar\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"$ref\": \"#/definitions/SchemaNamedType\"\n      }\n    }\n  },\n  \"required\": [\n    \"foo\"\n  ]\n}"
                         }
                       ],
                       "attributes": {
