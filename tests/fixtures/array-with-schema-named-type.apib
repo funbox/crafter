@@ -8,21 +8,16 @@ Defines array member by using schema named type.
 
 + Body
 
-      {
-          "test": "Hello"
-      }
+        79000000123
 
 + Schema
 
-      {
-          "$schema": "http://json-schema.org/draft-04/schema#",
-          "type": "object",
-          "properties": {
-              "test": {
-                  "type": "string"
-              }
-          }
-      }
+        {
+          "type": "number",
+          "minimum": 79000000000,
+          "maximum": 79999999999,
+          "multipleOf": 1.0
+        }
 
 # Get test [GET /test]
 

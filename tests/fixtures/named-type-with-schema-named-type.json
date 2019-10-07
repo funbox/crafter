@@ -52,6 +52,17 @@
                       "value": {
                         "element": "SchemaNamedType"
                       }
+                    },
+                    "attributes": {
+                      "typeAttributes": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "required"
+                          }
+                        ]
+                      }
                     }
                   },
                   {
@@ -118,7 +129,7 @@
                       ]
                     }
                   },
-                  "content": "{\n    \"test\": \"Hello\"\n}\n"
+                  "content": "  \"Hello world\"\n"
                 },
                 {
                   "element": "asset",
@@ -139,7 +150,7 @@
                       "content": "application/schema+json"
                     }
                   },
-                  "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"test\": {\n      \"type\": \"string\"\n    }\n  }\n}"
+                  "content": "{\n  \"type\": \"string\"\n}"
                 }
               ]
             }
@@ -204,7 +215,7 @@
                               ]
                             }
                           },
-                          "content": "{\n  \"foo\": {\n    \"test\": \"Hello\"\n  },\n  \"bar\": [\n    {\n      \"test\": \"Hello\"\n    }\n  ]\n}",
+                          "content": "{\n  \"foo\": \"Hello world\",\n  \"bar\": [\n    \"Hello world\"\n  ]\n}",
                           "attributes": {
                             "contentType": {
                               "element": "string",
@@ -231,7 +242,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"foo\": {\n      \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n      \"type\": \"object\",\n      \"properties\": {\n        \"test\": {\n          \"type\": \"string\"\n        }\n      }\n    },\n    \"bar\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n        \"type\": \"object\",\n        \"properties\": {\n          \"test\": {\n            \"type\": \"string\"\n          }\n        }\n      }\n    }\n  }\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"foo\": {\n      \"type\": \"string\"\n    },\n    \"bar\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"string\"\n      }\n    }\n  },\n  \"required\": [\n    \"foo\"\n  ]\n}"
                         }
                       ],
                       "attributes": {

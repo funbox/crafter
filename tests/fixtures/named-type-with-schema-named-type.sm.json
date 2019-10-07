@@ -114,7 +114,7 @@
                                       },
                                       {
                                         "element": "number",
-                                        "content": 22
+                                        "content": 32
                                       }
                                     ]
                                   }
@@ -142,7 +142,7 @@
                                       },
                                       {
                                         "element": "number",
-                                        "content": 22
+                                        "content": 32
                                       }
                                     ]
                                   }
@@ -151,6 +151,17 @@
                             ]
                           }
                         }
+                      }
+                    },
+                    "attributes": {
+                      "typeAttributes": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "required"
+                          }
+                        ]
                       }
                     }
                   },
@@ -172,7 +183,7 @@
                                     "content": [
                                       {
                                         "element": "number",
-                                        "content": 125
+                                        "content": 135
                                       },
                                       {
                                         "element": "number",
@@ -205,7 +216,7 @@
                                     "content": [
                                       {
                                         "element": "number",
-                                        "content": 125
+                                        "content": 135
                                       },
                                       {
                                         "element": "number",
@@ -289,7 +300,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 176
+                                  "content": 186
                                 },
                                 {
                                   "element": "number",
@@ -318,7 +329,7 @@
                       ]
                     }
                   },
-                  "content": "{\n    \"test\": \"Hello\"\n}\n",
+                  "content": "  \"Hello world\"\n",
                   "attributes": {
                     "sourceMap": {
                       "element": "array",
@@ -331,37 +342,11 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 207
+                                  "content": 255
                                 },
                                 {
                                   "element": "number",
-                                  "content": 4
-                                }
-                              ]
-                            },
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 215
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 22
-                                }
-                              ]
-                            },
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 241
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 4
+                                  "content": 18
                                 }
                               ]
                             }
@@ -400,115 +385,11 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 260
+                                  "content": 219
                                 },
                                 {
                                   "element": "number",
-                                  "content": 4
-                                }
-                              ]
-                            },
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 268
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 60
-                                }
-                              ]
-                            },
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 332
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 24
-                                }
-                              ]
-                            },
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 360
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 22
-                                }
-                              ]
-                            },
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 386
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 20
-                                }
-                              ]
-                            },
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 410
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 31
-                                }
-                              ]
-                            },
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 445
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 12
-                                }
-                              ]
-                            },
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 461
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 8
-                                }
-                              ]
-                            },
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 473
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 4
+                                  "content": 23
                                 }
                               ]
                             }
@@ -517,7 +398,7 @@
                       ]
                     }
                   },
-                  "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"test\": {\n      \"type\": \"string\"\n    }\n  }\n}"
+                  "content": "{\n  \"type\": \"string\"\n}"
                 }
               ]
             }
@@ -547,7 +428,7 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 478
+                              "content": 274
                             },
                             {
                               "element": "number",
@@ -581,7 +462,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 478
+                                  "content": 274
                                 },
                                 {
                                   "element": "number",
@@ -618,7 +499,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 478
+                                          "content": 274
                                         },
                                         {
                                           "element": "number",
@@ -654,7 +535,7 @@
                                         "content": [
                                           {
                                             "element": "number",
-                                            "content": 540
+                                            "content": 336
                                           },
                                           {
                                             "element": "number",
@@ -682,7 +563,7 @@
                               ]
                             }
                           },
-                          "content": "{\n  \"foo\": {\n    \"test\": \"Hello\"\n  },\n  \"bar\": [\n    {\n      \"test\": \"Hello\"\n    }\n  ]\n}",
+                          "content": "{\n  \"foo\": \"Hello world\",\n  \"bar\": [\n    \"Hello world\"\n  ]\n}",
                           "attributes": {
                             "contentType": {
                               "element": "string",
@@ -709,7 +590,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"foo\": {\n      \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n      \"type\": \"object\",\n      \"properties\": {\n        \"test\": {\n          \"type\": \"string\"\n        }\n      }\n    },\n    \"bar\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n        \"type\": \"object\",\n        \"properties\": {\n          \"test\": {\n            \"type\": \"string\"\n          }\n        }\n      }\n    }\n  }\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"foo\": {\n      \"type\": \"string\"\n    },\n    \"bar\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"string\"\n      }\n    }\n  },\n  \"required\": [\n    \"foo\"\n  ]\n}"
                         }
                       ],
                       "attributes": {
@@ -728,7 +609,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 504
+                                          "content": 300
                                         },
                                         {
                                           "element": "number",
@@ -769,7 +650,7 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 504
+                                              "content": 300
                                             },
                                             {
                                               "element": "number",
@@ -796,7 +677,7 @@
                                   "content": [
                                     {
                                       "element": "number",
-                                      "content": 504
+                                      "content": 300
                                     },
                                     {
                                       "element": "number",
@@ -829,7 +710,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 478
+                                  "content": 274
                                 },
                                 {
                                   "element": "number",

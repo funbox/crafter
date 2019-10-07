@@ -134,7 +134,7 @@
                       ]
                     }
                   },
-                  "content": "{\n    \"test\": \"Hello\"\n}\n",
+                  "content": "[79031111111, \"Hello world\"]\n",
                   "attributes": {
                     "sourceMap": {
                       "element": "array",
@@ -151,33 +151,7 @@
                                 },
                                 {
                                   "element": "number",
-                                  "content": 4
-                                }
-                              ]
-                            },
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 123
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 22
-                                }
-                              ]
-                            },
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 149
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 4
+                                  "content": 31
                                 }
                               ]
                             }
@@ -216,7 +190,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 168
+                                  "content": 161
                                 },
                                 {
                                   "element": "number",
@@ -229,20 +203,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 176
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 60
-                                }
-                              ]
-                            },
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 240
+                                  "content": 169
                                 },
                                 {
                                   "element": "number",
@@ -255,11 +216,11 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 268
+                                  "content": 197
                                 },
                                 {
                                   "element": "number",
-                                  "content": 22
+                                  "content": 18
                                 }
                               ]
                             },
@@ -268,33 +229,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 294
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 20
-                                }
-                              ]
-                            },
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 318
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 31
-                                }
-                              ]
-                            },
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 353
+                                  "content": 219
                                 },
                                 {
                                   "element": "number",
@@ -307,7 +242,111 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 369
+                                  "content": 235
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 30
+                                }
+                              ]
+                            },
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 269
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 36
+                                }
+                              ]
+                            },
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 309
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 36
+                                }
+                              ]
+                            },
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 349
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 30
+                                }
+                              ]
+                            },
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 383
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 13
+                                }
+                              ]
+                            },
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 400
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 10
+                                }
+                              ]
+                            },
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 414
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 27
+                                }
+                              ]
+                            },
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 445
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 10
+                                }
+                              ]
+                            },
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 459
                                 },
                                 {
                                   "element": "number",
@@ -320,7 +359,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 381
+                                  "content": 471
                                 },
                                 {
                                   "element": "number",
@@ -333,7 +372,7 @@
                       ]
                     }
                   },
-                  "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"test\": {\n      \"type\": \"string\"\n    }\n  }\n}"
+                  "content": "{\n  \"type\": \"array\",\n  \"items\": [\n    {\n      \"type\": \"number\",\n      \"minimum\": 79000000000,\n      \"maximum\": 79999999999,\n      \"multipleOf\": 1\n    },\n    {\n      \"type\": \"string\"\n    }\n  ]\n}"
                 }
               ]
             }
@@ -363,7 +402,7 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 386
+                              "content": 476
                             },
                             {
                               "element": "number",
@@ -397,7 +436,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 386
+                                  "content": 476
                                 },
                                 {
                                   "element": "number",
@@ -434,7 +473,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 386
+                                          "content": 476
                                         },
                                         {
                                           "element": "number",
@@ -477,7 +516,7 @@
                                                 "content": [
                                                   {
                                                     "element": "number",
-                                                    "content": 465
+                                                    "content": 555
                                                   },
                                                   {
                                                     "element": "number",
@@ -505,7 +544,7 @@
                                                 "content": [
                                                   {
                                                     "element": "number",
-                                                    "content": 465
+                                                    "content": 555
                                                   },
                                                   {
                                                     "element": "number",
@@ -534,7 +573,7 @@
                                         "content": [
                                           {
                                             "element": "number",
-                                            "content": 448
+                                            "content": 538
                                           },
                                           {
                                             "element": "number",
@@ -562,7 +601,7 @@
                               ]
                             }
                           },
-                          "content": "{\n  \"foo\": {\n    \"test\": \"Hello\"\n  }\n}",
+                          "content": "{\n  \"foo\": [\n    79031111111,\n    \"Hello world\"\n  ]\n}",
                           "attributes": {
                             "contentType": {
                               "element": "string",
@@ -589,7 +628,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"foo\": {\n      \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n      \"type\": \"object\",\n      \"properties\": {\n        \"test\": {\n          \"type\": \"string\"\n        }\n      }\n    }\n  }\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"foo\": {\n      \"type\": \"array\",\n      \"items\": [\n        {\n          \"type\": \"number\",\n          \"minimum\": 79000000000,\n          \"maximum\": 79999999999,\n          \"multipleOf\": 1\n        },\n        {\n          \"type\": \"string\"\n        }\n      ]\n    }\n  }\n}"
                         }
                       ],
                       "attributes": {
@@ -608,7 +647,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 412
+                                          "content": 502
                                         },
                                         {
                                           "element": "number",
@@ -649,7 +688,7 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 412
+                                              "content": 502
                                             },
                                             {
                                               "element": "number",
@@ -676,7 +715,7 @@
                                   "content": [
                                     {
                                       "element": "number",
-                                      "content": 412
+                                      "content": 502
                                     },
                                     {
                                       "element": "number",
@@ -709,7 +748,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 386
+                                  "content": 476
                                 },
                                 {
                                   "element": "number",

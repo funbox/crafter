@@ -59,7 +59,7 @@
                       ]
                     }
                   },
-                  "content": "{\n    \"test\": \"Hello\"\n}\n"
+                  "content": "[79031111111, \"Hello world\"]\n"
                 },
                 {
                   "element": "asset",
@@ -80,7 +80,7 @@
                       "content": "application/schema+json"
                     }
                   },
-                  "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"test\": {\n      \"type\": \"string\"\n    }\n  }\n}"
+                  "content": "{\n  \"type\": \"array\",\n  \"items\": [\n    {\n      \"type\": \"number\",\n      \"minimum\": 79000000000,\n      \"maximum\": 79999999999,\n      \"multipleOf\": 1\n    },\n    {\n      \"type\": \"string\"\n    }\n  ]\n}"
                 }
               ]
             }
@@ -159,7 +159,7 @@
                               ]
                             }
                           },
-                          "content": "{\n  \"foo\": {\n    \"test\": \"Hello\"\n  }\n}",
+                          "content": "{\n  \"foo\": [\n    79031111111,\n    \"Hello world\"\n  ]\n}",
                           "attributes": {
                             "contentType": {
                               "element": "string",
@@ -186,7 +186,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"foo\": {\n      \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n      \"type\": \"object\",\n      \"properties\": {\n        \"test\": {\n          \"type\": \"string\"\n        }\n      }\n    }\n  }\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"foo\": {\n      \"type\": \"array\",\n      \"items\": [\n        {\n          \"type\": \"number\",\n          \"minimum\": 79000000000,\n          \"maximum\": 79999999999,\n          \"multipleOf\": 1\n        },\n        {\n          \"type\": \"string\"\n        }\n      ]\n    }\n  }\n}"
                         }
                       ],
                       "attributes": {

@@ -8,20 +8,23 @@ Defines object property by using schema named type.
 
 + Body
 
-      {
-          "test": "Hello"
-      }
+      [79031111111, "Hello world"]
 
 + Schema
 
       {
-          "$schema": "http://json-schema.org/draft-04/schema#",
-          "type": "object",
-          "properties": {
-              "test": {
-                  "type": "string"
-              }
-          }
+          "type" : "array",
+          "items" : [
+              {
+                "type": "number",
+                "minimum": 79000000000,
+                "maximum": 79999999999,
+                "multipleOf": 1.0
+              },
+            {
+              "type": "string"
+            }
+          ]
       }
 
 # Get test [GET /test]

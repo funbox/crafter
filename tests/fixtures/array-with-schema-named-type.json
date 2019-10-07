@@ -59,7 +59,7 @@
                       ]
                     }
                   },
-                  "content": "{\n    \"test\": \"Hello\"\n}\n"
+                  "content": "  79000000123\n"
                 },
                 {
                   "element": "asset",
@@ -80,7 +80,7 @@
                       "content": "application/schema+json"
                     }
                   },
-                  "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"test\": {\n      \"type\": \"string\"\n    }\n  }\n}"
+                  "content": "{\n  \"type\": \"number\",\n  \"minimum\": 79000000000,\n  \"maximum\": 79999999999,\n  \"multipleOf\": 1\n}"
                 }
               ]
             }
@@ -154,7 +154,7 @@
                               ]
                             }
                           },
-                          "content": "[\n  {\n    \"test\": \"Hello\"\n  },\n  \"foo\"\n]",
+                          "content": "[\n  79000000123,\n  \"foo\"\n]",
                           "attributes": {
                             "contentType": {
                               "element": "string",
@@ -181,7 +181,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"array\",\n  \"items\": {\n    \"anyOf\": [\n      {\n        \"type\": \"string\"\n      },\n      {\n        \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n        \"type\": \"object\",\n        \"properties\": {\n          \"test\": {\n            \"type\": \"string\"\n          }\n        }\n      }\n    ]\n  }\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"array\",\n  \"items\": {\n    \"anyOf\": [\n      {\n        \"type\": \"string\"\n      },\n      {\n        \"type\": \"number\",\n        \"minimum\": 79000000000,\n        \"maximum\": 79999999999,\n        \"multipleOf\": 1\n      }\n    ]\n  }\n}"
                         }
                       ],
                       "attributes": {

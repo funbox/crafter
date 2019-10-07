@@ -134,7 +134,7 @@
                       ]
                     }
                   },
-                  "content": "{\n    \"test\": \"Hello\"\n}\n",
+                  "content": "  79000000123\n",
                   "attributes": {
                     "sourceMap": {
                       "element": "array",
@@ -151,33 +151,7 @@
                                 },
                                 {
                                   "element": "number",
-                                  "content": 4
-                                }
-                              ]
-                            },
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 120
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 22
-                                }
-                              ]
-                            },
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 146
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 4
+                                  "content": 16
                                 }
                               ]
                             }
@@ -216,11 +190,11 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 165
+                                  "content": 143
                                 },
                                 {
                                   "element": "number",
-                                  "content": 4
+                                  "content": 6
                                 }
                               ]
                             },
@@ -229,20 +203,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 173
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 60
-                                }
-                              ]
-                            },
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 237
+                                  "content": 153
                                 },
                                 {
                                   "element": "number",
@@ -255,11 +216,11 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 265
+                                  "content": 181
                                 },
                                 {
                                   "element": "number",
-                                  "content": 22
+                                  "content": 30
                                 }
                               ]
                             },
@@ -268,11 +229,11 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 291
+                                  "content": 215
                                 },
                                 {
                                   "element": "number",
-                                  "content": 20
+                                  "content": 30
                                 }
                               ]
                             },
@@ -281,11 +242,11 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 315
+                                  "content": 249
                                 },
                                 {
                                   "element": "number",
-                                  "content": 31
+                                  "content": 24
                                 }
                               ]
                             },
@@ -294,37 +255,11 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 350
+                                  "content": 277
                                 },
                                 {
                                   "element": "number",
-                                  "content": 12
-                                }
-                              ]
-                            },
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 366
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 8
-                                }
-                              ]
-                            },
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 378
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 4
+                                  "content": 6
                                 }
                               ]
                             }
@@ -333,7 +268,7 @@
                       ]
                     }
                   },
-                  "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"test\": {\n      \"type\": \"string\"\n    }\n  }\n}"
+                  "content": "{\n  \"type\": \"number\",\n  \"minimum\": 79000000000,\n  \"maximum\": 79999999999,\n  \"multipleOf\": 1\n}"
                 }
               ]
             }
@@ -363,7 +298,7 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 383
+                              "content": 284
                             },
                             {
                               "element": "number",
@@ -397,7 +332,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 383
+                                  "content": 284
                                 },
                                 {
                                   "element": "number",
@@ -434,7 +369,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 383
+                                          "content": 284
                                         },
                                         {
                                           "element": "number",
@@ -477,7 +412,7 @@
                                             "content": [
                                               {
                                                 "element": "number",
-                                                "content": 486
+                                                "content": 387
                                               },
                                               {
                                                 "element": "number",
@@ -504,7 +439,7 @@
                                         "content": [
                                           {
                                             "element": "number",
-                                            "content": 445
+                                            "content": 346
                                           },
                                           {
                                             "element": "number",
@@ -532,7 +467,7 @@
                               ]
                             }
                           },
-                          "content": "[\n  {\n    \"test\": \"Hello\"\n  },\n  \"foo\"\n]",
+                          "content": "[\n  79000000123,\n  \"foo\"\n]",
                           "attributes": {
                             "contentType": {
                               "element": "string",
@@ -559,7 +494,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"array\",\n  \"items\": {\n    \"anyOf\": [\n      {\n        \"type\": \"string\"\n      },\n      {\n        \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n        \"type\": \"object\",\n        \"properties\": {\n          \"test\": {\n            \"type\": \"string\"\n          }\n        }\n      }\n    ]\n  }\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"array\",\n  \"items\": {\n    \"anyOf\": [\n      {\n        \"type\": \"string\"\n      },\n      {\n        \"type\": \"number\",\n        \"minimum\": 79000000000,\n        \"maximum\": 79999999999,\n        \"multipleOf\": 1\n      }\n    ]\n  }\n}"
                         }
                       ],
                       "attributes": {
@@ -578,7 +513,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 409
+                                          "content": 310
                                         },
                                         {
                                           "element": "number",
@@ -619,7 +554,7 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 409
+                                              "content": 310
                                             },
                                             {
                                               "element": "number",
@@ -646,7 +581,7 @@
                                   "content": [
                                     {
                                       "element": "number",
-                                      "content": 409
+                                      "content": 310
                                     },
                                     {
                                       "element": "number",
@@ -679,7 +614,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 383
+                                  "content": 284
                                 },
                                 {
                                   "element": "number",

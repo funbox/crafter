@@ -6,30 +6,20 @@ Defines named type property by using schema named type.
 
 # NamedType
 
-+ foo (SchemaNamedType)
++ foo (SchemaNamedType, required)
 + bar (array[SchemaNamedType])
 
 # Schema Structures
 
 # SchemaNamedType
 
-+ Body
-
-      {
-          "test": "Hello"
-      }
-
 + Schema
 
-      {
-          "$schema": "http://json-schema.org/draft-04/schema#",
-          "type": "object",
-          "properties": {
-              "test": {
-                  "type": "string"
-              }
-          }
-      }
+        {"type": "string"}
+
++ Body
+
+        "Hello world"
 
 # Get test [GET /test]
 

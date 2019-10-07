@@ -212,6 +212,8 @@ class ValueMemberElement {
 }
 
 function fillSchemaWithAttributes(schema, typeAttributes) {
+  if (!typeAttributes) return schema;
+
   const parameterizedAttributes = {
     string: {
       pattern: 'pattern',
@@ -230,7 +232,7 @@ function fillSchemaWithAttributes(schema, typeAttributes) {
   };
 
   const allowedAttributes = parameterizedAttributes[schema.type];
-  if (allowedAttributes === undefined) return schema;
+  if (!allowedAttributes) return schema;
 
   typeAttributes.forEach(a => {
     if (!Array.isArray(a)) return;
