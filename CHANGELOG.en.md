@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.34.2 (07.10.2019)
+
+* Skip attributes parsing in schema named types.
+
 ## 1.34.1 (03.10.2019)
 
 * Fix body generation for falsy samples.
