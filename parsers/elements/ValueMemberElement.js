@@ -172,7 +172,7 @@ class ValueMemberElement {
     }
 
     if (!this.type && !(typeEl || this.content)) {
-      this.type = 'string';
+      schema.type = 'string';
     }
 
     // Нормализуем тип, так как в json schema не сущетсвует типа 'file'
@@ -197,7 +197,7 @@ class ValueMemberElement {
       schema.enum = [this.value];
     }
 
-    if ((flags.isFixed || flags.isFixedType) && this.isObject()) {
+    if ((flags.isFixed || flags.isFixedType) && !types.nonObjectTypes.includes(schema.type)) {
       schema.additionalProperties = false;
     }
 
