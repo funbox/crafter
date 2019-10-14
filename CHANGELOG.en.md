@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.35.0 (14.10.2019)
+
+* Avoid valueMemberElement object mutation in the "getSchema" method.
+
 ## 1.34.2 (07.10.2019)
 
 * Skip attributes parsing in schema named types.
