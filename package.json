@@ -4,6 +4,7 @@
   "description": "JavaScript replacement of Drafter library for parsing API Blueprint documentation format",
   "main": "Crafter.js",
   "scripts": {
+    "pretest": "npm run lint",
     "test": "jest",
     "test-drafter": "jest ./tests/drafterFixtures.test.js --config={}",
     "regenerate-fixtures": "node ./scripts/regenerate-fixtures.js",
