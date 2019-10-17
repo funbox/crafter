@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.35.1 (17.10.2019)
+
+* Add pretest npm task.
+
 ## 1.35.0 (14.10.2019)
 
 * Avoid valueMemberElement object mutation in the "getSchema" method.
