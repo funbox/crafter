@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.36.0 (19.10.2019)
+
+* Add support of recursive arrays.
+
 ## 1.35.1 (17.10.2019)
 
 * Add pretest npm task.
