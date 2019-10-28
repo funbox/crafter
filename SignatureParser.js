@@ -221,7 +221,7 @@ class SignatureParser {
         this.typeAttributes.push([alias, attrValue]);
       } else if (!isParameterized && Object.keys(typeAttributes).includes(attrName)) {
         this.typeAttributes.push(typeAttributes[a]);
-      } else if (!isParameterized && !this.type) {
+      } else if (!isParameterized && !this.type && !Object.values(fakeTypeAttributes).includes(a)) {
         this.type = attrName;
       } else if (!Object.values(fakeTypeAttributes).includes(a)) {
         error(a);
