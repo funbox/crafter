@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.36.1 (29.10.2019)
+
+* Fix the error "Type not found" caused by parsing of "default" and "sample" attributes.
+
 ## 1.36.0 (19.10.2019)
 
 * Add support of recursive arrays.
