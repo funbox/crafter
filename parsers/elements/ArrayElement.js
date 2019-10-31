@@ -5,8 +5,8 @@ class ArrayElement {
     this.members = members;
   }
 
-  toRefract(sourceMapsEnabled) {
-    return this.members.map(element => element.toRefract(sourceMapsEnabled));
+  toRefract(sourceMapsEnabled, isFixed) {
+    return this.members.map(element => element.toRefract(sourceMapsEnabled, isFixed));
   }
 
   getBody(resolvedTypes, namedTypesChain = []) {

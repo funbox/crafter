@@ -87,7 +87,17 @@
                                           },
                                           "value": {
                                             "element": "string",
-                                            "content": "hello"
+                                            "attributes": {
+                                              "samples": {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "string",
+                                                    "content": "hello"
+                                                  }
+                                                ]
+                                              }
+                                            }
                                           }
                                         }
                                       },
@@ -100,7 +110,17 @@
                                           },
                                           "value": {
                                             "element": "string",
-                                            "content": "world"
+                                            "attributes": {
+                                              "samples": {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "string",
+                                                    "content": "world"
+                                                  }
+                                                ]
+                                              }
+                                            }
                                           }
                                         }
                                       },
@@ -113,7 +133,17 @@
                                           },
                                           "value": {
                                             "element": "string",
-                                            "content": "bar"
+                                            "attributes": {
+                                              "samples": {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "string",
+                                                    "content": "bar"
+                                                  }
+                                                ]
+                                              }
+                                            }
                                           }
                                         },
                                         "attributes": {

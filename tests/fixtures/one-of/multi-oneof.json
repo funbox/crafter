@@ -57,7 +57,17 @@
                               },
                               "value": {
                                 "element": "string",
-                                "content": "march"
+                                "attributes": {
+                                  "samples": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "march"
+                                      }
+                                    ]
+                                  }
+                                }
                               }
                             }
                           }
@@ -75,7 +85,17 @@
                               },
                               "value": {
                                 "element": "number",
-                                "content": 1
+                                "attributes": {
+                                  "samples": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 1
+                                      }
+                                    ]
+                                  }
+                                }
                               }
                             }
                           }
@@ -98,7 +118,17 @@
                               },
                               "value": {
                                 "element": "number",
-                                "content": 5
+                                "attributes": {
+                                  "samples": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 5
+                                      }
+                                    ]
+                                  }
+                                }
                               }
                             }
                           }
@@ -116,7 +146,17 @@
                               },
                               "value": {
                                 "element": "string",
-                                "content": "2015-04-08T12:30:00Z"
+                                "attributes": {
+                                  "samples": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "2015-04-08T12:30:00Z"
+                                      }
+                                    ]
+                                  }
+                                }
                               }
                             }
                           }

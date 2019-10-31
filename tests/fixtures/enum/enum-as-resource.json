@@ -204,7 +204,17 @@
                                   },
                                   "value": {
                                     "element": "string",
-                                    "content": "Template"
+                                    "attributes": {
+                                      "samples": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "string",
+                                            "content": "Template"
+                                          }
+                                        ]
+                                      }
+                                    }
                                   }
                                 },
                                 "attributes": {

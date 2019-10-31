@@ -329,8 +329,41 @@
                                   },
                                   "value": {
                                     "element": "Foo",
-                                    "content": "a",
                                     "attributes": {
+                                      "samples": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "string",
+                                            "content": "a",
+                                            "attributes": {
+                                              "sourceMap": {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "sourceMap",
+                                                    "content": [
+                                                      {
+                                                        "element": "array",
+                                                        "content": [
+                                                          {
+                                                            "element": "number",
+                                                            "content": 201
+                                                          },
+                                                          {
+                                                            "element": "number",
+                                                            "content": 1
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
                                       "sourceMap": {
                                         "element": "array",
                                         "content": [
@@ -392,8 +425,41 @@
                                   },
                                   "value": {
                                     "element": "Bar",
-                                    "content": "b",
                                     "attributes": {
+                                      "samples": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "string",
+                                            "content": "b",
+                                            "attributes": {
+                                              "sourceMap": {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "sourceMap",
+                                                    "content": [
+                                                      {
+                                                        "element": "array",
+                                                        "content": [
+                                                          {
+                                                            "element": "number",
+                                                            "content": 220
+                                                          },
+                                                          {
+                                                            "element": "number",
+                                                            "content": 1
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
                                       "sourceMap": {
                                         "element": "array",
                                         "content": [
@@ -455,8 +521,41 @@
                                   },
                                   "value": {
                                     "element": "Baz",
-                                    "content": 10,
                                     "attributes": {
+                                      "samples": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "number",
+                                            "content": 10,
+                                            "attributes": {
+                                              "sourceMap": {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "sourceMap",
+                                                    "content": [
+                                                      {
+                                                        "element": "array",
+                                                        "content": [
+                                                          {
+                                                            "element": "number",
+                                                            "content": 250
+                                                          },
+                                                          {
+                                                            "element": "number",
+                                                            "content": 2
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      },
                                       "sourceMap": {
                                         "element": "array",
                                         "content": [

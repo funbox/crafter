@@ -7,7 +7,7 @@ const DefaultValueElement = require('./parsers/elements/DefaultValueElement');
 const ValueMemberElement = require('./parsers/elements/ValueMemberElement');
 
 const ValueMemberProcessor = {
-  fillBaseType(context, element) {
+  fillBaseType(context, element, isProperty) {
     if (!element.isStandardType()) {
       element.baseType = context.typeResolver.getStandardBaseType(element.type);
     } else {
@@ -21,26 +21,24 @@ const ValueMemberProcessor = {
     const { value } = element;
     let sampleElements = [];
     let defaultElements = [];
-    let useSample = false;
-    let useDefault = false;
-    let omitValue = element.isSample || element.isDefault || element.isArray();
 
     if (!element.isStandardType()) {
       const namedElement = context.typeResolver.types[element.type];
       sampleElements = sampleElements.concat(namedElement.samples || []);
       defaultElements = defaultElements.concat(namedElement.default ? [namedElement.default] : []);
-      useSample = !!sampleElements.length;
-      useDefault = !!defaultElements.length;
     }
 
-    if (value === false || !!value) {
+    if (value != null) {
       if (element.type && element.isObject()) {
         context.addWarning('"object" with value definition. You should use type definition without value, e.g., "+ key (object)"', context.data.attributeSignatureDetails.sourceMap);
-        omitValue = true;
-      } else {
+      } else if (isProperty || element.isSample || element.isDefault) {
         const [inlineSamples, inlineDefaults] = getSamplesAndDefaultsFromInline(element, value, context);
-        sampleElements = sampleElements.concat(inlineSamples);
-        defaultElements = defaultElements.concat(inlineDefaults);
+        if (isProperty || element.isSample) {
+          sampleElements = sampleElements.concat(inlineSamples);
+        }
+        if (element.isDefault) {
+          defaultElements = defaultElements.concat(inlineDefaults);
+        }
       }
     }
 
@@ -60,17 +58,14 @@ const ValueMemberProcessor = {
       element.content = new ArrayElement(members);
     }
 
-    useSample = useSample || sampleElements.length && !element.isDefault && (element.isSample || element.isArray());
-    useDefault = useDefault || element.isDefault && defaultElements.length;
+    element.samples = sampleElements;
+    element.default = defaultElements.length > 0 ? defaultElements[0] : null;
 
-    element.samples = useSample ? sampleElements : null;
-    element.default = useDefault ? defaultElements[0] : null;
-
-    if (useDefault && defaultElements.length > 1) {
+    if (defaultElements.length > 1) {
       context.addWarning('Multiple definitions of "default" value', context.data.attributeSignatureDetails.sourceMap);
     }
 
-    element.value = omitValue ? null : convertType(value, element.baseType).value;
+    element.value = convertType(value, element.baseType).value;
   },
 };
 
@@ -82,7 +77,7 @@ function getSamplesAndDefaultsFromInline(element, value, context) {
   if (element.isArray() || element.isEnum()) {
     inlineValuesType = element.nestedTypes.find(type => (context.typeResolver.getStandardBaseType(type) !== 'object')) || 'string';
   } else {
-    inlineValuesType = element.type || 'string';
+    inlineValuesType = element.baseType || 'string';
   }
 
   const inlineValues = splitValues(value).reduce((res, v) => {

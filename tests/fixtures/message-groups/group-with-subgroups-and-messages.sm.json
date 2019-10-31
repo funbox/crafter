@@ -129,8 +129,41 @@
                           },
                           "value": {
                             "element": "string",
-                            "content": "Hello there",
                             "attributes": {
+                              "samples": {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "string",
+                                    "content": "Hello there",
+                                    "attributes": {
+                                      "sourceMap": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "sourceMap",
+                                            "content": [
+                                              {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "number",
+                                                    "content": 94
+                                                  },
+                                                  {
+                                                    "element": "number",
+                                                    "content": 11
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                ]
+                              },
                               "sourceMap": {
                                 "element": "array",
                                 "content": [
@@ -465,8 +498,41 @@
                               },
                               "value": {
                                 "element": "string",
-                                "content": "John",
                                 "attributes": {
+                                  "samples": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "John",
+                                        "attributes": {
+                                          "sourceMap": {
+                                            "element": "array",
+                                            "content": [
+                                              {
+                                                "element": "sourceMap",
+                                                "content": [
+                                                  {
+                                                    "element": "array",
+                                                    "content": [
+                                                      {
+                                                        "element": "number",
+                                                        "content": 344
+                                                      },
+                                                      {
+                                                        "element": "number",
+                                                        "content": 4
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  },
                                   "sourceMap": {
                                     "element": "array",
                                     "content": [

@@ -163,8 +163,41 @@
                       },
                       "value": {
                         "element": "string",
-                        "content": "all",
                         "attributes": {
+                          "samples": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "all",
+                                "attributes": {
+                                  "sourceMap": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "sourceMap",
+                                        "content": [
+                                          {
+                                            "element": "array",
+                                            "content": [
+                                              {
+                                                "element": "number",
+                                                "content": 255
+                                              },
+                                              {
+                                                "element": "number",
+                                                "content": 3
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          },
                           "sourceMap": {
                             "element": "array",
                             "content": [

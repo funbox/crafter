@@ -667,8 +667,41 @@
                                       },
                                       "value": {
                                         "element": "string",
-                                        "content": "5",
                                         "attributes": {
+                                          "samples": {
+                                            "element": "array",
+                                            "content": [
+                                              {
+                                                "element": "string",
+                                                "content": "5",
+                                                "attributes": {
+                                                  "sourceMap": {
+                                                    "element": "array",
+                                                    "content": [
+                                                      {
+                                                        "element": "sourceMap",
+                                                        "content": [
+                                                          {
+                                                            "element": "array",
+                                                            "content": [
+                                                              {
+                                                                "element": "number",
+                                                                "content": 685
+                                                              },
+                                                              {
+                                                                "element": "number",
+                                                                "content": 1
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              }
+                                            ]
+                                          },
                                           "sourceMap": {
                                             "element": "array",
                                             "content": [

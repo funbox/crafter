@@ -123,7 +123,17 @@
                               },
                               "value": {
                                 "element": "string",
-                                "content": "name"
+                                "attributes": {
+                                  "samples": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "name"
+                                      }
+                                    ]
+                                  }
+                                }
                               }
                             }
                           }

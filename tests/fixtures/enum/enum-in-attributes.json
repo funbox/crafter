@@ -91,7 +91,17 @@
                                   },
                                   "value": {
                                     "element": "string",
-                                    "content": "SMS-отчет"
+                                    "attributes": {
+                                      "samples": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "string",
+                                            "content": "SMS-отчет"
+                                          }
+                                        ]
+                                      }
+                                    }
                                   }
                                 },
                                 "attributes": {

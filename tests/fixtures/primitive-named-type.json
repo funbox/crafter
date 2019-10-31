@@ -129,7 +129,17 @@
                                   },
                                   "value": {
                                     "element": "Foo",
-                                    "content": "a"
+                                    "attributes": {
+                                      "samples": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "string",
+                                            "content": "a"
+                                          }
+                                        ]
+                                      }
+                                    }
                                   }
                                 }
                               },
@@ -142,7 +152,17 @@
                                   },
                                   "value": {
                                     "element": "Bar",
-                                    "content": "b"
+                                    "attributes": {
+                                      "samples": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "string",
+                                            "content": "b"
+                                          }
+                                        ]
+                                      }
+                                    }
                                   }
                                 }
                               },
@@ -155,7 +175,17 @@
                                   },
                                   "value": {
                                     "element": "Baz",
-                                    "content": 10
+                                    "attributes": {
+                                      "samples": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "number",
+                                            "content": 10
+                                          }
+                                        ]
+                                      }
+                                    }
                                   }
                                 }
                               }

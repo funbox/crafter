@@ -12,12 +12,12 @@ class PropertyMemberElement {
     this.descriptionEl = descriptionEl;
   }
 
-  toRefract(sourceMapsEnabled) {
+  toRefract(sourceMapsEnabled, isFixed) {
     const result = {
       element: Refract.elements.member,
       content: {
         key: this.name.toRefract(sourceMapsEnabled),
-        value: this.value.toRefract(sourceMapsEnabled),
+        value: this.value.toRefract(sourceMapsEnabled, isFixed || this.typeAttributes.includes('fixed')),
       },
     };
 

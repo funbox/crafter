@@ -91,7 +91,17 @@
                                   },
                                   "value": {
                                     "element": "string",
-                                    "content": "John"
+                                    "attributes": {
+                                      "samples": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "string",
+                                            "content": "John"
+                                          }
+                                        ]
+                                      }
+                                    }
                                   }
                                 },
                                 "meta": {

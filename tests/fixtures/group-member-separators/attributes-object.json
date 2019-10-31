@@ -91,7 +91,17 @@
                                   },
                                   "value": {
                                     "element": "string",
-                                    "content": "John"
+                                    "attributes": {
+                                      "samples": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "string",
+                                            "content": "John"
+                                          }
+                                        ]
+                                      }
+                                    }
                                   }
                                 },
                                 "attributes": {
@@ -176,7 +186,17 @@
                                   },
                                   "value": {
                                     "element": "string",
-                                    "content": "John"
+                                    "attributes": {
+                                      "samples": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "string",
+                                            "content": "John"
+                                          }
+                                        ]
+                                      }
+                                    }
                                   }
                                 },
                                 "attributes": {
@@ -206,7 +226,17 @@
                                   },
                                   "value": {
                                     "element": "string",
-                                    "content": "admin@localhost"
+                                    "attributes": {
+                                      "samples": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "string",
+                                            "content": "admin@localhost"
+                                          }
+                                        ]
+                                      }
+                                    }
                                   }
                                 },
                                 "attributes": {
@@ -230,7 +260,17 @@
                                   },
                                   "value": {
                                     "element": "number",
-                                    "content": 42
+                                    "attributes": {
+                                      "samples": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "number",
+                                            "content": 42
+                                          }
+                                        ]
+                                      }
+                                    }
                                   }
                                 }
                               },

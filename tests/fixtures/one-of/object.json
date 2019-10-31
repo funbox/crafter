@@ -67,7 +67,17 @@
                                       },
                                       "value": {
                                         "element": "string",
-                                        "content": "v1"
+                                        "attributes": {
+                                          "samples": {
+                                            "element": "array",
+                                            "content": [
+                                              {
+                                                "element": "string",
+                                                "content": "v1"
+                                              }
+                                            ]
+                                          }
+                                        }
                                       }
                                     }
                                   },
@@ -80,7 +90,17 @@
                                       },
                                       "value": {
                                         "element": "number",
-                                        "content": 2
+                                        "attributes": {
+                                          "samples": {
+                                            "element": "array",
+                                            "content": [
+                                              {
+                                                "element": "number",
+                                                "content": 2
+                                              }
+                                            ]
+                                          }
+                                        }
                                       }
                                     }
                                   }

@@ -125,7 +125,17 @@
                       },
                       "value": {
                         "element": "string",
-                        "content": "b21"
+                        "attributes": {
+                          "samples": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "b21"
+                              }
+                            ]
+                          }
+                        }
                       }
                     },
                     "meta": {
@@ -144,7 +154,17 @@
                       },
                       "value": {
                         "element": "string",
-                        "content": "b22"
+                        "attributes": {
+                          "samples": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "b22"
+                              }
+                            ]
+                          }
+                        }
                       }
                     },
                     "attributes": {

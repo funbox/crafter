@@ -57,7 +57,17 @@
                               },
                               "value": {
                                 "element": "string",
-                                "content": "phone"
+                                "attributes": {
+                                  "samples": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "phone"
+                                      }
+                                    ]
+                                  }
+                                }
                               }
                             },
                             "meta": {
@@ -76,7 +86,17 @@
                               },
                               "value": {
                                 "element": "number",
-                                "content": 79000000002
+                                "attributes": {
+                                  "samples": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 79000000002
+                                      }
+                                    ]
+                                  }
+                                }
                               }
                             },
                             "meta": {
@@ -100,7 +120,17 @@
                               },
                               "value": {
                                 "element": "string",
-                                "content": "custom"
+                                "attributes": {
+                                  "samples": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "custom"
+                                      }
+                                    ]
+                                  }
+                                }
                               }
                             },
                             "meta": {

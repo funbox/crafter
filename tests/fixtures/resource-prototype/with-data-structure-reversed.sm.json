@@ -333,8 +333,41 @@
                       },
                       "value": {
                         "element": "string",
-                        "content": "client",
                         "attributes": {
+                          "samples": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "client",
+                                "attributes": {
+                                  "sourceMap": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "sourceMap",
+                                        "content": [
+                                          {
+                                            "element": "array",
+                                            "content": [
+                                              {
+                                                "element": "number",
+                                                "content": 183
+                                              },
+                                              {
+                                                "element": "number",
+                                                "content": 6
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          },
                           "sourceMap": {
                             "element": "array",
                             "content": [

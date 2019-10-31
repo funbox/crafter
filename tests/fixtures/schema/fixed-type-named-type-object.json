@@ -62,7 +62,17 @@
                       },
                       "value": {
                         "element": "string",
-                        "content": "b1"
+                        "attributes": {
+                          "samples": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "b1"
+                              }
+                            ]
+                          }
+                        }
                       }
                     },
                     "meta": {
@@ -91,7 +101,17 @@
                               },
                               "value": {
                                 "element": "string",
-                                "content": "foo"
+                                "attributes": {
+                                  "samples": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "foo"
+                                      }
+                                    ]
+                                  }
+                                }
                               }
                             }
                           }
@@ -122,7 +142,17 @@
                       },
                       "value": {
                         "element": "string",
-                        "content": "b2"
+                        "attributes": {
+                          "samples": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "b2"
+                              }
+                            ]
+                          }
+                        }
                       }
                     },
                     "meta": {
@@ -151,7 +181,17 @@
                               },
                               "value": {
                                 "element": "string",
-                                "content": "foo"
+                                "attributes": {
+                                  "samples": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "foo"
+                                      }
+                                    ]
+                                  }
+                                }
                               }
                             }
                           }

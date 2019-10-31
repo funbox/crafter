@@ -49,7 +49,7 @@ module.exports = (Parsers) => {
 
       const valueEl = new ValueMemberElement(signature.type, valueTypeAttributes, signature.value, '', signature.isSample, signature.isDefault);
       valueEl.sourceMap = sourceMap;
-      ValueMemberProcessor.fillBaseType(context, valueEl);
+      ValueMemberProcessor.fillBaseType(context, valueEl, true);
       name.sourceMap = sourceMap;
       if (descriptionEl) {
         descriptionEl.sourceMap = utils.makeSourceMapForLine(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);

@@ -193,7 +193,17 @@
                       },
                       "value": {
                         "element": "string",
-                        "content": "1"
+                        "attributes": {
+                          "samples": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "1"
+                              }
+                            ]
+                          }
+                        }
                       }
                     }
                   },

@@ -51,7 +51,17 @@
                       },
                       "value": {
                         "element": "string",
-                        "content": "Morty"
+                        "attributes": {
+                          "samples": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "Morty"
+                              }
+                            ]
+                          }
+                        }
                       }
                     },
                     "attributes": {

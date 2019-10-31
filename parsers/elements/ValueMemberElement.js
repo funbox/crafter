@@ -17,7 +17,7 @@ class ValueMemberElement {
     this.value = convertType(value, this.type).value;
     this.description = description;
     this.content = null;
-    this.samples = null;
+    this.samples = [];
     this.default = null;
     this.sourceMap = null;
     this.isSample = isSample;
@@ -57,7 +57,16 @@ class ValueMemberElement {
     return firstOccurrence !== typesChain.length - 1;
   }
 
-  toRefract(sourceMapsEnabled) {
+  shouldOutputSamples(isFixed) {
+    return (this.isSample || !((this.isObject() && this.content) || this.isDefault || isFixed)) && this.samples.length > 0;
+  }
+
+  shouldOutputValue(isFixed) {
+    const notEmpty = this.value != null; // проверяем null | undefined, разрешаем false
+    return !((this.type && this.isObject()) || this.shouldOutputSamples(isFixed) || this.default) && notEmpty;
+  }
+
+  toRefract(sourceMapsEnabled, isFixed) {
     const sourceMapEl = sourceMapsEnabled && this.sourceMap ? new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file) : null;
     const type = this.type || (this.content ? 'object' : 'string');
 
@@ -81,7 +90,7 @@ class ValueMemberElement {
       result.attributes = utils.typeAttributesToRefract(this.typeAttributes);
     }
 
-    if (this.value != null) { // проверяем null | undefined, разрешаем false
+    if (this.shouldOutputValue(isFixed)) {
       result.content = this.value;
     }
 
@@ -89,15 +98,15 @@ class ValueMemberElement {
       if (this.isEnum()) {
         result.attributes = this.content.toRefract(sourceMapsEnabled);
       } else {
-        result.content = this.content.toRefract(sourceMapsEnabled);
+        result.content = this.content.toRefract(sourceMapsEnabled, isFixed || this.typeAttributes.includes('fixed'));
       }
     }
 
-    if (this.samples || this.default || sourceMapEl) {
+    if (this.shouldOutputSamples(isFixed) || this.default || sourceMapEl) {
       if (!result.attributes) result.attributes = {};
     }
 
-    if (this.samples) {
+    if (this.shouldOutputSamples(isFixed)) {
       const existingSamplesContent = (result.attributes.samples && result.attributes.samples.content) || [];
       const samplesContent = [
         ...(this.samples.map(sampleElement => sampleElement.toRefract(sourceMapsEnabled))),
@@ -126,7 +135,7 @@ class ValueMemberElement {
   }
 
   getBody(resolvedTypes, namedTypesChain = []) {
-    if (this.samples && this.samples.length) {
+    if (this.shouldOutputSamples()) {
       return this.samples[0].getBody(resolvedTypes);
     }
 
@@ -154,7 +163,7 @@ class ValueMemberElement {
     }
 
     const type = (typeEl && typeEl.baseType) || this.type || (this.content ? 'object' : 'string');
-    const convertedValue = convertType(this.value, type).value;
+    const convertedValue = this.shouldOutputValue() ? convertType(this.value, type).value : null;
     return convertedValue !== undefined && convertedValue !== null ? convertedValue : utils.defaultValue(type);
   }
 

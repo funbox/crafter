@@ -47,7 +47,17 @@
                       },
                       "value": {
                         "element": "number",
-                        "content": 1
+                        "attributes": {
+                          "samples": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "number",
+                                "content": 1
+                              }
+                            ]
+                          }
+                        }
                       }
                     },
                     "attributes": {
@@ -81,7 +91,17 @@
                               },
                               "value": {
                                 "element": "number",
-                                "content": 42
+                                "attributes": {
+                                  "samples": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 42
+                                      }
+                                    ]
+                                  }
+                                }
                               }
                             },
                             "attributes": {
@@ -105,7 +125,17 @@
                               },
                               "value": {
                                 "element": "string",
-                                "content": "John Smith"
+                                "attributes": {
+                                  "samples": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "John Smith"
+                                      }
+                                    ]
+                                  }
+                                }
                               }
                             },
                             "attributes": {
@@ -133,7 +163,17 @@
                       },
                       "value": {
                         "element": "string",
-                        "content": "Hello there"
+                        "attributes": {
+                          "samples": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "Hello there"
+                              }
+                            ]
+                          }
+                        }
                       }
                     },
                     "attributes": {
@@ -198,7 +238,17 @@
                           },
                           "value": {
                             "element": "string",
-                            "content": "John"
+                            "attributes": {
+                              "samples": {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "string",
+                                    "content": "John"
+                                  }
+                                ]
+                              }
+                            }
                           }
                         },
                         "attributes": {

@@ -162,7 +162,17 @@
                       },
                       "value": {
                         "element": "string",
-                        "content": "client"
+                        "attributes": {
+                          "samples": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "client"
+                              }
+                            ]
+                          }
+                        }
                       }
                     }
                   }

@@ -69,9 +69,17 @@
                                 }
                               }
                             ]
+                          },
+                          "samples": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "hello"
+                              }
+                            ]
                           }
-                        },
-                        "content": "hello"
+                        }
                       }
                     },
                     "attributes": {
