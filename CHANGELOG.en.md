@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.37.0 (02.11.2019)
+
+* Use property value as a sample if no sample provided.
+
 ## 1.36.1 (29.10.2019)
 
 * Fix the error "Type not found" caused by parsing of "default" and "sample" attributes.
