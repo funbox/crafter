@@ -14,6 +14,9 @@ module.exports = (Parsers) => {
       try {
         this.preprocessNestedSections(node, context);
       } catch (error) {
+        if (context.debugMode) {
+          throw error;
+        }
         context.error = error;
       }
 
@@ -98,6 +101,9 @@ module.exports = (Parsers) => {
             }
           }
         } catch (error) {
+          if (context.debugMode) {
+            throw error;
+          }
           context.error = error;
           break;
         }
