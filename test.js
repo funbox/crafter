@@ -1,6 +1,8 @@
 const parseApibFile = require('./parseApibFile');
 
-const filename = './tests/fixtures/recursive-objects/recursive-object.apib';
+// const filename = './tests/fixtures/recursive-objects/recursive-object.apib';
+// const filename = './tests/fixtures/recursive-objects/recursive-object-fixed-error.apib';
+const filename = './tests/fixtures/recursive-objects/recursive-object-additional-properties-error.apib';
 // const filename = './tests/fixtures/recursive-objects/recursive-object-optional.apib';
 // const filename = './tests/fixtures/recursive-objects/nonrecursive-object.apib';
 const format = 'json';

@@ -24,24 +24,28 @@ class TypeResolver {
 
   checkRegisteredTypes() {
     const resolvedTypes = new Set();
-    const resolveType = (name, targetType, usedTypes = [], ignoredTypes = []) => {
-      if (resolvedTypes.has(name) || ignoredTypes.includes(name)) {
-        return;
-      }
-
+    const resolveType = (name, targetType, usedTypes = [], ignoredTypes = [], typeElement) => {
       if (usedTypes.includes(name)) {
-        const usedType = this.types[name];
-        if (usedType.content) {
-          const propertyMember = usedType.content.propertyMembers.find(pm => pm.value.type === name);
-          const { typeAttributes } = propertyMember;
-          // (?) отслеживать есть ли у родительского объекта атрибут fixed или fixed-type
-          // надо будет дописать проверку, что если у property есть внутренности, а при этом она претендует на рекурсивность - то кидать ошибку
-          if (typeAttributes.includes('nullable') || !typeAttributes.includes('required')) {
-            return;
-          }
+        const { typeAttributes } = targetType;
+
+        // (?) отслеживать есть ли у родительского объекта атрибут fixed или fixed-type
+        // const fixed = typeAttributes.includes('fixed');
+        // const fixedType = typeAttributes.includes('fixed-type');
+
+        // надо будет дописать проверку, что если у property есть внутренности, а при этом она претендует на рекурсивность - то кидать ошибку
+        if (typeElement && typeElement.content) {
+          throw new CrafterError(`Recursive named type ${name} must not include nested properties`);
+        }
+
+        if (typeAttributes.includes('nullable') || !typeAttributes.includes('required')) {
+          return;
         }
 
         throw new CrafterError(`Dependencies loop: ${usedTypes.concat([name]).join(' - ')}`, this.typeNames[name].sourceMap);
+      }
+
+      if (resolvedTypes.has(name) || ignoredTypes.includes(name)) {
+        return;
       }
 
       usedTypes.push(name);
@@ -78,7 +82,7 @@ class TypeResolver {
             if (member.value) {
               if (member.value.type) {
                 if (this.types[member.value.type]) {
-                  resolveType(member.value.type, this.types[member.value.type], usedTypes);
+                  resolveType(member.value.type, this.types[member.value.type], usedTypes, [], member.value);
                 }
               }
               if (member.value.nestedTypes) {
