@@ -30,6 +30,13 @@ class TypeResolver {
       }
 
       if (usedTypes.includes(name)) {
+        const usedType = this.types[name];
+        const propertyMember = usedType.content.propertyMembers.find(pm => pm.value.type === name);
+        const { typeAttributes } = propertyMember;
+        if (typeAttributes.includes('nullable') || !typeAttributes.includes('required')) {
+          return;
+        }
+
         throw new CrafterError(`Dependencies loop: ${usedTypes.concat([name]).join(' - ')}`, this.typeNames[name].sourceMap);
       }
 
