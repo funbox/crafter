@@ -299,7 +299,7 @@ class ValueMemberElement {
     }
 
     // Нормализуем тип, так как в json schema не сущетсвует типа 'file'
-    const normalizedType = (this.type === 'file') ? 'string' : schema.type || this.type;
+    const normalizedType = (this.type === 'file') ? 'string' : schema.type || (this.baseType === 'object' ? this.baseType : this.type);
 
     if (flags.isNullable) {
       schema.type = [
