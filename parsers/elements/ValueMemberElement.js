@@ -100,6 +100,8 @@ class ValueMemberElement {
   }
 
   isRecursive(typesChain) {
+    if (this.isObject() && typesChain.includes(this.type)) return true;
+
     if (typesChain.length < 2) return false;
 
     const lastAddedType = typesChain[typesChain.length - 1];
@@ -205,6 +207,20 @@ class ValueMemberElement {
     let body;
 
     const typeEl = dataTypes[this.type];
+
+    if (this.isObject() && this.isRecursive(namedTypesChain)) {
+      // если свойство указанно как nullable - то нужно втыкать null, а если optional - то просто не втыкать
+      // (?) код нужно дописать в PropertyMemberElement, а не в ValueMemberElement
+      const propertyMember = typeEl.content.propertyMembers.find(pm => pm.value.type === this.type);
+      const { typeAttributes } = propertyMember;
+
+      if (typeAttributes.includes('nullable')) {
+        return null;
+      }
+
+      return undefined;
+    }
+
     if (typeEl && typeEl.isComplex()) {
       body = typeEl.getBody(dataTypes, namedTypesChain.concat(this.type));
     }

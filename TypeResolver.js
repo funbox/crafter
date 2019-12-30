@@ -33,6 +33,8 @@ class TypeResolver {
         const usedType = this.types[name];
         const propertyMember = usedType.content.propertyMembers.find(pm => pm.value.type === name);
         const { typeAttributes } = propertyMember;
+        // (?) отслеживать есть ли у родительского объекта атрибут fixed или fixed-type
+        // надо будет дописать проверку, что если у property есть внутренности, а при этом она претендует на рекурсивность - то кидать ошибку
         if (typeAttributes.includes('nullable') || !typeAttributes.includes('required')) {
           return;
         }

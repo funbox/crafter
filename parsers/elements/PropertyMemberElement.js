@@ -69,6 +69,10 @@ class PropertyMemberElement {
     const key = this.name.string;
     const value = this.value.getBody(dataTypes, namedTypesChain);
 
+    if (value === undefined) {
+      return {};
+    }
+
     return {
       [key]: value,
     };
