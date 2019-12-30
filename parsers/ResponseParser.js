@@ -131,14 +131,7 @@ module.exports = (Parsers) => {
       }
 
       if (!hasCustomBody) {
-        let body;
-        try {
-          body = result.getBody(context.typeResolver.types);
-          console.log('\ngetBody OK\n');
-        } catch (e) {
-          console.log('\nERROR!\n');
-          throw e;
-        }
+        const body = result.getBody(context.typeResolver.types);
 
         if (body !== undefined) {
           const bodyElement = new BodyElement(typeof body === 'object' ? JSON.stringify(body, null, 2) : body);

@@ -69,10 +69,6 @@ class PropertyMemberElement {
     const key = this.name.string;
     const value = this.value.getBody(dataTypes, namedTypesChain);
 
-    if (value === undefined) {
-      return {};
-    }
-
     return {
       [key]: value,
     };
@@ -84,8 +80,14 @@ class PropertyMemberElement {
    */
   getSchema(dataTypes, flags = new Flags()) {
     const schema = {};
+    const localFlags = { ...flags };
+    const isRecursive = dataTypes[this.value.type] !== undefined;
 
-    const [valueSchema, usedTypes] = this.value.getSchema(dataTypes, utils.mergeFlags(flags, this, { propagateFixedType: false }));
+    if (isRecursive) {
+      localFlags.skipTypesInlining = true;
+    }
+
+    const [valueSchema, usedTypes] = this.value.getSchema(dataTypes, utils.mergeFlags(localFlags, this, { propagateFixedType: false }));
 
     if (this.descriptionEl) {
       valueSchema.description = this.descriptionEl.string;
