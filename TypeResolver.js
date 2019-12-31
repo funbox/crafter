@@ -28,11 +28,6 @@ class TypeResolver {
       if (usedTypes.includes(name)) {
         const { typeAttributes } = targetType;
 
-        // (?) отслеживать есть ли у родительского объекта атрибут fixed или fixed-type
-        // const fixed = typeAttributes.includes('fixed');
-        // const fixedType = typeAttributes.includes('fixed-type');
-
-        // надо будет дописать проверку, что если у property есть внутренности, а при этом она претендует на рекурсивность - то кидать ошибку
         if (typeElement && typeElement.content) {
           throw new CrafterError(`Recursive named type ${name} must not include nested properties`);
         }

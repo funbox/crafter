@@ -521,6 +521,19 @@ const utils = {
     return valueByType[type] === undefined ? '' : valueByType[type];
   },
 
+  isRecursiveType(typeName, valueMemberElement) {
+    const propertyMembers = valueMemberElement.content && valueMemberElement.content.propertyMembers;
+    if (!propertyMembers) {
+      return false;
+    }
+
+    if (propertyMembers.some(pm => pm.value.type === typeName)) {
+      return true;
+    }
+
+    return propertyMembers.some(pm => this.isRecursiveType(typeName, pm.value));
+  },
+
   CrafterError,
 
   SignatureError,

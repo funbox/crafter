@@ -190,9 +190,19 @@ class DataStructureProcessor {
       ]);
 
       switch (sectionType) {
-        case SectionTypes.msonAttribute:
+        case SectionTypes.msonAttribute: {
           [nextNode, childResult] = this.Parsers.MSONAttributeParser.parse(curNode, context);
+          const { typeAttributes, value } = childResult;
+          if (typeAttributes.includes('fixed') || typeAttributes.includes('fixedType')) {
+            const baseTypeName = context.typeResolver.typeNames[value.type].string;
+            const baseType = context.typeResolver.types[value.type];
+            if (utils.isRecursiveType(baseTypeName, baseType)) {
+              const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+              throw new utils.CrafterError('Mson attributes based on a recursive type may not have "fixed" or "fixed-type" attributes', sourceMap);
+            }
+          }
           break;
+        }
         case SectionTypes.msonMixin: {
           [nextNode, childResult] = this.Parsers.MSONMixinParser.parse(curNode, context);
           const baseType = context.typeResolver.types[childResult.className];
