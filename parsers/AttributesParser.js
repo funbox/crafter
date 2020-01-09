@@ -125,7 +125,10 @@ module.exports = (Parsers) => {
 
       if (nestedSectionsContentNode && nestedSectionsContentNode.type === 'list') {
         const dataStructureProcessor = new DataStructureProcessor(nestedSectionsContentNode, Parsers, startNode);
+        const isFixedOrFixedType = result.content.typeAttributes.includes('fixed') || result.content.typeAttributes.includes('fixedType');
+        context.data.isParentAttributeFixedOrFixedType = context.data.isParentAttributeFixedOrFixedType || isFixedOrFixedType;
         dataStructureProcessor.fillValueMember(result.content, context);
+        delete context.data.isParentAttributeFixedOrFixedType;
       } else {
         // TODO: Что делать в этом случае?
       }

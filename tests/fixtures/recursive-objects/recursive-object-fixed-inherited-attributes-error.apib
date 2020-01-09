@@ -1,0 +1,13 @@
+# My API
+
+# Data Structures
+
+## DNSServer
++ address (string, required)
++ parent (DNSServer, nullable)
+
+# GET /server
+
++ Response 200 (application/json)
+    + Attributes (object, fixed)
+        + dns (DNSServer)
