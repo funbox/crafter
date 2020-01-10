@@ -1,5 +1,6 @@
 const Refract = require('../../Refract');
 const Flags = require('../../Flags');
+const utils = require('../../utils');
 
 /**
  * Include секция
@@ -37,10 +38,15 @@ class MSONMixinElement {
 
   /**
    * @param {DataTypes} dataTypes - типы из TypeResolver
+   * @param {Array} namedTypesChain - список использованных типов
    */
-  getBody(dataTypes) {
+  getBody(dataTypes, namedTypesChain = []) {
+    if (namedTypesChain.includes(this.className)) {
+      throw new utils.CrafterError(`Mixin dependencies loop: ${namedTypesChain.concat(this.className).join(' - ')}`, this.sourceMap);
+    }
+
     const typeEl = dataTypes[this.className];
-    return typeEl.getBody(dataTypes);
+    return typeEl.getBody(dataTypes, namedTypesChain.concat(this.className));
   }
 
   /**

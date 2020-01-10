@@ -210,15 +210,17 @@ class ValueMemberElement {
 
     if (this.isObject() && this.isRecursive(namedTypesChain)) {
       const recursiveTypeEl = resolvedTypes[namedTypesChain[namedTypesChain.length - 1]];
-      const propertyMember = recursiveTypeEl.content.propertyMembers.find(pm => pm.value.type === this.type);
+      const propertyMember = recursiveTypeEl.content.propertyMembers.find(pm => pm.value && pm.value.type === this.type);
 
-      const { typeAttributes } = propertyMember;
+      if (propertyMember) {
+        const { typeAttributes } = propertyMember;
 
-      if (typeAttributes.includes('nullable')) {
-        return null;
+        if (typeAttributes.includes('nullable')) {
+          return null;
+        }
+
+        return undefined;
       }
-
-      return undefined;
     }
 
     if (typeEl && typeEl.isComplex()) {

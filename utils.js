@@ -527,11 +527,11 @@ const utils = {
       return false;
     }
 
-    if (propertyMembers.some(pm => pm.value.type === typeName)) {
+    if (propertyMembers.some(pm => pm.value && pm.value.type === typeName)) {
       return true;
     }
 
-    return propertyMembers.some(pm => this.isRecursiveType(typeName, pm.value));
+    return propertyMembers.some(pm => pm.value && this.isRecursiveType(typeName, pm.value));
   },
 
   CrafterError,
