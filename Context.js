@@ -24,6 +24,7 @@ class Context {
     this.warningsEnabled = true;
     this.warnings = [];
     this.filePaths = [];
+    this.debugMode = options.debugMode;
 
     this.sectionKeywordSignatureParsers = [
       'DefaultValue',
