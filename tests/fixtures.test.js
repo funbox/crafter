@@ -223,6 +223,22 @@ describe('Crafter with callback', () => {
   });
 });
 
+describe('Crafter in debug mode', () => {
+  it('Returns an error in debug mode', () => {
+    const logger = {
+      store: undefined,
+      warn(text) {
+        this.store = text;
+      },
+    };
+    const filePath = `${testPath.fixturesWithErrors.path}/undefined-mixin-in-data-structure.apib`;
+
+    expect(() => {
+      Crafter.parseFileSync(filePath, { logger, sourceMapsEnabled: true, debugMode: true });
+    }).toThrow('Mixin "(BaseResponse)" is not defined in the document.');
+  });
+});
+
 it('parses from source without options passed', () => {
   const file = 'simple.apib';
   const path = testPath.base;
