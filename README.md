@@ -374,3 +374,17 @@ APIB секция (Request, Response, Attributes и т.п.) состоит из 
 результат построения JSON Schema и список используемых именованных типов, которые должны попасть в
 секцию `definitions`. Построение секции `definitions` происходит в
 [AttributesElement](parsers/AttributesElement.js).
+
+### Генерация Body (примера запроса/ответа)
+
+Одним из этапов разбора Markdown AST является генерация Body для секций Request и Response если
+выполняются два условия:
+
+* указан `content-type: application/json` (например так `+ Response 200 (application/json)`);
+* пример не объявлен вручную с помощью секции Body.
+
+Для генерации Body в методе `finalize` парсеров [RequestParser](parsers/RequestParser.js)
+и [ResponseParser](parsers/ResponseParser.js) вызывается метод `getBody` у элемента типа
+[RequestElement](parsers/elements/RequestElement.js) и
+[ResponseElement](parsers/elements/ResponseElement.js) соответственно. Данный метод рекурсивно
+вызывает одноименные методы у дочерних элементов и формирует итоговую секцию Body.
