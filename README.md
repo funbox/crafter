@@ -356,3 +356,21 @@ APIB секция (Request, Response, Attributes и т.п.) состоит из 
 * вызвать метод `finalize` для действий, которые нужно выполнить после обработки секции (например,
   для `ResponseParser` метод [finalize](parsers/ResponseParser.js#117) производит генерацию JSON
   Schema и примера ответа).
+
+### Генерация JSON Schema
+
+Одним из этапов разбора Markdown AST является генерация JSON Schema для секций Request и Response
+если выполняются два условия:
+
+* указан `content-type: application/json` (например так `+ Response 200 (application/json)`);
+* JSON Schema не объявлена вручную с помощью секции Schema.
+
+Для генерации JSON Schema в методе `finalize` парсеров [RequestParser](parsers/RequestParser.js)
+и [ResponseParser](parsers/ResponseParser.js) вызывается метод `getSchema` у элемента типа
+[RequestElement](parsers/elements/RequestElement.js) и
+[ResponseElement](parsers/elements/ResponseElement.js) соответственно. Данный метод рекурсивно
+вызывает одноименные методы у дочерних элементов и формирует итоговую JSON Schema. Для обеспечения
+поддержки рекурсивных структур данных метод `getSchema` возвращает массив из двух элементов:
+результат построения JSON Schema и список используемых именованных типов, которые должны попасть в
+секцию `definitions`. Построение секции `definitions` происходит в
+[AttributesElement](parsers/AttributesElement.js).
