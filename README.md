@@ -169,7 +169,7 @@ AST может вызывать метод `toRefract()` дочерних узл
 
 * резолвинг импортов;
 * извлечение типов;
-* разбор дерева.
+* разбор Markdown AST.
 
 Рассмотрим каждый из них поподробнее.
 
@@ -307,3 +307,52 @@ AST может вызывать метод `toRefract()` дочерних узл
   тип `B` определен);
 * проверку корректности циклических зависимостей (чаще всего циклические зависимости в Crafter
   поддерживаются, но не всегда).
+
+### Разбор Markdown AST
+
+Основной код Crafter представляет собой набор объектов-парсеров, расположенных в директории
+[parsers](parsers). Типичный парсер имеет главный метод `parse(node, context)`, который принимает на
+вход узел Markdown AST и контекст с вспомогательными данными и возвращает массив из двух элементов:
+следующий узел, который необходимо разработать и результат обработки.
+
+Так как метод `parse` - достаточно общий, то чаще всего парсеры наследуются от объекта
+[AbstractParser](parsers/AbstractParser.js) и переопределяют ряд более специфичных методов. Типичная
+APIB секция (Request, Response, Attributes и т.п.) состоит из следующих элементов:
+
+* signature - первая строка, которая определяет начало секции и может содержать дополнительную
+  информацию;
+* description - опциональный блок текстового описания;
+* nestedSections - вложенные секции.
+
+Рассмотрим пример:
+
+```markdown
++ Response 200 (application/json)
+  Типичный ответ от сервера
+
+  + Attributes
+    + status: `ok` (required, fixed)
+    + users (array)
+```
+
+Здесь для блока `Response`:
+* `+ Respons 200 (application/json)` - signature;
+* `Типичный ответ от сервера` - description;
+* все остальные строки - nestedSections.
+
+При этом внутри nestedSections есть секция `Attributes`, для которой:
+* `+ Attributes` - signature;
+* остальные строки - nestedSections.
+
+Алгоритм работы метода `parse` (см. [AbstractParser.parse](parsers/AbstractParser.js#7)) следующий:
+
+* разобрать signature с помощью метода `processSignature`;
+* разобрать description с помощью метода `processDescription`;
+* разобрать nestedSections с помощью метода `processNestedSection`:
+  * определить, является ли следующий узел nestedSection с помощью метода `nestedSectionType`;
+  * если следующий узел является nestedSection, то обработать его с помощью метода
+    `processNestedSection` (внутри этого метода обычно задействуются другие парсеры, например см.
+    [ResponseParser.processNestedSection](parsers/ResponseParser.js#95));
+* вызвать метод `finalize` для действий, которые нужно выполнить после обработки секции (например,
+  для `ResponseParser` метод [finalize](parsers/ResponseParser.js#117) производит генерацию JSON
+  Schema и примера ответа).
