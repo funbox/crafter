@@ -50,7 +50,7 @@ AST может вызывать метод `toRefract()` дочерних узл
 ## Этапы формирования Element AST
 
 Процесс формирования Element AST начинается с вызова метода `parse` у
-[BlueprintParser](parsers/BlueprintParser.js) и состоит из следующих этапов:
+[BlueprintParser](../parsers/BlueprintParser.js) и состоит из следующих этапов:
 
 * резолвинг импортов;
 * извлечение типов;
@@ -65,11 +65,11 @@ AST может вызывать метод `toRefract()` дочерних узл
 могут быть определены именованные типы данных, используемые в других файлах.
 
 За резолвинг импортов отвечает функция `resolveImports` из файла
-[BlueprintParser.js](parsers/BlueprintParser.js), которая производит рекурсивный обход Markdown AST,
-находит заголовки, содержащие текст вида `/^[Ii]mport\s+(.+)$/`, читает подключаемый файл и заменяет
-заголовок его содержимым. Во время работы функция проверяет импорты на отсутствие циклов (если в
-файле A.apib написано `# Import B.apib`, а в файле B.apib написано `# Import A.apib` - то будет
-сгенерирована ошибка).
+[BlueprintParser.js](../parsers/BlueprintParser.js), которая производит рекурсивный обход
+Markdown AST, находит заголовки, содержащие текст вида `/^[Ii]mport\s+(.+)$/`, читает подключаемый
+файл и заменяет заголовок его содержимым. Во время работы функция проверяет импорты на отсутствие
+циклов (если в файле A.apib написано `# Import B.apib`, а в файле B.apib написано
+`# Import A.apib` - то будет сгенерирована ошибка).
 
 ### Извлечение типов
 
@@ -116,9 +116,9 @@ AST может вызывать метод `toRefract()` дочерних узл
 представляется возможным.
 
 Для того, чтобы решить данную проблему в Crafter реализовано предварительное извлечение именованных
-типов также известное как препроцессинг типов. У [BlueprintParser](parsers/BlueprintParser.js),
+типов также известное как препроцессинг типов. У [BlueprintParser](../parsers/BlueprintParser.js),
 который всегда начинает разбор Markdown AST, имеется метод
-[preprocessNestedSections](parsers/BlueprintParser.js#132) в котором и реализовано извлечение
+[preprocessNestedSections](../parsers/BlueprintParser.js#132) в котором и реализовано извлечение
 именованных типов. Оно проходит в два этапа:
 
 * извлечение названий типов и их базовых типов;
@@ -178,16 +178,16 @@ AST может вызывать метод `toRefract()` дочерних узл
 невозможно определить базовый тип для типа `Admin` до тех пор пока не будет разобран родительский
 тип `User`. Для решения этой проблемы в Crafter выставляется переменная
 `context.typeExtractingInProgress` и запускается
-[частичный обход Markdown AST](parsers/BlueprintParser.js#154-179) (разбираются не все секции, а
+[частичный обход Markdown AST](../parsers/BlueprintParser.js#154-179) (разбираются не все секции, а
 только `Data Structures` и `Schema Structures`). При этом для именованных типов извлекаются названия
 и базовые типы, которые помещаются в `context` с помощью функции `context.addType`.
 
 После этого переменная `context.typeExtractingInProgress` устанавливается в `false` и происходит
-[повторный частичный обход Markdown AST](parsers/BlueprintParser.js#183-191) в процессе которого уже
-разбирается содержимое именованных типов.
+[повторный частичный обход Markdown AST](../parsers/BlueprintParser.js#183-191) в процессе которого
+уже разбирается содержимое именованных типов.
 
 После того, как типы извлечены происходит проверка корректности (функция
-[context.typeResolver.resolveRegisteredTypes()](TypeResolver.js#16)), которая включает в себя:
+[context.typeResolver.resolveRegisteredTypes()](../TypeResolver.js#16)), которая включает в себя:
 
 * проверку что все используемые типы определены (например, если тип `A` наследуется от типа `B`, то
   проверяется, что тип `B` определен);
@@ -197,13 +197,13 @@ AST может вызывать метод `toRefract()` дочерних узл
 ### Разбор Markdown AST
 
 Основной код Crafter представляет собой набор объектов-парсеров, расположенных в директории
-[parsers](parsers). Типичный парсер имеет главный метод `parse(node, context)`, который принимает на
-вход узел Markdown AST и контекст с вспомогательными данными и возвращает массив из двух элементов:
-следующий узел, который необходимо разработать и результат обработки.
+[parsers](../parsers). Типичный парсер имеет главный метод `parse(node, context)`, который принимает
+на вход узел Markdown AST и контекст с вспомогательными данными и возвращает массив из двух
+элементов: следующий узел, который необходимо разработать и результат обработки.
 
 Так как метод `parse` - достаточно общий, то чаще всего парсеры наследуются от объекта
-[AbstractParser](parsers/AbstractParser.js) и переопределяют ряд более специфичных методов. Типичная
-APIB секция (Request, Response, Attributes и т.п.) состоит из следующих элементов:
+[AbstractParser](../parsers/AbstractParser.js) и переопределяют ряд более специфичных методов.
+Типичная APIB секция (Request, Response, Attributes и т.п.) состоит из следующих элементов:
 
 * signature - первая строка, которая определяет начало секции и может содержать дополнительную
   информацию;
@@ -230,7 +230,8 @@ APIB секция (Request, Response, Attributes и т.п.) состоит из 
 * `+ Attributes` - signature;
 * остальные строки - nestedSections.
 
-Алгоритм работы метода `parse` (см. [AbstractParser.parse](parsers/AbstractParser.js#7)) следующий:
+Алгоритм работы метода `parse` (см. [AbstractParser.parse](../parsers/AbstractParser.js#7))
+следующий:
 
 * разобрать signature с помощью метода `processSignature`;
 * разобрать description с помощью метода `processDescription`;
@@ -238,9 +239,9 @@ APIB секция (Request, Response, Attributes и т.п.) состоит из 
   * определить, является ли следующий узел nestedSection с помощью метода `nestedSectionType`;
   * если следующий узел является nestedSection, то обработать его с помощью метода
     `processNestedSection` (внутри этого метода обычно задействуются другие парсеры, например см.
-    [ResponseParser.processNestedSection](parsers/ResponseParser.js#95));
+    [ResponseParser.processNestedSection](../parsers/ResponseParser.js#95));
 * вызвать метод `finalize` для действий, которые нужно выполнить после обработки секции (например,
-  для `ResponseParser` метод [finalize](parsers/ResponseParser.js#117) производит генерацию JSON
+  для `ResponseParser` метод [finalize](../parsers/ResponseParser.js#117) производит генерацию JSON
   Schema и примера ответа).
 
 ### Генерация JSON Schema
@@ -251,15 +252,15 @@ APIB секция (Request, Response, Attributes и т.п.) состоит из 
 * указан `content-type: application/json` (например так `+ Response 200 (application/json)`);
 * JSON Schema не объявлена вручную с помощью секции Schema.
 
-Для генерации JSON Schema в методе `finalize` парсеров [RequestParser](parsers/RequestParser.js)
-и [ResponseParser](parsers/ResponseParser.js) вызывается метод `getSchema` у элемента типа
-[RequestElement](parsers/elements/RequestElement.js) и
-[ResponseElement](parsers/elements/ResponseElement.js) соответственно. Данный метод рекурсивно
+Для генерации JSON Schema в методе `finalize` парсеров [RequestParser](../parsers/RequestParser.js)
+и [ResponseParser](../parsers/ResponseParser.js) вызывается метод `getSchema` у элемента типа
+[RequestElement](../parsers/elements/RequestElement.js) и
+[ResponseElement](../parsers/elements/ResponseElement.js) соответственно. Данный метод рекурсивно
 вызывает одноименные методы у дочерних элементов и формирует итоговую JSON Schema. Для обеспечения
 поддержки рекурсивных структур данных метод `getSchema` возвращает массив из двух элементов:
 результат построения JSON Schema и список используемых именованных типов, которые должны попасть в
 секцию `definitions`. Построение секции `definitions` происходит в
-[AttributesElement](parsers/AttributesElement.js).
+[AttributesElement](../parsers/AttributesElement.js).
 
 ### Генерация Body (примера запроса/ответа)
 
@@ -269,8 +270,8 @@ APIB секция (Request, Response, Attributes и т.п.) состоит из 
 * указан `content-type: application/json` (например так `+ Response 200 (application/json)`);
 * пример не объявлен вручную с помощью секции Body.
 
-Для генерации Body в методе `finalize` парсеров [RequestParser](parsers/RequestParser.js)
-и [ResponseParser](parsers/ResponseParser.js) вызывается метод `getBody` у элемента типа
-[RequestElement](parsers/elements/RequestElement.js) и
-[ResponseElement](parsers/elements/ResponseElement.js) соответственно. Данный метод рекурсивно
+Для генерации Body в методе `finalize` парсеров [RequestParser](../parsers/RequestParser.js)
+и [ResponseParser](../parsers/ResponseParser.js) вызывается метод `getBody` у элемента типа
+[RequestElement](../parsers/elements/RequestElement.js) и
+[ResponseElement](../parsers/elements/ResponseElement.js) соответственно. Данный метод рекурсивно
 вызывает одноименные методы у дочерних элементов и формирует итоговую секцию Body.
