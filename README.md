@@ -125,8 +125,10 @@ API Blueprint основан на Markdown, поэтому при разборе
   [README проекта commonmark](https://github.com/commonmark/commonmark.js/blob/master/README.md]));
 * последовательно обходит Markdown AST и формирует Element AST - древовидную структуру из объектов,
   классы которых расположены в каталоге `parsers/elements`;
-* с помощью метода `toRefract()` корневого элемента дерева получает финальную структуру - Refract
-    AST, которую сериализует в файл или stdout.
+* с помощью метода `toRefract()` корневого элемента дерева получает финальную структуру -
+  [Refract AST](https://github.com/refractproject/refract-spec) (на основе которой построен формат
+  [API Elements](http://api-elements.readthedocs.io/en/latest/)), которую сериализует в файл или
+  stdout.
 
 ### Зачем нужно преобразование Markdown AST в какой-то другой формат?
 
