@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.38.0 (21.01.2020)
+
+* Describe the process of how Markdown transforms to APIB AST.
+
 ## 1.37.0 (02.11.2019)
 
 * Use property value as a sample if no sample provided.
