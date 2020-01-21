@@ -124,7 +124,7 @@ API Blueprint основан на Markdown, поэтому при разборе
   элементов дерева можно посмотреть в
   [README проекта commonmark](https://github.com/commonmark/commonmark.js/blob/master/README.md]));
 * последовательно обходит Markdown AST и формирует Element AST - древовидную структуру из объектов,
-* классы которых расположены в каталоге `parsers/elements`;
+  классы которых расположены в каталоге `parsers/elements`;
 * с помощью метода `toRefract()` корневого элемента дерева получает финальную структуру - Refract
     AST, которую сериализует в файл или stdout.
 
