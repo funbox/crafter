@@ -3,12 +3,38 @@ const Refract = require('../../Refract');
 const ValueMemberElement = require('./ValueMemberElement');
 const SourceMapElement = require('./SourceMapElement');
 
+/**
+ * Именованный тип данных
+ *
+ * # Data Structures
+ * ## User <-- именованный тип данных
+ * + name (string, required)
+ * + email (string, required)
+ */
 class MSONNamedTypeElement {
+  /**
+   *
+   * @param {StringElement} name
+   * @param {string} baseType - название родительского типа (примитивный или именованный тип)
+   * @param {(string|Array)[]} typeAttributes - набор атрибутов типа fixed, required, ["minimum", 10]
+   */
   constructor(name, baseType, typeAttributes) {
     this.name = name;
+    /**
+     * В самом именованном типе хранится только название и описание
+     * все внутренности типа лежат в этом поле
+     * @type {ValueMemberElement}
+     */
     this.content = new ValueMemberElement(baseType, typeAttributes);
+    /**
+     * @type {DescriptionElement}
+     */
+    this.description = null;
   }
 
+  /**
+   * @param {boolean} sourceMapsEnabled
+   */
   toRefract(sourceMapsEnabled) {
     const result = {
       element: Refract.elements.dataStructure,

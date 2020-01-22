@@ -3,12 +3,28 @@ const utils = require('../../utils');
 const types = require('../../types');
 const SourceMapElement = require('./SourceMapElement');
 
+/**
+ * Краеугольный камень многих структур данных в Crafter.
+ * ValueMemberElement может быть телом именованного типа, поля объекта, типом элементов массива или вариантом из One Of
+ */
 class ValueMemberElement {
+  /**
+   * @param {string} type - тип данных, например string, array[number] или User
+   * @param {(string|Array)[]} typeAttributes - набор атрибутов типа fixed, required, ["minimum", 10]
+   * @param value - значение элемента, в зависимости от атрибутов может интерпретироваться как непосредственное значение или пример, после APIB-452 поставить тип string
+   * @param {string} description - описание элемента
+   * @param {boolean} isSample - является ли данный элемент примером
+   * @param {boolean} isDefault - является ли данный элемент элементом по-умолчанию
+   */
   constructor(type, typeAttributes = [], value, description, isSample, isDefault) {
     const resolvedType = type ? utils.resolveType(type) : { type, nestedTypes: [] };
 
     this.rawType = type;
     this.type = resolvedType.type;
+    /**
+     * Типы элементов массива array[string, number] - тут string и number - это nestedTypes
+     * @type {string[]}
+     */
     this.nestedTypes = resolvedType.nestedTypes;
     this.baseType = null;
     this.typeAttributes = typeAttributes;
@@ -17,6 +33,7 @@ class ValueMemberElement {
     this.content = null;
     this.samples = [];
     this.default = null;
+    // TODO Разобраться почему sourceMap имеет особый формат, а не SourceMapElement
     this.sourceMap = null;
     this.isSample = isSample;
     this.isDefault = isDefault;
