@@ -1,6 +1,17 @@
 const Refract = require('../../Refract');
 
+/**
+ * Группа ресурсов
+ *
+ * # Group Users <-- начало группы ресурсов
+ *
+ * # GET /user
+ * + Response 200
+ */
 class ResourceGroupElement {
+  /**
+   * @param {StringElement} title - название группы ресурсов
+   */
   constructor(title) {
     this.title = title;
     this.description = null;
@@ -8,6 +19,9 @@ class ResourceGroupElement {
     this.subgroups = [];
   }
 
+  /**
+   * @param sourceMapsEnabled {boolean}
+   */
   toRefract(sourceMapsEnabled) {
     const content = this.resources.length > this.subgroups.length ? this.resources : this.subgroups;
     const result = {
