@@ -1,15 +1,33 @@
 const Refract = require('../../Refract');
 
+/**
+ * Корневой элемент дерева Element AST
+ */
 class BlueprintElement {
+  /**
+   * @param {StringElement} title - название документации
+   * @param {DescriptionElement} description
+   * @param {MetaDataElement[]} meta - массив мета-данных
+   */
   constructor(title, description, meta) {
     this.title = title;
     this.description = description;
+    /**
+     * @typedef {(ResourceElement|ResourceGroupElement|DataStructureGroupElement|SchemaStructureGroupElement|ResourcePrototypesElement)} BlueprintElementContent
+     * @type {BlueprintElementContent[]}
+     */
     this.content = [];
+    /**
+     * @type {AnnotationElement[]}
+     */
     this.annotations = [];
     this.meta = meta;
     this.isError = false;
   }
 
+  /**
+   * @param sourceMapsEnabled {boolean}
+   */
   toRefract(sourceMapsEnabled) {
     const result = {
       element: Refract.elements.category,
