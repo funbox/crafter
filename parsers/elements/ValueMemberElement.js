@@ -3,8 +3,6 @@ const utils = require('../../utils');
 const types = require('../../types');
 const SourceMapElement = require('./SourceMapElement');
 
-const { convertType } = utils;
-
 class ValueMemberElement {
   constructor(type, typeAttributes = [], value, description, isSample, isDefault) {
     const resolvedType = type ? utils.resolveType(type) : { type, nestedTypes: [] };
@@ -14,7 +12,7 @@ class ValueMemberElement {
     this.nestedTypes = resolvedType.nestedTypes;
     this.baseType = null;
     this.typeAttributes = typeAttributes;
-    this.value = convertType(value, this.type).value;
+    this.value = value;
     this.description = description;
     this.content = null;
     this.samples = [];
@@ -163,8 +161,8 @@ class ValueMemberElement {
     }
 
     const type = (typeEl && typeEl.baseType) || this.type || (this.content ? 'object' : 'string');
-    const convertedValue = this.shouldOutputValue() ? convertType(this.value, type).value : null;
-    return convertedValue !== undefined && convertedValue !== null ? convertedValue : utils.defaultValue(type);
+    const valueToReturn = this.shouldOutputValue() ? this.value : null;
+    return valueToReturn !== undefined && valueToReturn !== null ? valueToReturn : utils.defaultValue(type);
   }
 
   getSchema(resolvedTypes, flags = {}) {
