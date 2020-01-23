@@ -1,13 +1,42 @@
 const { elements: { array } } = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
 
+/**
+ * Элемент по-умолчанию в структурах данных.
+ * Создается только для примитивов или массивов примитивов (string, boolean, number).
+ *
+ * Пример:
+ *
+ * исходный текст:
+ * + Attributes
+ *   + foo: bar (string, default)
+ *
+ * дерево:
+ * AttributesElement
+ *   content: ValueMemberElement
+ *     content: ObjectElement
+ *       propertyMembers:
+ *         - PropertyMemberElement
+ *           value: ValueMemberElement
+ *             default: DefaultValueElement <--
+ *               type: "string"
+ *               value: "bar"
+ */
 class DefaultValueElement {
+  /**
+   * @param {string|number|boolean|string[]|number[]|boolean[]} value
+   * @param {string} type - тип значения
+   * @param sourceMap
+   */
   constructor(value, type, sourceMap) {
     this.value = value;
     this.type = type;
     this.sourceMap = sourceMap;
   }
 
+  /**
+   * @param {boolean} sourceMapsEnabled
+   */
   toRefract(sourceMapsEnabled) {
     if (Array.isArray(this.value)) {
       return this.toRefractForArray(sourceMapsEnabled);

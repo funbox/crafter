@@ -22,7 +22,7 @@ const SourceMapElement = require('./SourceMapElement');
  * AttributesElement
  *   content: ValueMemberElement
  *     content: ObjectElement
- *       propertyMembsers:
+ *       propertyMembers:
  *         - PropertyMemberElement
  *           value: ValueMemberElement
  *

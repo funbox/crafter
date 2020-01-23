@@ -3,6 +3,8 @@ const utils = require('../../utils');
 /**
  * Массив
  *
+ * Пример:
+ *
  * исходный текст:
  * + Attributes
  *   + foo (array[string])
@@ -11,7 +13,7 @@ const utils = require('../../utils');
  * AttributesElement
  *   content: ValueMemberElement
  *     content: ObjectElement
- *       propertyMembsers:
+ *       propertyMembers:
  *         - PropertyMemberElement
  *           value: ValueMemberElement
  *             content: ArrayElement <--
