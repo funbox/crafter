@@ -6,6 +6,26 @@ const SourceMapElement = require('./SourceMapElement');
 /**
  * Краеугольный камень многих структур данных в Crafter.
  * ValueMemberElement может быть телом именованного типа, поля объекта, типом элементов массива или вариантом из One Of
+ *
+ * Примеры:
+ *
+ * исходный текст:
+ * + Attributes (string)
+ * дерево:
+ * AttributesElement
+ *   content: ValueMemberElement
+ *
+ * исходный текст:
+ * + Attributes
+ *   + name (string)
+ * дерево:
+ * AttributesElement
+ *   content: ValueMemberElement
+ *     content: ObjectElement
+ *       propertyMembsers:
+ *         - PropertyMemberElement
+ *           value: ValueMemberElement
+ *
  */
 class ValueMemberElement {
   /**
@@ -26,14 +46,29 @@ class ValueMemberElement {
      * @type {string[]}
      */
     this.nestedTypes = resolvedType.nestedTypes;
-    this.baseType = null;
+    /**
+     * Один из базовых типов данных который определяет текущий элемент непосредственно или путем наследования.
+     * Базовые типы определены в types.js в корне проекта.
+     * @type {string}
+     */
+    this.baseType = undefined;
     this.typeAttributes = typeAttributes;
     this.value = value;
     this.description = description;
+    /**
+     * Поле заполняется методом fillValueMember класса DataStructureProcessor для объектов и enum-ов
+     * и в методе fillBaseType класса ValueMemberProcessor для массивов
+     * @type {ObjectElement|EnumElement|ArrayElement}
+     */
     this.content = null;
+    /**
+     * @type {SampleValueElement[]}
+     */
     this.samples = [];
+    /**
+     * @type {DefaultValueElement}
+     */
     this.default = null;
-    // TODO Разобраться почему sourceMap имеет особый формат, а не SourceMapElement
     this.sourceMap = null;
     this.isSample = isSample;
     this.isDefault = isDefault;
@@ -81,6 +116,10 @@ class ValueMemberElement {
     return !((this.type && this.isObject()) || this.shouldOutputSamples(isFixed) || this.default) && notEmpty;
   }
 
+  /**
+   * @param {boolean} sourceMapsEnabled
+   * @param {boolean} isFixed - для fixed-элементов Refract генерируется несколько иначе
+   */
   toRefract(sourceMapsEnabled, isFixed) {
     const sourceMapEl = sourceMapsEnabled && this.sourceMap ? new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file) : null;
     const type = this.type || (this.content ? 'object' : 'string');

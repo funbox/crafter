@@ -20,7 +20,7 @@ class ResourceGroupElement {
   }
 
   /**
-   * @param sourceMapsEnabled {boolean}
+   * @param {boolean} sourceMapsEnabled
    */
   toRefract(sourceMapsEnabled) {
     const content = this.resources.length > this.subgroups.length ? this.resources : this.subgroups;

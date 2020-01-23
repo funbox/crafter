@@ -40,7 +40,7 @@ class ResourceElement {
   }
 
   /**
-   * @param sourceMapsEnabled {boolean}
+   * @param {boolean} sourceMapsEnabled
    */
   toRefract(sourceMapsEnabled) {
     const result = {

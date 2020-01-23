@@ -19,7 +19,7 @@ class DescriptionElement {
   }
 
   /**
-   * @param sourceMapsEnabled {boolean}
+   * @param {boolean} sourceMapsEnabled
    */
   toRefract(sourceMapsEnabled) {
     const sourceMapEl = sourceMapsEnabled && this.sourceMap ? new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file) : null;
