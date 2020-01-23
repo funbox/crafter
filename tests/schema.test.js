@@ -111,8 +111,8 @@ describe('schema', () => {
     it('removes duplicating complex types', () => {
       const createObj = () => {
         const obj = new ObjectElement();
-        obj.propertyMembers.push(new PropertyMemberElement(new StringElement('foo')));
-        obj.propertyMembers.push(new PropertyMemberElement(new StringElement('bar')));
+        obj.propertyMembers.push(new PropertyMemberElement(new StringElement('foo'), new ValueMemberElement(), []));
+        obj.propertyMembers.push(new PropertyMemberElement(new StringElement('bar'), new ValueMemberElement(), []));
 
         const valueMember = new ValueMemberElement('object');
         valueMember.content = obj;
@@ -181,8 +181,8 @@ describe('schema', () => {
   describe('ObjectElement', () => {
     it('getSchema', () => {
       const el = new ObjectElement();
-      el.propertyMembers.push(new PropertyMemberElement(new StringElement('foo')));
-      el.propertyMembers.push(new PropertyMemberElement(new StringElement('bar')));
+      el.propertyMembers.push(new PropertyMemberElement(new StringElement('foo'), new ValueMemberElement(), []));
+      el.propertyMembers.push(new PropertyMemberElement(new StringElement('bar'), new ValueMemberElement(), []));
       expect(el.getSchema({})).toEqual([
         {
           type: 'object',
@@ -199,8 +199,8 @@ describe('schema', () => {
   describe('OneOfTypeElement', () => {
     it('getSchema', () => {
       const el = new OneOfTypeElement();
-      el.options.push(new OneOfTypeOptionElement([new PropertyMemberElement(new StringElement('foo'))]));
-      el.options.push(new OneOfTypeOptionElement([new PropertyMemberElement(new StringElement('bar'))]));
+      el.options.push(new OneOfTypeOptionElement([new PropertyMemberElement(new StringElement('foo'), new ValueMemberElement(), [])]));
+      el.options.push(new OneOfTypeOptionElement([new PropertyMemberElement(new StringElement('bar'), new ValueMemberElement(), [])]));
       expect(el.getSchema({})).toEqual([
         {
           oneOf: [
@@ -224,8 +224,8 @@ describe('schema', () => {
   describe('OneOfTypeOptionElement', () => {
     it('getSchema', () => {
       const el = new OneOfTypeOptionElement([
-        new PropertyMemberElement(new StringElement('foo')),
-        new PropertyMemberElement(new StringElement('bar')),
+        new PropertyMemberElement(new StringElement('foo'), new ValueMemberElement(), []),
+        new PropertyMemberElement(new StringElement('bar'), new ValueMemberElement(), []),
       ]);
       expect(el.getSchema({})).toEqual([
         {
@@ -241,7 +241,7 @@ describe('schema', () => {
 
   describe('PropertyMemberElement', () => {
     it('without description', () => {
-      const el = new PropertyMemberElement(new StringElement('foo'));
+      const el = new PropertyMemberElement(new StringElement('foo'), new ValueMemberElement(), []);
       expect(el.getSchema({})).toEqual([
         {
           properties: {
@@ -303,6 +303,7 @@ describe('schema', () => {
       const el = new PropertyMemberElement(
         new StringElement('status'),
         createValueMemberElement(['string', [], 'ok']),
+        [],
       );
       expect(el.getSchema({}, { isFixed: true })).toEqual([
         {
@@ -335,7 +336,7 @@ describe('schema', () => {
     });
 
     it('pattern', () => {
-      const el = new PropertyMemberElement(new StringElement('foo'), new ValueMemberElement('string', [['pattern', '\\d{3,6}']]));
+      const el = new PropertyMemberElement(new StringElement('foo'), new ValueMemberElement('string', [['pattern', '\\d{3,6}']]), []);
       expect(el.getSchema({})).toEqual([
         {
           properties: {
@@ -350,7 +351,7 @@ describe('schema', () => {
     });
 
     it('format', () => {
-      const el = new PropertyMemberElement(new StringElement('foo'), new ValueMemberElement('string', [['format', 'date-time']]));
+      const el = new PropertyMemberElement(new StringElement('foo'), new ValueMemberElement('string', [['format', 'date-time']]), []);
       expect(el.getSchema({})).toEqual([
         {
           properties: {
@@ -417,7 +418,7 @@ describe('schema', () => {
     it('with resolved type', () => {
       const User = new ValueMemberElement();
       User.content = new ObjectElement();
-      User.content.propertyMembers.push(new PropertyMemberElement(new StringElement('foo')));
+      User.content.propertyMembers.push(new PropertyMemberElement(new StringElement('foo'), new ValueMemberElement(), []));
 
       const el = new ValueMemberElement('User');
 
@@ -435,7 +436,7 @@ describe('schema', () => {
     it('with content', () => {
       const el = new ValueMemberElement();
       el.content = new ObjectElement();
-      el.content.propertyMembers.push(new PropertyMemberElement(new StringElement('foo')));
+      el.content.propertyMembers.push(new PropertyMemberElement(new StringElement('foo'), new ValueMemberElement(), []));
 
       expect(el.getSchema({})).toEqual([
         {
@@ -451,11 +452,11 @@ describe('schema', () => {
     it('with resolved type and content', () => {
       const User = new ValueMemberElement();
       User.content = new ObjectElement();
-      User.content.propertyMembers.push(new PropertyMemberElement(new StringElement('foo')));
+      User.content.propertyMembers.push(new PropertyMemberElement(new StringElement('foo'), new ValueMemberElement(), []));
 
       const el = new ValueMemberElement('User');
       el.content = new ObjectElement();
-      el.content.propertyMembers.push(new PropertyMemberElement(new StringElement('bar')));
+      el.content.propertyMembers.push(new PropertyMemberElement(new StringElement('bar'), new ValueMemberElement(), []));
 
       expect(el.getSchema({ User })).toEqual([
         {
@@ -493,7 +494,7 @@ describe('schema', () => {
     it('nullable object', () => {
       const User = new ValueMemberElement();
       User.content = new ObjectElement();
-      User.content.propertyMembers.push(new PropertyMemberElement(new StringElement('foo')));
+      User.content.propertyMembers.push(new PropertyMemberElement(new StringElement('foo'), new ValueMemberElement(), []));
 
       const el = new ValueMemberElement('User');
 

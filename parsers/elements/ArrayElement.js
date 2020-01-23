@@ -38,7 +38,6 @@ class ArrayElement {
   }
 
   /**
-   *
    * @param {Set} resolvedTypes - типы из TypeResolver
    * @param {string[]} namedTypesChain
    */
@@ -47,7 +46,6 @@ class ArrayElement {
   }
 
   /**
-   *
    * @param {Set} resolvedTypes - типы из TypeResolver
    * @param {object} flags - флаги генерации JSON Schema
    * @param {boolean} flags.isFixed

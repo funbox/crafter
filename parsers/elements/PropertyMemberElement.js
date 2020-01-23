@@ -1,17 +1,40 @@
 const Refract = require('../../Refract');
-const ValueMemberElement = require('./ValueMemberElement');
-const StringElement = require('./StringElement');
 const utils = require('../../utils');
 
+/**
+ * Поле объекта
+ *
+ * Пример:
+ *
+ * + Attributes
+ *   + foo
+ *
+ * дерево:
+ * AttributesElement
+ *   content: ValueMemberElement
+ *     content: ObjectElement
+ *       propertyMembers:
+ *         - PropertyMemberElement <--
+ */
 class PropertyMemberElement {
-  constructor(name, value = new ValueMemberElement(), typeAttributes = [], descriptionEl) {
-    this.name = name instanceof StringElement ? name : new StringElement(name);
+  /**
+   * @param {string} name
+   * @param {ValueMemberElement} value
+   * @param {(string|Array)[]}typeAttributes
+   * @param {StringElement} descriptionEl
+   */
+  constructor(name, value, typeAttributes, descriptionEl) {
+    this.name = name;
     this.value = value;
 
     this.typeAttributes = typeAttributes;
     this.descriptionEl = descriptionEl;
   }
 
+  /**
+   * @param {boolean} sourceMapsEnabled
+   * @param {boolean} isFixed
+   */
   toRefract(sourceMapsEnabled, isFixed) {
     const result = {
       element: Refract.elements.member,
@@ -35,6 +58,10 @@ class PropertyMemberElement {
     return result;
   }
 
+  /**
+   * @param {Set} resolvedTypes - типы из TypeResolver
+   * @param {string[]} namedTypesChain
+   */
   getBody(resolvedTypes, namedTypesChain = []) {
     const key = this.name.string;
     const value = this.value.getBody(resolvedTypes, namedTypesChain);
@@ -44,6 +71,14 @@ class PropertyMemberElement {
     };
   }
 
+  /**
+   * @param {Set} resolvedTypes - типы из TypeResolver
+   * @param {object} flags - флаги генерации JSON Schema
+   * @param {boolean} flags.isFixed
+   * @param {boolean} flags.isFixedType
+   * @param {boolean} flags.isNullable
+   * @param {boolean} flags.skipTypesInlining
+   */
   getSchema(resolvedTypes, flags = {}) {
     const schema = {};
 
