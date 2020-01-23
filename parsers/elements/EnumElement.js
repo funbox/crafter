@@ -1,16 +1,49 @@
 const Refract = require('../../Refract');
 const utils = require('../../utils');
 
+/**
+ * Enum (перечисление)
+ *
+ * Пример:
+ *
+ * исходный текст:
+ * + kind (enum)
+ *   + track
+ *   + movement
+ *
+ * дерево:
+ * PropertyMemberElement
+ *   value: ValueMemberElement
+ *     content: EnumElement <--
+ *       members:
+ *         - EnumMemberElement
+ *         - EnumMemberElement
+ */
 class EnumElement {
+  /**
+   * @param {string} type - строка вида enum[Type], в качестве Type могут быть только примитивные типы
+   */
   constructor(type) {
     const resolvedType = utils.resolveType(type);
 
+    /**
+     * @type {EnumMemberElement[]}
+     */
     this.members = [];
+    /**
+     * @type {DefaultValueElement}
+     */
     this.defaultValue = null;
-    this.sampleValues = null;
+    /**
+     * @type {SampleValueElement[]}
+     */
+    this.sampleValues = [];
     this.type = (resolvedType.nestedTypes[0] ? resolvedType.nestedTypes[0] : 'string');
   }
 
+  /**
+   * @param {boolean} sourceMapsEnabled
+   */
   toRefract(sourceMapsEnabled) {
     const result = {
       enumerations: {
@@ -23,7 +56,7 @@ class EnumElement {
       result.default = this.defaultValue.toRefract(sourceMapsEnabled);
     }
 
-    if (this.sampleValues) {
+    if (this.sampleValues.length) {
       result.samples = {
         element: Refract.elements.array,
         content: this.sampleValues.map(sampleElement => sampleElement.toRefract(sourceMapsEnabled)),
@@ -41,7 +74,7 @@ class EnumElement {
       return this.members[0].name;
     }
 
-    if (this.sampleValues) {
+    if (this.sampleValues.length) {
       return this.sampleValues[0].getBody();
     }
 
