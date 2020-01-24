@@ -1,12 +1,31 @@
 const Refract = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
 
+/**
+ * Секция Schema. Либо создается автоматически из AttributesElement, либо задается вручную.
+ *
+ * Пример:
+ *
+ * + Schema
+ *     {"type": "string"}
+ *
+ * дерево:
+ *
+ * SchemaElement
+ *   schema: {"type": "string"}
+ */
 class SchemaElement {
+  /**
+   * @param {string} schema
+   */
   constructor(schema) {
     this.schema = schema;
     this.sourceMap = null;
   }
 
+  /**
+   * @param {boolean} sourceMapsEnabled
+   */
   toRefract(sourceMapsEnabled) {
     const sourceMapEl = sourceMapsEnabled && this.sourceMap ? new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file) : null;
 

@@ -1,13 +1,35 @@
 const Refract = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
 
+/**
+ * Секция Body. Либо создается автоматически из AttributesElement, либо задается вручную.
+ *
+ * Пример:
+ *
+ * + Body
+ *     Hello world
+ *
+ * дерево:
+ *
+ * BodyElement
+ *   body: Hello world
+ */
 class BodyElement {
+  /**
+   * @param {string} body
+   */
   constructor(body) {
     this.body = body;
-    this.contentType = null;
+    /**
+     * @type {string}
+     */
+    this.contentType = undefined;
     this.sourceMap = null;
   }
 
+  /**
+   * @param {boolean} sourceMapsEnabled
+   */
   toRefract(sourceMapsEnabled) {
     const sourceMapEl = sourceMapsEnabled && this.sourceMap ? new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file) : null;
     const body = (typeof this.body === 'object') ? JSON.stringify(this.body, null, 2) : this.body;
