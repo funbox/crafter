@@ -2,16 +2,49 @@ const Refract = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
 const AttributesElement = require('./AttributesElement');
 
+/**
+ * Элемент для описание HTTP ответа
+ *
+ * Пример:
+ *
+ * + Response (application/json)
+ *   + Body
+ *             {
+ *               "hello": "world"
+ *             }
+ *
+ * Дерево:
+ *
+ * ResponseElement <--
+ *   content:
+ *     - BodyElement
+ */
 class ResponseElement {
+  /**
+   * @param {number} statusCode
+   * @param {string} contentType
+   */
   constructor(statusCode = 200, contentType) {
     this.statusCode = statusCode;
     this.contentType = contentType;
+    /**
+     * @type {DescriptionElement}
+     */
     this.description = null;
+    /**
+     * @type {HeadersElement[]}
+     */
     this.headersSections = [];
+    /**
+     * @type {(SchemaElement|AttributesElement|BodyElement)[]}
+     */
     this.content = [];
     this.sourceMap = null;
   }
 
+  /**
+   * @param {boolean} sourceMapsEnabled
+   */
   toRefract(sourceMapsEnabled) {
     const sourceMapEl = sourceMapsEnabled && this.sourceMap ? new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file) : null;
 
@@ -48,6 +81,9 @@ class ResponseElement {
     return result;
   }
 
+  /**
+   * @param {Set} resolvedTypes - типы из TypeResolver
+   */
   getBody(resolvedTypes) {
     if (this.contentType !== 'application/json') {
       return undefined;
@@ -57,6 +93,9 @@ class ResponseElement {
     return attrsEl && attrsEl.getBody(resolvedTypes);
   }
 
+  /**
+   * @param {Set} resolvedTypes - типы из TypeResolver
+   */
   getSchema(resolvedTypes) {
     let schema;
 

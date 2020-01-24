@@ -2,17 +2,54 @@ const Refract = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
 const AttributesElement = require('./AttributesElement');
 
+/**
+ * Элемент для описание HTTP запроса
+ *
+ * Пример:
+ *
+ * + Request (application/json)
+ *   + Body
+ *             {
+ *               "hello": "world"
+ *             }
+ *
+ * Дерево:
+ *
+ * RequestElement <--
+ *   content:
+ *     - BodyElement
+ */
 class RequestElement {
+  /**
+   * @param {string} contentType
+   * @param {string} title - опциональный заголовок запроса
+   */
   constructor(contentType, title) {
     this.contentType = contentType;
     this.title = title;
+    /**
+     * метод запроса (GET, POST и т.п.) задается в ActionParser
+     * @type {StringElement}
+     */
     this.method = null;
+    /**
+     * @type {DescriptionElement}
+     */
     this.description = null;
+    /**
+     * @type {HeadersElement[]}
+     */
     this.headersSections = [];
+    /**
+     * @type {(SchemaElement|AttributesElement|BodyElement)[]}
+     */
     this.content = [];
     this.sourceMap = null;
   }
 
+  /**
+   * @param {boolean} sourceMapsEnabled
+   */
   toRefract(sourceMapsEnabled) {
     const sourceMapEl = sourceMapsEnabled && this.sourceMap ? new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file) : null;
 
@@ -55,6 +92,9 @@ class RequestElement {
     return result;
   }
 
+  /**
+   * @param {Set} resolvedTypes - типы из TypeResolver
+   */
   getBody(resolvedTypes) {
     if (this.contentType !== 'application/json') {
       return undefined;
@@ -64,6 +104,9 @@ class RequestElement {
     return attrsEl && attrsEl.getBody(resolvedTypes);
   }
 
+  /**
+   * @param {Set} resolvedTypes - типы из TypeResolver
+   */
   getSchema(resolvedTypes) {
     let schema;
 
