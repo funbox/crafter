@@ -1,11 +1,29 @@
 const Refract = require('../../Refract');
 const utils = require('../../utils');
 
+/**
+ * Секция Attributes
+ *
+ * Пример:
+ *
+ * + Attributes (string)
+ *
+ * дерево:
+ * AttributesElement
+ *   content: ValueMemberElement
+ *     type: string
+ */
 class AttributesElement {
+  /**
+   * @param {ValueMemberElement} content
+   */
   constructor(content) {
     this.content = content;
   }
 
+  /**
+   * @param {boolean} sourceMapsEnabled
+   */
   toRefract(sourceMapsEnabled) {
     return {
       element: Refract.elements.dataStructure,
@@ -13,10 +31,17 @@ class AttributesElement {
     };
   }
 
+  /**
+   * @param {Set} resolvedTypes - типы из TypeResolver
+   */
   getBody(resolvedTypes) {
     return this.content.getBody(resolvedTypes);
   }
 
+  /**
+   * @param {Set} resolvedTypes - типы из TypeResolver
+   * @param {object} flags - всегда пустой объект, добавлен для единообразия
+   */
   getSchema(resolvedTypes, flags = {}) {
     const [result, usedTypes] = this.content.getSchema(resolvedTypes, utils.mergeFlags(flags, this.content));
 
