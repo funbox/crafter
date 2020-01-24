@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.39.1 (24.01.2020)
+
+* Fix the value type of statusCode element in ResponseElement.
+
 ## 1.39.0 (24.01.2020)
 
 * Delete redundant type checks in splitValues and convertType.
