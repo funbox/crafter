@@ -2,7 +2,28 @@ const Refract = require('../../Refract');
 const utils = require('../../utils');
 const SourceMapElement = require('./SourceMapElement');
 
+/**
+ * Параметр URL
+ *
+ * Пример:
+ *
+ * + Parameters
+ *   + a (string, required)
+ *
+ * Дерево:
+ *
+ * ParametersElement
+ *   parameters:
+ *     - ParameterElement <--
+ */
 class ParameterElement {
+  /**
+   * @param {string} name
+   * @param {string} value
+   * @param {string} type
+   * @param {(string|Array)[]}typeAttributes
+   * @param {StringElement} description
+   */
   constructor(name, value, type, typeAttributes, description) {
     const resolvedType = utils.resolveType(type);
 
@@ -13,11 +34,20 @@ class ParameterElement {
     this.nestedTypes = resolvedType.nestedTypes;
     this.typeAttributes = typeAttributes;
     this.description = description;
+    /**
+     * @type {DefaultValueElement}
+     */
     this.defaultValue = null;
+    /**
+     * @type {ParameterMembersElement}
+     */
     this.enumerations = null;
     this.sourceMap = null;
   }
 
+  /**
+   * @param {boolean} sourceMapsEnabled
+   */
   toRefract(sourceMapsEnabled) {
     const sourceMapEl = sourceMapsEnabled && this.sourceMap ? new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file) : null;
 
