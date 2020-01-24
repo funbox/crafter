@@ -130,8 +130,8 @@
                   ],
                   "attributes": {
                     "statusCode": {
-                      "element": "string",
-                      "content": "404"
+                      "element": "number",
+                      "content": 404
                     },
                     "headers": {
                       "element": "httpHeaders",
@@ -217,8 +217,8 @@
                           "content": [],
                           "attributes": {
                             "statusCode": {
-                              "element": "string",
-                              "content": "200"
+                              "element": "number",
+                              "content": 200
                             }
                           }
                         }
@@ -321,8 +321,8 @@
                           ],
                           "attributes": {
                             "statusCode": {
-                              "element": "string",
-                              "content": "404"
+                              "element": "number",
+                              "content": 404
                             },
                             "headers": {
                               "element": "httpHeaders",
