@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.39.0 (24.01.2020)
+
+* Delete redundant type checks in splitValues and convertType.
+
 ## 1.38.0 (21.01.2020)
 
 * Describe the process of how Markdown transforms to APIB AST.
