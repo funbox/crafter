@@ -1,6 +1,6 @@
 const Refract = require('../../Refract');
 
-class SourceMapElement {
+class SourceMapElementWithLineColumnInfo {
   constructor(blocks, file) {
     this.blocks = blocks;
     this.file = file;
@@ -14,10 +14,30 @@ class SourceMapElement {
         content: [
           {
             element: 'number',
+            attributes: {
+              line: {
+                element: 'number',
+                content: block.startLine,
+              },
+              column: {
+                element: 'number',
+                content: block.startColumn,
+              },
+            },
             content: block.offset,
           },
           {
             element: 'number',
+            attributes: {
+              line: {
+                element: 'number',
+                content: block.endLine,
+              },
+              column: {
+                element: 'number',
+                content: block.endColumn,
+              },
+            },
             content: block.length,
           },
         ],
@@ -34,4 +54,4 @@ class SourceMapElement {
   }
 }
 
-module.exports = SourceMapElement;
+module.exports = SourceMapElementWithLineColumnInfo;

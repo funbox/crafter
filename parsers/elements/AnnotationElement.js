@@ -1,5 +1,5 @@
 const Refract = require('../../Refract');
-const SourceMapElement = require('./SourceMapElement');
+const SourceMapElementWithLineColumnInfo = require('./SourceMapElementWithLineColumnInfo');
 
 class AnnotationElement {
   constructor(type, text, sourceMap) {
@@ -9,7 +9,7 @@ class AnnotationElement {
   }
 
   toRefract() {
-    const sourceMapEl = this.sourceMap ? new SourceMapElement(this.sourceMap.charBlocks, this.sourceMap.file) : null;
+    const sourceMapEl = this.sourceMap ? new SourceMapElementWithLineColumnInfo(this.sourceMap.charBlocks, this.sourceMap.file) : null;
     return {
       element: Refract.elements.annotation,
       meta: {
