@@ -23,7 +23,9 @@ module.exports = (Parsers) => {
         context.data.startOffset = subject[0].length + 1;
       }
 
-      const result = new ResponseElement(matchData[2], matchData[4]);
+      const statusCode = matchData[2] ? Number(matchData[2]) : undefined;
+      const contentType = matchData[4];
+      const result = new ResponseElement(statusCode, contentType);
       result.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       if (result.contentType) {
         const headersElement = new HeadersElement([{

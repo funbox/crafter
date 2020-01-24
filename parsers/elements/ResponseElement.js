@@ -20,7 +20,7 @@ class ResponseElement {
       content: this.content.map(c => c.toRefract(sourceMapsEnabled)),
       attributes: {
         statusCode: {
-          element: Refract.elements.string,
+          element: Refract.elements.number,
           content: this.statusCode,
           ...(sourceMapEl ? {
             attributes: { sourceMap: sourceMapEl.toRefract() },
