@@ -1,11 +1,24 @@
 const Refract = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
 
+/**
+ * Элемент для хранения HTTP заголовков запросов и ответов
+ * Структура отдельного заголовка достаточно простая, поэтому отдельный тип данных под нее не предусмотрен
+ */
 class HeadersElement {
+  /**
+   * @param {Object[]} headers
+   * @param {string} headers.key
+   * @param {string} headers.val
+   * @param {Object} headers.sourceMap
+   */
   constructor(headers) {
     this.headers = headers;
   }
 
+  /**
+   * @param {boolean} sourceMapsEnabled
+   */
   toRefract(sourceMapsEnabled) {
     return {
       element: Refract.elements.httpHeaders,
