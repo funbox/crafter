@@ -2,14 +2,36 @@ const Refract = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
 const AttributesElement = require('./AttributesElement');
 
+/**
+ * Элемент типа Message, нужен для описания не-HTTP взаимодействий
+ *
+ * Пример:
+ *
+ * ## Message ClientToServerMessage <--
+ *   + Attributes
+ *     + text: `Hello there` (string, required) - message text
+ */
 class MessageElement {
+  /**
+   * @param {StringElement} title
+   * @param sourceMap
+   */
   constructor(title, sourceMap) {
     this.title = title;
     this.sourceMap = sourceMap;
+    /**
+     * @type {DescriptionElement}
+     */
     this.description = null;
+    /**
+     * @type {(BodyElement|SchemaElement|AttributesElement)[]}
+     */
     this.content = [];
   }
 
+  /**
+   * @param {boolean} sourceMapsEnabled
+   */
   toRefract(sourceMapsEnabled) {
     const sourceMapEl = sourceMapsEnabled && this.sourceMap ? new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file) : null;
 
@@ -40,6 +62,9 @@ class MessageElement {
     return attrsEl && attrsEl.getBody(resolvedTypes);
   }
 
+  /**
+   * @param {Set} resolvedTypes - типы из TypeResolver
+   */
   getSchema(resolvedTypes) {
     let schema;
 
