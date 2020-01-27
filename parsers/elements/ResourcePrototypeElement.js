@@ -1,14 +1,35 @@
 const Refract = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
 
+/**
+ * Элемент Resource Prototype
+ *
+ * Пример:
+ *
+ * # Resource Prototypes
+ * ## UserResource <--
+ *   + Response 200 (application/json)
+ *   + Attributes (UnauthorizedError, required)
+ */
 class ResourcePrototypeElement {
+  /**
+   *
+   * @param {string} title
+   * @param {string[]} basePrototypes
+   */
   constructor(title, basePrototypes = []) {
     this.title = title;
+    /**
+     * @type {ResponseElement[]}
+     */
     this.responses = [];
     this.basePrototypes = basePrototypes;
     this.sourceMap = null;
   }
 
+  /**
+   * @param {boolean} sourceMapsEnabled
+   */
   toRefract(sourceMapsEnabled) {
     const sourceMapEl = sourceMapsEnabled && this.sourceMap ? new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file) : null;
 
