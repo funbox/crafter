@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.41.0 (27.01.2020)
+
+* Add SourceMap class.
+
 ## 1.40.0 (27.01.2020)
 
 * Add SourceMapElementWithLineColumnInfo.
