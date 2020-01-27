@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.40.0 (27.01.2020)
+
+* Add SourceMapElementWithLineColumnInfo.
+
 ## 1.39.1 (24.01.2020)
 
 * Fix the value type of statusCode element in ResponseElement.

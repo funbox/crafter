@@ -1,5 +1,9 @@
 # История изменений проекта
 
+## 1.40.0 (27.01.2020)
+
+* Добавление SourceMapElementWithLineColumnInfo.
+
 ## 1.39.1 (24.01.2020)
 
 * Исправление типа элемента statusCode в ResponseElement.
