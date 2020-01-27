@@ -2,7 +2,7 @@ const Refract = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
 
 /**
- * Элемент  перечисления
+ * Элемент перечисления
  *
  * Пример:
  *
