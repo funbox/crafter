@@ -2,11 +2,40 @@ const Refract = require('../../Refract');
 
 const SourceMapElement = require('./SourceMapElement');
 
+/**
+ * Именованный тип, описанный с помощью JSON Schema
+ *
+ * Пример:
+ *
+ * # Schema Structures
+ * # SchemaNamedType <--
+ *   + Body
+ *     79000000123
+ *   + Schema
+ *     {
+ *       "type": "number",
+ *       "minimum": 79000000000,
+ *       "maximum": 79999999999,
+ *       "multipleOf": 1.0
+ *     }
+ */
 class SchemaNamedTypeElement {
+  /**
+   * @param {StringElement} name
+   */
   constructor(name) {
     this.name = name;
+    /**
+     * @type {BodyElement}
+     */
     this.bodyEl = null;
+    /**
+     * @type {SchemaElement}
+     */
     this.schemaEl = null;
+    /**
+     * bodyEl, преобразованный в объект с помощью JSON.parse
+     */
     this.body = null;
   }
 
@@ -23,6 +52,9 @@ class SchemaNamedTypeElement {
     return [this.schemaEl.schema, usedTypes];
   }
 
+  /**
+   * @param {boolean} sourceMapsEnabled
+   */
   toRefract(sourceMapsEnabled) {
     const result = {
       element: Refract.elements.schemaStructure,
