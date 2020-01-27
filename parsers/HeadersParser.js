@@ -88,7 +88,7 @@ module.exports = (Parsers) => {
           block.length = offset - block.offset;
           const byteBlocks = [block];
           const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
-          const sourceMap = { byteBlocks, charBlocks, file: contentNode.file };
+          const sourceMap = new utils.SourceMap(byteBlocks, charBlocks, contentNode.file);
           offset += utils.linefeedBytes;
 
           const header = this.parseHeader(contentLine, context, { sourceMap });
