@@ -16,8 +16,17 @@ class ResourceGroupElement {
    */
   constructor(title) {
     this.title = title;
+    /**
+     * @type {DescriptionElement}
+     */
     this.description = null;
+    /**
+     * @type {ResourceElement[]}
+     */
     this.resources = [];
+    /**
+     * @type {SubgroupElement[]}
+     */
     this.subgroups = [];
   }
 
