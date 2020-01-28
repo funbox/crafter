@@ -1,4 +1,5 @@
 const Refract = require('../../Refract');
+const Flags = require('../../Flags');
 
 /**
  * Секция "One Of"
@@ -49,13 +50,9 @@ class OneOfTypeElement {
 
   /**
    * @param {Set} resolvedTypes - типы из TypeResolver
-   * @param {object} flags - флаги генерации JSON Schema
-   * @param {boolean} flags.isFixed
-   * @param {boolean} flags.isFixedType
-   * @param {boolean} flags.isNullable
-   * @param {boolean} flags.skipTypesInlining
+   * @param {Flags} flags - флаги генерации JSON Schema
    */
-  getSchema(resolvedTypes, flags = {}) {
+  getSchema(resolvedTypes, flags = new Flags()) {
     const usedTypes = [];
     const schema = {
       oneOf: this.options.map(option => {

@@ -2,6 +2,7 @@ const Refract = require('../../Refract');
 const utils = require('../../utils');
 const types = require('../../types');
 const SourceMapElement = require('./SourceMapElement');
+const Flags = require('../../Flags');
 
 /**
  * Краеугольный камень многих структур данных в Crafter.
@@ -227,13 +228,9 @@ class ValueMemberElement {
 
   /**
    * @param {Set} resolvedTypes - типы из TypeResolver
-   * @param {object} flags - флаги генерации JSON Schema
-   * @param {boolean} flags.isFixed
-   * @param {boolean} flags.isFixedType
-   * @param {boolean} flags.isNullable
-   * @param {boolean} flags.skipTypesInlining
+   * @param {Flags} flags - флаги генерации JSON Schema
    */
-  getSchema(resolvedTypes, flags = {}) {
+  getSchema(resolvedTypes, flags = new Flags()) {
     let schema = {};
     let usedTypes = [];
 

@@ -4,6 +4,7 @@ const Refract = require('./Refract');
 const types = require('./types');
 const DescriptionElement = require('./parsers/elements/DescriptionElement');
 const StringElement = require('./parsers/elements/StringElement');
+const Flags = require('./Flags');
 
 class CrafterError extends Error {
   constructor(message, sourceMap) {
@@ -455,11 +456,11 @@ const utils = {
   },
 
   mergeFlags(baseFlags, typeElement, options = { propagateFixedType: true }) {
-    return {
+    return new Flags({
       isFixed: baseFlags.isFixed || typeElement.typeAttributes.includes('fixed'),
       isFixedType: (options.propagateFixedType && baseFlags.isFixedType) || typeElement.typeAttributes.includes('fixedType'),
       isNullable: typeElement.typeAttributes.includes('nullable'),
-    };
+    });
   },
 
   mergeStringElements(first, second) {

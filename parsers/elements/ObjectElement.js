@@ -1,4 +1,5 @@
 const utils = require('../../utils');
+const Flags = require('../../Flags');
 
 /**
  * Объект
@@ -44,13 +45,9 @@ class ObjectElement {
 
   /**
    * @param {Set} resolvedTypes - типы из TypeResolver
-   * @param {object} flags - флаги генерации JSON Schema
-   * @param {boolean} flags.isFixed
-   * @param {boolean} flags.isFixedType
-   * @param {boolean} flags.isNullable
-   * @param {boolean} flags.skipTypesInlining
+   * @param {Flags} flags - флаги генерации JSON Schema
    */
-  getSchema(resolvedTypes, flags = {}) {
+  getSchema(resolvedTypes, flags = new Flags()) {
     let schema = { type: 'object' };
     const usedTypes = [];
     this.propertyMembers.forEach(member => {

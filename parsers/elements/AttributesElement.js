@@ -1,5 +1,6 @@
 const Refract = require('../../Refract');
 const utils = require('../../utils');
+const Flags = require('../../Flags');
 
 /**
  * Секция Attributes
@@ -42,9 +43,9 @@ class AttributesElement {
 
   /**
    * @param {Set} resolvedTypes - типы из TypeResolver
-   * @param {object} flags - всегда пустой объект, добавлен для единообразия
+   * @param {Flags} flags - всегда пустой объект, добавлен для единообразия
    */
-  getSchema(resolvedTypes, flags = {}) {
+  getSchema(resolvedTypes, flags = new Flags()) {
     const [result, usedTypes] = this.content.getSchema(resolvedTypes, utils.mergeFlags(flags, this.content));
 
     const definitions = {};

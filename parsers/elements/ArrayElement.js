@@ -1,4 +1,5 @@
 const utils = require('../../utils');
+const Flags = require('../../Flags');
 
 /**
  * Массив
@@ -49,16 +50,12 @@ class ArrayElement {
 
   /**
    * @param {Set} resolvedTypes - типы из TypeResolver
-   * @param {object} flags - флаги генерации JSON Schema
-   * @param {boolean} flags.isFixed
-   * @param {boolean} flags.isFixedType
-   * @param {boolean} flags.isNullable
-   * @param {boolean} flags.skipTypesInlining
+   * @param {Flags} flags - флаги генерации JSON Schema
    */
-  getSchema(resolvedTypes, flags = {}) {
+  getSchema(resolvedTypes, flags = new Flags()) {
     const schema = { type: 'array' };
-    const localFlags = { ...flags };
-    delete localFlags.isFixedType;
+    const localFlags = new Flags(flags);
+    localFlags.isFixedType = false;
     localFlags.skipTypesInlining = true;
     const usedTypes = [];
     if (flags.isFixed) {
