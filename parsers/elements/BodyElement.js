@@ -7,6 +7,7 @@ const SourceMapElement = require('./SourceMapElement');
  * Пример:
  *
  * + Body
+ *
  *     Hello world
  *
  * дерево:
