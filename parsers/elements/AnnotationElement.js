@@ -7,7 +7,7 @@ const SourceMapElementWithLineColumnInfo = require('./SourceMapElementWithLineCo
 
 class AnnotationElement {
   /**
-   * @param {string} type - warning или error
+   * @param {'warning'|'error'} type
    * @param {string} text
    * @param sourceMap
    */
