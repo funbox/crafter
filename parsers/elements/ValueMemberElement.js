@@ -188,6 +188,10 @@ class ValueMemberElement {
     return result;
   }
 
+  /**
+   * @param {Set} resolvedTypes - типы из TypeResolver
+   * @param {string[]} namedTypesChain
+   */
   getBody(resolvedTypes, namedTypesChain = []) {
     if (this.shouldOutputSamples()) {
       return this.samples[0].getBody(resolvedTypes);
@@ -221,6 +225,14 @@ class ValueMemberElement {
     return valueToReturn !== undefined && valueToReturn !== null ? valueToReturn : utils.defaultValue(type);
   }
 
+  /**
+   * @param {Set} resolvedTypes - типы из TypeResolver
+   * @param {object} flags - флаги генерации JSON Schema
+   * @param {boolean} flags.isFixed
+   * @param {boolean} flags.isFixedType
+   * @param {boolean} flags.isNullable
+   * @param {boolean} flags.skipTypesInlining
+   */
   getSchema(resolvedTypes, flags = {}) {
     let schema = {};
     let usedTypes = [];
