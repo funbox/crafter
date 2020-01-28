@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.43.0 (28.01.2020)
+
+* Add debug mode.
+
 ## 1.42.0 (28.01.2020)
 
 * Add postprocessing to a ValueMemberElement object in schema.test.js.
