@@ -20,7 +20,7 @@ const utils = require('../../utils');
  */
 class PropertyMemberElement {
   /**
-   * @param {string} name
+   * @param {StringElement} name
    * @param {ValueMemberElement} value
    * @param {(string|Array)[]}typeAttributes
    * @param {StringElement} descriptionEl
