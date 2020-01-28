@@ -17,9 +17,6 @@ class AnnotationElement {
     this.sourceMap = sourceMap;
   }
 
-  /**
-   * @param {boolean} sourceMapsEnabled
-   */
   toRefract() {
     const sourceMapEl = this.sourceMap ? new SourceMapElementWithLineColumnInfo(this.sourceMap.charBlocks, this.sourceMap.file) : null;
     return {
