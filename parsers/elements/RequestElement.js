@@ -3,7 +3,7 @@ const SourceMapElement = require('./SourceMapElement');
 const AttributesElement = require('./AttributesElement');
 
 /**
- * Элемент для описание HTTP запроса
+ * Элемент для описания HTTP запроса
  *
  * Пример:
  *
