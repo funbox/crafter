@@ -37,6 +37,11 @@ class SchemaNamedTypeElement {
      * bodyEl, преобразованный в объект с помощью JSON.parse
      */
     this.body = null;
+
+    /**
+     * @type {DescriptionElement}
+     */
+    this.description = null;
   }
 
   isComplex() {
