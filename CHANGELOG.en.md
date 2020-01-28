@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.44.0 (28.01.2020)
+
+* Add a comment to explain why StringElement is used as an element for description.
+
 ## 1.43.0 (28.01.2020)
 
 * Add debug mode.
