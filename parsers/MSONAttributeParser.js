@@ -121,6 +121,10 @@ module.exports = (Parsers) => {
         delete contentNode.skipLines;
 
         if (blockDescriptionEl) {
+          // В данном случае контейнером для описания является StringElement, а не DescriptionElement,
+          // поскольку это описание попадает в поле `meta.description` инстанса PropertyMemberElement.
+          // По спецификации это поле должно быть инстансом StringElement
+          // https://apielements.org/en/latest/element-definitions.html#reserved-meta-properties
           const stringDescriptionEl = new StringElement(blockDescriptionEl.description, blockDescriptionEl.sourceMap);
           if (result.descriptionEl) {
             result.descriptionEl.string = utils.appendDescriptionDelimiter(result.descriptionEl.string);
