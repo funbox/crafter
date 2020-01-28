@@ -83,7 +83,7 @@ module.exports = (Parsers) => {
       if (!hasCustomBody) {
         const body = result.getBody(context.typeResolver.types);
         if (body !== undefined) {
-          const bodyElement = new BodyElement(body);
+          const bodyElement = new BodyElement(typeof body === 'object' ? JSON.stringify(body, null, 2) : body);
           result.content.push(bodyElement);
         }
       }

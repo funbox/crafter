@@ -33,7 +33,6 @@ class BodyElement {
    */
   toRefract(sourceMapsEnabled) {
     const sourceMapEl = sourceMapsEnabled && this.sourceMap ? new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file) : null;
-    const body = (typeof this.body === 'object') ? JSON.stringify(this.body, null, 2) : this.body;
 
     const result = {
       element: Refract.elements.asset,
@@ -46,7 +45,7 @@ class BodyElement {
           }],
         },
       },
-      content: body,
+      content: this.body,
     };
 
     if (this.contentType) {
