@@ -13,6 +13,8 @@ const Refract = require('../../Refract');
  * ParametersElement <--
  *   parameters:
  *     - ParameterElement
+ *
+ * @see https://apielements.org/en/latest/element-definitions.html#href-variables-object
  */
 class ParametersElement {
   constructor() {

@@ -15,6 +15,8 @@ const SourceMapElement = require('./SourceMapElement');
  * ParametersElement
  *   parameters:
  *     - ParameterElement <--
+ *
+ * @see https://apielements.org/en/latest/element-definitions.html#member-element
  */
 class ParameterElement {
   /**

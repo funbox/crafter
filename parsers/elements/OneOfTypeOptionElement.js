@@ -20,6 +20,8 @@ const utils = require('../../utils');
  *     - OneOfTypeOptionElement <--
  *       members:
  *         - PropertyMemberElement
+ *
+ * @see https://apielements.org/en/latest/element-definitions.html#option-element
  */
 class OneOfTypeOptionElement {
   /**

@@ -10,6 +10,8 @@ const SourceMapElement = require('./SourceMapElement');
  * ## User <-- именованный тип данных
  * + name (string, required)
  * + email (string, required)
+ *
+ * @see https://apielements.org/en/latest/element-definitions.html#data-structure
  */
 class MSONNamedTypeElement {
   /**

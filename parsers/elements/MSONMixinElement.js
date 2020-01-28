@@ -8,6 +8,8 @@ const Refract = require('../../Refract');
  * + foo
  *   + Include MyType <--
  *   + bar (string, required)
+ *
+ * @see https://apielements.org/en/latest/element-definitions.html#ref-element
  */
 class MSONMixinElement {
   /**

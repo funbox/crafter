@@ -14,6 +14,8 @@ const SourceMapElement = require('./SourceMapElement');
  *
  * BodyElement
  *   body: Hello world
+ *
+ * @see https://apielements.org/en/latest/element-definitions.html#asset-string
  */
 class BodyElement {
   /**

@@ -7,6 +7,8 @@ const Refract = require('../../Refract');
  * ## User
  * + name (string, required)
  * + email (string, required)
+ *
+ * @see https://apielements.org/en/latest/element-definitions.html#category
  */
 class DataStructureGroupElement {
   constructor() {

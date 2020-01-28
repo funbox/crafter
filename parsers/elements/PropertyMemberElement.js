@@ -15,6 +15,8 @@ const utils = require('../../utils');
  *     content: ObjectElement
  *       propertyMembers:
  *         - PropertyMemberElement <--
+ *
+ * @see https://apielements.org/en/latest/element-definitions.html#member-element
  */
 class PropertyMemberElement {
   /**

@@ -3,6 +3,8 @@ const SourceMapElementWithLineColumnInfo = require('./SourceMapElementWithLineCo
 
 /**
  * Описание для ошибок и предупреждений
+ *
+ * @see https://apielements.org/en/latest/element-definitions.html#annotation-string
  */
 
 class AnnotationElement {

@@ -16,6 +16,8 @@ const Refract = require('../../Refract');
  *
  * # Пользователи [GET /users] <-- именованный endpoint (ресурс + action в одном узле Markdown AST)
  * + Response 200
+ *
+ * @see https://apielements.org/en/latest/element-definitions.html#resource
  */
 class ResourceElement {
   /**

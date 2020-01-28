@@ -18,6 +18,8 @@ const AttributesElement = require('./AttributesElement');
  * ResponseElement <--
  *   content:
  *     - BodyElement
+ *
+ * @see https://apielements.org/en/latest/element-definitions.html#http-response-message-http-message-payload
  */
 class ResponseElement {
   /**

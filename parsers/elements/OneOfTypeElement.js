@@ -15,6 +15,8 @@ const Refract = require('../../Refract');
  *   options:
  *     - OneOfTypeOptionElement
  *     - OneOfTypeOptionElement
+ *
+ * @see https://apielements.org/en/latest/element-definitions.html#select-element
  */
 class OneOfTypeElement {
   constructor() {

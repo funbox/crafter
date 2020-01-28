@@ -19,6 +19,8 @@ const utils = require('../../utils');
  *             content: ArrayElement <--
  *               members:
  *                 - ValueMemberElement
+ *
+ * @see https://apielements.org/en/latest/element-definitions.html#array-element
  */
 class ArrayElement {
   /**

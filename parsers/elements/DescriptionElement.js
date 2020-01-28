@@ -8,6 +8,8 @@ const SourceMapElement = require('./SourceMapElement');
  * # My API
  *
  * Описание API <-- эта строка будет извлечена в DescriptionElement
+ *
+ * @see https://apielements.org/en/latest/element-definitions.html#copy-string
  */
 class DescriptionElement {
   /**

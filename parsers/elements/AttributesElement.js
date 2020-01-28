@@ -12,6 +12,8 @@ const utils = require('../../utils');
  * AttributesElement
  *   content: ValueMemberElement
  *     type: string
+ *
+ * @see https://apielements.org/en/latest/element-definitions.html#data-structure
  */
 class AttributesElement {
   /**

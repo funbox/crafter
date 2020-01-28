@@ -4,6 +4,8 @@ const SourceMapElement = require('./SourceMapElement');
 /**
  * Элемент для хранения HTTP заголовков запросов и ответов
  * Структура отдельного заголовка достаточно простая, поэтому отдельный тип данных под нее не предусмотрен
+ *
+ * @see https://apielements.org/en/latest/element-definitions.html#http-headers-object
  */
 class HeadersElement {
   /**

@@ -13,6 +13,8 @@ const SourceMapElement = require('./SourceMapElement');
  *
  * SchemaElement
  *   schema: {"type": "string"}
+ *
+ * @see https://apielements.org/en/latest/element-definitions.html#asset-string
  */
 class SchemaElement {
   /**

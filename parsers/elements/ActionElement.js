@@ -29,6 +29,8 @@ const SourceMapElement = require('./SourceMapElement');
  *         - RequestElement
  *       responses:
  *         - ResponseElement
+ *
+ * @see https://apielements.org/en/latest/element-definitions.html#transition
  */
 class ActionElement {
   /**

@@ -7,6 +7,8 @@ const Refract = require('../../Refract');
  *
  * # GET /user
  * + Response 200
+ *
+ * @see https://apielements.org/en/latest/element-definitions.html#category
  */
 class ResourceGroupElement {
   /**
