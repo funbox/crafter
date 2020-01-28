@@ -18,7 +18,7 @@ const SourceMapElement = require('./SourceMapElement');
  */
 class SchemaElement {
   /**
-   * @param {string} schema
+   * @param {Object} schema
    */
   constructor(schema) {
     this.schema = schema;
