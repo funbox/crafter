@@ -47,6 +47,7 @@ class SampleValueElement {
     return this.toRefractForPrimitive(sourceMapsEnabled);
   }
 
+  /** @private */
   toRefractForArray(sourceMapsEnabled) {
     return {
       element: array,
@@ -68,6 +69,7 @@ class SampleValueElement {
     };
   }
 
+  /** @private */
   toRefractForPrimitive(sourceMapsEnabled) {
     const result = {
       element: this.type,
