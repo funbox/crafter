@@ -57,6 +57,9 @@ class MessageElement {
     return result;
   }
 
+  /**
+   * @param {Set} resolvedTypes - типы из TypeResolver
+   */
   getBody(resolvedTypes) {
     const attrsEl = this.content.find(item => item instanceof AttributesElement);
     return attrsEl && attrsEl.getBody(resolvedTypes);
