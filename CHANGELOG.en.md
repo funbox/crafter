@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.42.0 (28.01.2020)
+
+* Add postprocessing to a ValueMemberElement object in schema.test.js.
+
 ## 1.41.0 (27.01.2020)
 
 * Add SourceMap class.
