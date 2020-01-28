@@ -11,13 +11,17 @@ const OneOfTypeOptionElement = require('../parsers/elements/OneOfTypeOptionEleme
 const RequestElement = require('../parsers/elements/RequestElement');
 const AttributesElement = require('../parsers/elements/AttributesElement');
 const ResponseElement = require('../parsers/elements/ResponseElement');
+const ValueMemberProcessor = require('../ValueMemberProcessor');
+const Context = require('../Context');
 
 describe('schema', () => {
   describe('ArrayElement', () => {
     it('one member', () => {
-      const el = new ArrayElement([
-        new ValueMemberElement('string'),
-      ]);
+      const el = new ArrayElement(
+        createValueMemberElements([
+          ['string'],
+        ]),
+      );
       expect(el.getSchema({})).toEqual([
         {
           type: 'array',
@@ -30,11 +34,13 @@ describe('schema', () => {
     });
 
     it('multiple members', () => {
-      const el = new ArrayElement([
-        new ValueMemberElement('string'),
-        new ValueMemberElement('number'),
-        new ValueMemberElement('boolean'),
-      ]);
+      const el = new ArrayElement(
+        createValueMemberElements([
+          ['string'],
+          ['number'],
+          ['boolean'],
+        ]),
+      );
       expect(el.getSchema({})).toEqual([
         {
           type: 'array',
@@ -51,11 +57,13 @@ describe('schema', () => {
     });
 
     it('fixed', () => {
-      const el = new ArrayElement([
-        new ValueMemberElement('string', [], 'hello'),
-        new ValueMemberElement('number', [], 42),
-        new ValueMemberElement('boolean', [], true),
-      ]);
+      const el = new ArrayElement(
+        createValueMemberElements([
+          ['string', [], 'hello'],
+          ['number', [], '42'],
+          ['boolean', [], 'true'],
+        ]),
+      );
       expect(el.getSchema({}, { isFixed: true })).toEqual([
         {
           type: 'array',
@@ -81,10 +89,12 @@ describe('schema', () => {
     });
 
     it('removes duplicating primitive types', () => {
-      const el = new ArrayElement([
-        new ValueMemberElement('string'),
-        new ValueMemberElement('string'),
-      ]);
+      const el = new ArrayElement(
+        createValueMemberElements([
+          ['string'],
+          ['string'],
+        ]),
+      );
       expect(el.getSchema({}, { isFixedType: true })).toEqual([
         {
           type: 'array',
@@ -273,7 +283,7 @@ describe('schema', () => {
     it('fixed', () => {
       const el = new PropertyMemberElement(
         new StringElement('status'),
-        new ValueMemberElement('string', [], 'ok'),
+        createValueMemberElement(['string', [], 'ok']),
         ['fixed'],
       );
       expect(el.getSchema({})).toEqual([
@@ -292,7 +302,7 @@ describe('schema', () => {
     it('fixed parent', () => {
       const el = new PropertyMemberElement(
         new StringElement('status'),
-        new ValueMemberElement('string', [], 'ok'),
+        createValueMemberElement(['string', [], 'ok']),
       );
       expect(el.getSchema({}, { isFixed: true })).toEqual([
         {
@@ -535,7 +545,7 @@ describe('schema', () => {
     });
 
     it('fixed', () => {
-      const el = new ValueMemberElement('string', [], 'ok');
+      const el = createValueMemberElement(['string', [], 'ok']);
       expect(el.getSchema({}, { isFixed: true })).toEqual([
         {
           type: 'string',
@@ -566,3 +576,13 @@ describe('schema', () => {
     });
   });
 });
+
+function createValueMemberElements(elementsArgs) {
+  return elementsArgs.map(createValueMemberElement);
+}
+
+function createValueMemberElement(elArgs) {
+  const element = new ValueMemberElement(...elArgs);
+  ValueMemberProcessor.fillBaseType(new Context('', [], {}), element);
+  return element;
+}
