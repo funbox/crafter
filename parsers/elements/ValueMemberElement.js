@@ -32,7 +32,7 @@ class ValueMemberElement {
   /**
    * @param {string} type - тип данных, например string, array[number] или User
    * @param {(string|Array)[]} typeAttributes - набор атрибутов типа fixed, required, ["minimum", 10]
-   * @param value - значение элемента, в зависимости от атрибутов может интерпретироваться как непосредственное значение или пример, после APIB-452 поставить тип string
+   * @param {string} value - значение элемента, в зависимости от атрибутов может интерпретироваться как непосредственное значение или пример
    * @param {string} description - описание элемента
    * @param {boolean} isSample - является ли данный элемент примером
    * @param {boolean} isDefault - является ли данный элемент элементом по-умолчанию
