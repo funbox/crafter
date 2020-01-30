@@ -7,7 +7,7 @@ const AttributesElement = require('./AttributesElement');
  *
  * Пример:
  *
- * + Request (application/json)
+ * + Request MyRequest (application/json)
  *   + Body
  *             {
  *               "hello": "world"
@@ -16,6 +16,7 @@ const AttributesElement = require('./AttributesElement');
  * Дерево:
  *
  * RequestElement <--
+ *   title: MyRequest
  *   content:
  *     - BodyElement
  *
@@ -23,7 +24,7 @@ const AttributesElement = require('./AttributesElement');
  */
 class RequestElement {
   /**
-   * @param {string} contentType
+   * @param {string} contentType - заголовок content-type, например application/json
    * @param {string=} title - опциональный заголовок запроса
    */
   constructor(contentType, title) {
