@@ -44,7 +44,6 @@ describe('MSONAttributeParser', () => {
     expect(content.members).toEqual([
       {
         value: 'movement',
-        sample: null,
         description: 'описание 1',
         type: 'string',
         sourceMap: {
@@ -68,7 +67,6 @@ describe('MSONAttributeParser', () => {
       },
       {
         value: 'track',
-        sample: null,
         description: 'описание 2',
         type: 'string',
         sourceMap: {
@@ -92,7 +90,6 @@ describe('MSONAttributeParser', () => {
       },
       {
         value: 'sms',
-        sample: null,
         description: 'описание 3',
         type: 'string',
         sourceMap: {
@@ -116,7 +113,6 @@ describe('MSONAttributeParser', () => {
       },
       {
         value: 'zone',
-        sample: null,
         description: 'описание 4',
         type: 'string',
         sourceMap: {
@@ -206,7 +202,6 @@ describe('MSONAttributeParser', () => {
     expect(members).toEqual([
       {
         value: 'movement',
-        sample: null,
         description: 'описание 1',
         type: 'string',
         sourceMap: {
@@ -230,7 +225,6 @@ describe('MSONAttributeParser', () => {
       },
       {
         value: 'track',
-        sample: null,
         description: 'описание 2',
         type: 'string',
         sourceMap: {
@@ -254,7 +248,6 @@ describe('MSONAttributeParser', () => {
       },
       {
         value: 'sms',
-        sample: null,
         description: 'описание 3',
         type: 'string',
         sourceMap: {
@@ -278,7 +271,6 @@ describe('MSONAttributeParser', () => {
       },
       {
         value: 'zone',
-        sample: null,
         description: 'описание 4',
         type: 'string',
         sourceMap: {

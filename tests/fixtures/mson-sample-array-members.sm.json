@@ -46,7 +46,7 @@
       "content": [
         {
           "element": "copy",
-          "content": "Defines sample values for an array or enum members with 'sample' type attribute.",
+          "content": "Defines sample values for an array members with 'sample' type attribute.",
           "attributes": {
             "sourceMap": {
               "element": "array",
@@ -63,7 +63,7 @@
                         },
                         {
                           "element": "number",
-                          "content": 82
+                          "content": 74
                         }
                       ]
                     }
@@ -110,7 +110,7 @@
                                     "content": [
                                       {
                                         "element": "number",
-                                        "content": 121
+                                        "content": 113
                                       },
                                       {
                                         "element": "number",
@@ -148,7 +148,7 @@
                                                 "content": [
                                                   {
                                                     "element": "number",
-                                                    "content": 138
+                                                    "content": 130
                                                   },
                                                   {
                                                     "element": "number",
@@ -175,7 +175,7 @@
                                         "content": [
                                           {
                                             "element": "number",
-                                            "content": 138
+                                            "content": 130
                                           },
                                           {
                                             "element": "number",
@@ -210,7 +210,7 @@
                                                 "content": [
                                                   {
                                                     "element": "number",
-                                                    "content": 164
+                                                    "content": 156
                                                   },
                                                   {
                                                     "element": "number",
@@ -237,7 +237,7 @@
                                         "content": [
                                           {
                                             "element": "number",
-                                            "content": 164
+                                            "content": 156
                                           },
                                           {
                                             "element": "number",
@@ -264,7 +264,7 @@
                                     "content": [
                                       {
                                         "element": "number",
-                                        "content": 121
+                                        "content": 113
                                       },
                                       {
                                         "element": "number",
@@ -298,7 +298,7 @@
                                     "content": [
                                       {
                                         "element": "number",
-                                        "content": 189
+                                        "content": 181
                                       },
                                       {
                                         "element": "number",
@@ -321,6 +321,15 @@
                               {
                                 "element": "string",
                                 "attributes": {
+                                  "typeAttributes": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "fixed"
+                                      }
+                                    ]
+                                  },
                                   "sourceMap": {
                                     "element": "array",
                                     "content": [
@@ -332,7 +341,7 @@
                                             "content": [
                                               {
                                                 "element": "number",
-                                                "content": 205
+                                                "content": 197
                                               },
                                               {
                                                 "element": "number",
@@ -343,21 +352,22 @@
                                         ]
                                       }
                                     ]
-                                  },
-                                  "samples": {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "string",
-                                        "content": "track"
-                                      }
-                                    ]
                                   }
-                                }
+                                },
+                                "content": "track"
                               },
                               {
                                 "element": "string",
                                 "attributes": {
+                                  "typeAttributes": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "fixed"
+                                      }
+                                    ]
+                                  },
                                   "sourceMap": {
                                     "element": "array",
                                     "content": [
@@ -369,7 +379,7 @@
                                             "content": [
                                               {
                                                 "element": "number",
-                                                "content": 232
+                                                "content": 224
                                               },
                                               {
                                                 "element": "number",
@@ -380,17 +390,9 @@
                                         ]
                                       }
                                     ]
-                                  },
-                                  "samples": {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "string",
-                                        "content": "time"
-                                      }
-                                    ]
                                   }
-                                }
+                                },
+                                "content": "time"
                               }
                             ]
                           },
@@ -405,7 +407,7 @@
                                     "content": [
                                       {
                                         "element": "number",
-                                        "content": 189
+                                        "content": 181
                                       },
                                       {
                                         "element": "number",
@@ -438,7 +440,7 @@
                                 "content": [
                                   {
                                     "element": "number",
-                                    "content": 111
+                                    "content": 103
                                   },
                                   {
                                     "element": "number",

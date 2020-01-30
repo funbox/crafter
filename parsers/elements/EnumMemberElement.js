@@ -10,6 +10,7 @@ const SourceMapElement = require('./SourceMapElement');
  * + kind (enum)
  *   + track
  *   + movement
+ *   + Sample track
  *
  * дерево:
  * PropertyMemberElement
@@ -17,7 +18,12 @@ const SourceMapElement = require('./SourceMapElement');
  *     content: EnumElement
  *       members:
  *         - EnumMemberElement <--
+ *           value: track
  *         - EnumMemberElement <--
+ *           value: movement
+ *       sampleValues:
+ *         - EnumMemberElement <--
+ *           value: track
  */
 class EnumMemberElement {
   /**
@@ -25,11 +31,9 @@ class EnumMemberElement {
    * @param {string} value - значение элемента перечисления
    * @param {string} description
    * @param {string} type
-   * @param {boolean} isSample
    */
-  constructor(value, description, type, isSample) {
+  constructor(value, description, type) {
     this.value = value;
-    this.sample = isSample ? value : null;
     this.description = description;
     this.type = type;
     this.sourceMap = null;
@@ -44,30 +48,18 @@ class EnumMemberElement {
     const result = {
       element: Refract.elements[this.type || 'string'],
       attributes: {
-        ...(this.sample ? {} : {
-          typeAttributes: {
-            element: Refract.elements.array,
-            content: [{
-              element: Refract.elements.string,
-              content: 'fixed',
-            }],
-          },
-        }),
+        typeAttributes: {
+          element: Refract.elements.array,
+          content: [{
+            element: Refract.elements.string,
+            content: 'fixed',
+          }],
+        },
         ...(sourceMapEl ? { sourceMap: sourceMapEl.toRefract() } : {}),
       },
     };
 
-    if (this.sample) {
-      result.attributes.samples = {
-        element: Refract.elements.array,
-        content: [{
-          element: this.type,
-          content: this.sample,
-        }],
-      };
-    } else {
-      result.content = this.value;
-    }
+    result.content = this.value;
 
     if (this.description) {
       result.meta = {

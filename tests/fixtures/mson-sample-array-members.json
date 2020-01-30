@@ -21,7 +21,7 @@
       "content": [
         {
           "element": "copy",
-          "content": "Defines sample values for an array or enum members with 'sample' type attribute."
+          "content": "Defines sample values for an array members with 'sample' type attribute."
         },
         {
           "element": "category",
@@ -100,30 +100,32 @@
                               {
                                 "element": "string",
                                 "attributes": {
-                                  "samples": {
+                                  "typeAttributes": {
                                     "element": "array",
                                     "content": [
                                       {
                                         "element": "string",
-                                        "content": "track"
+                                        "content": "fixed"
                                       }
                                     ]
                                   }
-                                }
+                                },
+                                "content": "track"
                               },
                               {
                                 "element": "string",
                                 "attributes": {
-                                  "samples": {
+                                  "typeAttributes": {
                                     "element": "array",
                                     "content": [
                                       {
                                         "element": "string",
-                                        "content": "time"
+                                        "content": "fixed"
                                       }
                                     ]
                                   }
-                                }
+                                },
+                                "content": "time"
                               }
                             ]
                           }
