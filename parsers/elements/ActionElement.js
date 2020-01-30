@@ -10,9 +10,10 @@ const SourceMapElement = require('./SourceMapElement');
  *
  * # Users [/users]
  *
- * ## [GET]
+ * ## Action с опциональным заголовком [GET]
  * + Response 200
- * ## [POST]
+ *
+ * ## POST
  * + Response 200
  *
  * А для такого примера будет ResourceElement в котором только один ActionElement
@@ -34,9 +35,9 @@ const SourceMapElement = require('./SourceMapElement');
  */
 class ActionElement {
   /**
-   * @param {string} title
-   * @param {string} href
-   * @param {StringElement} method
+   * @param {string} title - опциональный заголовок
+   * @param {string} href - url HTTP-запроса
+   * @param {StringElement} method - HTTP метод (GET, POST и т.п.)
    */
   constructor(title, href, method) {
     this.title = title;
