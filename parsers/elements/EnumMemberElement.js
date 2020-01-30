@@ -22,14 +22,14 @@ const SourceMapElement = require('./SourceMapElement');
 class EnumMemberElement {
   /**
    *
-   * @param {string} name - значение элемента перечисления
+   * @param {string} value - значение элемента перечисления
    * @param {string} description
    * @param {string} type
    * @param {boolean} isSample
    */
-  constructor(name, description, type, isSample) {
-    this.name = name;
-    this.sample = isSample ? name : null;
+  constructor(value, description, type, isSample) {
+    this.value = value;
+    this.sample = isSample ? value : null;
     this.description = description;
     this.type = type;
     this.sourceMap = null;
@@ -66,7 +66,7 @@ class EnumMemberElement {
         }],
       };
     } else {
-      result.content = this.name;
+      result.content = this.value;
     }
 
     if (this.description) {

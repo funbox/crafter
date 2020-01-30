@@ -71,7 +71,7 @@ class EnumElement {
     }
 
     if (this.members.length) {
-      return this.members[0].name;
+      return this.members[0].value;
     }
 
     if (this.sampleValues.length) {
@@ -85,7 +85,7 @@ class EnumElement {
     const usedTypes = [];
     const schema = {
       type: this.type,
-      enum: this.members.map(member => member.name),
+      enum: this.members.map(member => member.value),
     };
     if (this.defaultValue) {
       schema.default = this.defaultValue.value;

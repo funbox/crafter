@@ -277,7 +277,7 @@ class DataStructureProcessor {
           break;
         case SectionTypes.enumMember:
           [nextNode, childResult] = this.Parsers.EnumMemberParser.parse(curNode, context);
-          if (childResult.name) {
+          if (childResult.value) {
             const validEnumMemberTypes = ['string', 'number', 'boolean'];
             if (!childResult.type || validEnumMemberTypes.includes(childResult.type)) {
               enumElement.members.push(childResult);
@@ -322,14 +322,14 @@ class DataStructureProcessor {
     }
 
     enumElement.members.forEach((member) => {
-      const converted = utils.convertType(member.name, enumElement.type);
+      const converted = utils.convertType(member.value, enumElement.type);
       const typesMatch = utils.compareAttributeTypes(enumElement, member);
 
       if (!typesMatch) {
-        context.addTypeMismatchWarning(member.name, enumElement.type, sourceMap);
+        context.addTypeMismatchWarning(member.value, enumElement.type, sourceMap);
       }
 
-      member.name = converted.valid ? converted.value : utils.defaultValue(enumElement.type);
+      member.value = converted.valid ? converted.value : utils.defaultValue(enumElement.type);
 
       if (!member.type) member.type = enumElement.type;
     });

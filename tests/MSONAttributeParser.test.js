@@ -43,7 +43,7 @@ describe('MSONAttributeParser', () => {
     expect(type).toBe('enum');
     expect(content.members).toEqual([
       {
-        name: 'movement',
+        value: 'movement',
         sample: null,
         description: 'описание 1',
         type: 'string',
@@ -67,7 +67,7 @@ describe('MSONAttributeParser', () => {
         },
       },
       {
-        name: 'track',
+        value: 'track',
         sample: null,
         description: 'описание 2',
         type: 'string',
@@ -91,7 +91,7 @@ describe('MSONAttributeParser', () => {
         },
       },
       {
-        name: 'sms',
+        value: 'sms',
         sample: null,
         description: 'описание 3',
         type: 'string',
@@ -115,7 +115,7 @@ describe('MSONAttributeParser', () => {
         },
       },
       {
-        name: 'zone',
+        value: 'zone',
         sample: null,
         description: 'описание 4',
         type: 'string',
@@ -205,7 +205,7 @@ describe('MSONAttributeParser', () => {
     ]);
     expect(members).toEqual([
       {
-        name: 'movement',
+        value: 'movement',
         sample: null,
         description: 'описание 1',
         type: 'string',
@@ -229,7 +229,7 @@ describe('MSONAttributeParser', () => {
         },
       },
       {
-        name: 'track',
+        value: 'track',
         sample: null,
         description: 'описание 2',
         type: 'string',
@@ -253,7 +253,7 @@ describe('MSONAttributeParser', () => {
         },
       },
       {
-        name: 'sms',
+        value: 'sms',
         sample: null,
         description: 'описание 3',
         type: 'string',
@@ -277,7 +277,7 @@ describe('MSONAttributeParser', () => {
         },
       },
       {
-        name: 'zone',
+        value: 'zone',
         sample: null,
         description: 'описание 4',
         type: 'string',

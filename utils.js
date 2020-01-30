@@ -319,7 +319,7 @@ const utils = {
     switch (baseType) {
       case 'number':
         if (childAttr.type) return true; // если для enumMember задан свой тип, то всё ок
-        if (Number.isNaN(Number(childAttr.name))) return false;
+        if (Number.isNaN(Number(childAttr.value))) return false;
         break;
       default:
         return true;
