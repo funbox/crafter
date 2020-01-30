@@ -22,11 +22,11 @@ const SourceMapElement = require('./SourceMapElement');
  */
 class ParameterEnumMemberElement {
   /**
-   * @param {string} name
+   * @param {string} value
    * @param {string} description
    */
-  constructor(name, description) {
-    this.name = name;
+  constructor(value, description) {
+    this.value = value;
     this.description = description;
     this.sourceMap = null;
   }
@@ -39,7 +39,7 @@ class ParameterEnumMemberElement {
 
     const result = {
       element: Refract.elements.string,
-      content: this.name,
+      content: this.value,
     };
 
     if (sourceMapEl) {
