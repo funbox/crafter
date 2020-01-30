@@ -7,9 +7,8 @@ const SourceMapElement = require('./SourceMapElement');
  *
  * Пример:
  *
- * исходный текст:
  * + Attributes
- *   + foo: bar (string)
+ *   + foo: bar (string) - в этом примере строка bar будет помещена в SampleValueElement
  *
  * дерево:
  * AttributesElement
@@ -19,7 +18,7 @@ const SourceMapElement = require('./SourceMapElement');
  *         - PropertyMemberElement
  *           value: ValueMemberElement
  *             samples:
- *               - DefaultValueElement <--
+ *               - SampleValueElement <--
  *                 type: "string"
  *                 value: "bar"
 
