@@ -3,6 +3,23 @@ const SourceMapElement = require('./SourceMapElement');
 
 /**
  * Произвольные мета-данные документации в формате «ключ: значение»
+ *
+ * Пример:
+ *
+ * version: 1.0 <--
+ * accessLevel: restricted <--
+ * # My API
+ *
+ * дерево:
+ *
+ * BlueprintElement
+ *   meta:
+ *     - MetaDataElement
+ *       key: version
+ *       value: 1.0
+ *     - MetaDataElement
+ *       key: accessLevel
+ *       version: restricted
  */
 class MetaDataElement {
   /**
