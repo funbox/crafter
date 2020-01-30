@@ -23,7 +23,7 @@ class ParameterElement {
    * @param {string} name
    * @param {string} value
    * @param {string} type
-   * @param {(string|Array)[]}typeAttributes
+   * @param {string[]} typeAttributes - в данный момент здесь может быть только атрибут required
    * @param {StringElement} description
    */
   constructor(name, value, type, typeAttributes, description) {
