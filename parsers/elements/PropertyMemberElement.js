@@ -23,7 +23,7 @@ class PropertyMemberElement {
   /**
    * @param {StringElement} name
    * @param {ValueMemberElement} value
-   * @param {(string|Array)[]}typeAttributes
+   * @param {(string|Array)[]} typeAttributes - набор атрибутов типа fixed, required, ["minimum", 10]
    * @param {StringElement} descriptionEl
    */
   constructor(name, value, typeAttributes, descriptionEl) {
