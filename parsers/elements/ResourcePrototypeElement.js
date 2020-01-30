@@ -14,8 +14,8 @@ const SourceMapElement = require('./SourceMapElement');
 class ResourcePrototypeElement {
   /**
    *
-   * @param {string} title
-   * @param {string[]} basePrototypes
+   * @param {string} title - название прототипа
+   * @param {string[]} basePrototypes - список прототипов от которых наследуется текущий
    */
   constructor(title, basePrototypes = []) {
     this.title = title;
