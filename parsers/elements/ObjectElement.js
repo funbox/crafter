@@ -34,7 +34,7 @@ class ObjectElement {
 
   /**
    * @param {Set} resolvedTypes - типы из TypeResolver
-   * @param {string[]} namedTypesChain
+   * @param {string[]} namedTypesChain - использованные в процессе генерации body именованные типы, нужны для отслеживания рекурсивных структур
    */
   getBody(resolvedTypes, namedTypesChain = []) {
     return this.propertyMembers.reduce((body, member) => ({
