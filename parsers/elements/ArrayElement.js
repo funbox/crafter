@@ -34,7 +34,7 @@ class ArrayElement {
 
   /**
    * @param {boolean} sourceMapsEnabled
-   * @param {boolean} isFixed
+   * @param {boolean} isFixed - наличие флага fixed у одного из родительских элементов, влияет на результирующий AST
    */
   toRefract(sourceMapsEnabled, isFixed) {
     return this.members.map(element => element.toRefract(sourceMapsEnabled, isFixed));

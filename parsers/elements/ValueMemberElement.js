@@ -119,7 +119,7 @@ class ValueMemberElement {
 
   /**
    * @param {boolean} sourceMapsEnabled
-   * @param {boolean} isFixed - для fixed-элементов Refract генерируется несколько иначе
+   * @param {boolean} isFixed - наличие флага fixed у одного из родительских элементов, влияет на результирующий AST
    */
   toRefract(sourceMapsEnabled, isFixed) {
     const sourceMapEl = sourceMapsEnabled && this.sourceMap ? new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file) : null;
