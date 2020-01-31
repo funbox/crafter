@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.46.0 (31.01.2020)
+
+* Add an information of how to debug Crafter.
+
 ## 1.45.0 (31.01.2020)
 
 * Add a description for data structures from parsers/elements.
