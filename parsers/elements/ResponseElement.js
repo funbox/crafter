@@ -7,7 +7,7 @@ const AttributesElement = require('./AttributesElement');
  *
  * Пример:
  *
- * + Response (application/json)
+ * + Response 200 (application/json)
  *   + Body
  *             {
  *               "hello": "world"
@@ -16,6 +16,8 @@ const AttributesElement = require('./AttributesElement');
  * Дерево:
  *
  * ResponseElement <--
+ *   statusCode: 200
+ *   contentType: application/json
  *   content:
  *     - BodyElement
  *
