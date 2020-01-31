@@ -1,7 +1,7 @@
 const Refract = require('../../Refract');
 
 /**
- * Ресурс. Возможны несколько вариантов объявления ресурса
+ * Ресурс. Возможны несколько вариантов объявления ресурса:
  *
  * # /users <-- неименованный ресурс
  * # GET <-- Action
@@ -21,8 +21,8 @@ const Refract = require('../../Refract');
  */
 class ResourceElement {
   /**
-   * @param {StringElement} title
-   * @param {StringElement} href
+   * @param {StringElement} title - опциональный заголовок
+   * @param {StringElement} href - url HTTP-запроса
    */
   constructor(title, href) {
     this.title = title;
