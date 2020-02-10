@@ -1,6 +1,5 @@
 const Refract = require('../../Refract');
 const Flags = require('../../Flags');
-const utils = require('../../utils');
 
 /**
  * Include секция
@@ -38,19 +37,21 @@ class MSONMixinElement {
 
   /**
    * @param {DataTypes} dataTypes - типы из TypeResolver
+   * @param {string[]} namedTypesChain - использованные в процессе генерации body именованные типы, нужны для отслеживания рекурсивных структур
    */
-  getBody(dataTypes) {
+  getBody(dataTypes, namedTypesChain = []) {
     const typeEl = dataTypes[this.className];
-    return typeEl.getBody(dataTypes);
+    return typeEl.getBody(dataTypes, namedTypesChain);
   }
 
   /**
    * @param {DataTypes} dataTypes - типы из TypeResolver
    * @param {Flags} flags - флаги генерации JSON Schema
+   * @param {string[]} namedTypesChain - использованные в процессе генерации body именованные типы, нужны для отслеживания рекурсивных структур
    */
-  getSchema(dataTypes, flags = new Flags()) {
+  getSchema(dataTypes, flags = new Flags(), namedTypesChain = []) {
     const typeEl = dataTypes[this.className];
-    return typeEl.getSchema(dataTypes, flags);
+    return typeEl.getSchema(dataTypes, flags, namedTypesChain);
   }
 }
 

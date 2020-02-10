@@ -192,12 +192,14 @@ class DataStructureProcessor {
       switch (sectionType) {
         case SectionTypes.msonAttribute: {
           [nextNode, childResult] = this.Parsers.MSONAttributeParser.parse(curNode, context);
-          const { value } = childResult;
+
+          const { typeAttributes, value } = childResult;
+          const isFixedOrFixedType = context.data.isParentAttributeFixedOrFixedType || typeAttributes.includes('fixed') || typeAttributes.includes('fixedType');
           const baseTypeName = context.typeResolver.typeNames[value.type];
           const baseType = context.typeResolver.types[value.type];
           const isRecursive = baseTypeName && baseType && utils.isRecursiveType(baseTypeName.string, baseType);
 
-          if (context.data.isParentAttributeFixedOrFixedType && isRecursive) {
+          if (isFixedOrFixedType && isRecursive) {
             const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
             throw new utils.CrafterError('Mson attributes based on a recursive type may not have "fixed" or "fixed-type" attributes', sourceMap);
           }

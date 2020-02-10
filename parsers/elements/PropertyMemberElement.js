@@ -77,6 +77,7 @@ class PropertyMemberElement {
   /**
    * @param {DataTypes} dataTypes - типы из TypeResolver
    * @param {Flags} flags - флаги генерации JSON Schema
+   * @param {string[]} namedTypesChain - использованные в процессе генерации schema именованные типы, нужны для отслеживания рекурсивных структур
    */
   getSchema(dataTypes, flags = new Flags(), namedTypesChain = []) {
     const schema = {};

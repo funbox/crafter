@@ -220,7 +220,9 @@ class ValueMemberElement {
         if (typeAttributes.includes('nullable')) {
           return null;
         }
+      }
 
+      if (namedTypesChain[namedTypesChain.length - 2] === this.type) {
         return undefined;
       }
     }

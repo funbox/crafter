@@ -25,11 +25,17 @@ class TypeResolver {
   checkRegisteredTypes() {
     const resolvedTypes = new Set();
     const resolveType = (name, targetType, usedTypes = [], ignoredTypes = [], typeElement) => {
+      const includedMixins = getIncludedMixins(targetType);
+
       if (usedTypes.includes(name)) {
         const { typeAttributes } = targetType;
 
         if (typeElement && typeElement.content) {
           throw new CrafterError(`Recursive named type ${name} must not include nested properties`);
+        }
+
+        if (includedMixins.some(mixinElement => usedTypes.includes(mixinElement.className))) {
+          throw new CrafterError(`Dependencies loop: ${usedTypes.concat([name]).join(' - ')}`, this.typeNames[name].sourceMap);
         }
 
         if (typeAttributes.includes('nullable') || !typeAttributes.includes('required')) {
@@ -45,7 +51,6 @@ class TypeResolver {
 
       usedTypes.push(name);
 
-      const includedMixins = getIncludedMixins(targetType);
       const baseTypeName = targetType.type;
 
       if (baseTypeName && standardTypes.indexOf(baseTypeName) === -1) {

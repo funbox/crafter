@@ -527,7 +527,7 @@ const utils = {
       return false;
     }
 
-    if (propertyMembers.some(pm => pm.value && pm.value.type === typeName)) {
+    if (propertyMembers.some(pm => pm.value && (pm.value.type === typeName || pm.value.nestedTypes.includes(typeName)))) {
       return true;
     }
 
