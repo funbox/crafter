@@ -78,16 +78,10 @@ class PropertyMemberElement {
    * @param {DataTypes} dataTypes - типы из TypeResolver
    * @param {Flags} flags - флаги генерации JSON Schema
    */
-  getSchema(dataTypes, flags = new Flags()) {
+  getSchema(dataTypes, flags = new Flags(), namedTypesChain = []) {
     const schema = {};
-    const localFlags = { ...flags };
-    const isRecursive = dataTypes[this.value.type] !== undefined;
 
-    if (isRecursive) {
-      localFlags.skipTypesInlining = true;
-    }
-
-    const [valueSchema, usedTypes] = this.value.getSchema(dataTypes, utils.mergeFlags(localFlags, this, { propagateFixedType: false }));
+    const [valueSchema, usedTypes] = this.value.getSchema(dataTypes, utils.mergeFlags(flags, this, { propagateFixedType: false }), namedTypesChain);
 
     if (this.descriptionEl) {
       valueSchema.description = this.descriptionEl.string;

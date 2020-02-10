@@ -38,15 +38,10 @@ class MSONMixinElement {
 
   /**
    * @param {DataTypes} dataTypes - типы из TypeResolver
-   * @param {Array} namedTypesChain - список использованных типов
    */
-  getBody(dataTypes, namedTypesChain = []) {
-    if (namedTypesChain.includes(this.className)) {
-      throw new utils.CrafterError(`Mixin dependencies loop: ${namedTypesChain.concat(this.className).join(' - ')}`, this.sourceMap);
-    }
-
+  getBody(dataTypes) {
     const typeEl = dataTypes[this.className];
-    return typeEl.getBody(dataTypes, namedTypesChain.concat(this.className));
+    return typeEl.getBody(dataTypes);
   }
 
   /**

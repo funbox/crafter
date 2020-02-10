@@ -47,11 +47,11 @@ class ObjectElement {
    * @param {DataTypes} dataTypes - типы из TypeResolver
    * @param {Flags} flags - флаги генерации JSON Schema
    */
-  getSchema(dataTypes, flags = new Flags()) {
+  getSchema(dataTypes, flags = new Flags(), namedTypesChain = []) {
     let schema = { type: 'object' };
     const usedTypes = [];
     this.propertyMembers.forEach(member => {
-      const [memberSchema, memberUsedTypes] = member.getSchema(dataTypes, flags);
+      const [memberSchema, memberUsedTypes] = member.getSchema(dataTypes, flags, namedTypesChain);
       schema = utils.mergeSchemas(schema, memberSchema);
       usedTypes.push(...memberUsedTypes);
     });

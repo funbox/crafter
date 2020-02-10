@@ -209,8 +209,10 @@ class ValueMemberElement {
     const typeEl = dataTypes[this.type];
 
     if (this.isObject() && this.isRecursive(namedTypesChain)) {
-      const recursiveTypeEl = resolvedTypes[namedTypesChain[namedTypesChain.length - 1]];
-      const propertyMember = recursiveTypeEl.content.propertyMembers.find(pm => pm.value && pm.value.type === this.type);
+      const recursiveTypeEl = dataTypes[namedTypesChain[namedTypesChain.length - 1]];
+      const propertyMember = recursiveTypeEl.content.propertyMembers.find(pm => (
+        pm.value && (pm.value.type === this.type || pm.value.nestedTypes.includes(this.type))
+      ));
 
       if (propertyMember) {
         const { typeAttributes } = propertyMember;
@@ -256,7 +258,7 @@ class ValueMemberElement {
     const typeEl = dataTypes[this.type];
     if (typeEl) {
       if (typeEl.isComplex()) {
-        if (flags.skipTypesInlining) {
+        if (flags.skipTypesInlining || this.isObject() && this.isRecursive(namedTypesChain)) {
           schema = { $ref: `#/definitions/${this.type}` };
           usedTypes = [this.type];
         } else {
