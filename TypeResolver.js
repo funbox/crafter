@@ -6,14 +6,22 @@ const utils = require('./utils');
 
 const CrafterError = utils.CrafterError;
 
+/**
+ * Отвечает за извлечение и разбор именованных типов данных из Element AST
+ */
 class TypeResolver {
   constructor() {
     /** @typedef {Object.<string, (ValueMemberElement|SchemaNamedTypeElement)>} DataTypes */
 
     /**
+     * Содержит элементы - тела именованных типов
      * @type {DataTypes}
      */
     this.types = {};
+    /**
+     * Содержит названия именованных типов в виде StringElement
+     * @type {Object.<string, StringElement>}
+     */
     this.typeNames = {};
   }
 
@@ -24,6 +32,13 @@ class TypeResolver {
 
   checkRegisteredTypes() {
     const resolvedTypes = new Set();
+    /**
+     * @param {string} name - название текущего обрабатываемого именованного типа
+     * @param {ValueMemberElement} targetType - элемент-тело именованного типа
+     * @param {string[]} usedTypes - названия типов, ранее использованных в этой же цепочке разбора типов
+     * @param {string[]} ignoredTypes - названия типов, которые будут проигнорированы в текущей цепочке разбора типов
+     * @param {ValueMemberElement} typeElement - элемент, содержащий поля объекта, относящегося к текущему именованному типу
+     */
     const resolveType = (name, targetType, usedTypes = [], ignoredTypes = [], typeElement) => {
       const includedMixins = getIncludedMixins(targetType);
 
@@ -112,6 +127,9 @@ class TypeResolver {
     });
   }
 
+  /**
+   * @param {string|null} typeName - название именованного типа
+   */
   checkTypeExists(typeName) {
     if (typeName !== null) {
       const allTypes = [...standardTypes, ...Object.keys(this.types)];
@@ -126,12 +144,18 @@ class TypeResolver {
     }
   }
 
+  /**
+   * @param {MSONMixinElement} mixin - элемент с описанием миксина
+   */
   checkMixinExists(mixin) {
     if (!Object.prototype.hasOwnProperty.call(this.types, mixin.className)) {
       throw new CrafterError(`Mixin "${mixin.className}" is not defined in the document.`, mixin.sourceMap);
     }
   }
 
+  /**
+   * @param {ValueMemberElement} target - элемент-тело именованного типа
+   */
   checkUsedMixins(target) {
     const includedMixins = getIncludedMixins(target);
     const checkMixinExists = this.checkMixinExists.bind(this);
@@ -141,6 +165,9 @@ class TypeResolver {
     });
   }
 
+  /**
+   * @param {string} name - название именованного типа
+   */
   getStandardBaseType(name) {
     const usedTypes = [];
 
@@ -172,6 +199,9 @@ class TypeResolver {
   }
 }
 
+/**
+ * @param {ValueMemberElement} target - элемент-тело именованного типа, для которого определяются используемые миксины
+ */
 function getIncludedMixins(target) {
   const includedMixins = [];
 
