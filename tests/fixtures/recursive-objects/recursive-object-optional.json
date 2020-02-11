@@ -154,7 +154,7 @@
                               ]
                             }
                           },
-                          "content": "{\n  \"address\": \"hello\"\n}",
+                          "content": "{\n  \"address\": \"hello\",\n  \"parent\": {\n    \"address\": \"hello\"\n  }\n}",
                           "attributes": {
                             "contentType": {
                               "element": "string",
@@ -186,8 +186,8 @@
                       ],
                       "attributes": {
                         "statusCode": {
-                          "element": "string",
-                          "content": "200"
+                          "element": "number",
+                          "content": 200
                         },
                         "headers": {
                           "element": "httpHeaders",

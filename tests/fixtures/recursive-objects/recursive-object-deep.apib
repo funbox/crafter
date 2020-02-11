@@ -1,9 +1,12 @@
 # My API
 
+Defines a named type which recursively depends on another named type.
+Recursive definition is possible if a property member is either optional or nullable.
+
 # Data Structures
 
 ## DNSSettings
-+ parent (DNSServer, nullable)
++ parent (DNSServer, required, nullable)
 
 ## DNSServer
 + address (string, required)

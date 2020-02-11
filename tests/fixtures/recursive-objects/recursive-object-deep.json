@@ -20,6 +20,10 @@
       },
       "content": [
         {
+          "element": "copy",
+          "content": "Defines a named type which recursively depends on another named type.\nRecursive definition is possible if a property member is either optional or nullable."
+        },
+        {
           "element": "category",
           "meta": {
             "classes": {
@@ -53,6 +57,10 @@
                       "typeAttributes": {
                         "element": "array",
                         "content": [
+                          {
+                            "element": "string",
+                            "content": "required"
+                          },
                           {
                             "element": "string",
                             "content": "nullable"
@@ -207,13 +215,13 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"definitions\": {\n    \"DNSSettings\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"parent\": {\n          \"$ref\": \"#/definitions/DNSServer\",\n          \"type\": [\n            \"object\",\n            \"null\"\n          ]\n        }\n      }\n    },\n    \"DNSServer\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"address\": {\n          \"type\": \"string\"\n        },\n        \"settings\": {\n          \"$ref\": \"#/definitions/DNSSettings\"\n        }\n      },\n      \"required\": [\n        \"address\"\n      ]\n    }\n  },\n  \"type\": \"object\",\n  \"properties\": {\n    \"address\": {\n      \"type\": \"string\"\n    },\n    \"settings\": {\n      \"$ref\": \"#/definitions/DNSSettings\"\n    }\n  },\n  \"required\": [\n    \"address\"\n  ]\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"definitions\": {\n    \"DNSServer\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"address\": {\n          \"type\": \"string\"\n        },\n        \"settings\": {\n          \"$ref\": \"#/definitions/DNSSettings\"\n        }\n      },\n      \"required\": [\n        \"address\"\n      ]\n    },\n    \"DNSSettings\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"parent\": {\n          \"$ref\": \"#/definitions/DNSServer\",\n          \"type\": [\n            \"object\",\n            \"null\"\n          ]\n        }\n      },\n      \"required\": [\n        \"parent\"\n      ]\n    }\n  },\n  \"type\": \"object\",\n  \"properties\": {\n    \"address\": {\n      \"type\": \"string\"\n    },\n    \"settings\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"parent\": {\n          \"$ref\": \"#/definitions/DNSServer\",\n          \"type\": [\n            \"object\",\n            \"null\"\n          ]\n        }\n      },\n      \"required\": [\n        \"parent\"\n      ]\n    }\n  },\n  \"required\": [\n    \"address\"\n  ]\n}"
                         }
                       ],
                       "attributes": {
                         "statusCode": {
-                          "element": "string",
-                          "content": "200"
+                          "element": "number",
+                          "content": 200
                         },
                         "headers": {
                           "element": "httpHeaders",

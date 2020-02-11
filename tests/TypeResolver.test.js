@@ -26,6 +26,7 @@ describe('TypeResolver', () => {
 
   it('throws error on loop', () => {
     foo.content.type = 'bar';
+    foo.content.typeAttributes = ['required'];
     resolver.registerType(foo, foo.content);
     resolver.registerType(bar, bar.content);
     expect(() => resolver.checkRegisteredTypes()).toThrow(CrafterError);

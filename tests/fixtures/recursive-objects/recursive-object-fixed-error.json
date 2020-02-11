@@ -2,126 +2,64 @@
   "element": "parseResult",
   "content": [
     {
-      "element": "category",
+      "element": "annotation",
       "meta": {
         "classes": {
           "element": "array",
           "content": [
             {
               "element": "string",
-              "content": "api"
+              "content": "error"
             }
           ]
-        },
-        "title": {
-          "element": "string",
-          "content": "My API"
         }
       },
-      "content": [
-        {
-          "element": "category",
-          "meta": {
-            "classes": {
-              "element": "array",
+      "attributes": {
+        "sourceMap": {
+          "element": "array",
+          "content": [
+            {
+              "element": "sourceMap",
               "content": [
                 {
-                  "element": "string",
-                  "content": "dataStructures"
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 10
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 1
+                        }
+                      },
+                      "content": 110
+                    },
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 10
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 25
+                        }
+                      },
+                      "content": 25
+                    }
+                  ]
                 }
               ]
             }
-          },
-          "content": [
-            {
-              "element": "dataStructure",
-              "content": {
-                "element": "object",
-                "content": [
-                  {
-                    "element": "member",
-                    "content": {
-                      "key": {
-                        "element": "string",
-                        "content": "address"
-                      },
-                      "value": {
-                        "element": "string"
-                      }
-                    },
-                    "attributes": {
-                      "typeAttributes": {
-                        "element": "array",
-                        "content": [
-                          {
-                            "element": "string",
-                            "content": "required"
-                          }
-                        ]
-                      }
-                    }
-                  },
-                  {
-                    "element": "member",
-                    "content": {
-                      "key": {
-                        "element": "string",
-                        "content": "parent"
-                      },
-                      "value": {
-                        "element": "DNSServer"
-                      }
-                    }
-                  }
-                ],
-                "meta": {
-                  "id": {
-                    "element": "string",
-                    "content": "DNSServer"
-                  }
-                }
-              }
-            },
-            {
-              "element": "dataStructure",
-              "content": {
-                "element": "object",
-                "content": [
-                  {
-                    "element": "member",
-                    "content": {
-                      "key": {
-                        "element": "string",
-                        "content": "dns"
-                      },
-                      "value": {
-                        "element": "DNSServer"
-                      }
-                    },
-                    "attributes": {
-                      "typeAttributes": {
-                        "element": "array",
-                        "content": [
-                          {
-                            "element": "string",
-                            "content": "fixed"
-                          }
-                        ]
-                      }
-                    }
-                  }
-                ],
-                "meta": {
-                  "id": {
-                    "element": "string",
-                    "content": "Infrastructure"
-                  }
-                }
-              }
-            }
           ]
         }
-      ]
+      },
+      "content": "Mson attributes based on a recursive type must not have \"fixed\" or \"fixed-type\" attributes"
     }
   ]
 }

@@ -2,351 +2,64 @@
   "element": "parseResult",
   "content": [
     {
-      "element": "category",
+      "element": "annotation",
       "meta": {
         "classes": {
           "element": "array",
           "content": [
             {
               "element": "string",
-              "content": "api"
+              "content": "error"
             }
           ]
-        },
-        "title": {
-          "element": "string",
-          "content": "My API",
-          "attributes": {
-            "sourceMap": {
-              "element": "array",
+        }
+      },
+      "attributes": {
+        "sourceMap": {
+          "element": "array",
+          "content": [
+            {
+              "element": "sourceMap",
               "content": [
                 {
-                  "element": "sourceMap",
+                  "element": "array",
                   "content": [
                     {
-                      "element": "array",
-                      "content": [
-                        {
-                          "element": "number",
-                          "content": 0
-                        },
-                        {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
                           "element": "number",
                           "content": 10
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 1
                         }
-                      ]
+                      },
+                      "content": 110
+                    },
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 10
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 25
+                        }
+                      },
+                      "content": 25
                     }
                   ]
                 }
               ]
             }
-          }
-        }
-      },
-      "content": [
-        {
-          "element": "category",
-          "meta": {
-            "classes": {
-              "element": "array",
-              "content": [
-                {
-                  "element": "string",
-                  "content": "dataStructures"
-                }
-              ]
-            }
-          },
-          "content": [
-            {
-              "element": "dataStructure",
-              "content": {
-                "element": "object",
-                "content": [
-                  {
-                    "element": "member",
-                    "content": {
-                      "key": {
-                        "element": "string",
-                        "content": "address",
-                        "attributes": {
-                          "sourceMap": {
-                            "element": "array",
-                            "content": [
-                              {
-                                "element": "sourceMap",
-                                "content": [
-                                  {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "number",
-                                        "content": 44
-                                      },
-                                      {
-                                        "element": "number",
-                                        "content": 27
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        }
-                      },
-                      "value": {
-                        "element": "string",
-                        "attributes": {
-                          "sourceMap": {
-                            "element": "array",
-                            "content": [
-                              {
-                                "element": "sourceMap",
-                                "content": [
-                                  {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "number",
-                                        "content": 44
-                                      },
-                                      {
-                                        "element": "number",
-                                        "content": 27
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        }
-                      }
-                    },
-                    "attributes": {
-                      "typeAttributes": {
-                        "element": "array",
-                        "content": [
-                          {
-                            "element": "string",
-                            "content": "required"
-                          }
-                        ]
-                      }
-                    }
-                  },
-                  {
-                    "element": "member",
-                    "content": {
-                      "key": {
-                        "element": "string",
-                        "content": "parent",
-                        "attributes": {
-                          "sourceMap": {
-                            "element": "array",
-                            "content": [
-                              {
-                                "element": "sourceMap",
-                                "content": [
-                                  {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "number",
-                                        "content": 73
-                                      },
-                                      {
-                                        "element": "number",
-                                        "content": 19
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        }
-                      },
-                      "value": {
-                        "element": "DNSServer",
-                        "attributes": {
-                          "sourceMap": {
-                            "element": "array",
-                            "content": [
-                              {
-                                "element": "sourceMap",
-                                "content": [
-                                  {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "number",
-                                        "content": 73
-                                      },
-                                      {
-                                        "element": "number",
-                                        "content": 19
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        }
-                      }
-                    }
-                  }
-                ],
-                "meta": {
-                  "id": {
-                    "element": "string",
-                    "content": "DNSServer",
-                    "attributes": {
-                      "sourceMap": {
-                        "element": "array",
-                        "content": [
-                          {
-                            "element": "sourceMap",
-                            "content": [
-                              {
-                                "element": "array",
-                                "content": [
-                                  {
-                                    "element": "number",
-                                    "content": 29
-                                  },
-                                  {
-                                    "element": "number",
-                                    "content": 13
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    }
-                  }
-                }
-              }
-            },
-            {
-              "element": "dataStructure",
-              "content": {
-                "element": "object",
-                "content": [
-                  {
-                    "element": "member",
-                    "content": {
-                      "key": {
-                        "element": "string",
-                        "content": "dns",
-                        "attributes": {
-                          "sourceMap": {
-                            "element": "array",
-                            "content": [
-                              {
-                                "element": "sourceMap",
-                                "content": [
-                                  {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "number",
-                                        "content": 112
-                                      },
-                                      {
-                                        "element": "number",
-                                        "content": 23
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        }
-                      },
-                      "value": {
-                        "element": "DNSServer",
-                        "attributes": {
-                          "sourceMap": {
-                            "element": "array",
-                            "content": [
-                              {
-                                "element": "sourceMap",
-                                "content": [
-                                  {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "number",
-                                        "content": 112
-                                      },
-                                      {
-                                        "element": "number",
-                                        "content": 23
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        }
-                      }
-                    },
-                    "attributes": {
-                      "typeAttributes": {
-                        "element": "array",
-                        "content": [
-                          {
-                            "element": "string",
-                            "content": "fixed"
-                          }
-                        ]
-                      }
-                    }
-                  }
-                ],
-                "meta": {
-                  "id": {
-                    "element": "string",
-                    "content": "Infrastructure",
-                    "attributes": {
-                      "sourceMap": {
-                        "element": "array",
-                        "content": [
-                          {
-                            "element": "sourceMap",
-                            "content": [
-                              {
-                                "element": "array",
-                                "content": [
-                                  {
-                                    "element": "number",
-                                    "content": 93
-                                  },
-                                  {
-                                    "element": "number",
-                                    "content": 17
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    }
-                  }
-                }
-              }
-            }
           ]
         }
-      ]
+      },
+      "content": "Mson attributes based on a recursive type must not have \"fixed\" or \"fixed-type\" attributes"
     }
   ]
 }

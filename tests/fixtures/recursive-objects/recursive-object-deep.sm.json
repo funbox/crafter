@@ -45,6 +45,35 @@
       },
       "content": [
         {
+          "element": "copy",
+          "content": "Defines a named type which recursively depends on another named type.\nRecursive definition is possible if a property member is either optional or nullable.",
+          "attributes": {
+            "sourceMap": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "sourceMap",
+                  "content": [
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 10
+                        },
+                        {
+                          "element": "number",
+                          "content": 157
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
           "element": "category",
           "meta": {
             "classes": {
@@ -81,11 +110,11 @@
                                     "content": [
                                       {
                                         "element": "number",
-                                        "content": 46
+                                        "content": 203
                                       },
                                       {
                                         "element": "number",
-                                        "content": 29
+                                        "content": 39
                                       }
                                     ]
                                   }
@@ -109,11 +138,11 @@
                                     "content": [
                                       {
                                         "element": "number",
-                                        "content": 46
+                                        "content": 203
                                       },
                                       {
                                         "element": "number",
-                                        "content": 29
+                                        "content": 39
                                       }
                                     ]
                                   }
@@ -128,6 +157,10 @@
                       "typeAttributes": {
                         "element": "array",
                         "content": [
+                          {
+                            "element": "string",
+                            "content": "required"
+                          },
                           {
                             "element": "string",
                             "content": "nullable"
@@ -153,7 +186,7 @@
                                 "content": [
                                   {
                                     "element": "number",
-                                    "content": 29
+                                    "content": 186
                                   },
                                   {
                                     "element": "number",
@@ -193,7 +226,7 @@
                                     "content": [
                                       {
                                         "element": "number",
-                                        "content": 91
+                                        "content": 258
                                       },
                                       {
                                         "element": "number",
@@ -221,7 +254,7 @@
                                     "content": [
                                       {
                                         "element": "number",
-                                        "content": 91
+                                        "content": 258
                                       },
                                       {
                                         "element": "number",
@@ -266,7 +299,7 @@
                                     "content": [
                                       {
                                         "element": "number",
-                                        "content": 120
+                                        "content": 287
                                       },
                                       {
                                         "element": "number",
@@ -294,7 +327,7 @@
                                     "content": [
                                       {
                                         "element": "number",
-                                        "content": 120
+                                        "content": 287
                                       },
                                       {
                                         "element": "number",
@@ -327,7 +360,7 @@
                                 "content": [
                                   {
                                     "element": "number",
-                                    "content": 76
+                                    "content": 243
                                   },
                                   {
                                     "element": "number",
@@ -370,7 +403,7 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 144
+                              "content": 311
                             },
                             {
                               "element": "number",
@@ -416,7 +449,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 144
+                                          "content": 311
                                         },
                                         {
                                           "element": "number",
@@ -452,7 +485,7 @@
                                         "content": [
                                           {
                                             "element": "number",
-                                            "content": 199
+                                            "content": 366
                                           },
                                           {
                                             "element": "number",
@@ -507,13 +540,13 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"definitions\": {\n    \"DNSSettings\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"parent\": {\n          \"$ref\": \"#/definitions/DNSServer\",\n          \"type\": [\n            \"object\",\n            \"null\"\n          ]\n        }\n      }\n    },\n    \"DNSServer\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"address\": {\n          \"type\": \"string\"\n        },\n        \"settings\": {\n          \"$ref\": \"#/definitions/DNSSettings\"\n        }\n      },\n      \"required\": [\n        \"address\"\n      ]\n    }\n  },\n  \"type\": \"object\",\n  \"properties\": {\n    \"address\": {\n      \"type\": \"string\"\n    },\n    \"settings\": {\n      \"$ref\": \"#/definitions/DNSSettings\"\n    }\n  },\n  \"required\": [\n    \"address\"\n  ]\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"definitions\": {\n    \"DNSServer\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"address\": {\n          \"type\": \"string\"\n        },\n        \"settings\": {\n          \"$ref\": \"#/definitions/DNSSettings\"\n        }\n      },\n      \"required\": [\n        \"address\"\n      ]\n    },\n    \"DNSSettings\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"parent\": {\n          \"$ref\": \"#/definitions/DNSServer\",\n          \"type\": [\n            \"object\",\n            \"null\"\n          ]\n        }\n      },\n      \"required\": [\n        \"parent\"\n      ]\n    }\n  },\n  \"type\": \"object\",\n  \"properties\": {\n    \"address\": {\n      \"type\": \"string\"\n    },\n    \"settings\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"parent\": {\n          \"$ref\": \"#/definitions/DNSServer\",\n          \"type\": [\n            \"object\",\n            \"null\"\n          ]\n        }\n      },\n      \"required\": [\n        \"parent\"\n      ]\n    }\n  },\n  \"required\": [\n    \"address\"\n  ]\n}"
                         }
                       ],
                       "attributes": {
                         "statusCode": {
-                          "element": "string",
-                          "content": "200",
+                          "element": "number",
+                          "content": 200,
                           "attributes": {
                             "sourceMap": {
                               "element": "array",
@@ -526,7 +559,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 161
+                                          "content": 328
                                         },
                                         {
                                           "element": "number",
@@ -567,7 +600,7 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 161
+                                              "content": 328
                                             },
                                             {
                                               "element": "number",
@@ -594,7 +627,7 @@
                                   "content": [
                                     {
                                       "element": "number",
-                                      "content": 161
+                                      "content": 328
                                     },
                                     {
                                       "element": "number",
@@ -627,7 +660,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 144
+                                  "content": 311
                                 },
                                 {
                                   "element": "number",

@@ -201,7 +201,7 @@ class DataStructureProcessor {
 
           if (isFixedOrFixedType && isRecursive) {
             const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-            throw new utils.CrafterError('Mson attributes based on a recursive type may not have "fixed" or "fixed-type" attributes', sourceMap);
+            throw new utils.CrafterError('Mson attributes based on a recursive type must not have "fixed" or "fixed-type" attributes', sourceMap);
           }
           break;
         }
