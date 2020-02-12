@@ -38,25 +38,25 @@ class OneOfTypeElement {
   }
 
   /**
-   * @param {Set} resolvedTypes - типы из TypeResolver
+   * @param {Object.<string, (ValueMemberElement|SchemaNamedTypeElement)>} dataTypes - типы из TypeResolver
    */
-  getBody(resolvedTypes) {
+  getBody(dataTypes) {
     if (this.options.length) {
-      return this.options[0].getBody(resolvedTypes);
+      return this.options[0].getBody(dataTypes);
     }
 
     return {};
   }
 
   /**
-   * @param {Set} resolvedTypes - типы из TypeResolver
+   * @param {Object.<string, (ValueMemberElement|SchemaNamedTypeElement)>} dataTypes - типы из TypeResolver
    * @param {Flags} flags - флаги генерации JSON Schema
    */
-  getSchema(resolvedTypes, flags = new Flags()) {
+  getSchema(dataTypes, flags = new Flags()) {
     const usedTypes = [];
     const schema = {
       oneOf: this.options.map(option => {
-        const [optionSchema, optionUsedTypes] = option.getSchema(resolvedTypes, flags);
+        const [optionSchema, optionUsedTypes] = option.getSchema(dataTypes, flags);
         usedTypes.push(...optionUsedTypes);
         return optionSchema;
       }),

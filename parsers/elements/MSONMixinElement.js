@@ -36,20 +36,20 @@ class MSONMixinElement {
   }
 
   /**
-   * @param {Set} resolvedTypes - типы из TypeResolver
+   * @param {Object.<string, (ValueMemberElement|SchemaNamedTypeElement)>} dataTypes - типы из TypeResolver
    */
-  getBody(resolvedTypes) {
-    const typeEl = resolvedTypes[this.className];
-    return typeEl.getBody(resolvedTypes);
+  getBody(dataTypes) {
+    const typeEl = dataTypes[this.className];
+    return typeEl.getBody(dataTypes);
   }
 
   /**
-   * @param {Set} resolvedTypes - типы из TypeResolver
+   * @param {Object.<string, (ValueMemberElement|SchemaNamedTypeElement)>} dataTypes - типы из TypeResolver
    * @param {Flags} flags - флаги генерации JSON Schema
    */
-  getSchema(resolvedTypes, flags = new Flags()) {
-    const typeEl = resolvedTypes[this.className];
-    return typeEl.getSchema(resolvedTypes, flags);
+  getSchema(dataTypes, flags = new Flags()) {
+    const typeEl = dataTypes[this.className];
+    return typeEl.getSchema(dataTypes, flags);
   }
 }
 

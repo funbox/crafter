@@ -35,18 +35,18 @@ class AttributesElement {
   }
 
   /**
-   * @param {Set} resolvedTypes - типы из TypeResolver
+   * @param {Object.<string, (ValueMemberElement|SchemaNamedTypeElement)>} dataTypes - типы из TypeResolver
    */
-  getBody(resolvedTypes) {
-    return this.content.getBody(resolvedTypes);
+  getBody(dataTypes) {
+    return this.content.getBody(dataTypes);
   }
 
   /**
-   * @param {Set} resolvedTypes - типы из TypeResolver
+   * @param {Object.<string, (ValueMemberElement|SchemaNamedTypeElement)>} dataTypes - типы из TypeResolver
    * @param {Flags} flags - всегда пустой объект, добавлен для единообразия
    */
-  getSchema(resolvedTypes, flags = new Flags()) {
-    const [result, usedTypes] = this.content.getSchema(resolvedTypes, utils.mergeFlags(flags, this.content));
+  getSchema(dataTypes, flags = new Flags()) {
+    const [result, usedTypes] = this.content.getSchema(dataTypes, utils.mergeFlags(flags, this.content));
 
     const definitions = {};
 
@@ -55,8 +55,8 @@ class AttributesElement {
 
       while (types.length > 0) {
         const type = types.shift();
-        const typeEl = resolvedTypes[type];
-        const [typeSchema, typeUsedTypes] = typeEl.getSchema(resolvedTypes, { skipTypesInlining: true });
+        const typeEl = dataTypes[type];
+        const [typeSchema, typeUsedTypes] = typeEl.getSchema(dataTypes, { skipTypesInlining: true });
         definitions[type] = typeSchema;
 
         typeUsedTypes.forEach(t => {

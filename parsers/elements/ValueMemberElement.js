@@ -190,23 +190,23 @@ class ValueMemberElement {
   }
 
   /**
-   * @param {Set} resolvedTypes - типы из TypeResolver
+   * @param {Object.<string, (ValueMemberElement|SchemaNamedTypeElement)>} dataTypes - типы из TypeResolver
    * @param {string[]} namedTypesChain - использованные в процессе генерации body именованные типы, нужны для отслеживания рекурсивных структур
    */
-  getBody(resolvedTypes, namedTypesChain = []) {
+  getBody(dataTypes, namedTypesChain = []) {
     if (this.shouldOutputSamples()) {
-      return this.samples[0].getBody(resolvedTypes);
+      return this.samples[0].getBody(dataTypes);
     }
 
     if (this.default) {
-      return this.default.getBody(resolvedTypes);
+      return this.default.getBody(dataTypes);
     }
 
     let body;
 
-    const typeEl = resolvedTypes[this.type];
+    const typeEl = dataTypes[this.type];
     if (typeEl && typeEl.isComplex()) {
-      body = typeEl.getBody(resolvedTypes, namedTypesChain.concat(this.type));
+      body = typeEl.getBody(dataTypes, namedTypesChain.concat(this.type));
     }
 
     if (this.content) {
@@ -214,7 +214,7 @@ class ValueMemberElement {
         return [];
       }
 
-      body = mergeBodies(body, this.content.getBody(resolvedTypes, namedTypesChain));
+      body = mergeBodies(body, this.content.getBody(dataTypes, namedTypesChain));
     }
 
     if (body !== undefined) {
@@ -227,21 +227,21 @@ class ValueMemberElement {
   }
 
   /**
-   * @param {Set} resolvedTypes - типы из TypeResolver
+   * @param {Object.<string, (ValueMemberElement|SchemaNamedTypeElement)>} dataTypes - типы из TypeResolver
    * @param {Flags} flags - флаги генерации JSON Schema
    */
-  getSchema(resolvedTypes, flags = new Flags()) {
+  getSchema(dataTypes, flags = new Flags()) {
     let schema = {};
     let usedTypes = [];
 
-    const typeEl = resolvedTypes[this.type];
+    const typeEl = dataTypes[this.type];
     if (typeEl) {
       if (typeEl.isComplex()) {
         if (flags.skipTypesInlining) {
           schema = { $ref: `#/definitions/${this.type}` };
           usedTypes = [this.type];
         } else {
-          [schema, usedTypes] = typeEl.getSchema(resolvedTypes, typeEl.typeAttributes && utils.mergeFlags(flags, typeEl));
+          [schema, usedTypes] = typeEl.getSchema(dataTypes, typeEl.typeAttributes && utils.mergeFlags(flags, typeEl));
         }
         schema = fillSchemaWithAttributes(schema, typeEl.typeAttributes);
       } else {
@@ -256,7 +256,7 @@ class ValueMemberElement {
     // стоит обратить внимание на проверку (!schema.$ref) в будущем
     // при реализации рекурсивных объектов
     if (this.content && !schema.$ref) {
-      const [contentSchema, contentUsedTypes] = this.content.getSchema(resolvedTypes, flags);
+      const [contentSchema, contentUsedTypes] = this.content.getSchema(dataTypes, flags);
       schema = utils.mergeSchemas(schema, contentSchema);
       usedTypes.push(...contentUsedTypes);
     }

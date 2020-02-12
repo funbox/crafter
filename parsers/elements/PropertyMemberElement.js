@@ -62,12 +62,12 @@ class PropertyMemberElement {
   }
 
   /**
-   * @param {Set} resolvedTypes - типы из TypeResolver
+   * @param {Object.<string, (ValueMemberElement|SchemaNamedTypeElement)>} dataTypes - типы из TypeResolver
    * @param {string[]} namedTypesChain - использованные в процессе генерации body именованные типы, нужны для отслеживания рекурсивных структур
    */
-  getBody(resolvedTypes, namedTypesChain = []) {
+  getBody(dataTypes, namedTypesChain = []) {
     const key = this.name.string;
-    const value = this.value.getBody(resolvedTypes, namedTypesChain);
+    const value = this.value.getBody(dataTypes, namedTypesChain);
 
     return {
       [key]: value,
@@ -75,13 +75,13 @@ class PropertyMemberElement {
   }
 
   /**
-   * @param {Set} resolvedTypes - типы из TypeResolver
+   * @param {Object.<string, (ValueMemberElement|SchemaNamedTypeElement)>} dataTypes - типы из TypeResolver
    * @param {Flags} flags - флаги генерации JSON Schema
    */
-  getSchema(resolvedTypes, flags = new Flags()) {
+  getSchema(dataTypes, flags = new Flags()) {
     const schema = {};
 
-    const [valueSchema, usedTypes] = this.value.getSchema(resolvedTypes, utils.mergeFlags(flags, this, { propagateFixedType: false }));
+    const [valueSchema, usedTypes] = this.value.getSchema(dataTypes, utils.mergeFlags(flags, this, { propagateFixedType: false }));
 
     if (this.descriptionEl) {
       valueSchema.description = this.descriptionEl.string;

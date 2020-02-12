@@ -58,22 +58,22 @@ class MessageElement {
   }
 
   /**
-   * @param {Set} resolvedTypes - типы из TypeResolver
+   * @param {Object.<string, (ValueMemberElement|SchemaNamedTypeElement)>} dataTypes - типы из TypeResolver
    */
-  getBody(resolvedTypes) {
+  getBody(dataTypes) {
     const attrsEl = this.content.find(item => item instanceof AttributesElement);
-    return attrsEl && attrsEl.getBody(resolvedTypes);
+    return attrsEl && attrsEl.getBody(dataTypes);
   }
 
   /**
-   * @param {Set} resolvedTypes - типы из TypeResolver
+   * @param {Object.<string, (ValueMemberElement|SchemaNamedTypeElement)>} dataTypes - типы из TypeResolver
    */
-  getSchema(resolvedTypes) {
+  getSchema(dataTypes) {
     let schema;
 
     const attrsEl = this.content.find(item => item instanceof AttributesElement);
     if (attrsEl) {
-      const [attrsElSchema] = attrsEl.getSchema(resolvedTypes);
+      const [attrsElSchema] = attrsEl.getSchema(dataTypes);
       schema = attrsElSchema;
     }
 

@@ -43,25 +43,25 @@ class OneOfTypeOptionElement {
   }
 
   /**
-   * @param {Set} resolvedTypes - типы из TypeResolver
+   * @param {Object.<string, (ValueMemberElement|SchemaNamedTypeElement)>} dataTypes - типы из TypeResolver
    */
-  getBody(resolvedTypes) {
+  getBody(dataTypes) {
     return this.members.reduce((body, member) => ({
       ...body,
-      ...member.getBody(resolvedTypes),
+      ...member.getBody(dataTypes),
     }), {});
   }
 
   /**
-   * @param {Set} resolvedTypes - типы из TypeResolver
+   * @param {Object.<string, (ValueMemberElement|SchemaNamedTypeElement)>} dataTypes - типы из TypeResolver
    * @param {Flags} flags - флаги генерации JSON Schema
    */
-  getSchema(resolvedTypes, flags = new Flags()) {
+  getSchema(dataTypes, flags = new Flags()) {
     let schema = {};
     const usedTypes = [];
 
     this.members.forEach(member => {
-      const [memberSchema, memberUsedTypes] = member.getSchema(resolvedTypes, flags);
+      const [memberSchema, memberUsedTypes] = member.getSchema(dataTypes, flags);
       schema = utils.mergeSchemas(schema, memberSchema);
       usedTypes.push(...memberUsedTypes);
     });

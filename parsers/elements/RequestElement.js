@@ -96,21 +96,21 @@ class RequestElement {
   }
 
   /**
-   * @param {Set} resolvedTypes - типы из TypeResolver
+   * @param {Object.<string, (ValueMemberElement|SchemaNamedTypeElement)>} dataTypes - типы из TypeResolver
    */
-  getBody(resolvedTypes) {
+  getBody(dataTypes) {
     if (this.contentType !== 'application/json') {
       return undefined;
     }
 
     const attrsEl = this.content.find(item => item instanceof AttributesElement);
-    return attrsEl && attrsEl.getBody(resolvedTypes);
+    return attrsEl && attrsEl.getBody(dataTypes);
   }
 
   /**
-   * @param {Set} resolvedTypes - типы из TypeResolver
+   * @param {Object.<string, (ValueMemberElement|SchemaNamedTypeElement)>} dataTypes - типы из TypeResolver
    */
-  getSchema(resolvedTypes) {
+  getSchema(dataTypes) {
     let schema;
 
     if (this.contentType !== 'application/json') {
@@ -118,7 +118,7 @@ class RequestElement {
     }
     const attrsEl = this.content.find(item => item instanceof AttributesElement);
     if (attrsEl) {
-      [schema] = attrsEl.getSchema(resolvedTypes);
+      [schema] = attrsEl.getSchema(dataTypes);
     }
 
     return [schema];

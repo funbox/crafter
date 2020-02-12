@@ -41,18 +41,18 @@ class ArrayElement {
   }
 
   /**
-   * @param {Set} resolvedTypes - типы из TypeResolver
+   * @param {Object.<string, (ValueMemberElement|SchemaNamedTypeElement)>} dataTypes - типы из TypeResolver
    * @param {string[]} namedTypesChain - использованные в процессе генерации body именованные типы, нужны для отслеживания рекурсивных структур
    */
-  getBody(resolvedTypes, namedTypesChain = []) {
-    return this.members.map(member => member.getBody(resolvedTypes, namedTypesChain));
+  getBody(dataTypes, namedTypesChain = []) {
+    return this.members.map(member => member.getBody(dataTypes, namedTypesChain));
   }
 
   /**
-   * @param {Set} resolvedTypes - типы из TypeResolver
+   * @param {Object.<string, (ValueMemberElement|SchemaNamedTypeElement)>} dataTypes - типы из TypeResolver
    * @param {Flags} flags - флаги генерации JSON Schema
    */
-  getSchema(resolvedTypes, flags = new Flags()) {
+  getSchema(dataTypes, flags = new Flags()) {
     const schema = { type: 'array' };
     const localFlags = new Flags(flags);
     localFlags.isFixedType = false;
@@ -63,7 +63,7 @@ class ArrayElement {
       const memberSchemas = [];
 
       this.members.forEach(member => {
-        const [currentMemberSchema, currentMemberUsedTypes] = member.getSchema(resolvedTypes, localFlags);
+        const [currentMemberSchema, currentMemberUsedTypes] = member.getSchema(dataTypes, localFlags);
         memberSchemas.push(currentMemberSchema);
         usedTypes.push(...currentMemberUsedTypes);
       });
@@ -73,7 +73,7 @@ class ArrayElement {
       const memberSchemas = [];
 
       this.members.forEach(member => {
-        const [currentMemberSchema, currentMemberUsedTypes] = member.getSchema(resolvedTypes, localFlags);
+        const [currentMemberSchema, currentMemberUsedTypes] = member.getSchema(dataTypes, localFlags);
         memberSchemas.push(currentMemberSchema);
         usedTypes.push(...currentMemberUsedTypes);
       });
@@ -83,7 +83,7 @@ class ArrayElement {
         anyOf: items,
       };
     } else if (this.members.length === 1) {
-      const [memberSchema, memberUsedTypes] = this.members[0].getSchema(resolvedTypes, localFlags);
+      const [memberSchema, memberUsedTypes] = this.members[0].getSchema(dataTypes, localFlags);
       schema.items = memberSchema;
       usedTypes.push(...memberUsedTypes);
     }
