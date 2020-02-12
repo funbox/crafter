@@ -10,12 +10,12 @@ class TypeResolver {
   constructor() {
     this.types = {};
     this.typeNames = {};
-    this.resolvedTypes = new Set();
   }
 
   resolveRegisteredTypes() {
+    const resolvedTypes = new Set();
     const resolveType = (name, targetType, usedTypes = [], ignoredTypes = []) => {
-      if (this.resolvedTypes.has(name) || ignoredTypes.includes(name)) {
+      if (resolvedTypes.has(name) || ignoredTypes.includes(name)) {
         return;
       }
 
@@ -79,7 +79,7 @@ class TypeResolver {
         }
       }
 
-      this.resolvedTypes.add(name);
+      resolvedTypes.add(name);
     };
 
     Object.entries(this.types).forEach(([name, valueMember]) => {
