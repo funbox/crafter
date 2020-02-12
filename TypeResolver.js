@@ -12,6 +12,11 @@ class TypeResolver {
     this.typeNames = {};
   }
 
+  registerType(type, content) {
+    this.types[type.name.string] = content;
+    this.typeNames[type.name.string] = type.name;
+  }
+
   resolveRegisteredTypes() {
     const resolvedTypes = new Set();
     const resolveType = (name, targetType, usedTypes = [], ignoredTypes = []) => {

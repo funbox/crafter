@@ -50,8 +50,7 @@ class Context {
   }
 
   addType(type, content) {
-    this.typeResolver.types[type.name.string] = content;
-    this.typeResolver.typeNames[type.name.string] = type.name;
+    this.typeResolver.registerType(type, content);
   }
 
   getType(typeName) {
