@@ -41,7 +41,7 @@ class ArrayElement {
   }
 
   /**
-   * @param {Object.<string, (ValueMemberElement|SchemaNamedTypeElement)>} dataTypes - типы из TypeResolver
+   * @param {DataTypes} dataTypes - типы из TypeResolver
    * @param {string[]} namedTypesChain - использованные в процессе генерации body именованные типы, нужны для отслеживания рекурсивных структур
    */
   getBody(dataTypes, namedTypesChain = []) {
@@ -49,7 +49,7 @@ class ArrayElement {
   }
 
   /**
-   * @param {Object.<string, (ValueMemberElement|SchemaNamedTypeElement)>} dataTypes - типы из TypeResolver
+   * @param {DataTypes} dataTypes - типы из TypeResolver
    * @param {Flags} flags - флаги генерации JSON Schema
    */
   getSchema(dataTypes, flags = new Flags()) {

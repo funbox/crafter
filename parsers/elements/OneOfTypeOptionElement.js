@@ -43,7 +43,7 @@ class OneOfTypeOptionElement {
   }
 
   /**
-   * @param {Object.<string, (ValueMemberElement|SchemaNamedTypeElement)>} dataTypes - типы из TypeResolver
+   * @param {DataTypes} dataTypes - типы из TypeResolver
    */
   getBody(dataTypes) {
     return this.members.reduce((body, member) => ({
@@ -53,7 +53,7 @@ class OneOfTypeOptionElement {
   }
 
   /**
-   * @param {Object.<string, (ValueMemberElement|SchemaNamedTypeElement)>} dataTypes - типы из TypeResolver
+   * @param {DataTypes} dataTypes - типы из TypeResolver
    * @param {Flags} flags - флаги генерации JSON Schema
    */
   getSchema(dataTypes, flags = new Flags()) {

@@ -96,7 +96,7 @@ class RequestElement {
   }
 
   /**
-   * @param {Object.<string, (ValueMemberElement|SchemaNamedTypeElement)>} dataTypes - типы из TypeResolver
+   * @param {DataTypes} dataTypes - типы из TypeResolver
    */
   getBody(dataTypes) {
     if (this.contentType !== 'application/json') {
@@ -108,7 +108,7 @@ class RequestElement {
   }
 
   /**
-   * @param {Object.<string, (ValueMemberElement|SchemaNamedTypeElement)>} dataTypes - типы из TypeResolver
+   * @param {DataTypes} dataTypes - типы из TypeResolver
    */
   getSchema(dataTypes) {
     let schema;

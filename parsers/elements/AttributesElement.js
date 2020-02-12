@@ -35,14 +35,14 @@ class AttributesElement {
   }
 
   /**
-   * @param {Object.<string, (ValueMemberElement|SchemaNamedTypeElement)>} dataTypes - типы из TypeResolver
+   * @param {DataTypes} dataTypes - типы из TypeResolver
    */
   getBody(dataTypes) {
     return this.content.getBody(dataTypes);
   }
 
   /**
-   * @param {Object.<string, (ValueMemberElement|SchemaNamedTypeElement)>} dataTypes - типы из TypeResolver
+   * @param {DataTypes} dataTypes - типы из TypeResolver
    * @param {Flags} flags - всегда пустой объект, добавлен для единообразия
    */
   getSchema(dataTypes, flags = new Flags()) {

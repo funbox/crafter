@@ -58,7 +58,7 @@ class MessageElement {
   }
 
   /**
-   * @param {Object.<string, (ValueMemberElement|SchemaNamedTypeElement)>} dataTypes - типы из TypeResolver
+   * @param {DataTypes} dataTypes - типы из TypeResolver
    */
   getBody(dataTypes) {
     const attrsEl = this.content.find(item => item instanceof AttributesElement);
@@ -66,7 +66,7 @@ class MessageElement {
   }
 
   /**
-   * @param {Object.<string, (ValueMemberElement|SchemaNamedTypeElement)>} dataTypes - типы из TypeResolver
+   * @param {DataTypes} dataTypes - типы из TypeResolver
    */
   getSchema(dataTypes) {
     let schema;

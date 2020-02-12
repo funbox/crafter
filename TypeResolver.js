@@ -8,6 +8,11 @@ const CrafterError = utils.CrafterError;
 
 class TypeResolver {
   constructor() {
+    /** @typedef {Object.<string, (ValueMemberElement|SchemaNamedTypeElement)>} DataTypes */
+
+    /**
+     * @type {DataTypes}
+     */
     this.types = {};
     this.typeNames = {};
   }
