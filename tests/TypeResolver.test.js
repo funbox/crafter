@@ -14,20 +14,20 @@ describe('TypeResolver', () => {
     bar = new MSONNamedTypeElement(new StringElement('bar'), 'foo');
   });
 
-  it('resolves empty types array without errors', () => {
-    resolver.resolveRegisteredTypes();
+  it('checks empty types array without errors', () => {
+    resolver.checkRegisteredTypes();
   });
 
   it('throws error on unknown type', () => {
     foo.content.type = 'unknown';
-    resolver.types = { foo: foo.content };
-    expect(() => resolver.resolveRegisteredTypes()).toThrow(CrafterError);
+    resolver.registerType(foo, foo.content);
+    expect(() => resolver.checkRegisteredTypes()).toThrow(CrafterError);
   });
 
   it('throws error on loop', () => {
     foo.content.type = 'bar';
-    resolver.types = { foo: foo.content, bar: bar.content };
-    resolver.typeNames = { foo: foo.name, bar: bar.name };
-    expect(() => resolver.resolveRegisteredTypes()).toThrow(CrafterError);
+    resolver.registerType(foo, foo.content);
+    resolver.registerType(bar, bar.content);
+    expect(() => resolver.checkRegisteredTypes()).toThrow(CrafterError);
   });
 });

@@ -17,7 +17,7 @@ class TypeResolver {
     this.typeNames[type.name.string] = type.name;
   }
 
-  resolveRegisteredTypes() {
+  checkRegisteredTypes() {
     const resolvedTypes = new Set();
     const resolveType = (name, targetType, usedTypes = [], ignoredTypes = []) => {
       if (resolvedTypes.has(name) || ignoredTypes.includes(name)) {

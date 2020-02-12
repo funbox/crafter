@@ -196,7 +196,7 @@ module.exports = (Parsers) => {
         },
       });
 
-      context.typeResolver.resolveRegisteredTypes();
+      context.typeResolver.checkRegisteredTypes();
 
       walkAST({
         [SectionTypes.resourcePrototypes]: (curNode) => {
