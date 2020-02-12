@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.46.1 (12.02.2020)
+
+* Refactor the titles and descriptions of variables and parameters in functions.
+
 ## 1.46.0 (31.01.2020)
 
 * Add an information of how to debug Crafter.
