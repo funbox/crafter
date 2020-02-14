@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.47.0 (14.02.2020)
+
+* Delete unnecessary check.
+
 ## 1.46.1 (12.02.2020)
 
 * Refactor the titles and descriptions of variables and parameters in functions.
