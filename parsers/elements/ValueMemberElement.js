@@ -245,9 +245,7 @@ class ValueMemberElement {
         }
         schema = fillSchemaWithAttributes(schema, typeEl.typeAttributes);
       } else {
-        if (!schema.$ref) {
-          schema.type = typeEl.baseType;
-        }
+        schema.type = typeEl.baseType;
         schema = fillSchemaWithAttributes(schema, typeEl.typeAttributes);
       }
     }
