@@ -66,6 +66,9 @@ const testPath = {
   get circular() {
     return `${this.base}/circular`;
   },
+  get recursiveArrays() {
+    return `${this.base}/recursive-arrays`;
+  },
 };
 
 const apibRegex = /\.apib$/;
@@ -180,6 +183,10 @@ describe('fixtures with subgroups and messages', () => {
 
 describe('fixtures with circular dependencies', () => {
   testFilesFrom(testPath.circular);
+});
+
+describe('recursive arrays fixtures', () => {
+  testFilesFrom(testPath.recursiveArrays);
 });
 
 describe('Crafter with callback', () => {

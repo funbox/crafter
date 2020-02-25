@@ -51,8 +51,9 @@ class ArrayElement {
   /**
    * @param {DataTypes} dataTypes - типы из TypeResolver
    * @param {Flags} flags - флаги генерации JSON Schema
+   * @param {string[]} namedTypesChain - использованные в процессе генерации schema именованные типы, нужны для отслеживания рекурсивных структур
    */
-  getSchema(dataTypes, flags = new Flags()) {
+  getSchema(dataTypes, flags = new Flags(), namedTypesChain = []) {
     const schema = { type: 'array' };
     const localFlags = new Flags(flags);
     localFlags.isFixedType = false;
@@ -63,7 +64,7 @@ class ArrayElement {
       const memberSchemas = [];
 
       this.members.forEach(member => {
-        const [currentMemberSchema, currentMemberUsedTypes] = member.getSchema(dataTypes, localFlags);
+        const [currentMemberSchema, currentMemberUsedTypes] = member.getSchema(dataTypes, localFlags, namedTypesChain);
         memberSchemas.push(currentMemberSchema);
         usedTypes.push(...currentMemberUsedTypes);
       });
@@ -73,7 +74,7 @@ class ArrayElement {
       const memberSchemas = [];
 
       this.members.forEach(member => {
-        const [currentMemberSchema, currentMemberUsedTypes] = member.getSchema(dataTypes, localFlags);
+        const [currentMemberSchema, currentMemberUsedTypes] = member.getSchema(dataTypes, localFlags, namedTypesChain);
         memberSchemas.push(currentMemberSchema);
         usedTypes.push(...currentMemberUsedTypes);
       });
@@ -83,7 +84,7 @@ class ArrayElement {
         anyOf: items,
       };
     } else if (this.members.length === 1) {
-      const [memberSchema, memberUsedTypes] = this.members[0].getSchema(dataTypes, localFlags);
+      const [memberSchema, memberUsedTypes] = this.members[0].getSchema(dataTypes, localFlags, namedTypesChain);
       schema.items = memberSchema;
       usedTypes.push(...memberUsedTypes);
     }

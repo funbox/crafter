@@ -91,8 +91,8 @@ class ValueMemberElement {
     return !types.primitiveTypes.includes(this.baseType || this.type);
   }
 
-  isStandardType() {
-    return types.standardTypes.includes(this.type) || !this.type;
+  isStandardType(type = this.type) {
+    return types.standardTypes.includes(type) || !type;
   }
 
   isType(type) {
@@ -229,8 +229,9 @@ class ValueMemberElement {
   /**
    * @param {DataTypes} dataTypes - типы из TypeResolver
    * @param {Flags} flags - флаги генерации JSON Schema
+   * @param {string[]} namedTypesChain - использованные в процессе генерации schema именованные типы, нужны для отслеживания рекурсивных структур
    */
-  getSchema(dataTypes, flags = new Flags()) {
+  getSchema(dataTypes, flags = new Flags(), namedTypesChain = []) {
     let schema = {};
     let usedTypes = [];
 
@@ -241,7 +242,7 @@ class ValueMemberElement {
           schema = { $ref: `#/definitions/${this.type}` };
           usedTypes = [this.type];
         } else {
-          [schema, usedTypes] = typeEl.getSchema(dataTypes, typeEl.typeAttributes && utils.mergeFlags(flags, typeEl));
+          [schema, usedTypes] = typeEl.getSchema(dataTypes, typeEl.typeAttributes && utils.mergeFlags(flags, typeEl), namedTypesChain.concat(this.type));
         }
         schema = fillSchemaWithAttributes(schema, typeEl.typeAttributes);
       } else {
@@ -250,13 +251,23 @@ class ValueMemberElement {
       }
     }
 
-    // TODO для массивов невозможна ситуация когда есть $ref и content одновременно,
-    // стоит обратить внимание на проверку (!schema.$ref) в будущем
-    // при реализации рекурсивных объектов
-    if (this.content && !schema.$ref) {
-      const [contentSchema, contentUsedTypes] = this.content.getSchema(dataTypes, flags);
-      schema = utils.mergeSchemas(schema, contentSchema);
+    if (this.content) {
+      const namedTypes = this.nestedTypes.concat(this.type).filter(t => !this.isStandardType(t));
+      const newTypesChain = namedTypesChain.concat(namedTypes);
+
+      const [contentSchema, contentUsedTypes] = this.content.getSchema(dataTypes, flags, newTypesChain);
       usedTypes.push(...contentUsedTypes);
+
+      if (!schema.$ref) {
+        schema = utils.mergeSchemas(schema, contentSchema);
+      } else if (!this.isRecursive(newTypesChain)) {
+        const [typeElSchema, typeElUsedTypes] = typeEl.getSchema(dataTypes, typeEl.typeAttributes && utils.mergeFlags(flags, typeEl), newTypesChain);
+
+        schema = utils.mergeSchemas(typeElSchema, contentSchema);
+        schema = fillSchemaWithAttributes(schema, typeEl.typeAttributes);
+
+        usedTypes.push(...typeElUsedTypes);
+      }
     }
 
     if (this.default) {
