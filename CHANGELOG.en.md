@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.47.1 (26.02.2020)
+
+* Improve JSON schemas for recursive arrays with nested elements.
+
 ## 1.47.0 (14.02.2020)
 
 * Delete unnecessary check.
