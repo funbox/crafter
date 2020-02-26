@@ -91,8 +91,8 @@ class ValueMemberElement {
     return !types.primitiveTypes.includes(this.baseType || this.type);
   }
 
-  isStandardType(type = this.type) {
-    return types.standardTypes.includes(type) || !type;
+  isStandardType() {
+    return isStandardType(this.type);
   }
 
   isType(type) {
@@ -252,7 +252,7 @@ class ValueMemberElement {
     }
 
     if (this.content) {
-      const namedTypes = this.nestedTypes.concat(this.type).filter(t => !this.isStandardType(t));
+      const namedTypes = this.nestedTypes.concat(this.type).filter(t => !isStandardType(t));
       const newTypesChain = namedTypesChain.concat(namedTypes);
 
       const [contentSchema, contentUsedTypes] = this.content.getSchema(dataTypes, flags, newTypesChain);
@@ -365,6 +365,10 @@ function mergeBodies(body1, body2) {
   }
 
   return body2;
+}
+
+function isStandardType(type) {
+  return types.standardTypes.includes(type) || !type;
 }
 
 module.exports = ValueMemberElement;
