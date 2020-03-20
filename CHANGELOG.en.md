@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.47.2 (20.03.2020)
+
+* Keep list indentation in a description blocks.
+
 ## 1.47.1 (26.02.2020)
 
 * Improve JSON schemas for recursive arrays with nested elements.
