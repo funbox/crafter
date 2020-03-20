@@ -250,7 +250,7 @@ const utils = {
     const localSourceLines = node.sourceLines || sourceLines;
     const [startline, startcolumn] = node.sourcepos[0];
     const [endline, endcolumn] = node.sourcepos[1];
-    const keepWhitespaces = node.type === 'code_block';
+    const keepWhitespaces = node.type === 'code_block' || node.type === 'item';
 
     const result = [];
 
