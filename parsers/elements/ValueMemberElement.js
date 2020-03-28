@@ -260,7 +260,7 @@ class ValueMemberElement {
     const typeEl = dataTypes[this.type];
     if (typeEl) {
       if (typeEl.isComplex()) {
-        if (flags.skipTypesInlining || this.isObject() && this.isRecursive(namedTypesChain)) {
+        if (flags.skipTypesInlining || this.isRecursive(namedTypesChain)) {
           schema = { $ref: `#/definitions/${this.type}` };
           usedTypes = [this.type];
         } else {
@@ -282,7 +282,7 @@ class ValueMemberElement {
 
       if (!schema.$ref) {
         schema = utils.mergeSchemas(schema, contentSchema);
-      } else if (!this.isRecursive(newTypesChain)) {
+      } else if (this.isObject() && !this.isRecursive(namedTypesChain)) {
         const [typeElSchema, typeElUsedTypes] = typeEl.getSchema(dataTypes, typeEl.typeAttributes && utils.mergeFlags(flags, typeEl), newTypesChain);
 
         schema = utils.mergeSchemas(typeElSchema, contentSchema);
