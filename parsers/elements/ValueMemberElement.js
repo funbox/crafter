@@ -222,7 +222,10 @@ class ValueMemberElement {
         }
       }
 
-      if (namedTypesChain[namedTypesChain.length - 2] === this.type) {
+
+      const recursionDepth = getRecursionDepth(namedTypesChain);
+
+      if (namedTypesChain[namedTypesChain.length - recursionDepth] === this.type) {
         return undefined;
       }
     }
@@ -391,6 +394,15 @@ function mergeBodies(body1, body2) {
 
 function isStandardType(type) {
   return types.standardTypes.includes(type) || !type;
+}
+
+function getRecursionDepth(namedTypesChain) {
+  for (let i = namedTypesChain.length - 1; i > 0; i--) {
+    const lastIndex = namedTypesChain.lastIndexOf(namedTypesChain[i], i - 1);
+    if (lastIndex > -1) return i - lastIndex;
+  }
+
+  return 0;
 }
 
 module.exports = ValueMemberElement;
