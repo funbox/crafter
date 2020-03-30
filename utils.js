@@ -521,17 +521,17 @@ const utils = {
     return valueByType[type] === undefined ? '' : valueByType[type];
   },
 
-  isRecursiveType(typeName, valueMemberElement) {
-    const propertyMembers = valueMemberElement.content && valueMemberElement.content.propertyMembers;
+  isRecursiveType(typeName, typeElement) {
+    if (typeElement.nestedTypes.includes(typeName)) return true;
+
+    const propertyMembers = typeElement.content && typeElement.content.propertyMembers;
     if (!propertyMembers) {
       return false;
     }
 
-    if (propertyMembers.some(pm => pm.value && (pm.value.type === typeName || pm.value.nestedTypes.includes(typeName)))) {
-      return true;
-    }
-
-    return propertyMembers.some(pm => pm.value && this.isRecursiveType(typeName, pm.value));
+    return propertyMembers.some(pm => pm.value && (
+      pm.value.type === typeName || this.isRecursiveType(typeName, pm.value)
+    ));
   },
 
   CrafterError,
