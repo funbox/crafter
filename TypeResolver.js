@@ -19,7 +19,7 @@ class TypeResolver {
      */
     this.types = {};
     /**
-     * Содержит названия именованных типов в виде StringElement
+     * Содержит названия именованных типов
      * @type {Object.<string, StringElement>}
      */
     this.typeNames = {};
@@ -34,25 +34,24 @@ class TypeResolver {
     const resolvedTypes = new Set();
     /**
      * @param {string} name - название текущего обрабатываемого именованного типа
-     * @param {ValueMemberElement} targetType - элемент-тело именованного типа
+     * @param {ValueMemberElement|SchemaNamedTypeElement} targetType - элемент-тело именованного типа
      * @param {string[]} usedTypes - названия типов, ранее использованных в этой же цепочке разбора типов
      * @param {string[]} ignoredTypes - названия типов, которые будут проигнорированы в текущей цепочке разбора типов
-     * @param {ValueMemberElement} typeElement - элемент, содержащий поля объекта, относящегося к текущему именованному типу
+     * @param {boolean} propertyWithContent - признак наличия вложенных свойств именованного типа
      */
-    const resolveType = (name, targetType, usedTypes = [], ignoredTypes = [], typeElement) => {
+    const resolveType = (name, targetType, usedTypes = [], ignoredTypes = [], propertyWithContent = false) => {
       const includedMixins = getIncludedMixins(targetType);
 
       if (usedTypes.includes(name)) {
-        const { typeAttributes } = targetType;
-
-        if (typeElement && typeElement.content) {
-          throw new CrafterError(`Recursive named type ${name} must not include nested properties`);
+        if (propertyWithContent) {
+          throw new CrafterError(`Recursive named type ${name} must not include nested properties`, this.typeNames[name].sourceMap);
         }
 
         if (includedMixins.some(mixinElement => usedTypes.includes(mixinElement.className))) {
           throw new CrafterError(`Dependencies loop: ${usedTypes.concat([name]).join(' - ')}`, this.typeNames[name].sourceMap);
         }
 
+        const { typeAttributes } = targetType;
         if (typeAttributes.includes('nullable') || !typeAttributes.includes('required')) {
           return;
         }
@@ -97,7 +96,7 @@ class TypeResolver {
             if (member.value) {
               if (member.value.type) {
                 if (this.types[member.value.type]) {
-                  resolveType(member.value.type, this.types[member.value.type], usedTypes, [], member.value);
+                  resolveType(member.value.type, this.types[member.value.type], usedTypes, [], !!member.value.content);
                 }
               }
               if (member.value.nestedTypes) {
