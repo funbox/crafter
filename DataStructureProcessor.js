@@ -6,8 +6,6 @@ const EnumElement = require('./parsers/elements/EnumElement');
 const ObjectElement = require('./parsers/elements/ObjectElement');
 const SchemaNamedTypeElement = require('./parsers/elements/SchemaNamedTypeElement');
 
-const { standardTypes } = types;
-
 class DataStructureProcessor {
   constructor(valueMemberRootNode, Parsers, startNode) {
     this.valueMemberRootNode = valueMemberRootNode;
@@ -251,6 +249,8 @@ class DataStructureProcessor {
     const sourceMap = utils.makeGenericSourceMap(this.valueMemberRootNode.parent, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
     const samples = [];
     const defaults = [];
+    const validEnumMemberTypes = ['string', 'number', 'boolean'];
+    const hasComplexMembers = !validEnumMemberTypes.includes(enumElement.type);
     let curNode = node;
 
     while (curNode) {
@@ -274,22 +274,31 @@ class DataStructureProcessor {
           context.data.typeForDefaults = 'enum';
           context.data.valueType = enumElement.type;
           [nextNode, childResult] = this.Parsers.DefaultValueParser.parse(curNode, context);
-          defaults.push(...childResult);
           delete context.data.typeForDefaults;
           delete context.data.valueType;
+          if (!hasComplexMembers) {
+            defaults.push(...childResult);
+          } else {
+            const contextSourceMap = childResult.length > 0 ? childResult[0].sourceMap : sourceMap;
+            context.addWarning('Default values of enum of non-primitive type are not supported', contextSourceMap);
+          }
           break;
         case SectionTypes.sampleValue:
           context.data.typeForSamples = 'enum';
           context.data.valueType = enumElement.type;
           [nextNode, childResult] = this.Parsers.SampleValueParser.parse(curNode, context);
-          samples.push(...childResult);
           delete context.data.typeForSamples;
           delete context.data.valueType;
+          if (!hasComplexMembers) {
+            samples.push(...childResult);
+          } else {
+            const contextSourceMap = childResult.length > 0 ? childResult[0].sourceMap : sourceMap;
+            context.addWarning('Samples of enum of non-primitive type are not supported', contextSourceMap);
+          }
           break;
         case SectionTypes.enumMember:
           [nextNode, childResult] = this.Parsers.EnumMemberParser.parse(curNode, context);
           if (childResult.value) {
-            const validEnumMemberTypes = ['string', 'number', 'boolean'];
             if (!childResult.type || validEnumMemberTypes.includes(childResult.type)) {
               enumElement.members.push(childResult);
             } else {
@@ -327,8 +336,8 @@ class DataStructureProcessor {
       enumElement.defaultValue = defaults[0];
     }
 
-    if (!standardTypes.includes(enumElement.type)) {
-      context.addWarning('Enum must not use named types as a sub-type. Sub-type "string" will be used instead.', sourceMap);
+    if (hasComplexMembers) {
+      context.addWarning('Enum must not use non-primitive or named types as a sub-type. Sub-type "string" will be used instead.', sourceMap);
       enumElement.type = 'string';
     }
 

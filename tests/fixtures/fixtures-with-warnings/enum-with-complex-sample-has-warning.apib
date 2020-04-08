@@ -1,0 +1,21 @@
+# My API
+
+Defines a data structure with an enum of objects and a sample section in it.
+Emits the next warnings:
+"Samples of enum of non-primitive types are not supported",
+"Enum must not use non-primitive or named types as a sub-type"
+
+# Data Structures
+
+## ReportType
+
++ `report_type` (enum[object])
+    + Sample
+      + (object)
+    + push
+    + sms
+
+# GET /foo
+
++ Response 200 (application/json)
+    + Attributes(ReportType)
