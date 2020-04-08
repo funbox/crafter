@@ -1,0 +1,25 @@
+# My API
+
+Defines a data structure with an array of objects and a default section in it.
+Emits the warning "Default values of arrays of non-primitive types are not supported".
+
+# Data Structures
+
+## ReportType
+
++ `array_complex_1` (array[object])
+    + Default
+        + (object)
+            + sms
+            + push
+
++ `array_complex_2` (array[string, object])
+    + Default
+        + (object)
+            + sms
+            + push
+
+# GET /reports
+
++ Response 200 (application/json)
+    + Attributes(ReportType)

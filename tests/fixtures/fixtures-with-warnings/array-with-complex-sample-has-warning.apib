@@ -1,0 +1,25 @@
+# My API
+
+Defines a data structure with an array of objects and a sample section in it.
+Emits the warning "Samples of arrays of non-primitive types are not supported".
+
+# Data Structures
+
+## ReportType
+
++ `array_complex_1` (array[object])
+    + Sample
+        + (object)
+            + sms
+            + push
+
++ `array_complex_2` (array[string, object])
+    + Sample
+        + (object)
+            + sms
+            + push
+
+# GET /reports
+
++ Response 200 (application/json)
+    + Attributes(ReportType)

@@ -111,6 +111,7 @@ class DataStructureProcessor {
     const samples = [];
     const defaults = [];
     const predefinedType = arrayMembers.length ? arrayMembers[0].type : 'string';
+    const hasComplexMembers = arrayMembers.some(member => !types.primitiveTypes.includes(member.type));
 
     while (curNode) {
       let nextNode;
@@ -122,14 +123,24 @@ class DataStructureProcessor {
         [nextNode, childResult] = this.Parsers.SampleValueParser.parse(curNode, context);
         delete context.data.typeForSamples;
         delete context.data.valueType;
-        samples.push(...childResult);
+        if (!hasComplexMembers) {
+          samples.push(...childResult);
+        } else {
+          const contextSourceMap = childResult.length > 0 ? childResult[0].sourceMap[0] : sourceMap;
+          context.addWarning('Samples of arrays of non-primitive types are not supported', contextSourceMap);
+        }
       } else if (this.Parsers.DefaultValueParser.sectionType(curNode, context) !== SectionTypes.undefined) {
         context.data.typeForDefaults = 'array';
         context.data.valueType = predefinedType;
         [nextNode, childResult] = this.Parsers.DefaultValueParser.parse(curNode, context);
         delete context.data.typeForDefaults;
         delete context.data.valueType;
-        defaults.push(...childResult);
+        if (!hasComplexMembers) {
+          defaults.push(...childResult);
+        } else {
+          const contextSourceMap = childResult.length > 0 ? childResult[0].sourceMap[0] : sourceMap;
+          context.addWarning('Default values of arrays of non-primitive types are not supported', contextSourceMap);
+        }
         break;
       } else if (this.Parsers.MSONMemberGroupParser.sectionType(curNode, context) === SectionTypes.msonArrayMemberGroup) {
         [nextNode, childResult] = this.Parsers.MSONMemberGroupParser.parse(curNode, context);
