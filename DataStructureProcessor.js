@@ -27,12 +27,7 @@ class DataStructureProcessor {
         throw new utils.CrafterError('No inheritance allowed from schema named type', sourceMap);
       }
 
-      const [object, samples] = this.buildObject(curNode, context);
-      valueMember.content = object;
-
-      if (samples.length > 0) {
-        valueMember.samples = samples;
-      }
+      valueMember.content = this.buildObject(curNode, context);
     }
 
     if (valueMember.isArray()) {
@@ -181,7 +176,6 @@ class DataStructureProcessor {
 
   buildObject(node, context) {
     const objectElement = new ObjectElement();
-    const samples = [];
     let curNode = node;
 
     while (curNode) {
@@ -241,7 +235,7 @@ class DataStructureProcessor {
       curNode = curNode.next;
     }
 
-    return [objectElement, samples];
+    return objectElement;
   }
 
   buildEnum(node, context, type) {
