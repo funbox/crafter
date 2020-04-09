@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.48.0 (09.04.2020)
+
+* Show a warning when arrays of objects or enums of objects have a sample.
+
 ## 1.47.2 (20.03.2020)
 
 * Keep list indentation in a description blocks.
