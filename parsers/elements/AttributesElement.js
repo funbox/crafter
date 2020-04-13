@@ -56,14 +56,8 @@ class AttributesElement {
       while (types.length > 0) {
         const type = types.shift();
         const typeEl = dataTypes[type];
-        const [typeSchema, typeUsedTypes] = typeEl.getSchema(dataTypes, { skipTypesInlining: true });
+        const [typeSchema] = typeEl.getSchema(dataTypes, { skipTypesInlining: true });
         definitions[type] = typeSchema;
-
-        typeUsedTypes.forEach(t => {
-          if (!types.includes(t) && !definitions[t]) {
-            types.push(t);
-          }
-        });
       }
     }
 
