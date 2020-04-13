@@ -409,7 +409,12 @@
                         {
                           "element": "dataStructure",
                           "content": {
-                            "element": "ObjectTypeExtended",
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "ObjectTypeExtended"
+                              }
+                            ],
                             "attributes": {
                               "sourceMap": {
                                 "element": "array",
@@ -426,7 +431,7 @@
                                           },
                                           {
                                             "element": "number",
-                                            "content": 31
+                                            "content": 38
                                           }
                                         ]
                                       }
@@ -450,7 +455,7 @@
                               ]
                             }
                           },
-                          "content": "{\n  \"m1\": \"hello\",\n  \"m2\": \"hello\"\n}",
+                          "content": "[\n  {\n    \"m1\": \"hello\",\n    \"m2\": \"hello\"\n  }\n]",
                           "attributes": {
                             "contentType": {
                               "element": "string",
@@ -477,7 +482,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"m1\": {\n      \"type\": \"string\"\n    },\n    \"m2\": {\n      \"type\": \"string\"\n    }\n  }\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"definitions\": {\n    \"ObjectTypeExtended\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"m1\": {\n          \"type\": \"string\"\n        },\n        \"m2\": {\n          \"type\": \"string\"\n        }\n      }\n    }\n  },\n  \"type\": \"array\",\n  \"items\": {\n    \"$ref\": \"#/definitions/ObjectTypeExtended\"\n  }\n}"
                         }
                       ],
                       "attributes": {
