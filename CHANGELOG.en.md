@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.48.1 (14.04.2020)
+
+* Delete definitions for inherited types.
+
 ## 1.48.0 (09.04.2020)
 
 * Show a warning when arrays of objects or enums of objects have a sample.
