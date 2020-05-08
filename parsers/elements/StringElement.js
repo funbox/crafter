@@ -34,6 +34,10 @@ class StringElement {
   getBody() {
     return this.string;
   }
+
+  equals(element = {}) {
+    return element instanceof StringElement && this.string === element.string;
+  }
 }
 
 module.exports = StringElement;

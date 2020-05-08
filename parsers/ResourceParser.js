@@ -109,6 +109,12 @@ module.exports = (Parsers) => {
 
       if (this.nestedSectionType(node, context) === SectionTypes.action) {
         [nextNode, childResult] = Parsers.ActionParser.parse(node, context);
+        if (this.checkForActionDuplicates(result, childResult)) {
+          const warningMessage = childResult.href
+            ? `Action with href "${childResult.href.string}" already defined for resource "${result.href.string}"`
+            : `Action with method "${childResult.method.string}" already defined for resource "${result.href.string}"`;
+          context.addWarning(warningMessage, childResult.sourceMap);
+        }
         result.actions.push(childResult);
       } else {
         [nextNode, childResult] = Parsers.ParametersParser.parse(node, context);
@@ -132,6 +138,21 @@ module.exports = (Parsers) => {
       context.resourcePrototypes.pop(); // очищаем стек с прототипами данного ресурса
       context.popFrame();
       return result;
+    },
+
+    checkForActionDuplicates(resource, childAction) {
+      return resource.actions.some(action => {
+        if (!childAction.href) {
+          // compare only method
+          return (!action.href && action.method.equals(childAction.method));
+        }
+
+        return (
+          !!action.href
+          && action.href.equals(childAction.href)
+          && action.method.equals(childAction.method)
+        );
+      });
     },
   });
   return true;
