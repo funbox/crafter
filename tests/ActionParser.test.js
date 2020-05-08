@@ -34,9 +34,9 @@ describe('ActionParser', () => {
     const { result: { title, method, href, responses }, warnings } = parse(source);
 
     expect(warnings.length).toBe(0);
-    expect(title).toBe('List users');
+    expect(title.string).toBe('List users');
     expect(method.string).toBe('GET');
-    expect(href).toBe('/users');
+    expect(href.string).toBe('/users');
     expect(responses[0].statusCode).toBe(200);
   });
 
@@ -52,9 +52,9 @@ describe('ActionParser', () => {
     const { result: { title, method, href, parameters, responses }, warnings } = parse(source);
 
     expect(warnings.length).toBe(0);
-    expect(title).toBe('List users');
+    expect(title.string).toBe('List users');
     expect(method.string).toBe('GET');
-    expect(href).toBe('/users/{id}');
+    expect(href.string).toBe('/users/{id}');
     expect(parameters.parameters[0].name).toBe('id');
     expect(responses[0].statusCode).toBe(200);
   });
@@ -71,9 +71,9 @@ describe('ActionParser', () => {
     const { result: { title, method, href, parameters, responses }, warnings } = parse(source);
 
     expect(warnings.length).toBe(1);
-    expect(title).toBe('List users');
+    expect(title.string).toBe('List users');
     expect(method.string).toBe('GET');
-    expect(href).toBe('/users/{id}{?name}');
+    expect(href.string).toBe('/users/{id}{?name}');
     expect(parameters.parameters[0].name).toBe('id');
     expect(responses[0].statusCode).toBe(200);
   });

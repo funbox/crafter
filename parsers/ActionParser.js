@@ -58,9 +58,19 @@ module.exports = (Parsers) => {
       const prototypes = protoNames ? protoNames.split(',').map(p => p.trim()) : [];
       context.resourcePrototypes.push(prototypes);
 
+      const titleEl = new StringElement(title);
+      const hrefEl = href ? new StringElement(href) : null;
       const methodEl = new StringElement(method);
+
+      if (title) {
+        titleEl.sourceMap = sourceMap;
+      }
+      if (href) {
+        hrefEl.sourceMap = sourceMap;
+      }
       methodEl.sourceMap = sourceMap;
-      const result = new ActionElement(title, href, methodEl);
+
+      const result = new ActionElement(titleEl, hrefEl, methodEl);
       result.sourceMap = sourceMap;
 
       return [utils.nextNode(node), result];
@@ -142,9 +152,9 @@ module.exports = (Parsers) => {
         let expectedParameters;
 
         try {
-          expectedParameters = getUriVariables(href);
+          expectedParameters = getUriVariables(href.string);
         } catch (e) {
-          throw new utils.CrafterError(`Could not retrieve URI parameters: ${href}`, details.sourceMap);
+          throw new utils.CrafterError(`Could not retrieve URI parameters: ${href.string}`, details.sourceMap);
         }
 
         if (parameters && parameters.parameters) {

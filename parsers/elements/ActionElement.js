@@ -1,6 +1,5 @@
 const Refract = require('../../Refract');
 const RequestElement = require('./RequestElement');
-const SourceMapElement = require('./SourceMapElement');
 
 /**
  * Action - связка URL + метод + 1 и более Request + 1 или более Response
@@ -35,8 +34,8 @@ const SourceMapElement = require('./SourceMapElement');
  */
 class ActionElement {
   /**
-   * @param {string} title - опциональный заголовок
-   * @param {string} href - url HTTP-запроса
+   * @param {StringElement} title - опциональный заголовок
+   * @param {StringElement} href - url HTTP-запроса
    * @param {StringElement} method - HTTP метод (GET, POST и т.п.)
    */
   constructor(title, href, method) {
@@ -66,31 +65,17 @@ class ActionElement {
    * @param {boolean} sourceMapsEnabled
    */
   toRefract(sourceMapsEnabled) {
-    const sourceMapEl = sourceMapsEnabled && this.sourceMap ? new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file) : null;
-
     const result = {
       element: Refract.elements.transition,
       meta: {
-        title: {
-          element: Refract.elements.string,
-          content: this.title,
-          ...(sourceMapEl && this.title ? {
-            attributes: { sourceMap: sourceMapEl.toRefract() },
-          } : {}),
-        },
+        title: this.title.toRefract(sourceMapsEnabled),
       },
       content: [],
     };
 
     if (this.href) {
       result.attributes = {
-        href: {
-          element: Refract.elements.string,
-          content: this.href,
-          ...(sourceMapEl ? {
-            attributes: { sourceMap: sourceMapEl.toRefract() },
-          } : {}),
-        },
+        href: this.href.toRefract(sourceMapsEnabled),
       };
     }
 
@@ -103,6 +88,7 @@ class ActionElement {
     const responses = this.responses;
 
     if (requests.length === 0) {
+      // TODO: pass content-type arg
       const request = new RequestElement();
       request.method = this.method;
       requests = requests.concat([request]);
