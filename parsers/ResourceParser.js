@@ -14,6 +14,7 @@ module.exports = (Parsers) => {
     processSignature(node, context) {
       let title = '';
       let href = '';
+      let method = '';
       let protoNames = '';
       let nodeToReturn = node;
 
@@ -35,11 +36,13 @@ module.exports = (Parsers) => {
           nodeToReturn = utils.nextNode(node);
           break;
         case 'NamelessEndpoint':
+          method = matchData[2];
           href = matchData[3];
           protoNames = matchData[5];
           break;
         case 'NamedEndpoint':
           title = matchData[1];
+          method = matchData[2];
           href = matchData[3];
           isNamedEndpoint = true;
           break;
@@ -50,8 +53,12 @@ module.exports = (Parsers) => {
       const prototypes = protoNames ? protoNames.split(',').map(p => p.trim()) : [];
       context.resourcePrototypes.push(prototypes);
 
+      context.pushFrame();
+
       const titleEl = new StringElement(title);
       const hrefEl = new StringElement(href);
+
+      context.data.resourceEndpointMethod = method;
 
       const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       if (!isNamedEndpoint && title) {
@@ -112,7 +119,18 @@ module.exports = (Parsers) => {
     },
 
     finalize(context, result) {
+      const { resourceEndpointMethod } = context.data;
+      const metaResource = {
+        href: result.href.string,
+        method: resourceEndpointMethod,
+      };
+      if (context.checkResourceExists(metaResource)) {
+        context.addWarning(`The resource "${result.href.string}" is already defined`, result.href.sourceMap);
+      } else {
+        context.addResource(metaResource);
+      }
       context.resourcePrototypes.pop(); // очищаем стек с прототипами данного ресурса
+      context.popFrame();
       return result;
     },
   });
