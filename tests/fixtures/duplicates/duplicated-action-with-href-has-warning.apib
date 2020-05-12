@@ -1,0 +1,22 @@
+# My API
+
+Defines resource "/users" which has two actions with the same method GET and href "/users/id".
+Produces warning 'Action with href "/users/id" already defined for resource "/users"'.
+It does not produce warning for the third GET-action due to different href "/users/page".
+
+# Group Users
+
+## /users
+
+### GET /users/id
+
++ Response 200 (application/json)
+
+### GET /users/id
+
++ Response 200 (application/json)
+
+### GET /users/page
+
++ Response 200 (application/json)
+

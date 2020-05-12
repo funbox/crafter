@@ -69,6 +69,9 @@ const testPath = {
   get recursiveArrays() {
     return `${this.base}/recursive-arrays`;
   },
+  get duplicates() {
+    return `${this.base}/duplicates`;
+  },
 };
 
 const apibRegex = /\.apib$/;
@@ -187,6 +190,10 @@ describe('fixtures with circular dependencies', () => {
 
 describe('recursive arrays fixtures', () => {
   testFilesFrom(testPath.recursiveArrays);
+});
+
+describe('fixtures with duplicated resources', () => {
+  testFilesFrom(testPath.duplicates);
 });
 
 describe('Crafter with callback', () => {
