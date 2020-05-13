@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.49.0 (13.05.2020)
+
+* Show a warning in case of duplicated resources.
+
 ## 1.48.1 (14.04.2020)
 
 * Delete definitions for inherited types.
