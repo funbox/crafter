@@ -2,11 +2,11 @@
 
 Defines encoded URI parameter.
 
-# List users [GET /users.json{filter%5Bentity_name%5D,filter%5Buser_ids%5D,page}]
+# List users [GET /users.json{filter%5Bentity_name%5D,filter%5Buser_ids%5D*,page}]
 
 + Parameters
     + filter%5Bentity_name%5D (string, optional) - filter by entity_name
-    + filter%5Buser_ids%5D (array[number], optional) - filter by user_ids
+    + filter%5Buser_ids%5D (number, optional) - filter by user_ids
     + page (number, optional) - page number
 
 + Response 200

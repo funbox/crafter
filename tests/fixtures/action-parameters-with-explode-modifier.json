@@ -21,7 +21,7 @@
       "content": [
         {
           "element": "copy",
-          "content": "Defines a URI parameter with explode modifier for an action."
+          "content": "Defines a URI template variable with an explode modifier."
         },
         {
           "element": "resource",
@@ -34,7 +34,7 @@
           "attributes": {
             "href": {
               "element": "string",
-              "content": "/users/{id*}"
+              "content": "/users/{?id*}"
             }
           },
           "content": [
@@ -76,7 +76,7 @@
               "attributes": {
                 "href": {
                   "element": "string",
-                  "content": "/users/{id*}"
+                  "content": "/users/{?id*}"
                 },
                 "hrefVariables": {
                   "element": "hrefVariables",
@@ -107,11 +107,11 @@
                       "meta": {
                         "description": {
                           "element": "string",
-                          "content": "users id's"
+                          "content": "user IDs"
                         },
                         "title": {
                           "element": "string",
-                          "content": "array[number]"
+                          "content": "number"
                         }
                       }
                     }

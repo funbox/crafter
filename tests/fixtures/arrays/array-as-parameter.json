@@ -112,7 +112,7 @@
                   "attributes": {
                     "href": {
                       "element": "string",
-                      "content": "/applications.json{?filter%5Bstates%5D}"
+                      "content": "/applications.json{?filter%5Bstates%5D*}"
                     },
                     "hrefVariables": {
                       "element": "hrefVariables",
@@ -146,7 +146,7 @@
                             },
                             "title": {
                               "element": "string",
-                              "content": "array[string]"
+                              "content": "string"
                             }
                           }
                         }

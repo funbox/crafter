@@ -84,7 +84,7 @@
           "attributes": {
             "href": {
               "element": "string",
-              "content": "/users.json{filter%5Bentity_name%5D,filter%5Buser_ids%5D,page}",
+              "content": "/users.json{filter%5Bentity_name%5D,filter%5Buser_ids%5D*,page}",
               "attributes": {
                 "sourceMap": {
                   "element": "array",
@@ -101,7 +101,7 @@
                             },
                             {
                               "element": "number",
-                              "content": 83
+                              "content": 84
                             }
                           ]
                         }
@@ -135,7 +135,7 @@
                                 },
                                 {
                                   "element": "number",
-                                  "content": 83
+                                  "content": 84
                                 }
                               ]
                             }
@@ -172,7 +172,7 @@
                                         },
                                         {
                                           "element": "number",
-                                          "content": 83
+                                          "content": 84
                                         }
                                       ]
                                     }
@@ -204,7 +204,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 332
+                                          "content": 326
                                         },
                                         {
                                           "element": "number",
@@ -229,7 +229,7 @@
                                   "content": [
                                     {
                                       "element": "number",
-                                      "content": 332
+                                      "content": 326
                                     },
                                     {
                                       "element": "number",
@@ -249,7 +249,7 @@
               "attributes": {
                 "href": {
                   "element": "string",
-                  "content": "/users.json{filter%5Bentity_name%5D,filter%5Buser_ids%5D,page}",
+                  "content": "/users.json{filter%5Bentity_name%5D,filter%5Buser_ids%5D*,page}",
                   "attributes": {
                     "sourceMap": {
                       "element": "array",
@@ -266,7 +266,7 @@
                                 },
                                 {
                                   "element": "number",
-                                  "content": 83
+                                  "content": 84
                                 }
                               ]
                             }
@@ -297,7 +297,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 144
+                                          "content": 145
                                         },
                                         {
                                           "element": "number",
@@ -342,7 +342,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 144
+                                          "content": 145
                                         },
                                         {
                                           "element": "number",
@@ -371,7 +371,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 144
+                                          "content": 145
                                         },
                                         {
                                           "element": "number",
@@ -405,11 +405,11 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 217
+                                          "content": 218
                                         },
                                         {
                                           "element": "number",
-                                          "content": 68
+                                          "content": 61
                                         }
                                       ]
                                     }
@@ -450,11 +450,11 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 217
+                                          "content": 218
                                         },
                                         {
                                           "element": "number",
-                                          "content": 68
+                                          "content": 61
                                         }
                                       ]
                                     }
@@ -466,7 +466,7 @@
                         },
                         "title": {
                           "element": "string",
-                          "content": "array[number]",
+                          "content": "number",
                           "attributes": {
                             "sourceMap": {
                               "element": "array",
@@ -479,11 +479,11 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 217
+                                          "content": 218
                                         },
                                         {
                                           "element": "number",
-                                          "content": 68
+                                          "content": 61
                                         }
                                       ]
                                     }
@@ -513,7 +513,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 291
+                                          "content": 285
                                         },
                                         {
                                           "element": "number",
@@ -558,7 +558,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 291
+                                          "content": 285
                                         },
                                         {
                                           "element": "number",
@@ -587,7 +587,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 291
+                                          "content": 285
                                         },
                                         {
                                           "element": "number",

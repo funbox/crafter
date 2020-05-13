@@ -46,7 +46,7 @@
       "content": [
         {
           "element": "copy",
-          "content": "Defines a URI parameter with explode modifier for an action.",
+          "content": "Defines a URI template variable with an explode modifier.",
           "attributes": {
             "sourceMap": {
               "element": "array",
@@ -63,7 +63,7 @@
                         },
                         {
                           "element": "number",
-                          "content": 62
+                          "content": 59
                         }
                       ]
                     }
@@ -84,7 +84,7 @@
           "attributes": {
             "href": {
               "element": "string",
-              "content": "/users/{id*}",
+              "content": "/users/{?id*}",
               "attributes": {
                 "sourceMap": {
                   "element": "array",
@@ -97,11 +97,11 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 72
+                              "content": 69
                             },
                             {
                               "element": "number",
-                              "content": 33
+                              "content": 34
                             }
                           ]
                         }
@@ -131,11 +131,11 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 72
+                                  "content": 69
                                 },
                                 {
                                   "element": "number",
-                                  "content": 33
+                                  "content": 34
                                 }
                               ]
                             }
@@ -168,11 +168,11 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 72
+                                          "content": 69
                                         },
                                         {
                                           "element": "number",
-                                          "content": 33
+                                          "content": 34
                                         }
                                       ]
                                     }
@@ -204,7 +204,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 177
+                                          "content": 166
                                         },
                                         {
                                           "element": "number",
@@ -229,7 +229,7 @@
                                   "content": [
                                     {
                                       "element": "number",
-                                      "content": 177
+                                      "content": 166
                                     },
                                     {
                                       "element": "number",
@@ -249,7 +249,7 @@
               "attributes": {
                 "href": {
                   "element": "string",
-                  "content": "/users/{id*}",
+                  "content": "/users/{?id*}",
                   "attributes": {
                     "sourceMap": {
                       "element": "array",
@@ -262,11 +262,11 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 72
+                                  "content": 69
                                 },
                                 {
                                   "element": "number",
-                                  "content": 33
+                                  "content": 34
                                 }
                               ]
                             }
@@ -297,11 +297,11 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 124
+                                          "content": 122
                                         },
                                         {
                                           "element": "number",
-                                          "content": 50
+                                          "content": 41
                                         }
                                       ]
                                     }
@@ -326,11 +326,11 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 124
+                                          "content": 122
                                         },
                                         {
                                           "element": "number",
-                                          "content": 50
+                                          "content": 41
                                         }
                                       ]
                                     }
@@ -355,7 +355,7 @@
                       "meta": {
                         "description": {
                           "element": "string",
-                          "content": "users id's",
+                          "content": "user IDs",
                           "attributes": {
                             "sourceMap": {
                               "element": "array",
@@ -368,11 +368,11 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 124
+                                          "content": 122
                                         },
                                         {
                                           "element": "number",
-                                          "content": 50
+                                          "content": 41
                                         }
                                       ]
                                     }
@@ -384,7 +384,7 @@
                         },
                         "title": {
                           "element": "string",
-                          "content": "array[number]",
+                          "content": "number",
                           "attributes": {
                             "sourceMap": {
                               "element": "array",
@@ -397,11 +397,11 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 124
+                                          "content": 122
                                         },
                                         {
                                           "element": "number",
-                                          "content": 50
+                                          "content": 41
                                         }
                                       ]
                                     }

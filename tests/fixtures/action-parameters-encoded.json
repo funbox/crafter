@@ -34,7 +34,7 @@
           "attributes": {
             "href": {
               "element": "string",
-              "content": "/users.json{filter%5Bentity_name%5D,filter%5Buser_ids%5D,page}"
+              "content": "/users.json{filter%5Bentity_name%5D,filter%5Buser_ids%5D*,page}"
             }
           },
           "content": [
@@ -76,7 +76,7 @@
               "attributes": {
                 "href": {
                   "element": "string",
-                  "content": "/users.json{filter%5Bentity_name%5D,filter%5Buser_ids%5D,page}"
+                  "content": "/users.json{filter%5Bentity_name%5D,filter%5Buser_ids%5D*,page}"
                 },
                 "hrefVariables": {
                   "element": "hrefVariables",
@@ -143,7 +143,7 @@
                         },
                         "title": {
                           "element": "string",
-                          "content": "array[number]"
+                          "content": "number"
                         }
                       }
                     },
