@@ -70,7 +70,7 @@ module.exports = (Parsers) => {
       }
       methodEl.sourceMap = sourceMap;
 
-      const result = new ActionElement(titleEl, hrefEl, methodEl);
+      const result = new ActionElement(methodEl, hrefEl, titleEl);
       result.sourceMap = sourceMap;
 
       return [utils.nextNode(node), result];

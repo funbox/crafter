@@ -34,11 +34,11 @@ const RequestElement = require('./RequestElement');
  */
 class ActionElement {
   /**
-   * @param {StringElement} title - опциональный заголовок
-   * @param {StringElement} href - url HTTP-запроса
    * @param {StringElement} method - HTTP метод (GET, POST и т.п.)
+   * @param {StringElement=} href - url HTTP-запроса
+   * @param {StringElement=} title - опциональный заголовок
    */
-  constructor(title, href, method) {
+  constructor(method, href, title) {
     this.title = title;
     this.href = href;
     this.method = method;
@@ -67,11 +67,14 @@ class ActionElement {
   toRefract(sourceMapsEnabled) {
     const result = {
       element: Refract.elements.transition,
-      meta: {
-        title: this.title.toRefract(sourceMapsEnabled),
-      },
       content: [],
     };
+
+    if (this.title) {
+      result.meta = {
+        title: this.title.toRefract(sourceMapsEnabled),
+      };
+    }
 
     if (this.href) {
       result.attributes = {
