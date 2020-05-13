@@ -88,7 +88,6 @@ class ActionElement {
     const responses = this.responses;
 
     if (requests.length === 0) {
-      // TODO: pass content-type arg
       const request = new RequestElement();
       request.method = this.method;
       requests = requests.concat([request]);
