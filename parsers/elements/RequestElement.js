@@ -24,7 +24,7 @@ const AttributesElement = require('./AttributesElement');
  */
 class RequestElement {
   /**
-   * @param {string} contentType - заголовок content-type, например application/json
+   * @param {string=} contentType - заголовок content-type, например application/json
    * @param {string=} title - опциональный заголовок запроса
    */
   constructor(contentType, title) {

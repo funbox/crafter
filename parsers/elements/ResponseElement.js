@@ -25,8 +25,8 @@ const AttributesElement = require('./AttributesElement');
  */
 class ResponseElement {
   /**
-   * @param {number} statusCode - код ответа HTTP
-   * @param {string} contentType - заголовок content-type, например application/json
+   * @param {number=} statusCode - код ответа HTTP
+   * @param {string=} contentType - заголовок content-type, например application/json
    */
   constructor(statusCode = 200, contentType) {
     this.statusCode = statusCode;
