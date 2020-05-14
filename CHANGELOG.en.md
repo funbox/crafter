@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.50.0 (14.05.2020)
+
+* Add support of recursive objects.
+
 ## 1.49.0 (13.05.2020)
 
 * Show a warning in case of duplicated resources.
