@@ -63,9 +63,6 @@ const testPath = {
   get messageGroups() {
     return `${this.base}/message-groups`;
   },
-  get circular() {
-    return `${this.base}/circular`;
-  },
   get recursiveArrays() {
     return `${this.base}/recursive-arrays`;
   },
@@ -182,10 +179,6 @@ describe('fixed-size fixtures', () => {
 
 describe('fixtures with subgroups and messages', () => {
   testFilesFrom(testPath.messageGroups);
-});
-
-describe('fixtures with circular dependencies', () => {
-  testFilesFrom(testPath.circular);
 });
 
 describe('recursive arrays fixtures', () => {
