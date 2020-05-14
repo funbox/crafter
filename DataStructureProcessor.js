@@ -199,7 +199,7 @@ class DataStructureProcessor {
           const typeName = value.isArray() && value.nestedTypes[0] || value.type;
           const typeEl = context.typeResolver.types[typeName];
 
-          if (isFixedOrFixedType && typeEl && utils.isRecursiveType(typeName, typeEl)) {
+          if (isFixedOrFixedType && typeEl && utils.typeIsUsedByElement(typeName, typeEl, context.typeResolver.types)) {
             const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
             throw new utils.CrafterError('Mson attributes based on a recursive type must not have "fixed" or "fixed-type" attributes', sourceMap);
           }

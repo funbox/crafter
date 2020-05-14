@@ -46,7 +46,14 @@ class AttributesElement {
    * @param {Flags} flags - всегда пустой объект, добавлен для единообразия
    */
   getSchema(dataTypes, flags = new Flags()) {
-    const [result, usedTypes] = this.content.getSchema(dataTypes, utils.mergeFlags(flags, this.content));
+    const localFlags = new Flags(flags);
+
+    const contentTypeEl = dataTypes[this.content.type];
+    if (contentTypeEl && utils.typeIsUsedByElement(this.content.type, contentTypeEl, dataTypes)) {
+      localFlags.skipTypesInlining = true;
+    }
+
+    const [result, usedTypes] = this.content.getSchema(dataTypes, utils.mergeFlags(localFlags, this.content));
 
     const definitions = {};
 
@@ -56,8 +63,14 @@ class AttributesElement {
       while (types.length > 0) {
         const type = types.shift();
         const typeEl = dataTypes[type];
-        const [typeSchema] = typeEl.getSchema(dataTypes, { skipTypesInlining: true });
+        const [typeSchema, typeUsedTypes] = typeEl.getSchema(dataTypes, { skipTypesInlining: true });
         definitions[type] = typeSchema;
+
+        typeUsedTypes.forEach(t => {
+          if (utils.typeIsReferred(t, typeSchema) && !types.includes(t) && !definitions[t]) {
+            types.push(t);
+          }
+        });
       }
     }
 

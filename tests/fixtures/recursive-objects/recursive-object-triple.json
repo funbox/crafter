@@ -199,7 +199,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"definitions\": {\n    \"C\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"c\": {\n          \"$ref\": \"#/definitions/A\"\n        }\n      }\n    },\n    \"A\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"a\": {\n          \"$ref\": \"#/definitions/B\"\n        }\n      }\n    },\n    \"B\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"b\": {\n          \"$ref\": \"#/definitions/C\"\n        }\n      }\n    }\n  },\n  \"type\": \"object\",\n  \"properties\": {\n    \"c\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"a\": {\n          \"type\": \"object\",\n          \"properties\": {\n            \"b\": {\n              \"$ref\": \"#/definitions/C\"\n            }\n          }\n        }\n      }\n    }\n  }\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"definitions\": {\n    \"C\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"c\": {\n          \"$ref\": \"#/definitions/A\"\n        }\n      }\n    },\n    \"A\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"a\": {\n          \"$ref\": \"#/definitions/B\"\n        }\n      }\n    },\n    \"B\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"b\": {\n          \"$ref\": \"#/definitions/C\"\n        }\n      }\n    }\n  },\n  \"$ref\": \"#/definitions/C\"\n}"
                         }
                       ],
                       "attributes": {

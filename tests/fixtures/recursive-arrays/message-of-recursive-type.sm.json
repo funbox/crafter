@@ -418,7 +418,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"definitions\": {\n    \"Comment\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"text\": {\n          \"type\": \"string\"\n        },\n        \"children\": {\n          \"type\": \"array\",\n          \"items\": {\n            \"$ref\": \"#/definitions/Comment\"\n          }\n        }\n      }\n    }\n  },\n  \"type\": \"object\",\n  \"properties\": {\n    \"text\": {\n      \"type\": \"string\"\n    },\n    \"children\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"$ref\": \"#/definitions/Comment\"\n      }\n    }\n  }\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"definitions\": {\n    \"Comment\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"text\": {\n          \"type\": \"string\"\n        },\n        \"children\": {\n          \"type\": \"array\",\n          \"items\": {\n            \"$ref\": \"#/definitions/Comment\"\n          }\n        }\n      }\n    }\n  },\n  \"$ref\": \"#/definitions/Comment\"\n}"
                         }
                       ],
                       "attributes": {
@@ -696,7 +696,7 @@
                       "content": "application/schema+json"
                     }
                   },
-                  "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"definitions\": {\n    \"Comment\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"text\": {\n          \"type\": \"string\"\n        },\n        \"children\": {\n          \"type\": \"array\",\n          \"items\": {\n            \"$ref\": \"#/definitions/Comment\"\n          }\n        }\n      }\n    }\n  },\n  \"type\": \"object\",\n  \"properties\": {\n    \"text\": {\n      \"type\": \"string\"\n    },\n    \"children\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"$ref\": \"#/definitions/Comment\"\n      }\n    }\n  }\n}"
+                  "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"definitions\": {\n    \"Comment\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"text\": {\n          \"type\": \"string\"\n        },\n        \"children\": {\n          \"type\": \"array\",\n          \"items\": {\n            \"$ref\": \"#/definitions/Comment\"\n          }\n        }\n      }\n    }\n  },\n  \"$ref\": \"#/definitions/Comment\"\n}"
                 }
               ],
               "meta": {

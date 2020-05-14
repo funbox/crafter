@@ -521,8 +521,8 @@ const utils = {
     return valueByType[type] === undefined ? '' : valueByType[type];
   },
 
-  isRecursiveType(typeName, typeElement) {
-    if (typeElement.nestedTypes.includes(typeName)) return true;
+  typeIsUsedByElement(typeName, typeElement, dataTypes) {
+    if (typeElement.nestedTypes && typeElement.nestedTypes.includes(typeName)) return true;
 
     const propertyMembers = typeElement.content && typeElement.content.propertyMembers;
     if (!propertyMembers) {
@@ -530,8 +530,22 @@ const utils = {
     }
 
     return propertyMembers.some(pm => pm.value && (
-      pm.value.type === typeName || this.isRecursiveType(typeName, pm.value)
+      pm.value.type === typeName
+      || dataTypes[pm.value.type] && this.typeIsUsedByElement(typeName, dataTypes[pm.value.type], dataTypes)
+      || this.typeIsUsedByElement(typeName, pm.value, dataTypes)
     ));
+  },
+
+  typeIsReferred(typeName, schema) {
+    return Object.entries(schema).some(([key, value]) => {
+      if (key === '$ref' && value === `#/definitions/${typeName}`) return true;
+
+      if (typeof value === 'object' && value !== null) {
+        return this.typeIsReferred(typeName, value);
+      }
+
+      return false;
+    });
   },
 
   CrafterError,
