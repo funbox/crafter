@@ -172,10 +172,15 @@ module.exports = (Parsers) => {
     },
 
     finalize(context, result) {
-      const { name, typeAttributes, defaultValue } = result;
+      const { name, type, typeAttributes, defaultValue } = result;
       const { parameterSignatureDetails: details } = context.data;
 
       context.popFrame();
+
+      if (['array', 'object'].includes(type)) {
+        context.addWarning('Using non-primitive data types for parameters violates API Blueprint Spec.', details.sourceMap);
+      }
+
       if (typeAttributes.includes('required')) {
         if (typeAttributes.includes('optional')) {
           throw new utils.CrafterError(`Parameter "${name}" must not be specified as both required and optional.`, details.sourceMap);
