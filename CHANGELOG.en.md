@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.52.0 (19.05.2020)
+
+* Fix jsdoc for constructors of RequestElement and ResponseElement classes.
+
 ## 1.51.0 (19.05.2020)
 
 * Disallow complex data types used in URI parameters.
