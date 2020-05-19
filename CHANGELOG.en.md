@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.51.0 (19.05.2020)
+
+* Disallow complex data types used in URI parameters.
+
 ## 1.50.0 (14.05.2020)
 
 * Add support of recursive objects.
