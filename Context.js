@@ -7,16 +7,21 @@ const utils = require('./utils');
 
 const CrafterError = utils.CrafterError;
 
+/**
+ * @typedef {object} ContextOptions
+ * @property {string} currentFile - название текущего разбираемого файла
+ * @property {object} logger
+ * @property {boolean} sourceMapsEnabled - включение генерации sourceMap
+ * @property {string} entryDir - директория от которой считаются пути import инструкций
+ * @property {boolean} debugMode - режим в котором некоторые исключения в BlueprintParser не перехватываются, что позволяет получить стектрейс для отладки
+ * @property {function} readFile - функция чтения импортируемого файла, нужна для перехвата и последующей обработки команд Import
+ */
+
 class Context {
   /**
-   * @param {string} source
-   * @param {object[]} parsers
-   * @param {string} options.currentFile
-   * @param {object} options.logger
-   * @param {boolean} options.sourceMapsEnabled - генерация sourceMaps
-   * @param {string} options.entryDir - директория, относительно которой работают команды Import
-   * @param {boolean} options.debugMode - работа в режиме отладки (исключения не перехватываются)
-   * @param {function} options.readFile - функция чтения импортируемого файла, нужна для перехвата и последующей обработки команд Import
+   * @param {string} source - разбираемый исходный код
+   * @param {object} parsers - хэш с парсерами
+   * @param {ContextOptions} options
    */
   constructor(source, parsers, options) {
     this.sourceLines = source.split('\n');
