@@ -15,6 +15,7 @@ const CrafterError = utils.CrafterError;
  * @property {string} entryDir - директория от которой считаются пути import инструкций
  * @property {boolean} debugMode - режим в котором некоторые исключения в BlueprintParser не перехватываются, что позволяет получить стектрейс для отладки
  * @property {function} readFile - функция чтения импортируемого файла, нужна для перехвата и последующей обработки команд Import
+ * @property {boolean} languageServerMode - режима парсинга для Language Server: игнорируются некоторые ошибки, не проверяются именованные типы, не генерируются JSON Schema и Body
  */
 
 class Context {
@@ -33,7 +34,7 @@ class Context {
     this.usedActions = new Set();
     this.currentFile = options.currentFile;
     this.logger = options.logger;
-    this.sourceMapsEnabled = options.sourceMapsEnabled;
+    this.sourceMapsEnabled = options.sourceMapsEnabled || options.languageServerMode;
     this.entryDir = options.entryDir;
     this.typeExtractingInProgress = false;
     this.warningsEnabled = true;
@@ -41,6 +42,7 @@ class Context {
     this.filePaths = [];
     this.debugMode = options.debugMode;
     this.readFile = options.readFile || readFile;
+    this.languageServerMode = options.languageServerMode;
 
     this.sectionKeywordSignatureParsers = [
       'DefaultValue',

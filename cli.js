@@ -16,6 +16,6 @@ if (program.args.length === 0) {
   program.help();
 }
 
-parseApibFile(program.args[0], program.format, program.sourcemap, program.debug, { logger: new Logger() }).then(result => {
+parseApibFile(program.args[0], program.format, program.sourcemap, program.debug, false, { logger: new Logger() }).then(result => {
   console.log(result);
 });

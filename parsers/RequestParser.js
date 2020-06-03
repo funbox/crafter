@@ -149,7 +149,7 @@ module.exports = (Parsers) => {
         result.contentType = contentTypeHeader.val;
       }
 
-      if (!hasCustomBody) {
+      if (!context.languageServerMode && !hasCustomBody) {
         const body = result.getBody(context.typeResolver.types);
         if (body !== undefined) {
           const bodyElement = new BodyElement(typeof body === 'object' ? JSON.stringify(body, null, 2) : body);
@@ -158,7 +158,7 @@ module.exports = (Parsers) => {
         }
       }
 
-      if (!hasCustomSchema) {
+      if (!context.languageServerMode && !hasCustomSchema) {
         const [schema] = result.getSchema(context.typeResolver.types);
         if (schema) {
           result.content.push(new SchemaElement(schema));
