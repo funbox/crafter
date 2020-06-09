@@ -1,5 +1,6 @@
 const { splitValues } = require('./SignatureParser');
 const { CrafterError, convertType, makeSourceMapsForInlineValues } = require('./utils');
+const types = require('./types');
 
 const ArrayElement = require('./parsers/elements/ArrayElement');
 const SampleValueElement = require('./parsers/elements/SampleValueElement');
@@ -8,9 +9,22 @@ const DefaultValueElement = require('./parsers/elements/DefaultValueElement');
 const typeAttrsToPropagate = ['fixed', 'fixedType'];
 
 const ValueMemberProcessor = {
-  fillBaseType(context, element, isProperty) {
+  /**
+   * @param {Context} context
+   * @param {ValueMemberElement} element
+   * @param {boolean} isProperty
+   */
+  fillBaseType(context, element, isProperty = false) {
     if (!element.isStandardType()) {
-      element.baseType = context.typeResolver.getStandardBaseType(element.type);
+      try {
+        element.baseType = context.typeResolver.getStandardBaseType(element.type);
+      } catch (e) {
+        if (context.languageServerMode) {
+          element.baseType = element.nestedTypes.length ? types.array : types.object;
+        } else {
+          throw e;
+        }
+      }
     } else {
       element.baseType = element.type;
     }
@@ -25,12 +39,14 @@ const ValueMemberProcessor = {
 
     if (!element.isStandardType()) {
       const namedElement = context.typeResolver.types[element.type];
-      sampleElements = sampleElements.concat(namedElement.samples || []);
-      defaultElements = defaultElements.concat(namedElement.default ? [namedElement.default] : []);
-      const propagatedTypeAttributes = Array.isArray(namedElement.typeAttributes)
-        ? namedElement.typeAttributes.filter(attr => typeAttrsToPropagate.includes(attr))
-        : [];
-      element.propagatedTypeAttributes = propagatedTypeAttributes;
+      if (namedElement) {
+        sampleElements = sampleElements.concat(namedElement.samples || []);
+        defaultElements = defaultElements.concat(namedElement.default ? [namedElement.default] : []);
+        const propagatedTypeAttributes = Array.isArray(namedElement.typeAttributes)
+          ? namedElement.typeAttributes.filter(attr => typeAttrsToPropagate.includes(attr))
+          : [];
+        element.propagatedTypeAttributes = propagatedTypeAttributes;
+      }
     }
 
     if (value != null) {

@@ -191,17 +191,19 @@ module.exports = (Parsers) => {
 
       context.typeExtractingInProgress = false;
 
-      walkAST({
-        [SectionTypes.dataStructureGroup]: (curNode) => {
-          const [nextNode, dataStructureGroup] = Parsers.DataStructureGroupParser.parse(curNode, context);
-          dataStructureGroup.dataStructures.forEach((namedType) => {
-            context.addType(namedType, namedType.content);
-          });
-          return nextNode;
-        },
-      });
+      if (!context.languageServerMode) {
+        walkAST({
+          [SectionTypes.dataStructureGroup]: (curNode) => {
+            const [nextNode, dataStructureGroup] = Parsers.DataStructureGroupParser.parse(curNode, context);
+            dataStructureGroup.dataStructures.forEach((namedType) => {
+              context.addType(namedType, namedType.content);
+            });
+            return nextNode;
+          },
+        });
 
-      context.typeResolver.checkRegisteredTypes();
+        context.typeResolver.checkRegisteredTypes();
+      }
 
       walkAST({
         [SectionTypes.resourcePrototypes]: (curNode) => {
