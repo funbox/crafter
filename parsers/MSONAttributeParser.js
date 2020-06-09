@@ -241,7 +241,6 @@ module.exports = (Parsers) => {
         context.addWarning(`Enum element "${name.string}" should include members.`, details.sourceMap);
       }
 
-      context.checkTypeExists(result.value.rawType);
       context.popFrame();
 
       utils.validateAttributesConsistency(context, result.value, details, typeAttributes);

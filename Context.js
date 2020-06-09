@@ -75,10 +75,6 @@ class Context {
     return this.typeResolver.types[typeName];
   }
 
-  checkTypeExists(typeName) {
-    return this.typeResolver.checkTypeExists(typeName);
-  }
-
   addAction(actionString) {
     this.usedActions.add(actionString);
   }

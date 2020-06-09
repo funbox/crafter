@@ -127,23 +127,6 @@ class TypeResolver {
   }
 
   /**
-   * @param {string|null} typeName - название именованного типа
-   */
-  checkTypeExists(typeName) {
-    if (typeName !== null) {
-      const allTypes = [...standardTypes, ...Object.keys(this.types)];
-      const isTypeDefined = t => allTypes.includes(t);
-
-      const { type, nestedTypes } = utils.resolveType(typeName);
-      const typeIsDefined = nestedTypes ? nestedTypes.every(isTypeDefined) : isTypeDefined(type);
-
-      if (!typeIsDefined) {
-        throw new CrafterError(`Base type "${typeName}" is not defined in the document.`);
-      }
-    }
-  }
-
-  /**
    * @param {MSONMixinElement} mixin - элемент с описанием миксина
    */
   checkMixinExists(mixin) {
