@@ -2,10 +2,10 @@ const Refract = require('../../Refract');
 const RequestElement = require('./RequestElement');
 
 /**
- * Action - связка URL + метод + 1 и более Request + 1 или более Response
- * если запросов в тексте документации нет - то один запрос будет создан автоматически в методе ActionParser.finalize
+ * Action — связка URL + метод + 1 и более Request + 1 или более Response.
+ * Если запросов в тексте документации нет, то один запрос будет создан автоматически в методе ActionParser.finalize.
  *
- * Action элементы группируются в элемент Resource в рамках одного URL, т.е. для примера ниже будет ResourceElement в котором два ActionElement
+ * Action элементы группируются в элемент Resource в рамках одного URL, т. е. для примера ниже будет ResourceElement, в котором два ActionElement.
  *
  * # Users [/users]
  *
@@ -15,7 +15,7 @@ const RequestElement = require('./RequestElement');
  * ## POST
  * + Response 200
  *
- * А для такого примера будет ResourceElement в котором только один ActionElement
+ * А для такого примера будет ResourceElement, в котором только один ActionElement.
  *
  * # List users [GET /users/]
  * + Response 200
@@ -34,8 +34,8 @@ const RequestElement = require('./RequestElement');
  */
 class ActionElement {
   /**
-   * @param {StringElement} method - HTTP метод (GET, POST и т.п.)
-   * @param {StringElement=} href - url HTTP-запроса
+   * @param {StringElement} method - HTTP-метод (GET, POST и т.п.)
+   * @param {StringElement=} href - URL HTTP-запроса
    * @param {StringElement=} title - опциональный заголовок
    */
   constructor(method, href, title) {

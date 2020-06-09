@@ -2,7 +2,7 @@ const Refract = require('../../Refract');
 const Flags = require('../../Flags');
 
 /**
- * Секция "One Of"
+ * Секция One Of
  *
  * Пример:
  *

@@ -3,7 +3,7 @@ const SourceMapElement = require('./SourceMapElement');
 const AttributesElement = require('./AttributesElement');
 
 /**
- * Элемент для описания HTTP запроса
+ * Элемент для описания HTTP-запроса.
  *
  * Пример:
  *
@@ -31,7 +31,7 @@ class RequestElement {
     this.contentType = contentType;
     this.title = title;
     /**
-     * метод запроса (GET, POST и т.п.) задается в ActionParser
+     * метод запроса (GET, POST и т. п.) задается в ActionParser
      * @type {StringElement}
      */
     this.method = null;

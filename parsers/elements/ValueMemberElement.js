@@ -6,7 +6,7 @@ const Flags = require('../../Flags');
 
 /**
  * Краеугольный камень многих структур данных в Crafter.
- * ValueMemberElement может быть телом именованного типа, поля объекта, типом элементов массива или вариантом из One Of
+ * ValueMemberElement может быть телом именованного типа, поля объекта, типом элементов массива или вариантом из One Of.
  *
  * Примеры:
  *
@@ -35,7 +35,7 @@ class ValueMemberElement {
    * @param {string} value - значение элемента, в зависимости от атрибутов может интерпретироваться как непосредственное значение или пример
    * @param {string} description - описание элемента
    * @param {boolean} isSample - является ли данный элемент примером
-   * @param {boolean} isDefault - является ли данный элемент элементом по-умолчанию
+   * @param {boolean} isDefault - является ли данный элемент элементом по умолчанию
    */
   constructor(type, typeAttributes = [], value, description, isSample, isDefault) {
     const resolvedType = type ? utils.resolveType(type) : { type, nestedTypes: [] };
@@ -43,12 +43,12 @@ class ValueMemberElement {
     this.rawType = type;
     this.type = resolvedType.type;
     /**
-     * Типы элементов массива array[string, number] - тут string и number - это nestedTypes
+     * Типы элементов массива array[string, number]: тут string и number — это nestedTypes
      * @type {string[]}
      */
     this.nestedTypes = resolvedType.nestedTypes;
     /**
-     * Один из базовых типов данных который определяет текущий элемент непосредственно или путем наследования.
+     * Один из базовых типов данных, который определяет текущий элемент непосредственно или путем наследования.
      * Базовые типы определены в types.js в корне проекта.
      * @type {string}
      */
@@ -58,7 +58,7 @@ class ValueMemberElement {
     this.description = description;
     /**
      * Поле заполняется методом fillValueMember класса DataStructureProcessor для объектов и enum-ов
-     * и в методе fillBaseType класса ValueMemberProcessor для массивов
+     * и в методе fillBaseType класса ValueMemberProcessor для массивов.
      * @type {ObjectElement|EnumElement|ArrayElement}
      */
     this.content = null;

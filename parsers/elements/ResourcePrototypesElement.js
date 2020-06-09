@@ -1,7 +1,7 @@
 const Refract = require('../../Refract');
 
 /**
- * Элемент Resource Prototypes
+ * Элемент Resource Prototypes.
  *
  * Пример:
  *

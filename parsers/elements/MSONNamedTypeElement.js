@@ -23,8 +23,8 @@ class MSONNamedTypeElement {
   constructor(name, baseType, typeAttributes) {
     this.name = name;
     /**
-     * В самом именованном типе хранится только название и описание
-     * все внутренности типа лежат в этом поле
+     * В самом именованном типе хранится только название и описание.
+     * Все внутренности типа лежат в этом поле.
      * @type {ValueMemberElement}
      */
     this.content = new ValueMemberElement(baseType, typeAttributes);

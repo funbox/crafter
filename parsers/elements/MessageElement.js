@@ -3,7 +3,7 @@ const SourceMapElement = require('./SourceMapElement');
 const AttributesElement = require('./AttributesElement');
 
 /**
- * Элемент типа Message, нужен для описания не-HTTP взаимодействий
+ * Элемент типа Message, нужен для описания не-HTTP-взаимодействий.
  *
  * Пример:
  *

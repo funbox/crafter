@@ -2,7 +2,7 @@ const { elements: { array } } = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
 
 /**
- * Элемент по-умолчанию в структурах данных.
+ * Элемент по умолчанию в структурах данных.
  * Создается только для примитивов или массивов примитивов (string, boolean, number).
  *
  * Пример:
@@ -25,7 +25,7 @@ const SourceMapElement = require('./SourceMapElement');
 class DefaultValueElement {
   /**
    * @param {string|number|boolean|string[]|number[]|boolean[]} value
-   * @param {string} type - тип значения
+   * @param {string} type — тип значения
    * @param sourceMap
    */
   constructor(value, type, sourceMap) {

@@ -3,7 +3,7 @@ const utils = require('../../utils');
 const Flags = require('../../Flags');
 
 /**
- * Элемент секции "One Of"
+ * Элемент секции One Of
  *
  * Пример:
  *

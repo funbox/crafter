@@ -7,7 +7,7 @@ class BlueprintElement {
   /**
    * @param {StringElement} title - название документации
    * @param {DescriptionElement} description
-   * @param {MetaDataElement[]} meta - массив мета-данных
+   * @param {MetaDataElement[]} meta - массив метаданных
    */
   constructor(title, description, meta) {
     this.title = title;

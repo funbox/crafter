@@ -1,7 +1,7 @@
 const Refract = require('../../Refract');
 
 /**
- * Элемент Schema Structures
+ * Элемент Schema Structures.
  *
  * Пример:
  *

@@ -2,7 +2,7 @@ const Refract = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
 
 /**
- * Элемент Resource Prototype
+ * Элемент Resource Prototype.
  *
  * Пример:
  *
@@ -15,7 +15,7 @@ class ResourcePrototypeElement {
   /**
    *
    * @param {string} title - название прототипа
-   * @param {string[]} basePrototypes - список прототипов от которых наследуется текущий
+   * @param {string[]} basePrototypes - список прототипов, от которых наследуется текущий
    */
   constructor(title, basePrototypes = []) {
     this.title = title;

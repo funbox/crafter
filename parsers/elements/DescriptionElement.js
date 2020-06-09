@@ -2,7 +2,7 @@ const Refract = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
 
 /**
- *  Описание документации, может содержать Markdown разметку
+ *  Описание документации, может содержать Markdown-разметку.
  *
  * Пример:
  * # My API

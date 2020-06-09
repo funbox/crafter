@@ -2,7 +2,7 @@ const Refract = require('../../Refract');
 const SourceMapElementWithLineColumnInfo = require('./SourceMapElementWithLineColumnInfo');
 
 /**
- * Описание для ошибок и предупреждений
+ * Описание для ошибок и предупреждений.
  *
  * @see https://apielements.org/en/latest/element-definitions.html#annotation-string
  */

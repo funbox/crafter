@@ -3,7 +3,7 @@ const Refract = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
 
 /**
- * Именованный тип, описанный с помощью JSON Schema
+ * Именованный тип, описанный с помощью JSON Schema.
  *
  * Пример:
  *

@@ -22,7 +22,7 @@ const Refract = require('../../Refract');
 class ResourceElement {
   /**
    * @param {StringElement} title - опциональный заголовок
-   * @param {StringElement} href - url HTTP-запроса
+   * @param {StringElement} href - URL HTTP-запроса
    */
   constructor(title, href) {
     this.title = title;
