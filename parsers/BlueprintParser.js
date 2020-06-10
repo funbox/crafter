@@ -181,7 +181,7 @@ module.exports = (Parsers) => {
             const typeName = namedType.name.string;
             if ((!context.getType(typeName))) {
               context.addType(namedType, namedType.content);
-            } else {
+            } else if (!context.languageServerMode) {
               throw new CrafterError(`${typeName} type already defined`, namedType.name.sourceMap);
             }
           });
