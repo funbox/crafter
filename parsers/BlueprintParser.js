@@ -233,48 +233,54 @@ module.exports = (Parsers) => {
             throw new CrafterError('Import error. Entry directory should be defined.', sourceMap);
           }
 
-          const filename = ImportRegex.exec(utils.headerText(curNode, sourceLines))[1].trim();
+          try {
+            const filename = ImportRegex.exec(utils.headerText(curNode, sourceLines))[1].trim();
 
-          if (!/\.apib$/.test(filename)) {
-            throw new CrafterError(`File import error. File "${filename}" must have extension type ".apib".`, sourceMap);
+            if (!/\.apib$/.test(filename)) {
+              throw new CrafterError(`File import error. File "${filename}" must have extension type ".apib".`, sourceMap);
+            }
+
+            if (usedFiles.includes(filename)) {
+              throw new CrafterError(`Recursive import: ${usedFiles.join(' → ')} → ${filename}`, sourceMap);
+            }
+
+            usedFiles.push(filename);
+
+            const { ast: childAst, context: childContext } = await context.getApibAST(filename, sourceMap);
+            const childSourceLines = childContext.sourceLines;
+            const childSourceBuffer = childContext.sourceBuffer;
+            const childLinefeedOffsets = childContext.linefeedOffsets;
+
+            if (!childAst.firstChild) {
+              throw new CrafterError(`File import error. File "${filename}" is empty.`, sourceMap);
+            }
+
+            let firstChildNode = childAst.firstChild;
+
+            while (firstChildNode && isImportSection(firstChildNode, childContext)) {
+              firstChildNode = firstChildNode.next;
+            }
+            if (firstChildNode && this.nestedSectionType(firstChildNode, childContext) === SectionTypes.undefined) {
+              throw new CrafterError(`Invalid content of "${filename}". Can't recognize "${utils.nodeText(firstChildNode, childContext.sourceLines)}" as API Blueprint section.`, sourceMap);
+            }
+
+            context.filePaths.push(`${context.resolvePathRelativeToEntryDir(filename)}`);
+
+            addSourceLinesAndFilename(childAst, childSourceLines, childSourceBuffer, childLinefeedOffsets, context.resolvePathRelativeToEntryDir(filename));
+            await this.resolveImports(childAst.firstChild, childContext, usedFiles);
+
+            let childNode = childAst.firstChild;
+            while (childNode) {
+              newChildren.push(childNode);
+              childNode = childNode.next;
+            }
+
+            usedFiles.pop();
+          } catch (e) {
+            if (!context.languageServerMode) {
+              throw e;
+            }
           }
-
-          if (usedFiles.includes(filename)) {
-            throw new CrafterError(`Recursive import: ${usedFiles.join(' → ')} → ${filename}`, sourceMap);
-          }
-
-          usedFiles.push(filename);
-
-          const { ast: childAst, context: childContext } = await context.getApibAST(filename, sourceMap);
-          const childSourceLines = childContext.sourceLines;
-          const childSourceBuffer = childContext.sourceBuffer;
-          const childLinefeedOffsets = childContext.linefeedOffsets;
-
-          if (!childAst.firstChild) {
-            throw new CrafterError(`File import error. File "${filename}" is empty.`, sourceMap);
-          }
-
-          let firstChildNode = childAst.firstChild;
-
-          while (firstChildNode && isImportSection(firstChildNode, childContext)) {
-            firstChildNode = firstChildNode.next;
-          }
-          if (firstChildNode && this.nestedSectionType(firstChildNode, childContext) === SectionTypes.undefined) {
-            throw new CrafterError(`Invalid content of "${filename}". Can't recognize "${utils.nodeText(firstChildNode, childContext.sourceLines)}" as API Blueprint section.`, sourceMap);
-          }
-
-          context.filePaths.push(`${context.resolvePathRelativeToEntryDir(filename)}`);
-
-          addSourceLinesAndFilename(childAst, childSourceLines, childSourceBuffer, childLinefeedOffsets, context.resolvePathRelativeToEntryDir(filename));
-          await this.resolveImports(childAst.firstChild, childContext, usedFiles);
-
-          let childNode = childAst.firstChild;
-          while (childNode) {
-            newChildren.push(childNode);
-            childNode = childNode.next;
-          }
-
-          usedFiles.pop();
         } else {
           if (curNode.firstChild) {
             await this.resolveImports(curNode.firstChild, context, usedFiles);

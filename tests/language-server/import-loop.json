@@ -1,0 +1,88 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "api"
+            }
+          ]
+        },
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
+      },
+      "content": [
+        {
+          "element": "copy",
+          "content": "In Language Server mode import with loop should be ignored\n\n# Import import-loop.apib"
+        },
+        {
+          "element": "resource",
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": ""
+            }
+          },
+          "attributes": {
+            "href": {
+              "element": "string",
+              "content": "/status"
+            }
+          },
+          "content": [
+            {
+              "element": "transition",
+              "content": [
+                {
+                  "element": "httpTransaction",
+                  "content": [
+                    {
+                      "element": "httpRequest",
+                      "attributes": {
+                        "method": {
+                          "element": "string",
+                          "content": "GET"
+                        }
+                      },
+                      "content": []
+                    },
+                    {
+                      "element": "httpResponse",
+                      "content": [],
+                      "attributes": {
+                        "statusCode": {
+                          "element": "number",
+                          "content": 200
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": ""
+                }
+              },
+              "attributes": {
+                "href": {
+                  "element": "string",
+                  "content": "/status"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

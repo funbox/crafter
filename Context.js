@@ -122,6 +122,7 @@ class Context {
     const context = new Context(file, [], {
       currentFile: fullPath,
       entryDir: this.entryDir,
+      languageServerMode: this.languageServerMode,
     });
 
     return { ast, context };

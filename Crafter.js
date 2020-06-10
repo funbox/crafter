@@ -25,7 +25,7 @@ async function parse(source, contextOptions) {
 }
 
 async function parseFile(file, contextOptions) {
-  const options = { ...getOptions(contextOptions, {}), entryDir: path.dirname(file) };
+  const options = { ...getOptions(contextOptions, {}), entryDir: path.dirname(file), currentFile: file };
   return parse(await fs.promises.readFile(file, { encoding: 'utf-8' }), options);
 }
 

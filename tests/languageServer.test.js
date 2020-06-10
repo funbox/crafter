@@ -2,8 +2,9 @@ const fs = require('fs');
 const Crafter = require('../Crafter');
 
 const apibRegex = /\.apib$/;
+const apibExcludeRegexp = /-inner\.apib$/;
 const fixturesPath = `${__dirname}/language-server`;
-const fixtures = fs.readdirSync(fixturesPath).filter(f => apibRegex.exec(f));
+const fixtures = fs.readdirSync(fixturesPath).filter(f => apibRegex.exec(f) && !apibExcludeRegexp.exec(f));
 
 describe('language server', () => {
   fixtures.forEach(fixture => {
