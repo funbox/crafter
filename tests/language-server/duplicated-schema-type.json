@@ -1,0 +1,223 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "api"
+            }
+          ]
+        },
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
+      },
+      "content": [
+        {
+          "element": "copy",
+          "content": "In Language Server mode duplicated schema type should not raise an error"
+        },
+        {
+          "element": "category",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "schemaStructures"
+                }
+              ]
+            }
+          },
+          "content": [
+            {
+              "element": "schemaStructure",
+              "meta": {
+                "id": {
+                  "element": "string",
+                  "content": "User"
+                }
+              },
+              "content": [
+                {
+                  "element": "asset",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "messageBody"
+                        }
+                      ]
+                    }
+                  },
+                  "content": "  {}\n"
+                },
+                {
+                  "element": "asset",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "messageBodySchema"
+                        }
+                      ]
+                    }
+                  },
+                  "attributes": {
+                    "contentType": {
+                      "element": "string",
+                      "content": "application/schema+json"
+                    }
+                  },
+                  "content": "{\n  \"type\": \"object\"\n}"
+                }
+              ]
+            },
+            {
+              "element": "schemaStructure",
+              "meta": {
+                "id": {
+                  "element": "string",
+                  "content": "User"
+                }
+              },
+              "content": [
+                {
+                  "element": "asset",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "messageBody"
+                        }
+                      ]
+                    }
+                  },
+                  "content": "  \"hello world\"\n"
+                },
+                {
+                  "element": "asset",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "messageBodySchema"
+                        }
+                      ]
+                    }
+                  },
+                  "attributes": {
+                    "contentType": {
+                      "element": "string",
+                      "content": "application/schema+json"
+                    }
+                  },
+                  "content": "{\n  \"type\": \"string\"\n}"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "element": "resource",
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": ""
+            }
+          },
+          "attributes": {
+            "href": {
+              "element": "string",
+              "content": "/user"
+            }
+          },
+          "content": [
+            {
+              "element": "transition",
+              "content": [
+                {
+                  "element": "httpTransaction",
+                  "content": [
+                    {
+                      "element": "httpRequest",
+                      "attributes": {
+                        "method": {
+                          "element": "string",
+                          "content": "GET"
+                        }
+                      },
+                      "content": []
+                    },
+                    {
+                      "element": "httpResponse",
+                      "content": [
+                        {
+                          "element": "dataStructure",
+                          "content": {
+                            "element": "User"
+                          }
+                        }
+                      ],
+                      "attributes": {
+                        "statusCode": {
+                          "element": "number",
+                          "content": 200
+                        },
+                        "headers": {
+                          "element": "httpHeaders",
+                          "content": [
+                            {
+                              "element": "member",
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "Content-Type"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "application/json"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": ""
+                }
+              },
+              "attributes": {
+                "href": {
+                  "element": "string",
+                  "content": "/user"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -169,7 +169,7 @@ module.exports = (Parsers) => {
             const typeName = schemaType.name.string;
             if ((!context.getType(typeName))) {
               context.addType(schemaType, schemaType);
-            } else {
+            } else if (!context.languageServerMode) {
               throw new CrafterError(`${typeName} type already defined`, schemaType.name.sourceMap);
             }
           });

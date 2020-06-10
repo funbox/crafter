@@ -1,0 +1,32 @@
+# My API
+
+In Language Server mode duplicated schema type should not raise an error
+
+# Schema Structures
+
+## User
++ Body
+
+        {}
+
++ Schema
+
+        {
+          "type": "object"
+        }
+
+## User
++ Body
+
+        "hello world"
+
++ Schema
+
+        {
+          "type": "string"
+        }
+
+# GET /user
+
++ Response 200 (application/json)
+    + Attributes (User)
