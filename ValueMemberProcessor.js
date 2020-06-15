@@ -29,7 +29,7 @@ const ValueMemberProcessor = {
       element.baseType = element.type;
     }
 
-    if (!(element.isArray() || element.isEnum()) && element.nestedTypes.length > 0) {
+    if (!(element.isArray() || element.isEnum()) && element.nestedTypes.length > 0 && !context.languageServerMode) {
       throw new CrafterError(`Invalid type ${element.rawType}. Nested types should be present only for types which are sub typed from either array or enum structure type`);
     }
 
