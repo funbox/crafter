@@ -69,7 +69,7 @@ class SchemaNamedTypeElement {
       meta: {
         id: this.name.toRefract(sourceMapsEnabled),
       },
-      content: [this.bodyEl.toRefract(sourceMapsEnabled), this.schemaEl.toRefract(sourceMapsEnabled)],
+      content: [this.bodyEl, this.schemaEl].filter(el => el).map(el => el.toRefract(sourceMapsEnabled)),
     };
 
     if (this.description) {
