@@ -92,7 +92,7 @@ module.exports = (Parsers) => {
 
       if (!context.typeExtractingInProgress) {
         const typeEl = context.typeResolver.types[signature.type];
-        if (typeEl && typeEl instanceof SchemaNamedTypeElement) {
+        if (typeEl && typeEl instanceof SchemaNamedTypeElement && !context.languageServerMode) {
           throw new CrafterError('No inheritance allowed from schema named type.', sourceMap);
         }
 

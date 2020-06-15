@@ -244,7 +244,7 @@ class DataStructureProcessor {
 
   processObject(valueMember, node, context) {
     const baseType = context.typeResolver.types[valueMember.type];
-    if (baseType && baseType instanceof SchemaNamedTypeElement) {
+    if (baseType && baseType instanceof SchemaNamedTypeElement && !context.languageServerMode) {
       const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       throw new utils.CrafterError('No inheritance allowed from schema named type', sourceMap);
     }
