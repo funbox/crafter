@@ -11,12 +11,7 @@ module.exports = (Parsers) => {
       context.pushFrame();
 
       const subject = utils.nodeText(node.firstChild, context.sourceLines);
-      let signature;
-      try {
-        signature = new SignatureParser(subject, [ParserTraits.VALUE, ParserTraits.ATTRIBUTES, ParserTraits.DESCRIPTION]);
-      } catch (e) {
-        if (!(e instanceof utils.SignatureError)) throw e;
-      }
+      const signature = new SignatureParser(subject, [ParserTraits.VALUE, ParserTraits.ATTRIBUTES, ParserTraits.DESCRIPTION]);
 
       const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       context.data.attributeSignatureDetails = { sourceMap, node: node.firstChild };

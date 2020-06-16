@@ -11,12 +11,7 @@ module.exports = (Parsers) => {
 
     processSignature(node, context) {
       const text = utils.nodeText(node.firstChild, context.sourceLines);
-      let signature;
-      try {
-        signature = new SignatureParser(text);
-      } catch (e) {
-        if (!(e instanceof utils.SignatureError)) throw e;
-      }
+      const signature = new SignatureParser(text);
 
       context.pushFrame();
 
