@@ -11,7 +11,7 @@ module.exports = (Parsers) => {
       context.pushFrame();
 
       const subject = utils.nodeText(node.firstChild, context.sourceLines);
-      const signature = new SignatureParser(subject, [ParserTraits.VALUE, ParserTraits.ATTRIBUTES, ParserTraits.DESCRIPTION]);
+      const signature = new SignatureParser(subject, false, [ParserTraits.VALUE, ParserTraits.ATTRIBUTES, ParserTraits.DESCRIPTION]);
 
       const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       context.data.attributeSignatureDetails = { sourceMap, node: node.firstChild };
@@ -68,7 +68,7 @@ module.exports = (Parsers) => {
         const text = utils.nodeText(node.firstChild, context.sourceLines);
 
         try {
-          const signature = new SignatureParser(text, [ParserTraits.VALUE, ParserTraits.ATTRIBUTES, ParserTraits.DESCRIPTION]);
+          const signature = new SignatureParser(text, false, [ParserTraits.VALUE, ParserTraits.ATTRIBUTES, ParserTraits.DESCRIPTION]);
           if (signature.value || signature.rawValue || signature.type) {
             return SectionTypes.arrayMember;
           }

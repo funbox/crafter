@@ -21,7 +21,7 @@ module.exports = (Parsers) => {
       const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       let signature;
       try {
-        signature = new SignatureParser(subject, [ParserTraits.NAME, ParserTraits.ATTRIBUTES]);
+        signature = new SignatureParser(subject, context.languageServerMode, [ParserTraits.NAME, ParserTraits.ATTRIBUTES]);
       } catch (e) {
         if (!(e instanceof utils.SignatureError)) {
           throw e;

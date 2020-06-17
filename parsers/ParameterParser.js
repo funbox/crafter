@@ -11,7 +11,7 @@ module.exports = (Parsers) => {
 
     processSignature(node, context) {
       const text = utils.nodeText(node.firstChild, context.sourceLines);
-      const signature = new SignatureParser(text);
+      const signature = new SignatureParser(text, false);
 
       context.pushFrame();
 
@@ -121,7 +121,7 @@ module.exports = (Parsers) => {
         const text = utils.nodeText(node.firstChild, context.sourceLines);
 
         try {
-          const signature = new SignatureParser(text);
+          const signature = new SignatureParser(text, false);
           if (signature.typeAttributes.length <= 2) {
             return SectionTypes.parameter;
           }

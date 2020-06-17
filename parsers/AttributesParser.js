@@ -22,7 +22,7 @@ module.exports = (Parsers) => {
       const sourceMap = utils.makeSourceMapForLine(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       let signature;
       try {
-        signature = new SignatureParser(text, [ParserTraits.NAME, ParserTraits.ATTRIBUTES]);
+        signature = new SignatureParser(text, context.languageServerMode, [ParserTraits.NAME, ParserTraits.ATTRIBUTES]);
       } catch (e) {
         if (!(e instanceof utils.SignatureError)) {
           throw e;
@@ -115,7 +115,7 @@ module.exports = (Parsers) => {
         const text = utils.nodeText(node.firstChild, context.sourceLines);
 
         try {
-          const signature = new SignatureParser(text);
+          const signature = new SignatureParser(text, false);
           if (attributesRegex.exec(signature.name)) {
             return SectionTypes.attributes;
           }

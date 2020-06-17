@@ -3,19 +3,19 @@ const { parser: SignatureParser, traits: ParserTraits } = require('../SignatureP
 describe('SignatureParser', () => {
   describe('Property signature', () => {
     it('Parses signature with name only', () => {
-      const signature = new SignatureParser('name');
+      const signature = new SignatureParser('name', false);
       expect(signature.name).toBe('name');
     });
 
     it('Parses signature with name and example', () => {
-      const signature = new SignatureParser('name: `Example`');
+      const signature = new SignatureParser('name: `Example`', false);
       expect(signature.name).toBe('name');
       expect(signature.value).toBe('Example');
       expect(signature.rawValue).toBe('`Example`');
     });
 
     it('Parses signature with name and attributes', () => {
-      const signature = new SignatureParser('name: (string, required)');
+      const signature = new SignatureParser('name: (string, required)', false);
       expect(signature.name).toBe('name');
       expect(signature.type).toBe('string');
       expect(signature.typeAttributes).toEqual(['required']);
@@ -23,13 +23,13 @@ describe('SignatureParser', () => {
     });
 
     it('Parses signature with name and description', () => {
-      const signature = new SignatureParser('name - Description');
+      const signature = new SignatureParser('name - Description', false);
       expect(signature.name).toBe('name');
       expect(signature.description).toBe('Description');
     });
 
     it('Parses signature with name, example and attributes', () => {
-      const signature = new SignatureParser('name: `Example` (string, required)');
+      const signature = new SignatureParser('name: `Example` (string, required)', false);
       expect(signature.name).toBe('name');
       expect(signature.value).toBe('Example');
       expect(signature.type).toBe('string');
@@ -37,7 +37,7 @@ describe('SignatureParser', () => {
     });
 
     it('Parses signature with name, example and description', () => {
-      const signature = new SignatureParser('name: `Example` - Description');
+      const signature = new SignatureParser('name: `Example` - Description', false);
       expect(signature.name).toBe('name');
       expect(signature.value).toBe('Example');
       expect(signature.rawValue).toBe('`Example`');
@@ -45,7 +45,7 @@ describe('SignatureParser', () => {
     });
 
     it('Parses signature with name, attributes and description', () => {
-      const signature = new SignatureParser('name: (string, required) - Description');
+      const signature = new SignatureParser('name: (string, required) - Description', false);
       expect(signature.name).toBe('name');
       expect(signature.value).toBe(null);
       expect(signature.type).toBe('string');
@@ -55,7 +55,7 @@ describe('SignatureParser', () => {
     });
 
     it('Parses signature with name, attributes, example and description', () => {
-      const signature = new SignatureParser('name: `Example` (string, required) - Description');
+      const signature = new SignatureParser('name: `Example` (string, required) - Description', false);
       expect(signature.name).toBe('name');
       expect(signature.value).toBe('Example');
       expect(signature.rawValue).toBe('`Example`');
@@ -65,7 +65,7 @@ describe('SignatureParser', () => {
     });
 
     it('Parses signature with name quoting', () => {
-      const signature = new SignatureParser('`name`: `Example` - Description');
+      const signature = new SignatureParser('`name`: `Example` - Description', false);
       expect(signature.name).toBe('name');
       expect(signature.value).toBe('Example');
       expect(signature.rawValue).toBe('`Example`');
@@ -73,52 +73,52 @@ describe('SignatureParser', () => {
     });
 
     it('Parses signature with unescaped example', () => {
-      const signature = new SignatureParser('name: Example');
+      const signature = new SignatureParser('name: Example', false);
       expect(signature.name).toBe('name');
       expect(signature.value).toBe('Example');
     });
 
     it('Parses signature with extra spaces after name', () => {
-      const signature = new SignatureParser('name     : `Example`');
+      const signature = new SignatureParser('name     : `Example`', false);
       expect(signature.name).toBe('name');
       expect(signature.value).toBe('Example');
       expect(signature.rawValue).toBe('`Example`');
     });
 
     it('Parses signature with description delimeter inside description', () => {
-      const signature = new SignatureParser('name - description - here');
+      const signature = new SignatureParser('name - description - here', false);
       expect(signature.name).toBe('name');
       expect(signature.description).toBe('description - here');
     });
 
     it('Parses signature with no name', () => {
-      const signature = new SignatureParser('(string)');
+      const signature = new SignatureParser('(string)', false);
       expect(signature.type).toBe('string');
       expect(signature.warnings.length).toBe(1);
     });
 
     it('Parses signature with type, name, sample attribute and with no value', () => {
-      const signature = new SignatureParser('name (string, sample)');
+      const signature = new SignatureParser('name (string, sample)', false);
       expect(signature.type).toBe('string');
       expect(signature.warnings.length).toBe(1);
       expect(signature.warnings[0]).toBe('no value present when "sample" is specified: "name (string, sample)"');
     });
 
     it('Parses signature with type and sample attribute only', () => {
-      const signature = new SignatureParser('(string, sample)');
+      const signature = new SignatureParser('(string, sample)', false);
       expect(signature.type).toBe('string');
       expect(signature.warnings.length).toBe(2);
     });
 
     it('Prefers default attribute over sample when both are specified', () => {
-      const signature = new SignatureParser('name: John (string, default, sample)');
+      const signature = new SignatureParser('name: John (string, default, sample)', false);
       expect(signature.isDefault).toBeTruthy();
       expect(signature.isSample).toBeFalsy();
       expect(signature.warnings[0]).toBe('Cannot use "default" and "sample" together.');
     });
 
     it('Parses signature with name and type section, but without value delimiter', () => {
-      const signature = new SignatureParser('name (string)');
+      const signature = new SignatureParser('name (string)', false);
       expect(signature.name).toBe('name');
       expect(signature.type).toBe('string');
       expect(signature.warnings.length).toBe(0);
@@ -130,19 +130,19 @@ describe('SignatureParser', () => {
     });
 
     it('Parses signature when "pattern" type attribute has a complex regex value', () => {
-      const signature = new SignatureParser('(string, pattern="(V|W)[0-9]{1,2} - [a-z]{, 6}")');
+      const signature = new SignatureParser('(string, pattern="(V|W)[0-9]{1,2} - [a-z]{, 6}")', false);
       expect(signature.typeAttributes).toEqual([
         ['pattern', '(V|W)[0-9]{1,2} - [a-z]{, 6}'],
       ]);
     });
 
     it('Parses signature with "format" parameterized type attribute', () => {
-      const signature = new SignatureParser('(format="date-time")');
+      const signature = new SignatureParser('(format="date-time")', false);
       expect(signature.typeAttributes).toEqual([['format', 'date-time']]);
     });
 
     it('Parses signature with name, value, description, static and parameterized type attributes', () => {
-      const signature = new SignatureParser('name: `John` (string, pattern="[a-zа-я]", required) - user name');
+      const signature = new SignatureParser('name: `John` (string, pattern="[a-zа-я]", required) - user name', false);
       expect(signature.name).toBe('name');
       expect(signature.value).toBe('John');
       expect(signature.description).toBe('user name');
@@ -155,7 +155,7 @@ describe('SignatureParser', () => {
     const traits = [ParserTraits.VALUE, ParserTraits.ATTRIBUTES, ParserTraits.DESCRIPTION];
 
     it('Parses signature with example, type and description', () => {
-      const signature = new SignatureParser('`Example` (string) - Description', traits);
+      const signature = new SignatureParser('`Example` (string) - Description', false, traits);
       expect(signature.value).toBe('Example');
       expect(signature.rawValue).toBe('`Example`');
       expect(signature.type).toBe('string');
@@ -163,62 +163,62 @@ describe('SignatureParser', () => {
     });
 
     it('Parses signature with example and type', () => {
-      const signature = new SignatureParser('`Example` (string)', traits);
+      const signature = new SignatureParser('`Example` (string)', false, traits);
       expect(signature.value).toBe('Example');
       expect(signature.rawValue).toBe('`Example`');
       expect(signature.type).toBe('string');
     });
 
     it('Parses signature with example and description', () => {
-      const signature = new SignatureParser('`Example` - Description', traits);
+      const signature = new SignatureParser('`Example` - Description', false, traits);
       expect(signature.value).toBe('Example');
       expect(signature.rawValue).toBe('`Example`');
       expect(signature.description).toBe('Description');
     });
 
     it('Parses signature with type and description', () => {
-      const signature = new SignatureParser('(string) - Description', traits);
+      const signature = new SignatureParser('(string) - Description', false, traits);
       expect(signature.type).toBe('string');
       expect(signature.description).toBe('Description');
     });
 
     it('Parses signature with type only', () => {
-      const signature = new SignatureParser('(number)', traits);
+      const signature = new SignatureParser('(number)', false, traits);
       expect(signature.type).toBe('number');
     });
 
     it('Parses signature with description only', () => {
-      const signature = new SignatureParser('- Description', traits);
+      const signature = new SignatureParser('- Description', false, traits);
       expect(signature.description).toBe('Description');
       expect(signature.warnings.length).toBe(1);
     });
 
     it('Parses signature with example only', () => {
-      const signature = new SignatureParser('`Example`', traits);
+      const signature = new SignatureParser('`Example`', false, traits);
       expect(signature.value).toBe('Example');
       expect(signature.rawValue).toBe('`Example`');
     });
 
     it('Parses signature with an escaped empty string as value', () => {
-      let signature = new SignatureParser('`` - empty string', traits);
+      let signature = new SignatureParser('`` - empty string', false, traits);
       expect(signature.value).toBe('');
       expect(signature.rawValue).toBe('``');
       expect(signature.description).toBe('empty string');
 
-      signature = new SignatureParser('``', traits);
+      signature = new SignatureParser('``', false, traits);
       expect(signature.value).toBe('');
       expect(signature.rawValue).toBe('``');
     });
 
     it('Raises an error if no closing bracket found', () => {
       expect(() => {
-        new SignatureParser('Attributes (fixed', traits); // eslint-disable-line no-new
+        new SignatureParser('Attributes (fixed', false, traits); // eslint-disable-line no-new
       }).toThrow(Error);
     });
 
     it('Raises an error for unknown parameterized attribute', () => {
       expect(() => {
-        new SignatureParser('Attributes (fixed, foo=bar)', traits); // eslint-disable-line no-new
+        new SignatureParser('Attributes (fixed, foo=bar)', false, traits); // eslint-disable-line no-new
       }).toThrow(Error);
     });
   });
@@ -227,30 +227,30 @@ describe('SignatureParser', () => {
     const traits = [ParserTraits.NAME, ParserTraits.ATTRIBUTES];
 
     it('Parses simple attributes signature', () => {
-      const signature = new SignatureParser('Attributes', traits);
+      const signature = new SignatureParser('Attributes', false, traits);
       expect(signature.name).toBe('Attributes');
     });
 
     it('Parses typed attributes signature', () => {
-      const signature = new SignatureParser('Attributes(User)', traits);
+      const signature = new SignatureParser('Attributes(User)', false, traits);
       expect(signature.name).toBe('Attributes');
       expect(signature.type).toBe('User');
 
-      const signature2 = new SignatureParser('Attributes(array[boolean])', traits);
+      const signature2 = new SignatureParser('Attributes(array[boolean])', false, traits);
       expect(signature2.name).toBe('Attributes');
       expect(signature2.type).toBe('array[boolean]');
 
-      const signature3 = new SignatureParser('Attributes (object)', traits);
+      const signature3 = new SignatureParser('Attributes (object)', false, traits);
       expect(signature3.name).toBe('Attributes');
       expect(signature3.type).toBe('object');
     });
 
     it('Parses type attributes on attributes section', () => {
-      const signature1 = new SignatureParser('Attributes (fixed)', traits);
+      const signature1 = new SignatureParser('Attributes (fixed)', false, traits);
       expect(signature1.name).toBe('Attributes');
       expect(signature1.typeAttributes).toEqual(['fixed']);
 
-      const signature2 = new SignatureParser('Attributes (object, fixed)', traits);
+      const signature2 = new SignatureParser('Attributes (object, fixed)', false, traits);
       expect(signature2.name).toBe('Attributes');
       expect(signature2.type).toBe('object');
       expect(signature2.typeAttributes).toEqual(['fixed']);
@@ -261,31 +261,31 @@ describe('SignatureParser', () => {
     const traits = [ParserTraits.NAME, ParserTraits.ATTRIBUTES];
 
     it('Parses simple named type signature', () => {
-      const signature = new SignatureParser('User', traits);
+      const signature = new SignatureParser('User', false, traits);
       expect(signature.name).toBe('User');
     });
 
     it('Parses named type with a type section', () => {
-      const signature = new SignatureParser('User (string)', traits);
+      const signature = new SignatureParser('User (string)', false, traits);
       expect(signature.name).toBe('User');
       expect(signature.type).toBe('string');
     });
 
     it('Parses type attributes on named type', () => {
-      const signature = new SignatureParser('User (fixed)', traits);
+      const signature = new SignatureParser('User (fixed)', false, traits);
       expect(signature.name).toBe('User');
       expect(signature.typeAttributes).toEqual(['fixed']);
     });
 
     it('Parses type attributes on named type with a type section', () => {
-      const signature = new SignatureParser('User (string, fixed)', traits);
+      const signature = new SignatureParser('User (string, fixed)', false, traits);
       expect(signature.name).toBe('User');
       expect(signature.type).toBe('string');
       expect(signature.typeAttributes).toEqual(['fixed']);
     });
 
     it('Splits multiline signature', () => {
-      const signature = new SignatureParser('name: `Example` - Description\nBlockDescription1\nBlockDescription2');
+      const signature = new SignatureParser('name: `Example` - Description\nBlockDescription1\nBlockDescription2', false);
       expect(signature.name).toBe('name');
       expect(signature.value).toBe('Example');
       expect(signature.rawValue).toBe('`Example`');

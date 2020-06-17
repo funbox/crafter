@@ -9,7 +9,7 @@ module.exports = (Parsers) => {
     processSignature(node, context) {
       const subject = utils.nodeText(node.firstChild, context.sourceLines);
       const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-      const signature = new SignatureParser(subject, [ParserTraits.VALUE, ParserTraits.DESCRIPTION]);
+      const signature = new SignatureParser(subject, false, [ParserTraits.VALUE, ParserTraits.DESCRIPTION]);
       signature.warnings.forEach(warning => context.addWarning(warning, sourceMap));
 
       const result = new ParameterEnumMemberElement(signature.value, signature.description);
@@ -23,7 +23,7 @@ module.exports = (Parsers) => {
         const text = utils.nodeText(node.firstChild, context.sourceLines);
 
         try {
-          const signature = new SignatureParser(text, [ParserTraits.VALUE, ParserTraits.DESCRIPTION]);
+          const signature = new SignatureParser(text, false, [ParserTraits.VALUE, ParserTraits.DESCRIPTION]);
           if (signature.value) {
             return SectionTypes.enumMember;
           }

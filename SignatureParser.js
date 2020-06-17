@@ -19,6 +19,9 @@ const parameterizedTypeAttributes = {
 
 const fakeTypeAttributes = { sample: 'sample', default: 'default' };
 
+/**
+ * @typedef {('NAME'|'VALUE'|'ATTRIBUTES'|'DESCRIPTION')} ParserTrait
+ */
 const parserTraits = {
   NAME: 'NAME',
   VALUE: 'VALUE',
@@ -35,7 +38,13 @@ const ATTRIBUTES_COMMA_DELIMITER = ',';
 const DESCRIPTION_DELIMITER = '-';
 
 class SignatureParser {
-  constructor(origSignature, traits = parserTraits.all) {
+  /**
+   * @param {string} origSignature
+   * @param {boolean} languageServerMode
+   * @param {ParserTrait[]} traits
+   */
+  constructor(origSignature, languageServerMode, traits = parserTraits.all) {
+    this.languageServerMode = languageServerMode;
     this.traits = traits;
     this.typeAttributes = [];
     this.typeAttributesOffsetsAndLengths = [];
@@ -90,7 +99,7 @@ class SignatureParser {
       this.warnings.push(`no value present when "sample" is specified: "${origSignature}"`);
     }
 
-    if (signature) {
+    if (signature && !this.languageServerMode) {
       error(origSignature);
     }
   }
@@ -192,7 +201,7 @@ class SignatureParser {
       return [signature, origSignatureOffset + signatureOffset];
     }
 
-    const { attributes, offsets, attributeString } = splitAttributes(signature);
+    const { attributes, offsets, attributeString } = splitAttributes(signature, this.languageServerMode);
 
     attributes.forEach((a, index) => {
       const isParameterized = a.includes('=');
@@ -230,7 +239,13 @@ class SignatureParser {
       if (isParameterized && Object.keys(parameterizedTypeAttributes).includes(attrName)) {
         const relevantAttribute = parameterizedTypeAttributes[attrName];
         const { alias, dataType } = relevantAttribute;
-        attrValue = convertValue(attrValue, dataType);
+        try {
+          attrValue = convertValue(attrValue, dataType);
+        } catch (e) {
+          if (!this.languageServerMode) {
+            throw e;
+          }
+        }
         this.typeAttributes.push([alias, attrValue]);
         this.typeAttributesOffsetsAndLengths.push([origSignatureOffset + signatureOffset + offsets[index], a.length]);
       } else if (!isParameterized && Object.keys(typeAttributes).includes(attrName)) {
@@ -239,7 +254,7 @@ class SignatureParser {
       } else if (!isParameterized && !this.type && !Object.values(fakeTypeAttributes).includes(a)) {
         this.type = attrName;
         this.typeOffset = origSignatureOffset + signatureOffset + offsets[index];
-      } else if (!Object.values(fakeTypeAttributes).includes(a)) {
+      } else if (!Object.values(fakeTypeAttributes).includes(a) && !this.languageServerMode) {
         error(a);
       }
     });
@@ -252,7 +267,9 @@ class SignatureParser {
       this.isSample = false;
     }
 
-    compareSizeAttributes(this.typeAttributes, signature);
+    if (!this.languageServerMode) {
+      compareSizeAttributes(this.typeAttributes, signature);
+    }
 
     return [signature.slice(attributeString.length), origSignatureOffset + signatureOffset + attributeString.length];
   }
@@ -301,7 +318,7 @@ function retrieveEscaped(str, startPos) {
   };
 }
 
-function splitAttributes(signature) {
+function splitAttributes(signature, languageServerMode) {
   const SUBTYPE_START_DELIMITER = '[';
   const SUBTYPE_END_DELIMITER = ']';
 
@@ -351,7 +368,7 @@ function splitAttributes(signature) {
     }
   }
 
-  if (!attributesEndDelimiterFound) {
+  if (!attributesEndDelimiterFound && !languageServerMode) {
     error(signature);
   }
 
