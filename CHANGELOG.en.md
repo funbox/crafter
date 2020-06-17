@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.53.0 (17.06.2020)
+
+* Use Node.js 12.16.3 in Docker image.
+
 ## 1.52.0 (19.05.2020)
 
 * Fix jsdoc for constructors of RequestElement and ResponseElement classes.
