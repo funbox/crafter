@@ -248,8 +248,8 @@ module.exports = (Parsers) => {
             throw new CrafterError(`File import error. File "${filename}" is empty.`);
           }
 
-          if (childAst.firstChild.type !== 'heading') {
-            throw new CrafterError(`Invalid content of "${filename}". Expected content to be a section, instead got "${childAst.firstChild.type}".`);
+          if (this.nestedSectionType(childAst.firstChild, childContext) === SectionTypes.undefined) {
+            throw new CrafterError(`Invalid content of "${filename}". Can't recognize "${utils.nodeText(childAst.firstChild, childContext.sourceLines)}" as API Blueprint section.`);
           }
 
           context.filePaths.push(`${context.resolvePathRelativeToEntryDir(filename)}`);

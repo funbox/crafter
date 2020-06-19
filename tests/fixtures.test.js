@@ -255,7 +255,7 @@ it('parses from source without options passed', () => {
 });
 
 it('parses from source and includes imports', () => {
-  const file = 'action.apib';
+  const file = 'resource.apib';
   const path = testPath.import.path;
   const options = { entryDir: path };
 

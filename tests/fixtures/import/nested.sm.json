@@ -78,32 +78,7 @@
           "meta": {
             "title": {
               "element": "string",
-              "content": "User",
-              "attributes": {
-                "sourceMap": {
-                  "element": "array",
-                  "content": [
-                    {
-                      "element": "sourceMap",
-                      "content": [
-                        {
-                          "element": "array",
-                          "content": [
-                            {
-                              "element": "number",
-                              "content": 70
-                            },
-                            {
-                              "element": "number",
-                              "content": 16
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                }
-              }
+              "content": ""
             }
           },
           "attributes": {
@@ -122,244 +97,11 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 70
-                            },
-                            {
-                              "element": "number",
-                              "content": 16
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "content": [
-            {
-              "element": "transition",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Get user",
-                  "attributes": {
-                    "sourceMap": {
-                      "element": "array",
-                      "content": [
-                        {
-                          "element": "sourceMap",
-                          "content": [
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 86
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 25
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  }
-                }
-              },
-              "content": [
-                {
-                  "element": "httpTransaction",
-                  "content": [
-                    {
-                      "element": "httpRequest",
-                      "attributes": {
-                        "method": {
-                          "element": "string",
-                          "content": "GET",
-                          "attributes": {
-                            "sourceMap": {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "sourceMap",
-                                  "content": [
-                                    {
-                                      "element": "array",
-                                      "content": [
-                                        {
-                                          "element": "number",
-                                          "content": 86
-                                        },
-                                        {
-                                          "element": "number",
-                                          "content": 25
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              ]
-                            }
-                          }
-                        }
-                      },
-                      "content": []
-                    },
-                    {
-                      "element": "httpResponse",
-                      "content": [],
-                      "attributes": {
-                        "statusCode": {
-                          "element": "number",
-                          "content": 200,
-                          "attributes": {
-                            "sourceMap": {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "sourceMap",
-                                  "content": [
-                                    {
-                                      "element": "array",
-                                      "content": [
-                                        {
-                                          "element": "number",
-                                          "content": 113
-                                        },
-                                        {
-                                          "element": "number",
-                                          "content": 13
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              ]
-                            }
-                          }
-                        },
-                        "sourceMap": {
-                          "element": "array",
-                          "content": [
-                            {
-                              "element": "sourceMap",
-                              "content": [
-                                {
-                                  "element": "array",
-                                  "content": [
-                                    {
-                                      "element": "number",
-                                      "content": 113
-                                    },
-                                    {
-                                      "element": "number",
-                                      "content": 13
-                                    }
-                                  ]
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      }
-                    }
-                  ]
-                }
-              ],
-              "attributes": {
-                "href": {
-                  "element": "string",
-                  "content": "/user",
-                  "attributes": {
-                    "sourceMap": {
-                      "element": "array",
-                      "content": [
-                        {
-                          "element": "sourceMap",
-                          "content": [
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 86
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 25
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  }
-                }
-              }
-            }
-          ]
-        },
-        {
-          "element": "resource",
-          "meta": {
-            "title": {
-              "element": "string",
-              "content": "Profile",
-              "attributes": {
-                "sourceMap": {
-                  "element": "array",
-                  "content": [
-                    {
-                      "element": "sourceMap",
-                      "content": [
-                        {
-                          "element": "array",
-                          "content": [
-                            {
-                              "element": "number",
                               "content": 0
                             },
                             {
                               "element": "number",
-                              "content": 22
-                            }
-                          ]
-                        }
-                      ],
-                      "file": "nested/nested-inner.apib"
-                    }
-                  ]
-                }
-              }
-            }
-          },
-          "attributes": {
-            "href": {
-              "element": "string",
-              "content": "/profile",
-              "attributes": {
-                "sourceMap": {
-                  "element": "array",
-                  "content": [
-                    {
-                      "element": "sourceMap",
-                      "content": [
-                        {
-                          "element": "array",
-                          "content": [
-                            {
-                              "element": "number",
-                              "content": 0
-                            },
-                            {
-                              "element": "number",
-                              "content": 22
+                              "content": 12
                             }
                           ]
                         }
@@ -374,38 +116,6 @@
           "content": [
             {
               "element": "transition",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Get profile",
-                  "attributes": {
-                    "sourceMap": {
-                      "element": "array",
-                      "content": [
-                        {
-                          "element": "sourceMap",
-                          "content": [
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 0
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 22
-                                }
-                              ]
-                            }
-                          ],
-                          "file": "nested-next-level-inner.apib"
-                        }
-                      ]
-                    }
-                  }
-                }
-              },
               "content": [
                 {
                   "element": "httpTransaction",
@@ -432,7 +142,151 @@
                                         },
                                         {
                                           "element": "number",
-                                          "content": 22
+                                          "content": 12
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "file": "nested/nested-inner.apib"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      },
+                      "content": []
+                    },
+                    {
+                      "element": "httpResponse",
+                      "content": [],
+                      "attributes": {
+                        "statusCode": {
+                          "element": "number",
+                          "content": 200,
+                          "attributes": {
+                            "sourceMap": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "sourceMap",
+                                  "content": [
+                                    {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "number",
+                                          "content": 14
+                                        },
+                                        {
+                                          "element": "number",
+                                          "content": 13
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "file": "nested/nested-inner.apib"
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        "sourceMap": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "sourceMap",
+                              "content": [
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "number",
+                                      "content": 14
+                                    },
+                                    {
+                                      "element": "number",
+                                      "content": 13
+                                    }
+                                  ]
+                                }
+                              ],
+                              "file": "nested/nested-inner.apib"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": ""
+                }
+              },
+              "attributes": {
+                "href": {
+                  "element": "string",
+                  "content": "/user",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 0
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 12
+                                }
+                              ]
+                            }
+                          ],
+                          "file": "nested/nested-inner.apib"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "element": "transition",
+              "content": [
+                {
+                  "element": "httpTransaction",
+                  "content": [
+                    {
+                      "element": "httpRequest",
+                      "attributes": {
+                        "method": {
+                          "element": "string",
+                          "content": "GET",
+                          "attributes": {
+                            "sourceMap": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "sourceMap",
+                                  "content": [
+                                    {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "number",
+                                          "content": 0
+                                        },
+                                        {
+                                          "element": "number",
+                                          "content": 16
                                         }
                                       ]
                                     }
@@ -465,7 +319,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 24
+                                          "content": 18
                                         },
                                         {
                                           "element": "number",
@@ -491,7 +345,7 @@
                                   "content": [
                                     {
                                       "element": "number",
-                                      "content": 24
+                                      "content": 18
                                     },
                                     {
                                       "element": "number",
@@ -508,7 +362,45 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": ""
+                }
+              },
+              "attributes": {
+                "href": {
+                  "element": "string",
+                  "content": "/profile",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 0
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 16
+                                }
+                              ]
+                            }
+                          ],
+                          "file": "nested-next-level-inner.apib"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
             }
           ]
         }

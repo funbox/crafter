@@ -28,7 +28,7 @@
           "meta": {
             "title": {
               "element": "string",
-              "content": "User"
+              "content": ""
             }
           },
           "attributes": {
@@ -40,12 +40,6 @@
           "content": [
             {
               "element": "transition",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Get user"
-                }
-              },
               "content": [
                 {
                   "element": "httpTransaction",
@@ -73,38 +67,21 @@
                   ]
                 }
               ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": ""
+                }
+              },
               "attributes": {
                 "href": {
                   "element": "string",
                   "content": "/user"
                 }
               }
-            }
-          ]
-        },
-        {
-          "element": "resource",
-          "meta": {
-            "title": {
-              "element": "string",
-              "content": "Profile"
-            }
-          },
-          "attributes": {
-            "href": {
-              "element": "string",
-              "content": "/profile"
-            }
-          },
-          "content": [
+            },
             {
               "element": "transition",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Get profile"
-                }
-              },
               "content": [
                 {
                   "element": "httpTransaction",
@@ -131,7 +108,19 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": ""
+                }
+              },
+              "attributes": {
+                "href": {
+                  "element": "string",
+                  "content": "/profile"
+                }
+              }
             }
           ]
         }
