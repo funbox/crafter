@@ -75,6 +75,14 @@ class EnumMemberElement {
 
     return result;
   }
+
+  getBody() {
+    return this.value;
+  }
+
+  getSchema() {
+    return [this.value];
+  }
 }
 
 module.exports = EnumMemberElement;

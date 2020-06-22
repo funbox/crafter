@@ -3,6 +3,7 @@ const types = require('./types');
 const utils = require('./utils');
 
 const EnumElement = require('./parsers/elements/EnumElement');
+const EnumMemberElement = require('./parsers/elements/EnumMemberElement');
 const ObjectElement = require('./parsers/elements/ObjectElement');
 const SchemaNamedTypeElement = require('./parsers/elements/SchemaNamedTypeElement');
 
@@ -265,6 +266,7 @@ class DataStructureProcessor {
 
       const sectionType = SectionTypes.calculateSectionType(curNode, context, [
         this.Parsers.MSONMemberGroupParser,
+        this.Parsers.MSONMixinParser,
         this.Parsers.DefaultValueParser,
         this.Parsers.SampleValueParser,
         this.Parsers.EnumMemberParser,
@@ -276,6 +278,23 @@ class DataStructureProcessor {
           enumElement.members.push(...childResult.members);
           childResult = null;
           break;
+        case SectionTypes.msonMixin: {
+          [nextNode, childResult] = this.Parsers.MSONMixinParser.parse(curNode, context);
+          const baseType = context.typeResolver.types[childResult.className];
+          if (baseType && !baseType.isComplex()) {
+            const mixinSourceMap = utils.makeGenericSourceMap(childResult, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+            context.addWarning('Mixin may not include a type of a primitive sub-type', mixinSourceMap);
+            childResult = null;
+          }
+
+          if (baseType && baseType instanceof SchemaNamedTypeElement) {
+            const mixinSourceMap = utils.makeGenericSourceMap(childResult, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+            throw new utils.CrafterError('Mixin may not include a schema named type', mixinSourceMap);
+          }
+          enumElement.members.push(childResult);
+          childResult = null;
+          break;
+        }
         case SectionTypes.defaultValue:
           context.data.typeForDefaults = 'enum';
           context.data.valueType = enumElement.type;
@@ -348,6 +367,12 @@ class DataStructureProcessor {
     }
 
     enumElement.members.forEach((member) => {
+      if (!(member instanceof EnumMemberElement)) {
+        // может быть EnumMemberElement или MSONMixinElement,
+        // при этом MSONMixinElement вставляем "как есть"
+        return;
+      }
+
       const converted = utils.convertType(member.value, enumElement.type);
       const typesMatch = utils.compareAttributeTypes(enumElement, member);
 

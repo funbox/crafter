@@ -1,5 +1,7 @@
 const Refract = require('../../Refract');
 const utils = require('../../utils');
+const Flags = require('../../Flags');
+const MSONMixinElement = require('./MSONMixinElement');
 
 /**
  * Enum (перечисление)
@@ -65,27 +67,42 @@ class EnumElement {
     return result;
   }
 
-  getBody() {
+  /**
+   * @param {DataTypes} dataTypes - типы из TypeResolver
+   * @param {string[]} namedTypesChain - использованные в процессе генерации body именованные типы, нужны для отслеживания рекурсивных структур
+   */
+  getBody(dataTypes, namedTypesChain = []) {
     if (this.defaultValue) {
       return this.defaultValue.value;
     }
 
     if (this.members.length) {
-      return this.members[0].value;
+      return this.members[0].getBody(dataTypes, namedTypesChain);
     }
 
     if (this.sampleValues.length) {
-      return this.sampleValues[0].getBody();
+      return this.sampleValues[0].getBody(dataTypes, namedTypesChain);
     }
 
     return undefined;
   }
 
-  getSchema() {
+  /**
+   * @param {DataTypes} dataTypes - типы из TypeResolver
+   * @param {Flags} flags - флаги генерации JSON Schema
+   * @param {string[]} namedTypesChain - использованные в процессе генерации schema именованные типы, нужны для отслеживания рекурсивных структур
+   */
+  getSchema(dataTypes, flags = new Flags(), namedTypesChain = []) {
     const usedTypes = [];
     const schema = {
       type: this.type,
-      enum: this.members.map(member => member.value),
+      enum: this.members.reduce((acc, member) => {
+        const [memberSchema] = member.getSchema(dataTypes, flags, namedTypesChain);
+        if (member instanceof MSONMixinElement && Array.isArray(memberSchema.enum)) {
+          return [...acc, ...memberSchema.enum];
+        }
+        return [...acc, memberSchema];
+      }, []),
     };
     if (this.defaultValue) {
       schema.default = this.defaultValue.value;
