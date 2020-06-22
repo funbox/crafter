@@ -1,0 +1,266 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "api"
+            }
+          ]
+        },
+        "title": {
+          "element": "string",
+          "content": "My API",
+          "attributes": {
+            "sourceMap": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "sourceMap",
+                  "content": [
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 0
+                        },
+                        {
+                          "element": "number",
+                          "content": 10
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      },
+      "content": [
+        {
+          "element": "copy",
+          "content": "It should be possible to use imports in imported file",
+          "attributes": {
+            "sourceMap": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "sourceMap",
+                  "content": [
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 10
+                        },
+                        {
+                          "element": "number",
+                          "content": 55
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "element": "resource",
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": ""
+            }
+          },
+          "attributes": {
+            "href": {
+              "element": "string",
+              "content": "/foo",
+              "attributes": {
+                "sourceMap": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "sourceMap",
+                      "content": [
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 0
+                            },
+                            {
+                              "element": "number",
+                              "content": 12
+                            }
+                          ]
+                        }
+                      ],
+                      "file": "import-in-import-inner-inner.apib"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "content": [
+            {
+              "element": "transition",
+              "content": [
+                {
+                  "element": "httpTransaction",
+                  "content": [
+                    {
+                      "element": "httpRequest",
+                      "attributes": {
+                        "method": {
+                          "element": "string",
+                          "content": "GET",
+                          "attributes": {
+                            "sourceMap": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "sourceMap",
+                                  "content": [
+                                    {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "number",
+                                          "content": 0
+                                        },
+                                        {
+                                          "element": "number",
+                                          "content": 12
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "file": "import-in-import-inner-inner.apib"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      },
+                      "content": []
+                    },
+                    {
+                      "element": "httpResponse",
+                      "content": [],
+                      "attributes": {
+                        "statusCode": {
+                          "element": "number",
+                          "content": 200,
+                          "attributes": {
+                            "sourceMap": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "sourceMap",
+                                  "content": [
+                                    {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "number",
+                                          "content": 14
+                                        },
+                                        {
+                                          "element": "number",
+                                          "content": 13
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "file": "import-in-import-inner-inner.apib"
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        "sourceMap": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "sourceMap",
+                              "content": [
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "number",
+                                      "content": 14
+                                    },
+                                    {
+                                      "element": "number",
+                                      "content": 13
+                                    }
+                                  ]
+                                }
+                              ],
+                              "file": "import-in-import-inner-inner.apib"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": ""
+                }
+              },
+              "attributes": {
+                "href": {
+                  "element": "string",
+                  "content": "/foo",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 0
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 12
+                                }
+                              ]
+                            }
+                          ],
+                          "file": "import-in-import-inner-inner.apib"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

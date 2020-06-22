@@ -8,6 +8,8 @@ const StringElement = require('./elements/StringElement');
 const MetaDataElement = require('./elements/MetaDataElement');
 const AnnotationElement = require('./elements/AnnotationElement');
 
+const ImportRegex = /^[Ii]mport\s+(.+)$/;
+
 module.exports = (Parsers) => {
   Parsers.BlueprintParser = {
     parse(node, context) {
@@ -214,20 +216,17 @@ module.exports = (Parsers) => {
 
     resolveImports(entryNode, context, usedFiles) {
       const { sourceLines } = context;
-      const ImportRegex = /^[Ii]mport\s+(.+)$/;
       const parentNode = entryNode.parent;
       const newChildren = [];
       let curNode = entryNode;
 
-      const textFromNode = node => utils.headerText(node, sourceLines);
-
       while (curNode) {
-        if (curNode.type === 'heading' && ImportRegex.test(textFromNode(curNode))) {
+        if (isImportSection(curNode, context)) {
           if (!context.entryDir) {
             throw new CrafterError('Import error. Entry directory should be defined.');
           }
 
-          const filename = ImportRegex.exec(textFromNode(curNode))[1].trim();
+          const filename = ImportRegex.exec(utils.headerText(curNode, sourceLines))[1].trim();
 
           if (!/\.apib$/.test(filename)) {
             throw new CrafterError(`File import error. File "${filename}" must have extension type ".apib".`);
@@ -248,8 +247,13 @@ module.exports = (Parsers) => {
             throw new CrafterError(`File import error. File "${filename}" is empty.`);
           }
 
-          if (this.nestedSectionType(childAst.firstChild, childContext) === SectionTypes.undefined) {
-            throw new CrafterError(`Invalid content of "${filename}". Can't recognize "${utils.nodeText(childAst.firstChild, childContext.sourceLines)}" as API Blueprint section.`);
+          let firstChildNode = childAst.firstChild;
+
+          while (firstChildNode && isImportSection(firstChildNode, childContext)) {
+            firstChildNode = firstChildNode.next;
+          }
+          if (firstChildNode && this.nestedSectionType(firstChildNode, childContext) === SectionTypes.undefined) {
+            throw new CrafterError(`Invalid content of "${filename}". Can't recognize "${utils.nodeText(firstChildNode, childContext.sourceLines)}" as API Blueprint section.`);
           }
 
           context.filePaths.push(`${context.resolvePathRelativeToEntryDir(filename)}`);
@@ -309,4 +313,8 @@ function addSourceLinesAndFilename(ast, sourceLines, sourceBuffer, linefeedOffse
 function preprocessErrorResult(result, context) {
   result.isError = true;
   result.annotations.push(new AnnotationElement('error', context.error.message, context.error.sourceMap));
+}
+
+function isImportSection(node, context) {
+  return node.type === 'heading' && ImportRegex.test(utils.headerText(node, context.sourceLines));
 }
