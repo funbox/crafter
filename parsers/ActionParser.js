@@ -56,6 +56,13 @@ module.exports = (Parsers) => {
       }
 
       const prototypes = protoNames ? protoNames.split(',').map(p => p.trim()) : [];
+
+      prototypes.forEach(prototype => {
+        if (!context.resourcePrototypeResolver.prototypes[prototype]) {
+          throw new utils.CrafterError(`Unknown resource prototype "${prototype}"`, sourceMap);
+        }
+      });
+
       context.resourcePrototypes.push(prototypes);
 
       const titleEl = new StringElement(title);

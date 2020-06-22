@@ -19,6 +19,13 @@ module.exports = (Parsers) => {
       const result = new ResourceGroupElement(title);
 
       context.data.groupSignatureDetails = { sourceMap };
+
+      prototypes.forEach(prototype => {
+        if (!context.resourcePrototypeResolver.prototypes[prototype]) {
+          throw new utils.CrafterError(`Unknown resource prototype "${prototype}"`, sourceMap);
+        }
+      });
+
       context.resourcePrototypes.push(prototypes);
       return [utils.nextNode(node), result];
     },

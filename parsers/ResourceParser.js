@@ -50,7 +50,16 @@ module.exports = (Parsers) => {
           break;
       }
 
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+
       const prototypes = protoNames ? protoNames.split(',').map(p => p.trim()) : [];
+
+      prototypes.forEach(prototype => {
+        if (!context.resourcePrototypeResolver.prototypes[prototype]) {
+          throw new utils.CrafterError(`Unknown resource prototype "${prototype}"`, sourceMap);
+        }
+      });
+
       context.resourcePrototypes.push(prototypes);
 
       context.pushFrame();
@@ -60,7 +69,6 @@ module.exports = (Parsers) => {
 
       context.data.resourceEndpointMethod = method;
 
-      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       if (!isNamedEndpoint && title) {
         titleEl.sourceMap = sourceMap;
       }
