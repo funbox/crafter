@@ -69,6 +69,9 @@ const testPath = {
   get duplicates() {
     return `${this.base}/duplicates`;
   },
+  get inheritance() {
+    return `${this.base}/inheritance`;
+  },
 };
 
 const apibRegex = /\.apib$/;
