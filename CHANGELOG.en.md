@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.54.3 (22.06.2020)
+
+* Fix imports processing inside of an imported file.
+
 ## 1.54.2 (22.06.2020)
 
 * Fix processing of the Resource section when it comes after Resource Prototypes section.
