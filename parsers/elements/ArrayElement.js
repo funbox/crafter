@@ -1,5 +1,6 @@
 const utils = require('../../utils');
 const Flags = require('../../Flags');
+const MSONMixinElement = require('./MSONMixinElement');
 
 /**
  * Массив
@@ -45,7 +46,13 @@ class ArrayElement {
    * @param {string[]} namedTypesChain - использованные в процессе генерации body именованные типы, нужны для отслеживания рекурсивных структур
    */
   getBody(dataTypes, namedTypesChain = []) {
-    return this.members.map(member => member.getBody(dataTypes, namedTypesChain));
+    return this.members.reduce((acc, member) => {
+      const memberBody = member.getBody(dataTypes, namedTypesChain);
+      if (member instanceof MSONMixinElement && Array.isArray(memberBody)) {
+        return [...acc, ...memberBody];
+      }
+      return [...acc, memberBody];
+    }, []);
   }
 
   /**
@@ -60,32 +67,32 @@ class ArrayElement {
     localFlags.skipTypesInlining = true;
     const usedTypes = [];
     if (flags.isFixed) {
-      schema.minItems = this.members.length;
       const memberSchemas = [];
 
       this.members.forEach(member => {
-        const [currentMemberSchema, currentMemberUsedTypes] = member.getSchema(dataTypes, localFlags, namedTypesChain);
-        memberSchemas.push(currentMemberSchema);
+        const [currentMemberSchemas, currentMemberUsedTypes] = getArrayMemberSchema(member, dataTypes, localFlags, namedTypesChain);
+        memberSchemas.push(...currentMemberSchemas);
         usedTypes.push(...currentMemberUsedTypes);
       });
+      schema.minItems = memberSchemas.length;
       schema.items = memberSchemas;
       schema.additionalItems = false;
     } else if (this.members.length > 1) {
       const memberSchemas = [];
 
       this.members.forEach(member => {
-        const [currentMemberSchema, currentMemberUsedTypes] = member.getSchema(dataTypes, localFlags, namedTypesChain);
-        memberSchemas.push(currentMemberSchema);
+        const [currentMemberSchemas, currentMemberUsedTypes] = getArrayMemberSchema(member, dataTypes, localFlags, namedTypesChain);
+        memberSchemas.push(...currentMemberSchemas);
         usedTypes.push(...currentMemberUsedTypes);
       });
 
-      const items = utils.uniquifySchemas(memberSchemas);
       schema.items = {
-        anyOf: items,
+        anyOf: utils.uniquifySchemas(memberSchemas),
       };
     } else if (this.members.length === 1) {
-      const [memberSchema, memberUsedTypes] = this.members[0].getSchema(dataTypes, localFlags, namedTypesChain);
-      schema.items = memberSchema;
+      // единственным элементом может оказаться MSONMixinElement, который скрывает в себе несколько элементов
+      const [memberSchemas, memberUsedTypes] = getArrayMemberSchema(this.members[0], dataTypes, localFlags, namedTypesChain);
+      schema.items = memberSchemas.length === 1 ? memberSchemas[0] : { anyOf: utils.uniquifySchemas(memberSchemas) };
       usedTypes.push(...memberUsedTypes);
     }
     return [schema, usedTypes];
@@ -93,3 +100,22 @@ class ArrayElement {
 }
 
 module.exports = ArrayElement;
+
+function getArrayMemberSchema(member, dataTypes, localFlags, namedTypesChain) {
+  const [currentMemberSchema, currentMemberUsedTypes] = member.getSchema(dataTypes, localFlags, namedTypesChain);
+
+  if (member instanceof MSONMixinElement && currentMemberSchema.type === 'array') {
+    if (currentMemberSchema.items === undefined) {
+      return [[], currentMemberUsedTypes];
+    }
+    if (Array.isArray(currentMemberSchema.items)) {
+      return [currentMemberSchema.items, currentMemberUsedTypes];
+    }
+    if (currentMemberSchema.items && Array.isArray(currentMemberSchema.items.anyOf)) {
+      return [currentMemberSchema.items.anyOf, currentMemberUsedTypes];
+    }
+    return [[currentMemberSchema.items], currentMemberUsedTypes];
+  }
+
+  return [[currentMemberSchema], currentMemberUsedTypes];
+}
