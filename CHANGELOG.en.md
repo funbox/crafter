@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.54.1 (22.06.2020)
+
+* Improve error handling when unknown Resource Prototype found.
+
 ## 1.54.0 (22.06.2020)
 
 * Detect first node of the imported file.
