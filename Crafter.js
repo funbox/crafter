@@ -15,7 +15,7 @@ function getOptions(options, defaultOptions) {
 /**
  * @param {string} source
  * @param {ContextOptions} contextOptions
- * @returns {object}
+ * @returns {array}
  */
 async function parse(source, contextOptions) {
   const ast = utils.markdownSourceToAST(source);
