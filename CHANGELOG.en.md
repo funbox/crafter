@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.54.0 (22.06.2020)
+
+* Detect first node of the imported file.
+
 ## 1.53.0 (17.06.2020)
 
 * Use Node.js 12.16.3 in Docker image.
