@@ -87,15 +87,17 @@ module.exports = (Parsers) => {
 
       context.popFrame();
 
-      if (!context.languageServerMode) {
-        if (!result.bodyEl) throw new CrafterError('Schema named type element must contain body section', details.sourceMap);
-        if (!result.schemaEl) throw new CrafterError('Schema named type element must contain schema section', details.sourceMap);
+      if (context.languageServerMode) {
+        return result;
+      }
 
-        try {
-          result.body = JSON.parse(result.bodyEl.body);
-        } catch (e) {
-          throw new CrafterError('Body section in schema named type element is invalid JSON', details.sourceMap);
-        }
+      if (!result.bodyEl) throw new CrafterError('Schema named type element must contain body section', details.sourceMap);
+      if (!result.schemaEl) throw new CrafterError('Schema named type element must contain schema section', details.sourceMap);
+
+      try {
+        result.body = JSON.parse(result.bodyEl.body);
+      } catch (e) {
+        throw new CrafterError('Body section in schema named type element is invalid JSON', details.sourceMap);
       }
 
       return result;
