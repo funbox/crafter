@@ -44,7 +44,7 @@ class BlueprintElement {
             content: Refract.categoryClasses.api,
           }],
         },
-        title: this.title.toRefract(sourceMapsEnabled),
+        title: this.title && this.title.toRefract(sourceMapsEnabled),
       },
       content: this.content.map(item => item.toRefract(sourceMapsEnabled)),
     };

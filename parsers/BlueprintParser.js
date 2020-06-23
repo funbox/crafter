@@ -13,6 +13,10 @@ const ImportRegex = /^[Ii]mport\s+(.+)$/;
 module.exports = (Parsers) => {
   Parsers.BlueprintParser = {
     async parse(node, context) {
+      if (!node) {
+        return [null, new BlueprintElement(new StringElement(''), null, []), context.filePaths];
+      }
+
       try {
         await this.preprocessNestedSections(node, context);
       } catch (error) {
