@@ -1,0 +1,21 @@
+# My API
+
+Defines an enum mixin in array structure.
+Produces the error "Mixin base type should be the same as parent base type: arrays should contain array mixins.".
+
+# Data Structures
+
+## Cities (array)
+
++ Moscow
++ London
+
+## PostCode (enum)
+
++ N1
+
+# Get cities [GET /cities]
+
++ Response 200 (application/json)
+    + Attributes(Cities)
+        + Include PostCode

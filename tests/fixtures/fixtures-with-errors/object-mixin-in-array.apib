@@ -1,0 +1,21 @@
+# My API
+
+Defines an object mixin in array structure.
+Produces the error "Mixin base type should be the same as parent base type: arrays should contain array mixins.".
+
+# Data Structures
+
+## Cities (array)
+
++ Moscow
++ London
+
+## User (object)
+
++ name
+
+# Get cities [GET /cities]
+
++ Response 200 (application/json)
+    + Attributes(Cities)
+        + Include User

@@ -1,0 +1,20 @@
+# My API
+
+Defines an object mixin in enum structure.
+Produces the error "Mixin base type should be the same as parent base type: enums should contain enum mixins.".
+
+# Data Structures
+
+## PostCode (enum)
+
++ N1
+
+## User (object)
+
++ name
+
+# Get cities [GET /cities]
+
++ Response 200 (application/json)
+    + Attributes(PostCode)
+        + Include User

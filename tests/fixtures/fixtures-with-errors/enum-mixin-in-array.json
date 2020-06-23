@@ -1,0 +1,65 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "annotation",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "error"
+            }
+          ]
+        }
+      },
+      "attributes": {
+        "sourceMap": {
+          "element": "array",
+          "content": [
+            {
+              "element": "sourceMap",
+              "content": [
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 21
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 9
+                        }
+                      },
+                      "content": 345
+                    },
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 21
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 27
+                        }
+                      },
+                      "content": 19
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "content": "Mixin base type should be the same as parent base type: arrays should contain array mixins."
+    }
+  ]
+}
