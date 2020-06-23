@@ -296,19 +296,17 @@ module.exports = (Parsers) => {
         curNode = curNode.next;
       }
 
-      if (newChildren.length > 0) {
-        let childNode = parentNode.firstChild;
+      let childNode = parentNode.firstChild;
 
-        while (childNode) {
-          const nextNode = childNode.next;
-          childNode.unlink();
-          childNode = nextNode;
-        }
-
-        newChildren.forEach((child) => {
-          parentNode.appendChild(child);
-        });
+      while (childNode) {
+        const nextNode = childNode.next;
+        childNode.unlink();
+        childNode = nextNode;
       }
+
+      newChildren.forEach((child) => {
+        parentNode.appendChild(child);
+      });
     },
   };
   return true;
