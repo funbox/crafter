@@ -141,24 +141,15 @@ class DataStructureProcessor {
         arrayMembers.push(...childResult.members);
       } else if (this.Parsers.MSONMixinParser.sectionType(curNode, context) !== SectionTypes.undefined) {
         [nextNode, childResult] = this.Parsers.MSONMixinParser.parse(curNode, context);
-        const baseType = context.typeResolver.types[childResult.className];
-        if (baseType && !baseType.isComplex()) {
-          const mixinSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-          context.addWarning('Mixin may not include a type of a primitive sub-type', mixinSourceMap);
-          childResult = null;
-        }
 
-        if (baseType && baseType instanceof SchemaNamedTypeElement) {
-          const mixinSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-          throw new utils.CrafterError('Mixin may not include a schema named type', mixinSourceMap);
-        }
+        const isMixinValid = validateMixin(
+          childResult,
+          curNode,
+          context,
+          (mixinElement) => (mixinElement.isArray() ? [true, ''] : [false, 'arrays should contain array mixins']),
+        );
 
-        if (baseType && !baseType.isArray()) {
-          const mixinSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-          throw new utils.CrafterError('Mixin base type should be the same as parent base type: arrays should contain array mixins.', mixinSourceMap);
-        }
-
-        if (childResult) {
+        if (isMixinValid) {
           arrayMembers.push(childResult);
         }
       } else {
@@ -236,21 +227,16 @@ class DataStructureProcessor {
         }
         case SectionTypes.msonMixin: {
           [nextNode, childResult] = this.Parsers.MSONMixinParser.parse(curNode, context);
-          const baseType = context.typeResolver.types[childResult.className];
-          if (baseType && !baseType.isComplex()) {
-            const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-            context.addWarning('Mixin may not include a type of a primitive sub-type', sourceMap);
+
+          const isMixinValid = validateMixin(
+            childResult,
+            curNode,
+            context,
+            (mixinElement) => (mixinElement.isObject() ? [true, ''] : [false, 'objects should contain object mixins']),
+          );
+
+          if (!isMixinValid) {
             childResult = null;
-          }
-
-          if (baseType && baseType instanceof SchemaNamedTypeElement) {
-            const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-            throw new utils.CrafterError('Mixin may not include a schema named type', sourceMap);
-          }
-
-          if (baseType && !baseType.isObject()) {
-            const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-            throw new utils.CrafterError('Mixin base type should be the same as parent base type: objects should contain object mixins.', sourceMap);
           }
           break;
         }
@@ -313,25 +299,19 @@ class DataStructureProcessor {
           break;
         case SectionTypes.msonMixin: {
           [nextNode, childResult] = this.Parsers.MSONMixinParser.parse(curNode, context);
-          const baseType = context.typeResolver.types[childResult.className];
-          if (baseType && !baseType.isComplex()) {
-            const mixinSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-            context.addWarning('Mixin may not include a type of a primitive sub-type', mixinSourceMap);
+
+          const isMixinValid = validateMixin(
+            childResult,
+            curNode,
+            context,
+            (mixinElement) => (mixinElement.isEnum() ? [true, ''] : [false, 'enums should contain enum mixins']),
+          );
+
+          if (isMixinValid) {
+            enumElement.members.push(childResult);
+          } else {
             childResult = null;
           }
-
-          if (baseType && baseType instanceof SchemaNamedTypeElement) {
-            const mixinSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-            throw new utils.CrafterError('Mixin may not include a schema named type', mixinSourceMap);
-          }
-
-          if (baseType && !baseType.isEnum()) {
-            const mixinSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-            throw new utils.CrafterError('Mixin base type should be the same as parent base type: enums should contain enum mixins.', mixinSourceMap);
-          }
-
-          enumElement.members.push(childResult);
-          childResult = null;
           break;
         }
         case SectionTypes.defaultValue:
@@ -429,3 +409,28 @@ class DataStructureProcessor {
 }
 
 module.exports = DataStructureProcessor;
+
+function validateMixin(mixinElement, curNode, context, checkMixinType) {
+  const baseType = context.typeResolver.types[mixinElement.className];
+
+  if (!baseType) return true;
+
+  if (!baseType.isComplex()) {
+    const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+    context.addWarning('Mixin may not include a type of a primitive sub-type', sourceMap);
+    return false;
+  }
+
+  if (baseType instanceof SchemaNamedTypeElement) {
+    const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+    throw new utils.CrafterError('Mixin may not include a schema named type', sourceMap);
+  }
+
+  const [typeCheckPassed, typeCheckDetails] = checkMixinType(baseType);
+
+  if (!typeCheckPassed) {
+    const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+    throw new utils.CrafterError(`Mixin base type should be the same as parent base type: ${typeCheckDetails}.`, sourceMap);
+  }
+  return true;
+}
