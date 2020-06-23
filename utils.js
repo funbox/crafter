@@ -679,6 +679,20 @@ const utils = {
     return new StringElement(str, sourceMap);
   },
 
+  preparePrototypes(rawPrototypes, context, sourceMap) {
+    if (context.languageServerMode) {
+      return rawPrototypes.filter(p => context.resourcePrototypeResolver.prototypes[p]);
+    }
+
+    rawPrototypes.forEach(prototype => {
+      if (!context.resourcePrototypeResolver.prototypes[prototype]) {
+        throw new utils.CrafterError(`Unknown resource prototype "${prototype}"`, sourceMap);
+      }
+    });
+
+    return rawPrototypes;
+  },
+
   CrafterError,
 
   SignatureError,

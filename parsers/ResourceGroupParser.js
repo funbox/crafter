@@ -12,18 +12,14 @@ module.exports = (Parsers) => {
 
       const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
       const [matchData, matchDataIndexes] = utils.matchStringToRegex(subject, GroupHeaderRegex);
-      const prototypes = matchData[3] ? matchData[3].split(',').map(p => p.trim()) : [];
+      const rawPrototypes = matchData[3] ? matchData[3].split(',').map(p => p.trim()) : [];
       const title = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
       const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       const result = new ResourceGroupElement(title, sourceMap);
 
       context.data.groupSignatureDetails = { sourceMap };
 
-      prototypes.forEach(prototype => {
-        if (!context.resourcePrototypeResolver.prototypes[prototype]) {
-          throw new utils.CrafterError(`Unknown resource prototype "${prototype}"`, sourceMap);
-        }
-      });
+      const prototypes = utils.preparePrototypes(rawPrototypes, context, sourceMap);
 
       context.resourcePrototypes.push(prototypes);
       return [utils.nextNode(node), result];

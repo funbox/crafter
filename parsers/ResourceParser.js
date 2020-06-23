@@ -54,13 +54,8 @@ module.exports = (Parsers) => {
 
       const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
-      const prototypes = protoNames ? protoNames.split(',').map(p => p.trim()) : [];
-
-      prototypes.forEach(prototype => {
-        if (!context.resourcePrototypeResolver.prototypes[prototype]) {
-          throw new utils.CrafterError(`Unknown resource prototype "${prototype}"`, sourceMap);
-        }
-      });
+      const rawPrototypes = protoNames ? protoNames.split(',').map(p => p.trim()) : [];
+      const prototypes = utils.preparePrototypes(rawPrototypes, context, sourceMap);
 
       context.resourcePrototypes.push(prototypes);
 
