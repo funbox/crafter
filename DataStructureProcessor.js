@@ -143,13 +143,13 @@ class DataStructureProcessor {
         [nextNode, childResult] = this.Parsers.MSONMixinParser.parse(curNode, context);
         const baseType = context.typeResolver.types[childResult.className];
         if (baseType && !baseType.isComplex()) {
-          const mixinSourceMap = utils.makeGenericSourceMap(childResult, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+          const mixinSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
           context.addWarning('Mixin may not include a type of a primitive sub-type', mixinSourceMap);
           childResult = null;
         }
 
         if (baseType && baseType instanceof SchemaNamedTypeElement) {
-          const mixinSourceMap = utils.makeGenericSourceMap(childResult, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+          const mixinSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
           throw new utils.CrafterError('Mixin may not include a schema named type', mixinSourceMap);
         }
         if (childResult) {
@@ -304,13 +304,13 @@ class DataStructureProcessor {
           [nextNode, childResult] = this.Parsers.MSONMixinParser.parse(curNode, context);
           const baseType = context.typeResolver.types[childResult.className];
           if (baseType && !baseType.isComplex()) {
-            const mixinSourceMap = utils.makeGenericSourceMap(childResult, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+            const mixinSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
             context.addWarning('Mixin may not include a type of a primitive sub-type', mixinSourceMap);
             childResult = null;
           }
 
           if (baseType && baseType instanceof SchemaNamedTypeElement) {
-            const mixinSourceMap = utils.makeGenericSourceMap(childResult, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+            const mixinSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
             throw new utils.CrafterError('Mixin may not include a schema named type', mixinSourceMap);
           }
           enumElement.members.push(childResult);
