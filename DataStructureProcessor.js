@@ -152,6 +152,12 @@ class DataStructureProcessor {
           const mixinSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
           throw new utils.CrafterError('Mixin may not include a schema named type', mixinSourceMap);
         }
+
+        if (baseType && !baseType.isArray()) {
+          const mixinSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+          throw new utils.CrafterError('Mixin base type should be the same as parent base type: arrays should contain array mixins.', mixinSourceMap);
+        }
+
         if (childResult) {
           arrayMembers.push(childResult);
         }
@@ -241,6 +247,11 @@ class DataStructureProcessor {
             const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
             throw new utils.CrafterError('Mixin may not include a schema named type', sourceMap);
           }
+
+          if (baseType && !baseType.isObject()) {
+            const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+            throw new utils.CrafterError('Mixin base type should be the same as parent base type: objects should contain object mixins.', sourceMap);
+          }
           break;
         }
         case SectionTypes.oneOfType:
@@ -313,6 +324,12 @@ class DataStructureProcessor {
             const mixinSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
             throw new utils.CrafterError('Mixin may not include a schema named type', mixinSourceMap);
           }
+
+          if (baseType && !baseType.isEnum()) {
+            const mixinSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+            throw new utils.CrafterError('Mixin base type should be the same as parent base type: enums should contain enum mixins.', mixinSourceMap);
+          }
+
           enumElement.members.push(childResult);
           childResult = null;
           break;
