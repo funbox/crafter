@@ -291,9 +291,6 @@ module.exports = (Parsers) => {
             }
           }
         } else {
-          if (curNode.firstChild) {
-            await this.resolveImports(curNode.firstChild, context, usedFiles);
-          }
           newChildren.push(curNode);
         }
         curNode = curNode.next;
