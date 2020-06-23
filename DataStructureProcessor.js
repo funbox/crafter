@@ -493,6 +493,8 @@ class DataStructureProcessor {
 module.exports = DataStructureProcessor;
 
 function validateMixin(mixinElement, curNode, context, checkMixinType) {
+  if (context.languageServerMode) return true;
+
   const baseType = context.typeResolver.types[mixinElement.className];
 
   if (!baseType) return true;
