@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.58.0 (08.07.2020)
+
+* Improve `README.md`.
+
 ## 1.57.0 (08.07.2020)
 
 * Improve attributes overriding and precedence.
