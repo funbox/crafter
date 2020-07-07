@@ -22,9 +22,9 @@ function parse(source, contextOptions, callback) {
   const options = getOptions(contextOptions, {});
   try {
     const result = parseSync(source, options);
-    callback(undefined, result);
+    setTimeout(callback, 0, undefined, result);
   } catch (error) {
-    callback(error);
+    setTimeout(callback, 0, error);
   }
 }
 
@@ -33,9 +33,9 @@ function parseFile(file, contextOptions, callback) {
   const options = getOptions(contextOptions, {});
   try {
     const result = parseFileSync(file, options);
-    callback(undefined, result);
+    setTimeout(callback, 0, undefined, result);
   } catch (error) {
-    callback(error);
+    setTimeout(callback, 0, error);
   }
 }
 
