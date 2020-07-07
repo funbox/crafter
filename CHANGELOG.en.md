@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.54.4 (07.07.2020)
+
+* Call callback in Crafter.parse only once.
+
 ## 1.54.3 (22.06.2020)
 
 * Fix imports processing inside of an imported file.
