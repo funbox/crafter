@@ -283,6 +283,10 @@ class ValueMemberElement {
       const [contentSchema, contentUsedTypes] = this.content.getSchema(dataTypes, flags, newTypesChain);
       usedTypes.push(...contentUsedTypes);
 
+      if (typeEl) {
+        schema = accountPrecedence(schema, typeEl, this.content);
+      }
+
       if (!schema.$ref) {
         schema = utils.mergeSchemas(schema, contentSchema);
       } else if (this.isObject() && !this.isRecursive(namedTypesChain)) {
@@ -326,7 +330,7 @@ class ValueMemberElement {
     }
 
     if (flags.isFixed && !this.isSample && this.value != null) {
-      schema.enum = [this.value];
+      schema.enum = flags.isNullable ? [this.value, null] : [this.value];
     }
 
     if ((flags.isFixed || flags.isFixedType) && !types.nonObjectTypes.includes(schema.type)) {
@@ -403,6 +407,34 @@ function getRecursionDepth(namedTypesChain) {
   }
 
   return 0;
+}
+
+/**
+ *
+ * @param {Object} schema
+ * @param {ValueMemberElement} typeEl
+ * @param {ObjectElement|EnumElement|ArrayElement} content
+ * @return {Object}
+ */
+function accountPrecedence(schema, typeEl, content) {
+  if (schema.type !== 'object') {
+    return schema;
+  }
+  const schemaRequiredProperties = schema.required || [];
+  const contentOptionalProperties = content.getOptionalMembers().map(member => member.name.string);
+  const contentRequiredProperties = content.getRequiredMembers().map(member => member.name.string);
+
+  delete schema.required;
+
+  const updatedSchemaRequiredProperties = schemaRequiredProperties
+    .filter(prop => !contentOptionalProperties.includes(prop))
+    .concat(contentRequiredProperties);
+
+  if (updatedSchemaRequiredProperties.length > 0) {
+    schema.required = [...new Set(updatedSchemaRequiredProperties)];
+  }
+
+  return schema;
 }
 
 module.exports = ValueMemberElement;
