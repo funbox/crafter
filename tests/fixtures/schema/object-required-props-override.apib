@@ -1,0 +1,29 @@
+# My API
+
+Defines attributes `person1` and `person2` which inherit from fixed-type base structure and have nested nested properties.
+These properties identify themselves as optional.
+Thus, the resulting json schema for `person1` should have only `first_name` and `id` as required properties (`last_name` is optional).
+The resulting json schema for `person2` should not have any required property, since both properties defined as optional.
+
+# Data Structures
+
+## Person (object, fixed-type)
+
++ `first_name` (string)
++ `last_name` (string)
++ `id` (string)
+
+## Person 2 (object, fixed-type)
+
++ `first_name` (string)
++ `last_name` (string)
+
+# Get user [GET /user]
+
++ Response 200 (application/json)
+    + Attributes
+        + person1 (Person)
+            + `last_name` (optional)
+        + person2 (Person 2)
+            + `first_name` (optional)
+            + `last_name` (optional)

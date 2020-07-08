@@ -1,0 +1,29 @@
+# My API
+
+Defines cases where attributes of fixed-structure type "Person" are being overridden by nested attributes.
+
+For the first case "Response 200", value of `last_name` should be an enumeration of "test" and "null" and value
+of `middle_name` should be an enumeration of "another" (not "test").
+
+For the second case "Response 300" all the same rules should be applicable.
+
+# Data Structures
+
+### Person (object, fixed)
+
++ `first_name`: `test` (string)
++ `last_name`: `test` (string)
++ `middle_name`: `test` (string)
+
+# Get user [GET /user]
+
++ Response 200 (application/json)
+    + Attributes
+        + person (Person)
+            + `last_name`: `test` (string, nullable)
+            + `middle_name`: `another` (string)
+
++ Response 300 (application/json)
+    + Attributes(Person)
+        + `last_name`: `test` (string, nullable)
+        + `middle_name`: `another` (string)
