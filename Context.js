@@ -157,6 +157,11 @@ function getLinefeedOffsets(source) {
       offsets.push(i);
     }
   }
+
+  if (source[source.length - 1] !== '\n') {
+    offsets.push(source.length);
+  }
+
   return offsets;
 }
 

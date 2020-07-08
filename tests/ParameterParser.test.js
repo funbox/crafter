@@ -54,9 +54,9 @@ describe('ParameterParser', () => {
           {
             offset: 0,
             length: 35,
-            startLine: 0,
+            startLine: 1,
             startColumn: 1,
-            endLine: 0,
+            endLine: 1,
             endColumn: 35,
           },
         ],
