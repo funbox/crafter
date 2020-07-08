@@ -6,6 +6,8 @@ const SampleValueElement = require('./parsers/elements/SampleValueElement');
 const DefaultValueElement = require('./parsers/elements/DefaultValueElement');
 const ValueMemberElement = require('./parsers/elements/ValueMemberElement');
 
+const typeAttrsToPropagate = ['fixed', 'fixedType'];
+
 const ValueMemberProcessor = {
   fillBaseType(context, element, isProperty) {
     if (!element.isStandardType()) {
@@ -21,11 +23,15 @@ const ValueMemberProcessor = {
     const { value } = element;
     let sampleElements = [];
     let defaultElements = [];
+    let backPropagatedTypeAttributes = [];
 
     if (!element.isStandardType()) {
       const namedElement = context.typeResolver.types[element.type];
       sampleElements = sampleElements.concat(namedElement.samples || []);
       defaultElements = defaultElements.concat(namedElement.default ? [namedElement.default] : []);
+      backPropagatedTypeAttributes = backPropagatedTypeAttributes.concat(
+        Array.isArray(namedElement.typeAttributes) ? namedElement.typeAttributes.filter(attr => typeAttrsToPropagate.includes(attr)) : [],
+      );
     }
 
     if (value != null) {
@@ -66,6 +72,8 @@ const ValueMemberProcessor = {
     }
 
     element.value = convertType(value, element.baseType).value;
+
+    return backPropagatedTypeAttributes;
   },
 };
 

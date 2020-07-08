@@ -36,20 +36,14 @@ module.exports = (Parsers) => {
         descriptionEl = new StringElement(signature.description);
       }
 
-      const propertyTypeAttributes = [];
-      const valueTypeAttributes = [];
-
-      signature.typeAttributes.forEach((attr) => {
-        if (Array.isArray(attr) && valueAttributes.includes(attr[0])) {
-          valueTypeAttributes.push(attr);
-        } else {
-          propertyTypeAttributes.push(attr);
-        }
-      });
+      const [propertyTypeAttributes, valueTypeAttributes] = splitTypeAttributes(signature.typeAttributes);
 
       const valueEl = new ValueMemberElement(signature.type, valueTypeAttributes, signature.value, '', signature.isSample, signature.isDefault);
       valueEl.sourceMap = sourceMap;
-      ValueMemberProcessor.fillBaseType(context, valueEl, true);
+      const backPropagatedTypeAttributes = ValueMemberProcessor.fillBaseType(context, valueEl, true);
+      const [propagatedTypeAttributes] = splitTypeAttributes(backPropagatedTypeAttributes);
+      propertyTypeAttributes.push(...propagatedTypeAttributes.filter(attr => !propertyTypeAttributes.includes(attr)));
+
       name.sourceMap = sourceMap;
       if (descriptionEl) {
         descriptionEl.sourceMap = utils.makeSourceMapForLine(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
@@ -183,3 +177,17 @@ module.exports = (Parsers) => {
   });
   return true;
 };
+
+function splitTypeAttributes(typeAttrs) {
+  const propertyTypeAttributes = [];
+  const valueTypeAttributes = [];
+
+  typeAttrs.forEach((attr) => {
+    if (Array.isArray(attr) && valueAttributes.includes(attr[0])) {
+      valueTypeAttributes.push(attr);
+    } else {
+      propertyTypeAttributes.push(attr);
+    }
+  });
+  return [propertyTypeAttributes, valueTypeAttributes];
+}

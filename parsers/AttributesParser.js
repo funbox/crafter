@@ -38,8 +38,10 @@ module.exports = (Parsers) => {
         context.data.startOffset = text.length - signature.rest.length;
       }
 
-      const memberEl = new ValueMemberElement(signature.type, signature.typeAttributes);
-      ValueMemberProcessor.fillBaseType(context, memberEl);
+      const memberEl = new ValueMemberElement(signature.type);
+      const backPropagatedTypeAttributes = ValueMemberProcessor.fillBaseType(context, memberEl);
+
+      memberEl.typeAttributes = [...new Set(signature.typeAttributes.concat(backPropagatedTypeAttributes))];
 
       memberEl.sourceMap = sourceMap;
       let nextNode = signature.rest ? node.firstChild : node.firstChild.next;
