@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.56.0 (08.07.2020)
+
+* Check type of included mixins.
+
 ## 1.55.0 (08.07.2020)
 
 * Add the ability to use Include in arrays and enums.
