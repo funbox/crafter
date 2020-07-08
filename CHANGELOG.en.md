@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.57.0 (08.07.2020)
+
+* Improve attributes overriding and precedence.
+
 ## 1.56.0 (08.07.2020)
 
 * Check type of included mixins.
