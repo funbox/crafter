@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.55.0 (08.07.2020)
+
+* Add the ability to use Include in arrays and enums.
+
 ## 1.54.4 (07.07.2020)
 
 * Call callback in Crafter.parse only once.
