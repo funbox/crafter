@@ -116,12 +116,6 @@
               "content": [
                 {
                   "element": "transition",
-                  "meta": {
-                    "title": {
-                      "element": "string",
-                      "content": "Users"
-                    }
-                  },
                   "content": [
                     {
                       "element": "httpTransaction",
@@ -199,6 +193,12 @@
                       ]
                     }
                   ],
+                  "meta": {
+                    "title": {
+                      "element": "string",
+                      "content": "Users"
+                    }
+                  },
                   "attributes": {
                     "href": {
                       "element": "string",

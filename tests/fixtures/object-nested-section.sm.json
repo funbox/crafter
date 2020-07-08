@@ -527,37 +527,6 @@
           "content": [
             {
               "element": "transition",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Get user",
-                  "attributes": {
-                    "sourceMap": {
-                      "element": "array",
-                      "content": [
-                        {
-                          "element": "sourceMap",
-                          "content": [
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 218
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 24
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  }
-                }
-              },
               "content": [
                 {
                   "element": "httpTransaction",
@@ -775,6 +744,37 @@
                   ]
                 }
               ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Get user",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 218
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 24
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
               "attributes": {
                 "href": {
                   "element": "string",

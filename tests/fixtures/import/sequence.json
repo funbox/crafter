@@ -40,12 +40,6 @@
           "content": [
             {
               "element": "transition",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Get user"
-                }
-              },
               "content": [
                 {
                   "element": "httpTransaction",
@@ -73,6 +67,12 @@
                   ]
                 }
               ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Get user"
+                }
+              },
               "attributes": {
                 "href": {
                   "element": "string",
@@ -82,12 +82,6 @@
             },
             {
               "element": "transition",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Save user"
-                }
-              },
               "content": [
                 {
                   "element": "httpTransaction",
@@ -115,6 +109,12 @@
                   ]
                 }
               ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Save user"
+                }
+              },
               "attributes": {
                 "href": {
                   "element": "string",
@@ -124,12 +124,6 @@
             },
             {
               "element": "transition",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Delete user"
-                }
-              },
               "content": [
                 {
                   "element": "httpTransaction",
@@ -157,6 +151,12 @@
                   ]
                 }
               ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Delete user"
+                }
+              },
               "attributes": {
                 "href": {
                   "element": "string",

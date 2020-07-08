@@ -40,12 +40,6 @@
           "content": [
             {
               "element": "transition",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Создать шаблон отчета с указанными параметрами"
-                }
-              },
               "content": [
                 {
                   "element": "httpTransaction",
@@ -328,6 +322,12 @@
                   ]
                 }
               ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Создать шаблон отчета с указанными параметрами"
+                }
+              },
               "attributes": {
                 "href": {
                   "element": "string",

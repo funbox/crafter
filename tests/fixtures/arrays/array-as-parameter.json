@@ -58,12 +58,6 @@
               "content": [
                 {
                   "element": "transition",
-                  "meta": {
-                    "title": {
-                      "element": "string",
-                      "content": "Запрос списка заявок"
-                    }
-                  },
                   "content": [
                     {
                       "element": "httpTransaction",
@@ -109,6 +103,12 @@
                       ]
                     }
                   ],
+                  "meta": {
+                    "title": {
+                      "element": "string",
+                      "content": "Запрос списка заявок"
+                    }
+                  },
                   "attributes": {
                     "href": {
                       "element": "string",

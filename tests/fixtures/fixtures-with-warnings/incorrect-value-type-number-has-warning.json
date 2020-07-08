@@ -145,12 +145,6 @@
           "content": [
             {
               "element": "transition",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Request"
-                }
-              },
               "content": [
                 {
                   "element": "httpTransaction",
@@ -753,7 +747,13 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Request"
+                }
+              }
             }
           ]
         }

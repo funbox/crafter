@@ -416,37 +416,6 @@
               "content": [
                 {
                   "element": "transition",
-                  "meta": {
-                    "title": {
-                      "element": "string",
-                      "content": "List all users",
-                      "attributes": {
-                        "sourceMap": {
-                          "element": "array",
-                          "content": [
-                            {
-                              "element": "sourceMap",
-                              "content": [
-                                {
-                                  "element": "array",
-                                  "content": [
-                                    {
-                                      "element": "number",
-                                      "content": 345
-                                    },
-                                    {
-                                      "element": "number",
-                                      "content": 26
-                                    }
-                                  ]
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      }
-                    }
-                  },
                   "content": [
                     {
                       "element": "httpTransaction",
@@ -646,7 +615,38 @@
                         }
                       ]
                     }
-                  ]
+                  ],
+                  "meta": {
+                    "title": {
+                      "element": "string",
+                      "content": "List all users",
+                      "attributes": {
+                        "sourceMap": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "sourceMap",
+                              "content": [
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "number",
+                                      "content": 345
+                                    },
+                                    {
+                                      "element": "number",
+                                      "content": 26
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
                 }
               ]
             },
@@ -717,37 +717,6 @@
               "content": [
                 {
                   "element": "transition",
-                  "meta": {
-                    "title": {
-                      "element": "string",
-                      "content": "List all profiles",
-                      "attributes": {
-                        "sourceMap": {
-                          "element": "array",
-                          "content": [
-                            {
-                              "element": "sourceMap",
-                              "content": [
-                                {
-                                  "element": "array",
-                                  "content": [
-                                    {
-                                      "element": "number",
-                                      "content": 412
-                                    },
-                                    {
-                                      "element": "number",
-                                      "content": 29
-                                    }
-                                  ]
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      }
-                    }
-                  },
                   "content": [
                     {
                       "element": "httpTransaction",
@@ -897,7 +866,38 @@
                         }
                       ]
                     }
-                  ]
+                  ],
+                  "meta": {
+                    "title": {
+                      "element": "string",
+                      "content": "List all profiles",
+                      "attributes": {
+                        "sourceMap": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "sourceMap",
+                              "content": [
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "number",
+                                      "content": 412
+                                    },
+                                    {
+                                      "element": "number",
+                                      "content": 29
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
                 }
               ]
             }

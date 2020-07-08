@@ -416,37 +416,6 @@
               "content": [
                 {
                   "element": "transition",
-                  "meta": {
-                    "title": {
-                      "element": "string",
-                      "content": "List all users",
-                      "attributes": {
-                        "sourceMap": {
-                          "element": "array",
-                          "content": [
-                            {
-                              "element": "sourceMap",
-                              "content": [
-                                {
-                                  "element": "array",
-                                  "content": [
-                                    {
-                                      "element": "number",
-                                      "content": 251
-                                    },
-                                    {
-                                      "element": "number",
-                                      "content": 26
-                                    }
-                                  ]
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      }
-                    }
-                  },
                   "content": [
                     {
                       "element": "httpTransaction",
@@ -596,7 +565,38 @@
                         }
                       ]
                     }
-                  ]
+                  ],
+                  "meta": {
+                    "title": {
+                      "element": "string",
+                      "content": "List all users",
+                      "attributes": {
+                        "sourceMap": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "sourceMap",
+                              "content": [
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "number",
+                                      "content": 251
+                                    },
+                                    {
+                                      "element": "number",
+                                      "content": 26
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
                 }
               ]
             }
@@ -741,37 +741,6 @@
               "content": [
                 {
                   "element": "transition",
-                  "meta": {
-                    "title": {
-                      "element": "string",
-                      "content": "List all comments",
-                      "attributes": {
-                        "sourceMap": {
-                          "element": "array",
-                          "content": [
-                            {
-                              "element": "sourceMap",
-                              "content": [
-                                {
-                                  "element": "array",
-                                  "content": [
-                                    {
-                                      "element": "number",
-                                      "content": 395
-                                    },
-                                    {
-                                      "element": "number",
-                                      "content": 29
-                                    }
-                                  ]
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      }
-                    }
-                  },
                   "content": [
                     {
                       "element": "httpTransaction",
@@ -921,7 +890,38 @@
                         }
                       ]
                     }
-                  ]
+                  ],
+                  "meta": {
+                    "title": {
+                      "element": "string",
+                      "content": "List all comments",
+                      "attributes": {
+                        "sourceMap": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "sourceMap",
+                              "content": [
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "number",
+                                      "content": 395
+                                    },
+                                    {
+                                      "element": "number",
+                                      "content": 29
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
                 }
               ]
             }

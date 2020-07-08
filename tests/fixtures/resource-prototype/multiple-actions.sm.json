@@ -293,37 +293,6 @@
               "content": [
                 {
                   "element": "transition",
-                  "meta": {
-                    "title": {
-                      "element": "string",
-                      "content": "List all users",
-                      "attributes": {
-                        "sourceMap": {
-                          "element": "array",
-                          "content": [
-                            {
-                              "element": "sourceMap",
-                              "content": [
-                                {
-                                  "element": "array",
-                                  "content": [
-                                    {
-                                      "element": "number",
-                                      "content": 189
-                                    },
-                                    {
-                                      "element": "number",
-                                      "content": 26
-                                    }
-                                  ]
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      }
-                    }
-                  },
                   "content": [
                     {
                       "element": "httpTransaction",
@@ -473,14 +442,11 @@
                         }
                       ]
                     }
-                  ]
-                },
-                {
-                  "element": "transition",
+                  ],
                   "meta": {
                     "title": {
                       "element": "string",
-                      "content": "Add new user",
+                      "content": "List all users",
                       "attributes": {
                         "sourceMap": {
                           "element": "array",
@@ -493,11 +459,11 @@
                                   "content": [
                                     {
                                       "element": "number",
-                                      "content": 231
+                                      "content": 189
                                     },
                                     {
                                       "element": "number",
-                                      "content": 25
+                                      "content": 26
                                     }
                                   ]
                                 }
@@ -507,7 +473,10 @@
                         }
                       }
                     }
-                  },
+                  }
+                },
+                {
+                  "element": "transition",
                   "content": [
                     {
                       "element": "httpTransaction",
@@ -657,7 +626,38 @@
                         }
                       ]
                     }
-                  ]
+                  ],
+                  "meta": {
+                    "title": {
+                      "element": "string",
+                      "content": "Add new user",
+                      "attributes": {
+                        "sourceMap": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "sourceMap",
+                              "content": [
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "number",
+                                      "content": 231
+                                    },
+                                    {
+                                      "element": "number",
+                                      "content": 25
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
                 }
               ]
             }

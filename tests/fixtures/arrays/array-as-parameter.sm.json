@@ -183,37 +183,6 @@
               "content": [
                 {
                   "element": "transition",
-                  "meta": {
-                    "title": {
-                      "element": "string",
-                      "content": "Запрос списка заявок",
-                      "attributes": {
-                        "sourceMap": {
-                          "element": "array",
-                          "content": [
-                            {
-                              "element": "sourceMap",
-                              "content": [
-                                {
-                                  "element": "array",
-                                  "content": [
-                                    {
-                                      "element": "number",
-                                      "content": 229
-                                    },
-                                    {
-                                      "element": "number",
-                                      "content": 90
-                                    }
-                                  ]
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      }
-                    }
-                  },
                   "content": [
                     {
                       "element": "httpTransaction",
@@ -357,6 +326,37 @@
                       ]
                     }
                   ],
+                  "meta": {
+                    "title": {
+                      "element": "string",
+                      "content": "Запрос списка заявок",
+                      "attributes": {
+                        "sourceMap": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "sourceMap",
+                              "content": [
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "number",
+                                      "content": 229
+                                    },
+                                    {
+                                      "element": "number",
+                                      "content": 90
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
                   "attributes": {
                     "href": {
                       "element": "string",

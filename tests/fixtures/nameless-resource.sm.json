@@ -158,37 +158,6 @@
               "content": [
                 {
                   "element": "transition",
-                  "meta": {
-                    "title": {
-                      "element": "string",
-                      "content": "Get subscription status",
-                      "attributes": {
-                        "sourceMap": {
-                          "element": "array",
-                          "content": [
-                            {
-                              "element": "sourceMap",
-                              "content": [
-                                {
-                                  "element": "array",
-                                  "content": [
-                                    {
-                                      "element": "number",
-                                      "content": 125
-                                    },
-                                    {
-                                      "element": "number",
-                                      "content": 35
-                                    }
-                                  ]
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      }
-                    }
-                  },
                   "content": [
                     {
                       "element": "httpTransaction",
@@ -331,7 +300,38 @@
                         }
                       ]
                     }
-                  ]
+                  ],
+                  "meta": {
+                    "title": {
+                      "element": "string",
+                      "content": "Get subscription status",
+                      "attributes": {
+                        "sourceMap": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "sourceMap",
+                              "content": [
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "number",
+                                      "content": 125
+                                    },
+                                    {
+                                      "element": "number",
+                                      "content": 35
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
                 }
               ]
             }

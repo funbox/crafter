@@ -907,37 +907,6 @@
               "content": [
                 {
                   "element": "transition",
-                  "meta": {
-                    "title": {
-                      "element": "string",
-                      "content": "Получить список всех групп сотрудников",
-                      "attributes": {
-                        "sourceMap": {
-                          "element": "array",
-                          "content": [
-                            {
-                              "element": "sourceMap",
-                              "content": [
-                                {
-                                  "element": "array",
-                                  "content": [
-                                    {
-                                      "element": "number",
-                                      "content": 825
-                                    },
-                                    {
-                                      "element": "number",
-                                      "content": 84
-                                    }
-                                  ]
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      }
-                    }
-                  },
                   "content": [
                     {
                       "element": "httpTransaction",
@@ -1466,6 +1435,37 @@
                       ]
                     }
                   ],
+                  "meta": {
+                    "title": {
+                      "element": "string",
+                      "content": "Получить список всех групп сотрудников",
+                      "attributes": {
+                        "sourceMap": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "sourceMap",
+                              "content": [
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "number",
+                                      "content": 825
+                                    },
+                                    {
+                                      "element": "number",
+                                      "content": 84
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
                   "attributes": {
                     "hrefVariables": {
                       "element": "hrefVariables",

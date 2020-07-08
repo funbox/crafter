@@ -40,12 +40,6 @@
           "content": [
             {
               "element": "transition",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "List"
-                }
-              },
               "content": [
                 {
                   "element": "httpTransaction",
@@ -203,7 +197,13 @@
                     }
                   ]
                 }
-              ]
+              ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "List"
+                }
+              }
             }
           ]
         }

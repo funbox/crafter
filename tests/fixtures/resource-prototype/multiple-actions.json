@@ -95,12 +95,67 @@
               "content": [
                 {
                   "element": "transition",
+                  "content": [
+                    {
+                      "element": "httpTransaction",
+                      "content": [
+                        {
+                          "element": "httpRequest",
+                          "attributes": {
+                            "method": {
+                              "element": "string",
+                              "content": "GET"
+                            }
+                          },
+                          "content": []
+                        },
+                        {
+                          "element": "httpResponse",
+                          "content": [],
+                          "attributes": {
+                            "statusCode": {
+                              "element": "number",
+                              "content": 200
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "element": "httpTransaction",
+                      "content": [
+                        {
+                          "element": "httpRequest",
+                          "attributes": {
+                            "method": {
+                              "element": "string",
+                              "content": "GET"
+                            }
+                          },
+                          "content": []
+                        },
+                        {
+                          "element": "httpResponse",
+                          "content": [],
+                          "attributes": {
+                            "statusCode": {
+                              "element": "number",
+                              "content": 404
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ],
                   "meta": {
                     "title": {
                       "element": "string",
                       "content": "List all users"
                     }
-                  },
+                  }
+                },
+                {
+                  "element": "transition",
                   "content": [
                     {
                       "element": "httpTransaction",
@@ -110,7 +165,7 @@
                           "attributes": {
                             "method": {
                               "element": "string",
-                              "content": "GET"
+                              "content": "POST"
                             }
                           },
                           "content": []
@@ -135,7 +190,7 @@
                           "attributes": {
                             "method": {
                               "element": "string",
-                              "content": "GET"
+                              "content": "POST"
                             }
                           },
                           "content": []
@@ -152,68 +207,13 @@
                         }
                       ]
                     }
-                  ]
-                },
-                {
-                  "element": "transition",
+                  ],
                   "meta": {
                     "title": {
                       "element": "string",
                       "content": "Add new user"
                     }
-                  },
-                  "content": [
-                    {
-                      "element": "httpTransaction",
-                      "content": [
-                        {
-                          "element": "httpRequest",
-                          "attributes": {
-                            "method": {
-                              "element": "string",
-                              "content": "POST"
-                            }
-                          },
-                          "content": []
-                        },
-                        {
-                          "element": "httpResponse",
-                          "content": [],
-                          "attributes": {
-                            "statusCode": {
-                              "element": "number",
-                              "content": 200
-                            }
-                          }
-                        }
-                      ]
-                    },
-                    {
-                      "element": "httpTransaction",
-                      "content": [
-                        {
-                          "element": "httpRequest",
-                          "attributes": {
-                            "method": {
-                              "element": "string",
-                              "content": "POST"
-                            }
-                          },
-                          "content": []
-                        },
-                        {
-                          "element": "httpResponse",
-                          "content": [],
-                          "attributes": {
-                            "statusCode": {
-                              "element": "number",
-                              "content": 404
-                            }
-                          }
-                        }
-                      ]
-                    }
-                  ]
+                  }
                 }
               ]
             }

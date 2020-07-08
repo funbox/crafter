@@ -40,12 +40,6 @@
           "content": [
             {
               "element": "transition",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Request"
-                }
-              },
               "content": [
                 {
                   "element": "copy",
@@ -144,6 +138,12 @@
                   ]
                 }
               ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Request"
+                }
+              },
               "attributes": {
                 "href": {
                   "element": "string",

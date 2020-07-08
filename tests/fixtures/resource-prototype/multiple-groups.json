@@ -120,12 +120,6 @@
               "content": [
                 {
                   "element": "transition",
-                  "meta": {
-                    "title": {
-                      "element": "string",
-                      "content": "List all users"
-                    }
-                  },
                   "content": [
                     {
                       "element": "httpTransaction",
@@ -177,7 +171,13 @@
                         }
                       ]
                     }
-                  ]
+                  ],
+                  "meta": {
+                    "title": {
+                      "element": "string",
+                      "content": "List all users"
+                    }
+                  }
                 }
               ]
             }
@@ -222,12 +222,6 @@
               "content": [
                 {
                   "element": "transition",
-                  "meta": {
-                    "title": {
-                      "element": "string",
-                      "content": "List all comments"
-                    }
-                  },
                   "content": [
                     {
                       "element": "httpTransaction",
@@ -279,7 +273,13 @@
                         }
                       ]
                     }
-                  ]
+                  ],
+                  "meta": {
+                    "title": {
+                      "element": "string",
+                      "content": "List all comments"
+                    }
+                  }
                 }
               ]
             }

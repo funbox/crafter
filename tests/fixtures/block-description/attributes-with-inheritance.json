@@ -164,12 +164,6 @@
               "content": [
                 {
                   "element": "transition",
-                  "meta": {
-                    "title": {
-                      "element": "string",
-                      "content": "Создать группу сотрудников"
-                    }
-                  },
                   "content": [
                     {
                       "element": "httpTransaction",
@@ -409,6 +403,12 @@
                       ]
                     }
                   ],
+                  "meta": {
+                    "title": {
+                      "element": "string",
+                      "content": "Создать группу сотрудников"
+                    }
+                  },
                   "attributes": {
                     "href": {
                       "element": "string",

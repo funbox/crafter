@@ -58,12 +58,6 @@
               "content": [
                 {
                   "element": "transition",
-                  "meta": {
-                    "title": {
-                      "element": "string",
-                      "content": "List users"
-                    }
-                  },
                   "content": [
                     {
                       "element": "httpTransaction",
@@ -91,6 +85,12 @@
                       ]
                     }
                   ],
+                  "meta": {
+                    "title": {
+                      "element": "string",
+                      "content": "List users"
+                    }
+                  },
                   "attributes": {
                     "href": {
                       "element": "string",
@@ -117,12 +117,6 @@
               "content": [
                 {
                   "element": "transition",
-                  "meta": {
-                    "title": {
-                      "element": "string",
-                      "content": "Get users"
-                    }
-                  },
                   "content": [
                     {
                       "element": "httpTransaction",
@@ -150,6 +144,12 @@
                       ]
                     }
                   ],
+                  "meta": {
+                    "title": {
+                      "element": "string",
+                      "content": "Get users"
+                    }
+                  },
                   "attributes": {
                     "href": {
                       "element": "string",
@@ -176,12 +176,6 @@
               "content": [
                 {
                   "element": "transition",
-                  "meta": {
-                    "title": {
-                      "element": "string",
-                      "content": "Send users"
-                    }
-                  },
                   "content": [
                     {
                       "element": "httpTransaction",
@@ -209,6 +203,12 @@
                       ]
                     }
                   ],
+                  "meta": {
+                    "title": {
+                      "element": "string",
+                      "content": "Send users"
+                    }
+                  },
                   "attributes": {
                     "href": {
                       "element": "string",

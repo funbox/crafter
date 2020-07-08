@@ -140,37 +140,6 @@
           "content": [
             {
               "element": "transition",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Get user",
-                  "attributes": {
-                    "sourceMap": {
-                      "element": "array",
-                      "content": [
-                        {
-                          "element": "sourceMap",
-                          "content": [
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 67
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 25
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  }
-                }
-              },
               "content": [
                 {
                   "element": "httpTransaction",
@@ -271,6 +240,37 @@
                   ]
                 }
               ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Get user",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 67
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 25
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
               "attributes": {
                 "href": {
                   "element": "string",
@@ -305,38 +305,6 @@
             },
             {
               "element": "transition",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Save user",
-                  "attributes": {
-                    "sourceMap": {
-                      "element": "array",
-                      "content": [
-                        {
-                          "element": "sourceMap",
-                          "content": [
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 0
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 27
-                                }
-                              ]
-                            }
-                          ],
-                          "file": "nested/sequence-1-next-inner.apib"
-                        }
-                      ]
-                    }
-                  }
-                }
-              },
               "content": [
                 {
                   "element": "httpTransaction",
@@ -440,6 +408,38 @@
                   ]
                 }
               ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Save user",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 0
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 27
+                                }
+                              ]
+                            }
+                          ],
+                          "file": "nested/sequence-1-next-inner.apib"
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
               "attributes": {
                 "href": {
                   "element": "string",
@@ -475,38 +475,6 @@
             },
             {
               "element": "transition",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Delete user",
-                  "attributes": {
-                    "sourceMap": {
-                      "element": "array",
-                      "content": [
-                        {
-                          "element": "sourceMap",
-                          "content": [
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 0
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 31
-                                }
-                              ]
-                            }
-                          ],
-                          "file": "nested/sequence-2-next-inner.apib"
-                        }
-                      ]
-                    }
-                  }
-                }
-              },
               "content": [
                 {
                   "element": "httpTransaction",
@@ -610,6 +578,38 @@
                   ]
                 }
               ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Delete user",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 0
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 31
+                                }
+                              ]
+                            }
+                          ],
+                          "file": "nested/sequence-2-next-inner.apib"
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
               "attributes": {
                 "href": {
                   "element": "string",

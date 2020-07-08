@@ -58,12 +58,6 @@
               "content": [
                 {
                   "element": "transition",
-                  "meta": {
-                    "title": {
-                      "element": "string",
-                      "content": "Get subscription status"
-                    }
-                  },
                   "content": [
                     {
                       "element": "httpTransaction",
@@ -108,7 +102,13 @@
                         }
                       ]
                     }
-                  ]
+                  ],
+                  "meta": {
+                    "title": {
+                      "element": "string",
+                      "content": "Get subscription status"
+                    }
+                  }
                 }
               ]
             }

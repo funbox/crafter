@@ -58,12 +58,6 @@
               "content": [
                 {
                   "element": "transition",
-                  "meta": {
-                    "title": {
-                      "element": "string",
-                      "content": "List"
-                    }
-                  },
                   "content": [
                     {
                       "element": "httpTransaction",
@@ -130,16 +124,16 @@
                         }
                       ]
                     }
-                  ]
-                },
-                {
-                  "element": "transition",
+                  ],
                   "meta": {
                     "title": {
                       "element": "string",
-                      "content": "Add"
+                      "content": "List"
                     }
-                  },
+                  }
+                },
+                {
+                  "element": "transition",
                   "content": [
                     {
                       "element": "httpTransaction",
@@ -207,6 +201,12 @@
                       ]
                     }
                   ],
+                  "meta": {
+                    "title": {
+                      "element": "string",
+                      "content": "Add"
+                    }
+                  },
                   "attributes": {
                     "href": {
                       "element": "string",

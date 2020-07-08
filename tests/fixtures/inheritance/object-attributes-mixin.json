@@ -158,12 +158,6 @@
           "content": [
             {
               "element": "transition",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Get admin"
-                }
-              },
               "content": [
                 {
                   "element": "httpTransaction",
@@ -270,6 +264,12 @@
                   ]
                 }
               ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Get admin"
+                }
+              },
               "attributes": {
                 "href": {
                   "element": "string",

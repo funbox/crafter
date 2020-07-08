@@ -183,37 +183,6 @@
               "content": [
                 {
                   "element": "transition",
-                  "meta": {
-                    "title": {
-                      "element": "string",
-                      "content": "List",
-                      "attributes": {
-                        "sourceMap": {
-                          "element": "array",
-                          "content": [
-                            {
-                              "element": "sourceMap",
-                              "content": [
-                                {
-                                  "element": "array",
-                                  "content": [
-                                    {
-                                      "element": "number",
-                                      "content": 195
-                                    },
-                                    {
-                                      "element": "number",
-                                      "content": 13
-                                    }
-                                  ]
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      }
-                    }
-                  },
                   "content": [
                     {
                       "element": "httpTransaction",
@@ -427,14 +396,11 @@
                         }
                       ]
                     }
-                  ]
-                },
-                {
-                  "element": "transition",
+                  ],
                   "meta": {
                     "title": {
                       "element": "string",
-                      "content": "Add",
+                      "content": "List",
                       "attributes": {
                         "sourceMap": {
                           "element": "array",
@@ -447,11 +413,11 @@
                                   "content": [
                                     {
                                       "element": "number",
-                                      "content": 332
+                                      "content": 195
                                     },
                                     {
                                       "element": "number",
-                                      "content": 20
+                                      "content": 13
                                     }
                                   ]
                                 }
@@ -461,7 +427,10 @@
                         }
                       }
                     }
-                  },
+                  }
+                },
+                {
+                  "element": "transition",
                   "content": [
                     {
                       "element": "httpTransaction",
@@ -676,6 +645,37 @@
                       ]
                     }
                   ],
+                  "meta": {
+                    "title": {
+                      "element": "string",
+                      "content": "Add",
+                      "attributes": {
+                        "sourceMap": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "sourceMap",
+                              "content": [
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "number",
+                                      "content": 332
+                                    },
+                                    {
+                                      "element": "number",
+                                      "content": 20
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
                   "attributes": {
                     "href": {
                       "element": "string",

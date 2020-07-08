@@ -196,12 +196,6 @@
           "content": [
             {
               "element": "transition",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Запрос"
-                }
-              },
               "content": [
                 {
                   "element": "httpTransaction",
@@ -321,6 +315,12 @@
                   ]
                 }
               ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Запрос"
+                }
+              },
               "attributes": {
                 "href": {
                   "element": "string",

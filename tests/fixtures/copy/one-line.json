@@ -66,12 +66,6 @@
                 },
                 {
                   "element": "transition",
-                  "meta": {
-                    "title": {
-                      "element": "string",
-                      "content": "Create user"
-                    }
-                  },
                   "content": [
                     {
                       "element": "copy",
@@ -288,7 +282,13 @@
                         }
                       ]
                     }
-                  ]
+                  ],
+                  "meta": {
+                    "title": {
+                      "element": "string",
+                      "content": "Create user"
+                    }
+                  }
                 }
               ]
             }

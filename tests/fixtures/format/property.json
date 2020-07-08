@@ -40,12 +40,6 @@
           "content": [
             {
               "element": "transition",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Create schedule"
-                }
-              },
               "content": [
                 {
                   "element": "httpTransaction",
@@ -236,6 +230,12 @@
                   ]
                 }
               ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Create schedule"
+                }
+              },
               "attributes": {
                 "href": {
                   "element": "string",

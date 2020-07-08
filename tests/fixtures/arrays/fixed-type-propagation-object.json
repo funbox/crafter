@@ -93,12 +93,6 @@
           "content": [
             {
               "element": "transition",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Получить местоположения"
-                }
-              },
               "content": [
                 {
                   "element": "httpTransaction",
@@ -223,6 +217,12 @@
                   ]
                 }
               ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Получить местоположения"
+                }
+              },
               "attributes": {
                 "href": {
                   "element": "string",

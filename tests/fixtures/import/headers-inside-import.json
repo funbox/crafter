@@ -54,12 +54,6 @@
               "content": [
                 {
                   "element": "transition",
-                  "meta": {
-                    "title": {
-                      "element": "string",
-                      "content": "Получение списка детей"
-                    }
-                  },
                   "content": [
                     {
                       "element": "httpTransaction",
@@ -318,6 +312,12 @@
                       ]
                     }
                   ],
+                  "meta": {
+                    "title": {
+                      "element": "string",
+                      "content": "Получение списка детей"
+                    }
+                  },
                   "attributes": {
                     "href": {
                       "element": "string",

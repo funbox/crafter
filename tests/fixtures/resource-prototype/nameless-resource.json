@@ -95,12 +95,6 @@
               "content": [
                 {
                   "element": "transition",
-                  "meta": {
-                    "title": {
-                      "element": "string",
-                      "content": "List all users"
-                    }
-                  },
                   "content": [
                     {
                       "element": "httpTransaction",
@@ -152,7 +146,13 @@
                         }
                       ]
                     }
-                  ]
+                  ],
+                  "meta": {
+                    "title": {
+                      "element": "string",
+                      "content": "List all users"
+                    }
+                  }
                 }
               ]
             }

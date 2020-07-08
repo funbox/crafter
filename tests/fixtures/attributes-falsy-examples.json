@@ -40,12 +40,6 @@
           "content": [
             {
               "element": "transition",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Test falsy values"
-                }
-              },
               "content": [
                 {
                   "element": "httpTransaction",
@@ -200,6 +194,12 @@
                   ]
                 }
               ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Test falsy values"
+                }
+              },
               "attributes": {
                 "href": {
                   "element": "string",

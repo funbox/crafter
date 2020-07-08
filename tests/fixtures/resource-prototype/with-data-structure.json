@@ -329,12 +329,6 @@
               "content": [
                 {
                   "element": "transition",
-                  "meta": {
-                    "title": {
-                      "element": "string",
-                      "content": "Получить список всех сотрудников"
-                    }
-                  },
                   "content": [
                     {
                       "element": "httpTransaction",
@@ -440,6 +434,12 @@
                       ]
                     }
                   ],
+                  "meta": {
+                    "title": {
+                      "element": "string",
+                      "content": "Получить список всех сотрудников"
+                    }
+                  },
                   "attributes": {
                     "href": {
                       "element": "string",

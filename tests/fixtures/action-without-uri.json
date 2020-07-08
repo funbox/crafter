@@ -344,12 +344,6 @@
               "content": [
                 {
                   "element": "transition",
-                  "meta": {
-                    "title": {
-                      "element": "string",
-                      "content": "Получить список всех групп сотрудников"
-                    }
-                  },
                   "content": [
                     {
                       "element": "httpTransaction",
@@ -584,6 +578,12 @@
                       ]
                     }
                   ],
+                  "meta": {
+                    "title": {
+                      "element": "string",
+                      "content": "Получить список всех групп сотрудников"
+                    }
+                  },
                   "attributes": {
                     "hrefVariables": {
                       "element": "hrefVariables",

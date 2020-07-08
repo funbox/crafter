@@ -117,12 +117,6 @@
           "content": [
             {
               "element": "transition",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Get options"
-                }
-              },
               "content": [
                 {
                   "element": "httpTransaction",
@@ -217,6 +211,12 @@
                   ]
                 }
               ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Get options"
+                }
+              },
               "attributes": {
                 "href": {
                   "element": "string",

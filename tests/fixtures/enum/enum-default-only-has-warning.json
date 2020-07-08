@@ -40,12 +40,6 @@
           "content": [
             {
               "element": "transition",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Create report template"
-                }
-              },
               "content": [
                 {
                   "element": "httpTransaction",
@@ -164,6 +158,12 @@
                   ]
                 }
               ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Create report template"
+                }
+              },
               "attributes": {
                 "href": {
                   "element": "string",
