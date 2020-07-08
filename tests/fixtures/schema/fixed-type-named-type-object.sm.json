@@ -841,6 +841,15 @@
                           "content": {
                             "element": "FixedTypeFoo",
                             "attributes": {
+                              "typeAttributes": {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "string",
+                                    "content": "fixedType"
+                                  }
+                                ]
+                              },
                               "sourceMap": {
                                 "element": "array",
                                 "content": [

@@ -247,7 +247,18 @@
                         {
                           "element": "dataStructure",
                           "content": {
-                            "element": "FixedTypeFoo"
+                            "element": "FixedTypeFoo",
+                            "attributes": {
+                              "typeAttributes": {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "string",
+                                    "content": "fixedType"
+                                  }
+                                ]
+                              }
+                            }
                           }
                         },
                         {
