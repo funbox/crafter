@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.58.1 (09.07.2020)
+
+* Fix source maps for files with no new line at the end.
+
 ## 1.58.0 (08.07.2020)
 
 * Improve `README.md`.
