@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.60.0 (09.07.2020)
+
+* Improve files description in the folder `crafter/parsers/elements`.
+
 ## 1.59.0 (09.07.2020)
 
 * Improve documentation in the folder `crafter/docs`.
