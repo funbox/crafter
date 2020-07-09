@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.59.0 (09.07.2020)
+
+* Improve documentation in the folder `crafter/docs`.
+
 ## 1.58.1 (09.07.2020)
 
 * Fix source maps for files with no new line at the end.
