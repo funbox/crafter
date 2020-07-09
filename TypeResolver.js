@@ -165,12 +165,12 @@ class TypeResolver {
   }
 
   /**
-   * @param {string} name - название именованного типа
+   * @param {string} typeName - название именованного типа
    */
-  getStandardBaseType(name) {
+  getStandardBaseType(typeName) {
     const usedTypes = [];
 
-    const getBaseType = () => {
+    const getBaseType = (name) => {
       if (usedTypes.includes(name)) {
         throw new CrafterError(`Dependencies loop: ${usedTypes.concat([name]).join(' - ')}`, this.typeNames[name].sourceMap);
       }
@@ -190,11 +190,11 @@ class TypeResolver {
       return name;
     };
 
-    if (standardTypes.includes(name)) {
-      return name;
+    if (standardTypes.includes(typeName)) {
+      return typeName;
     }
 
-    return getBaseType() || types.object;
+    return getBaseType(typeName) || types.object;
   }
 }
 
