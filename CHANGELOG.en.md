@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.61.0 (15.07.2020)
+
+* Do not use attributes validity check result as a return value.
+
 ## 1.60.0 (09.07.2020)
 
 * Improve files description in the folder `crafter/parsers/elements`.
