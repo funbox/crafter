@@ -350,8 +350,6 @@ const utils = {
         context.addWarning(`Attribute "${a}" can be used in ${attributesRequiredTypeValue[a]} value type only.`, attributeSignatureDetails.sourceMap);
       }
     });
-
-    return [context, result];
   },
 
   markdownSourceToAST(source) {

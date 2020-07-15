@@ -186,7 +186,7 @@ module.exports = (Parsers) => {
         fillElementWithContent(result.content, type);
       }
 
-      [context, result.content] = utils.validateAttributesConsistency(context, result.content, attributeSignatureDetails, typeAttributes);
+      utils.validateAttributesConsistency(context, result.content, attributeSignatureDetails, typeAttributes);
 
       return result;
     },

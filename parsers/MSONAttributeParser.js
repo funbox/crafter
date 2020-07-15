@@ -170,7 +170,7 @@ module.exports = (Parsers) => {
       context.checkTypeExists(result.value.rawType);
       context.popFrame();
 
-      [context, result.value] = utils.validateAttributesConsistency(context, result.value, details, typeAttributes);
+      utils.validateAttributesConsistency(context, result.value, details, typeAttributes);
 
       return result;
     },
