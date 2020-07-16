@@ -30,11 +30,12 @@ module.exports = (Parsers) => {
 
     processSignature(node, context) {
       let type;
+      const { isNamedTypeSection } = context.data;
       const text = node.type === 'heading'
         ? utils.headerText(node, context.sourceLines)
         : utils.nodeText(node.firstChild, context.sourceLines);
 
-      if (node.parent.prev && node.parent.prev.type === 'heading') {
+      if (node.parent.prev && isNamedTypeSection) {
         throw new CrafterError(`Expected header-defined member type group "${text}", e.g. "## <text>"`);
       }
 

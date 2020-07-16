@@ -73,8 +73,10 @@ module.exports = (Parsers) => {
             const dataStructureProcessor = new DataStructureProcessor(curNode.parent, Parsers);
             const isFixedOrFixedType = result.content.typeAttributes.includes('fixed') || result.content.typeAttributes.includes('fixedType');
             context.data.isParentAttributeFixedOrFixedType = context.data.isParentAttributeFixedOrFixedType || isFixedOrFixedType;
+            context.data.isNamedTypeSection = true;
             dataStructureProcessor.fillValueMember(result.content, context);
             delete context.data.isParentAttributeFixedOrFixedType;
+            delete context.data.isNamedTypeSection;
           }
 
           curNode = utils.nextNode(curNode.parent);
