@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.62.0 (17.07.2020)
+
+* Improve check of MemberTypeGroup section in named types.
+
 ## 1.61.0 (15.07.2020)
 
 * Do not use attributes validity check result as a return value.
