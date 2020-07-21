@@ -29,37 +29,38 @@
                       "attributes": {
                         "line": {
                           "element": "number",
-                          "content": 11
+                          "content": 3
                         },
                         "column": {
                           "element": "number",
-                          "content": 3
+                          "content": 1
                         }
                       },
-                      "content": 176
+                      "content": 20
                     },
                     {
                       "element": "number",
                       "attributes": {
                         "line": {
                           "element": "number",
-                          "content": 11
+                          "content": 4
                         },
                         "column": {
                           "element": "number",
-                          "content": 50
+                          "content": 1
                         }
                       },
-                      "content": 48
+                      "content": 17
                     }
                   ]
                 }
-              ]
+              ],
+              "file": "import-with-unknown-type-inner.apib"
             }
           ]
         }
       },
-      "content": "Type \"UndefinedDataType\" not found"
+      "content": "Type \"Unknown\" not found"
     }
   ]
 }

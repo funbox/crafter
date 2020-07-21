@@ -29,28 +29,28 @@
                       "attributes": {
                         "line": {
                           "element": "number",
-                          "content": 11
+                          "content": 10
                         },
                         "column": {
                           "element": "number",
-                          "content": 3
+                          "content": 7
                         }
                       },
-                      "content": 176
+                      "content": 301
                     },
                     {
                       "element": "number",
                       "attributes": {
                         "line": {
                           "element": "number",
-                          "content": 11
+                          "content": 10
                         },
                         "column": {
                           "element": "number",
-                          "content": 50
+                          "content": 34
                         }
                       },
-                      "content": 48
+                      "content": 28
                     }
                   ]
                 }
@@ -59,7 +59,7 @@
           ]
         }
       },
-      "content": "Type \"UndefinedDataType\" not found"
+      "content": "Invalid type object[string]. Nested types should be present only for types which are sub typed from either array or enum structure type"
     }
   ]
 }

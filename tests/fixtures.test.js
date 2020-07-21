@@ -192,6 +192,10 @@ describe('fixtures with duplicated resources', () => {
   testFilesFrom(testPath.duplicates);
 });
 
+describe('fixtures with inheritance', () => {
+  testFilesFrom(testPath.inheritance);
+});
+
 describe('Crafter with callback', () => {
   it('Parses a source with and without options', (done) => {
     const file = 'simple.apib';
