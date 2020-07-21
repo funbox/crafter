@@ -39,9 +39,15 @@ module.exports = (Parsers) => {
       }
 
       const memberEl = new ValueMemberElement(signature.type);
-      const backPropagatedTypeAttributes = ValueMemberProcessor.fillBaseType(context, memberEl);
-
-      memberEl.typeAttributes = [...new Set(signature.typeAttributes.concat(backPropagatedTypeAttributes))];
+      try {
+        const backPropagatedTypeAttributes = ValueMemberProcessor.fillBaseType(context, memberEl);
+        memberEl.typeAttributes = [...new Set(signature.typeAttributes.concat(backPropagatedTypeAttributes))];
+      } catch (error) {
+        if (!error.sourceMap) {
+          error.sourceMap = sourceMap;
+        }
+        throw error;
+      }
 
       memberEl.sourceMap = sourceMap;
       let nextNode = signature.rest ? node.firstChild : node.firstChild.next;

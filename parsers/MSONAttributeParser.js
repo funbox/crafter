@@ -40,9 +40,16 @@ module.exports = (Parsers) => {
 
       const valueEl = new ValueMemberElement(signature.type, valueTypeAttributes, signature.value, '', signature.isSample, signature.isDefault);
       valueEl.sourceMap = sourceMap;
-      const backPropagatedTypeAttributes = ValueMemberProcessor.fillBaseType(context, valueEl, true);
-      const [propagatedTypeAttributes] = splitTypeAttributes(backPropagatedTypeAttributes);
-      propertyTypeAttributes.push(...propagatedTypeAttributes.filter(attr => !propertyTypeAttributes.includes(attr)));
+      try {
+        const backPropagatedTypeAttributes = ValueMemberProcessor.fillBaseType(context, valueEl, true);
+        const [propagatedTypeAttributes] = splitTypeAttributes(backPropagatedTypeAttributes);
+        propertyTypeAttributes.push(...propagatedTypeAttributes.filter(attr => !propertyTypeAttributes.includes(attr)));
+      } catch (error) {
+        if (!error.sourceMap) {
+          error.sourceMap = sourceMap;
+        }
+        throw error;
+      }
 
       name.sourceMap = sourceMap;
       if (descriptionEl) {

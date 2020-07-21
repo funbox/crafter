@@ -28,7 +28,14 @@ module.exports = (Parsers) => {
         signature.description,
         signature.isSample,
       );
-      ValueMemberProcessor.fillBaseType(context, result);
+      try {
+        ValueMemberProcessor.fillBaseType(context, result);
+      } catch (error) {
+        if (!error.sourceMap) {
+          error.sourceMap = sourceMap;
+        }
+        throw error;
+      }
 
       result.sourceMap = sourceMap;
 

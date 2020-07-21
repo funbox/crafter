@@ -180,7 +180,7 @@ class TypeResolver {
       try {
         name = this.types[name].type;
       } catch (e) {
-        throw new CrafterError('Type not found');
+        throw new CrafterError(`Type "${name}" not found`);
       }
 
       if (name && !standardTypes.includes(name)) {
