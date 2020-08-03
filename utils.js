@@ -25,10 +25,9 @@ class Logger {
 }
 
 class SourceMap {
-  constructor(byteBlocks, charBlocks, file) {
+  constructor(byteBlocks, charBlocks) {
     this.byteBlocks = byteBlocks;
     this.charBlocks = charBlocks;
-    this.file = file;
   }
 }
 
@@ -122,10 +121,10 @@ const utils = {
     if (endNode.next) {
       length += getTrailingEmptyLinesLengthInBytes(endLineIndex + 1, sourceLines);
     }
-    const byteBlock = { offset: startOffset, length };
+    const byteBlock = { offset: startOffset, length, file: startNode.file };
     const byteBlocks = [byteBlock];
     const charBlocks = this.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
-    return new SourceMap(byteBlocks, charBlocks, startNode.file);
+    return new SourceMap(byteBlocks, charBlocks);
   },
 
   makeGenericSourceMap(node, sourceLines, sourceBuffer, linefeedOffsets) {
@@ -164,10 +163,11 @@ const utils = {
     let length = Buffer.byteLength(lineWithoutIndentation);
     length += getEndingLinefeedLengthInBytes(lineIndex, sourceLines);
     byteBlock.length += length;
+    byteBlock.file = node.file;
 
     const byteBlocks = [byteBlock];
     const charBlocks = this.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
-    return new SourceMap(byteBlocks, charBlocks, node.file);
+    return new SourceMap(byteBlocks, charBlocks);
   },
 
   makeSourceMapForAsset(node, sourceLines, sourceBuffer, linefeedOffsets) {
@@ -187,7 +187,7 @@ const utils = {
         if (lineIndex < sourceLines.length - 1) {
           length += this.linefeedBytes;
         }
-        byteBlocks.push({ offset, length });
+        byteBlocks.push({ offset, length, file: node.file });
         offset += length;
         offset += indentation;
       } else {
@@ -196,7 +196,7 @@ const utils = {
     }
 
     const charBlocks = this.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
-    return new SourceMap(byteBlocks, charBlocks, node.file);
+    return new SourceMap(byteBlocks, charBlocks);
   },
 
   makeSourceMapsForInlineValues(value, inlineValues, node, sourceLines, sourceBuffer, linefeedOffsets) {
@@ -216,12 +216,13 @@ const utils = {
       const byteBlock = {
         offset: utils.getOffsetFromStartOfFileInBytes(startLineIndex, columnIndex, sourceLines),
         length: Buffer.byteLength(inlineValueStr),
+        file: node.file,
       };
       lineStr = lineStr.slice(inlineValueStr.length);
       columnIndex += inlineValueStr.length;
       const byteBlocks = [byteBlock];
       const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
-      return new SourceMap(byteBlocks, charBlocks, node.file);
+      return new SourceMap(byteBlocks, charBlocks);
     });
   },
 
@@ -598,6 +599,7 @@ function makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, sour
       const length = Buffer.byteLength(unpaddedLine) + utils.linefeedBytes;
       byteBlock.length += length;
       byteBlock.offset += lineIndentation;
+      byteBlock.file = startNode.file;
       offset += length + lineIndentation;
       if (lineIndex !== endLineIndex) {
         byteBlocks.push(byteBlock);
@@ -613,13 +615,13 @@ function makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, sour
     }
   }
   const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
-  return new SourceMap(byteBlocks, charBlocks, startNode.file);
+  return new SourceMap(byteBlocks, charBlocks);
 }
 
 function byteBlockToCharacterBlock(byteBlock, sourceBuffer) {
   const charOffset = sourceBuffer.slice(0, byteBlock.offset).toString().length;
   const charLength = sourceBuffer.slice(byteBlock.offset, byteBlock.offset + byteBlock.length).toString().length;
-  return { offset: charOffset, length: charLength };
+  return { offset: charOffset, length: charLength, file: byteBlock.file };
 }
 
 function getLineColumnInfo(characterBlock, linefeedOffsets) {

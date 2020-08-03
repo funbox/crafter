@@ -20,7 +20,7 @@ class AnnotationElement {
   }
 
   toRefract() {
-    const sourceMapEl = this.sourceMap ? new SourceMapElementWithLineColumnInfo(this.sourceMap.charBlocks, this.sourceMap.file) : null;
+    const sourceMapEl = this.sourceMap ? new SourceMapElementWithLineColumnInfo(this.sourceMap.charBlocks) : null;
     return {
       element: Refract.elements.annotation,
       meta: {

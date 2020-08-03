@@ -37,7 +37,7 @@ class HeadersElement {
           },
         },
         ...(sourceMapsEnabled && sourceMap ? {
-          attributes: { sourceMap: new SourceMapElement(sourceMap.byteBlocks, sourceMap.file).toRefract() },
+          attributes: { sourceMap: new SourceMapElement(sourceMap.byteBlocks).toRefract() },
         } : {}),
       })),
     };

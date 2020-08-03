@@ -1,15 +1,34 @@
 const Refract = require('../../Refract');
 
 class SourceMapElement {
-  constructor(blocks, file) {
+  constructor(blocks) {
     this.blocks = blocks;
-    this.file = file;
   }
 
   toRefract() {
-    const sourceMapEl = {
-      element: Refract.elements.sourceMap,
-      content: this.blocks.map(block => ({
+    let file;
+    const result = {
+      element: Refract.elements.array,
+      content: [],
+    };
+
+    this.blocks.forEach(block => {
+      let sourceMapEl = result.content[result.content.length - 1];
+
+      if (!sourceMapEl || file !== block.file) {
+        sourceMapEl = {
+          element: Refract.elements.sourceMap,
+          content: [],
+        };
+        file = block.file;
+
+        if (file) {
+          sourceMapEl.file = file.replace(/\\/g, '/');
+        }
+        result.content.push(sourceMapEl);
+      }
+
+      sourceMapEl.content.push({
         element: 'array',
         content: [
           {
@@ -21,16 +40,10 @@ class SourceMapElement {
             content: block.length,
           },
         ],
-      })),
-    };
-    if (this.file) {
-      const platformIndependentPath = this.file.replace(/\\/g, '/');
-      sourceMapEl.file = platformIndependentPath;
-    }
-    return {
-      element: 'array',
-      content: [sourceMapEl],
-    };
+      });
+    });
+
+    return result;
   }
 }
 

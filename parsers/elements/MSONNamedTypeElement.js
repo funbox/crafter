@@ -54,7 +54,7 @@ class MSONNamedTypeElement {
       };
       if (sourceMapsEnabled && this.description.sourceMap) {
         description.attributes = {
-          sourceMap: new SourceMapElement(this.description.sourceMap.byteBlocks, this.description.sourceMap.file).toRefract(),
+          sourceMap: new SourceMapElement(this.description.sourceMap.byteBlocks).toRefract(),
         };
       }
       result.content.meta.description = description;

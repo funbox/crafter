@@ -55,7 +55,7 @@ class DefaultValueElement {
         };
 
         if (sourceMapsEnabled && this.sourceMap[i]) {
-          const sourceMapEl = new SourceMapElement(this.sourceMap[i].byteBlocks, this.sourceMap[i].file);
+          const sourceMapEl = new SourceMapElement(this.sourceMap[i].byteBlocks);
           result.attributes = {
             sourceMap: sourceMapEl.toRefract(),
           };
@@ -74,7 +74,7 @@ class DefaultValueElement {
 
 
     if (sourceMapsEnabled && this.sourceMap) {
-      const sourceMapEl = new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file);
+      const sourceMapEl = new SourceMapElement(this.sourceMap.byteBlocks);
       result.attributes = {
         sourceMap: sourceMapEl.toRefract(),
       };
