@@ -9,49 +9,10 @@ const listTypedSampleValueRegex = /^[Ss]ample$/;
 module.exports = (Parsers) => {
   Parsers.SampleValueParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
-      const text = node.type === 'heading'
-        ? utils.headerText(node, context.sourceLines)
-        : utils.nodeText(node.firstChild, context.sourceLines);
-      const valuesMatch = sampleValueRegex.exec(text);
-      const values = valuesMatch ? splitValues(valuesMatch[1]) : undefined;
-
       const result = [];
 
-      if (values) {
-        // TODO Сделать разные sourceMap на каждый SampleValueElement
-        const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-
-        switch (context.data.typeForSamples) {
-          case 'primitive':
-          case 'enum':
-            values.forEach((value) => {
-              const converted = utils.convertType(value, context.data.valueType);
-
-              if (converted.valid) {
-                result.push(new SampleValueElement(converted.value, context.data.valueType, sourceMap));
-              } else {
-                context.addTypeMismatchWarning(value, context.data.valueType, sourceMap);
-              }
-            });
-            break;
-          case 'array': {
-            const preparedValues = values.reduce((res, v) => {
-              const converted = utils.convertType(v, context.data.valueType);
-
-              if (converted.valid) {
-                res.push(converted.value);
-              } else {
-                context.addTypeMismatchWarning(v, context.data.valueType, sourceMap);
-              }
-              return res;
-            }, []);
-            const sourceMaps = preparedValues.map(() => sourceMap);
-            result.push(new SampleValueElement(preparedValues, context.data.valueType, sourceMaps));
-            break;
-          }
-
-          // no default
-        }
+      if (node.type === 'item') {
+        fetchInlineSamples(node, context, result);
       }
 
       return [(node.firstChild.next && node.firstChild.next.firstChild) || utils.nextNode(node), result];
@@ -132,3 +93,45 @@ module.exports = (Parsers) => {
   });
   return true;
 };
+
+function fetchInlineSamples(node, context, result) {
+  const text = utils.nodeText(node.firstChild, context.sourceLines);
+  const valuesMatch = sampleValueRegex.exec(text);
+
+  if (!valuesMatch) return;
+
+  const values = splitValues(valuesMatch[1]);
+
+  const sourceMaps = utils.makeSourceMapsForInlineValues(valuesMatch[1], values, node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+
+  switch (context.data.typeForSamples) {
+    case 'primitive':
+    case 'enum':
+      values.forEach((value, index) => {
+        const converted = utils.convertType(value, context.data.valueType);
+
+        if (converted.valid) {
+          result.push(new SampleValueElement(converted.value, context.data.valueType, sourceMaps[index]));
+        } else {
+          context.addTypeMismatchWarning(value, context.data.valueType, sourceMaps[index]);
+        }
+      });
+      break;
+    case 'array': {
+      const preparedValues = values.reduce((res, v, index) => {
+        const converted = utils.convertType(v, context.data.valueType);
+
+        if (converted.valid) {
+          res.push(converted.value);
+        } else {
+          context.addTypeMismatchWarning(v, context.data.valueType, sourceMaps[index]);
+        }
+        return res;
+      }, []);
+      result.push(new SampleValueElement(preparedValues, context.data.valueType, sourceMaps));
+      break;
+    }
+
+    // no default
+  }
+}
