@@ -225,29 +225,31 @@ module.exports = (Parsers) => {
 
       while (curNode) {
         if (isImportSection(curNode, context)) {
+          const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+
           if (!context.entryDir) {
-            throw new CrafterError('Import error. Entry directory should be defined.');
+            throw new CrafterError('Import error. Entry directory should be defined.', sourceMap);
           }
 
           const filename = ImportRegex.exec(utils.headerText(curNode, sourceLines))[1].trim();
 
           if (!/\.apib$/.test(filename)) {
-            throw new CrafterError(`File import error. File "${filename}" must have extension type ".apib".`);
+            throw new CrafterError(`File import error. File "${filename}" must have extension type ".apib".`, sourceMap);
           }
 
           if (usedFiles.includes(filename)) {
-            throw new CrafterError(`Recursive import: ${usedFiles.join(' → ')} → ${filename}`);
+            throw new CrafterError(`Recursive import: ${usedFiles.join(' → ')} → ${filename}`, sourceMap);
           }
 
           usedFiles.push(filename);
 
-          const { ast: childAst, context: childContext } = context.getApibAST(filename);
+          const { ast: childAst, context: childContext } = context.getApibAST(filename, sourceMap);
           const childSourceLines = childContext.sourceLines;
           const childSourceBuffer = childContext.sourceBuffer;
           const childLinefeedOffsets = childContext.linefeedOffsets;
 
           if (!childAst.firstChild) {
-            throw new CrafterError(`File import error. File "${filename}" is empty.`);
+            throw new CrafterError(`File import error. File "${filename}" is empty.`, sourceMap);
           }
 
           let firstChildNode = childAst.firstChild;
@@ -256,7 +258,7 @@ module.exports = (Parsers) => {
             firstChildNode = firstChildNode.next;
           }
           if (firstChildNode && this.nestedSectionType(firstChildNode, childContext) === SectionTypes.undefined) {
-            throw new CrafterError(`Invalid content of "${filename}". Can't recognize "${utils.nodeText(firstChildNode, childContext.sourceLines)}" as API Blueprint section.`);
+            throw new CrafterError(`Invalid content of "${filename}". Can't recognize "${utils.nodeText(firstChildNode, childContext.sourceLines)}" as API Blueprint section.`, sourceMap);
           }
 
           context.filePaths.push(`${context.resolvePathRelativeToEntryDir(filename)}`);

@@ -93,7 +93,7 @@ class Context {
     this.data = this.frames.pop();
   }
 
-  getApibAST(filename) {
+  getApibAST(filename, sourceMap) {
     const currentDir = this.currentFile ? path.dirname(this.currentFile) : this.entryDir;
     const fullPath = path.resolve(currentDir, filename);
     let file;
@@ -101,7 +101,7 @@ class Context {
     try {
       file = fs.readFileSync(fullPath, { encoding: 'utf-8' });
     } catch (e) {
-      throw new CrafterError(`File reading error. File "${filename}" not found or unreadable.`);
+      throw new CrafterError(`File reading error. File "${filename}" not found or unreadable.`, sourceMap);
     }
 
     const ast = utils.markdownSourceToAST(file);
