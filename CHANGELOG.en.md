@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.63.1 (15.09.2020)
+
+* Improve acquiring nested types in inherited named types.
+
 ## 1.63.0 (21.07.2020)
 
 * Improve message of the error "Type not found".
