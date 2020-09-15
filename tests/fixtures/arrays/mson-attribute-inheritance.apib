@@ -1,0 +1,23 @@
+# My API
+
+Defines named types:
+
+1) "SimpleType" as an array with nested members of type "number";
+2) "MixedType", which inherits from "SimpleType".
+
+Expected result:
+
+Generated body must contain one property with an array of particular numbers as a value.
+Generated JSON schema must define the "foo" property as an array with items of type "number".
+
+# Data Structures
+
+## SimpleType (array[number])
+
+## MixedType (SimpleType)
+
+# Get options [GET /mixed]
+
++ Response 200 (application/json)
+    + Attributes
+        + foo: `1, 2, 3` (MixedType)

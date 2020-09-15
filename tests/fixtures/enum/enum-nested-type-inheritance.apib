@@ -1,0 +1,24 @@
+# My API
+
+Defines mson attributes which inherit from named enums of number. Both base type "enum" and nested type "number"
+should be inherited, resulting values in body and json schema should be represented as numbers.
+
+# Data Structures
+
+## SmscErrorFlag (enum[number])
+
++ `0` - ошибка платформы
++ `1` - ошибка SMSC
+
+## SmscErrorFlagExtended (SmscErrorFlag)
+
++ `2` - неизвестная ошибка
+
+## Foo
++ `is_smsc_error`: `0` (SmscErrorFlag, optional)
++ `is_another_error` (SmscErrorFlagExtended, optional)
+
+# Get foo [GET /foo]
+
++ Response 200 (application/json)
+    + Attributes(Foo)
