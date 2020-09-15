@@ -168,6 +168,15 @@ class TypeResolver {
    * @param {string} typeName - название именованного типа
    */
   getStandardBaseType(typeName) {
+    const [baseType] = this.getStandardBaseAndNestedTypes(typeName);
+
+    return baseType;
+  }
+
+  /**
+   * @param {string} typeName - название именованного типа
+   */
+  getStandardBaseAndNestedTypes(typeName) {
     const usedTypes = [];
 
     const getBaseType = (name) => {
@@ -184,17 +193,20 @@ class TypeResolver {
       }
 
       if (name && !standardTypes.includes(name)) {
-        name = getBaseType(name);
+        return getBaseType(name);
       }
 
-      return name;
+      const resolvedTypeName = usedTypes[usedTypes.length - 1];
+      const resolvedType = this.types[resolvedTypeName];
+      return [name, resolvedType.nestedTypes];
     };
 
     if (standardTypes.includes(typeName)) {
-      return typeName;
+      return [typeName, []];
     }
 
-    return getBaseType(typeName) || types.object;
+    const [baseType, nestedTypes] = getBaseType(typeName);
+    return [baseType || types.object, nestedTypes || []];
   }
 }
 

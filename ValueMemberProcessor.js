@@ -83,7 +83,9 @@ function getSamplesAndDefaultsFromInline(element, value, context) {
   let defaultElements;
 
   if (element.isArray() || element.isEnum()) {
-    inlineValuesType = element.nestedTypes.find(type => (context.typeResolver.getStandardBaseType(type) !== 'object')) || 'string';
+    const [, baseNestedTypes] = context.typeResolver.getStandardBaseAndNestedTypes(element.type);
+    const nestedTypes = Array.from(new Set([...element.nestedTypes, ...baseNestedTypes]));
+    inlineValuesType = nestedTypes.find(type => (context.typeResolver.getStandardBaseType(type) !== 'object')) || 'string';
   } else {
     inlineValuesType = element.baseType || 'string';
   }

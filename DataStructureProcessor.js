@@ -36,7 +36,10 @@ class DataStructureProcessor {
     }
 
     if (valueMember.isEnum()) {
-      valueMember.content = this.buildEnum(curNode, context, valueMember.rawType);
+      const [, baseNestedTypes] = context.typeResolver.getStandardBaseAndNestedTypes(valueMember.type);
+      const nestedTypes = Array.from(new Set([...valueMember.nestedTypes, ...baseNestedTypes]));
+      const type = nestedTypes.length > 0 ? `enum[${nestedTypes.join(', ')}]` : valueMember.rawType;
+      valueMember.content = this.buildEnum(curNode, context, type);
     }
   }
 
