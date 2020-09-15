@@ -1,6 +1,7 @@
 const Refract = require('../../Refract');
 const utils = require('../../utils');
 const Flags = require('../../Flags');
+const SourceMapElement = require('./SourceMapElement');
 
 /**
  * Поле объекта
@@ -25,13 +26,15 @@ class PropertyMemberElement {
    * @param {ValueMemberElement} value
    * @param {(string|Array)[]} typeAttributes - набор атрибутов типа fixed, required, ["minimum", 10]
    * @param {StringElement} descriptionEl
+   * @param {SourceMapElement} sourceMap
    */
-  constructor(name, value, typeAttributes, descriptionEl) {
+  constructor(name, value, typeAttributes, descriptionEl, sourceMap) {
     this.name = name;
     this.value = value;
 
     this.typeAttributes = typeAttributes;
     this.descriptionEl = descriptionEl;
+    this.sourceMap = sourceMap;
   }
 
   /**
@@ -51,6 +54,11 @@ class PropertyMemberElement {
       result.attributes = utils.typeAttributesToRefract(this.typeAttributes);
     }
 
+    if (sourceMapsEnabled) {
+      result.attributes = result.attributes || {};
+      const sourceMapEl = new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file);
+      result.attributes.sourceMap = sourceMapEl.toRefract();
+    }
 
     if (this.descriptionEl) {
       result.meta = {

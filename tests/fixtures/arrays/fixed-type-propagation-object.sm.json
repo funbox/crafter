@@ -162,6 +162,29 @@
                             "content": "required"
                           }
                         ]
+                      },
+                      "sourceMap": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "sourceMap",
+                            "content": [
+                              {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "number",
+                                    "content": 256
+                                  },
+                                  {
+                                    "element": "number",
+                                    "content": 26
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
                       }
                     }
                   }
@@ -363,6 +386,29 @@
                                       {
                                         "element": "string",
                                         "content": "fixedType"
+                                      }
+                                    ]
+                                  },
+                                  "sourceMap": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "sourceMap",
+                                        "content": [
+                                          {
+                                            "element": "array",
+                                            "content": [
+                                              {
+                                                "element": "number",
+                                                "content": 404
+                                              },
+                                              {
+                                                "element": "number",
+                                                "content": 32
+                                              }
+                                            ]
+                                          }
+                                        ]
                                       }
                                     ]
                                   }

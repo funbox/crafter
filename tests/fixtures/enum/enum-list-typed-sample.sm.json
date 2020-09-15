@@ -535,6 +535,29 @@
                             "content": "optional"
                           }
                         ]
+                      },
+                      "sourceMap": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "sourceMap",
+                            "content": [
+                              {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "number",
+                                    "content": 152
+                                  },
+                                  {
+                                    "element": "number",
+                                    "content": 223
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
                       }
                     }
                   }

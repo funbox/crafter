@@ -65,6 +65,7 @@ module.exports = (Parsers) => {
         valueEl,
         propertyTypeAttributes,
         descriptionEl,
+        utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets),
       );
 
       const nextChildNode = signature.rest ? node.firstChild : node.firstChild.next;

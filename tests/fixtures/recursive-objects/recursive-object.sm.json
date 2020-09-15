@@ -133,6 +133,29 @@
                             "content": "required"
                           }
                         ]
+                      },
+                      "sourceMap": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "sourceMap",
+                            "content": [
+                              {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "number",
+                                    "content": 42
+                                  },
+                                  {
+                                    "element": "number",
+                                    "content": 29
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
                       }
                     }
                   },
@@ -204,6 +227,29 @@
                           {
                             "element": "string",
                             "content": "nullable"
+                          }
+                        ]
+                      },
+                      "sourceMap": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "sourceMap",
+                            "content": [
+                              {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "number",
+                                    "content": 71
+                                  },
+                                  {
+                                    "element": "number",
+                                    "content": 32
+                                  }
+                                ]
+                              }
+                            ]
                           }
                         ]
                       }

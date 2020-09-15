@@ -443,6 +443,29 @@
                             "content": "required"
                           }
                         ]
+                      },
+                      "sourceMap": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "sourceMap",
+                            "content": [
+                              {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "number",
+                                    "content": 123
+                                  },
+                                  {
+                                    "element": "number",
+                                    "content": 320
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
                       }
                     },
                     "meta": {

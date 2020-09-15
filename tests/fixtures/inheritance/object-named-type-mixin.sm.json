@@ -196,6 +196,29 @@
                             "content": "required"
                           }
                         ]
+                      },
+                      "sourceMap": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "sourceMap",
+                            "content": [
+                              {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "number",
+                                    "content": 102
+                                  },
+                                  {
+                                    "element": "number",
+                                    "content": 47
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
                       }
                     },
                     "meta": {
@@ -381,6 +404,29 @@
                           {
                             "element": "string",
                             "content": "required"
+                          }
+                        ]
+                      },
+                      "sourceMap": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "sourceMap",
+                            "content": [
+                              {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "number",
+                                    "content": 173
+                                  },
+                                  {
+                                    "element": "number",
+                                    "content": 44
+                                  }
+                                ]
+                              }
+                            ]
                           }
                         ]
                       }
