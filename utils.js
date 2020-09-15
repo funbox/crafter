@@ -226,6 +226,25 @@ const utils = {
     });
   },
 
+  makeSourceMapsForString(str, node, sourceLines, sourceBuffer, linefeedOffsets) {
+    sourceLines = node.sourceLines || sourceLines;
+    sourceBuffer = node.sourceBuffer || sourceBuffer;
+    linefeedOffsets = node.linefeedOffsets || linefeedOffsets;
+    const { startLineIndex, startColumnIndex } = utils.getSourcePosZeroBased(node);
+
+    const lineStr = sourceLines[startLineIndex].slice(startColumnIndex);
+    const columnIndex = startColumnIndex + lineStr.indexOf(str);
+
+    const byteBlock = {
+      offset: utils.getOffsetFromStartOfFileInBytes(startLineIndex, columnIndex, sourceLines),
+      length: Buffer.byteLength(str),
+      file: node.file,
+    };
+    const byteBlocks = [byteBlock];
+    const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
+    return new SourceMap(byteBlocks, charBlocks);
+  },
+
   getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets) {
     return byteBlocks.map(byteBlock => {
       const charBlock = byteBlockToCharacterBlock(byteBlock, sourceBuffer);

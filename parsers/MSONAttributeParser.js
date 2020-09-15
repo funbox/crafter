@@ -51,7 +51,7 @@ module.exports = (Parsers) => {
         throw error;
       }
 
-      name.sourceMap = sourceMap;
+      name.sourceMap = utils.makeSourceMapsForString(signature.name, node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       if (descriptionEl) {
         descriptionEl.sourceMap = utils.makeSourceMapForLine(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       }
