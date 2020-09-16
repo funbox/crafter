@@ -226,14 +226,13 @@ const utils = {
     });
   },
 
-  makeSourceMapsForString(str, node, sourceLines, sourceBuffer, linefeedOffsets) {
+  makeSourceMapsForString(str, offset, node, sourceLines, sourceBuffer, linefeedOffsets) {
     sourceLines = node.sourceLines || sourceLines;
     sourceBuffer = node.sourceBuffer || sourceBuffer;
     linefeedOffsets = node.linefeedOffsets || linefeedOffsets;
     const { startLineIndex, startColumnIndex } = utils.getSourcePosZeroBased(node);
 
-    const lineStr = sourceLines[startLineIndex].slice(startColumnIndex);
-    const columnIndex = startColumnIndex + lineStr.indexOf(str);
+    const columnIndex = startColumnIndex + offset;
 
     const byteBlock = {
       offset: utils.getOffsetFromStartOfFileInBytes(startLineIndex, columnIndex, sourceLines),

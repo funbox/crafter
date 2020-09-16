@@ -25,15 +25,38 @@ module.exports = (Parsers) => {
         if (!(e instanceof utils.SignatureError)) throw e;
       }
 
+      // TODO Сделать тут SourceMap более точно:
+      // + name (string, required) - тут к value относится только string
+      // + name: Egor (string, required) - тут к value относится Egor и string
+      // + user
+      //   + name
+      //   + email
+      // тут к value относится name и email
       const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       context.data.attributeSignatureDetails = { sourceMap, node: node.firstChild };
 
       signature.warnings.forEach(warning => context.addWarning(warning, sourceMap));
 
-      const name = new StringElement(signature.name);
+      const nameSourceMap = signature.name
+        ? utils.makeSourceMapsForString(
+          signature.name,
+          signature.nameOffset,
+          node.firstChild,
+          context.sourceLines,
+          context.sourceBuffer,
+          context.linefeedOffsets,
+        ) : null;
+      const name = new StringElement(signature.name, nameSourceMap);
       let descriptionEl;
       if (signature.description) {
-        descriptionEl = new StringElement(signature.description);
+        descriptionEl = new StringElement(signature.description, utils.makeSourceMapsForString(
+          signature.description,
+          signature.descriptionOffset,
+          node.firstChild,
+          context.sourceLines,
+          context.sourceBuffer,
+          context.linefeedOffsets,
+        ));
       }
 
       const [propertyTypeAttributes, valueTypeAttributes] = splitTypeAttributes(signature.typeAttributes);
@@ -49,11 +72,6 @@ module.exports = (Parsers) => {
           error.sourceMap = sourceMap;
         }
         throw error;
-      }
-
-      name.sourceMap = utils.makeSourceMapsForString(signature.name, node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-      if (descriptionEl) {
-        descriptionEl.sourceMap = utils.makeSourceMapForLine(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       }
 
       if (signature.rest) {

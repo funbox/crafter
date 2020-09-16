@@ -38,7 +38,9 @@ class SignatureParser {
   constructor(origSignature, traits = parserTraits.all) {
     this.traits = traits;
     this.typeAttributes = [];
+    this.typeAttributesOffsetsAndLengths = [];
     this.type = null;
+    this.typeOffset = null;
     this.isSample = false;
     this.isDefault = false;
     this.warnings = [];
@@ -46,11 +48,12 @@ class SignatureParser {
     const [inlinePart, ...rest] = origSignature.split('\n');
 
     let signature = inlinePart;
+    let signatureOffset = 0;
 
     this.rest = rest.join('\n');
 
     if (this.traits.includes(parserTraits.NAME)) {
-      signature = this.extractName(signature);
+      [signature, signatureOffset] = this.extractName(signature);
 
       if (!this.name) {
         this.warnings.push(`No name specified: "${origSignature}"`);
@@ -59,22 +62,22 @@ class SignatureParser {
 
     if (this.traits.includes(parserTraits.VALUE)) {
       if (signature[0] === VALUES_DELIMITER) {
-        signature = this.extractValue(signature);
+        [signature, signatureOffset] = this.extractValue(signature, signatureOffset);
 
         if (!this.value && !this.rawValue) {
           this.warnings.push(`No value(s) specified: "${origSignature}"`);
         }
       } else {
-        signature = this.extractValue(signature);
+        [signature, signatureOffset] = this.extractValue(signature, signatureOffset);
       }
     }
 
     if (this.traits.includes(parserTraits.ATTRIBUTES)) {
-      signature = this.extractAttributes(signature);
+      [signature, signatureOffset] = this.extractAttributes(signature, signatureOffset);
     }
 
     if (this.traits.includes(parserTraits.DESCRIPTION)) {
-      this.extractDescription(signature);
+      this.extractDescription(signature, signatureOffset);
 
       if (!this.name && !this.value && !this.type && this.typeAttributes.length === 0 && this.description) {
         this.warnings.push(`No value(s) specified: "${origSignature}"`);
@@ -93,6 +96,7 @@ class SignatureParser {
   }
 
   extractName(signature) {
+    const origSignature = signature;
     let i = 0;
     let name = '';
 
@@ -120,12 +124,15 @@ class SignatureParser {
     }
 
     this.name = stripBackticks(name.trim());
+    if (this.name) {
+      this.nameOffset = origSignature.indexOf(this.name);
+    }
 
-    return signature.substr(i);
+    return [signature.substr(i), i];
   }
 
-  extractValue(signature) {
-    signature = signature.trim();
+  extractValue(origSignature, offset) {
+    let signature = origSignature.trim();
     if (signature[0] === VALUES_DELIMITER) {
       signature = signature.slice(1).trim();
     }
@@ -165,23 +172,28 @@ class SignatureParser {
       this.value = clarifiedValue || null;
     }
 
-    return signature.substr(i);
+    if (this.value) {
+      this.valueOffset = offset + origSignature.indexOf(this.value);
+    }
+
+    return [signature.substr(i), offset + origSignature.indexOf(signature) + i];
   }
 
-  extractAttributes(signature) {
-    signature = signature.trim();
+  extractAttributes(origSignature, origSignatureOffset) {
+    let signature = origSignature.trim();
+    const signatureOffset = origSignature.indexOf(signature);
 
     if (signature[0] === VALUES_DELIMITER) {
       signature = signature.substr(1).trim();
     }
 
     if (signature[0] !== '(') {
-      return signature;
+      return [signature, origSignatureOffset + signatureOffset];
     }
 
-    const { attributes, attributeString } = splitAttributes(signature);
+    const { attributes, offsets, attributeString } = splitAttributes(signature);
 
-    attributes.forEach((a) => {
+    attributes.forEach((a, index) => {
       const isParameterized = a.includes('=');
 
       let attrName = a;
@@ -219,10 +231,13 @@ class SignatureParser {
         const { alias, dataType } = relevantAttribute;
         attrValue = convertValue(attrValue, dataType);
         this.typeAttributes.push([alias, attrValue]);
+        this.typeAttributesOffsetsAndLengths.push([origSignatureOffset + signatureOffset + offsets[index], a.length]);
       } else if (!isParameterized && Object.keys(typeAttributes).includes(attrName)) {
         this.typeAttributes.push(typeAttributes[a]);
+        this.typeAttributesOffsetsAndLengths.push([origSignatureOffset + signatureOffset + offsets[index], a.length]);
       } else if (!isParameterized && !this.type && !Object.values(fakeTypeAttributes).includes(a)) {
         this.type = attrName;
+        this.typeOffset = origSignatureOffset + signatureOffset + offsets[index];
       } else if (!Object.values(fakeTypeAttributes).includes(a)) {
         error(a);
       }
@@ -238,17 +253,18 @@ class SignatureParser {
 
     compareSizeAttributes(this.typeAttributes, signature);
 
-    return signature.slice(attributeString.length);
+    return [signature.slice(attributeString.length), origSignatureOffset + signatureOffset + attributeString.length];
   }
 
-  extractDescription(signature) {
-    signature = signature.trim();
+  extractDescription(origSignature, offset) {
+    let signature = origSignature.trim();
 
     if (signature[0] === DESCRIPTION_DELIMITER) {
       signature = signature.substr(1).trim();
     }
 
     this.description = signature;
+    this.descriptionOffset = offset + origSignature.indexOf(signature);
   }
 
   hasTypeAttribute(attrName) {
@@ -292,6 +308,7 @@ function splitAttributes(signature) {
   let subTypeContext = false;
 
   const attributes = [];
+  const offsets = [];
 
   let lastSlicePos = 1;
 
@@ -319,6 +336,7 @@ function splitAttributes(signature) {
     if (!attributeValueContext && !subTypeContext) {
       if (char === ATTRIBUTES_COMMA_DELIMITER || char === ATTRIBUTES_END_DELIMITER) {
         const attr = signature.slice(lastSlicePos, i).trim();
+        offsets.push(lastSlicePos);
         lastSlicePos = i + 1;
 
         attributes.push(attr);
@@ -337,6 +355,7 @@ function splitAttributes(signature) {
 
   return {
     attributes,
+    offsets,
     attributeString: signature.slice(0, lastSlicePos),
   };
 }
