@@ -52,11 +52,12 @@ module.exports = (Parsers) => {
           [nextNode, childResult] = Parsers.OneOfTypeOptionParser.parse(node, context);
           result.options.push(childResult);
           break;
-        case SectionTypes.msonAttribute:
+        case SectionTypes.msonAttribute: {
+          const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
           [nextNode, childResult] = Parsers.MSONAttributeParser.parse(node, context);
-          result.options.push(new OneOfTypeOptionElement([childResult]));
+          result.options.push(new OneOfTypeOptionElement([childResult], sourceMap));
           break;
-
+        }
         default:
           break;
       }

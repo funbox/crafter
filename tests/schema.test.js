@@ -199,8 +199,8 @@ describe('schema', () => {
   describe('OneOfTypeElement', () => {
     it('getSchema', () => {
       const el = new OneOfTypeElement(null);
-      el.options.push(new OneOfTypeOptionElement([new PropertyMemberElement(new StringElement('foo'), new ValueMemberElement(), [])]));
-      el.options.push(new OneOfTypeOptionElement([new PropertyMemberElement(new StringElement('bar'), new ValueMemberElement(), [])]));
+      el.options.push(new OneOfTypeOptionElement([new PropertyMemberElement(new StringElement('foo'), new ValueMemberElement(), [])], null));
+      el.options.push(new OneOfTypeOptionElement([new PropertyMemberElement(new StringElement('bar'), new ValueMemberElement(), [])], null));
       expect(el.getSchema({})).toEqual([
         {
           oneOf: [
@@ -226,7 +226,7 @@ describe('schema', () => {
       const el = new OneOfTypeOptionElement([
         new PropertyMemberElement(new StringElement('foo'), new ValueMemberElement(), []),
         new PropertyMemberElement(new StringElement('bar'), new ValueMemberElement(), []),
-      ]);
+      ], null);
       expect(el.getSchema({})).toEqual([
         {
           properties: {

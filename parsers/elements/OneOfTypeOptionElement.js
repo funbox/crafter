@@ -1,6 +1,7 @@
 const Refract = require('../../Refract');
 const utils = require('../../utils');
 const Flags = require('../../Flags');
+const SourceMapElement = require('./SourceMapElement');
 
 /**
  * Элемент секции One Of
@@ -27,19 +28,29 @@ const Flags = require('../../Flags');
 class OneOfTypeOptionElement {
   /**
    * @param {PropertyMemberElement[]} members
+   * @param {SourceMap} sourceMap
    */
-  constructor(members = []) {
+  constructor(members, sourceMap) {
     this.members = members;
+    this.sourceMap = sourceMap;
   }
 
   /**
    * @param {boolean} sourceMapsEnabled
    */
   toRefract(sourceMapsEnabled) {
-    return {
+    const result = {
       element: Refract.elements.option,
       content: this.members.map(member => member.toRefract(sourceMapsEnabled)),
     };
+
+    if (sourceMapsEnabled) {
+      result.attributes = result.attributes || {};
+      const sourceMapEl = new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file);
+      result.attributes.sourceMap = sourceMapEl.toRefract();
+    }
+
+    return result;
   }
 
   /**
