@@ -1,5 +1,6 @@
 const Refract = require('../../Refract');
 const Flags = require('../../Flags');
+const SourceMapElement = require('./SourceMapElement');
 
 /**
  * Секция One Of
@@ -20,21 +21,33 @@ const Flags = require('../../Flags');
  * @see https://apielements.org/en/latest/element-definitions.html#select-element
  */
 class OneOfTypeElement {
-  constructor() {
+  /**
+   * @param {SourceMap} sourceMap
+   */
+  constructor(sourceMap) {
     /**
      * @type {OneOfTypeOptionElement[]}
      */
     this.options = [];
+    this.sourceMap = sourceMap;
   }
 
   /**
    * @param {boolean} sourceMapsEnabled
    */
   toRefract(sourceMapsEnabled) {
-    return {
+    const result = {
       element: Refract.elements.select,
       content: this.options.map(option => option.toRefract(sourceMapsEnabled)),
     };
+
+    if (sourceMapsEnabled) {
+      result.attributes = result.attributes || {};
+      const sourceMapEl = new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file);
+      result.attributes.sourceMap = sourceMapEl.toRefract();
+    }
+
+    return result;
   }
 
   /**

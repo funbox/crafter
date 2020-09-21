@@ -198,7 +198,7 @@ describe('schema', () => {
 
   describe('OneOfTypeElement', () => {
     it('getSchema', () => {
-      const el = new OneOfTypeElement();
+      const el = new OneOfTypeElement(null);
       el.options.push(new OneOfTypeOptionElement([new PropertyMemberElement(new StringElement('foo'), new ValueMemberElement(), [])]));
       el.options.push(new OneOfTypeOptionElement([new PropertyMemberElement(new StringElement('bar'), new ValueMemberElement(), [])]));
       expect(el.getSchema({})).toEqual([

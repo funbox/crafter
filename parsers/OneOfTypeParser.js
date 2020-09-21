@@ -9,10 +9,11 @@ module.exports = (Parsers) => {
   Parsers.OneOfTypeParser = Object.assign(Object.create(require('./AbstractParser')), {
     allowLeavingNode: false,
 
-    processSignature(node) {
+    processSignature(node, context) {
       const optionsList = node.firstChild.next;
       const nextNode = (optionsList && optionsList.firstChild) || utils.nextNode(node);
-      return [nextNode, new OneOfTypeElement()];
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      return [nextNode, new OneOfTypeElement(sourceMap)];
     },
 
     sectionType(node, context) {
