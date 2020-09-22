@@ -32,10 +32,6 @@ class MemberGroupElement {
      */
     this.members = [];
   }
-
-  toRefract() {
-    return this.members;
-  }
 }
 
 module.exports = MemberGroupElement;
