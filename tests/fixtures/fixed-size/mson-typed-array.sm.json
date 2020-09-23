@@ -269,30 +269,12 @@
                                             "element": "array",
                                             "content": [
                                               {
-                                                "element": "member",
-                                                "content": {
-                                                  "key": {
-                                                    "element": "string",
-                                                    "content": "minLength"
-                                                  },
-                                                  "value": {
-                                                    "element": "string",
-                                                    "content": 2
-                                                  }
-                                                }
+                                                "element": "string",
+                                                "content": "minLength"
                                               },
                                               {
-                                                "element": "member",
-                                                "content": {
-                                                  "key": {
-                                                    "element": "string",
-                                                    "content": "maxLength"
-                                                  },
-                                                  "value": {
-                                                    "element": "string",
-                                                    "content": 5
-                                                  }
-                                                }
+                                                "element": "string",
+                                                "content": "maxLength"
                                               }
                                             ]
                                           },
@@ -307,11 +289,37 @@
                                                     "content": [
                                                       {
                                                         "element": "number",
-                                                        "content": 275
+                                                        "content": 284
                                                       },
                                                       {
                                                         "element": "number",
-                                                        "content": 64
+                                                        "content": 21
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "element": "array",
+                                                    "content": [
+                                                      {
+                                                        "element": "number",
+                                                        "content": 307
+                                                      },
+                                                      {
+                                                        "element": "number",
+                                                        "content": 14
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "element": "array",
+                                                    "content": [
+                                                      {
+                                                        "element": "number",
+                                                        "content": 323
+                                                      },
+                                                      {
+                                                        "element": "number",
+                                                        "content": 14
                                                       }
                                                     ]
                                                   }
@@ -376,6 +384,19 @@
                                                 "content": 11
                                               }
                                             ]
+                                          },
+                                          {
+                                            "element": "array",
+                                            "content": [
+                                              {
+                                                "element": "number",
+                                                "content": 273
+                                              },
+                                              {
+                                                "element": "number",
+                                                "content": 66
+                                              }
+                                            ]
                                           }
                                         ]
                                       }
@@ -424,7 +445,7 @@
                                   "content": "application/schema+json"
                                 }
                               },
-                              "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"address\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"anyOf\": [\n          {\n            \"type\": \"string\"\n          },\n          {\n            \"type\": \"number\"\n          }\n        ]\n      },\n      \"minItems\": 2,\n      \"maxItems\": 5\n    }\n  }\n}"
+                              "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"address\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"anyOf\": [\n          {\n            \"type\": \"string\"\n          },\n          {\n            \"type\": \"number\"\n          }\n        ]\n      }\n    }\n  }\n}"
                             }
                           ],
                           "attributes": {

@@ -131,30 +131,12 @@
                             "element": "array",
                             "content": [
                               {
-                                "element": "member",
-                                "content": {
-                                  "key": {
-                                    "element": "string",
-                                    "content": "minimum"
-                                  },
-                                  "value": {
-                                    "element": "string",
-                                    "content": 18
-                                  }
-                                }
+                                "element": "string",
+                                "content": "minimum"
                               },
                               {
-                                "element": "member",
-                                "content": {
-                                  "key": {
-                                    "element": "string",
-                                    "content": "maximum"
-                                  },
-                                  "value": {
-                                    "element": "string",
-                                    "content": 100
-                                  }
-                                }
+                                "element": "string",
+                                "content": "maximum"
                               }
                             ]
                           },
@@ -203,11 +185,50 @@
                                     "content": [
                                       {
                                         "element": "number",
-                                        "content": 136
+                                        "content": 141
                                       },
                                       {
                                         "element": "number",
-                                        "content": 67
+                                        "content": 2
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 145
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 6
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 153
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 12
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 167
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 13
                                       }
                                     ]
                                   }
@@ -285,6 +306,31 @@
                     }
                   }
                 ],
+                "attributes": {
+                  "sourceMap": {
+                    "element": "array",
+                    "content": [
+                      {
+                        "element": "sourceMap",
+                        "content": [
+                          {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "number",
+                                "content": 134
+                              },
+                              {
+                                "element": "number",
+                                "content": 69
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
                 "meta": {
                   "id": {
                     "element": "string",

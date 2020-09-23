@@ -372,30 +372,12 @@
                                         "element": "array",
                                         "content": [
                                           {
-                                            "element": "member",
-                                            "content": {
-                                              "key": {
-                                                "element": "string",
-                                                "content": "minimum"
-                                              },
-                                              "value": {
-                                                "element": "string",
-                                                "content": 18
-                                              }
-                                            }
+                                            "element": "string",
+                                            "content": "minimum"
                                           },
                                           {
-                                            "element": "member",
-                                            "content": {
-                                              "key": {
-                                                "element": "string",
-                                                "content": "maximum"
-                                              },
-                                              "value": {
-                                                "element": "string",
-                                                "content": 100
-                                              }
-                                            }
+                                            "element": "string",
+                                            "content": "maximum"
                                           }
                                         ]
                                       },
@@ -410,11 +392,37 @@
                                                 "content": [
                                                   {
                                                     "element": "number",
-                                                    "content": 269
+                                                    "content": 274
                                                   },
                                                   {
                                                     "element": "number",
-                                                    "content": 42
+                                                    "content": 6
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "number",
+                                                    "content": 282
+                                                  },
+                                                  {
+                                                    "element": "number",
+                                                    "content": 12
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "number",
+                                                    "content": 296
+                                                  },
+                                                  {
+                                                    "element": "number",
+                                                    "content": 13
                                                   }
                                                 ]
                                               }
@@ -471,6 +479,19 @@
                                             "content": 11
                                           }
                                         ]
+                                      },
+                                      {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "number",
+                                            "content": 267
+                                          },
+                                          {
+                                            "element": "number",
+                                            "content": 44
+                                          }
+                                        ]
                                       }
                                     ]
                                   }
@@ -519,7 +540,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"age\": {\n      \"type\": \"number\",\n      \"minimum\": 18,\n      \"maximum\": 100\n    }\n  }\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"age\": {\n      \"type\": \"number\"\n    }\n  }\n}"
                         }
                       ],
                       "attributes": {

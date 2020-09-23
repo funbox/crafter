@@ -1107,11 +1107,11 @@
                                                 "content": [
                                                   {
                                                     "element": "number",
-                                                    "content": 660
+                                                    "content": 665
                                                   },
                                                   {
                                                     "element": "number",
-                                                    "content": 12
+                                                    "content": 5
                                                   }
                                                 ]
                                               }
@@ -1187,17 +1187,8 @@
                                         "element": "array",
                                         "content": [
                                           {
-                                            "element": "member",
-                                            "content": {
-                                              "key": {
-                                                "element": "string",
-                                                "content": "minimum"
-                                              },
-                                              "value": {
-                                                "element": "string",
-                                                "content": 18
-                                              }
-                                            }
+                                            "element": "string",
+                                            "content": "minimum"
                                           }
                                         ]
                                       },
@@ -1212,11 +1203,24 @@
                                                 "content": [
                                                   {
                                                     "element": "number",
-                                                    "content": 682
+                                                    "content": 687
                                                   },
                                                   {
                                                     "element": "number",
-                                                    "content": 27
+                                                    "content": 6
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "number",
+                                                    "content": 695
+                                                  },
+                                                  {
+                                                    "element": "number",
+                                                    "content": 12
                                                   }
                                                 ]
                                               }
@@ -1292,17 +1296,8 @@
                                         "element": "array",
                                         "content": [
                                           {
-                                            "element": "member",
-                                            "content": {
-                                              "key": {
-                                                "element": "string",
-                                                "content": "maximum"
-                                              },
-                                              "value": {
-                                                "element": "string",
-                                                "content": 100
-                                              }
-                                            }
+                                            "element": "string",
+                                            "content": "maximum"
                                           }
                                         ]
                                       },
@@ -1317,11 +1312,24 @@
                                                 "content": [
                                                   {
                                                     "element": "number",
-                                                    "content": 719
+                                                    "content": 727
                                                   },
                                                   {
                                                     "element": "number",
-                                                    "content": 31
+                                                    "content": 6
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "number",
+                                                    "content": 735
+                                                  },
+                                                  {
+                                                    "element": "number",
+                                                    "content": 13
                                                   }
                                                 ]
                                               }
@@ -1554,11 +1562,11 @@
                                                 "content": [
                                                   {
                                                     "element": "number",
-                                                    "content": 760
+                                                    "content": 768
                                                   },
                                                   {
                                                     "element": "number",
-                                                    "content": 25
+                                                    "content": 5
                                                   }
                                                 ]
                                               }
@@ -1622,6 +1630,19 @@
                                           {
                                             "element": "number",
                                             "content": 11
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "number",
+                                            "content": 658
+                                          },
+                                          {
+                                            "element": "number",
+                                            "content": 302
                                           }
                                         ]
                                       }
@@ -2162,126 +2183,6 @@
                         }
                       },
                       "content": 48
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      },
-      "content": "Attribute \"maximum\" can be used in number value type only."
-    },
-    {
-      "element": "annotation",
-      "meta": {
-        "classes": {
-          "element": "array",
-          "content": [
-            {
-              "element": "string",
-              "content": "warning"
-            }
-          ]
-        }
-      },
-      "attributes": {
-        "sourceMap": {
-          "element": "array",
-          "content": [
-            {
-              "element": "sourceMap",
-              "content": [
-                {
-                  "element": "array",
-                  "content": [
-                    {
-                      "element": "number",
-                      "attributes": {
-                        "line": {
-                          "element": "number",
-                          "content": 30
-                        },
-                        "column": {
-                          "element": "number",
-                          "content": 11
-                        }
-                      },
-                      "content": 682
-                    },
-                    {
-                      "element": "number",
-                      "attributes": {
-                        "line": {
-                          "element": "number",
-                          "content": 30
-                        },
-                        "column": {
-                          "element": "number",
-                          "content": 37
-                        }
-                      },
-                      "content": 27
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      },
-      "content": "Attribute \"minimum\" can be used in number value type only."
-    },
-    {
-      "element": "annotation",
-      "meta": {
-        "classes": {
-          "element": "array",
-          "content": [
-            {
-              "element": "string",
-              "content": "warning"
-            }
-          ]
-        }
-      },
-      "attributes": {
-        "sourceMap": {
-          "element": "array",
-          "content": [
-            {
-              "element": "sourceMap",
-              "content": [
-                {
-                  "element": "array",
-                  "content": [
-                    {
-                      "element": "number",
-                      "attributes": {
-                        "line": {
-                          "element": "number",
-                          "content": 31
-                        },
-                        "column": {
-                          "element": "number",
-                          "content": 11
-                        }
-                      },
-                      "content": 719
-                    },
-                    {
-                      "element": "number",
-                      "attributes": {
-                        "line": {
-                          "element": "number",
-                          "content": 31
-                        },
-                        "column": {
-                          "element": "number",
-                          "content": 41
-                        }
-                      },
-                      "content": 31
                     }
                   ]
                 }

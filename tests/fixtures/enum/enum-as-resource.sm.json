@@ -324,11 +324,11 @@
                                     "content": [
                                       {
                                         "element": "number",
-                                        "content": 101
+                                        "content": 107
                                       },
                                       {
                                         "element": "number",
-                                        "content": 12
+                                        "content": 4
                                       }
                                     ]
                                   }
@@ -366,6 +366,31 @@
                     }
                   }
                 ],
+                "attributes": {
+                  "sourceMap": {
+                    "element": "array",
+                    "content": [
+                      {
+                        "element": "sourceMap",
+                        "content": [
+                          {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "number",
+                                "content": 99
+                              },
+                              {
+                                "element": "number",
+                                "content": 84
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
                 "meta": {
                   "id": {
                     "element": "string",
@@ -657,11 +682,24 @@
                                                 "content": [
                                                   {
                                                     "element": "number",
-                                                    "content": 333
+                                                    "content": 340
                                                   },
                                                   {
                                                     "element": "number",
-                                                    "content": 36
+                                                    "content": 8
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "number",
+                                                    "content": 351
+                                                  },
+                                                  {
+                                                    "element": "number",
+                                                    "content": 6
                                                   }
                                                 ]
                                               }
@@ -725,6 +763,19 @@
                                           {
                                             "element": "number",
                                             "content": 11
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "number",
+                                            "content": 331
+                                          },
+                                          {
+                                            "element": "number",
+                                            "content": 39
                                           }
                                         ]
                                       }

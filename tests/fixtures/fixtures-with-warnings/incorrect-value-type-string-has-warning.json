@@ -496,17 +496,8 @@
                                         "element": "array",
                                         "content": [
                                           {
-                                            "element": "member",
-                                            "content": {
-                                              "key": {
-                                                "element": "string",
-                                                "content": "format"
-                                              },
-                                              "value": {
-                                                "element": "string",
-                                                "content": "date"
-                                              }
-                                            }
+                                            "element": "string",
+                                            "content": "format"
                                           }
                                         ]
                                       }
@@ -528,17 +519,8 @@
                                         "element": "array",
                                         "content": [
                                           {
-                                            "element": "member",
-                                            "content": {
-                                              "key": {
-                                                "element": "string",
-                                                "content": "pattern"
-                                              },
-                                              "value": {
-                                                "element": "string",
-                                                "content": "^fooboo$"
-                                              }
-                                            }
+                                            "element": "string",
+                                            "content": "pattern"
                                           }
                                         ]
                                       }
@@ -937,126 +919,6 @@
                         }
                       },
                       "content": 39
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      },
-      "content": "Attribute \"pattern\" can be used in string value type only."
-    },
-    {
-      "element": "annotation",
-      "meta": {
-        "classes": {
-          "element": "array",
-          "content": [
-            {
-              "element": "string",
-              "content": "warning"
-            }
-          ]
-        }
-      },
-      "attributes": {
-        "sourceMap": {
-          "element": "array",
-          "content": [
-            {
-              "element": "sourceMap",
-              "content": [
-                {
-                  "element": "array",
-                  "content": [
-                    {
-                      "element": "number",
-                      "attributes": {
-                        "line": {
-                          "element": "number",
-                          "content": 30
-                        },
-                        "column": {
-                          "element": "number",
-                          "content": 11
-                        }
-                      },
-                      "content": 663
-                    },
-                    {
-                      "element": "number",
-                      "attributes": {
-                        "line": {
-                          "element": "number",
-                          "content": 30
-                        },
-                        "column": {
-                          "element": "number",
-                          "content": 38
-                        }
-                      },
-                      "content": 28
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      },
-      "content": "Attribute \"format\" can be used in string value type only."
-    },
-    {
-      "element": "annotation",
-      "meta": {
-        "classes": {
-          "element": "array",
-          "content": [
-            {
-              "element": "string",
-              "content": "warning"
-            }
-          ]
-        }
-      },
-      "attributes": {
-        "sourceMap": {
-          "element": "array",
-          "content": [
-            {
-              "element": "sourceMap",
-              "content": [
-                {
-                  "element": "array",
-                  "content": [
-                    {
-                      "element": "number",
-                      "attributes": {
-                        "line": {
-                          "element": "number",
-                          "content": 31
-                        },
-                        "column": {
-                          "element": "number",
-                          "content": 11
-                        }
-                      },
-                      "content": 701
-                    },
-                    {
-                      "element": "number",
-                      "attributes": {
-                        "line": {
-                          "element": "number",
-                          "content": 31
-                        },
-                        "column": {
-                          "element": "number",
-                          "content": 46
-                        }
-                      },
-                      "content": 36
                     }
                   ]
                 }

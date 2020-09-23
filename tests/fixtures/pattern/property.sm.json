@@ -226,17 +226,8 @@
                                         "element": "array",
                                         "content": [
                                           {
-                                            "element": "member",
-                                            "content": {
-                                              "key": {
-                                                "element": "string",
-                                                "content": "pattern"
-                                              },
-                                              "value": {
-                                                "element": "string",
-                                                "content": "^\\S+$"
-                                              }
-                                            }
+                                            "element": "string",
+                                            "content": "pattern"
                                           }
                                         ]
                                       },
@@ -251,11 +242,24 @@
                                                 "content": [
                                                   {
                                                     "element": "number",
-                                                    "content": 169
+                                                    "content": 174
                                                   },
                                                   {
                                                     "element": "number",
-                                                    "content": 31
+                                                    "content": 6
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "number",
+                                                    "content": 182
+                                                  },
+                                                  {
+                                                    "element": "number",
+                                                    "content": 16
                                                   }
                                                 ]
                                               }
@@ -312,6 +316,19 @@
                                             "content": 11
                                           }
                                         ]
+                                      },
+                                      {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "number",
+                                            "content": 167
+                                          },
+                                          {
+                                            "element": "number",
+                                            "content": 33
+                                          }
+                                        ]
                                       }
                                     ]
                                   }
@@ -360,7 +377,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"foo\": {\n      \"type\": \"string\",\n      \"pattern\": \"^\\\\S+$\"\n    }\n  }\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"foo\": {\n      \"type\": \"string\"\n    }\n  }\n}"
                         }
                       ],
                       "attributes": {

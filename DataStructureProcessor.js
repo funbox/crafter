@@ -29,6 +29,16 @@ class DataStructureProcessor {
       }
 
       valueMember.content = this.buildObject(curNode, context);
+
+      if (valueMember.content.propertyMembers.length) {
+        const sourceMap = utils.mergeSourceMaps(valueMember.content.propertyMembers.map(pm => pm.sourceMap), context.sourceBuffer, context.linefeedOffsets);
+
+        if (valueMember.sourceMap) {
+          valueMember.sourceMap = utils.concatSourceMaps([valueMember.sourceMap, sourceMap]);
+        } else {
+          valueMember.sourceMap = sourceMap;
+        }
+      }
     }
 
     if (valueMember.isArray()) {

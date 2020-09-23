@@ -125,32 +125,7 @@
                         }
                       },
                       "value": {
-                        "element": "string",
-                        "attributes": {
-                          "sourceMap": {
-                            "element": "array",
-                            "content": [
-                              {
-                                "element": "sourceMap",
-                                "content": [
-                                  {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "number",
-                                        "content": 100
-                                      },
-                                      {
-                                        "element": "number",
-                                        "content": 5
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        }
+                        "element": "string"
                       }
                     },
                     "attributes": {
@@ -230,11 +205,11 @@
                                     "content": [
                                       {
                                         "element": "number",
-                                        "content": 107
+                                        "content": 117
                                       },
                                       {
                                         "element": "number",
-                                        "content": 26
+                                        "content": 14
                                       }
                                     ]
                                   }
@@ -272,6 +247,31 @@
                     }
                   }
                 ],
+                "attributes": {
+                  "sourceMap": {
+                    "element": "array",
+                    "content": [
+                      {
+                        "element": "sourceMap",
+                        "content": [
+                          {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "number",
+                                "content": 98
+                              },
+                              {
+                                "element": "number",
+                                "content": 36
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
                 "meta": {
                   "id": {
                     "element": "string",

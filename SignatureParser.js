@@ -128,7 +128,8 @@ class SignatureParser {
       this.nameOffset = origSignature.indexOf(this.name);
     }
 
-    return [signature.substr(i), i];
+    const newSignature = signature.substr(i);
+    return [newSignature, origSignature.length - newSignature.length];
   }
 
   extractValue(origSignature, offset) {
@@ -335,8 +336,9 @@ function splitAttributes(signature) {
 
     if (!attributeValueContext && !subTypeContext) {
       if (char === ATTRIBUTES_COMMA_DELIMITER || char === ATTRIBUTES_END_DELIMITER) {
-        const attr = signature.slice(lastSlicePos, i).trim();
-        offsets.push(lastSlicePos);
+        const rawAttr = signature.slice(lastSlicePos, i);
+        const attr = rawAttr.trim();
+        offsets.push(lastSlicePos + rawAttr.indexOf(attr));
         lastSlicePos = i + 1;
 
         attributes.push(attr);

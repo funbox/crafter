@@ -25,13 +25,6 @@ module.exports = (Parsers) => {
         if (!(e instanceof utils.SignatureError)) throw e;
       }
 
-      // TODO Сделать тут SourceMap более точно:
-      // + name (string, required) - тут к value относится только string
-      // + name: Egor (string, required) - тут к value относится Egor и string
-      // + user
-      //   + name
-      //   + email
-      // тут к value относится name и email
       const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       context.data.attributeSignatureDetails = { sourceMap, node: node.firstChild };
 
@@ -59,10 +52,64 @@ module.exports = (Parsers) => {
         ));
       }
 
-      const [propertyTypeAttributes, valueTypeAttributes] = splitTypeAttributes(signature.typeAttributes);
+      const splittedAttributes = splitTypeAttributes(signature.typeAttributes);
+      const propertyTypeAttributes = splittedAttributes[0];
+      const valueTypeAttributes = splittedAttributes[1];
+      const valueTypeAttributesIndexes = splittedAttributes[3];
 
-      const valueEl = new ValueMemberElement(signature.type, valueTypeAttributes, signature.value, '', signature.isSample, signature.isDefault);
-      valueEl.sourceMap = sourceMap;
+      const valueMemberSourceMaps = [];
+
+      if (signature.value) {
+        valueMemberSourceMaps.push(utils.makeSourceMapsForString(
+          signature.value,
+          signature.valueOffset,
+          node.firstChild,
+          context.sourceLines,
+          context.sourceBuffer,
+          context.linefeedOffsets,
+        ));
+      }
+
+      valueTypeAttributes.forEach((attr, index) => {
+        const origIndex = valueTypeAttributesIndexes[index];
+        const [offset, length] = signature.typeAttributesOffsetsAndLengths[origIndex];
+
+        valueMemberSourceMaps.push(utils.makeSourceMapsForStartPosAndLength(
+          offset,
+          length,
+          node.firstChild,
+          context.sourceLines,
+          context.sourceBuffer,
+          context.linefeedOffsets,
+        ));
+      });
+
+      if (signature.type) {
+        valueMemberSourceMaps.push(utils.makeSourceMapsForString(
+          signature.type,
+          signature.typeOffset,
+          node.firstChild,
+          context.sourceLines,
+          context.sourceBuffer,
+          context.linefeedOffsets,
+        ));
+      }
+
+      valueMemberSourceMaps.sort((sm1, sm2) => sm1.byteBlocks[0].offset - sm2.byteBlocks[0].offset);
+
+      const valueEl = new ValueMemberElement(
+        signature.type,
+        valueTypeAttributes.map(a => a[0]),
+        signature.value,
+        '',
+        signature.isSample,
+        signature.isDefault,
+      );
+
+      if (valueMemberSourceMaps.length) {
+        valueEl.sourceMap = utils.concatSourceMaps(valueMemberSourceMaps);
+      }
+
       try {
         const backPropagatedTypeAttributes = ValueMemberProcessor.fillBaseType(context, valueEl, true);
         const [propagatedTypeAttributes] = splitTypeAttributes(backPropagatedTypeAttributes);
@@ -206,14 +253,18 @@ module.exports = (Parsers) => {
 
 function splitTypeAttributes(typeAttrs) {
   const propertyTypeAttributes = [];
+  const propertyTypeAttributesIndexes = [];
   const valueTypeAttributes = [];
+  const valueTypeAttributesIndexes = [];
 
-  typeAttrs.forEach((attr) => {
+  typeAttrs.forEach((attr, index) => {
     if (Array.isArray(attr) && valueAttributes.includes(attr[0])) {
       valueTypeAttributes.push(attr);
+      valueTypeAttributesIndexes.push(index);
     } else {
       propertyTypeAttributes.push(attr);
+      propertyTypeAttributesIndexes.push(index);
     }
   });
-  return [propertyTypeAttributes, valueTypeAttributes];
+  return [propertyTypeAttributes, valueTypeAttributes, propertyTypeAttributesIndexes, valueTypeAttributesIndexes];
 }

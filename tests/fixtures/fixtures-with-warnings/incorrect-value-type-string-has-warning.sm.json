@@ -1081,11 +1081,11 @@
                                                 "content": [
                                                   {
                                                     "element": "number",
-                                                    "content": 641
+                                                    "content": 646
                                                   },
                                                   {
                                                     "element": "number",
-                                                    "content": 12
+                                                    "content": 5
                                                   }
                                                 ]
                                               }
@@ -1161,17 +1161,8 @@
                                         "element": "array",
                                         "content": [
                                           {
-                                            "element": "member",
-                                            "content": {
-                                              "key": {
-                                                "element": "string",
-                                                "content": "format"
-                                              },
-                                              "value": {
-                                                "element": "string",
-                                                "content": "date"
-                                              }
-                                            }
+                                            "element": "string",
+                                            "content": "format"
                                           }
                                         ]
                                       },
@@ -1186,11 +1177,24 @@
                                                 "content": [
                                                   {
                                                     "element": "number",
-                                                    "content": 663
+                                                    "content": 668
                                                   },
                                                   {
                                                     "element": "number",
-                                                    "content": 28
+                                                    "content": 6
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "number",
+                                                    "content": 676
+                                                  },
+                                                  {
+                                                    "element": "number",
+                                                    "content": 13
                                                   }
                                                 ]
                                               }
@@ -1266,17 +1270,8 @@
                                         "element": "array",
                                         "content": [
                                           {
-                                            "element": "member",
-                                            "content": {
-                                              "key": {
-                                                "element": "string",
-                                                "content": "pattern"
-                                              },
-                                              "value": {
-                                                "element": "string",
-                                                "content": "^fooboo$"
-                                              }
-                                            }
+                                            "element": "string",
+                                            "content": "pattern"
                                           }
                                         ]
                                       },
@@ -1291,11 +1286,24 @@
                                                 "content": [
                                                   {
                                                     "element": "number",
-                                                    "content": 701
+                                                    "content": 709
                                                   },
                                                   {
                                                     "element": "number",
-                                                    "content": 36
+                                                    "content": 6
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "number",
+                                                    "content": 717
+                                                  },
+                                                  {
+                                                    "element": "number",
+                                                    "content": 18
                                                   }
                                                 ]
                                               }
@@ -1502,11 +1510,11 @@
                                                 "content": [
                                                   {
                                                     "element": "number",
-                                                    "content": 747
+                                                    "content": 755
                                                   },
                                                   {
                                                     "element": "number",
-                                                    "content": 25
+                                                    "content": 5
                                                   }
                                                 ]
                                               }
@@ -1570,6 +1578,19 @@
                                           {
                                             "element": "number",
                                             "content": 11
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "number",
+                                            "content": 639
+                                          },
+                                          {
+                                            "element": "number",
+                                            "content": 285
                                           }
                                         ]
                                       }
@@ -1990,126 +2011,6 @@
                         }
                       },
                       "content": 39
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      },
-      "content": "Attribute \"pattern\" can be used in string value type only."
-    },
-    {
-      "element": "annotation",
-      "meta": {
-        "classes": {
-          "element": "array",
-          "content": [
-            {
-              "element": "string",
-              "content": "warning"
-            }
-          ]
-        }
-      },
-      "attributes": {
-        "sourceMap": {
-          "element": "array",
-          "content": [
-            {
-              "element": "sourceMap",
-              "content": [
-                {
-                  "element": "array",
-                  "content": [
-                    {
-                      "element": "number",
-                      "attributes": {
-                        "line": {
-                          "element": "number",
-                          "content": 30
-                        },
-                        "column": {
-                          "element": "number",
-                          "content": 11
-                        }
-                      },
-                      "content": 663
-                    },
-                    {
-                      "element": "number",
-                      "attributes": {
-                        "line": {
-                          "element": "number",
-                          "content": 30
-                        },
-                        "column": {
-                          "element": "number",
-                          "content": 38
-                        }
-                      },
-                      "content": 28
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      },
-      "content": "Attribute \"format\" can be used in string value type only."
-    },
-    {
-      "element": "annotation",
-      "meta": {
-        "classes": {
-          "element": "array",
-          "content": [
-            {
-              "element": "string",
-              "content": "warning"
-            }
-          ]
-        }
-      },
-      "attributes": {
-        "sourceMap": {
-          "element": "array",
-          "content": [
-            {
-              "element": "sourceMap",
-              "content": [
-                {
-                  "element": "array",
-                  "content": [
-                    {
-                      "element": "number",
-                      "attributes": {
-                        "line": {
-                          "element": "number",
-                          "content": 31
-                        },
-                        "column": {
-                          "element": "number",
-                          "content": 11
-                        }
-                      },
-                      "content": 701
-                    },
-                    {
-                      "element": "number",
-                      "attributes": {
-                        "line": {
-                          "element": "number",
-                          "content": 31
-                        },
-                        "column": {
-                          "element": "number",
-                          "content": 46
-                        }
-                      },
-                      "content": 36
                     }
                   ]
                 }

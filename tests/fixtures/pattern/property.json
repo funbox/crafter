@@ -76,17 +76,8 @@
                                         "element": "array",
                                         "content": [
                                           {
-                                            "element": "member",
-                                            "content": {
-                                              "key": {
-                                                "element": "string",
-                                                "content": "pattern"
-                                              },
-                                              "value": {
-                                                "element": "string",
-                                                "content": "^\\S+$"
-                                              }
-                                            }
+                                            "element": "string",
+                                            "content": "pattern"
                                           }
                                         ]
                                       }
@@ -137,7 +128,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"foo\": {\n      \"type\": \"string\",\n      \"pattern\": \"^\\\\S+$\"\n    }\n  }\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"foo\": {\n      \"type\": \"string\"\n    }\n  }\n}"
                         }
                       ],
                       "attributes": {

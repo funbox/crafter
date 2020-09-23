@@ -131,17 +131,8 @@
                             "element": "array",
                             "content": [
                               {
-                                "element": "member",
-                                "content": {
-                                  "key": {
-                                    "element": "string",
-                                    "content": "format"
-                                  },
-                                  "value": {
-                                    "element": "string",
-                                    "content": "date-time"
-                                  }
-                                }
+                                "element": "string",
+                                "content": "format"
                               }
                             ]
                           },
@@ -190,11 +181,37 @@
                                     "content": [
                                       {
                                         "element": "number",
-                                        "content": 153
+                                        "content": 160
                                       },
                                       {
                                         "element": "number",
-                                        "content": 69
+                                        "content": 5
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 168
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 6
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 176
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 18
                                       }
                                     ]
                                   }
@@ -272,6 +289,31 @@
                     }
                   }
                 ],
+                "attributes": {
+                  "sourceMap": {
+                    "element": "array",
+                    "content": [
+                      {
+                        "element": "sourceMap",
+                        "content": [
+                          {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "number",
+                                "content": 151
+                              },
+                              {
+                                "element": "number",
+                                "content": 71
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
                 "meta": {
                   "id": {
                     "element": "string",

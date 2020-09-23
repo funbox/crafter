@@ -227,18 +227,71 @@ const utils = {
   },
 
   makeSourceMapsForString(str, offset, node, sourceLines, sourceBuffer, linefeedOffsets) {
+    return utils.makeSourceMapsForStartPosAndLength(offset, str.length, node, sourceLines, sourceBuffer, linefeedOffsets);
+  },
+
+  makeSourceMapsForStartPosAndLength(startPos, length, node, sourceLines, sourceBuffer, linefeedOffsets) {
     sourceLines = node.sourceLines || sourceLines;
     sourceBuffer = node.sourceBuffer || sourceBuffer;
     linefeedOffsets = node.linefeedOffsets || linefeedOffsets;
     const { startLineIndex, startColumnIndex } = utils.getSourcePosZeroBased(node);
 
-    const columnIndex = startColumnIndex + offset;
+    const columnIndex = startColumnIndex + startPos;
 
+    const offset = utils.getOffsetFromStartOfFileInBytes(startLineIndex, columnIndex, sourceLines);
+    const lengthInBytes = utils.getOffsetFromStartOfFileInBytes(startLineIndex, columnIndex + length, sourceLines) - offset;
     const byteBlock = {
-      offset: utils.getOffsetFromStartOfFileInBytes(startLineIndex, columnIndex, sourceLines),
-      length: Buffer.byteLength(str),
+      offset,
+      length: lengthInBytes,
       file: node.file,
     };
+    const byteBlocks = [byteBlock];
+    const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
+    return new SourceMap(byteBlocks, charBlocks);
+  },
+
+  concatSourceMaps(sourceMaps) {
+    const result = new SourceMap([], []);
+    sourceMaps.forEach(sm => {
+      result.byteBlocks.push(...sm.byteBlocks);
+      result.charBlocks.push(...sm.charBlocks);
+    });
+
+    return result;
+  },
+
+  mergeSourceMaps(sourceMaps, sourceBuffer, linefeedOffsets) {
+    let fileFetched = false;
+    let file;
+    let offset = Number.MAX_VALUE;
+
+    sourceMaps.forEach(sm => {
+      sm.byteBlocks.forEach(bb => {
+        if (!fileFetched) {
+          file = bb.file;
+          fileFetched = true;
+        } else if (file !== bb.file) {
+          throw new CrafterError('Can not expand source maps from different files');
+        }
+
+        if (offset > bb.offset) {
+          offset = bb.offset;
+        }
+      });
+    });
+
+    const byteBlock = {
+      offset,
+      length: -1,
+      file,
+    };
+
+    sourceMaps.forEach(sm => {
+      sm.byteBlocks.forEach(bb => {
+        byteBlock.length = Math.max(byteBlock.length, bb.offset + bb.length - byteBlock.offset);
+      });
+    });
+
     const byteBlocks = [byteBlock];
     const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
     return new SourceMap(byteBlocks, charBlocks);
@@ -485,9 +538,7 @@ const utils = {
     const merged = new StringElement();
     merged.string = first.string + second.string;
     if (first.sourceMap && second.sourceMap) {
-      const byteBlocks = [...first.sourceMap.byteBlocks, ...second.sourceMap.byteBlocks];
-      const charBlocks = [...first.sourceMap.charBlocks, ...second.sourceMap.charBlocks];
-      merged.sourceMap = new SourceMap(byteBlocks, charBlocks);
+      merged.sourceMap = utils.concatSourceMaps([first.sourceMap, second.sourceMap]);
     }
     return merged;
   },

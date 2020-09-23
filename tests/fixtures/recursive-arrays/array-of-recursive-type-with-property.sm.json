@@ -96,32 +96,7 @@
                         }
                       },
                       "value": {
-                        "element": "string",
-                        "attributes": {
-                          "sourceMap": {
-                            "element": "array",
-                            "content": [
-                              {
-                                "element": "sourceMap",
-                                "content": [
-                                  {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "number",
-                                        "content": 38
-                                      },
-                                      {
-                                        "element": "number",
-                                        "content": 2
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        }
+                        "element": "string"
                       }
                     },
                     "attributes": {
@@ -201,11 +176,11 @@
                                     "content": [
                                       {
                                         "element": "number",
-                                        "content": 42
+                                        "content": 45
                                       },
                                       {
                                         "element": "number",
-                                        "content": 15
+                                        "content": 10
                                       }
                                     ]
                                   }
@@ -243,6 +218,31 @@
                     }
                   }
                 ],
+                "attributes": {
+                  "sourceMap": {
+                    "element": "array",
+                    "content": [
+                      {
+                        "element": "sourceMap",
+                        "content": [
+                          {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "number",
+                                "content": 36
+                              },
+                              {
+                                "element": "number",
+                                "content": 22
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
                 "meta": {
                   "id": {
                     "element": "string",
@@ -403,32 +403,7 @@
                                         }
                                       },
                                       "value": {
-                                        "element": "string",
-                                        "attributes": {
-                                          "sourceMap": {
-                                            "element": "array",
-                                            "content": [
-                                              {
-                                                "element": "sourceMap",
-                                                "content": [
-                                                  {
-                                                    "element": "array",
-                                                    "content": [
-                                                      {
-                                                        "element": "number",
-                                                        "content": 159
-                                                      },
-                                                      {
-                                                        "element": "number",
-                                                        "content": 2
-                                                      }
-                                                    ]
-                                                  }
-                                                ]
-                                              }
-                                            ]
-                                          }
-                                        }
+                                        "element": "string"
                                       }
                                     },
                                     "attributes": {
@@ -475,6 +450,19 @@
                                               {
                                                 "element": "number",
                                                 "content": 6
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "element": "array",
+                                            "content": [
+                                              {
+                                                "element": "number",
+                                                "content": 157
+                                              },
+                                              {
+                                                "element": "number",
+                                                "content": 4
                                               }
                                             ]
                                           }
