@@ -284,8 +284,8 @@ describe('schema', () => {
     it('fixed', () => {
       const el = new PropertyMemberElement(
         new StringElement('status'),
-        createValueMemberElement(['string', [], 'ok']),
-        ['fixed'],
+        createValueMemberElement(['string', ['fixed'], 'ok']),
+        [],
       );
       expect(el.getSchema({})).toEqual([
         {
@@ -323,7 +323,11 @@ describe('schema', () => {
     });
 
     it('nullable', () => {
-      const el = new PropertyMemberElement(new StringElement('foo'), new ValueMemberElement(), ['nullable']);
+      const el = new PropertyMemberElement(
+        new StringElement('foo'),
+        new ValueMemberElement(undefined, ['nullable']),
+        [],
+      );
       expect(el.getSchema({})).toEqual([
         {
           properties: {
