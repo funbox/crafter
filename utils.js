@@ -532,10 +532,11 @@ const utils = {
   },
 
   mergeFlags(baseFlags, typeElement, options = { propagateFixedType: true }) {
+    const typeElementAttributes = typeElement.typeAttributes || [];
     return new Flags({
-      isFixed: baseFlags.isFixed || typeElement.typeAttributes.includes('fixed'),
-      isFixedType: (options.propagateFixedType && baseFlags.isFixedType) || typeElement.typeAttributes.includes('fixedType'),
-      isNullable: typeElement.typeAttributes.includes('nullable'),
+      isFixed: baseFlags.isFixed || typeElementAttributes.includes('fixed'),
+      isFixedType: (options.propagateFixedType && baseFlags.isFixedType) || typeElementAttributes.includes('fixedType'),
+      isNullable: typeElementAttributes.includes('nullable'),
       skipTypesInlining: baseFlags.skipTypesInlining,
     });
   },
