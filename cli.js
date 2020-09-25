@@ -2,6 +2,7 @@
 
 const program = require('commander');
 const parseApibFile = require('./parseApibFile');
+const Logger = require('./utils').Logger;
 
 program
   .version(require('./package').version, '-v, --version')
@@ -15,4 +16,4 @@ if (program.args.length === 0) {
   program.help();
 }
 
-console.log(parseApibFile(program.args[0], program.format, program.sourcemap, program.debug));
+console.log(parseApibFile(program.args[0], program.format, program.sourcemap, program.debug, { logger: new Logger() }));
