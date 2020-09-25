@@ -4,7 +4,7 @@ const Context = require('./Context');
 const utils = require('./utils');
 
 const Parsers = {};
-let prevPengingParsers = [];
+let prevPendingParsers = [];
 
 function maybeCallback(cb) {
   return typeof cb === 'function' ? cb : () => { throw new Error('Call of an asynchronous function without a callback'); };
@@ -66,10 +66,10 @@ function defineParsers(parsers) {
     }
   });
   if (pendingParsers.length > 0) {
-    if (prevPengingParsers.length && !(pendingParsers.length < prevPengingParsers.length)) {
+    if (prevPendingParsers.length && !(pendingParsers.length < prevPendingParsers.length)) {
       throw new Error('Something went wrong during parsers definition process');
     }
-    prevPengingParsers = pendingParsers;
+    prevPendingParsers = pendingParsers;
     defineParsers(pendingParsers);
   }
 }
