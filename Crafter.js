@@ -2,7 +2,6 @@ const fs = require('fs');
 const path = require('path');
 const Context = require('./Context');
 const utils = require('./utils');
-const Logger = require('./utils').Logger;
 
 const Parsers = {};
 let prevPengingParsers = [];
@@ -41,14 +40,12 @@ function parseFile(file, contextOptions, callback) {
 
 function parseSync(source, contextOptions) {
   const ast = utils.markdownSourceToAST(source);
-  contextOptions.logger = contextOptions.logger || new Logger();
   const context = new Context(source, Parsers, contextOptions);
   return Parsers.BlueprintParser.parse(ast.firstChild, context).slice(1);
 }
 
 function parseFileSync(file, contextOptions = {}) {
   contextOptions.entryDir = path.dirname(file);
-  contextOptions.logger = contextOptions.logger || new Logger();
   return parseSync(fs.readFileSync(file, { encoding: 'utf-8' }), contextOptions);
 }
 

@@ -141,7 +141,9 @@ class Context {
   addWarning(text, sourceMap) {
     if (this.warningsEnabled) {
       this.warnings.push({ text, sourceMap });
-      this.logger.warn(text, [sourceMap.charBlocks[0].startLine, sourceMap.file]);
+      if (this.logger) {
+        this.logger.warn(text, [sourceMap.charBlocks[0].startLine, sourceMap.file]);
+      }
     }
   }
 
