@@ -33,8 +33,16 @@ module.exports = (Parsers) => {
 
       context.data.attributeSignatureDetails = { sourceMap, node };
 
-      const name = new StringElement(signature.name);
-      name.sourceMap = sourceMap;
+      const prefixLength = utils.nodeText(node, context.sourceLines).indexOf(subject);
+      const nameSourceMap = utils.makeSourceMapsForString(
+        signature.name,
+        signature.nameOffset + prefixLength,
+        node,
+        context.sourceLines,
+        context.sourceBuffer,
+        context.linefeedOffsets,
+      );
+      const name = new StringElement(signature.name, nameSourceMap);
 
       const typeElement = new MSONNamedTypeElement(name, signature.type, signature.typeAttributes);
       if (!context.typeExtractingInProgress) {
