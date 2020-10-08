@@ -150,6 +150,15 @@ module.exports = (Parsers) => {
               if (childResult.length) {
                 valueMember.samples = valueMember.samples || [];
                 valueMember.samples.push(...childResult);
+
+                const childSourceMaps = [];
+                childResult.forEach(sample => childSourceMaps.push(sample.sourceMap));
+
+                if (valueMember.sourceMap) {
+                  valueMember.sourceMap = utils.concatSourceMaps([valueMember.sourceMap, ...childSourceMaps]);
+                } else {
+                  valueMember.sourceMap = utils.concatSourceMaps(childSourceMaps);
+                }
               }
             }
 

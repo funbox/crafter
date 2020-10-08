@@ -97,16 +97,30 @@ class DataStructureProcessor {
       curNode = curNode.next;
     }
 
+    const childSourceMaps = [];
+
     if (samples.length) {
+      samples.forEach(sample => childSourceMaps.push(sample.sourceMap));
+
       primitiveElement.samples = primitiveElement.samples || [];
       primitiveElement.samples.push(...samples);
     }
 
     if (defaults.length) {
+      defaults.forEach(d => childSourceMaps.push(d.sourceMap));
+
       if (defaults.length > 1) {
         context.addWarning('Multiple definitions of "default" value', sourceMap);
       }
       primitiveElement.default = defaults[0];
+    }
+
+    if (childSourceMaps.length) {
+      if (primitiveElement.sourceMap) {
+        primitiveElement.sourceMap = utils.concatSourceMaps([primitiveElement.sourceMap, ...childSourceMaps]);
+      } else {
+        primitiveElement.sourceMap = utils.concatSourceMaps(childSourceMaps);
+      }
     }
   }
 

@@ -96,6 +96,31 @@
                     "element": "object"
                   }
                 ],
+                "attributes": {
+                  "sourceMap": {
+                    "element": "array",
+                    "content": [
+                      {
+                        "element": "sourceMap",
+                        "content": [
+                          {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "number",
+                                "content": 211
+                              },
+                              {
+                                "element": "number",
+                                "content": 13
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
                 "meta": {
                   "id": {
                     "element": "string",
@@ -112,11 +137,11 @@
                                 "content": [
                                   {
                                     "element": "number",
-                                    "content": 196
+                                    "content": 199
                                   },
                                   {
                                     "element": "number",
-                                    "content": 31
+                                    "content": 10
                                   }
                                 ]
                               }
