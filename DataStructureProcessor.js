@@ -134,6 +134,8 @@ class DataStructureProcessor {
     const predefinedType = arrayMembers.length ? arrayMembers[0].type : 'string';
     const hasComplexMembers = arrayElement.content.isComplex();
 
+    const childSourceMaps = [];
+
     while (curNode) {
       let nextNode;
       let childResult;
@@ -146,6 +148,9 @@ class DataStructureProcessor {
         delete context.data.valueType;
         if (!hasComplexMembers) {
           samples.push(...childResult);
+          childResult.forEach(c => {
+            childSourceMaps.push(...c.sourceMap);
+          });
         } else {
           context.addWarning('Samples of arrays of non-primitive types are not supported', sourceMap);
         }
@@ -157,6 +162,9 @@ class DataStructureProcessor {
         delete context.data.valueType;
         if (!hasComplexMembers) {
           defaults.push(...childResult);
+          childResult.forEach(c => {
+            childSourceMaps.push(...c.sourceMap);
+          });
         } else {
           context.addWarning('Default values of arrays of non-primitive types are not supported', sourceMap);
         }
@@ -164,6 +172,7 @@ class DataStructureProcessor {
       } else if (this.Parsers.MSONMemberGroupParser.sectionType(curNode, context) === SectionTypes.msonArrayMemberGroup) {
         [nextNode, childResult] = this.Parsers.MSONMemberGroupParser.parse(curNode, context);
         arrayMembers.push(...childResult.members);
+        childSourceMaps.push(...childResult.members.map(c => c.sourceMap));
       } else if (this.Parsers.MSONMixinParser.sectionType(curNode, context) !== SectionTypes.undefined) {
         [nextNode, childResult] = this.Parsers.MSONMixinParser.parse(curNode, context);
 
@@ -176,10 +185,12 @@ class DataStructureProcessor {
 
         if (isMixinValid) {
           arrayMembers.push(childResult);
+          childSourceMaps.push(childResult.sourceMap);
         }
       } else {
         [nextNode, childResult] = this.Parsers.ArrayMemberParser.parse(curNode, context);
         arrayMembers.push(childResult);
+        childSourceMaps.push(childResult.sourceMap);
       }
 
       // TODO Что если nextNode !== curNode.next ?
@@ -217,6 +228,14 @@ class DataStructureProcessor {
         member.value = realValue.valid ? realValue.value : utils.defaultValue(predefinedType);
       }
     });
+
+    if (childSourceMaps.length) {
+      if (arrayElement.sourceMap) {
+        arrayElement.sourceMap = utils.concatSourceMaps([arrayElement.sourceMap, ...childSourceMaps]);
+      } else {
+        arrayElement.sourceMap = utils.concatSourceMaps(childSourceMaps);
+      }
+    }
   }
 
   buildObject(node, context) {
