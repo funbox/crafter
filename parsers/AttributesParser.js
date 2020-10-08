@@ -39,6 +39,39 @@ module.exports = (Parsers) => {
       }
 
       const memberEl = new ValueMemberElement(signature.type);
+
+      const valueMemberSourceMaps = [];
+
+      signature.typeAttributes.forEach((attr, index) => {
+        const [offset, length] = signature.typeAttributesOffsetsAndLengths[index];
+
+        valueMemberSourceMaps.push(utils.makeSourceMapsForStartPosAndLength(
+          offset,
+          length,
+          node.firstChild,
+          context.sourceLines,
+          context.sourceBuffer,
+          context.linefeedOffsets,
+        ));
+      });
+
+      if (signature.type) {
+        valueMemberSourceMaps.push(utils.makeSourceMapsForString(
+          signature.type,
+          signature.typeOffset,
+          node.firstChild,
+          context.sourceLines,
+          context.sourceBuffer,
+          context.linefeedOffsets,
+        ));
+      }
+
+      valueMemberSourceMaps.sort((sm1, sm2) => sm1.byteBlocks[0].offset - sm2.byteBlocks[0].offset);
+
+      if (valueMemberSourceMaps.length) {
+        memberEl.sourceMap = utils.concatSourceMaps(valueMemberSourceMaps);
+      }
+
       try {
         const backPropagatedTypeAttributes = ValueMemberProcessor.fillBaseType(context, memberEl);
         memberEl.typeAttributes = [...new Set(signature.typeAttributes.concat(backPropagatedTypeAttributes))];
@@ -49,14 +82,14 @@ module.exports = (Parsers) => {
         throw error;
       }
 
-      memberEl.sourceMap = sourceMap;
       let nextNode = signature.rest ? node.firstChild : node.firstChild.next;
 
       if (!nextNode) {
         nextNode = utils.nextNode(node.firstChild);
       }
 
-      return [nextNode, new AttributesElement(memberEl)];
+      const attributesSourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      return [nextNode, new AttributesElement(memberEl, attributesSourceMap)];
     },
 
     sectionType(node, context) {
@@ -115,8 +148,9 @@ module.exports = (Parsers) => {
 
         if (blockDescriptionEl) {
           result.content.description = blockDescriptionEl.description;
-          result.content.sourceMap.byteBlocks.push(...blockDescriptionEl.sourceMap.byteBlocks);
-          result.content.sourceMap.charBlocks.push(...blockDescriptionEl.sourceMap.charBlocks);
+          result.content.sourceMap = result.content.sourceMap
+            ? utils.concatSourceMaps([result.content.sourceMap, blockDescriptionEl.sourceMap])
+            : blockDescriptionEl.sourceMap;
         }
         dataStructureProcessorStartNode = nextNode;
       }

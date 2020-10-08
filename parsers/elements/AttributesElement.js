@@ -1,6 +1,7 @@
 const Refract = require('../../Refract');
 const utils = require('../../utils');
 const Flags = require('../../Flags');
+const SourceMapElement = require('./SourceMapElement');
 
 /**
  * Секция Attributes
@@ -19,19 +20,30 @@ const Flags = require('../../Flags');
 class AttributesElement {
   /**
    * @param {ValueMemberElement} content
+   * @param {SourceMap} sourceMap
    */
-  constructor(content) {
+  constructor(content, sourceMap) {
     this.content = content;
+    this.sourceMap = sourceMap;
   }
 
   /**
    * @param {boolean} sourceMapsEnabled
    */
   toRefract(sourceMapsEnabled) {
-    return {
+    const result = {
       element: Refract.elements.dataStructure,
       content: this.content.toRefract(sourceMapsEnabled),
     };
+
+    if (sourceMapsEnabled) {
+      const sourceMapEl = new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file);
+      result.attributes = {
+        sourceMap: sourceMapEl.toRefract(),
+      };
+    }
+
+    return result;
   }
 
   /**

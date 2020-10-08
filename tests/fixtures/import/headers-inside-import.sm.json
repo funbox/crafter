@@ -838,19 +838,6 @@
                                             "content": [
                                               {
                                                 "element": "number",
-                                                "content": 400
-                                              },
-                                              {
-                                                "element": "number",
-                                                "content": 11
-                                              }
-                                            ]
-                                          },
-                                          {
-                                            "element": "array",
-                                            "content": [
-                                              {
-                                                "element": "number",
                                                 "content": 413
                                               },
                                               {
@@ -864,6 +851,32 @@
                                       }
                                     ]
                                   }
+                                }
+                              },
+                              "attributes": {
+                                "sourceMap": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "sourceMap",
+                                      "content": [
+                                        {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "number",
+                                              "content": 398
+                                            },
+                                            {
+                                              "element": "number",
+                                              "content": 252
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "file": "headers-inside-import-inner.apib"
+                                    }
+                                  ]
                                 }
                               }
                             },
