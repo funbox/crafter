@@ -46,10 +46,7 @@ class DataStructureProcessor {
     }
 
     if (valueMember.isEnum()) {
-      const [, baseNestedTypes] = context.typeResolver.getStandardBaseAndNestedTypes(valueMember.type);
-      const nestedTypes = Array.from(new Set([...valueMember.nestedTypes, ...baseNestedTypes]));
-      const type = nestedTypes.length > 0 ? `enum[${nestedTypes.join(', ')}]` : valueMember.rawType;
-      valueMember.content = this.buildEnum(curNode, context, type);
+      this.processEnum(valueMember, curNode, context);
     }
   }
 
@@ -314,7 +311,11 @@ class DataStructureProcessor {
     return objectElement;
   }
 
-  buildEnum(node, context, type) {
+  processEnum(valueMember, node, context) {
+    const [, baseNestedTypes] = context.typeResolver.getStandardBaseAndNestedTypes(valueMember.type);
+    const nestedTypes = Array.from(new Set([...valueMember.nestedTypes, ...baseNestedTypes]));
+    const type = nestedTypes.length > 0 ? `enum[${nestedTypes.join(', ')}]` : valueMember.rawType;
+
     const enumElement = new EnumElement(type);
     const sourceMap = utils.makeGenericSourceMap(this.valueMemberRootNode.parent, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
     const samples = [];
@@ -322,6 +323,7 @@ class DataStructureProcessor {
     const validEnumMemberTypes = EnumElement.validEnumMemberTypes;
     const hasComplexMembers = enumElement.isComplex();
     let curNode = node;
+    const childSourceMaps = [];
 
     while (curNode) {
       let nextNode;
@@ -339,7 +341,7 @@ class DataStructureProcessor {
         case SectionTypes.msonEnumMemberGroup:
           [nextNode, childResult] = this.Parsers.MSONMemberGroupParser.parse(curNode, context);
           enumElement.members.push(...childResult.members);
-          childResult = null;
+          childSourceMaps.push(...childResult.members.map(m => m.sourceMap));
           break;
         case SectionTypes.msonMixin: {
           [nextNode, childResult] = this.Parsers.MSONMixinParser.parse(curNode, context);
@@ -353,8 +355,7 @@ class DataStructureProcessor {
 
           if (isMixinValid) {
             enumElement.members.push(childResult);
-          } else {
-            childResult = null;
+            childSourceMaps.push(childResult.sourceMap);
           }
           break;
         }
@@ -366,6 +367,7 @@ class DataStructureProcessor {
           delete context.data.valueType;
           if (!hasComplexMembers) {
             defaults.push(...childResult);
+            childSourceMaps.push(...childResult.map(c => c.sourceMap));
           } else {
             context.addWarning('Default values of enum of non-primitive type are not supported', sourceMap);
           }
@@ -378,6 +380,7 @@ class DataStructureProcessor {
           delete context.data.valueType;
           if (!hasComplexMembers) {
             samples.push(...childResult);
+            childSourceMaps.push(...childResult.map(c => c.sourceMap));
           } else {
             context.addWarning('Samples of enum of non-primitive type are not supported', sourceMap);
           }
@@ -387,6 +390,7 @@ class DataStructureProcessor {
           if (childResult.value) {
             if (!childResult.type || validEnumMemberTypes.includes(childResult.type)) {
               enumElement.members.push(childResult);
+              childSourceMaps.push(childResult.sourceMap);
             } else {
               context.addWarning(`Invalid enum member type: ${childResult.type}. Valid types: ${validEnumMemberTypes.join(', ')}.`, childResult.sourceMap);
             }
@@ -446,7 +450,15 @@ class DataStructureProcessor {
       if (!member.type) member.type = enumElement.type;
     });
 
-    return enumElement;
+    if (childSourceMaps.length) {
+      if (valueMember.sourceMap) {
+        valueMember.sourceMap = utils.concatSourceMaps([valueMember.sourceMap, ...childSourceMaps]);
+      } else {
+        valueMember.sourceMap = utils.concatSourceMaps(childSourceMaps);
+      }
+    }
+
+    valueMember.content = enumElement;
   }
 }
 
