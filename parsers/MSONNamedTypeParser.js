@@ -34,6 +34,7 @@ module.exports = (Parsers) => {
       context.data.attributeSignatureDetails = { sourceMap, node };
 
       const prefixLength = utils.nodeText(node, context.sourceLines).indexOf(subject);
+
       const nameSourceMap = utils.makeSourceMapsForString(
         signature.name,
         signature.nameOffset + prefixLength,
@@ -45,6 +46,39 @@ module.exports = (Parsers) => {
       const name = new StringElement(signature.name, nameSourceMap);
 
       const typeElement = new MSONNamedTypeElement(name, signature.type, signature.typeAttributes);
+
+      const valueMemberSourceMaps = [];
+
+      signature.typeAttributes.forEach((attr, index) => {
+        const [offset, length] = signature.typeAttributesOffsetsAndLengths[index];
+
+        valueMemberSourceMaps.push(utils.makeSourceMapsForStartPosAndLength(
+          offset + prefixLength,
+          length,
+          node,
+          context.sourceLines,
+          context.sourceBuffer,
+          context.linefeedOffsets,
+        ));
+      });
+
+      if (signature.type) {
+        valueMemberSourceMaps.push(utils.makeSourceMapsForString(
+          signature.type,
+          signature.typeOffset + prefixLength,
+          node,
+          context.sourceLines,
+          context.sourceBuffer,
+          context.linefeedOffsets,
+        ));
+      }
+
+      valueMemberSourceMaps.sort((sm1, sm2) => sm1.byteBlocks[0].offset - sm2.byteBlocks[0].offset);
+
+      if (valueMemberSourceMaps.length) {
+        typeElement.content.sourceMap = utils.concatSourceMaps(valueMemberSourceMaps);
+      }
+
       if (!context.typeExtractingInProgress) {
         const typeEl = context.typeResolver.types[signature.type];
         if (typeEl && typeEl instanceof SchemaNamedTypeElement) {

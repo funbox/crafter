@@ -91,6 +91,31 @@
               "element": "dataStructure",
               "content": {
                 "element": "string",
+                "attributes": {
+                  "sourceMap": {
+                    "element": "array",
+                    "content": [
+                      {
+                        "element": "sourceMap",
+                        "content": [
+                          {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "number",
+                                "content": 200
+                              },
+                              {
+                                "element": "number",
+                                "content": 6
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
                 "meta": {
                   "id": {
                     "element": "string",
@@ -165,6 +190,31 @@
               "element": "dataStructure",
               "content": {
                 "element": "Foo",
+                "attributes": {
+                  "sourceMap": {
+                    "element": "array",
+                    "content": [
+                      {
+                        "element": "sourceMap",
+                        "content": [
+                          {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "number",
+                                "content": 240
+                              },
+                              {
+                                "element": "number",
+                                "content": 3
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
                 "meta": {
                   "id": {
                     "element": "string",
