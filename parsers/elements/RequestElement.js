@@ -26,9 +26,10 @@ const utils = require('../../utils');
 class RequestElement {
   /**
    * @param {string=} contentType - заголовок content-type, например application/json
-   * @param {string=} title - опциональный заголовок запроса
+   * @param {StringElement} title - опциональный заголовок запроса
+   * @param {SourceMap} sourceMap
    */
-  constructor(contentType, title) {
+  constructor(contentType, title, sourceMap) {
     this.contentType = contentType;
     this.title = title;
     /**
@@ -48,7 +49,7 @@ class RequestElement {
      * @type {(SchemaElement|AttributesElement|BodyElement)[]}
      */
     this.content = [];
-    this.sourceMap = null;
+    this.sourceMap = sourceMap;
   }
 
   /**
@@ -67,13 +68,7 @@ class RequestElement {
 
     if (this.title) {
       result.meta = {
-        title: {
-          element: Refract.elements.string,
-          content: this.title,
-          ...(sourceMapEl ? {
-            attributes: { sourceMap: sourceMapEl.toRefract() },
-          } : {}),
-        },
+        title: this.title.toRefract(sourceMapsEnabled),
       };
     }
 

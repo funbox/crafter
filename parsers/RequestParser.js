@@ -8,6 +8,7 @@ const RequestElement = require('./elements/RequestElement');
 const SchemaElement = require('./elements/SchemaElement');
 const HeadersElement = require('./elements/HeadersElement');
 const BodyElement = require('./elements/BodyElement');
+const StringElement = require('./elements/StringElement');
 
 module.exports = (Parsers) => {
   Parsers.RequestParser = Object.assign(Object.create(require('./AbstractParser')), {
@@ -26,8 +27,23 @@ module.exports = (Parsers) => {
         context.data.startOffset = subject[0].length + 1;
       }
 
-      const result = new RequestElement(contentType, title);
-      result.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      let titleEl = null;
+
+      if (title) {
+        const titleOffset = subject[0].lastIndexOf(title);
+        const titleSourceMap = utils.makeSourceMapsForStartPosAndLength(
+          titleOffset,
+          title.length,
+          node.firstChild,
+          context.sourceLines,
+          context.sourceBuffer,
+          context.linefeedOffsets,
+        );
+        titleEl = new StringElement(title, titleSourceMap);
+      }
+
+      const requestSourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const result = new RequestElement(contentType, titleEl, requestSourceMap);
 
       if (result.contentType) {
         const contentTypeOffset = subject[0].lastIndexOf(result.contentType);

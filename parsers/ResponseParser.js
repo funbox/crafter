@@ -25,8 +25,8 @@ module.exports = (Parsers) => {
 
       const statusCode = matchData[2] ? Number(matchData[2]) : undefined;
       const contentType = matchData[4];
-      const result = new ResponseElement(statusCode, contentType);
-      result.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const responseSourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const result = new ResponseElement(statusCode, contentType, responseSourceMap);
       if (result.contentType) {
         const contentTypeOffset = subject[0].lastIndexOf(result.contentType);
         const contentTypeSourceMap = utils.makeSourceMapsForStartPosAndLength(

@@ -28,8 +28,9 @@ class ResponseElement {
   /**
    * @param {number=} statusCode - код ответа HTTP
    * @param {string=} contentType - заголовок content-type, например application/json
+   * @param {SourceMap} sourceMap
    */
-  constructor(statusCode = 200, contentType) {
+  constructor(statusCode = 200, contentType, sourceMap) {
     this.statusCode = statusCode;
     this.contentType = contentType;
     /**
@@ -44,7 +45,7 @@ class ResponseElement {
      * @type {(SchemaElement|AttributesElement|BodyElement)[]}
      */
     this.content = [];
-    this.sourceMap = null;
+    this.sourceMap = sourceMap;
   }
 
   /**
