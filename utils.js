@@ -4,6 +4,7 @@ const Refract = require('./Refract');
 const types = require('./types');
 const DescriptionElement = require('./parsers/elements/DescriptionElement');
 const StringElement = require('./parsers/elements/StringElement');
+const HeadersElement = require('./parsers/elements/HeadersElement');
 const Flags = require('./Flags');
 
 class CrafterError extends Error {
@@ -614,6 +615,16 @@ const utils = {
 
       return false;
     });
+  },
+
+  mergeHeadersSections(headersSections) {
+    return headersSections.reduce((result, headersSection) => {
+      result.headers.push(...headersSection.headers);
+      result.sourceMap = result.sourceMap
+        ? this.concatSourceMaps([result.sourceMap, headersSection.sourceMap])
+        : headersSection.sourceMap;
+      return result;
+    }, new HeadersElement([], null));
   },
 
   CrafterError,

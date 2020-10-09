@@ -30,11 +30,23 @@ module.exports = (Parsers) => {
       result.sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
       if (result.contentType) {
-        const headersElement = new HeadersElement([{
-          key: 'Content-Type',
-          val: result.contentType,
-          sourceMap: result.sourceMap,
-        }]);
+        const contentTypeOffset = subject[0].lastIndexOf(result.contentType);
+        const contentTypeSourceMap = utils.makeSourceMapsForStartPosAndLength(
+          contentTypeOffset,
+          result.contentType.length,
+          node.firstChild,
+          context.sourceLines,
+          context.sourceBuffer,
+          context.linefeedOffsets,
+        );
+        const headersElement = new HeadersElement(
+          [{
+            key: 'Content-Type',
+            val: result.contentType,
+            sourceMap: contentTypeSourceMap,
+          }],
+          contentTypeSourceMap,
+        );
         result.headersSections.push(headersElement);
       }
 

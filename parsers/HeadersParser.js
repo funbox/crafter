@@ -8,7 +8,8 @@ module.exports = (Parsers) => {
   Parsers.HeadersParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
       const headers = this.parseHeaders(node, context);
-      return [utils.nextNode(node), new HeadersElement(headers)];
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      return [utils.nextNode(node), new HeadersElement(headers, sourceMap)];
     },
 
     sectionType(node, context) {

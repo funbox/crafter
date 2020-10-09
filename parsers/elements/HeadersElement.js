@@ -13,16 +13,18 @@ class HeadersElement {
    * @param {string} headers.key
    * @param {string} headers.val
    * @param {Object} headers.sourceMap
+   * @param {SourceMap} sourceMap
    */
-  constructor(headers) {
+  constructor(headers, sourceMap) {
     this.headers = headers;
+    this.sourceMap = sourceMap;
   }
 
   /**
    * @param {boolean} sourceMapsEnabled
    */
   toRefract(sourceMapsEnabled) {
-    return {
+    const result = {
       element: Refract.elements.httpHeaders,
       content: this.headers.map(({ key, val, sourceMap }) => ({
         element: Refract.elements.member,
@@ -41,6 +43,15 @@ class HeadersElement {
         } : {}),
       })),
     };
+
+    if (sourceMapsEnabled) {
+      const sourceMapEl = new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file);
+      result.attributes = {
+        sourceMap: sourceMapEl.toRefract(),
+      };
+    }
+
+    return result;
   }
 }
 

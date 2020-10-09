@@ -344,11 +344,11 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 102
+                                              "content": 116
                                             },
                                             {
                                               "element": "number",
-                                              "content": 32
+                                              "content": 16
                                             }
                                           ]
                                         }
@@ -358,7 +358,32 @@
                                 }
                               }
                             }
-                          ]
+                          ],
+                          "attributes": {
+                            "sourceMap": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "sourceMap",
+                                  "content": [
+                                    {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "number",
+                                          "content": 116
+                                        },
+                                        {
+                                          "element": "number",
+                                          "content": 16
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
                         },
                         "sourceMap": {
                           "element": "array",
