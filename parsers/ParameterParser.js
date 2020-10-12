@@ -41,9 +41,23 @@ module.exports = (Parsers) => {
         ) : null;
       const name = new StringElement(signature.name, nameSourceMap);
 
+      let value = null;
+      if (signature.value) {
+        const valueSourceMap = utils.makeSourceMapsForString(
+          signature.value,
+          signature.valueOffset,
+          node.firstChild,
+          context.sourceLines,
+          context.sourceBuffer,
+          context.linefeedOffsets,
+        );
+
+        value = new StringElement(signature.value, valueSourceMap);
+      }
+
       const result = new ParameterElement(
         name,
-        signature.value,
+        value,
         signature.type || 'string',
         signature.typeAttributes,
         descriptionEl,

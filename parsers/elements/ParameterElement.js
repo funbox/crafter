@@ -21,7 +21,7 @@ const SourceMapElement = require('./SourceMapElement');
 class ParameterElement {
   /**
    * @param {StringElement} name
-   * @param {string} value
+   * @param {StringElement} value
    * @param {string} type
    * @param {string[]} typeAttributes - в данный момент здесь может быть только атрибут required
    * @param {StringElement} description
@@ -57,9 +57,7 @@ class ParameterElement {
       element: Refract.elements.member,
       content: {
         key: this.name.toRefract(sourceMapsEnabled),
-        value: {
-          element: Refract.elements.string,
-        },
+        value: this.getValue(sourceMapsEnabled),
       },
       attributes: {
         typeAttributes: {
@@ -68,23 +66,6 @@ class ParameterElement {
         },
       },
     };
-
-    if (this.type === Refract.elements.enum) {
-      result.content.value.element = Refract.elements.enum;
-    }
-
-    if (this.value) {
-      const value = {
-        element: Refract.elements.string,
-        content: this.value,
-        ...(sourceMapEl ? {
-          attributes: { sourceMap: sourceMapEl.toRefract() },
-        } : {}),
-      };
-
-      result.content.value = this.type === Refract.elements.enum
-        ? Object.assign({ content: value }, result.content.value) : value;
-    }
 
     const typeAttributes = this.typeAttributes.length ? this.typeAttributes : ['required'];
     result.attributes.typeAttributes.content = typeAttributes.map(a => ({
@@ -125,6 +106,22 @@ class ParameterElement {
     }
 
     return result;
+  }
+
+  getValue(sourceMapsEnabled) {
+    const defaultValue = {
+      element: this.type === Refract.elements.enum
+        ? Refract.elements.enum
+        : Refract.elements.string,
+    };
+
+    if (this.value) {
+      return this.type === Refract.elements.enum
+        ? { element: Refract.elements.enum, content: this.value.toRefract(sourceMapsEnabled) }
+        : this.value.toRefract(sourceMapsEnabled);
+    }
+
+    return defaultValue;
   }
 }
 

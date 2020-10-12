@@ -38,7 +38,7 @@ describe('ParameterParser', () => {
 
     expect(warnings.length).toBe(0);
     expect(name.string).toBe('id');
-    expect(value).toBe('42');
+    expect(value.string).toBe('42');
     expect(type).toBe('number');
     expect(typeAttributes).toEqual(['required']);
     expect(description).toEqual({
@@ -80,7 +80,7 @@ describe('ParameterParser', () => {
 
     expect(warnings.length).toBe(1);
     expect(name.string).toBe('name');
-    expect(value).toBe('John');
+    expect(value.string).toBe('John');
     expect(type).toBe('string');
     expect(typeAttributes).toEqual(['required']);
     expect(description).toEqual({
