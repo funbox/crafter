@@ -55,7 +55,7 @@ describe('ActionParser', () => {
     expect(title.string).toBe('List users');
     expect(method.string).toBe('GET');
     expect(href.string).toBe('/users/{id}');
-    expect(parameters.parameters[0].name).toBe('id');
+    expect(parameters.parameters[0].name.string).toBe('id');
     expect(responses[0].statusCode).toBe(200);
   });
 
@@ -74,7 +74,7 @@ describe('ActionParser', () => {
     expect(title.string).toBe('List users');
     expect(method.string).toBe('GET');
     expect(href.string).toBe('/users/{id}{?name}');
-    expect(parameters.parameters[0].name).toBe('id');
+    expect(parameters.parameters[0].name.string).toBe('id');
     expect(responses[0].statusCode).toBe(200);
   });
 });

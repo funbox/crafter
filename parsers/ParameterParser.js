@@ -30,8 +30,19 @@ module.exports = (Parsers) => {
       context.data.parameterSignatureDetails = parameterSignatureDetails;
       signature.warnings.forEach(warning => context.addWarning(warning, sourceMap));
 
+      const nameSourceMap = signature.name
+        ? utils.makeSourceMapsForString(
+          signature.name,
+          signature.nameOffset,
+          node.firstChild,
+          context.sourceLines,
+          context.sourceBuffer,
+          context.linefeedOffsets,
+        ) : null;
+      const name = new StringElement(signature.name, nameSourceMap);
+
       const result = new ParameterElement(
-        signature.name,
+        name,
         signature.value,
         signature.type || 'string',
         signature.typeAttributes,

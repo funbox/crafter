@@ -165,7 +165,7 @@ module.exports = (Parsers) => {
         }
 
         if (parameters && parameters.parameters) {
-          expectedParameters = expectedParameters.filter(name => !parameters.parameters.find(p => p.name === name));
+          expectedParameters = expectedParameters.filter(name => !parameters.parameters.find(p => p.name.string === name));
         }
 
         if (expectedParameters.length > 0) {

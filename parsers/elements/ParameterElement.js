@@ -20,7 +20,7 @@ const SourceMapElement = require('./SourceMapElement');
  */
 class ParameterElement {
   /**
-   * @param {string} name
+   * @param {StringElement} name
    * @param {string} value
    * @param {string} type
    * @param {string[]} typeAttributes - в данный момент здесь может быть только атрибут required
@@ -56,13 +56,7 @@ class ParameterElement {
     const result = {
       element: Refract.elements.member,
       content: {
-        key: {
-          element: Refract.elements.string,
-          content: this.name,
-          ...(sourceMapEl ? {
-            attributes: { sourceMap: sourceMapEl.toRefract() },
-          } : {}),
-        },
+        key: this.name.toRefract(sourceMapsEnabled),
         value: {
           element: Refract.elements.string,
         },
