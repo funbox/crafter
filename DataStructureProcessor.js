@@ -108,7 +108,7 @@ class DataStructureProcessor {
     const samples = [];
     const defaults = [];
     const predefinedType = arrayMembers.length ? arrayMembers[0].type : 'string';
-    const hasComplexMembers = arrayMembers.some(member => !types.primitiveTypes.includes(member.type));
+    const hasComplexMembers = arrayElement.content.isComplex();
 
     while (curNode) {
       let nextNode;
@@ -278,8 +278,8 @@ class DataStructureProcessor {
     const sourceMap = utils.makeGenericSourceMap(this.valueMemberRootNode.parent, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
     const samples = [];
     const defaults = [];
-    const validEnumMemberTypes = ['string', 'number', 'boolean'];
-    const hasComplexMembers = !validEnumMemberTypes.includes(enumElement.type);
+    const validEnumMemberTypes = EnumElement.validEnumMemberTypes;
+    const hasComplexMembers = enumElement.isComplex();
     let curNode = node;
 
     while (curNode) {

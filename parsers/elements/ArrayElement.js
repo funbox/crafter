@@ -1,4 +1,5 @@
 const utils = require('../../utils');
+const types = require('../../types');
 const Flags = require('../../Flags');
 const MSONMixinElement = require('./MSONMixinElement');
 
@@ -31,6 +32,10 @@ class ArrayElement {
    */
   constructor(members) {
     this.members = members;
+  }
+
+  isComplex() {
+    return this.members.some(member => member.type && !types.primitiveTypes.includes(member.type));
   }
 
   /**

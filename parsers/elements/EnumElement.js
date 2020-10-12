@@ -43,6 +43,10 @@ class EnumElement {
     this.type = (resolvedType.nestedTypes[0] ? resolvedType.nestedTypes[0] : 'string');
   }
 
+  isComplex() {
+    return !EnumElement.validEnumMemberTypes.includes(this.type);
+  }
+
   /**
    * @param {boolean} sourceMapsEnabled
    */
@@ -110,5 +114,7 @@ class EnumElement {
     return [schema, usedTypes];
   }
 }
+
+EnumElement.validEnumMemberTypes = ['string', 'number', 'boolean'];
 
 module.exports = EnumElement;

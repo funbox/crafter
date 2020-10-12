@@ -27,7 +27,7 @@ class SampleValueElement {
   /**
    * @param {string|number|boolean|string[]|number[]|boolean[]} value
    * @param {string} type - тип значения
-   * @param sourceMap
+   * @param {SourceMap|SourceMap[]} sourceMap
    */
   constructor(value, type, sourceMap) {
     this.value = value;
