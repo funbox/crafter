@@ -155,6 +155,77 @@ module.exports = (Parsers) => {
             }
           }
           curNode = utils.nextNodeOfType(curNode, 'heading');
+        } else if (Parsers.DefaultHeaderParser.sectionType(curNode, context) !== SectionTypes.undefined) {
+          if (!context.typeExtractingInProgress) {
+            const valueMember = result.content;
+
+            if (!valueMember.isComplex()) {
+              const defaults = [];
+
+              context.data.typeForDefaults = 'primitive';
+              context.data.valueType = valueMember.type;
+              const [, childResult] = Parsers.DefaultHeaderParser.parse(curNode, context);
+              delete context.data.typeForDefaults;
+              delete context.data.valueType;
+              defaults.push(...childResult);
+
+              if (defaults.length) {
+                if (defaults.length > 1) {
+                  const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+                  context.addWarning('Multiple definitions of "default" value', sourceMap);
+                }
+                valueMember.default = defaults[0];
+              }
+            }
+
+            if (valueMember.isObject()) {
+              const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+              throw new utils.CrafterError('Default is not supported for objects', sourceMap);
+            }
+
+            if (valueMember.isArray()) {
+              const arrayMembers = valueMember.content.members;
+              const predefinedType = (arrayMembers.length && arrayMembers[0].type) || 'string';
+              const defaults = [];
+
+              context.data.typeForDefaults = 'array';
+              context.data.valueType = predefinedType;
+              const [, childResult] = Parsers.DefaultHeaderParser.parse(curNode, context);
+              delete context.data.typeForDefaults;
+              delete context.data.valueType;
+              defaults.push(...childResult);
+
+
+              if (defaults.length) {
+                if (defaults.length > 1) {
+                  const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+                  context.addWarning('Multiple definitions of "default" value', sourceMap);
+                }
+                valueMember.default = defaults[0];
+              }
+            }
+
+            if (valueMember.isEnum()) {
+              const enumElement = valueMember.content;
+              const defaults = [];
+
+              context.data.typeForDefaults = 'enum';
+              context.data.valueType = enumElement.type;
+              const [, childResult] = Parsers.DefaultHeaderParser.parse(curNode, context);
+              delete context.data.typeForDefaults;
+              delete context.data.valueType;
+              defaults.push(...childResult);
+
+              if (defaults.length) {
+                if (defaults.length > 1) {
+                  const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+                  context.addWarning('Multiple definitions of "default" value', sourceMap);
+                }
+                enumElement.defaultValue = defaults[0];
+              }
+            }
+          }
+          curNode = utils.nextNodeOfType(curNode, 'heading');
         } else {
           return [curNode, result];
         }
