@@ -378,9 +378,9 @@
                         }
                       },
                       "meta": {
-                        "description": {
+                        "title": {
                           "element": "string",
-                          "content": "user IDs",
+                          "content": "array[number]",
                           "attributes": {
                             "sourceMap": {
                               "element": "array",
@@ -393,11 +393,11 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 215
+                                          "content": 227
                                         },
                                         {
                                           "element": "number",
-                                          "content": 48
+                                          "content": 13
                                         }
                                       ]
                                     }
@@ -407,9 +407,9 @@
                             }
                           }
                         },
-                        "title": {
+                        "description": {
                           "element": "string",
-                          "content": "array[number]",
+                          "content": "user IDs",
                           "attributes": {
                             "sourceMap": {
                               "element": "array",

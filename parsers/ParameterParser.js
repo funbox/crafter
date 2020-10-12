@@ -69,10 +69,23 @@ module.exports = (Parsers) => {
         return new StringElement(attr, attrSourceMap);
       });
 
+      let title = new StringElement('string');
+      if (signature.type) {
+        const typeSourceMap = utils.makeSourceMapsForString(
+          signature.type,
+          signature.typeOffset,
+          node.firstChild,
+          context.sourceLines,
+          context.sourceBuffer,
+          context.linefeedOffsets,
+        );
+        title = new StringElement(signature.type, typeSourceMap);
+      }
+
       const result = new ParameterElement(
         name,
         value,
-        signature.type || 'string',
+        title,
         typeAttributes,
         descriptionEl,
       );

@@ -1,6 +1,5 @@
 const Refract = require('../../Refract');
 const utils = require('../../utils');
-const SourceMapElement = require('./SourceMapElement');
 const StringElement = require('./StringElement');
 
 /**
@@ -23,16 +22,16 @@ class ParameterElement {
   /**
    * @param {StringElement} name
    * @param {StringElement} value
-   * @param {string} type
+   * @param {StringElement} title
    * @param {string[]} typeAttributes - в данный момент здесь может быть только атрибут required
    * @param {StringElement} description
    */
-  constructor(name, value, type, typeAttributes, description) {
-    const resolvedType = utils.resolveType(type);
+  constructor(name, value, title, typeAttributes, description) {
+    const resolvedType = utils.resolveType(title.string);
 
     this.name = name;
     this.value = value;
-    this.rawType = type;
+    this.title = title;
     this.type = resolvedType.type;
     this.nestedTypes = resolvedType.nestedTypes;
     this.typeAttributes = typeAttributes;
@@ -52,8 +51,6 @@ class ParameterElement {
    * @param {boolean} sourceMapsEnabled
    */
   toRefract(sourceMapsEnabled) {
-    const sourceMapEl = sourceMapsEnabled && this.sourceMap ? new SourceMapElement(this.sourceMap.byteBlocks) : null;
-
     const result = {
       element: Refract.elements.member,
       content: {
@@ -71,22 +68,12 @@ class ParameterElement {
     const typeAttributes = this.typeAttributes.length ? this.typeAttributes : [new StringElement('required')];
     result.attributes.typeAttributes.content = typeAttributes.map(attr => attr.toRefract(sourceMapsEnabled));
 
-    if (this.description || this.rawType) {
-      result.meta = {};
-    }
+    result.meta = {
+      title: this.title.toRefract(sourceMapsEnabled),
+    };
 
     if (this.description) {
       result.meta.description = this.description.toRefract(sourceMapsEnabled);
-    }
-
-    if (this.rawType) {
-      result.meta.title = {
-        element: Refract.elements.string,
-        content: this.rawType,
-        ...(sourceMapEl ? {
-          attributes: { sourceMap: sourceMapEl.toRefract() },
-        } : {}),
-      };
     }
 
     if (this.defaultValue || this.enumerations) {

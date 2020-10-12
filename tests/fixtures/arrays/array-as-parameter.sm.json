@@ -488,6 +488,35 @@
                             }
                           },
                           "meta": {
+                            "title": {
+                              "element": "string",
+                              "content": "string",
+                              "attributes": {
+                                "sourceMap": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "sourceMap",
+                                      "content": [
+                                        {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "number",
+                                              "content": 358
+                                            },
+                                            {
+                                              "element": "number",
+                                              "content": 6
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
                             "description": {
                               "element": "string",
                               "content": "фильтр по статусу\n\n+ delayed_execution - отложенное выполнение\n\n+ delayed_partial_execution - отложенное частичное выполнение\n\n+ completed - выполнена",
@@ -547,35 +576,6 @@
                                             {
                                               "element": "number",
                                               "content": 33
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              }
-                            },
-                            "title": {
-                              "element": "string",
-                              "content": "string",
-                              "attributes": {
-                                "sourceMap": {
-                                  "element": "array",
-                                  "content": [
-                                    {
-                                      "element": "sourceMap",
-                                      "content": [
-                                        {
-                                          "element": "array",
-                                          "content": [
-                                            {
-                                              "element": "number",
-                                              "content": 338
-                                            },
-                                            {
-                                              "element": "number",
-                                              "content": 73
                                             }
                                           ]
                                         }

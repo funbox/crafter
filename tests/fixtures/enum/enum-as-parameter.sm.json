@@ -793,9 +793,9 @@
                             }
                           },
                           "meta": {
-                            "description": {
+                            "title": {
                               "element": "string",
-                              "content": "поле, по которому производится сортировка",
+                              "content": "enum[string]",
                               "attributes": {
                                 "sourceMap": {
                                   "element": "array",
@@ -808,11 +808,11 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 328
+                                              "content": 348
                                             },
                                             {
                                               "element": "number",
-                                              "content": 124
+                                              "content": 12
                                             }
                                           ]
                                         }
@@ -822,9 +822,9 @@
                                 }
                               }
                             },
-                            "title": {
+                            "description": {
                               "element": "string",
-                              "content": "enum[string]",
+                              "content": "поле, по которому производится сортировка",
                               "attributes": {
                                 "sourceMap": {
                                   "element": "array",

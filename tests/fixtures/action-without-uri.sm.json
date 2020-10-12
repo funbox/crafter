@@ -1906,9 +1906,9 @@
                             }
                           },
                           "meta": {
-                            "description": {
+                            "title": {
                               "element": "string",
-                              "content": "возвращать только группы, у которых название содержит эту строку или в группе есть сотрудник, имя, msisdn или комментарий которого содержат эту строку. Если название группы содержит эту строку, то поиск по сотрудникам не производится.",
+                              "content": "string",
                               "attributes": {
                                 "sourceMap": {
                                   "element": "array",
@@ -1921,11 +1921,11 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 928
+                                              "content": 936
                                             },
                                             {
                                               "element": "number",
-                                              "content": 452
+                                              "content": 6
                                             }
                                           ]
                                         }
@@ -1935,9 +1935,9 @@
                                 }
                               }
                             },
-                            "title": {
+                            "description": {
                               "element": "string",
-                              "content": "string",
+                              "content": "возвращать только группы, у которых название содержит эту строку или в группе есть сотрудник, имя, msisdn или комментарий которого содержат эту строку. Если название группы содержит эту строку, то поиск по сотрудникам не производится.",
                               "attributes": {
                                 "sourceMap": {
                                   "element": "array",
@@ -2039,9 +2039,9 @@
                             }
                           },
                           "meta": {
-                            "description": {
+                            "title": {
                               "element": "string",
-                              "content": "номер страницы выдачи",
+                              "content": "number",
                               "attributes": {
                                 "sourceMap": {
                                   "element": "array",
@@ -2054,11 +2054,11 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 1386
+                                              "content": 1392
                                             },
                                             {
                                               "element": "number",
-                                              "content": 67
+                                              "content": 6
                                             }
                                           ]
                                         }
@@ -2068,9 +2068,9 @@
                                 }
                               }
                             },
-                            "title": {
+                            "description": {
                               "element": "string",
-                              "content": "number",
+                              "content": "номер страницы выдачи",
                               "attributes": {
                                 "sourceMap": {
                                   "element": "array",

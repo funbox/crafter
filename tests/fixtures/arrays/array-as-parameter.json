@@ -140,13 +140,13 @@
                             }
                           },
                           "meta": {
-                            "description": {
-                              "element": "string",
-                              "content": "фильтр по статусу\n\n+ delayed_execution - отложенное выполнение\n\n+ delayed_partial_execution - отложенное частичное выполнение\n\n+ completed - выполнена"
-                            },
                             "title": {
                               "element": "string",
                               "content": "string"
+                            },
+                            "description": {
+                              "element": "string",
+                              "content": "фильтр по статусу\n\n+ delayed_execution - отложенное выполнение\n\n+ delayed_partial_execution - отложенное частичное выполнение\n\n+ completed - выполнена"
                             }
                           }
                         }

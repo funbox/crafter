@@ -395,6 +395,35 @@
                             }
                           },
                           "meta": {
+                            "title": {
+                              "element": "string",
+                              "content": "enum",
+                              "attributes": {
+                                "sourceMap": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "sourceMap",
+                                      "content": [
+                                        {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "number",
+                                              "content": 256
+                                            },
+                                            {
+                                              "element": "number",
+                                              "content": 4
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
                             "description": {
                               "element": "string",
                               "content": "тип шаблона отчета (поиск шаблонов только указанного типа)\n\n+ movement - шаблон отчета о перемещении сотрудников\n\n+ track    - шаблон отчета по трекам\n\n+ sms      - шаблон SMS-отчета\n\n+ zone     - шаблон отчета о посещении зон",
@@ -467,35 +496,6 @@
                                             {
                                               "element": "number",
                                               "content": 68
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              }
-                            },
-                            "title": {
-                              "element": "string",
-                              "content": "enum",
-                              "attributes": {
-                                "sourceMap": {
-                                  "element": "array",
-                                  "content": [
-                                    {
-                                      "element": "sourceMap",
-                                      "content": [
-                                        {
-                                          "element": "array",
-                                          "content": [
-                                            {
-                                              "element": "number",
-                                              "content": 250
-                                            },
-                                            {
-                                              "element": "number",
-                                              "content": 132
                                             }
                                           ]
                                         }
