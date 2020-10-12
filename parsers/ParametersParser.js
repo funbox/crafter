@@ -8,9 +8,10 @@ module.exports = (Parsers) => {
   Parsers.ParametersParser = Object.assign(Object.create(require('./AbstractParser')), {
     allowLeavingNode: false,
 
-    processSignature(node) {
+    processSignature(node, context) {
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       const parametersList = node.firstChild.next;
-      return [(parametersList && parametersList.firstChild) || utils.nextNode(node), new ParametersElement()];
+      return [(parametersList && parametersList.firstChild) || utils.nextNode(node), new ParametersElement(sourceMap)];
     },
 
     sectionType(node, context) {

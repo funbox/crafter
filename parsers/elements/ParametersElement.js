@@ -1,4 +1,5 @@
 const Refract = require('../../Refract');
+const SourceMapElement = require('./SourceMapElement');
 
 /**
  * Параметры URL
@@ -17,21 +18,34 @@ const Refract = require('../../Refract');
  * @see https://apielements.org/en/latest/element-definitions.html#href-variables-object
  */
 class ParametersElement {
-  constructor() {
+  /**
+   * @param {SourceMap} sourceMap
+   */
+  constructor(sourceMap) {
     /**
      * @type {ParameterElement[]}
      */
     this.parameters = [];
+    this.sourceMap = sourceMap;
   }
 
   /**
    * @param {boolean} sourceMapsEnabled
    */
   toRefract(sourceMapsEnabled) {
-    return {
+    const result = {
       element: Refract.elements.hrefVariables,
       content: this.parameters.map(p => p.toRefract(sourceMapsEnabled)),
     };
+
+    if (sourceMapsEnabled) {
+      const sourceMapEl = new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file);
+      result.attributes = {
+        sourceMap: sourceMapEl.toRefract(),
+      };
+    }
+
+    return result;
   }
 }
 
