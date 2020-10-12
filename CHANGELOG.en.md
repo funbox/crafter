@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.64.0 (12.10.2020)
+
+* Do not use default logger inside of Crafter.parse.
+
 ## 1.63.1 (15.09.2020)
 
 * Improve acquiring nested types in inherited named types.
