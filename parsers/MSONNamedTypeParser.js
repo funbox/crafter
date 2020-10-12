@@ -121,8 +121,10 @@ module.exports = (Parsers) => {
             }
 
             if (valueMember.isArray()) {
-              const arrayMembers = valueMember.content.members;
+              const arrayElement = valueMember.content;
+              const arrayMembers = arrayElement.members;
               const predefinedType = (arrayMembers.length && arrayMembers[0].type) || 'string';
+              const hasComplexMembers = arrayElement.isComplex();
               const samples = [];
 
               context.data.typeForSamples = 'array';
@@ -130,7 +132,14 @@ module.exports = (Parsers) => {
               [, childResult] = Parsers.SampleHeaderParser.parse(curNode, context);
               delete context.data.typeForSamples;
               delete context.data.valueType;
-              samples.push(...childResult);
+              if (!hasComplexMembers) {
+                samples.push(...childResult);
+              } else {
+                const sourceMap = childResult.length > 0
+                  ? childResult[0].sourceMap[0]
+                  : utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+                context.addWarning('Samples of arrays of non-primitive types are not supported', sourceMap);
+              }
 
               if (samples.length) {
                 valueMember.samples = valueMember.samples || [];
@@ -140,14 +149,22 @@ module.exports = (Parsers) => {
 
             if (valueMember.isEnum()) {
               const enumElement = valueMember.content;
+              const hasComplexMembers = enumElement.isComplex();
               const samples = [];
 
               context.data.typeForSamples = 'enum';
               context.data.valueType = enumElement.type;
               [, childResult] = Parsers.SampleHeaderParser.parse(curNode, context);
-              samples.push(...childResult);
               delete context.data.typeForSamples;
               delete context.data.valueType;
+              if (!hasComplexMembers) {
+                samples.push(...childResult);
+              } else {
+                const sourceMap = childResult.length > 0
+                  ? childResult[0].sourceMap
+                  : utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+                context.addWarning('Samples of enum of non-primitive types are not supported', sourceMap);
+              }
 
               if (samples.length) {
                 enumElement.sampleValues = samples;
@@ -184,7 +201,8 @@ module.exports = (Parsers) => {
             }
 
             if (valueMember.isArray()) {
-              const arrayMembers = valueMember.content.members;
+              const arrayElement = valueMember.content;
+              const arrayMembers = arrayElement.members;
               const predefinedType = (arrayMembers.length && arrayMembers[0].type) || 'string';
               const defaults = [];
 
@@ -193,8 +211,14 @@ module.exports = (Parsers) => {
               const [, childResult] = Parsers.DefaultHeaderParser.parse(curNode, context);
               delete context.data.typeForDefaults;
               delete context.data.valueType;
-              defaults.push(...childResult);
-
+              if (!arrayElement.isComplex()) {
+                defaults.push(...childResult);
+              } else {
+                const sourceMap = childResult.length > 0
+                  ? childResult[0].sourceMap[0]
+                  : utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+                context.addWarning('Default values of arrays of non-primitive types are not supported', sourceMap);
+              }
 
               if (defaults.length) {
                 if (defaults.length > 1) {
@@ -207,6 +231,7 @@ module.exports = (Parsers) => {
 
             if (valueMember.isEnum()) {
               const enumElement = valueMember.content;
+              const hasComplexMembers = enumElement.isComplex();
               const defaults = [];
 
               context.data.typeForDefaults = 'enum';
@@ -214,7 +239,14 @@ module.exports = (Parsers) => {
               const [, childResult] = Parsers.DefaultHeaderParser.parse(curNode, context);
               delete context.data.typeForDefaults;
               delete context.data.valueType;
-              defaults.push(...childResult);
+              if (!hasComplexMembers) {
+                defaults.push(...childResult);
+              } else {
+                const sourceMap = childResult.length > 0
+                  ? childResult[0].sourceMap
+                  : utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+                context.addWarning('Default values of enum of non-primitive types are not supported', sourceMap);
+              }
 
               if (defaults.length) {
                 if (defaults.length > 1) {
