@@ -40,7 +40,7 @@ describe('ParameterParser', () => {
     expect(name.string).toBe('id');
     expect(value.string).toBe('42');
     expect(type).toBe('number');
-    expect(typeAttributes).toEqual(['required']);
+    expect(typeAttributes.map(attr => attr.string)).toEqual(['required']);
     expect(description).toEqual({
       string: 'user id',
       sourceMap: {
@@ -82,7 +82,7 @@ describe('ParameterParser', () => {
     expect(name.string).toBe('name');
     expect(value.string).toBe('John');
     expect(type).toBe('string');
-    expect(typeAttributes).toEqual(['required']);
+    expect(typeAttributes.map(attr => attr.string)).toEqual(['required']);
     expect(description).toEqual({
       string: 'user name',
       sourceMap: {

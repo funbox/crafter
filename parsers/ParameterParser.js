@@ -55,11 +55,25 @@ module.exports = (Parsers) => {
         value = new StringElement(signature.value, valueSourceMap);
       }
 
+      const typeAttributes = signature.typeAttributes.map((attr, index) => {
+        const [offset, length] = signature.typeAttributesOffsetsAndLengths[index];
+        const attrSourceMap = utils.makeSourceMapsForStartPosAndLength(
+          offset,
+          length,
+          node.firstChild,
+          context.sourceLines,
+          context.sourceBuffer,
+          context.linefeedOffsets,
+        );
+
+        return new StringElement(attr, attrSourceMap);
+      });
+
       const result = new ParameterElement(
         name,
         value,
         signature.type || 'string',
-        signature.typeAttributes,
+        typeAttributes,
         descriptionEl,
       );
 
@@ -197,7 +211,8 @@ module.exports = (Parsers) => {
     },
 
     finalize(context, result) {
-      const { name, type, typeAttributes, defaultValue } = result;
+      const { name, type, defaultValue } = result;
+      const typeAttributes = result.typeAttributes.map(attr => attr.string);
       const { parameterSignatureDetails: details } = context.data;
 
       context.popFrame();

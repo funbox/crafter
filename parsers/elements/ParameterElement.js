@@ -1,6 +1,7 @@
 const Refract = require('../../Refract');
 const utils = require('../../utils');
 const SourceMapElement = require('./SourceMapElement');
+const StringElement = require('./StringElement');
 
 /**
  * Параметр URL
@@ -67,11 +68,8 @@ class ParameterElement {
       },
     };
 
-    const typeAttributes = this.typeAttributes.length ? this.typeAttributes : ['required'];
-    result.attributes.typeAttributes.content = typeAttributes.map(a => ({
-      element: Refract.elements.string,
-      content: a,
-    }));
+    const typeAttributes = this.typeAttributes.length ? this.typeAttributes : [new StringElement('required')];
+    result.attributes.typeAttributes.content = typeAttributes.map(attr => attr.toRefract(sourceMapsEnabled));
 
     if (this.description || this.rawType) {
       result.meta = {};
