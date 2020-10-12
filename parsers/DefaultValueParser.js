@@ -9,7 +9,9 @@ const listTypedDefaultValueRegex = /^[Dd]efault$/;
 module.exports = (Parsers) => {
   Parsers.DefaultValueParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
-      const text = utils.nodeText(node.firstChild, context.sourceLines);
+      const text = node.type === 'heading'
+        ? utils.headerText(node, context.sourceLines)
+        : utils.nodeText(node.firstChild, context.sourceLines);
       const valMatch = defaultValueRegex.exec(text);
       const values = valMatch ? splitValues(valMatch[1]) : undefined;
 
@@ -58,7 +60,13 @@ module.exports = (Parsers) => {
     sectionType(node, context) {
       if (node.type === 'item') {
         const text = utils.nodeText(node.firstChild, context.sourceLines);
-        if (defaultValueRegex.exec(text) || listTypedDefaultValueRegex.exec(text)) {
+        if (defaultValueRegex.test(text) || listTypedDefaultValueRegex.test(text)) {
+          return SectionTypes.defaultValue;
+        }
+      }
+      if (node.type === 'heading') {
+        const text = utils.headerText(node, context.sourceLines);
+        if (listTypedDefaultValueRegex.test(text)) {
           return SectionTypes.defaultValue;
         }
       }
@@ -67,7 +75,7 @@ module.exports = (Parsers) => {
     },
 
     nestedSectionType(node) {
-      if (node.type === 'item') {
+      if (node.type === 'item' || node.type === 'paragraph') {
         return SectionTypes.defaultValueMember;
       }
 
@@ -79,8 +87,9 @@ module.exports = (Parsers) => {
     },
 
     processNestedSection(node, context, result) {
-      const text = utils.nodeText(node.firstChild, context.sourceLines);
-      const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const textNode = node.type === 'item' ? node.firstChild : node;
+      const text = utils.nodeText(textNode, context.sourceLines);
+      const sourceMap = utils.makeGenericSourceMap(textNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
       switch (context.data.typeForDefaults) {
         case 'primitive':
