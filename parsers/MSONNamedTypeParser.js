@@ -97,21 +97,17 @@ module.exports = (Parsers) => {
         } else if (Parsers.SampleHeaderParser.sectionType(curNode, context) !== SectionTypes.undefined) {
           if (!context.typeExtractingInProgress) {
             const valueMember = result.content;
-            let childResult;
 
             if (!valueMember.isComplex()) {
-              const samples = [];
-
               context.data.typeForSamples = 'primitive';
               context.data.valueType = valueMember.type;
-              [, childResult] = Parsers.SampleHeaderParser.parse(curNode, context);
+              const [, childResult] = Parsers.SampleHeaderParser.parse(curNode, context);
               delete context.data.typeForSamples;
               delete context.data.valueType;
-              samples.push(...childResult);
 
-              if (samples.length) {
+              if (childResult.length) {
                 valueMember.samples = valueMember.samples || [];
-                valueMember.samples.push(...samples);
+                valueMember.samples.push(...childResult);
               }
             }
 
@@ -125,49 +121,40 @@ module.exports = (Parsers) => {
               const arrayMembers = arrayElement.members;
               const predefinedType = (arrayMembers.length && arrayMembers[0].type) || 'string';
               const hasComplexMembers = arrayElement.isComplex();
-              const samples = [];
 
-              context.data.typeForSamples = 'array';
-              context.data.valueType = predefinedType;
-              [, childResult] = Parsers.SampleHeaderParser.parse(curNode, context);
-              delete context.data.typeForSamples;
-              delete context.data.valueType;
               if (!hasComplexMembers) {
-                samples.push(...childResult);
-              } else {
-                const sourceMap = childResult.length > 0
-                  ? childResult[0].sourceMap[0]
-                  : utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-                context.addWarning('Samples of arrays of non-primitive types are not supported', sourceMap);
-              }
+                context.data.typeForSamples = 'array';
+                context.data.valueType = predefinedType;
+                const [, childResult] = Parsers.SampleHeaderParser.parse(curNode, context);
+                delete context.data.typeForSamples;
+                delete context.data.valueType;
 
-              if (samples.length) {
-                valueMember.samples = valueMember.samples || [];
-                valueMember.samples.push(...samples);
+                if (childResult.length) {
+                  valueMember.samples = valueMember.samples || [];
+                  valueMember.samples.push(...childResult);
+                }
+              } else {
+                const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+                context.addWarning('Samples of arrays of non-primitive types are not supported', sourceMap);
               }
             }
 
             if (valueMember.isEnum()) {
               const enumElement = valueMember.content;
               const hasComplexMembers = enumElement.isComplex();
-              const samples = [];
 
-              context.data.typeForSamples = 'enum';
-              context.data.valueType = enumElement.type;
-              [, childResult] = Parsers.SampleHeaderParser.parse(curNode, context);
-              delete context.data.typeForSamples;
-              delete context.data.valueType;
               if (!hasComplexMembers) {
-                samples.push(...childResult);
+                context.data.typeForSamples = 'enum';
+                context.data.valueType = enumElement.type;
+                const [, childResult] = Parsers.SampleHeaderParser.parse(curNode, context);
+                delete context.data.typeForSamples;
+                delete context.data.valueType;
+                if (childResult.length) {
+                  enumElement.sampleValues = childResult;
+                }
               } else {
-                const sourceMap = childResult.length > 0
-                  ? childResult[0].sourceMap
-                  : utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+                const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
                 context.addWarning('Samples of enum of non-primitive types are not supported', sourceMap);
-              }
-
-              if (samples.length) {
-                enumElement.sampleValues = samples;
               }
             }
           }
@@ -204,56 +191,47 @@ module.exports = (Parsers) => {
               const arrayElement = valueMember.content;
               const arrayMembers = arrayElement.members;
               const predefinedType = (arrayMembers.length && arrayMembers[0].type) || 'string';
-              const defaults = [];
+              const hasComplexMembers = arrayElement.isComplex();
 
-              context.data.typeForDefaults = 'array';
-              context.data.valueType = predefinedType;
-              const [, childResult] = Parsers.DefaultHeaderParser.parse(curNode, context);
-              delete context.data.typeForDefaults;
-              delete context.data.valueType;
-              if (!arrayElement.isComplex()) {
-                defaults.push(...childResult);
-              } else {
-                const sourceMap = childResult.length > 0
-                  ? childResult[0].sourceMap[0]
-                  : utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-                context.addWarning('Default values of arrays of non-primitive types are not supported', sourceMap);
-              }
-
-              if (defaults.length) {
-                if (defaults.length > 1) {
-                  const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-                  context.addWarning('Multiple definitions of "default" value', sourceMap);
+              if (!hasComplexMembers) {
+                context.data.typeForDefaults = 'array';
+                context.data.valueType = predefinedType;
+                const [, childResult] = Parsers.DefaultHeaderParser.parse(curNode, context);
+                delete context.data.typeForDefaults;
+                delete context.data.valueType;
+                if (childResult.length) {
+                  if (childResult.length > 1) {
+                    const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+                    context.addWarning('Multiple definitions of "default" value', sourceMap);
+                  }
+                  valueMember.default = childResult[0];
                 }
-                valueMember.default = defaults[0];
+              } else {
+                const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+                context.addWarning('Default values of arrays of non-primitive types are not supported', sourceMap);
               }
             }
 
             if (valueMember.isEnum()) {
               const enumElement = valueMember.content;
               const hasComplexMembers = enumElement.isComplex();
-              const defaults = [];
 
-              context.data.typeForDefaults = 'enum';
-              context.data.valueType = enumElement.type;
-              const [, childResult] = Parsers.DefaultHeaderParser.parse(curNode, context);
-              delete context.data.typeForDefaults;
-              delete context.data.valueType;
               if (!hasComplexMembers) {
-                defaults.push(...childResult);
-              } else {
-                const sourceMap = childResult.length > 0
-                  ? childResult[0].sourceMap
-                  : utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-                context.addWarning('Default values of enum of non-primitive types are not supported', sourceMap);
-              }
-
-              if (defaults.length) {
-                if (defaults.length > 1) {
-                  const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-                  context.addWarning('Multiple definitions of "default" value', sourceMap);
+                context.data.typeForDefaults = 'enum';
+                context.data.valueType = enumElement.type;
+                const [, childResult] = Parsers.DefaultHeaderParser.parse(curNode, context);
+                delete context.data.typeForDefaults;
+                delete context.data.valueType;
+                if (childResult.length) {
+                  if (childResult.length > 1) {
+                    const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+                    context.addWarning('Multiple definitions of "default" value', sourceMap);
+                  }
+                  enumElement.defaultValue = childResult[0];
                 }
-                enumElement.defaultValue = defaults[0];
+              } else {
+                const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+                context.addWarning('Default values of enum of non-primitive types are not supported', sourceMap);
               }
             }
           }

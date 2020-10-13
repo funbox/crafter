@@ -123,8 +123,7 @@ class DataStructureProcessor {
         if (!hasComplexMembers) {
           samples.push(...childResult);
         } else {
-          const contextSourceMap = childResult.length > 0 ? childResult[0].sourceMap[0] : sourceMap;
-          context.addWarning('Samples of arrays of non-primitive types are not supported', contextSourceMap);
+          context.addWarning('Samples of arrays of non-primitive types are not supported', sourceMap);
         }
       } else if (this.Parsers.DefaultValueParser.sectionType(curNode, context) !== SectionTypes.undefined) {
         context.data.typeForDefaults = 'array';
@@ -135,8 +134,7 @@ class DataStructureProcessor {
         if (!hasComplexMembers) {
           defaults.push(...childResult);
         } else {
-          const contextSourceMap = childResult.length > 0 ? childResult[0].sourceMap[0] : sourceMap;
-          context.addWarning('Default values of arrays of non-primitive types are not supported', contextSourceMap);
+          context.addWarning('Default values of arrays of non-primitive types are not supported', sourceMap);
         }
         break;
       } else if (this.Parsers.MSONMemberGroupParser.sectionType(curNode, context) === SectionTypes.msonArrayMemberGroup) {
@@ -326,8 +324,7 @@ class DataStructureProcessor {
           if (!hasComplexMembers) {
             defaults.push(...childResult);
           } else {
-            const contextSourceMap = childResult.length > 0 ? childResult[0].sourceMap : sourceMap;
-            context.addWarning('Default values of enum of non-primitive type are not supported', contextSourceMap);
+            context.addWarning('Default values of enum of non-primitive type are not supported', sourceMap);
           }
           break;
         case SectionTypes.sampleValue:
@@ -339,8 +336,7 @@ class DataStructureProcessor {
           if (!hasComplexMembers) {
             samples.push(...childResult);
           } else {
-            const contextSourceMap = childResult.length > 0 ? childResult[0].sourceMap : sourceMap;
-            context.addWarning('Samples of enum of non-primitive type are not supported', contextSourceMap);
+            context.addWarning('Samples of enum of non-primitive type are not supported', sourceMap);
           }
           break;
         case SectionTypes.enumMember:
