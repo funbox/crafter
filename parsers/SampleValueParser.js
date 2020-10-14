@@ -3,7 +3,7 @@ const utils = require('../utils');
 const SampleValueElement = require('./elements/SampleValueElement');
 const { splitValues } = require('../SignatureParser');
 
-const sampleValueRegex = /^[Ss]ample:?\s*`?(.+?)`?$/;
+const sampleValueRegex = /^[Ss]ample:\s*`?(.+?)`?$/;
 const listTypedSampleValueRegex = /^[Ss]ample$/;
 
 module.exports = (Parsers) => {
