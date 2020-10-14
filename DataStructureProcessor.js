@@ -69,6 +69,7 @@ class DataStructureProcessor {
           break;
         default:
           context.addWarning('sub-types of primitive types should not have nested members, ignoring unrecognized block', sourceMap);
+          nextNode = utils.nextNode(curNode);
       }
 
       // TODO Что если nextNode !== curNode.next ?
