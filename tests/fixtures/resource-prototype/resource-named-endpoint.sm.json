@@ -411,7 +411,55 @@
                           "attributes": {
                             "statusCode": {
                               "element": "number",
-                              "content": 404
+                              "content": 404,
+                              "attributes": {
+                                "sourceMap": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "sourceMap",
+                                      "content": [
+                                        {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "number",
+                                              "content": 108
+                                            },
+                                            {
+                                              "element": "number",
+                                              "content": 16
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            "sourceMap": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "sourceMap",
+                                  "content": [
+                                    {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "number",
+                                          "content": 108
+                                        },
+                                        {
+                                          "element": "number",
+                                          "content": 16
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
                             }
                           }
                         }
@@ -478,6 +526,29 @@
                           ]
                         }
                       }
+                    },
+                    "sourceMap": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 139
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 49
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
                     }
                   }
                 }

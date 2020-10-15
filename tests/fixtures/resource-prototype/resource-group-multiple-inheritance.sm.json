@@ -505,7 +505,55 @@
                           "attributes": {
                             "statusCode": {
                               "element": "number",
-                              "content": 404
+                              "content": 404,
+                              "attributes": {
+                                "sourceMap": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "sourceMap",
+                                      "content": [
+                                        {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "number",
+                                              "content": 138
+                                            },
+                                            {
+                                              "element": "number",
+                                              "content": 16
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            "sourceMap": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "sourceMap",
+                                  "content": [
+                                    {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "number",
+                                          "content": 138
+                                        },
+                                        {
+                                          "element": "number",
+                                          "content": 16
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
                             }
                           }
                         }
@@ -555,7 +603,55 @@
                           "attributes": {
                             "statusCode": {
                               "element": "number",
-                              "content": 500
+                              "content": 500,
+                              "attributes": {
+                                "sourceMap": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "sourceMap",
+                                      "content": [
+                                        {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "number",
+                                              "content": 172
+                                            },
+                                            {
+                                              "element": "number",
+                                              "content": 16
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            "sourceMap": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "sourceMap",
+                                  "content": [
+                                    {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "number",
+                                          "content": 172
+                                        },
+                                        {
+                                          "element": "number",
+                                          "content": 16
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
                             }
                           }
                         }
@@ -622,6 +718,29 @@
                           ]
                         }
                       }
+                    },
+                    "sourceMap": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 229
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 38
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
                     }
                   }
                 }

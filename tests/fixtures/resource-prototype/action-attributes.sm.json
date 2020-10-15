@@ -908,7 +908,32 @@
                           "attributes": {
                             "statusCode": {
                               "element": "number",
-                              "content": 404
+                              "content": 404,
+                              "attributes": {
+                                "sourceMap": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "sourceMap",
+                                      "content": [
+                                        {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "number",
+                                              "content": 118
+                                            },
+                                            {
+                                              "element": "number",
+                                              "content": 99
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
                             },
                             "headers": {
                               "element": "httpHeaders",
@@ -977,12 +1002,60 @@
                                   ]
                                 }
                               }
+                            },
+                            "sourceMap": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "sourceMap",
+                                  "content": [
+                                    {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "number",
+                                          "content": 118
+                                        },
+                                        {
+                                          "element": "number",
+                                          "content": 99
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
                             }
                           }
                         }
                       ]
                     }
-                  ]
+                  ],
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 251
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 34
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
                 }
               ]
             }

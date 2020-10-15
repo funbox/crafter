@@ -1,5 +1,6 @@
 const Refract = require('../../Refract');
 const RequestElement = require('./RequestElement');
+const SourceMapElement = require('./SourceMapElement');
 
 /**
  * Action — связка URL + метод + 1 и более Request + 1 или более Response.
@@ -85,6 +86,12 @@ class ActionElement {
     if (this.parameters) {
       result.attributes = result.attributes || {};
       result.attributes.hrefVariables = this.parameters.toRefract(sourceMapsEnabled);
+    }
+
+    if (sourceMapsEnabled) {
+      result.attributes = result.attributes || {};
+      const sourceMapEl = new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file);
+      result.attributes.sourceMap = sourceMapEl.toRefract();
     }
 
     let requests = this.requests;

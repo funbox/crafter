@@ -170,19 +170,22 @@ module.exports = (Parsers) => {
         result.responses.push(childResult);
       }
 
+      result.sourceMap = utils.mergeSourceMaps([result.sourceMap, childResult.sourceMap], context.sourceBuffer, context.linefeedOffsets);
+
       return [nextNode, result];
     },
 
     finalize(context, result) {
+      if (result.description) {
+        result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.description.sourceMap], context.sourceBuffer, context.linefeedOffsets);
+      }
+
       const { actionSignatureDetails: details } = context.data;
       const registeredProtos = context.resourcePrototypeResolver.prototypes;
       const resourcePrototypesChain = context.resourcePrototypes.reduce((res, el) => res.concat(el), []);
       [...new Set(resourcePrototypesChain)].forEach((pName) => {
         const p = registeredProtos[pName];
-        result.responses.push(...p.responses.map((response) => {
-          response.sourceMap = null;
-          return response;
-        }));
+        result.responses.push(...p.responses);
       });
 
       if (!(result.responses.length > 0)) {

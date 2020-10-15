@@ -1245,7 +1245,32 @@
                           "attributes": {
                             "statusCode": {
                               "element": "number",
-                              "content": 200
+                              "content": 200,
+                              "attributes": {
+                                "sourceMap": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "sourceMap",
+                                      "content": [
+                                        {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "number",
+                                              "content": 52
+                                            },
+                                            {
+                                              "element": "number",
+                                              "content": 82
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
                             },
                             "headers": {
                               "element": "httpHeaders",
@@ -1314,6 +1339,29 @@
                                   ]
                                 }
                               }
+                            },
+                            "sourceMap": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "sourceMap",
+                                  "content": [
+                                    {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "number",
+                                          "content": 52
+                                        },
+                                        {
+                                          "element": "number",
+                                          "content": 82
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
                             }
                           }
                         }
@@ -1380,6 +1428,29 @@
                           ]
                         }
                       }
+                    },
+                    "sourceMap": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 645
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 82
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
                     }
                   }
                 }
