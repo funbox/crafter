@@ -17,8 +17,8 @@ module.exports = (Parsers) => {
     processSignature(node, context) {
       context.pushFrame();
 
-      const subject = (utils.headerText(node.firstChild, context.sourceLines)).split('\n');
-      const matchData = requestRegexp.exec(subject[0]);
+      const subject = utils.nodeText(node.firstChild, context.sourceLines).split('\n');
+      const [matchData, matchDataIndexes] = utils.matchStringToRegex(subject[0], requestRegexp);
 
       const title = matchData[2];
       const contentType = matchData[4];
@@ -30,9 +30,8 @@ module.exports = (Parsers) => {
       let titleEl = null;
 
       if (title) {
-        const titleOffset = subject[0].lastIndexOf(title);
         const titleSourceMap = utils.makeSourceMapsForStartPosAndLength(
-          titleOffset,
+          matchDataIndexes[2],
           title.length,
           node.firstChild,
           context.sourceLines,
@@ -45,11 +44,10 @@ module.exports = (Parsers) => {
       const requestSourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       const result = new RequestElement(contentType, titleEl, requestSourceMap);
 
-      if (result.contentType) {
-        const contentTypeOffset = subject[0].lastIndexOf(result.contentType);
+      if (contentType) {
         const contentTypeSourceMap = utils.makeSourceMapsForStartPosAndLength(
-          contentTypeOffset,
-          result.contentType.length,
+          matchDataIndexes[4],
+          contentType.length,
           node.firstChild,
           context.sourceLines,
           context.sourceBuffer,

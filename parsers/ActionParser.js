@@ -15,44 +15,94 @@ const NamedActionHeaderRegex = new RegExp(`^${actionSymbolIdentifier}\\[${RegExp
 module.exports = (Parsers) => {
   Parsers.ActionParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
-      let title = '';
-      let href = '';
-      let method = '';
+      let title = null;
+      let href = null;
+      let method = null;
       let protoNames = '';
 
       context.pushFrame();
 
-      const subject = utils.headerText(node, context.sourceLines);
+      const [subject, subjectOffset] = utils.headerText(node, context.sourceLines);
 
       const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       context.data.actionSignatureDetails = { sourceMap };
 
-      let matchData = ActionHeaderRegex.exec(subject);
-      if (matchData) {
+      const actionHeaderMatchResult = utils.matchStringToRegex(subject, ActionHeaderRegex);
+      if (actionHeaderMatchResult) {
+        const [matchData, matchDataIndexes] = actionHeaderMatchResult;
+
         if (matchData[2]) {
-          href = matchData[2].trim();
+          const hrefString = matchData[2].trim();
+          const hrefSourceMap = utils.makeSourceMapsForString(
+            hrefString,
+            subjectOffset + subject.indexOf(hrefString, matchDataIndexes[2]),
+            node,
+            context.sourceLines,
+            context.sourceBuffer,
+            context.linefeedOffsets,
+          );
+          href = new StringElement(hrefString, hrefSourceMap);
         }
 
         if (matchData[4]) {
           protoNames = matchData[4];
         }
 
-        method = matchData[1];
+        const methodString = matchData[1];
+        const methodSourceMap = utils.makeSourceMapsForString(
+          methodString,
+          subjectOffset + matchDataIndexes[1],
+          node,
+          context.sourceLines,
+          context.sourceBuffer,
+          context.linefeedOffsets,
+        );
+        method = new StringElement(methodString, methodSourceMap);
       } else {
-        matchData = NamedActionHeaderRegex.exec(subject);
-        if (matchData) {
-          title = matchData[1].trim();
+        const [matchData, matchDataIndexes] = utils.matchStringToRegex(subject, NamedActionHeaderRegex);
 
-          if (matchData[3]) {
-            href = matchData[3].trim();
-          }
+        const titleString = matchData[1].trim();
 
-          if (matchData[5]) {
-            protoNames = matchData[5];
-          }
-
-          method = matchData[2];
+        if (titleString) {
+          const titleSourceMap = utils.makeSourceMapsForString(
+            titleString,
+            subjectOffset + subject.indexOf(titleString, matchDataIndexes[1]),
+            node,
+            context.sourceLines,
+            context.sourceBuffer,
+            context.linefeedOffsets,
+          );
+          title = new StringElement(titleString, titleSourceMap);
         }
+
+
+        if (matchData[3]) {
+          const hrefString = matchData[3].trim();
+          const hrefSourceMap = utils.makeSourceMapsForString(
+            hrefString,
+            subjectOffset + subject.indexOf(hrefString, matchDataIndexes[3]),
+            node,
+            context.sourceLines,
+            context.sourceBuffer,
+            context.linefeedOffsets,
+          );
+          href = new StringElement(hrefString, hrefSourceMap);
+        }
+
+        if (matchData[5]) {
+          protoNames = matchData[5];
+        }
+
+        const methodString = matchData[2];
+        const methodSourceMap = utils.makeSourceMapsForString(
+          methodString,
+          subjectOffset + matchDataIndexes[2],
+          node,
+          context.sourceLines,
+          context.sourceBuffer,
+          context.linefeedOffsets,
+        );
+        method = new StringElement(methodString, methodSourceMap);
       }
 
       const prototypes = protoNames ? protoNames.split(',').map(p => p.trim()) : [];
@@ -65,19 +115,7 @@ module.exports = (Parsers) => {
 
       context.resourcePrototypes.push(prototypes);
 
-      const titleEl = new StringElement(title);
-      const hrefEl = href ? new StringElement(href) : null;
-      const methodEl = new StringElement(method);
-
-      if (title) {
-        titleEl.sourceMap = sourceMap;
-      }
-      if (href) {
-        hrefEl.sourceMap = sourceMap;
-      }
-      methodEl.sourceMap = sourceMap;
-
-      const result = new ActionElement(methodEl, hrefEl, titleEl);
+      const result = new ActionElement(method, href, title);
       result.sourceMap = sourceMap;
 
       return [utils.nextNode(node), result];
@@ -85,7 +123,7 @@ module.exports = (Parsers) => {
 
     sectionType(node, context) {
       if (node && node.type === 'heading') {
-        const subject = utils.headerText(node, context.sourceLines);
+        const subject = utils.headerText(node, context.sourceLines)[0];
 
         if (ActionHeaderRegex.exec(subject) || NamedActionHeaderRegex.exec(subject)) {
           return SectionTypes.action;

@@ -9,7 +9,7 @@ const SubgroupHeaderRegex = new RegExp(`^[Ss]ub[Gg]roup(\\s+${RegExpStrings.symb
 module.exports = (Parsers) => {
   Parsers.SubgroupParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
-      const matchData = SubgroupHeaderRegex.exec(utils.headerText(node, context.sourceLines));
+      const matchData = SubgroupHeaderRegex.exec(utils.headerText(node, context.sourceLines)[0]);
       const title = new StringElement(matchData[1].trim());
       title.sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       const result = new SubgroupElement(title);
@@ -19,7 +19,7 @@ module.exports = (Parsers) => {
 
     sectionType(node, context) {
       if (node.type === 'heading') {
-        const subject = utils.headerText(node, context.sourceLines);
+        const subject = utils.headerText(node, context.sourceLines)[0];
 
         if (SubgroupHeaderRegex.exec(subject)) {
           return SectionTypes.subGroup;

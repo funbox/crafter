@@ -15,7 +15,7 @@ const { CrafterError } = utils;
 module.exports = (Parsers) => {
   Parsers.MSONNamedTypeParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
-      const subject = utils.headerText(node, context.sourceLines);
+      const [subject, subjectOffset] = utils.headerText(node, context.sourceLines);
       const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       let signature;
       try {
@@ -33,11 +33,9 @@ module.exports = (Parsers) => {
 
       context.data.attributeSignatureDetails = { sourceMap, node };
 
-      const prefixLength = utils.nodeText(node, context.sourceLines).indexOf(subject);
-
       const nameSourceMap = utils.makeSourceMapsForString(
         signature.name,
-        signature.nameOffset + prefixLength,
+        signature.nameOffset + subjectOffset,
         node,
         context.sourceLines,
         context.sourceBuffer,
@@ -53,7 +51,7 @@ module.exports = (Parsers) => {
         const [offset, length] = signature.typeAttributesOffsetsAndLengths[index];
 
         valueMemberSourceMaps.push(utils.makeSourceMapsForStartPosAndLength(
-          offset + prefixLength,
+          offset + subjectOffset,
           length,
           node,
           context.sourceLines,
@@ -65,7 +63,7 @@ module.exports = (Parsers) => {
       if (signature.type) {
         valueMemberSourceMaps.push(utils.makeSourceMapsForString(
           signature.type,
-          signature.typeOffset + prefixLength,
+          signature.typeOffset + subjectOffset,
           node,
           context.sourceLines,
           context.sourceBuffer,

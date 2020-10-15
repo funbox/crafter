@@ -9,7 +9,7 @@ module.exports = (Parsers) => {
   Parsers.ResourcePrototypeParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
       let inheritedPrototypes = [];
-      const subject = utils.headerText(node, context.sourceLines);
+      const subject = utils.headerText(node, context.sourceLines)[0];
       const matchData = PrototypeHeaderRegex.exec(subject);
 
       if (matchData[3]) {

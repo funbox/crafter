@@ -8,7 +8,7 @@ const { CrafterError } = utils;
 module.exports = (Parsers) => {
   Parsers.SchemaNamedTypeParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
-      const subject = utils.headerText(node, context.sourceLines);
+      const subject = utils.headerText(node, context.sourceLines)[0];
       const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
       context.data.attributeSignatureDetails = { sourceMap };

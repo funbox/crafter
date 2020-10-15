@@ -16,8 +16,8 @@ module.exports = (Parsers) => {
     processSignature(node, context) {
       context.pushFrame();
 
-      const subject = (utils.headerText(node.firstChild, context.sourceLines)).split('\n');
-      const matchData = responseRegex.exec(subject[0]);
+      const subject = (utils.nodeText(node.firstChild, context.sourceLines)).split('\n');
+      const [matchData, matchDataIndexes] = utils.matchStringToRegex(subject[0], responseRegex);
 
       if (subject.length > 1) {
         context.data.startOffset = subject[0].length + 1;
@@ -27,11 +27,10 @@ module.exports = (Parsers) => {
       const contentType = matchData[4];
       const responseSourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       const result = new ResponseElement(statusCode, contentType, responseSourceMap);
-      if (result.contentType) {
-        const contentTypeOffset = subject[0].lastIndexOf(result.contentType);
+      if (contentType) {
         const contentTypeSourceMap = utils.makeSourceMapsForStartPosAndLength(
-          contentTypeOffset,
-          result.contentType.length,
+          matchDataIndexes[4],
+          contentType.length,
           node.firstChild,
           context.sourceLines,
           context.sourceBuffer,
@@ -40,7 +39,7 @@ module.exports = (Parsers) => {
         const headersElement = new HeadersElement(
           [{
             key: 'Content-Type',
-            val: result.contentType,
+            val: contentType,
             sourceMap: contentTypeSourceMap,
           }],
           contentTypeSourceMap,

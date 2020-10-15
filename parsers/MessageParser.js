@@ -12,7 +12,7 @@ module.exports = (Parsers) => {
   Parsers.MessageParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
       let title = '';
-      const matchData = MessageHeaderRegex.exec(utils.headerText(node, context.sourceLines));
+      const matchData = MessageHeaderRegex.exec(utils.headerText(node, context.sourceLines)[0]);
       const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
       if (matchData[1]) {
@@ -27,7 +27,7 @@ module.exports = (Parsers) => {
 
     sectionType(node, context) {
       if (node.type === 'heading') {
-        const subject = utils.headerText(node, context.sourceLines);
+        const subject = utils.headerText(node, context.sourceLines)[0];
 
         if (MessageHeaderRegex.exec(subject)) {
           return SectionTypes.message;

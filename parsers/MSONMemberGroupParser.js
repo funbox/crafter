@@ -32,7 +32,7 @@ module.exports = (Parsers) => {
       let type;
       const { isNamedTypeSection } = context.data;
       const text = node.type === 'heading'
-        ? utils.headerText(node, context.sourceLines)
+        ? utils.headerText(node, context.sourceLines)[0]
         : utils.nodeText(node.firstChild, context.sourceLines);
 
       if (node.parent.prev && isNamedTypeSection) {
@@ -54,7 +54,7 @@ module.exports = (Parsers) => {
       if (node.type === 'list') node = node.firstChild;
       if (node.type === 'item' || node.type === 'heading') {
         const text = node.type === 'heading'
-          ? utils.headerText(node, context.sourceLines)
+          ? utils.headerText(node, context.sourceLines)[0]
           : utils.nodeText(node.firstChild, context.sourceLines);
         Object.keys(memberSeparatorRegex).forEach((key) => {
           if (memberSeparatorRegex[key].exec(text)) {
