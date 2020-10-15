@@ -26,11 +26,11 @@ const utils = require('../../utils');
  */
 class ResponseElement {
   /**
-   * @param {number=} statusCode - код ответа HTTP
+   * @param {NumberElement} statusCode - код ответа HTTP
    * @param {string=} contentType - заголовок content-type, например application/json
-   * @param {SourceMap} sourceMap
+   * @param {SourceMap=} sourceMap
    */
-  constructor(statusCode = 200, contentType, sourceMap) {
+  constructor(statusCode, contentType, sourceMap) {
     this.statusCode = statusCode;
     this.contentType = contentType;
     /**
@@ -58,13 +58,7 @@ class ResponseElement {
       element: Refract.elements.httpResponse,
       content: this.content.map(c => c.toRefract(sourceMapsEnabled)),
       attributes: {
-        statusCode: {
-          element: Refract.elements.number,
-          content: this.statusCode,
-          ...(sourceMapEl ? {
-            attributes: { sourceMap: sourceMapEl.toRefract() },
-          } : {}),
-        },
+        statusCode: this.statusCode.toRefract(sourceMapsEnabled),
       },
     };
 

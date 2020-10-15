@@ -53,7 +53,7 @@ function copyNewContent(src, target) {
   });
 
   function hasResponse(srcAttr) {
-    return !!target.responses.find(a => a.statusCode === srcAttr.statusCode);
+    return !!target.responses.find(a => a.statusCode.equals(srcAttr.statusCode));
   }
 }
 

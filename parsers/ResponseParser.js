@@ -5,6 +5,7 @@ const ResponseElement = require('./elements/ResponseElement');
 const SchemaElement = require('./elements/SchemaElement');
 const HeadersElement = require('./elements/HeadersElement');
 const BodyElement = require('./elements/BodyElement');
+const NumberElement = require('./elements/NumberElement');
 
 const responseRegex = new RegExp(`^[Rr]esponse(\\s+(\\d+))?${RegExpStrings.mediaType}?$`);
 
@@ -23,7 +24,22 @@ module.exports = (Parsers) => {
         context.data.startOffset = subject[0].length + 1;
       }
 
-      const statusCode = matchData[2] ? Number(matchData[2]) : undefined;
+      let statusCode;
+
+      if (matchData[2]) {
+        const statusCodeSourceMap = utils.makeSourceMapsForStartPosAndLength(
+          matchDataIndexes[2],
+          matchData[2].length,
+          node.firstChild,
+          context.sourceLines,
+          context.sourceBuffer,
+          context.linefeedOffsets,
+        );
+        statusCode = new NumberElement(Number(matchData[2]), statusCodeSourceMap);
+      } else {
+        statusCode = new NumberElement(200);
+      }
+
       const contentType = matchData[4];
       const responseSourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       const result = new ResponseElement(statusCode, contentType, responseSourceMap);

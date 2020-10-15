@@ -11,6 +11,7 @@ const OneOfTypeOptionElement = require('../parsers/elements/OneOfTypeOptionEleme
 const RequestElement = require('../parsers/elements/RequestElement');
 const AttributesElement = require('../parsers/elements/AttributesElement');
 const ResponseElement = require('../parsers/elements/ResponseElement');
+const NumberElement = require('../parsers/elements/NumberElement');
 const ValueMemberProcessor = require('../ValueMemberProcessor');
 const Context = require('../Context');
 
@@ -392,7 +393,7 @@ describe('schema', () => {
 
   describe('ResponseElement', () => {
     it('not empty', () => {
-      const el = new ResponseElement(200, 'application/json');
+      const el = new ResponseElement(new NumberElement(200), 'application/json');
       el.content.push(new AttributesElement(new ValueMemberElement()));
       expect(el.getSchema({})).toEqual([
         {
@@ -403,12 +404,12 @@ describe('schema', () => {
     });
 
     it('empty', () => {
-      const el = new ResponseElement(200, 'application/json');
+      const el = new ResponseElement(new NumberElement(200), 'application/json');
       expect(el.getSchema({})).toEqual([undefined]);
     });
 
     it('Content-Type is not application/json', () => {
-      const el = new ResponseElement(200);
+      const el = new ResponseElement(new NumberElement(200));
       el.content.push(new AttributesElement(new ValueMemberElement()));
       expect(el.getSchema({})).toEqual([undefined]);
     });

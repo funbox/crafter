@@ -1,6 +1,7 @@
 const PrototypeResolver = require('../PrototypeResolver');
 const ResourcePrototypeElement = require('../parsers/elements/ResourcePrototypeElement');
 const ResponseElement = require('../parsers/elements/ResponseElement');
+const NumberElement = require('../parsers/elements/NumberElement');
 
 const CrafterError = require('../utils').CrafterError;
 
@@ -21,11 +22,11 @@ describe('TypeResolver', () => {
 
   it('resolves base prototype', () => {
     foo.responses = [
-      new ResponseElement(200),
+      new ResponseElement(new NumberElement(200)),
     ];
 
     bar.responses = [
-      new ResponseElement(404),
+      new ResponseElement(new NumberElement(404)),
     ];
 
     resolver.prototypes = { foo, bar };
@@ -50,11 +51,11 @@ describe('TypeResolver', () => {
 
   it('resolves base prototypes recursively', () => {
     foo.responses = [
-      new ResponseElement(200),
+      new ResponseElement(new NumberElement(200)),
     ];
 
     bar.responses = [
-      new ResponseElement(404),
+      new ResponseElement(new NumberElement(404)),
     ];
 
     const baz = new ResourcePrototypeElement('baz', ['bar']);

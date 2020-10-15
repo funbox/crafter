@@ -37,7 +37,7 @@ describe('ActionParser', () => {
     expect(title.string).toBe('List users');
     expect(method.string).toBe('GET');
     expect(href.string).toBe('/users');
-    expect(responses[0].statusCode).toBe(200);
+    expect(responses[0].statusCode.number).toBe(200);
   });
 
   it('parsers an action with href variables', () => {
@@ -56,7 +56,7 @@ describe('ActionParser', () => {
     expect(method.string).toBe('GET');
     expect(href.string).toBe('/users/{id}');
     expect(parameters.parameters[0].name.string).toBe('id');
-    expect(responses[0].statusCode).toBe(200);
+    expect(responses[0].statusCode.number).toBe(200);
   });
 
   it('parses an action with a missing parameter, creates warnings via logger', () => {
@@ -75,6 +75,6 @@ describe('ActionParser', () => {
     expect(method.string).toBe('GET');
     expect(href.string).toBe('/users/{id}{?name}');
     expect(parameters.parameters[0].name.string).toBe('id');
-    expect(responses[0].statusCode).toBe(200);
+    expect(responses[0].statusCode.number).toBe(200);
   });
 });
