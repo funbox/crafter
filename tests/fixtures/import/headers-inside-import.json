@@ -39,12 +39,6 @@
           "content": [
             {
               "element": "resource",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Получение списка детей"
-                }
-              },
               "attributes": {
                 "href": {
                   "element": "string",
@@ -325,7 +319,13 @@
                     }
                   }
                 }
-              ]
+              ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Получение списка детей"
+                }
+              }
             }
           ]
         }

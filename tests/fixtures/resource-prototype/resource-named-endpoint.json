@@ -80,12 +80,6 @@
           "content": [
             {
               "element": "resource",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Users"
-                }
-              },
               "attributes": {
                 "href": {
                   "element": "string",
@@ -160,7 +154,13 @@
                     }
                   }
                 }
-              ]
+              ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Users"
+                }
+              }
             }
           ]
         }

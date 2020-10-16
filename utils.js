@@ -650,6 +650,18 @@ const utils = {
     return [matchData, locations];
   },
 
+  makeStringElement(str, offset, node, context) {
+    const sourceMap = utils.makeSourceMapsForString(
+      str,
+      offset,
+      node,
+      context.sourceLines,
+      context.sourceBuffer,
+      context.linefeedOffsets,
+    );
+    return new StringElement(str, sourceMap);
+  },
+
   CrafterError,
 
   SignatureError,

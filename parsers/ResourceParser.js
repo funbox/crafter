@@ -2,7 +2,6 @@ const SectionTypes = require('../SectionTypes');
 const RegExpStrings = require('../RegExpStrings');
 const utils = require('../utils');
 const ResourceElement = require('./elements/ResourceElement');
-const StringElement = require('./elements/StringElement');
 
 const NamelessResourceHeaderRegex = new RegExp(`^${RegExpStrings.uriTemplate}(\\s+${RegExpStrings.resourcePrototype})?$`);
 const NamedResourceHeaderRegex = new RegExp(`^${RegExpStrings.symbolIdentifier}\\s+\\[${RegExpStrings.uriTemplate}](\\s+${RegExpStrings.resourcePrototype})?$`);
@@ -12,42 +11,41 @@ const NamedEndpointHeaderRegex = new RegExp(`^${RegExpStrings.symbolIdentifier}\
 module.exports = (Parsers) => {
   Parsers.ResourceParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
-      let title = '';
-      let href = '';
+      let title;
+      let href;
       let method = '';
       let protoNames = '';
       let nodeToReturn = node;
 
       context.pushFrame();
 
-      const subject = utils.headerText(node, context.sourceLines)[0];
-      const [sectionType, matchData] = getSectionType(subject);
-
-      let isNamedEndpoint = false;
+      const [subject, subjectOffset] = utils.headerText(node, context.sourceLines);
+      const [sectionType, [matchData, matchDataIndexes]] = getSectionType(subject);
 
       switch (sectionType) {
         case 'NamedResource':
-          title = matchData[1];
-          href = matchData[2];
+          title = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
+          href = utils.makeStringElement(matchData[2], subjectOffset + matchDataIndexes[2], node, context);
+
           protoNames = matchData[4];
           nodeToReturn = utils.nextNode(node);
           break;
         case 'NamelessResource':
-          href = matchData[1];
+          href = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
+
           protoNames = matchData[3];
           nodeToReturn = utils.nextNode(node);
           break;
         case 'NamelessEndpoint':
           method = matchData[2];
-          href = matchData[3];
+          href = utils.makeStringElement(matchData[3], subjectOffset + matchDataIndexes[3], node, context);
           protoNames = matchData[5];
           context.data.namelessEndpointActionsCount = 0;
           break;
         case 'NamedEndpoint':
-          title = matchData[1];
+          title = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
           method = matchData[2];
-          href = matchData[3];
-          isNamedEndpoint = true;
+          href = utils.makeStringElement(matchData[3], subjectOffset + matchDataIndexes[3], node, context);
           break;
         default:
           break;
@@ -65,18 +63,9 @@ module.exports = (Parsers) => {
 
       context.resourcePrototypes.push(prototypes);
 
-      const titleEl = new StringElement(title);
-      const hrefEl = new StringElement(href);
-
       context.data.resourceEndpointMethod = method;
 
-      if (!isNamedEndpoint && title) {
-        titleEl.sourceMap = sourceMap;
-      }
-
-      hrefEl.sourceMap = sourceMap;
-
-      const result = new ResourceElement(titleEl, hrefEl);
+      const result = new ResourceElement(href, title);
 
       return [nodeToReturn, result];
     },
@@ -182,17 +171,18 @@ module.exports = (Parsers) => {
 };
 
 function getSectionType(subject) {
-  const names = new Map([
+  const names = [
     [NamelessResourceHeaderRegex, 'NamelessResource'],
     [NamedResourceHeaderRegex, 'NamedResource'],
     [NamelessEndpointHeaderRegex, 'NamelessEndpoint'],
     [NamedEndpointHeaderRegex, 'NamedEndpoint'],
-  ]);
+  ];
 
-  return [
-    NamelessResourceHeaderRegex,
-    NamedResourceHeaderRegex,
-    NamelessEndpointHeaderRegex,
-    NamedEndpointHeaderRegex,
-  ].reduce((acc, regx) => (regx.test(subject) ? [names.get(regx), regx.exec(subject)] : acc), []);
+  for (let i = 0; i < names.length; i++) {
+    const [re, name] = names[i];
+    const matchResult = utils.matchStringToRegex(subject, re);
+    if (matchResult) return [name, matchResult];
+  }
+
+  return null;
 }

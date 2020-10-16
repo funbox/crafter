@@ -329,12 +329,6 @@
           "content": [
             {
               "element": "resource",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Группы сотрудников"
-                }
-              },
               "attributes": {
                 "href": {
                   "element": "string",
@@ -658,7 +652,13 @@
                     }
                   }
                 }
-              ]
+              ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Группы сотрудников"
+                }
+              }
             }
           ]
         }

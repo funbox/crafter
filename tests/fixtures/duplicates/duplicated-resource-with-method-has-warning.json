@@ -43,12 +43,6 @@
           "content": [
             {
               "element": "resource",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "List users"
-                }
-              },
               "attributes": {
                 "href": {
                   "element": "string",
@@ -98,16 +92,16 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "element": "resource",
+              ],
               "meta": {
                 "title": {
                   "element": "string",
-                  "content": "Get users"
+                  "content": "List users"
                 }
-              },
+              }
+            },
+            {
+              "element": "resource",
               "attributes": {
                 "href": {
                   "element": "string",
@@ -157,16 +151,16 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "element": "resource",
+              ],
               "meta": {
                 "title": {
                   "element": "string",
-                  "content": "Send users"
+                  "content": "Get users"
                 }
-              },
+              }
+            },
+            {
+              "element": "resource",
               "attributes": {
                 "href": {
                   "element": "string",
@@ -216,7 +210,13 @@
                     }
                   }
                 }
-              ]
+              ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Send users"
+                }
+              }
             }
           ]
         }
@@ -254,24 +254,24 @@
                         },
                         "column": {
                           "element": "number",
-                          "content": 1
+                          "content": 19
                         }
                       },
-                      "content": 274
+                      "content": 292
                     },
                     {
                       "element": "number",
                       "attributes": {
                         "line": {
                           "element": "number",
-                          "content": 14
+                          "content": 13
                         },
                         "column": {
                           "element": "number",
-                          "content": 1
+                          "content": 24
                         }
                       },
-                      "content": 27
+                      "content": 6
                     }
                   ]
                 }

@@ -43,12 +43,6 @@
           "content": [
             {
               "element": "resource",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Payment"
-                }
-              },
               "attributes": {
                 "href": {
                   "element": "string",
@@ -133,7 +127,13 @@
                     }
                   }
                 }
-              ]
+              ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Payment"
+                }
+              }
             }
           ]
         },
@@ -157,12 +157,6 @@
           "content": [
             {
               "element": "resource",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "User"
-                }
-              },
               "attributes": {
                 "href": {
                   "element": "string",
@@ -206,7 +200,13 @@
                     }
                   }
                 }
-              ]
+              ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "User"
+                }
+              }
             }
           ]
         }

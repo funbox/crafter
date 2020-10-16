@@ -21,12 +21,12 @@ const Refract = require('../../Refract');
  */
 class ResourceElement {
   /**
-   * @param {StringElement} title - опциональный заголовок
    * @param {StringElement} href - URL HTTP-запроса
+   * @param {StringElement=} title - опциональный заголовок
    */
-  constructor(title, href) {
-    this.title = title;
+  constructor(href, title) {
     this.href = href;
+    this.title = title;
     /**
      * @type {DescriptionElement}
      */
@@ -47,14 +47,17 @@ class ResourceElement {
   toRefract(sourceMapsEnabled) {
     const result = {
       element: Refract.elements.resource,
-      meta: {
-        title: this.title.toRefract(sourceMapsEnabled),
-      },
       attributes: {
         href: this.href.toRefract(sourceMapsEnabled),
       },
       content: this.actions.map(a => a.toRefract(sourceMapsEnabled)),
     };
+
+    if (this.title) {
+      result.meta = {
+        title: this.title.toRefract(sourceMapsEnabled),
+      };
+    }
 
     if (this.parameters) {
       result.attributes.hrefVariables = this.parameters.toRefract(sourceMapsEnabled);

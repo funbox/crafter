@@ -75,12 +75,6 @@
         },
         {
           "element": "resource",
-          "meta": {
-            "title": {
-              "element": "string",
-              "content": "Create schedule"
-            }
-          },
           "attributes": {
             "href": {
               "element": "string",
@@ -97,11 +91,11 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 64
+                              "content": 88
                             },
                             {
                               "element": "number",
-                              "content": 36
+                              "content": 9
                             }
                           ]
                         }
@@ -499,7 +493,38 @@
                 }
               }
             }
-          ]
+          ],
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Create schedule",
+              "attributes": {
+                "sourceMap": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "sourceMap",
+                      "content": [
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 66
+                            },
+                            {
+                              "element": "number",
+                              "content": 15
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
         }
       ]
     }

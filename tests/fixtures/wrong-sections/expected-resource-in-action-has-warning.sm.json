@@ -118,37 +118,6 @@
           "content": [
             {
               "element": "resource",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Blog 1",
-                  "attributes": {
-                    "sourceMap": {
-                      "element": "array",
-                      "content": [
-                        {
-                          "element": "sourceMap",
-                          "content": [
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 136
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 32
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  }
-                }
-              },
               "attributes": {
                 "href": {
                   "element": "string",
@@ -165,11 +134,11 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 136
+                                  "content": 146
                                 },
                                 {
                                   "element": "number",
-                                  "content": 32
+                                  "content": 19
                                 }
                               ]
                             }
@@ -241,10 +210,7 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "element": "resource",
+              ],
               "meta": {
                 "title": {
                   "element": "string",
@@ -261,11 +227,11 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 197
+                                  "content": 138
                                 },
                                 {
                                   "element": "number",
-                                  "content": 31
+                                  "content": 6
                                 }
                               ]
                             }
@@ -275,7 +241,10 @@
                     }
                   }
                 }
-              },
+              }
+            },
+            {
+              "element": "resource",
               "attributes": {
                 "href": {
                   "element": "string",
@@ -292,11 +261,11 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 197
+                                  "content": 207
                                 },
                                 {
                                   "element": "number",
-                                  "content": 31
+                                  "content": 19
                                 }
                               ]
                             }
@@ -307,7 +276,38 @@
                   }
                 }
               },
-              "content": []
+              "content": [],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Blog 1",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 199
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 6
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
             }
           ]
         }

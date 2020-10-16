@@ -651,12 +651,6 @@
         },
         {
           "element": "resource",
-          "meta": {
-            "title": {
-              "element": "string",
-              "content": "Request"
-            }
-          },
           "attributes": {
             "href": {
               "element": "string",
@@ -673,11 +667,11 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 204
+                              "content": 219
                             },
                             {
                               "element": "number",
-                              "content": 24
+                              "content": 6
                             }
                           ]
                         }
@@ -1450,7 +1444,38 @@
                 }
               }
             }
-          ]
+          ],
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Request",
+              "attributes": {
+                "sourceMap": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "sourceMap",
+                      "content": [
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 206
+                            },
+                            {
+                              "element": "number",
+                              "content": 7
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
         }
       ]
     }

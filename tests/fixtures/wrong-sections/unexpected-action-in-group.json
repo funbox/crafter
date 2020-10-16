@@ -47,19 +47,19 @@
             },
             {
               "element": "resource",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Blog 1"
-                }
-              },
               "attributes": {
                 "href": {
                   "element": "string",
                   "content": "/resource1/{?limit}"
                 }
               },
-              "content": []
+              "content": [],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Blog 1"
+                }
+              }
             }
           ]
         }

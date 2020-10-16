@@ -124,12 +124,6 @@
         },
         {
           "element": "resource",
-          "meta": {
-            "title": {
-              "element": "string",
-              "content": "Получить местоположения"
-            }
-          },
           "attributes": {
             "href": {
               "element": "string",
@@ -276,7 +270,13 @@
                 }
               }
             }
-          ]
+          ],
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Получить местоположения"
+            }
+          }
         }
       ]
     }

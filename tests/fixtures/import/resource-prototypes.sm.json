@@ -328,12 +328,6 @@
           "content": [
             {
               "element": "resource",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Users"
-                }
-              },
               "attributes": {
                 "href": {
                   "element": "string",
@@ -350,11 +344,11 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 149
+                                  "content": 163
                                 },
                                 {
                                   "element": "number",
-                                  "content": 23
+                                  "content": 6
                                 }
                               ]
                             }
@@ -754,7 +748,38 @@
                     }
                   }
                 }
-              ]
+              ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Users",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 152
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 5
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
             }
           ]
         }

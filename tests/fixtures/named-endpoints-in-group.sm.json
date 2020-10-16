@@ -118,12 +118,6 @@
           "content": [
             {
               "element": "resource",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Получение точек для трека"
-                }
-              },
               "attributes": {
                 "href": {
                   "element": "string",
@@ -140,11 +134,11 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 88
+                                  "content": 144
                                 },
                                 {
                                   "element": "number",
-                                  "content": 65
+                                  "content": 6
                                 }
                               ]
                             }
@@ -344,16 +338,41 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "element": "resource",
+              ],
               "meta": {
                 "title": {
                   "element": "string",
-                  "content": "Получение дней трека"
+                  "content": "Получение точек для трека",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 91
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 47
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
                 }
-              },
+              }
+            },
+            {
+              "element": "resource",
               "attributes": {
                 "href": {
                   "element": "string",
@@ -370,11 +389,11 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 169
+                                  "content": 216
                                 },
                                 {
                                   "element": "number",
-                                  "content": 55
+                                  "content": 5
                                 }
                               ]
                             }
@@ -574,7 +593,38 @@
                     }
                   }
                 }
-              ]
+              ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Получение дней трека",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 172
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 38
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
             }
           ]
         }

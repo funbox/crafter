@@ -615,12 +615,6 @@
         },
         {
           "element": "resource",
-          "meta": {
-            "title": {
-              "element": "string",
-              "content": "Request"
-            }
-          },
           "attributes": {
             "href": {
               "element": "string",
@@ -637,11 +631,11 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 443
+                              "content": 458
                             },
                             {
                               "element": "number",
-                              "content": 27
+                              "content": 9
                             }
                           ]
                         }
@@ -1030,7 +1024,38 @@
                 }
               }
             }
-          ]
+          ],
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Request",
+              "attributes": {
+                "sourceMap": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "sourceMap",
+                      "content": [
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 445
+                            },
+                            {
+                              "element": "number",
+                              "content": 7
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
         }
       ]
     }

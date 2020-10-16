@@ -25,12 +25,6 @@
         },
         {
           "element": "resource",
-          "meta": {
-            "title": {
-              "element": "string",
-              "content": "Test falsy values"
-            }
-          },
           "attributes": {
             "href": {
               "element": "string",
@@ -207,7 +201,13 @@
                 }
               }
             }
-          ]
+          ],
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Test falsy values"
+            }
+          }
         }
       ]
     }

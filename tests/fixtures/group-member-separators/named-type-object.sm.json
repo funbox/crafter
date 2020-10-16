@@ -366,12 +366,6 @@
         },
         {
           "element": "resource",
-          "meta": {
-            "title": {
-              "element": "string",
-              "content": "Get user"
-            }
-          },
           "attributes": {
             "href": {
               "element": "string",
@@ -388,11 +382,11 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 175
+                              "content": 191
                             },
                             {
                               "element": "number",
-                              "content": 24
+                              "content": 5
                             }
                           ]
                         }
@@ -759,7 +753,38 @@
                 }
               }
             }
-          ]
+          ],
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Get user",
+              "attributes": {
+                "sourceMap": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "sourceMap",
+                      "content": [
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 177
+                            },
+                            {
+                              "element": "number",
+                              "content": 8
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
         }
       ]
     }

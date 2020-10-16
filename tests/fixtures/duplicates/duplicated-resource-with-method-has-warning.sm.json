@@ -118,12 +118,6 @@
           "content": [
             {
               "element": "resource",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "List users"
-                }
-              },
               "attributes": {
                 "href": {
                   "element": "string",
@@ -140,11 +134,11 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 230
+                                  "content": 249
                                 },
                                 {
                                   "element": "number",
-                                  "content": 28
+                                  "content": 6
                                 }
                               ]
                             }
@@ -344,16 +338,41 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "element": "resource",
+              ],
               "meta": {
                 "title": {
                   "element": "string",
-                  "content": "Get users"
+                  "content": "List users",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 233
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 10
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
                 }
-              },
+              }
+            },
+            {
+              "element": "resource",
               "attributes": {
                 "href": {
                   "element": "string",
@@ -370,11 +389,11 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 274
+                                  "content": 292
                                 },
                                 {
                                   "element": "number",
-                                  "content": 27
+                                  "content": 6
                                 }
                               ]
                             }
@@ -574,16 +593,41 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "element": "resource",
+              ],
               "meta": {
                 "title": {
                   "element": "string",
-                  "content": "Send users"
+                  "content": "Get users",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 277
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 9
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
                 }
-              },
+              }
+            },
+            {
+              "element": "resource",
               "attributes": {
                 "href": {
                   "element": "string",
@@ -600,11 +644,11 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 317
+                                  "content": 337
                                 },
                                 {
                                   "element": "number",
-                                  "content": 29
+                                  "content": 6
                                 }
                               ]
                             }
@@ -804,7 +848,38 @@
                     }
                   }
                 }
-              ]
+              ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Send users",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 320
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 10
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
             }
           ]
         }
@@ -842,24 +917,24 @@
                         },
                         "column": {
                           "element": "number",
-                          "content": 1
+                          "content": 19
                         }
                       },
-                      "content": 274
+                      "content": 292
                     },
                     {
                       "element": "number",
                       "attributes": {
                         "line": {
                           "element": "number",
-                          "content": 14
+                          "content": 13
                         },
                         "column": {
                           "element": "number",
-                          "content": 1
+                          "content": 24
                         }
                       },
-                      "content": 27
+                      "content": 6
                     }
                   ]
                 }

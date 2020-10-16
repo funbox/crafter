@@ -341,12 +341,6 @@
         },
         {
           "element": "resource",
-          "meta": {
-            "title": {
-              "element": "string",
-              "content": "Get test"
-            }
-          },
           "attributes": {
             "href": {
               "element": "string",
@@ -363,11 +357,11 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 410
+                              "content": 426
                             },
                             {
                               "element": "number",
-                              "content": 24
+                              "content": 5
                             }
                           ]
                         }
@@ -1000,7 +994,38 @@
                 }
               }
             }
-          ]
+          ],
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Get test",
+              "attributes": {
+                "sourceMap": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "sourceMap",
+                      "content": [
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 412
+                            },
+                            {
+                              "element": "number",
+                              "content": 8
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
         }
       ]
     }

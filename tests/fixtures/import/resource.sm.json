@@ -75,37 +75,6 @@
         },
         {
           "element": "resource",
-          "meta": {
-            "title": {
-              "element": "string",
-              "content": "User",
-              "attributes": {
-                "sourceMap": {
-                  "element": "array",
-                  "content": [
-                    {
-                      "element": "sourceMap",
-                      "content": [
-                        {
-                          "element": "array",
-                          "content": [
-                            {
-                              "element": "number",
-                              "content": 48
-                            },
-                            {
-                              "element": "number",
-                              "content": 16
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                }
-              }
-            }
-          },
           "attributes": {
             "href": {
               "element": "string",
@@ -122,11 +91,11 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 48
+                              "content": 56
                             },
                             {
                               "element": "number",
-                              "content": 16
+                              "content": 5
                             }
                           ]
                         }
@@ -326,14 +295,11 @@
                 }
               }
             }
-          ]
-        },
-        {
-          "element": "resource",
+          ],
           "meta": {
             "title": {
               "element": "string",
-              "content": "Profile",
+              "content": "User",
               "attributes": {
                 "sourceMap": {
                   "element": "array",
@@ -346,22 +312,24 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 0
+                              "content": 50
                             },
                             {
                               "element": "number",
-                              "content": 22
+                              "content": 4
                             }
                           ]
                         }
-                      ],
-                      "file": "resource-inner.apib"
+                      ]
                     }
                   ]
                 }
               }
             }
-          },
+          }
+        },
+        {
+          "element": "resource",
           "attributes": {
             "href": {
               "element": "string",
@@ -378,11 +346,11 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 0
+                              "content": 11
                             },
                             {
                               "element": "number",
-                              "content": 22
+                              "content": 8
                             }
                           ]
                         }
@@ -559,7 +527,39 @@
                 }
               }
             }
-          ]
+          ],
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Profile",
+              "attributes": {
+                "sourceMap": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "sourceMap",
+                      "content": [
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 2
+                            },
+                            {
+                              "element": "number",
+                              "content": 7
+                            }
+                          ]
+                        }
+                      ],
+                      "file": "resource-inner.apib"
+                    }
+                  ]
+                }
+              }
+            }
+          }
         }
       ]
     }

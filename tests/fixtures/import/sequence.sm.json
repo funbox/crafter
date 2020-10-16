@@ -75,37 +75,6 @@
         },
         {
           "element": "resource",
-          "meta": {
-            "title": {
-              "element": "string",
-              "content": "User",
-              "attributes": {
-                "sourceMap": {
-                  "element": "array",
-                  "content": [
-                    {
-                      "element": "sourceMap",
-                      "content": [
-                        {
-                          "element": "array",
-                          "content": [
-                            {
-                              "element": "number",
-                              "content": 51
-                            },
-                            {
-                              "element": "number",
-                              "content": 16
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                }
-              }
-            }
-          },
           "attributes": {
             "href": {
               "element": "string",
@@ -122,11 +91,11 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 51
+                              "content": 59
                             },
                             {
                               "element": "number",
-                              "content": 16
+                              "content": 5
                             }
                           ]
                         }
@@ -714,7 +683,38 @@
                 }
               }
             }
-          ]
+          ],
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "User",
+              "attributes": {
+                "sourceMap": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "sourceMap",
+                      "content": [
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 53
+                            },
+                            {
+                              "element": "number",
+                              "content": 4
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
         }
       ]
     }

@@ -175,12 +175,6 @@
         },
         {
           "element": "resource",
-          "meta": {
-            "title": {
-              "element": "string",
-              "content": "Request"
-            }
-          },
           "attributes": {
             "href": {
               "element": "string",
@@ -308,7 +302,13 @@
                 }
               }
             }
-          ]
+          ],
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Request"
+            }
+          }
         }
       ]
     }

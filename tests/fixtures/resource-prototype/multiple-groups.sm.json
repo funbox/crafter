@@ -351,37 +351,6 @@
             },
             {
               "element": "resource",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "User",
-                  "attributes": {
-                    "sourceMap": {
-                      "element": "array",
-                      "content": [
-                        {
-                          "element": "sourceMap",
-                          "content": [
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 233
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 18
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  }
-                }
-              },
               "attributes": {
                 "href": {
                   "element": "string",
@@ -398,11 +367,11 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 233
+                                  "content": 242
                                 },
                                 {
                                   "element": "number",
-                                  "content": 18
+                                  "content": 6
                                 }
                               ]
                             }
@@ -671,7 +640,38 @@
                     }
                   }
                 }
-              ]
+              ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "User",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 236
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 4
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
             }
           ]
         },
@@ -749,37 +749,6 @@
             },
             {
               "element": "resource",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Comment",
-                  "attributes": {
-                    "sourceMap": {
-                      "element": "array",
-                      "content": [
-                        {
-                          "element": "sourceMap",
-                          "content": [
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 371
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 24
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  }
-                }
-              },
               "attributes": {
                 "href": {
                   "element": "string",
@@ -796,11 +765,11 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 371
+                                  "content": 383
                                 },
                                 {
                                   "element": "number",
-                                  "content": 24
+                                  "content": 9
                                 }
                               ]
                             }
@@ -1069,7 +1038,38 @@
                     }
                   }
                 }
-              ]
+              ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Comment",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 374
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 7
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
             }
           ]
         }

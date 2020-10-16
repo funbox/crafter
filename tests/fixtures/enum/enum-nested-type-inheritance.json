@@ -213,12 +213,6 @@
         },
         {
           "element": "resource",
-          "meta": {
-            "title": {
-              "element": "string",
-              "content": "Get foo"
-            }
-          },
           "attributes": {
             "href": {
               "element": "string",
@@ -335,7 +329,13 @@
                 }
               }
             }
-          ]
+          ],
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Get foo"
+            }
+          }
         }
       ]
     }

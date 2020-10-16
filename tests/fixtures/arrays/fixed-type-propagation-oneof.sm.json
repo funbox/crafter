@@ -445,12 +445,6 @@
         },
         {
           "element": "resource",
-          "meta": {
-            "title": {
-              "element": "string",
-              "content": "Получить местоположения"
-            }
-          },
           "attributes": {
             "href": {
               "element": "string",
@@ -467,11 +461,11 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 380
+                              "content": 434
                             },
                             {
                               "element": "number",
-                              "content": 63
+                              "content": 6
                             }
                           ]
                         }
@@ -941,7 +935,38 @@
                 }
               }
             }
-          ]
+          ],
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Получить местоположения",
+              "attributes": {
+                "sourceMap": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "sourceMap",
+                      "content": [
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 383
+                            },
+                            {
+                              "element": "number",
+                              "content": 45
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
         }
       ]
     }

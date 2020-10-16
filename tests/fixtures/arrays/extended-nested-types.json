@@ -75,12 +75,6 @@
         },
         {
           "element": "resource",
-          "meta": {
-            "title": {
-              "element": "string",
-              "content": "Get options"
-            }
-          },
           "attributes": {
             "href": {
               "element": "string",
@@ -197,7 +191,13 @@
                 }
               }
             }
-          ]
+          ],
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Get options"
+            }
+          }
         }
       ]
     }

@@ -130,12 +130,6 @@
         },
         {
           "element": "resource",
-          "meta": {
-            "title": {
-              "element": "string",
-              "content": "Block"
-            }
-          },
           "attributes": {
             "href": {
               "element": "string",
@@ -737,7 +731,13 @@
                 }
               }
             }
-          ]
+          ],
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Block"
+            }
+          }
         }
       ]
     },

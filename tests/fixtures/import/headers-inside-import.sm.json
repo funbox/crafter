@@ -90,12 +90,6 @@
           "content": [
             {
               "element": "resource",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Получение списка детей"
-                }
-              },
               "attributes": {
                 "href": {
                   "element": "string",
@@ -112,11 +106,11 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 56
+                                  "content": 107
                                 },
                                 {
                                   "element": "number",
-                                  "content": 59
+                                  "content": 5
                                 }
                               ]
                             }
@@ -1181,7 +1175,39 @@
                     }
                   }
                 }
-              ]
+              ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Получение списка детей",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 59
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 42
+                                }
+                              ]
+                            }
+                          ],
+                          "file": "headers-inside-import-inner.apib"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
             }
           ]
         }

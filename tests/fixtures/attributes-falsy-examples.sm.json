@@ -75,12 +75,6 @@
         },
         {
           "element": "resource",
-          "meta": {
-            "title": {
-              "element": "string",
-              "content": "Test falsy values"
-            }
-          },
           "attributes": {
             "href": {
               "element": "string",
@@ -97,11 +91,11 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 51
+                              "content": 78
                             },
                             {
                               "element": "number",
-                              "content": 35
+                              "content": 5
                             }
                           ]
                         }
@@ -825,7 +819,38 @@
                 }
               }
             }
-          ]
+          ],
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Test falsy values",
+              "attributes": {
+                "sourceMap": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "sourceMap",
+                      "content": [
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 55
+                            },
+                            {
+                              "element": "number",
+                              "content": 17
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
         }
       ]
     }

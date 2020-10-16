@@ -202,12 +202,6 @@
         },
         {
           "element": "resource",
-          "meta": {
-            "title": {
-              "element": "string",
-              "content": "Get test"
-            }
-          },
           "attributes": {
             "href": {
               "element": "string",
@@ -362,7 +356,13 @@
                 }
               }
             }
-          ]
+          ],
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Get test"
+            }
+          }
         }
       ]
     }

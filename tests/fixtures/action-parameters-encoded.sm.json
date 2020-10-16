@@ -75,12 +75,6 @@
         },
         {
           "element": "resource",
-          "meta": {
-            "title": {
-              "element": "string",
-              "content": "List users"
-            }
-          },
           "attributes": {
             "href": {
               "element": "string",
@@ -97,11 +91,11 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 42
+                              "content": 60
                             },
                             {
                               "element": "number",
-                              "content": 84
+                              "content": 63
                             }
                           ]
                         }
@@ -730,7 +724,38 @@
                 }
               }
             }
-          ]
+          ],
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "List users",
+              "attributes": {
+                "sourceMap": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "sourceMap",
+                      "content": [
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 44
+                            },
+                            {
+                              "element": "number",
+                              "content": 10
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
         }
       ]
     }

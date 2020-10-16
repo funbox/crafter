@@ -546,12 +546,6 @@
         },
         {
           "element": "resource",
-          "meta": {
-            "title": {
-              "element": "string",
-              "content": "Get admin"
-            }
-          },
           "attributes": {
             "href": {
               "element": "string",
@@ -568,11 +562,11 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 217
+                              "content": 234
                             },
                             {
                               "element": "number",
-                              "content": 26
+                              "content": 6
                             }
                           ]
                         }
@@ -939,7 +933,38 @@
                 }
               }
             }
-          ]
+          ],
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Get admin",
+              "attributes": {
+                "sourceMap": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "sourceMap",
+                      "content": [
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 219
+                            },
+                            {
+                              "element": "number",
+                              "content": 9
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
         }
       ]
     }

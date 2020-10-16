@@ -637,12 +637,6 @@
         },
         {
           "element": "resource",
-          "meta": {
-            "title": {
-              "element": "string",
-              "content": "Запрос"
-            }
-          },
           "attributes": {
             "href": {
               "element": "string",
@@ -659,11 +653,11 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 144
+                              "content": 165
                             },
                             {
                               "element": "number",
-                              "content": 30
+                              "content": 6
                             }
                           ]
                         }
@@ -1128,7 +1122,38 @@
                 }
               }
             }
-          ]
+          ],
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Запрос",
+              "attributes": {
+                "sourceMap": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "sourceMap",
+                      "content": [
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 146
+                            },
+                            {
+                              "element": "number",
+                              "content": 12
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
         }
       ]
     }

@@ -1039,12 +1039,6 @@
           "content": [
             {
               "element": "resource",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Получить список всех сотрудников"
-                }
-              },
               "attributes": {
                 "href": {
                   "element": "string",
@@ -1061,11 +1055,11 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 645
+                                  "content": 715
                                 },
                                 {
                                   "element": "number",
-                                  "content": 82
+                                  "content": 10
                                 }
                               ]
                             }
@@ -1454,7 +1448,38 @@
                     }
                   }
                 }
-              ]
+              ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Получить список всех сотрудников",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 648
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 61
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
             }
           ]
         }

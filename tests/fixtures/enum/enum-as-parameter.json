@@ -43,12 +43,6 @@
           "content": [
             {
               "element": "resource",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Группы клиентов"
-                }
-              },
               "attributes": {
                 "href": {
                   "element": "string",
@@ -209,7 +203,13 @@
                     }
                   }
                 }
-              ]
+              ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Группы клиентов"
+                }
+              }
             }
           ]
         }

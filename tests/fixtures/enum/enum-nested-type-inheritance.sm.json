@@ -735,12 +735,6 @@
         },
         {
           "element": "resource",
-          "meta": {
-            "title": {
-              "element": "string",
-              "content": "Get foo"
-            }
-          },
           "attributes": {
             "href": {
               "element": "string",
@@ -757,11 +751,11 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 538
+                              "content": 553
                             },
                             {
                               "element": "number",
-                              "content": 22
+                              "content": 4
                             }
                           ]
                         }
@@ -1128,7 +1122,38 @@
                 }
               }
             }
-          ]
+          ],
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Get foo",
+              "attributes": {
+                "sourceMap": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "sourceMap",
+                      "content": [
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 540
+                            },
+                            {
+                              "element": "number",
+                              "content": 7
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
         }
       ]
     }

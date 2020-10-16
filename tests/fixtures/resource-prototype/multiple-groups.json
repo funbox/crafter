@@ -105,12 +105,6 @@
             },
             {
               "element": "resource",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "User"
-                }
-              },
               "attributes": {
                 "href": {
                   "element": "string",
@@ -179,7 +173,13 @@
                     }
                   }
                 }
-              ]
+              ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "User"
+                }
+              }
             }
           ]
         },
@@ -207,12 +207,6 @@
             },
             {
               "element": "resource",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Comment"
-                }
-              },
               "attributes": {
                 "href": {
                   "element": "string",
@@ -281,7 +275,13 @@
                     }
                   }
                 }
-              ]
+              ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Comment"
+                }
+              }
             }
           ]
         }

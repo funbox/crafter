@@ -105,12 +105,6 @@
         },
         {
           "element": "resource",
-          "meta": {
-            "title": {
-              "element": "string",
-              "content": "Get user"
-            }
-          },
           "attributes": {
             "href": {
               "element": "string",
@@ -433,7 +427,13 @@
                 }
               }
             }
-          ]
+          ],
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Get user"
+            }
+          }
         }
       ]
     }

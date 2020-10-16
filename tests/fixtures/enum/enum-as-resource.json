@@ -138,12 +138,6 @@
         },
         {
           "element": "resource",
-          "meta": {
-            "title": {
-              "element": "string",
-              "content": "Report templates"
-            }
-          },
           "attributes": {
             "href": {
               "element": "string",
@@ -363,7 +357,13 @@
                 }
               }
             }
-          ]
+          ],
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Report templates"
+            }
+          }
         }
       ]
     }

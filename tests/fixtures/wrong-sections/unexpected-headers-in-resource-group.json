@@ -43,12 +43,6 @@
           "content": [
             {
               "element": "resource",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Blog 1"
-                }
-              },
               "attributes": {
                 "href": {
                   "element": "string",
@@ -60,23 +54,29 @@
                   "element": "copy",
                   "content": "# Unexpected Header\n\n# Second Unexpected Header"
                 }
-              ]
-            },
-            {
-              "element": "resource",
+              ],
               "meta": {
                 "title": {
                   "element": "string",
                   "content": "Blog 1"
                 }
-              },
+              }
+            },
+            {
+              "element": "resource",
               "attributes": {
                 "href": {
                   "element": "string",
                   "content": "/resource2/{?limit}"
                 }
               },
-              "content": []
+              "content": [],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Blog 1"
+                }
+              }
             }
           ]
         }

@@ -181,12 +181,6 @@
         },
         {
           "element": "resource",
-          "meta": {
-            "title": {
-              "element": "string",
-              "content": "Запрос"
-            }
-          },
           "attributes": {
             "href": {
               "element": "string",
@@ -328,7 +322,13 @@
                 }
               }
             }
-          ]
+          ],
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Запрос"
+            }
+          }
         }
       ]
     }

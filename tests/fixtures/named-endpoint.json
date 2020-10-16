@@ -25,12 +25,6 @@
         },
         {
           "element": "resource",
-          "meta": {
-            "title": {
-              "element": "string",
-              "content": "List users"
-            }
-          },
           "attributes": {
             "href": {
               "element": "string",
@@ -80,16 +74,16 @@
                 }
               }
             }
-          ]
-        },
-        {
-          "element": "resource",
+          ],
           "meta": {
             "title": {
               "element": "string",
-              "content": "Send users"
+              "content": "List users"
             }
-          },
+          }
+        },
+        {
+          "element": "resource",
           "attributes": {
             "href": {
               "element": "string",
@@ -139,7 +133,13 @@
                 }
               }
             }
-          ]
+          ],
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Send users"
+            }
+          }
         }
       ]
     }

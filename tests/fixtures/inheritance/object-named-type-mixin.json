@@ -153,12 +153,6 @@
         },
         {
           "element": "resource",
-          "meta": {
-            "title": {
-              "element": "string",
-              "content": "Get admin"
-            }
-          },
           "attributes": {
             "href": {
               "element": "string",
@@ -275,7 +269,13 @@
                 }
               }
             }
-          ]
+          ],
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Get admin"
+            }
+          }
         }
       ]
     }

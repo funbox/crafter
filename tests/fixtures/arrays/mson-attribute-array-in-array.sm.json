@@ -417,12 +417,6 @@
         },
         {
           "element": "resource",
-          "meta": {
-            "title": {
-              "element": "string",
-              "content": "Create user"
-            }
-          },
           "attributes": {
             "href": {
               "element": "string",
@@ -439,11 +433,11 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 215
+                              "content": 235
                             },
                             {
                               "element": "number",
-                              "content": 28
+                              "content": 5
                             }
                           ]
                         }
@@ -810,7 +804,38 @@
                 }
               }
             }
-          ]
+          ],
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Create user",
+              "attributes": {
+                "sourceMap": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "sourceMap",
+                      "content": [
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 217
+                            },
+                            {
+                              "element": "number",
+                              "content": 11
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
         }
       ]
     }

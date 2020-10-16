@@ -25,12 +25,6 @@
         },
         {
           "element": "resource",
-          "meta": {
-            "title": {
-              "element": "string",
-              "content": "Create user"
-            }
-          },
           "attributes": {
             "href": {
               "element": "string",
@@ -276,7 +270,13 @@
                 }
               }
             }
-          ]
+          ],
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Create user"
+            }
+          }
         }
       ]
     }

@@ -105,12 +105,6 @@
             },
             {
               "element": "resource",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "User"
-                }
-              },
               "attributes": {
                 "href": {
                   "element": "string",
@@ -204,16 +198,16 @@
                     }
                   }
                 }
-              ]
-            },
-            {
-              "element": "resource",
+              ],
               "meta": {
                 "title": {
                   "element": "string",
-                  "content": "Profiles"
+                  "content": "User"
                 }
-              },
+              }
+            },
+            {
+              "element": "resource",
               "attributes": {
                 "href": {
                   "element": "string",
@@ -282,7 +276,13 @@
                     }
                   }
                 }
-              ]
+              ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Profiles"
+                }
+              }
             }
           ]
         }

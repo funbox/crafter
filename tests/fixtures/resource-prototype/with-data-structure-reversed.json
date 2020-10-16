@@ -314,12 +314,6 @@
           "content": [
             {
               "element": "resource",
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Получить список всех сотрудников"
-                }
-              },
               "attributes": {
                 "href": {
                   "element": "string",
@@ -447,7 +441,13 @@
                     }
                   }
                 }
-              ]
+              ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Получить список всех сотрудников"
+                }
+              }
             }
           ]
         }
