@@ -419,7 +419,49 @@
                   }
                 }
               }
-            },
+            }
+          ]
+        },
+        {
+          "element": "resource",
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": ""
+            }
+          },
+          "attributes": {
+            "href": {
+              "element": "string",
+              "content": "/baz",
+              "attributes": {
+                "sourceMap": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "sourceMap",
+                      "content": [
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 298
+                            },
+                            {
+                              "element": "number",
+                              "content": 12
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "content": [
             {
               "element": "transition",
               "content": [

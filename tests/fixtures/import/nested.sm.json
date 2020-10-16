@@ -257,7 +257,50 @@
                   }
                 }
               }
-            },
+            }
+          ]
+        },
+        {
+          "element": "resource",
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": ""
+            }
+          },
+          "attributes": {
+            "href": {
+              "element": "string",
+              "content": "/profile",
+              "attributes": {
+                "sourceMap": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "sourceMap",
+                      "content": [
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 0
+                            },
+                            {
+                              "element": "number",
+                              "content": 16
+                            }
+                          ]
+                        }
+                      ],
+                      "file": "nested-next-level-inner.apib"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "content": [
             {
               "element": "transition",
               "content": [

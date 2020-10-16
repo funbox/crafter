@@ -18,6 +18,8 @@ module.exports = (Parsers) => {
       let protoNames = '';
       let nodeToReturn = node;
 
+      context.pushFrame();
+
       const subject = utils.headerText(node, context.sourceLines);
       const [sectionType, matchData] = getSectionType(subject);
 
@@ -39,6 +41,7 @@ module.exports = (Parsers) => {
           method = matchData[2];
           href = matchData[3];
           protoNames = matchData[5];
+          context.data.namelessEndpointActionsCount = 0;
           break;
         case 'NamedEndpoint':
           title = matchData[1];
@@ -61,8 +64,6 @@ module.exports = (Parsers) => {
       });
 
       context.resourcePrototypes.push(prototypes);
-
-      context.pushFrame();
 
       const titleEl = new StringElement(title);
       const hrefEl = new StringElement(href);
@@ -93,10 +94,20 @@ module.exports = (Parsers) => {
     },
 
     nestedSectionType(node, context) {
-      return SectionTypes.calculateSectionType(node, context, [
+      const result = SectionTypes.calculateSectionType(node, context, [
         Parsers.ActionParser,
         Parsers.ParametersParser,
       ]);
+
+      if (
+        result === SectionTypes.action
+        && Object.keys(context.data).includes('namelessEndpointActionsCount')
+        && context.data.namelessEndpointActionsCount > 0
+      ) {
+        return SectionTypes.undefined;
+      }
+
+      return result;
     },
 
     upperSectionType(node, context) {
@@ -124,6 +135,10 @@ module.exports = (Parsers) => {
           context.addWarning(warningMessage, childResult.sourceMap);
         }
         result.actions.push(childResult);
+
+        if (Object.keys(context.data).includes('namelessEndpointActionsCount')) {
+          context.data.namelessEndpointActionsCount++;
+        }
       } else {
         [nextNode, childResult] = Parsers.ParametersParser.parse(node, context);
         result.parameters = childResult;
