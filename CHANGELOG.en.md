@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.64.1 (16.10.2020)
+
+* Fix processing of nameless endpoint resources.
+
 ## 1.64.0 (12.10.2020)
 
 * Do not use default logger inside of Crafter.parse.
