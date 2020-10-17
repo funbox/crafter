@@ -14,9 +14,9 @@ module.exports = (Parsers) => {
       const [matchData, matchDataIndexes] = utils.matchStringToRegex(subject, GroupHeaderRegex);
       const prototypes = matchData[3] ? matchData[3].split(',').map(p => p.trim()) : [];
       const title = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
-      const result = new ResourceGroupElement(title);
-
       const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const result = new ResourceGroupElement(title, sourceMap);
+
       context.data.groupSignatureDetails = { sourceMap };
 
       prototypes.forEach(prototype => {
@@ -28,6 +28,7 @@ module.exports = (Parsers) => {
       context.resourcePrototypes.push(prototypes);
       return [utils.nextNode(node), result];
     },
+
     sectionType(node, context) {
       if (node.type === 'heading') {
         const subject = utils.headerText(node, context.sourceLines)[0];
@@ -99,10 +100,16 @@ module.exports = (Parsers) => {
           result.resources.push(childResult);
       }
 
+      result.sourceMap = utils.mergeSourceMaps([result.sourceMap, childResult.sourceMap], context.sourceBuffer, context.linefeedOffsets);
+
       return [nextNode, result];
     },
 
     finalize(context, result) {
+      if (result.description) {
+        result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.description.sourceMap], context.sourceBuffer, context.linefeedOffsets);
+      }
+
       context.resourcePrototypes.pop(); // очищаем стек с прототипами данной группы ресурсов
       return result;
     },

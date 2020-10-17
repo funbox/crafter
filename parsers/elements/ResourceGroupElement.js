@@ -1,4 +1,5 @@
 const Refract = require('../../Refract');
+const SourceMapElement = require('./SourceMapElement');
 
 /**
  * Группа ресурсов
@@ -13,8 +14,9 @@ const Refract = require('../../Refract');
 class ResourceGroupElement {
   /**
    * @param {StringElement} title - название группы ресурсов
+   * @param {SourceMap} sourceMap
    */
-  constructor(title) {
+  constructor(title, sourceMap) {
     this.title = title;
     /**
      * @type {DescriptionElement}
@@ -28,6 +30,7 @@ class ResourceGroupElement {
      * @type {SubgroupElement[]}
      */
     this.subgroups = [];
+    this.sourceMap = sourceMap;
   }
 
   /**
@@ -52,6 +55,11 @@ class ResourceGroupElement {
 
     if (this.description) {
       result.content.unshift(this.description.toRefract(sourceMapsEnabled));
+    }
+
+    if (sourceMapsEnabled) {
+      const sourceMapEl = new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file);
+      result.attributes = { sourceMap: sourceMapEl.toRefract() };
     }
 
     return result;
