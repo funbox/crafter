@@ -72,10 +72,16 @@ module.exports = (Parsers) => {
         result.content.push(childResult);
       }
 
+      result.sourceMap = utils.mergeSourceMaps([result.sourceMap, childResult.sourceMap], context.sourceBuffer, context.linefeedOffsets);
+
       return [nextNode, result];
     },
 
     finalize(context, result) {
+      if (result.description) {
+        result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.description.sourceMap], context.sourceBuffer, context.linefeedOffsets);
+      }
+
       const hasCustomBody = result.content.find(item => (item instanceof BodyElement));
       const hasCustomSchema = result.content.find(item => (item instanceof SchemaElement));
 
