@@ -7,7 +7,7 @@ const SourceMapElement = require('./SourceMapElement');
 class StringElement {
   /**
    * @param {string} string
-   * @param {SourceMap} sourceMap
+   * @param {SourceMap=} sourceMap
    */
   constructor(string, sourceMap) {
     this.string = string;

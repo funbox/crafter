@@ -30,57 +30,22 @@ module.exports = (Parsers) => {
       context.data.parameterSignatureDetails = parameterSignatureDetails;
       signature.warnings.forEach(warning => context.addWarning(warning, sourceMap));
 
-      const nameSourceMap = signature.name
-        ? utils.makeSourceMapsForString(
-          signature.name,
-          signature.nameOffset,
-          node.firstChild,
-          context.sourceLines,
-          context.sourceBuffer,
-          context.linefeedOffsets,
-        ) : null;
-      const name = new StringElement(signature.name, nameSourceMap);
+      const name = signature.name
+        ? utils.makeStringElement(signature.name, signature.nameOffset, node.firstChild, context)
+        : null;
 
-      let value = null;
-      if (signature.value) {
-        const valueSourceMap = utils.makeSourceMapsForString(
-          signature.value,
-          signature.valueOffset,
-          node.firstChild,
-          context.sourceLines,
-          context.sourceBuffer,
-          context.linefeedOffsets,
-        );
-
-        value = new StringElement(signature.value, valueSourceMap);
-      }
+      const value = signature.value
+        ? utils.makeStringElement(signature.value, signature.valueOffset, node.firstChild, context)
+        : null;
 
       const typeAttributes = signature.typeAttributes.map((attr, index) => {
-        const [offset, length] = signature.typeAttributesOffsetsAndLengths[index];
-        const attrSourceMap = utils.makeSourceMapsForStartPosAndLength(
-          offset,
-          length,
-          node.firstChild,
-          context.sourceLines,
-          context.sourceBuffer,
-          context.linefeedOffsets,
-        );
-
-        return new StringElement(attr, attrSourceMap);
+        const [offset] = signature.typeAttributesOffsetsAndLengths[index];
+        return utils.makeStringElement(attr, offset, node.firstChild, context);
       });
 
-      let title = new StringElement('string');
-      if (signature.type) {
-        const typeSourceMap = utils.makeSourceMapsForString(
-          signature.type,
-          signature.typeOffset,
-          node.firstChild,
-          context.sourceLines,
-          context.sourceBuffer,
-          context.linefeedOffsets,
-        );
-        title = new StringElement(signature.type, typeSourceMap);
-      }
+      const title = signature.type
+        ? utils.makeStringElement(signature.type, signature.typeOffset, node.firstChild, context)
+        : new StringElement('string');
 
       const result = new ParameterElement(
         name,

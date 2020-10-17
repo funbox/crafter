@@ -30,26 +30,12 @@ module.exports = (Parsers) => {
 
       signature.warnings.forEach(warning => context.addWarning(warning, sourceMap));
 
-      const nameSourceMap = signature.name
-        ? utils.makeSourceMapsForString(
-          signature.name,
-          signature.nameOffset,
-          node.firstChild,
-          context.sourceLines,
-          context.sourceBuffer,
-          context.linefeedOffsets,
-        ) : null;
-      const name = new StringElement(signature.name, nameSourceMap);
+      const name = signature.name
+        ? utils.makeStringElement(signature.name, signature.nameOffset, node.firstChild, context)
+        : new StringElement(signature.name);
       let descriptionEl;
       if (signature.description) {
-        descriptionEl = new StringElement(signature.description, utils.makeSourceMapsForString(
-          signature.description,
-          signature.descriptionOffset,
-          node.firstChild,
-          context.sourceLines,
-          context.sourceBuffer,
-          context.linefeedOffsets,
-        ));
+        descriptionEl = utils.makeStringElement(signature.description, signature.descriptionOffset, node.firstChild, context);
       }
 
       const splittedAttributes = splitTypeAttributes(signature.typeAttributes);

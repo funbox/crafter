@@ -8,7 +8,6 @@ const RequestElement = require('./elements/RequestElement');
 const SchemaElement = require('./elements/SchemaElement');
 const HeadersElement = require('./elements/HeadersElement');
 const BodyElement = require('./elements/BodyElement');
-const StringElement = require('./elements/StringElement');
 
 module.exports = (Parsers) => {
   Parsers.RequestParser = Object.assign(Object.create(require('./AbstractParser')), {
@@ -30,15 +29,7 @@ module.exports = (Parsers) => {
       let titleEl = null;
 
       if (title) {
-        const titleSourceMap = utils.makeSourceMapsForStartPosAndLength(
-          matchDataIndexes[2],
-          title.length,
-          node.firstChild,
-          context.sourceLines,
-          context.sourceBuffer,
-          context.linefeedOffsets,
-        );
-        titleEl = new StringElement(title, titleSourceMap);
+        titleEl = utils.makeStringElement(title, matchDataIndexes[2], node.firstChild, context);
       }
 
       const requestSourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);

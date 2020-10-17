@@ -2,7 +2,6 @@ const SectionTypes = require('../SectionTypes');
 const RegExpStrings = require('../RegExpStrings');
 const utils = require('../utils');
 const ActionElement = require('./elements/ActionElement');
-const StringElement = require('./elements/StringElement');
 
 const actionSymbolIdentifier = '(.+)';
 
@@ -33,76 +32,49 @@ module.exports = (Parsers) => {
 
         if (matchData[2]) {
           const hrefString = matchData[2].trim();
-          const hrefSourceMap = utils.makeSourceMapsForString(
+          href = utils.makeStringElement(
             hrefString,
             subjectOffset + subject.indexOf(hrefString, matchDataIndexes[2]),
             node,
-            context.sourceLines,
-            context.sourceBuffer,
-            context.linefeedOffsets,
+            context,
           );
-          href = new StringElement(hrefString, hrefSourceMap);
         }
 
         if (matchData[4]) {
           protoNames = matchData[4];
         }
 
-        const methodString = matchData[1];
-        const methodSourceMap = utils.makeSourceMapsForString(
-          methodString,
-          subjectOffset + matchDataIndexes[1],
-          node,
-          context.sourceLines,
-          context.sourceBuffer,
-          context.linefeedOffsets,
-        );
-        method = new StringElement(methodString, methodSourceMap);
+        method = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
       } else {
         const [matchData, matchDataIndexes] = utils.matchStringToRegex(subject, NamedActionHeaderRegex);
 
         const titleString = matchData[1].trim();
 
         if (titleString) {
-          const titleSourceMap = utils.makeSourceMapsForString(
+          title = utils.makeStringElement(
             titleString,
             subjectOffset + subject.indexOf(titleString, matchDataIndexes[1]),
             node,
-            context.sourceLines,
-            context.sourceBuffer,
-            context.linefeedOffsets,
+            context,
           );
-          title = new StringElement(titleString, titleSourceMap);
         }
 
 
         if (matchData[3]) {
           const hrefString = matchData[3].trim();
-          const hrefSourceMap = utils.makeSourceMapsForString(
+          href = utils.makeStringElement(
             hrefString,
             subjectOffset + subject.indexOf(hrefString, matchDataIndexes[3]),
             node,
-            context.sourceLines,
-            context.sourceBuffer,
-            context.linefeedOffsets,
+            context,
           );
-          href = new StringElement(hrefString, hrefSourceMap);
         }
 
         if (matchData[5]) {
           protoNames = matchData[5];
         }
 
-        const methodString = matchData[2];
-        const methodSourceMap = utils.makeSourceMapsForString(
-          methodString,
-          subjectOffset + matchDataIndexes[2],
-          node,
-          context.sourceLines,
-          context.sourceBuffer,
-          context.linefeedOffsets,
-        );
-        method = new StringElement(methodString, methodSourceMap);
+        method = utils.makeStringElement(matchData[2], subjectOffset + matchDataIndexes[2], node, context);
       }
 
       const prototypes = protoNames ? protoNames.split(',').map(p => p.trim()) : [];

@@ -3,7 +3,6 @@ const types = require('../types');
 const utils = require('../utils');
 const { parser: SignatureParser, traits: ParserTraits, typeAttributes } = require('../SignatureParser');
 const MSONNamedTypeElement = require('./elements/MSONNamedTypeElement');
-const StringElement = require('./elements/StringElement');
 const EnumElement = require('./elements/EnumElement');
 const ObjectElement = require('./elements/ObjectElement');
 const SchemaNamedTypeElement = require('./elements/SchemaNamedTypeElement');
@@ -33,15 +32,7 @@ module.exports = (Parsers) => {
 
       context.data.attributeSignatureDetails = { sourceMap, node };
 
-      const nameSourceMap = utils.makeSourceMapsForString(
-        signature.name,
-        signature.nameOffset + subjectOffset,
-        node,
-        context.sourceLines,
-        context.sourceBuffer,
-        context.linefeedOffsets,
-      );
-      const name = new StringElement(signature.name, nameSourceMap);
+      const name = utils.makeStringElement(signature.name, signature.nameOffset + subjectOffset, node, context);
 
       const typeElement = new MSONNamedTypeElement(name, signature.type, signature.typeAttributes);
 
