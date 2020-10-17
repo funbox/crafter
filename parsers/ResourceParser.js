@@ -84,6 +84,10 @@ module.exports = (Parsers) => {
     },
 
     nestedSectionType(node, context) {
+      if (context.data.startNode.file !== node.file) {
+        return SectionTypes.undefined;
+      }
+
       const result = SectionTypes.calculateSectionType(node, context, [
         Parsers.ActionParser,
         Parsers.ParametersParser,
