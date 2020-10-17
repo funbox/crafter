@@ -2,7 +2,6 @@ const SectionTypes = require('../SectionTypes');
 const RegExpStrings = require('../RegExpStrings');
 const utils = require('../utils');
 const MessageElement = require('./elements/MessageElement');
-const StringElement = require('./elements/StringElement');
 const BodyElement = require('./elements/BodyElement');
 const SchemaElement = require('./elements/SchemaElement');
 
@@ -11,16 +10,16 @@ const MessageHeaderRegex = new RegExp(`^[Mm]essage\\s*(${RegExpStrings.symbolIde
 module.exports = (Parsers) => {
   Parsers.MessageParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
-      let title = '';
-      const matchData = MessageHeaderRegex.exec(utils.headerText(node, context.sourceLines)[0]);
-      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      let title;
+      const [subject, subjectOffset] = utils.headerText(node, context.sourceLines);
+      const [matchData, matchDataIndexes] = utils.matchStringToRegex(subject, MessageHeaderRegex);
 
       if (matchData[1]) {
-        title = matchData[1];
+        title = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
       }
 
-      const titleEl = title ? new StringElement(title, sourceMap) : undefined;
-      const result = new MessageElement(titleEl, sourceMap);
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const result = new MessageElement(title, sourceMap);
 
       return [utils.nextNode(node), result];
     },
