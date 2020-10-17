@@ -443,11 +443,11 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 142
+                                  "content": 154
                                 },
                                 {
                                   "element": "number",
-                                  "content": 23
+                                  "content": 9
                                 }
                               ]
                             }
@@ -846,7 +846,32 @@
                     }
                   }
                 }
-              ]
+              ],
+              "attributes": {
+                "sourceMap": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "sourceMap",
+                      "content": [
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 142
+                            },
+                            {
+                              "element": "number",
+                              "content": 238
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
             }
           ]
         }

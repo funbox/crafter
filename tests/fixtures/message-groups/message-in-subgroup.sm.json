@@ -114,11 +114,11 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 37
+                                  "content": 49
                                 },
                                 {
                                   "element": "number",
-                                  "content": 23
+                                  "content": 9
                                 }
                               ]
                             }
@@ -645,7 +645,32 @@
                     }
                   }
                 }
-              ]
+              ],
+              "attributes": {
+                "sourceMap": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "sourceMap",
+                      "content": [
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 37
+                            },
+                            {
+                              "element": "number",
+                              "content": 302
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
             }
           ]
         }

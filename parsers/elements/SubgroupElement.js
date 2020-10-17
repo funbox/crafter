@@ -1,4 +1,5 @@
 const Refract = require('../../Refract');
+const SourceMapElement = require('./SourceMapElement');
 
 /**
  * Элемент для подгрупп при описании не-HTTP-взаимодействия.
@@ -15,14 +16,16 @@ const Refract = require('../../Refract');
 class SubgroupElement {
   /**
    * @param {StringElement} title
+   * @param {SourceMap} sourceMap
    */
-  constructor(title) {
+  constructor(title, sourceMap) {
     this.title = title;
     this.description = null;
     /**
      * @type {MessageElement[]}
      */
     this.messages = [];
+    this.sourceMap = sourceMap;
   }
 
   /**
@@ -46,6 +49,11 @@ class SubgroupElement {
 
     if (this.description) {
       result.content.unshift(this.description.toRefract(sourceMapsEnabled));
+    }
+
+    if (sourceMapsEnabled) {
+      const sourceMapEl = new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file);
+      result.attributes = { sourceMap: sourceMapEl.toRefract() };
     }
 
     return result;

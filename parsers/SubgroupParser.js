@@ -2,17 +2,24 @@ const SectionTypes = require('../SectionTypes');
 const RegExpStrings = require('../RegExpStrings');
 const utils = require('../utils');
 const SubgroupElement = require('./elements/SubgroupElement');
-const StringElement = require('./elements/StringElement');
 
 const SubgroupHeaderRegex = new RegExp(`^[Ss]ub[Gg]roup(\\s+${RegExpStrings.symbolIdentifier})$`);
 
 module.exports = (Parsers) => {
   Parsers.SubgroupParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
-      const matchData = SubgroupHeaderRegex.exec(utils.headerText(node, context.sourceLines)[0]);
-      const title = new StringElement(matchData[1].trim());
-      title.sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-      const result = new SubgroupElement(title);
+      const [subject, subjectOffset] = utils.headerText(node, context.sourceLines);
+      const [matchData, matchDataIndexes] = utils.matchStringToRegex(subject, SubgroupHeaderRegex);
+
+      const titleString = matchData[1].trim();
+      const title = utils.makeStringElement(
+        titleString,
+        subjectOffset + matchDataIndexes[1] + matchData[1].indexOf(titleString),
+        node,
+        context,
+      );
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const result = new SubgroupElement(title, sourceMap);
 
       return [utils.nextNode(node), result];
     },
@@ -48,7 +55,15 @@ module.exports = (Parsers) => {
       const [nextNode, childResult] = Parsers.MessageParser.parse(node, context);
 
       result.messages.push(childResult);
+      result.sourceMap = utils.mergeSourceMaps([result.sourceMap, childResult.sourceMap], context.sourceBuffer, context.linefeedOffsets);
       return [nextNode, result];
+    },
+
+    finalize(context, result) {
+      if (result.description) {
+        result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.description.sourceMap], context.sourceBuffer, context.linefeedOffsets);
+      }
+      return result;
     },
   });
   return true;

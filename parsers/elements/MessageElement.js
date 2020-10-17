@@ -33,8 +33,6 @@ class MessageElement {
    * @param {boolean} sourceMapsEnabled
    */
   toRefract(sourceMapsEnabled) {
-    const sourceMapEl = sourceMapsEnabled && this.sourceMap ? new SourceMapElement(this.sourceMap.byteBlocks) : null;
-
     const result = {
       element: Refract.elements.message,
       content: this.content.map(c => c.toRefract(sourceMapsEnabled)),
@@ -50,10 +48,11 @@ class MessageElement {
       result.content.unshift(this.description.toRefract(sourceMapsEnabled));
     }
 
-    if (sourceMapEl) {
-      result.attributes = result.attributes || {};
-      result.attributes.sourceMap = sourceMapEl.toRefract();
+    if (sourceMapsEnabled) {
+      const sourceMapEl = new SourceMapElement(this.sourceMap.byteBlocks);
+      result.attributes = { sourceMap: sourceMapEl.toRefract() };
     }
+
     return result;
   }
 
