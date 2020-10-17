@@ -40,12 +40,13 @@ module.exports = (Parsers) => {
           method = matchData[2];
           href = utils.makeStringElement(matchData[3], subjectOffset + matchDataIndexes[3], node, context);
           protoNames = matchData[5];
-          context.data.namelessEndpointActionsCount = 0;
+          context.data.endpointActionsCount = 0;
           break;
         case 'NamedEndpoint':
           title = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
           method = matchData[2];
           href = utils.makeStringElement(matchData[3], subjectOffset + matchDataIndexes[3], node, context);
+          context.data.endpointActionsCount = 0;
           break;
         default:
           break;
@@ -95,8 +96,8 @@ module.exports = (Parsers) => {
 
       if (
         result === SectionTypes.action
-        && Object.keys(context.data).includes('namelessEndpointActionsCount')
-        && context.data.namelessEndpointActionsCount > 0
+        && Object.keys(context.data).includes('endpointActionsCount')
+        && context.data.endpointActionsCount > 0
       ) {
         return SectionTypes.undefined;
       }
@@ -130,8 +131,8 @@ module.exports = (Parsers) => {
         }
         result.actions.push(childResult);
 
-        if (Object.keys(context.data).includes('namelessEndpointActionsCount')) {
-          context.data.namelessEndpointActionsCount++;
+        if (Object.keys(context.data).includes('endpointActionsCount')) {
+          context.data.endpointActionsCount++;
         }
       } else {
         [nextNode, childResult] = Parsers.ParametersParser.parse(node, context);

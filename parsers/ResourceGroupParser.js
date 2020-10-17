@@ -44,7 +44,6 @@ module.exports = (Parsers) => {
       return SectionTypes.calculateSectionType(node, context, [
         Parsers.MessageParser,
         Parsers.SubgroupParser,
-        Parsers.NamedEndpointParser,
         Parsers.ResourceParser,
       ]);
     },
@@ -67,7 +66,6 @@ module.exports = (Parsers) => {
       const nestedSectionType = SectionTypes.calculateSectionType(node, context, [
         Parsers.MessageParser,
         Parsers.SubgroupParser,
-        Parsers.NamedEndpointParser,
         Parsers.ResourceParser,
       ]);
 
@@ -79,14 +77,6 @@ module.exports = (Parsers) => {
       }
 
       switch (nestedSectionType) {
-        case SectionTypes.namedAction: {
-          if (result.subgroups.length > 0) {
-            throw mixedContentError;
-          }
-          [nextNode, childResult] = Parsers.NamedEndpointParser.parse(node, context);
-          result.resources.push(childResult);
-          break;
-        }
         case SectionTypes.subGroup:
           if (result.resources.length > 0) {
             throw mixedContentError;
