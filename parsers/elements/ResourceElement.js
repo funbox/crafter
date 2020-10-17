@@ -1,4 +1,5 @@
 const Refract = require('../../Refract');
+const SourceMapElement = require('./SourceMapElement');
 
 /**
  * Ресурс. Возможны несколько вариантов объявления ресурса:
@@ -23,8 +24,9 @@ class ResourceElement {
   /**
    * @param {StringElement} href - URL HTTP-запроса
    * @param {StringElement=} title - опциональный заголовок
+   * @param {SourceMap} sourceMap
    */
-  constructor(href, title) {
+  constructor(href, title, sourceMap) {
     this.href = href;
     this.title = title;
     /**
@@ -39,6 +41,8 @@ class ResourceElement {
      * @type {ActionElement[]}
      */
     this.actions = [];
+
+    this.sourceMap = sourceMap;
   }
 
   /**
@@ -65,6 +69,11 @@ class ResourceElement {
 
     if (this.description) {
       result.content.unshift(this.description.toRefract(sourceMapsEnabled));
+    }
+
+    if (sourceMapsEnabled) {
+      const sourceMapEl = new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file);
+      result.attributes.sourceMap = sourceMapEl.toRefract();
     }
 
     return result;

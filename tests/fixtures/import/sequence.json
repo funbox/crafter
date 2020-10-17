@@ -73,7 +73,24 @@
                   "content": "/user"
                 }
               }
-            },
+            }
+          ],
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Get user"
+            }
+          }
+        },
+        {
+          "element": "resource",
+          "attributes": {
+            "href": {
+              "element": "string",
+              "content": "/user"
+            }
+          },
+          "content": [
             {
               "element": "transition",
               "content": [
@@ -115,7 +132,24 @@
                   "content": "/user"
                 }
               }
-            },
+            }
+          ],
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Save user"
+            }
+          }
+        },
+        {
+          "element": "resource",
+          "attributes": {
+            "href": {
+              "element": "string",
+              "content": "/user"
+            }
+          },
+          "content": [
             {
               "element": "transition",
               "content": [
@@ -162,7 +196,7 @@
           "meta": {
             "title": {
               "element": "string",
-              "content": "User"
+              "content": "Delete user"
             }
           }
         }

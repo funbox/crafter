@@ -91,7 +91,7 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 59
+                              "content": 68
                             },
                             {
                               "element": "number",
@@ -104,6 +104,29 @@
                   ]
                 }
               }
+            },
+            "sourceMap": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "sourceMap",
+                  "content": [
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 51
+                        },
+                        {
+                          "element": "number",
+                          "content": 41
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
             }
           },
           "content": [
@@ -131,7 +154,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 80
+                                          "content": 64
                                         },
                                         {
                                           "element": "number",
@@ -167,7 +190,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 103
+                                          "content": 87
                                         },
                                         {
                                           "element": "number",
@@ -192,7 +215,7 @@
                                   "content": [
                                     {
                                       "element": "number",
-                                      "content": 92
+                                      "content": 76
                                     },
                                     {
                                       "element": "number",
@@ -225,7 +248,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 70
+                                  "content": 54
                                 },
                                 {
                                   "element": "number",
@@ -256,7 +279,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 84
+                                  "content": 68
                                 },
                                 {
                                   "element": "number",
@@ -281,7 +304,7 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 67
+                              "content": 51
                             },
                             {
                               "element": "number",
@@ -294,7 +317,99 @@
                   ]
                 }
               }
+            }
+          ],
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Get user",
+              "attributes": {
+                "sourceMap": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "sourceMap",
+                      "content": [
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 54
+                            },
+                            {
+                              "element": "number",
+                              "content": 8
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        {
+          "element": "resource",
+          "attributes": {
+            "href": {
+              "element": "string",
+              "content": "/user",
+              "attributes": {
+                "sourceMap": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "sourceMap",
+                      "content": [
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 19
+                            },
+                            {
+                              "element": "number",
+                              "content": 5
+                            }
+                          ]
+                        }
+                      ],
+                      "file": "nested/sequence-1-next-inner.apib"
+                    }
+                  ]
+                }
+              }
             },
+            "sourceMap": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "sourceMap",
+                  "content": [
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 0
+                        },
+                        {
+                          "element": "number",
+                          "content": 43
+                        }
+                      ]
+                    }
+                  ],
+                  "file": "nested/sequence-1-next-inner.apib"
+                }
+              ]
+            }
+          },
+          "content": [
             {
               "element": "transition",
               "content": [
@@ -488,7 +603,100 @@
                   ]
                 }
               }
+            }
+          ],
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Save user",
+              "attributes": {
+                "sourceMap": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "sourceMap",
+                      "content": [
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 3
+                            },
+                            {
+                              "element": "number",
+                              "content": 9
+                            }
+                          ]
+                        }
+                      ],
+                      "file": "nested/sequence-1-next-inner.apib"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        {
+          "element": "resource",
+          "attributes": {
+            "href": {
+              "element": "string",
+              "content": "/user",
+              "attributes": {
+                "sourceMap": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "sourceMap",
+                      "content": [
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 23
+                            },
+                            {
+                              "element": "number",
+                              "content": 5
+                            }
+                          ]
+                        }
+                      ],
+                      "file": "nested/sequence-2-next-inner.apib"
+                    }
+                  ]
+                }
+              }
             },
+            "sourceMap": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "sourceMap",
+                  "content": [
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 0
+                        },
+                        {
+                          "element": "number",
+                          "content": 47
+                        }
+                      ]
+                    }
+                  ],
+                  "file": "nested/sequence-2-next-inner.apib"
+                }
+              ]
+            }
+          },
+          "content": [
             {
               "element": "transition",
               "content": [
@@ -687,7 +895,7 @@
           "meta": {
             "title": {
               "element": "string",
-              "content": "User",
+              "content": "Delete user",
               "attributes": {
                 "sourceMap": {
                   "element": "array",
@@ -700,15 +908,16 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 53
+                              "content": 3
                             },
                             {
                               "element": "number",
-                              "content": 4
+                              "content": 11
                             }
                           ]
                         }
-                      ]
+                      ],
+                      "file": "nested/sequence-2-next-inner.apib"
                     }
                   ]
                 }

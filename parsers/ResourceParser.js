@@ -64,8 +64,9 @@ module.exports = (Parsers) => {
       context.resourcePrototypes.push(prototypes);
 
       context.data.resourceEndpointMethod = method;
+      context.data.startNode = node;
 
-      const result = new ResourceElement(href, title);
+      const result = new ResourceElement(href, title, sourceMap);
 
       return [nodeToReturn, result];
     },
@@ -133,10 +134,16 @@ module.exports = (Parsers) => {
         result.parameters = childResult;
       }
 
+      result.sourceMap = utils.mergeSourceMaps([result.sourceMap, childResult.sourceMap], context.sourceBuffer, context.linefeedOffsets);
+
       return [nextNode, result];
     },
 
     finalize(context, result) {
+      if (result.description) {
+        result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.description.sourceMap], context.sourceBuffer, context.linefeedOffsets);
+      }
+
       const { resourceEndpointMethod } = context.data;
       const metaResource = {
         href: result.href.string,
