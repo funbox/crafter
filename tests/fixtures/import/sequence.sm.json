@@ -925,7 +925,83 @@
             }
           }
         }
-      ]
+      ],
+      "attributes": {
+        "sourceMap": {
+          "element": "array",
+          "content": [
+            {
+              "element": "sourceMap",
+              "content": [
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 10
+                    },
+                    {
+                      "element": "number",
+                      "content": 41
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 51
+                    },
+                    {
+                      "element": "number",
+                      "content": 41
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "element": "sourceMap",
+              "content": [
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 0
+                    },
+                    {
+                      "element": "number",
+                      "content": 43
+                    }
+                  ]
+                }
+              ],
+              "file": "nested/sequence-1-next-inner.apib"
+            },
+            {
+              "element": "sourceMap",
+              "content": [
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 0
+                    },
+                    {
+                      "element": "number",
+                      "content": 47
+                    }
+                  ]
+                }
+              ],
+              "file": "nested/sequence-2-next-inner.apib"
+            }
+          ]
+        }
+      }
     }
   ]
 }

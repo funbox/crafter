@@ -26,6 +26,7 @@ module.exports = (Parsers) => {
 
       let title = new StringElement('');
       const metadataArray = [];
+      const sourceMaps = [];
 
       if (context.error) {
         const errorResult = new BlueprintElement(title, undefined, metadataArray);
@@ -39,20 +40,21 @@ module.exports = (Parsers) => {
         nodeText.split('\n').forEach(line => { // eslint-disable-line no-loop-func
           const [key, ...rest] = line.split(':');
           const value = rest.join(':');
+          const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+          sourceMaps.push(sourceMap);
           if (key && value) {
             const element = new MetaDataElement(key, value);
-            element.sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+            element.sourceMap = sourceMap;
             metadataArray.push(element);
           } else if (!isWarningAdded) {
             isWarningAdded = true;
-            const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
             context.addWarning('ignoring possible metadata, expected "<key> : <value>", one per line', sourceMap);
           }
         });
         curNode = curNode.next;
       }
 
-      if (curNode.type === 'heading' && context.sectionKeywordSignature(curNode) === 'undefined') {
+      if (curNode.type === 'heading' && context.sectionKeywordSignature(curNode) === SectionTypes.undefined) {
         const [titleText, titleTextOffset] = utils.headerText(curNode, context.sourceLines);
         title = utils.makeStringElement(titleText, titleTextOffset, curNode, context);
 
@@ -67,6 +69,9 @@ module.exports = (Parsers) => {
       const stopCallback = cNode => (cNode.type === 'heading' && context.sectionKeywordSignature(cNode) !== SectionTypes.undefined);
 
       [curNode, description] = utils.extractDescription(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, stopCallback);
+      if (description) {
+        sourceMaps.push(description.sourceMap);
+      }
 
       const result = new BlueprintElement(title, description, metadataArray);
 
@@ -108,11 +113,14 @@ module.exports = (Parsers) => {
 
         if (childResult) {
           result.content.push(childResult);
+          sourceMaps.push(childResult.sourceMap);
         }
       }
 
       if (context.error) {
         preprocessErrorResult(result, context);
+      } else {
+        result.sourceMap = utils.concatSourceMaps(sourceMaps);
       }
 
       context.warnings.forEach(warning => {

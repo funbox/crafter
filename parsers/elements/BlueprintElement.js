@@ -1,4 +1,5 @@
 const Refract = require('../../Refract');
+const SourceMapElement = require('./SourceMapElement');
 
 /**
  * Корневой элемент дерева Element AST
@@ -23,6 +24,10 @@ class BlueprintElement {
     this.annotations = [];
     this.meta = meta;
     this.isError = false;
+    /**
+     * @type {SourceMap}
+     */
+    this.sourceMap = null;
   }
 
   /**
@@ -60,6 +65,12 @@ class BlueprintElement {
     let content = this.annotations.map(annotation => annotation.toRefract(sourceMapsEnabled));
     if (!this.isError) {
       content = [result].concat(content);
+    }
+
+    if (sourceMapsEnabled && this.sourceMap) {
+      const sourceMapEl = new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file);
+      result.attributes = result.attributes || {};
+      result.attributes.sourceMap = sourceMapEl.toRefract();
     }
 
     return {
