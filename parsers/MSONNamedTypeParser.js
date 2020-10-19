@@ -141,13 +141,8 @@ module.exports = (Parsers) => {
                 valueMember.samples.push(...childResult);
 
                 const childSourceMaps = [];
-                childResult.forEach(sample => childSourceMaps.push(sample.sourceMap));
-
-                if (valueMember.sourceMap) {
-                  valueMember.sourceMap = utils.concatSourceMaps([valueMember.sourceMap, ...childSourceMaps]);
-                } else {
-                  valueMember.sourceMap = utils.concatSourceMaps(childSourceMaps);
-                }
+                childResult.forEach(child => childSourceMaps.push(child.sourceMap));
+                concatSourceMaps(valueMember, childSourceMaps);
               }
             }
 
@@ -174,15 +169,10 @@ module.exports = (Parsers) => {
                   valueMember.samples.push(...childResult);
 
                   const childSourceMaps = [];
-                  childResult.forEach(sample => {
-                    childSourceMaps.push(...sample.sourceMap);
+                  childResult.forEach(child => {
+                    childSourceMaps.push(...child.sourceMap);
                   });
-
-                  if (valueMember.sourceMap) {
-                    valueMember.sourceMap = utils.concatSourceMaps([valueMember.sourceMap, ...childSourceMaps]);
-                  } else {
-                    valueMember.sourceMap = utils.concatSourceMaps(childSourceMaps);
-                  }
+                  concatSourceMaps(valueMember, childSourceMaps);
                 }
               } else {
                 const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
@@ -203,13 +193,8 @@ module.exports = (Parsers) => {
                 if (childResult.length) {
                   enumElement.sampleValues = childResult;
 
-                  const childSourceMaps = childResult.map(sample => sample.sourceMap);
-
-                  if (valueMember.sourceMap) {
-                    valueMember.sourceMap = utils.concatSourceMaps([valueMember.sourceMap, ...childSourceMaps]);
-                  } else {
-                    valueMember.sourceMap = utils.concatSourceMaps(childSourceMaps);
-                  }
+                  const childSourceMaps = childResult.map(child => child.sourceMap);
+                  concatSourceMaps(valueMember, childSourceMaps);
                 }
               } else {
                 const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
@@ -231,6 +216,9 @@ module.exports = (Parsers) => {
               delete context.data.typeForDefaults;
               delete context.data.valueType;
               defaults.push(...childResult);
+
+              const childSourceMaps = childResult.map(child => child.sourceMap);
+              concatSourceMaps(valueMember, childSourceMaps);
 
               if (defaults.length) {
                 if (defaults.length > 1) {
@@ -259,6 +247,12 @@ module.exports = (Parsers) => {
                 delete context.data.typeForDefaults;
                 delete context.data.valueType;
                 if (childResult.length) {
+                  const childSourceMaps = [];
+                  childResult.forEach(child => {
+                    childSourceMaps.push(...child.sourceMap);
+                  });
+                  concatSourceMaps(valueMember, childSourceMaps);
+
                   if (childResult.length > 1) {
                     const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
                     context.addWarning('Multiple definitions of "default" value', sourceMap);
@@ -282,6 +276,9 @@ module.exports = (Parsers) => {
                 delete context.data.typeForDefaults;
                 delete context.data.valueType;
                 if (childResult.length) {
+                  const childSourceMaps = childResult.map(child => child.sourceMap);
+                  concatSourceMaps(valueMember, childSourceMaps);
+
                   if (childResult.length > 1) {
                     const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
                     context.addWarning('Multiple definitions of "default" value', sourceMap);
@@ -371,4 +368,12 @@ function fillElementWithContent(rootElement, elementType, contentMembers) {
   }
 
   rootElement.content = newContentElement;
+}
+
+function concatSourceMaps(valueMember, childSourceMaps) {
+  if (valueMember.sourceMap) {
+    valueMember.sourceMap = utils.concatSourceMaps([valueMember.sourceMap, ...childSourceMaps]);
+  } else {
+    valueMember.sourceMap = utils.concatSourceMaps(childSourceMaps);
+  }
 }
