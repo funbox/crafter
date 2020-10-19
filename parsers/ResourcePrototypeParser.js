@@ -52,6 +52,7 @@ module.exports = (Parsers) => {
     processNestedSection(node, context, result) {
       const [nextNode, childResult] = Parsers.ResponseParser.parse(node, context);
       result.responses.push(childResult);
+      result.sourceMap = utils.mergeSourceMaps([result.sourceMap, childResult.sourceMap], context.sourceBuffer, context.linefeedOffsets);
 
       return [nextNode, result];
     },
