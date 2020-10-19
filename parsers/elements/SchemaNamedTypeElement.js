@@ -22,8 +22,9 @@ const SourceMapElement = require('./SourceMapElement');
 class SchemaNamedTypeElement {
   /**
    * @param {StringElement} name
+   * @param {SourceMap} sourceMap
    */
-  constructor(name) {
+  constructor(name, sourceMap) {
     this.name = name;
     /**
      * @type {BodyElement}
@@ -42,6 +43,8 @@ class SchemaNamedTypeElement {
      * @type {DescriptionElement}
      */
     this.description = null;
+
+    this.sourceMap = sourceMap;
   }
 
   isComplex() {
@@ -80,6 +83,13 @@ class SchemaNamedTypeElement {
         };
       }
       result.meta.description = description;
+    }
+
+    if (sourceMapsEnabled) {
+      const sourceMapEl = new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file);
+      result.attributes = {
+        sourceMap: sourceMapEl.toRefract(),
+      };
     }
 
     return result;

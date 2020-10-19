@@ -270,7 +270,32 @@
                   },
                   "content": "{\n  \"type\": \"number\",\n  \"minimum\": 79000000000,\n  \"maximum\": 79999999999,\n  \"multipleOf\": 1\n}"
                 }
-              ]
+              ],
+              "attributes": {
+                "sourceMap": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "sourceMap",
+                      "content": [
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 81
+                            },
+                            {
+                              "element": "number",
+                              "content": 202
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
             }
           ]
         },

@@ -14,7 +14,7 @@ module.exports = (Parsers) => {
 
       const name = utils.makeStringElement(subject, subjectOffset, node, context);
 
-      const result = new SchemaNamedTypeElement(name);
+      const result = new SchemaNamedTypeElement(name, sourceMap);
 
       return [utils.nextNode(node), result];
     },
@@ -67,10 +67,16 @@ module.exports = (Parsers) => {
         }
       }
 
+      result.sourceMap = utils.mergeSourceMaps([result.sourceMap, childResult.sourceMap], context.sourceBuffer, context.linefeedOffsets);
+
       return [nextNode, result];
     },
 
     finalize(context, result) {
+      if (result.description) {
+        result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.description.sourceMap], context.sourceBuffer, context.linefeedOffsets);
+      }
+
       const { attributeSignatureDetails: details } = context.data;
 
       if (!result.bodyEl) throw new CrafterError('Schema named type element must contain body section', details.sourceMap);

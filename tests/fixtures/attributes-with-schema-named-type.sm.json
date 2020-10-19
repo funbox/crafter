@@ -335,7 +335,32 @@
                   },
                   "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"test\": {\n      \"type\": \"string\"\n    }\n  }\n}"
                 }
-              ]
+              ],
+              "attributes": {
+                "sourceMap": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "sourceMap",
+                      "content": [
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 79
+                            },
+                            {
+                              "element": "number",
+                              "content": 301
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
             }
           ]
         },
