@@ -34,7 +34,7 @@ module.exports = (Parsers) => {
 
       const name = utils.makeStringElement(signature.name, signature.nameOffset + subjectOffset, node, context);
 
-      const typeElement = new MSONNamedTypeElement(name, signature.type, signature.typeAttributes);
+      const typeElement = new MSONNamedTypeElement(name, signature.type, signature.typeAttributes, sourceMap);
 
       const valueMemberSourceMaps = [];
 
@@ -297,6 +297,10 @@ module.exports = (Parsers) => {
         }
       }
 
+      if (result.content.sourceMap) {
+        result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.content.sourceMap], context.sourceBuffer, context.linefeedOffsets);
+      }
+
       return [curNode, result];
     },
 
@@ -305,6 +309,7 @@ module.exports = (Parsers) => {
         const [curNode, desc] = utils.extractDescription(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
         result.description = desc;
+        result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.description.sourceMap], context.sourceBuffer, context.linefeedOffsets);
 
         return [curNode, result];
       }

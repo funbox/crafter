@@ -19,8 +19,9 @@ class MSONNamedTypeElement {
    * @param {StringElement} name
    * @param {string} baseType - название родительского типа (примитивный или именованный тип)
    * @param {(string|Array)[]} typeAttributes - набор атрибутов типа fixed, required, ["minimum", 10]
+   * @param {SourceMap} sourceMap
    */
-  constructor(name, baseType, typeAttributes) {
+  constructor(name, baseType, typeAttributes, sourceMap) {
     this.name = name;
     /**
      * В самом именованном типе хранится только название и описание.
@@ -32,6 +33,8 @@ class MSONNamedTypeElement {
      * @type {DescriptionElement}
      */
     this.description = null;
+
+    this.sourceMap = sourceMap;
   }
 
   /**
@@ -58,6 +61,13 @@ class MSONNamedTypeElement {
         };
       }
       result.content.meta.description = description;
+    }
+
+    if (sourceMapsEnabled) {
+      const sourceMapEl = new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file);
+      result.attributes = {
+        sourceMap: sourceMapEl.toRefract(),
+      };
     }
 
     return result;
