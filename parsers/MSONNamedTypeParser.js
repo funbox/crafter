@@ -277,7 +277,7 @@ module.exports = (Parsers) => {
           }
           curNode = utils.nextNodeOfType(curNode, 'heading');
         } else {
-          return [curNode, result];
+          break;
         }
       }
 
@@ -340,6 +340,15 @@ function fillElementWithContent(rootElement, elementType, contentMembers) {
   if (Array.isArray(contentMembers)) {
     const membersField = elementType === types.object ? 'propertyMembers' : 'members';
     newContentElement[membersField].push(...contentMembers);
+
+    if (contentMembers.length) {
+      const contentMembersSourceMaps = contentMembers.map(cm => cm.sourceMap);
+      if (rootElement.sourceMap) {
+        rootElement.sourceMap = utils.concatSourceMaps([rootElement.sourceMap, ...contentMembersSourceMaps]);
+      } else {
+        rootElement.sourceMap = utils.concatSourceMaps(contentMembersSourceMaps);
+      }
+    }
   }
 
   rootElement.content = newContentElement;
