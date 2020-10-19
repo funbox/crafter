@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.65.0 (19.10.2020)
+
+* Process Default section in named types.
+
 ## 1.64.1 (16.10.2020)
 
 * Fix processing of nameless endpoint resources.
