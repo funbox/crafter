@@ -1,4 +1,5 @@
 const Refract = require('../../Refract');
+const SourceMapElement = require('./SourceMapElement');
 
 /**
  * Элемент Schema Structures.
@@ -18,19 +19,23 @@ const Refract = require('../../Refract');
  *     }
  */
 class SchemaStructureGroupElement {
-  constructor() {
+  /**
+   * @param {SourceMap} sourceMap
+   */
+  constructor(sourceMap) {
     /**
      *
      * @type {SchemaNamedTypeElement[]}
      */
     this.schemaStructures = [];
+    this.sourceMap = sourceMap;
   }
 
   /**
    * @param {boolean} sourceMapsEnabled
    */
   toRefract(sourceMapsEnabled) {
-    return {
+    const result = {
       element: Refract.elements.category,
       meta: {
         classes: {
@@ -43,6 +48,15 @@ class SchemaStructureGroupElement {
       },
       content: this.schemaStructures.map(ss => ss.toRefract(sourceMapsEnabled)),
     };
+
+    if (sourceMapsEnabled) {
+      const sourceMapEl = new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file);
+      result.attributes = {
+        sourceMap: sourceMapEl.toRefract(),
+      };
+    }
+
+    return result;
   }
 }
 
