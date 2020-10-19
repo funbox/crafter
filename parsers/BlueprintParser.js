@@ -53,9 +53,8 @@ module.exports = (Parsers) => {
       }
 
       if (curNode.type === 'heading' && context.sectionKeywordSignature(curNode) === 'undefined') {
-        const titleText = utils.headerText(curNode, context.sourceLines)[0]; // Что если внутри хедера ссылки и все такое?
-        title = new StringElement(titleText);
-        title.sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+        const [titleText, titleTextOffset] = utils.headerText(curNode, context.sourceLines);
+        title = utils.makeStringElement(titleText, titleTextOffset, curNode, context);
 
         curNode = curNode.next;
       } else {
