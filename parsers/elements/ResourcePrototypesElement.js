@@ -1,4 +1,5 @@
 const Refract = require('../../Refract');
+const SourceMapElement = require('./SourceMapElement');
 
 /**
  * Элемент Resource Prototypes.
@@ -11,18 +12,22 @@ const Refract = require('../../Refract');
  *   + Attributes (UnauthorizedError, required)
  */
 class ResourcePrototypesElement {
-  constructor() {
+  /**
+   * @param {SourceMap} sourceMap
+   */
+  constructor(sourceMap) {
     /**
      * @type {ResourcePrototypeElement[]}
      */
     this.resourcePrototypes = [];
+    this.sourceMap = sourceMap;
   }
 
   /**
    * @param {boolean} sourceMapsEnabled
    */
   toRefract(sourceMapsEnabled) {
-    return {
+    const result = {
       element: Refract.elements.category,
       meta: {
         classes: {
@@ -35,6 +40,15 @@ class ResourcePrototypesElement {
       },
       content: this.resourcePrototypes.map(rp => rp.toRefract(sourceMapsEnabled)),
     };
+
+    if (sourceMapsEnabled) {
+      const sourceMapEl = new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file);
+      result.attributes = {
+        sourceMap: sourceMapEl.toRefract(),
+      };
+    }
+
+    return result;
   }
 }
 

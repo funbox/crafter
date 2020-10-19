@@ -6,8 +6,9 @@ const ResourcePrototypesRegex = /^[Rr]esource\s+[Pp]rototypes$/;
 
 module.exports = (Parsers) => {
   Parsers.ResourcePrototypesParser = Object.assign(Object.create(require('./AbstractParser')), {
-    processSignature(node) {
-      return [utils.nextNode(node), new ResourcePrototypesElement()];
+    processSignature(node, context) {
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      return [utils.nextNode(node), new ResourcePrototypesElement(sourceMap)];
     },
 
     sectionType(node, context) {
@@ -39,6 +40,8 @@ module.exports = (Parsers) => {
     processNestedSection(node, context, result) {
       const [nextNode, childResult] = Parsers.ResourcePrototypeParser.parse(node, context);
       result.resourcePrototypes.push(childResult);
+      result.sourceMap = utils.mergeSourceMaps([result.sourceMap, childResult.sourceMap], context.sourceBuffer, context.linefeedOffsets);
+
       return [nextNode, result];
     },
 
