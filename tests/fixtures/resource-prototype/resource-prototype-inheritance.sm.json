@@ -105,11 +105,11 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 111
+                                  "content": 114
                                 },
                                 {
                                   "element": "number",
-                                  "content": 11
+                                  "content": 6
                                 }
                               ]
                             }
@@ -257,11 +257,11 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 153
+                                  "content": 156
                                 },
                                 {
                                   "element": "number",
-                                  "content": 20
+                                  "content": 6
                                 }
                               ]
                             }
@@ -276,7 +276,32 @@
                   "content": [
                     {
                       "element": "string",
-                      "content": "Errors"
+                      "content": "Errors",
+                      "attributes": {
+                        "sourceMap": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "sourceMap",
+                              "content": [
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "number",
+                                      "content": 164
+                                    },
+                                    {
+                                      "element": "number",
+                                      "content": 6
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
                     }
                   ]
                 }

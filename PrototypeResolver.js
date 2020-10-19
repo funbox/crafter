@@ -23,10 +23,10 @@ class PrototypeResolver {
 
       baseProtoNames.forEach((protoName) => {
         if (protoName) {
-          const basePrototype = this.prototypes[protoName];
+          const basePrototype = this.prototypes[protoName.string];
 
           if (!basePrototype) {
-            throw new CrafterError(`Unknown prototype: ${protoName}`);
+            throw new CrafterError(`Unknown prototype: ${protoName.string}`);
           }
 
           resolvePrototype(basePrototype);
@@ -36,7 +36,7 @@ class PrototypeResolver {
       });
 
       usedPrototypes.pop();
-      this.resolvedPrototypes.add(targetProto.title);
+      this.resolvedPrototypes.add(targetProto.title.string);
     };
 
     Object.values(this.prototypes).forEach((p) => {

@@ -81,10 +81,10 @@ class Context {
   }
 
   addResourcePrototype(prototype) {
-    if (this.resourcePrototypeResolver.prototypes[prototype.title]) {
+    if (this.resourcePrototypeResolver.prototypes[prototype.title.string]) {
       console.error(`${prototype.title} resource prototype already defined`);
     }
-    this.resourcePrototypeResolver.prototypes[prototype.title] = prototype;
+    this.resourcePrototypeResolver.prototypes[prototype.title.string] = prototype;
   }
 
   sectionKeywordSignature(node) {

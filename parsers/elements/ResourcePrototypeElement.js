@@ -1,5 +1,4 @@
 const Refract = require('../../Refract');
-const SourceMapElement = require('./SourceMapElement');
 
 /**
  * Элемент Resource Prototype.
@@ -14,8 +13,8 @@ const SourceMapElement = require('./SourceMapElement');
 class ResourcePrototypeElement {
   /**
    *
-   * @param {string} title - название прототипа
-   * @param {string[]} basePrototypes - список прототипов, от которых наследуется текущий
+   * @param {StringElement} title - название прототипа
+   * @param {StringElement[]} basePrototypes - список прототипов, от которых наследуется текущий
    */
   constructor(title, basePrototypes = []) {
     this.title = title;
@@ -31,18 +30,10 @@ class ResourcePrototypeElement {
    * @param {boolean} sourceMapsEnabled
    */
   toRefract(sourceMapsEnabled) {
-    const sourceMapEl = sourceMapsEnabled && this.sourceMap ? new SourceMapElement(this.sourceMap.byteBlocks) : null;
-
     const result = {
       element: Refract.elements.resourcePrototype,
       meta: {
-        title: {
-          element: Refract.elements.string,
-          content: this.title,
-          ...(sourceMapEl ? {
-            attributes: { sourceMap: sourceMapEl.toRefract() },
-          } : {}),
-        },
+        title: this.title.toRefract(sourceMapsEnabled),
       },
       content: this.responses.map(r => r.toRefract(sourceMapsEnabled)),
     };
@@ -50,10 +41,7 @@ class ResourcePrototypeElement {
     if (this.basePrototypes.length > 0) {
       result.meta.basePrototypes = {
         element: Refract.elements.array,
-        content: this.basePrototypes.map(bp => ({
-          element: Refract.elements.string,
-          content: bp,
-        })),
+        content: this.basePrototypes.map(bp => bp.toRefract(sourceMapsEnabled)),
       };
     }
 

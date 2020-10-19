@@ -2,6 +2,7 @@ const PrototypeResolver = require('../PrototypeResolver');
 const ResourcePrototypeElement = require('../parsers/elements/ResourcePrototypeElement');
 const ResponseElement = require('../parsers/elements/ResponseElement');
 const NumberElement = require('../parsers/elements/NumberElement');
+const StringElement = require('../parsers/elements/StringElement');
 
 const CrafterError = require('../utils').CrafterError;
 
@@ -9,11 +10,11 @@ let resolver;
 let foo;
 let bar;
 
-describe('TypeResolver', () => {
+describe('PrototypeResolver', () => {
   beforeEach(() => {
     resolver = new PrototypeResolver();
-    foo = new ResourcePrototypeElement('foo');
-    bar = new ResourcePrototypeElement('bar', ['foo']);
+    foo = new ResourcePrototypeElement(new StringElement('foo'));
+    bar = new ResourcePrototypeElement(new StringElement('bar'), [new StringElement('foo')]);
   });
 
   it('resolves empty types array without errors', () => {
@@ -38,13 +39,13 @@ describe('TypeResolver', () => {
   });
 
   it('throws error on unknown type', () => {
-    foo.basePrototypes = ['unknown'];
+    foo.basePrototypes = [new StringElement('unknown')];
     resolver.prototypes = { foo };
     expect(() => resolver.resolveRegisteredPrototypes()).toThrow(CrafterError);
   });
 
   it('throws error on loop', () => {
-    foo.basePrototypes = ['bar'];
+    foo.basePrototypes = [new StringElement('bar')];
     resolver.prototypes = { foo, bar };
     expect(() => resolver.resolveRegisteredPrototypes()).toThrow(CrafterError);
   });
@@ -58,7 +59,7 @@ describe('TypeResolver', () => {
       new ResponseElement(new NumberElement(404)),
     ];
 
-    const baz = new ResourcePrototypeElement('baz', ['bar']);
+    const baz = new ResourcePrototypeElement(new StringElement('baz'), [new StringElement('bar')]);
     resolver.prototypes = { baz, foo, bar };
 
     resolver.resolveRegisteredPrototypes();

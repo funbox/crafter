@@ -2,6 +2,7 @@ const SectionTypes = require('../SectionTypes');
 const RegExpStrings = require('../RegExpStrings');
 const utils = require('../utils');
 const ResourcePrototypeElement = require('./elements/ResourcePrototypeElement');
+const StringElement = require('./elements/StringElement');
 
 const PrototypeHeaderRegex = new RegExp(`^${RegExpStrings.symbolIdentifier}(\\s+${RegExpStrings.resourcePrototype})?$`);
 
@@ -9,14 +10,17 @@ module.exports = (Parsers) => {
   Parsers.ResourcePrototypeParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
       let inheritedPrototypes = [];
-      const subject = utils.headerText(node, context.sourceLines)[0];
-      const matchData = PrototypeHeaderRegex.exec(subject);
+      const [subject, subjectOffset] = utils.headerText(node, context.sourceLines);
+      const [matchData, matchDataIndexes] = utils.matchStringToRegex(subject, PrototypeHeaderRegex);
 
       if (matchData[3]) {
-        inheritedPrototypes = matchData[3].split(',').map(a => a.trim());
+        const inheritedPrototypesValues = matchData[3].split(',').map(a => a.trim());
+        const inheritedPrototypesSourceMaps = utils.makeSourceMapsForInlineValues(matchData[3], inheritedPrototypesValues, node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+        inheritedPrototypes = inheritedPrototypesValues.map((proto, index) => new StringElement(proto, inheritedPrototypesSourceMaps[index]));
       }
 
-      const resourcePrototypeEl = new ResourcePrototypeElement(matchData[1], inheritedPrototypes);
+      const title = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
+      const resourcePrototypeEl = new ResourcePrototypeElement(title, inheritedPrototypes);
       resourcePrototypeEl.sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
       return [utils.nextNode(node), resourcePrototypeEl];
