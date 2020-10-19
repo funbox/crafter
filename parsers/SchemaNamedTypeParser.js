@@ -1,20 +1,18 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
 const SchemaNamedTypeElement = require('./elements/SchemaNamedTypeElement');
-const StringElement = require('./elements/StringElement');
 
 const { CrafterError } = utils;
 
 module.exports = (Parsers) => {
   Parsers.SchemaNamedTypeParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
-      const subject = utils.headerText(node, context.sourceLines)[0];
+      const [subject, subjectOffset] = utils.headerText(node, context.sourceLines);
       const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
       context.data.attributeSignatureDetails = { sourceMap };
 
-      const name = new StringElement(subject);
-      name.sourceMap = sourceMap;
+      const name = utils.makeStringElement(subject, subjectOffset, node, context);
 
       const result = new SchemaNamedTypeElement(name);
 
