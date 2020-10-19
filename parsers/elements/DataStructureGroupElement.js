@@ -1,4 +1,5 @@
 const Refract = require('../../Refract');
+const SourceMapElement = require('./SourceMapElement');
 
 /**
  * Секция Data Structures
@@ -11,18 +12,22 @@ const Refract = require('../../Refract');
  * @see https://apielements.org/en/latest/element-definitions.html#category
  */
 class DataStructureGroupElement {
-  constructor() {
+  /**
+   * @param {SourceMap} sourceMap
+   */
+  constructor(sourceMap) {
     /**
      * @type {MSONNamedTypeElement[]}
      */
     this.dataStructures = [];
+    this.sourceMap = sourceMap;
   }
 
   /**
    * @param {boolean} sourceMapsEnabled
    */
   toRefract(sourceMapsEnabled) {
-    return {
+    const result = {
       element: Refract.elements.category,
       meta: {
         classes: {
@@ -35,6 +40,15 @@ class DataStructureGroupElement {
       },
       content: this.dataStructures.map(ds => ds.toRefract(sourceMapsEnabled)),
     };
+
+    if (sourceMapsEnabled) {
+      const sourceMapEl = new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file);
+      result.attributes = {
+        sourceMap: sourceMapEl.toRefract(),
+      };
+    }
+
+    return result;
   }
 }
 

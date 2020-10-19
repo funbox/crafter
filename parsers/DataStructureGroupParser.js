@@ -6,8 +6,9 @@ const DataStructureGroupRegex = /^[Dd]ata\s+[Ss]tructures?$/;
 
 module.exports = (Parsers) => {
   Parsers.DataStructureGroupParser = Object.assign(Object.create(require('./AbstractParser')), {
-    processSignature(node) {
-      return [utils.nextNode(node), new DataStructureGroupElement()];
+    processSignature(node, context) {
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      return [utils.nextNode(node), new DataStructureGroupElement(sourceMap)];
     },
 
     sectionType(node, context) {
@@ -39,6 +40,7 @@ module.exports = (Parsers) => {
     processNestedSection(node, context, result) {
       const [nextNode, childResult] = Parsers.MSONNamedTypeParser.parse(node, context);
       result.dataStructures.push(childResult);
+      result.sourceMap = utils.mergeSourceMaps([result.sourceMap, childResult.sourceMap], context.sourceBuffer, context.linefeedOffsets);
 
       return [nextNode, result];
     },
