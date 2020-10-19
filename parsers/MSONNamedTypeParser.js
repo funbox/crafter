@@ -172,6 +172,17 @@ module.exports = (Parsers) => {
                 if (childResult.length) {
                   valueMember.samples = valueMember.samples || [];
                   valueMember.samples.push(...childResult);
+
+                  const childSourceMaps = [];
+                  childResult.forEach(sample => {
+                    childSourceMaps.push(...sample.sourceMap);
+                  });
+
+                  if (valueMember.sourceMap) {
+                    valueMember.sourceMap = utils.concatSourceMaps([valueMember.sourceMap, ...childSourceMaps]);
+                  } else {
+                    valueMember.sourceMap = utils.concatSourceMaps(childSourceMaps);
+                  }
                 }
               } else {
                 const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
@@ -191,6 +202,14 @@ module.exports = (Parsers) => {
                 delete context.data.valueType;
                 if (childResult.length) {
                   enumElement.sampleValues = childResult;
+
+                  const childSourceMaps = childResult.map(sample => sample.sourceMap);
+
+                  if (valueMember.sourceMap) {
+                    valueMember.sourceMap = utils.concatSourceMaps([valueMember.sourceMap, ...childSourceMaps]);
+                  } else {
+                    valueMember.sourceMap = utils.concatSourceMaps(childSourceMaps);
+                  }
                 }
               } else {
                 const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
