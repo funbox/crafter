@@ -107,16 +107,16 @@ describe('ParameterParser', () => {
     expect(defaultValue).toEqual({
       sourceMap: {
         byteBlocks: [{
-          length: 16,
-          offset: 46,
+          length: 4,
+          offset: 56,
         }],
         charBlocks: [{
-          offset: 46,
-          length: 16,
+          offset: 56,
+          length: 4,
           startLine: 2,
-          startColumn: 3,
+          startColumn: 13,
           endLine: 2,
-          endColumn: 18,
+          endColumn: 16,
         }],
         file: undefined,
       },

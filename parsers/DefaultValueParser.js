@@ -12,40 +12,38 @@ module.exports = (Parsers) => {
       const text = node.type === 'heading'
         ? utils.headerText(node, context.sourceLines)[0]
         : utils.nodeText(node.firstChild, context.sourceLines);
-      const valMatch = defaultValueRegex.exec(text);
-      const values = valMatch ? splitValues(valMatch[1]) : undefined;
+      const valuesMatch = defaultValueRegex.exec(text);
+      const values = valuesMatch ? splitValues(valuesMatch[1]) : undefined;
 
       const result = [];
 
       if (values) {
-        // TODO Сделать разные sourceMap на каждый SampleValueElement
-        const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+        const sourceMaps = utils.makeSourceMapsForInlineValues(valuesMatch[1], values, node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
         switch (context.data.typeForDefaults) {
           case 'primitive':
           case 'enum':
-            values.forEach((value) => {
+            values.forEach((value, index) => {
               const converted = utils.convertType(value, context.data.valueType);
 
               if (converted.valid) {
-                result.push(new DefaultValueElement(converted.value, context.data.valueType, sourceMap));
+                result.push(new DefaultValueElement(converted.value, context.data.valueType, sourceMaps[index]));
               } else {
-                context.addTypeMismatchWarning(value, context.data.valueType, sourceMap);
+                context.addTypeMismatchWarning(value, context.data.valueType, sourceMaps[index]);
               }
             });
             break;
           case 'array': {
-            const preparedValues = values.reduce((res, v) => {
+            const preparedValues = values.reduce((res, v, index) => {
               const converted = utils.convertType(v, context.data.valueType);
 
               if (converted.valid) {
                 res.push(converted.value);
               } else {
-                context.addTypeMismatchWarning(v, context.data.valueType, sourceMap);
+                context.addTypeMismatchWarning(v, context.data.valueType, sourceMaps[index]);
               }
               return res;
             }, []);
-            const sourceMaps = preparedValues.map(() => sourceMap);
             result.push(new DefaultValueElement(preparedValues, context.data.valueType, sourceMaps));
             break;
           }

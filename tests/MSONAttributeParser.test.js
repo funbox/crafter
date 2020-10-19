@@ -161,18 +161,18 @@ describe('MSONAttributeParser', () => {
       sourceMap: {
         byteBlocks: [
           {
-            offset: 14,
-            length: 15,
+            offset: 23,
+            length: 5,
           },
         ],
         charBlocks: [
           {
-            offset: 14,
-            length: 15,
+            offset: 23,
+            length: 5,
             startLine: 2,
-            startColumn: 3,
+            startColumn: 12,
             endLine: 2,
-            endColumn: 17,
+            endColumn: 16,
           },
         ],
         file: undefined,
