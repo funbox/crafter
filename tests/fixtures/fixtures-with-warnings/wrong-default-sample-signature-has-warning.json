@@ -1,0 +1,177 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "api"
+            }
+          ]
+        },
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
+      },
+      "content": [
+        {
+          "element": "copy",
+          "content": "Defines a named number type, which has nested \"Default\" and \"Sample\" sections with wrong signatures.\n(e.g. \"Default: 10\" is right and \"Default 10\" is incorrect)."
+        },
+        {
+          "element": "category",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "dataStructures"
+                }
+              ]
+            }
+          },
+          "content": [
+            {
+              "element": "dataStructure",
+              "content": {
+                "element": "number",
+                "meta": {
+                  "id": {
+                    "element": "string",
+                    "content": "Age"
+                  }
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "element": "annotation",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "warning"
+            }
+          ]
+        }
+      },
+      "attributes": {
+        "sourceMap": {
+          "element": "array",
+          "content": [
+            {
+              "element": "sourceMap",
+              "content": [
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 1
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 1
+                        }
+                      },
+                      "content": 0
+                    },
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 11
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 11
+                        }
+                      },
+                      "content": 233
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "content": "sub-types of primitive types should not have nested members, ignoring unrecognized block"
+    },
+    {
+      "element": "annotation",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "warning"
+            }
+          ]
+        }
+      },
+      "attributes": {
+        "sourceMap": {
+          "element": "array",
+          "content": [
+            {
+              "element": "sourceMap",
+              "content": [
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 1
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 1
+                        }
+                      },
+                      "content": 0
+                    },
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 11
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 11
+                        }
+                      },
+                      "content": 233
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "content": "sub-types of primitive types should not have nested members, ignoring unrecognized block"
+    }
+  ]
+}
