@@ -122,57 +122,79 @@ class DataStructureProcessor {
       let nextNode;
       let childResult;
 
-      if (this.Parsers.SampleValueParser.sectionType(curNode, context) !== SectionTypes.undefined) {
-        context.data.typeForSamples = 'array';
-        context.data.valueType = predefinedType;
-        [nextNode, childResult] = this.Parsers.SampleValueParser.parse(curNode, context);
-        delete context.data.typeForSamples;
-        delete context.data.valueType;
-        if (!hasComplexMembers) {
-          samples.push(...childResult);
-          childResult.forEach(c => {
-            childSourceMaps.push(...c.sourceMap);
-          });
-        } else {
-          context.addWarning('Samples of arrays of non-primitive types are not supported', sourceMap);
-        }
-      } else if (this.Parsers.DefaultValueParser.sectionType(curNode, context) !== SectionTypes.undefined) {
-        context.data.typeForDefaults = 'array';
-        context.data.valueType = predefinedType;
-        [nextNode, childResult] = this.Parsers.DefaultValueParser.parse(curNode, context);
-        delete context.data.typeForDefaults;
-        delete context.data.valueType;
-        if (!hasComplexMembers) {
-          defaults.push(...childResult);
-          childResult.forEach(c => {
-            childSourceMaps.push(...c.sourceMap);
-          });
-        } else {
-          context.addWarning('Default values of arrays of non-primitive types are not supported', sourceMap);
-        }
-        break;
-      } else if (this.Parsers.MSONMemberGroupParser.sectionType(curNode, context) === SectionTypes.msonArrayMemberGroup) {
-        [nextNode, childResult] = this.Parsers.MSONMemberGroupParser.parse(curNode, context);
-        arrayMembers.push(...childResult.members);
-        childSourceMaps.push(...childResult.members.map(c => c.sourceMap));
-      } else if (this.Parsers.MSONMixinParser.sectionType(curNode, context) !== SectionTypes.undefined) {
-        [nextNode, childResult] = this.Parsers.MSONMixinParser.parse(curNode, context);
+      const sectionType = SectionTypes.calculateSectionType(curNode, context, [
+        this.Parsers.SampleValueParser,
+        this.Parsers.DefaultValueParser,
+        this.Parsers.MSONMemberGroupParser,
+        this.Parsers.MSONMixinParser,
+        this.Parsers.ArrayMemberParser,
+      ]);
 
-        const isMixinValid = validateMixin(
-          childResult,
-          curNode,
-          context,
-          (mixinElement) => (mixinElement.isArray() ? [true, ''] : [false, 'arrays should contain array mixins']),
-        );
+      switch (sectionType) {
+        case SectionTypes.sampleValue: {
+          context.data.typeForSamples = 'array';
+          context.data.valueType = predefinedType;
+          [nextNode, childResult] = this.Parsers.SampleValueParser.parse(curNode, context);
+          delete context.data.typeForSamples;
+          delete context.data.valueType;
+          if (!hasComplexMembers) {
+            samples.push(...childResult);
+            childResult.forEach(c => {
+              childSourceMaps.push(...c.sourceMap);
+            });
+          } else {
+            context.addWarning('Samples of arrays of non-primitive types are not supported', sourceMap);
+          }
+          break;
+        }
+        case SectionTypes.defaultValue: {
+          context.data.typeForDefaults = 'array';
+          context.data.valueType = predefinedType;
+          [nextNode, childResult] = this.Parsers.DefaultValueParser.parse(curNode, context);
+          delete context.data.typeForDefaults;
+          delete context.data.valueType;
+          if (!hasComplexMembers) {
+            defaults.push(...childResult);
+            childResult.forEach(c => {
+              childSourceMaps.push(...c.sourceMap);
+            });
+          } else {
+            context.addWarning('Default values of arrays of non-primitive types are not supported', sourceMap);
+          }
+          break;
+        }
+        case SectionTypes.msonArrayMemberGroup: {
+          [nextNode, childResult] = this.Parsers.MSONMemberGroupParser.parse(curNode, context);
+          arrayMembers.push(...childResult.members);
+          childSourceMaps.push(...childResult.members.map(c => c.sourceMap));
+          break;
+        }
+        case SectionTypes.msonMixin: {
+          [nextNode, childResult] = this.Parsers.MSONMixinParser.parse(curNode, context);
 
-        if (isMixinValid) {
+          const isMixinValid = validateMixin(
+            childResult,
+            curNode,
+            context,
+            (mixinElement) => (mixinElement.isArray() ? [true, ''] : [false, 'arrays should contain array mixins']),
+          );
+
+          if (isMixinValid) {
+            arrayMembers.push(childResult);
+            childSourceMaps.push(childResult.sourceMap);
+          }
+          break;
+        }
+        case SectionTypes.arrayMember: {
+          [nextNode, childResult] = this.Parsers.ArrayMemberParser.parse(curNode, context);
           arrayMembers.push(childResult);
           childSourceMaps.push(childResult.sourceMap);
+          break;
         }
-      } else {
-        [nextNode, childResult] = this.Parsers.ArrayMemberParser.parse(curNode, context);
-        arrayMembers.push(childResult);
-        childSourceMaps.push(childResult.sourceMap);
+        default: {
+          context.addWarning('Ignoring unrecognized block', sourceMap);
+          nextNode = utils.nextNode(curNode);
+        }
       }
 
       // TODO Что если nextNode !== curNode.next ?
