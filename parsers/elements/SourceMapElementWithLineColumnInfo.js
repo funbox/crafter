@@ -29,31 +29,31 @@ class SourceMapElementWithLineColumnInfo {
       }
 
       sourceMapEl.content.push({
-        element: 'array',
+        element: Refract.elements.array,
         content: [
           {
-            element: 'number',
+            element: Refract.elements.number,
             attributes: {
               line: {
-                element: 'number',
+                element: Refract.elements.number,
                 content: block.startLine,
               },
               column: {
-                element: 'number',
+                element: Refract.elements.number,
                 content: block.startColumn,
               },
             },
             content: block.offset,
           },
           {
-            element: 'number',
+            element: Refract.elements.number,
             attributes: {
               line: {
-                element: 'number',
+                element: Refract.elements.number,
                 content: block.endLine,
               },
               column: {
-                element: 'number',
+                element: Refract.elements.number,
                 content: block.endColumn,
               },
             },

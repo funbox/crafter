@@ -29,14 +29,14 @@ class SourceMapElement {
       }
 
       sourceMapEl.content.push({
-        element: 'array',
+        element: Refract.elements.array,
         content: [
           {
-            element: 'number',
+            element: Refract.elements.number,
             content: block.offset,
           },
           {
-            element: 'number',
+            element: Refract.elements.number,
             content: block.length,
           },
         ],
