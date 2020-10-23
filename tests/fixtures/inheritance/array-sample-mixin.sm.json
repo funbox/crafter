@@ -228,6 +228,29 @@
                                       "path": {
                                         "element": "string",
                                         "content": "content"
+                                      },
+                                      "sourceMap": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "sourceMap",
+                                            "content": [
+                                              {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "number",
+                                                    "content": 118
+                                                  },
+                                                  {
+                                                    "element": "number",
+                                                    "content": 18
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
                                       }
                                     },
                                     "content": "RefSample"

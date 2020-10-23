@@ -1,5 +1,6 @@
 const Refract = require('../../Refract');
 const Flags = require('../../Flags');
+const SourceMapElement = require('./SourceMapElement');
 
 /**
  * Include-секция
@@ -22,8 +23,8 @@ class MSONMixinElement {
     this.sourceMap = sourceMap;
   }
 
-  toRefract() {
-    return {
+  toRefract(sourceMapsEnabled) {
+    const result = {
       element: Refract.elements.ref,
       attributes: {
         path: {
@@ -33,6 +34,14 @@ class MSONMixinElement {
       },
       content: this.className,
     };
+
+    if (sourceMapsEnabled) {
+      result.attributes = result.attributes || {};
+      const sourceMapEl = new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file);
+      result.attributes.sourceMap = sourceMapEl.toRefract();
+    }
+
+    return result;
   }
 
   /**

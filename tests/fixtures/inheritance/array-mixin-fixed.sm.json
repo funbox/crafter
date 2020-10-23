@@ -301,6 +301,29 @@
                                       "path": {
                                         "element": "string",
                                         "content": "content"
+                                      },
+                                      "sourceMap": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "sourceMap",
+                                            "content": [
+                                              {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "number",
+                                                    "content": 129
+                                                  },
+                                                  {
+                                                    "element": "number",
+                                                    "content": 16
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
                                       }
                                     },
                                     "content": "Address"
