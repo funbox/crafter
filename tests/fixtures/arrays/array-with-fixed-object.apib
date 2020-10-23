@@ -1,0 +1,14 @@
+# My API
+
+Defines a fixed-type array which contains a fixed object. Resulting JSON Schema must declare all properties of the object
+as required, and values of properties should be fixed.
+
+# Get user [GET /invites_list]
+
++ Response 200 (application/json)
+    + Attributes
+        + folks (array)
+            + (object, fixed)
+                + `first_name`: `test` (string)
+                + `last_name`: `test` (string)
+                + `middle_name`: `test` (string)

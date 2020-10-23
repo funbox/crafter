@@ -1,0 +1,19 @@
+# My API
+
+Defines a fixed-type array which contains a fixed object, which inherits from a data structure.
+In resulting JSON schema items of the array should refer to the structure "Person".
+
+# Data Structures
+
+## Person
+
++ `first_name`: `test` (string)
++ `last_name`: `test` (string)
++ `middle_name`: `test` (string)
+
+# Get user [GET /invites_list]
+
++ Response 200 (application/json)
+    + Attributes
+        + folks (array)
+            + (Person, fixed)

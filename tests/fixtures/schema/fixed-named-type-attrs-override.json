@@ -21,7 +21,7 @@
       "content": [
         {
           "element": "copy",
-          "content": "Defines cases where attributes of fixed-structure type \"Person\" are being overridden by nested attributes.\n\nFor the first case \"Response 200\", value of `last_name` should be an enumeration of \"test\" and \"null\" and value\nof `middle_name` should be an enumeration of \"another\" (not \"test\").\n\nFor the second case \"Response 300\" all the same rules should be applicable."
+          "content": "Defines cases where attributes of fixed-structure type \"Person\" are being overridden by nested attributes.\n\nFor the first case \"Response 200\", value of `last_name` should be an enumeration of \"test\" and \"null\" and value\nof `middle_name` should be an enumeration of \"another\" (not \"test\").\n\nFor the second case \"Response 300\" all the same rules should be applicable.\n\nFor the third case \"Response 400\", `first_name` property should not be in the required properties list,\nit's type should be fixed (\"type: string\") and it's value should not be fixed."
         },
         {
           "element": "category",
@@ -390,6 +390,153 @@
                         "statusCode": {
                           "element": "number",
                           "content": 300
+                        },
+                        "headers": {
+                          "element": "httpHeaders",
+                          "content": [
+                            {
+                              "element": "member",
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "Content-Type"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "application/json"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "element": "httpTransaction",
+                  "content": [
+                    {
+                      "element": "httpRequest",
+                      "attributes": {
+                        "method": {
+                          "element": "string",
+                          "content": "GET"
+                        }
+                      },
+                      "content": []
+                    },
+                    {
+                      "element": "httpResponse",
+                      "content": [
+                        {
+                          "element": "dataStructure",
+                          "content": {
+                            "element": "object",
+                            "content": [
+                              {
+                                "element": "member",
+                                "content": {
+                                  "key": {
+                                    "element": "string",
+                                    "content": "folks"
+                                  },
+                                  "value": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "Person",
+                                        "attributes": {
+                                          "typeAttributes": {
+                                            "element": "array",
+                                            "content": [
+                                              {
+                                                "element": "string",
+                                                "content": "fixed"
+                                              }
+                                            ]
+                                          }
+                                        },
+                                        "content": [
+                                          {
+                                            "element": "member",
+                                            "content": {
+                                              "key": {
+                                                "element": "string",
+                                                "content": "first_name"
+                                              },
+                                              "value": {
+                                                "element": "string"
+                                              }
+                                            },
+                                            "attributes": {
+                                              "typeAttributes": {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "string",
+                                                    "content": "optional"
+                                                  }
+                                                ]
+                                              }
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "element": "asset",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "messageBody"
+                                }
+                              ]
+                            }
+                          },
+                          "content": "{\n  \"folks\": [\n    {\n      \"first_name\": \"hello\",\n      \"last_name\": \"test\",\n      \"middle_name\": \"test\"\n    }\n  ]\n}",
+                          "attributes": {
+                            "contentType": {
+                              "element": "string",
+                              "content": "application/json"
+                            }
+                          }
+                        },
+                        {
+                          "element": "asset",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "messageBodySchema"
+                                }
+                              ]
+                            }
+                          },
+                          "attributes": {
+                            "contentType": {
+                              "element": "string",
+                              "content": "application/schema+json"
+                            }
+                          },
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"definitions\": {\n    \"Person\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"first_name\": {\n          \"type\": \"string\",\n          \"enum\": [\n            \"test\"\n          ]\n        },\n        \"last_name\": {\n          \"type\": \"string\",\n          \"enum\": [\n            \"test\"\n          ]\n        },\n        \"middle_name\": {\n          \"type\": \"string\",\n          \"enum\": [\n            \"test\"\n          ]\n        }\n      },\n      \"required\": [\n        \"first_name\",\n        \"last_name\",\n        \"middle_name\"\n      ],\n      \"additionalProperties\": false\n    }\n  },\n  \"type\": \"object\",\n  \"properties\": {\n    \"folks\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"first_name\": {\n            \"type\": \"string\"\n          },\n          \"last_name\": {\n            \"type\": \"string\",\n            \"enum\": [\n              \"test\"\n            ]\n          },\n          \"middle_name\": {\n            \"type\": \"string\",\n            \"enum\": [\n              \"test\"\n            ]\n          }\n        },\n        \"additionalProperties\": false,\n        \"required\": [\n          \"last_name\",\n          \"middle_name\"\n        ]\n      }\n    }\n  }\n}"
+                        }
+                      ],
+                      "attributes": {
+                        "statusCode": {
+                          "element": "number",
+                          "content": 400
                         },
                         "headers": {
                           "element": "httpHeaders",

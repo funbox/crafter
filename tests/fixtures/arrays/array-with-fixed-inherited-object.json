@@ -1,0 +1,284 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "api"
+            }
+          ]
+        },
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
+      },
+      "content": [
+        {
+          "element": "copy",
+          "content": "Defines a fixed-type array which contains a fixed object, which inherits from a data structure.\nIn resulting JSON schema items of the array should refer to the structure \"Person\"."
+        },
+        {
+          "element": "category",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "dataStructures"
+                }
+              ]
+            }
+          },
+          "content": [
+            {
+              "element": "dataStructure",
+              "content": {
+                "element": "object",
+                "content": [
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "first_name"
+                      },
+                      "value": {
+                        "element": "string",
+                        "attributes": {
+                          "samples": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "test"
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "last_name"
+                      },
+                      "value": {
+                        "element": "string",
+                        "attributes": {
+                          "samples": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "test"
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "middle_name"
+                      },
+                      "value": {
+                        "element": "string",
+                        "attributes": {
+                          "samples": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "test"
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                ],
+                "meta": {
+                  "id": {
+                    "element": "string",
+                    "content": "Person"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "element": "resource",
+          "attributes": {
+            "href": {
+              "element": "string",
+              "content": "/invites_list"
+            }
+          },
+          "content": [
+            {
+              "element": "transition",
+              "content": [
+                {
+                  "element": "httpTransaction",
+                  "content": [
+                    {
+                      "element": "httpRequest",
+                      "attributes": {
+                        "method": {
+                          "element": "string",
+                          "content": "GET"
+                        }
+                      },
+                      "content": []
+                    },
+                    {
+                      "element": "httpResponse",
+                      "content": [
+                        {
+                          "element": "dataStructure",
+                          "content": {
+                            "element": "object",
+                            "content": [
+                              {
+                                "element": "member",
+                                "content": {
+                                  "key": {
+                                    "element": "string",
+                                    "content": "folks"
+                                  },
+                                  "value": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "Person",
+                                        "attributes": {
+                                          "typeAttributes": {
+                                            "element": "array",
+                                            "content": [
+                                              {
+                                                "element": "string",
+                                                "content": "fixed"
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "element": "asset",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "messageBody"
+                                }
+                              ]
+                            }
+                          },
+                          "content": "{\n  \"folks\": [\n    {\n      \"first_name\": \"test\",\n      \"last_name\": \"test\",\n      \"middle_name\": \"test\"\n    }\n  ]\n}",
+                          "attributes": {
+                            "contentType": {
+                              "element": "string",
+                              "content": "application/json"
+                            }
+                          }
+                        },
+                        {
+                          "element": "asset",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "messageBodySchema"
+                                }
+                              ]
+                            }
+                          },
+                          "attributes": {
+                            "contentType": {
+                              "element": "string",
+                              "content": "application/schema+json"
+                            }
+                          },
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"definitions\": {\n    \"Person\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"first_name\": {\n          \"type\": \"string\"\n        },\n        \"last_name\": {\n          \"type\": \"string\"\n        },\n        \"middle_name\": {\n          \"type\": \"string\"\n        }\n      }\n    }\n  },\n  \"type\": \"object\",\n  \"properties\": {\n    \"folks\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"$ref\": \"#/definitions/Person\"\n      }\n    }\n  }\n}"
+                        }
+                      ],
+                      "attributes": {
+                        "statusCode": {
+                          "element": "number",
+                          "content": 200
+                        },
+                        "headers": {
+                          "element": "httpHeaders",
+                          "content": [
+                            {
+                              "element": "member",
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "Content-Type"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "application/json"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Get user"
+                }
+              },
+              "attributes": {
+                "href": {
+                  "element": "string",
+                  "content": "/invites_list"
+                }
+              }
+            }
+          ],
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Get user"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

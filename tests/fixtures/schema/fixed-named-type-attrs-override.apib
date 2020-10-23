@@ -7,6 +7,9 @@ of `middle_name` should be an enumeration of "another" (not "test").
 
 For the second case "Response 300" all the same rules should be applicable.
 
+For the third case "Response 400", `first_name` property should not be in the required properties list,
+it's type should be fixed ("type: string") and it's value should not be fixed.
+
 # Data Structures
 
 ### Person (object, fixed)
@@ -27,3 +30,9 @@ For the second case "Response 300" all the same rules should be applicable.
     + Attributes(Person)
         + `last_name`: `test` (string, nullable)
         + `middle_name`: `another` (string)
+
++ Response 400 (application/json)
+    + Attributes
+        + folks (array)
+            + (Person)
+                + `first_name` (string, optional)

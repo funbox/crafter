@@ -1,0 +1,22 @@
+# My API
+
+Defines a fixed-type array which contains a fixed recursive object. Resulting JSON Schema must declare all properties of the object
+as required (including "parent" property).
+Values of properties "first_name", "last_name", "middle_name" should be fixed and the value of the "parent" property should refer
+to the structure "Person".
+
+# Data Structures
+
+## Person
+
++ `first_name`: `test` (string)
++ `last_name`: `test` (string)
++ `middle_name`: `test` (string)
+
+# Get user [GET /invites_list]
+
++ Response 200 (application/json)
+    + Attributes
+        + folks (array)
+            + (Person, fixed)
+                + parent (Person)
