@@ -66,6 +66,9 @@ const testPath = {
   get recursiveArrays() {
     return `${this.base}/recursive-arrays`;
   },
+  get recursiveObjects() {
+    return `${this.base}/recursive-objects`;
+  },
   get duplicates() {
     return `${this.base}/duplicates`;
   },
@@ -186,6 +189,10 @@ describe('fixtures with subgroups and messages', () => {
 
 describe('recursive arrays fixtures', () => {
   testFilesFrom(testPath.recursiveArrays);
+});
+
+describe('recursive object fixtures', () => {
+  testFilesFrom(testPath.recursiveObjects);
 });
 
 describe('fixtures with duplicated resources', () => {
