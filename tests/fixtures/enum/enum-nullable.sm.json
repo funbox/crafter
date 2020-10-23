@@ -572,6 +572,15 @@
                       "value": {
                         "element": "Names",
                         "attributes": {
+                          "typeAttributes": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "nullable"
+                              }
+                            ]
+                          },
                           "sourceMap": {
                             "element": "array",
                             "content": [
@@ -590,6 +599,19 @@
                                         "content": 5
                                       }
                                     ]
+                                  },
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 176
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 8
+                                      }
+                                    ]
                                   }
                                 ]
                               }
@@ -599,15 +621,6 @@
                       }
                     },
                     "attributes": {
-                      "typeAttributes": {
-                        "element": "array",
-                        "content": [
-                          {
-                            "element": "string",
-                            "content": "nullable"
-                          }
-                        ]
-                      },
                       "sourceMap": {
                         "element": "array",
                         "content": [

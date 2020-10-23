@@ -163,8 +163,16 @@
                               },
                               "value": {
                                 "element": "string",
-                                "content": "notFound",
                                 "attributes": {
+                                  "typeAttributes": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "fixed"
+                                      }
+                                    ]
+                                  },
                                   "sourceMap": {
                                     "element": "array",
                                     "content": [
@@ -183,12 +191,26 @@
                                                 "content": 8
                                               }
                                             ]
+                                          },
+                                          {
+                                            "element": "array",
+                                            "content": [
+                                              {
+                                                "element": "number",
+                                                "content": 209
+                                              },
+                                              {
+                                                "element": "number",
+                                                "content": 5
+                                              }
+                                            ]
                                           }
                                         ]
                                       }
                                     ]
                                   }
-                                }
+                                },
+                                "content": "notFound"
                               }
                             },
                             "attributes": {
@@ -198,10 +220,6 @@
                                   {
                                     "element": "string",
                                     "content": "required"
-                                  },
-                                  {
-                                    "element": "string",
-                                    "content": "fixed"
                                   }
                                 ]
                               },
@@ -784,8 +802,16 @@
                                       },
                                       "value": {
                                         "element": "string",
-                                        "content": "notFound",
                                         "attributes": {
+                                          "typeAttributes": {
+                                            "element": "array",
+                                            "content": [
+                                              {
+                                                "element": "string",
+                                                "content": "fixed"
+                                              }
+                                            ]
+                                          },
                                           "sourceMap": {
                                             "element": "array",
                                             "content": [
@@ -804,12 +830,26 @@
                                                         "content": 8
                                                       }
                                                     ]
+                                                  },
+                                                  {
+                                                    "element": "array",
+                                                    "content": [
+                                                      {
+                                                        "element": "number",
+                                                        "content": 209
+                                                      },
+                                                      {
+                                                        "element": "number",
+                                                        "content": 5
+                                                      }
+                                                    ]
                                                   }
                                                 ]
                                               }
                                             ]
                                           }
-                                        }
+                                        },
+                                        "content": "notFound"
                                       }
                                     },
                                     "attributes": {
@@ -819,10 +859,6 @@
                                           {
                                             "element": "string",
                                             "content": "required"
-                                          },
-                                          {
-                                            "element": "string",
-                                            "content": "fixed"
                                           }
                                         ]
                                       },

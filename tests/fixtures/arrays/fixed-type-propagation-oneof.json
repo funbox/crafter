@@ -56,7 +56,18 @@
                                 "content": "foo"
                               },
                               "value": {
-                                "element": "string"
+                                "element": "string",
+                                "attributes": {
+                                  "typeAttributes": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "fixed"
+                                      }
+                                    ]
+                                  }
+                                }
                               }
                             },
                             "attributes": {
@@ -66,10 +77,6 @@
                                   {
                                     "element": "string",
                                     "content": "required"
-                                  },
-                                  {
-                                    "element": "string",
-                                    "content": "fixed"
                                   }
                                 ]
                               }
@@ -88,7 +95,18 @@
                                 "content": "bar"
                               },
                               "value": {
-                                "element": "string"
+                                "element": "string",
+                                "attributes": {
+                                  "typeAttributes": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "fixed"
+                                      }
+                                    ]
+                                  }
+                                }
                               }
                             },
                             "attributes": {
@@ -98,10 +116,6 @@
                                   {
                                     "element": "string",
                                     "content": "required"
-                                  },
-                                  {
-                                    "element": "string",
-                                    "content": "fixed"
                                   }
                                 ]
                               }

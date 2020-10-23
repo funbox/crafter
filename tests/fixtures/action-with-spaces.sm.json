@@ -213,8 +213,16 @@
                                   },
                                   "value": {
                                     "element": "string",
-                                    "content": "ok",
                                     "attributes": {
+                                      "typeAttributes": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "string",
+                                            "content": "fixed"
+                                          }
+                                        ]
+                                      },
                                       "sourceMap": {
                                         "element": "array",
                                         "content": [
@@ -233,12 +241,26 @@
                                                     "content": 2
                                                   }
                                                 ]
+                                              },
+                                              {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "number",
+                                                    "content": 183
+                                                  },
+                                                  {
+                                                    "element": "number",
+                                                    "content": 5
+                                                  }
+                                                ]
                                               }
                                             ]
                                           }
                                         ]
                                       }
-                                    }
+                                    },
+                                    "content": "ok"
                                   }
                                 },
                                 "attributes": {
@@ -248,10 +270,6 @@
                                       {
                                         "element": "string",
                                         "content": "required"
-                                      },
-                                      {
-                                        "element": "string",
-                                        "content": "fixed"
                                       }
                                     ]
                                   },

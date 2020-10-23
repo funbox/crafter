@@ -681,6 +681,53 @@
                                   },
                                   "value": {
                                     "element": "Person",
+                                    "attributes": {
+                                      "typeAttributes": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "string",
+                                            "content": "fixed"
+                                          }
+                                        ]
+                                      },
+                                      "sourceMap": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "sourceMap",
+                                            "content": [
+                                              {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "number",
+                                                    "content": 614
+                                                  },
+                                                  {
+                                                    "element": "number",
+                                                    "content": 6
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "number",
+                                                    "content": 634
+                                                  },
+                                                  {
+                                                    "element": "number",
+                                                    "content": 90
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    },
                                     "content": [
                                       {
                                         "element": "member",
@@ -716,8 +763,16 @@
                                           },
                                           "value": {
                                             "element": "string",
-                                            "content": "test",
                                             "attributes": {
+                                              "typeAttributes": {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "string",
+                                                    "content": "nullable"
+                                                  }
+                                                ]
+                                              },
                                               "sourceMap": {
                                                 "element": "array",
                                                 "content": [
@@ -749,24 +804,29 @@
                                                             "content": 6
                                                           }
                                                         ]
+                                                      },
+                                                      {
+                                                        "element": "array",
+                                                        "content": [
+                                                          {
+                                                            "element": "number",
+                                                            "content": 665
+                                                          },
+                                                          {
+                                                            "element": "number",
+                                                            "content": 8
+                                                          }
+                                                        ]
                                                       }
                                                     ]
                                                   }
                                                 ]
                                               }
-                                            }
+                                            },
+                                            "content": "test"
                                           }
                                         },
                                         "attributes": {
-                                          "typeAttributes": {
-                                            "element": "array",
-                                            "content": [
-                                              {
-                                                "element": "string",
-                                                "content": "nullable"
-                                              }
-                                            ]
-                                          },
                                           "sourceMap": {
                                             "element": "array",
                                             "content": [
@@ -893,57 +953,10 @@
                                           }
                                         }
                                       }
-                                    ],
-                                    "attributes": {
-                                      "sourceMap": {
-                                        "element": "array",
-                                        "content": [
-                                          {
-                                            "element": "sourceMap",
-                                            "content": [
-                                              {
-                                                "element": "array",
-                                                "content": [
-                                                  {
-                                                    "element": "number",
-                                                    "content": 614
-                                                  },
-                                                  {
-                                                    "element": "number",
-                                                    "content": 6
-                                                  }
-                                                ]
-                                              },
-                                              {
-                                                "element": "array",
-                                                "content": [
-                                                  {
-                                                    "element": "number",
-                                                    "content": 634
-                                                  },
-                                                  {
-                                                    "element": "number",
-                                                    "content": 90
-                                                  }
-                                                ]
-                                              }
-                                            ]
-                                          }
-                                        ]
-                                      }
-                                    }
+                                    ]
                                   }
                                 },
                                 "attributes": {
-                                  "typeAttributes": {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "string",
-                                        "content": "fixed"
-                                      }
-                                    ]
-                                  },
                                   "sourceMap": {
                                     "element": "array",
                                     "content": [
@@ -1317,8 +1330,16 @@
                                   },
                                   "value": {
                                     "element": "string",
-                                    "content": "test",
                                     "attributes": {
+                                      "typeAttributes": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "string",
+                                            "content": "nullable"
+                                          }
+                                        ]
+                                      },
                                       "sourceMap": {
                                         "element": "array",
                                         "content": [
@@ -1350,24 +1371,29 @@
                                                     "content": 6
                                                   }
                                                 ]
+                                              },
+                                              {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "number",
+                                                    "content": 822
+                                                  },
+                                                  {
+                                                    "element": "number",
+                                                    "content": 8
+                                                  }
+                                                ]
                                               }
                                             ]
                                           }
                                         ]
                                       }
-                                    }
+                                    },
+                                    "content": "test"
                                   }
                                 },
                                 "attributes": {
-                                  "typeAttributes": {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "string",
-                                        "content": "nullable"
-                                      }
-                                    ]
-                                  },
                                   "sourceMap": {
                                     "element": "array",
                                     "content": [

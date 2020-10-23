@@ -65,6 +65,17 @@
                                   },
                                   "value": {
                                     "element": "string",
+                                    "attributes": {
+                                      "typeAttributes": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "string",
+                                            "content": "fixed"
+                                          }
+                                        ]
+                                      }
+                                    },
                                     "content": "ok"
                                   }
                                 },
@@ -75,10 +86,6 @@
                                       {
                                         "element": "string",
                                         "content": "required"
-                                      },
-                                      {
-                                        "element": "string",
-                                        "content": "fixed"
                                       }
                                     ]
                                   }

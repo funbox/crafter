@@ -145,6 +145,17 @@
                                   },
                                   "value": {
                                     "element": "Person",
+                                    "attributes": {
+                                      "typeAttributes": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "string",
+                                            "content": "fixed"
+                                          }
+                                        ]
+                                      }
+                                    },
                                     "content": [
                                       {
                                         "element": "member",
@@ -155,18 +166,18 @@
                                           },
                                           "value": {
                                             "element": "string",
-                                            "content": "test"
-                                          }
-                                        },
-                                        "attributes": {
-                                          "typeAttributes": {
-                                            "element": "array",
-                                            "content": [
-                                              {
-                                                "element": "string",
-                                                "content": "nullable"
+                                            "attributes": {
+                                              "typeAttributes": {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "string",
+                                                    "content": "nullable"
+                                                  }
+                                                ]
                                               }
-                                            ]
+                                            },
+                                            "content": "test"
                                           }
                                         }
                                       },
@@ -182,17 +193,6 @@
                                             "content": "another"
                                           }
                                         }
-                                      }
-                                    ]
-                                  }
-                                },
-                                "attributes": {
-                                  "typeAttributes": {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "string",
-                                        "content": "fixed"
                                       }
                                     ]
                                   }
@@ -312,18 +312,18 @@
                                   },
                                   "value": {
                                     "element": "string",
-                                    "content": "test"
-                                  }
-                                },
-                                "attributes": {
-                                  "typeAttributes": {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "string",
-                                        "content": "nullable"
+                                    "attributes": {
+                                      "typeAttributes": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "string",
+                                            "content": "nullable"
+                                          }
+                                        ]
                                       }
-                                    ]
+                                    },
+                                    "content": "test"
                                   }
                                 }
                               },

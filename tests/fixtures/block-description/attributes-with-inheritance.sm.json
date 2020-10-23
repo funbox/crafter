@@ -126,8 +126,16 @@
                       },
                       "value": {
                         "element": "string",
-                        "content": "alreadyExists",
                         "attributes": {
+                          "typeAttributes": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "fixed"
+                              }
+                            ]
+                          },
                           "sourceMap": {
                             "element": "array",
                             "content": [
@@ -146,12 +154,26 @@
                                         "content": 13
                                       }
                                     ]
+                                  },
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 196
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 5
+                                      }
+                                    ]
                                   }
                                 ]
                               }
                             ]
                           }
-                        }
+                        },
+                        "content": "alreadyExists"
                       }
                     },
                     "attributes": {
@@ -161,10 +183,6 @@
                           {
                             "element": "string",
                             "content": "required"
-                          },
-                          {
-                            "element": "string",
-                            "content": "fixed"
                           }
                         ]
                       },
@@ -329,8 +347,16 @@
                       },
                       "value": {
                         "element": "string",
-                        "content": "ok",
                         "attributes": {
+                          "typeAttributes": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "fixed"
+                              }
+                            ]
+                          },
                           "sourceMap": {
                             "element": "array",
                             "content": [
@@ -349,12 +375,26 @@
                                         "content": 2
                                       }
                                     ]
+                                  },
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 255
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 5
+                                      }
+                                    ]
                                   }
                                 ]
                               }
                             ]
                           }
-                        }
+                        },
+                        "content": "ok"
                       }
                     },
                     "attributes": {
@@ -364,10 +404,6 @@
                           {
                             "element": "string",
                             "content": "required"
-                          },
-                          {
-                            "element": "string",
-                            "content": "fixed"
                           }
                         ]
                       },

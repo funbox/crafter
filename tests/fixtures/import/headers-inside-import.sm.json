@@ -489,8 +489,16 @@
                                                       },
                                                       "value": {
                                                         "element": "string",
-                                                        "content": "OK",
                                                         "attributes": {
+                                                          "typeAttributes": {
+                                                            "element": "array",
+                                                            "content": [
+                                                              {
+                                                                "element": "string",
+                                                                "content": "fixed"
+                                                              }
+                                                            ]
+                                                          },
                                                           "sourceMap": {
                                                             "element": "array",
                                                             "content": [
@@ -509,13 +517,27 @@
                                                                         "content": 2
                                                                       }
                                                                     ]
+                                                                  },
+                                                                  {
+                                                                    "element": "array",
+                                                                    "content": [
+                                                                      {
+                                                                        "element": "number",
+                                                                        "content": 498
+                                                                      },
+                                                                      {
+                                                                        "element": "number",
+                                                                        "content": 5
+                                                                      }
+                                                                    ]
                                                                   }
                                                                 ],
                                                                 "file": "headers-inside-import-inner.apib"
                                                               }
                                                             ]
                                                           }
-                                                        }
+                                                        },
+                                                        "content": "OK"
                                                       }
                                                     },
                                                     "attributes": {
@@ -525,10 +547,6 @@
                                                           {
                                                             "element": "string",
                                                             "content": "required"
-                                                          },
-                                                          {
-                                                            "element": "string",
-                                                            "content": "fixed"
                                                           }
                                                         ]
                                                       },
@@ -625,8 +643,16 @@
                                                       },
                                                       "value": {
                                                         "element": "string",
-                                                        "content": "1",
                                                         "attributes": {
+                                                          "typeAttributes": {
+                                                            "element": "array",
+                                                            "content": [
+                                                              {
+                                                                "element": "string",
+                                                                "content": "fixed"
+                                                              }
+                                                            ]
+                                                          },
                                                           "sourceMap": {
                                                             "element": "array",
                                                             "content": [
@@ -645,13 +671,27 @@
                                                                         "content": 1
                                                                       }
                                                                     ]
+                                                                  },
+                                                                  {
+                                                                    "element": "array",
+                                                                    "content": [
+                                                                      {
+                                                                        "element": "number",
+                                                                        "content": 577
+                                                                      },
+                                                                      {
+                                                                        "element": "number",
+                                                                        "content": 5
+                                                                      }
+                                                                    ]
                                                                   }
                                                                 ],
                                                                 "file": "headers-inside-import-inner.apib"
                                                               }
                                                             ]
                                                           }
-                                                        }
+                                                        },
+                                                        "content": "1"
                                                       }
                                                     },
                                                     "attributes": {
@@ -661,10 +701,6 @@
                                                           {
                                                             "element": "string",
                                                             "content": "required"
-                                                          },
-                                                          {
-                                                            "element": "string",
-                                                            "content": "fixed"
                                                           }
                                                         ]
                                                       },

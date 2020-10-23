@@ -191,6 +191,17 @@
                                   },
                                   "value": {
                                     "element": "Person",
+                                    "attributes": {
+                                      "typeAttributes": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "string",
+                                            "content": "fixedType"
+                                          }
+                                        ]
+                                      }
+                                    },
                                     "content": [
                                       {
                                         "element": "member",
@@ -217,17 +228,6 @@
                                       }
                                     ]
                                   }
-                                },
-                                "attributes": {
-                                  "typeAttributes": {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "string",
-                                        "content": "fixedType"
-                                      }
-                                    ]
-                                  }
                                 }
                               },
                               {
@@ -239,6 +239,17 @@
                                   },
                                   "value": {
                                     "element": "Person 2",
+                                    "attributes": {
+                                      "typeAttributes": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "string",
+                                            "content": "fixedType"
+                                          }
+                                        ]
+                                      }
+                                    },
                                     "content": [
                                       {
                                         "element": "member",
@@ -285,17 +296,6 @@
                                             ]
                                           }
                                         }
-                                      }
-                                    ]
-                                  }
-                                },
-                                "attributes": {
-                                  "typeAttributes": {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "string",
-                                        "content": "fixedType"
                                       }
                                     ]
                                   }

@@ -65,6 +65,17 @@
                                   },
                                   "value": {
                                     "element": "array",
+                                    "attributes": {
+                                      "typeAttributes": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "string",
+                                            "content": "fixed"
+                                          }
+                                        ]
+                                      }
+                                    },
                                     "content": [
                                       {
                                         "element": "string",
@@ -114,17 +125,6 @@
                                             }
                                           }
                                         ]
-                                      }
-                                    ]
-                                  }
-                                },
-                                "attributes": {
-                                  "typeAttributes": {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "string",
-                                        "content": "fixed"
                                       }
                                     ]
                                   }

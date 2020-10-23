@@ -65,6 +65,17 @@
                                   },
                                   "value": {
                                     "element": "object",
+                                    "attributes": {
+                                      "typeAttributes": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "string",
+                                            "content": "fixed"
+                                          }
+                                        ]
+                                      }
+                                    },
                                     "content": [
                                       {
                                         "element": "member",
@@ -125,17 +136,6 @@
                                             ]
                                           }
                                         }
-                                      }
-                                    ]
-                                  }
-                                },
-                                "attributes": {
-                                  "typeAttributes": {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "string",
-                                        "content": "fixed"
                                       }
                                     ]
                                   }

@@ -272,7 +272,18 @@
                                     "content": "result"
                                   },
                                   "value": {
-                                    "element": "A"
+                                    "element": "A",
+                                    "attributes": {
+                                      "typeAttributes": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "string",
+                                            "content": "fixed"
+                                          }
+                                        ]
+                                      }
+                                    }
                                   }
                                 },
                                 "attributes": {
@@ -282,10 +293,6 @@
                                       {
                                         "element": "string",
                                         "content": "required"
-                                      },
-                                      {
-                                        "element": "string",
-                                        "content": "fixed"
                                       }
                                     ]
                                   }

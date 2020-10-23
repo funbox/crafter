@@ -133,6 +133,15 @@
                               "value": {
                                 "element": "string",
                                 "attributes": {
+                                  "typeAttributes": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "fixed"
+                                      }
+                                    ]
+                                  },
                                   "sourceMap": {
                                     "element": "array",
                                     "content": [
@@ -151,6 +160,19 @@
                                                 "content": 6
                                               }
                                             ]
+                                          },
+                                          {
+                                            "element": "array",
+                                            "content": [
+                                              {
+                                                "element": "number",
+                                                "content": 315
+                                              },
+                                              {
+                                                "element": "number",
+                                                "content": 5
+                                              }
+                                            ]
                                           }
                                         ]
                                       }
@@ -166,10 +188,6 @@
                                   {
                                     "element": "string",
                                     "content": "required"
-                                  },
-                                  {
-                                    "element": "string",
-                                    "content": "fixed"
                                   }
                                 ]
                               },
@@ -263,6 +281,15 @@
                               "value": {
                                 "element": "string",
                                 "attributes": {
+                                  "typeAttributes": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "fixed"
+                                      }
+                                    ]
+                                  },
                                   "sourceMap": {
                                     "element": "array",
                                     "content": [
@@ -281,6 +308,19 @@
                                                 "content": 6
                                               }
                                             ]
+                                          },
+                                          {
+                                            "element": "array",
+                                            "content": [
+                                              {
+                                                "element": "number",
+                                                "content": 372
+                                              },
+                                              {
+                                                "element": "number",
+                                                "content": 5
+                                              }
+                                            ]
                                           }
                                         ]
                                       }
@@ -296,10 +336,6 @@
                                   {
                                     "element": "string",
                                     "content": "required"
-                                  },
-                                  {
-                                    "element": "string",
-                                    "content": "fixed"
                                   }
                                 ]
                               },
