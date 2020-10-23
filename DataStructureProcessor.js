@@ -22,23 +22,7 @@ class DataStructureProcessor {
     }
 
     if (valueMember.isObject()) {
-      const baseType = context.typeResolver.types[valueMember.type];
-      if (baseType && baseType instanceof SchemaNamedTypeElement) {
-        const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-        throw new utils.CrafterError('No inheritance allowed from schema named type', sourceMap);
-      }
-
-      valueMember.content = this.buildObject(curNode, context);
-
-      if (valueMember.content.propertyMembers.length) {
-        const sourceMap = utils.mergeSourceMaps(valueMember.content.propertyMembers.map(pm => pm.sourceMap), context.sourceBuffer, context.linefeedOffsets);
-
-        if (valueMember.sourceMap) {
-          valueMember.sourceMap = utils.concatSourceMaps([valueMember.sourceMap, sourceMap]);
-        } else {
-          valueMember.sourceMap = sourceMap;
-        }
-      }
+      this.processObject(valueMember, curNode, context);
     }
 
     if (valueMember.isArray()) {
@@ -235,7 +219,13 @@ class DataStructureProcessor {
     }
   }
 
-  buildObject(node, context) {
+  processObject(valueMember, node, context) {
+    const baseType = context.typeResolver.types[valueMember.type];
+    if (baseType && baseType instanceof SchemaNamedTypeElement) {
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      throw new utils.CrafterError('No inheritance allowed from schema named type', sourceMap);
+    }
+
     const objectElement = new ObjectElement();
     let curNode = node;
 
@@ -308,7 +298,17 @@ class DataStructureProcessor {
       curNode = curNode.next;
     }
 
-    return objectElement;
+    valueMember.content = objectElement;
+
+    if (objectElement.propertyMembers.length) {
+      const sourceMap = utils.mergeSourceMaps(objectElement.propertyMembers.map(pm => pm.sourceMap), context.sourceBuffer, context.linefeedOffsets);
+
+      if (valueMember.sourceMap) {
+        valueMember.sourceMap = utils.concatSourceMaps([valueMember.sourceMap, sourceMap]);
+      } else {
+        valueMember.sourceMap = sourceMap;
+      }
+    }
   }
 
   processEnum(valueMember, node, context) {
