@@ -12,7 +12,7 @@ module.exports = (Parsers) => {
       const result = [];
 
       if (node.type === 'item') {
-        fetchInlineSamples(node, context, result);
+        processInlineSamples(node, context, result);
       }
 
       return [(node.firstChild.next && node.firstChild.next.firstChild) || utils.nextNode(node), result];
@@ -94,7 +94,7 @@ module.exports = (Parsers) => {
   return true;
 };
 
-function fetchInlineSamples(node, context, result) {
+function processInlineSamples(node, context, result) {
   const text = utils.nodeText(node.firstChild, context.sourceLines);
   const valuesMatch = sampleValueRegex.exec(text);
 
