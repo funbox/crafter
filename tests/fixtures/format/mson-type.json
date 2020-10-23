@@ -56,8 +56,17 @@
                             "element": "array",
                             "content": [
                               {
-                                "element": "string",
-                                "content": "format"
+                                "element": "member",
+                                "content": {
+                                  "key": {
+                                    "element": "string",
+                                    "content": "format"
+                                  },
+                                  "value": {
+                                    "element": "string",
+                                    "content": "date-time"
+                                  }
+                                }
                               }
                             ]
                           },

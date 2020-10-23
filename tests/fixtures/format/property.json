@@ -84,8 +84,17 @@
                                         "element": "array",
                                         "content": [
                                           {
-                                            "element": "string",
-                                            "content": "format"
+                                            "element": "member",
+                                            "content": {
+                                              "key": {
+                                                "element": "string",
+                                                "content": "format"
+                                              },
+                                              "value": {
+                                                "element": "string",
+                                                "content": "date-time"
+                                              }
+                                            }
                                           }
                                         ]
                                       },
@@ -151,7 +160,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"date\": {\n      \"type\": \"string\",\n      \"description\": \"schedule date\"\n    }\n  }\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"date\": {\n      \"type\": \"string\",\n      \"format\": \"date-time\",\n      \"description\": \"schedule date\"\n    }\n  }\n}"
                         }
                       ]
                     },
@@ -177,8 +186,17 @@
                                         "element": "array",
                                         "content": [
                                           {
-                                            "element": "string",
-                                            "content": "format"
+                                            "element": "member",
+                                            "content": {
+                                              "key": {
+                                                "element": "string",
+                                                "content": "format"
+                                              },
+                                              "value": {
+                                                "element": "string",
+                                                "content": "email"
+                                              }
+                                            }
                                           }
                                         ]
                                       }

@@ -261,12 +261,30 @@
                                             "element": "array",
                                             "content": [
                                               {
-                                                "element": "string",
-                                                "content": "minLength"
+                                                "element": "member",
+                                                "content": {
+                                                  "key": {
+                                                    "element": "string",
+                                                    "content": "minLength"
+                                                  },
+                                                  "value": {
+                                                    "element": "string",
+                                                    "content": 2
+                                                  }
+                                                }
                                               },
                                               {
-                                                "element": "string",
-                                                "content": "maxLength"
+                                                "element": "member",
+                                                "content": {
+                                                  "key": {
+                                                    "element": "string",
+                                                    "content": "maxLength"
+                                                  },
+                                                  "value": {
+                                                    "element": "string",
+                                                    "content": 5
+                                                  }
+                                                }
                                               }
                                             ]
                                           },
@@ -449,7 +467,7 @@
                                   "content": "application/schema+json"
                                 }
                               },
-                              "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"address\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"anyOf\": [\n          {\n            \"type\": \"string\"\n          },\n          {\n            \"type\": \"number\"\n          }\n        ]\n      }\n    }\n  }\n}"
+                              "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"address\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"anyOf\": [\n          {\n            \"type\": \"string\"\n          },\n          {\n            \"type\": \"number\"\n          }\n        ]\n      },\n      \"minItems\": 2,\n      \"maxItems\": 5\n    }\n  }\n}"
                             }
                           ],
                           "attributes": {

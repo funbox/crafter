@@ -85,7 +85,7 @@ module.exports = (Parsers) => {
 
       const valueEl = new ValueMemberElement(
         signature.type,
-        valueTypeAttributes.map(a => a[0]),
+        valueTypeAttributes,
         signature.value,
         '',
         signature.isSample,
