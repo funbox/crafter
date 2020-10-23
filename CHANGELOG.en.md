@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.66.2 (23.10.2020)
+
+* Fix processing of fixed objects inside of arrays.
+
 ## 1.66.1 (23.10.2020)
 
 * Switch to the next node when encountering an unknown node inside of a primitive element.
