@@ -24,7 +24,7 @@ class PropertyMemberElement {
   /**
    * @param {StringElement} name
    * @param {ValueMemberElement} value
-   * @param {(string|Array)[]} typeAttributes - набор атрибутов типа fixed, required, ["minimum", 10]
+   * @param {(string|Array)[]} typeAttributes - набор атрибутов "required" и/или "optional"
    * @param {StringElement} descriptionEl
    * @param {SourceMapElement} sourceMap
    */

@@ -31,7 +31,7 @@ const Flags = require('../../Flags');
 class ValueMemberElement {
   /**
    * @param {string} type - тип данных, например string, array[number] или User
-   * @param {(string|Array)[]} typeAttributes - набор атрибутов типа fixed, required, ["minimum", 10]
+   * @param {(string|Array)[]} typeAttributes - набор атрибутов типа fixed, nullable, ["minimum", 10]
    * @param {string} value - значение элемента, в зависимости от атрибутов может интерпретироваться как непосредственное значение или пример
    * @param {StringElement} description - описание элемента
    * @param {boolean} isSample - является ли данный элемент примером

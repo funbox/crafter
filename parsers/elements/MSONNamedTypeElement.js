@@ -18,7 +18,7 @@ class MSONNamedTypeElement {
    *
    * @param {StringElement} name
    * @param {string} baseType - название родительского типа (примитивный или именованный тип)
-   * @param {(string|Array)[]} typeAttributes - набор атрибутов типа fixed, required, ["minimum", 10]
+   * @param {(string|Array)[]} typeAttributes - набор атрибутов типа fixed, nullable, ["minimum", 10]
    * @param {SourceMap} sourceMap
    */
   constructor(name, baseType, typeAttributes, sourceMap) {
