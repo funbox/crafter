@@ -87,8 +87,7 @@ module.exports = (Parsers) => {
 
       context.resourcePrototypes.push(prototypes);
 
-      const result = new ActionElement(method, href, title);
-      result.sourceMap = sourceMap;
+      const result = new ActionElement(method, href, title, sourceMap);
 
       return [utils.nextNode(node), result];
     },

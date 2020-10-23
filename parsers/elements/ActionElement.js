@@ -37,9 +37,10 @@ class ActionElement {
   /**
    * @param {StringElement} method - HTTP-метод (GET, POST и т.п.)
    * @param {StringElement=} href - URL HTTP-запроса
-   * @param {StringElement=} title - опциональный заголовок
+   * @param {StringElement} title - опциональный заголовок
+   * @param {SourceMap} sourceMap
    */
-  constructor(method, href, title) {
+  constructor(method, href, title, sourceMap) {
     this.title = title;
     this.href = href;
     this.method = method;
@@ -59,7 +60,7 @@ class ActionElement {
      * @type {DescriptionElement}
      */
     this.description = null;
-    this.sourceMap = null;
+    this.sourceMap = sourceMap;
   }
 
   /**
