@@ -112,7 +112,7 @@ const utils = {
     sourceLines = startNode.sourceLines || sourceLines;
     sourceBuffer = startNode.sourceBuffer || sourceBuffer;
     linefeedOffsets = startNode.linefeedOffsets || linefeedOffsets;
-    if (startNode.sourceLines !== endNode.sourceLines) {
+    if (startNode.file !== endNode.file) {
       throw new CrafterError('startNode and endNode belong to different files');
     }
     const { startLineIndex, startColumnIndex } = utils.getSourcePosZeroBased(startNode);
