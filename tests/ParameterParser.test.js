@@ -46,16 +46,16 @@ describe('ParameterParser', () => {
       sourceMap: {
         byteBlocks: [
           {
-            offset: 0,
-            length: 35,
+            offset: 28,
+            length: 7,
           },
         ],
         charBlocks: [
           {
-            offset: 0,
-            length: 35,
+            offset: 28,
+            length: 7,
             startLine: 1,
-            startColumn: 1,
+            startColumn: 29,
             endLine: 1,
             endColumn: 35,
           },
@@ -88,18 +88,18 @@ describe('ParameterParser', () => {
       sourceMap: {
         byteBlocks: [
           {
-            offset: 0,
-            length: 44,
+            offset: 34,
+            length: 9,
           },
         ],
         charBlocks: [
           {
-            offset: 0,
-            length: 44,
+            offset: 34,
+            length: 9,
             startLine: 1,
-            startColumn: 1,
+            startColumn: 35,
             endLine: 1,
-            endColumn: 44,
+            endColumn: 43,
           },
         ],
       },

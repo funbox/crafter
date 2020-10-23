@@ -23,10 +23,9 @@ module.exports = (Parsers) => {
       const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       const parameterSignatureDetails = { sourceMap };
 
-      let descriptionEl;
-      if (signature.description) {
-        descriptionEl = new StringElement(signature.description);
-      }
+      const descriptionEl = signature.description
+        ? utils.makeStringElement(signature.description, signature.descriptionOffset, node.firstChild, context)
+        : undefined;
       context.data.parameterSignatureDetails = parameterSignatureDetails;
       signature.warnings.forEach(warning => context.addWarning(warning, sourceMap));
 
@@ -56,9 +55,6 @@ module.exports = (Parsers) => {
       );
 
       result.sourceMap = sourceMap;
-      if (result.description) {
-        result.description.sourceMap = utils.makeSourceMapForLine(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-      }
 
       if (signature.rest) {
         context.data.startOffset = text.length - signature.rest.length;
