@@ -127,6 +127,15 @@
                       "value": {
                         "element": "DNSServer",
                         "attributes": {
+                          "typeAttributes": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "nullable"
+                              }
+                            ]
+                          },
                           "sourceMap": {
                             "element": "array",
                             "content": [
@@ -145,6 +154,19 @@
                                         "content": 9
                                       }
                                     ]
+                                  },
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 232
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 8
+                                      }
+                                    ]
                                   }
                                 ]
                               }
@@ -160,10 +182,6 @@
                           {
                             "element": "string",
                             "content": "required"
-                          },
-                          {
-                            "element": "string",
-                            "content": "nullable"
                           }
                         ]
                       },
@@ -745,7 +763,7 @@
                               ]
                             }
                           },
-                          "content": "{\n  \"address\": \"hello\",\n  \"settings\": {\n    \"parent\": null\n  }\n}",
+                          "content": "{\n  \"address\": \"hello\",\n  \"settings\": {\n    \"parent\": {\n      \"address\": \"hello\"\n    }\n  }\n}",
                           "attributes": {
                             "contentType": {
                               "element": "string",

@@ -267,8 +267,8 @@ class DataStructureProcessor {
         case SectionTypes.msonAttribute: {
           [nextNode, childResult] = this.Parsers.MSONAttributeParser.parse(curNode, context);
 
-          const { typeAttributes, value } = childResult;
-          const isFixedOrFixedType = context.data.isParentAttributeFixedOrFixedType || typeAttributes.includes('fixed') || typeAttributes.includes('fixedType');
+          const { value } = childResult;
+          const isFixedOrFixedType = context.data.isParentAttributeFixedOrFixedType || value.typeAttributes.includes('fixed') || value.typeAttributes.includes('fixedType');
 
           const typeName = value.isArray() && value.nestedTypes[0] || value.type;
           const typeEl = context.typeResolver.types[typeName];
