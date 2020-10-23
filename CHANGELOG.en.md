@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.66.0 (23.10.2020)
+
+* Refactor SourceMap.
+
 ## 1.65.0 (19.10.2020)
 
 * Process Default section in named types.
