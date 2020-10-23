@@ -23,15 +23,15 @@ const ValueMemberProcessor = {
     const { value } = element;
     let sampleElements = [];
     let defaultElements = [];
-    let backPropagatedTypeAttributes = [];
 
     if (!element.isStandardType()) {
       const namedElement = context.typeResolver.types[element.type];
       sampleElements = sampleElements.concat(namedElement.samples || []);
       defaultElements = defaultElements.concat(namedElement.default ? [namedElement.default] : []);
-      backPropagatedTypeAttributes = backPropagatedTypeAttributes.concat(
-        Array.isArray(namedElement.typeAttributes) ? namedElement.typeAttributes.filter(attr => typeAttrsToPropagate.includes(attr)) : [],
-      );
+      const propagatedTypeAttributes = Array.isArray(namedElement.typeAttributes)
+        ? namedElement.typeAttributes.filter(attr => typeAttrsToPropagate.includes(attr))
+        : [];
+      element.typeAttributes = [...new Set(element.typeAttributes.concat(propagatedTypeAttributes))];
     }
 
     if (value != null) {
@@ -72,8 +72,6 @@ const ValueMemberProcessor = {
     }
 
     element.value = convertType(value, element.baseType).value;
-
-    return backPropagatedTypeAttributes;
   },
 };
 

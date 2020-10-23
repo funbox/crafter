@@ -97,9 +97,7 @@ module.exports = (Parsers) => {
       }
 
       try {
-        const backPropagatedTypeAttributes = ValueMemberProcessor.fillBaseType(context, valueEl, true);
-        const [propagatedTypeAttributes] = splitTypeAttributes(backPropagatedTypeAttributes);
-        propertyTypeAttributes.push(...propagatedTypeAttributes.filter(attr => !propertyTypeAttributes.includes(attr)));
+        ValueMemberProcessor.fillBaseType(context, valueEl, true);
       } catch (error) {
         if (!error.sourceMap) {
           error.sourceMap = sourceMap;

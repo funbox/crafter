@@ -39,7 +39,7 @@ module.exports = (Parsers) => {
         context.data.startOffset = text.length - signature.rest.length;
       }
 
-      const memberEl = new ValueMemberElement(signature.type);
+      const memberEl = new ValueMemberElement(signature.type, signature.typeAttributes);
 
       const valueMemberSourceMaps = [];
 
@@ -74,8 +74,7 @@ module.exports = (Parsers) => {
       }
 
       try {
-        const backPropagatedTypeAttributes = ValueMemberProcessor.fillBaseType(context, memberEl);
-        memberEl.typeAttributes = [...new Set(signature.typeAttributes.concat(backPropagatedTypeAttributes))];
+        ValueMemberProcessor.fillBaseType(context, memberEl);
       } catch (error) {
         if (!error.sourceMap) {
           error.sourceMap = sourceMap;
