@@ -63,11 +63,14 @@ const utils = {
   },
 
   headerText(node, sourceLines) {
+    return this.nodeText(node, sourceLines).slice(node.level).trim();
+  },
+
+  headerTextWithOffset(node, sourceLines) {
     const text = this.nodeText(node, sourceLines).slice(node.level);
     const trimmedText = text.trim();
     return [trimmedText, text ? node.level + text.indexOf(trimmedText) : undefined];
   },
-
   extractDescription(curNode, sourceLines, sourceBuffer, linefeedOffsets, stopCallback, startOffset) {
     const startNode = curNode;
     let description = '';

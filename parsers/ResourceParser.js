@@ -19,7 +19,7 @@ module.exports = (Parsers) => {
 
       context.pushFrame();
 
-      const [subject, subjectOffset] = utils.headerText(node, context.sourceLines);
+      const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
       const [sectionType, [matchData, matchDataIndexes]] = getSectionType(subject);
 
       switch (sectionType) {
@@ -74,7 +74,7 @@ module.exports = (Parsers) => {
 
     sectionType(node, context) {
       if (node.type === 'heading') {
-        const subject = utils.headerText(node, context.sourceLines)[0];
+        const subject = utils.headerText(node, context.sourceLines);
 
         if (NamelessEndpointHeaderRegex.exec(subject) || NamedResourceHeaderRegex.exec(subject) || NamedEndpointHeaderRegex.exec(subject) || NamelessResourceHeaderRegex.exec(subject)) {
           return SectionTypes.resource;

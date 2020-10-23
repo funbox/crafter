@@ -26,7 +26,7 @@ module.exports = (Parsers) => {
         }
       }
       if (node.type === 'heading') {
-        const text = utils.headerText(node, context.sourceLines)[0];
+        const text = utils.headerText(node, context.sourceLines);
         if (listTypedSampleValueRegex.exec(text)) {
           return SectionTypes.sampleValue;
         }

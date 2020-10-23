@@ -13,7 +13,7 @@ module.exports = (Parsers) => {
 
     sectionType(node, context) {
       if (node.type === 'heading') {
-        const subject = utils.headerText(node, context.sourceLines)[0];
+        const subject = utils.headerText(node, context.sourceLines);
 
         if (ResourcePrototypesRegex.exec(subject)) {
           return SectionTypes.resourcePrototypes;

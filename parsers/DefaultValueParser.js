@@ -10,7 +10,7 @@ module.exports = (Parsers) => {
   Parsers.DefaultValueParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
       const text = node.type === 'heading'
-        ? utils.headerText(node, context.sourceLines)[0]
+        ? utils.headerText(node, context.sourceLines)
         : utils.nodeText(node.firstChild, context.sourceLines);
       const valuesMatch = defaultValueRegex.exec(text);
       const values = valuesMatch ? splitValues(valuesMatch[1]) : undefined;
@@ -63,7 +63,7 @@ module.exports = (Parsers) => {
         }
       }
       if (node.type === 'heading') {
-        const text = utils.headerText(node, context.sourceLines)[0];
+        const text = utils.headerText(node, context.sourceLines);
         if (listTypedDefaultValueRegex.test(text)) {
           return SectionTypes.defaultValue;
         }

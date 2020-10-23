@@ -14,7 +14,7 @@ const { CrafterError } = utils;
 module.exports = (Parsers) => {
   Parsers.MSONNamedTypeParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
-      const [subject, subjectOffset] = utils.headerText(node, context.sourceLines);
+      const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
       const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       let signature;
       try {

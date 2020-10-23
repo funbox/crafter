@@ -55,7 +55,7 @@ module.exports = (Parsers) => {
       }
 
       if (curNode.type === 'heading' && context.sectionKeywordSignature(curNode) === SectionTypes.undefined) {
-        const [titleText, titleTextOffset] = utils.headerText(curNode, context.sourceLines);
+        const [titleText, titleTextOffset] = utils.headerTextWithOffset(curNode, context.sourceLines);
         title = utils.makeStringElement(titleText, titleTextOffset, curNode, context);
 
         curNode = curNode.next;
@@ -229,7 +229,7 @@ module.exports = (Parsers) => {
             throw new CrafterError('Import error. Entry directory should be defined.');
           }
 
-          const filename = ImportRegex.exec(utils.headerText(curNode, sourceLines)[0])[1].trim();
+          const filename = ImportRegex.exec(utils.headerText(curNode, sourceLines))[1].trim();
 
           if (!/\.apib$/.test(filename)) {
             throw new CrafterError(`File import error. File "${filename}" must have extension type ".apib".`);

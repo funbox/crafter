@@ -11,7 +11,7 @@ module.exports = (Parsers) => {
   Parsers.MessageParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
       let title;
-      const [subject, subjectOffset] = utils.headerText(node, context.sourceLines);
+      const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
       const [matchData, matchDataIndexes] = utils.matchStringToRegex(subject, MessageHeaderRegex);
 
       if (matchData[1]) {
@@ -26,7 +26,7 @@ module.exports = (Parsers) => {
 
     sectionType(node, context) {
       if (node.type === 'heading') {
-        const subject = utils.headerText(node, context.sourceLines)[0];
+        const subject = utils.headerText(node, context.sourceLines);
 
         if (MessageHeaderRegex.exec(subject)) {
           return SectionTypes.message;
