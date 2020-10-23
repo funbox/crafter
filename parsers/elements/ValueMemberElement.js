@@ -274,20 +274,21 @@ class ValueMemberElement {
       const namedTypes = this.nestedTypes.concat(this.type).filter(t => !isStandardType(t));
       const newTypesChain = namedTypesChain.concat(namedTypes);
 
-      const [contentSchema, contentUsedTypes] = this.content.getSchema(dataTypes, flags, newTypesChain);
+      const [contentSchema, contentUsedTypes] = this.content.getSchema(dataTypes, utils.mergeFlags(flags, this), newTypesChain);
       usedTypes.push(...contentUsedTypes);
 
-      if (typeEl) {
-        schema = accountPrecedence(schema, typeEl, this.content);
-      }
-
       if (!schema.$ref) {
+        if (typeEl) {
+          schema = accountPrecedence(schema, typeEl, this.content);
+        }
         schema = utils.mergeSchemas(schema, contentSchema);
       } else if (this.isObject() && !this.isRecursive(namedTypesChain)) {
-        const [typeElSchema, typeElUsedTypes] = typeEl.getSchema(dataTypes, typeEl.typeAttributes && utils.mergeFlags(flags, typeEl), newTypesChain);
+        const localFlags = utils.mergeFlags(flags, this);
+        const [typeElSchema, typeElUsedTypes] = typeEl.getSchema(dataTypes, utils.mergeFlags(localFlags, typeEl), newTypesChain);
 
         schema = utils.mergeSchemas(typeElSchema, contentSchema);
         schema = fillSchemaWithAttributes(schema, typeEl.typeAttributes);
+        schema = accountPrecedence(schema, typeEl, this.content);
 
         usedTypes.push(...typeElUsedTypes);
       }
