@@ -8,7 +8,7 @@ const ValueMemberElement = require('./elements/ValueMemberElement');
 const ValueMemberProcessor = require('../ValueMemberProcessor');
 const { parser: SignatureParser, typeAttributes } = require('../SignatureParser');
 
-const valueAttributes = ['pattern', 'format', 'minLength', 'maxLength', 'minimum', 'maximum'];
+const propertyAttributes = ['required', 'optional']; // see https://apielements.org/en/latest/element-definitions.html#member-element
 
 module.exports = (Parsers) => {
   Parsers.MSONAttributeParser = Object.assign(Object.create(require('./AbstractParser')), {
@@ -244,12 +244,12 @@ function splitTypeAttributes(typeAttrs) {
   const valueTypeAttributesIndexes = [];
 
   typeAttrs.forEach((attr, index) => {
-    if (Array.isArray(attr) && valueAttributes.includes(attr[0])) {
-      valueTypeAttributes.push(attr);
-      valueTypeAttributesIndexes.push(index);
-    } else {
+    if (propertyAttributes.includes(attr)) {
       propertyTypeAttributes.push(attr);
       propertyTypeAttributesIndexes.push(index);
+    } else {
+      valueTypeAttributes.push(attr);
+      valueTypeAttributesIndexes.push(index);
     }
   });
   return [propertyTypeAttributes, valueTypeAttributes, propertyTypeAttributesIndexes, valueTypeAttributesIndexes];

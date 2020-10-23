@@ -46,7 +46,7 @@ class PropertyMemberElement {
       element: Refract.elements.member,
       content: {
         key: this.name.toRefract(sourceMapsEnabled),
-        value: this.value.toRefract(sourceMapsEnabled, isFixed || this.typeAttributes.includes('fixed')),
+        value: this.value.toRefract(sourceMapsEnabled, isFixed || this.value.typeAttributes.includes('fixed')),
       },
     };
 
@@ -90,7 +90,7 @@ class PropertyMemberElement {
   getSchema(dataTypes, flags = new Flags(), namedTypesChain = []) {
     const schema = {};
 
-    const [valueSchema, usedTypes] = this.value.getSchema(dataTypes, utils.mergeFlags(flags, this, { propagateFixedType: false }), namedTypesChain);
+    const [valueSchema, usedTypes] = this.value.getSchema(dataTypes, utils.mergeFlags(flags, this.value, { propagateFixedType: false }), namedTypesChain);
 
     if (this.descriptionEl) {
       valueSchema.description = this.descriptionEl.string;
