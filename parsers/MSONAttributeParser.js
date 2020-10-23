@@ -87,7 +87,7 @@ module.exports = (Parsers) => {
         signature.type,
         valueTypeAttributes,
         signature.value,
-        '',
+        null,
         signature.isSample,
         signature.isDefault,
       );

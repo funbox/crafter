@@ -21,11 +21,15 @@ module.exports = (Parsers) => {
       const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       context.data.attributeSignatureDetails = { sourceMap, node: node.firstChild };
 
+      const description = signature.description
+        ? utils.makeStringElement(signature.description, signature.descriptionOffset, node.firstChild, context)
+        : null;
+
       const result = new ValueMemberElement(
         signature.type,
         signature.typeAttributes,
         signature.value,
-        signature.description,
+        description,
         signature.isSample,
       );
       try {

@@ -6,6 +6,7 @@ const AttributesElement = require('./elements/AttributesElement');
 const DataStructureProcessor = require('../DataStructureProcessor');
 const ValueMemberElement = require('./elements/ValueMemberElement');
 const ValueMemberProcessor = require('../ValueMemberProcessor');
+const StringElement = require('./elements/StringElement');
 
 const attributesRegex = /^[Aa]ttributes?$/;
 const { CrafterError, SignatureError } = utils;
@@ -147,7 +148,7 @@ module.exports = (Parsers) => {
         delete contentNode.skipLines;
 
         if (blockDescriptionEl) {
-          result.content.description = blockDescriptionEl.description;
+          result.content.description = new StringElement(blockDescriptionEl.description, blockDescriptionEl.sourceMap);
           result.content.sourceMap = result.content.sourceMap
             ? utils.concatSourceMaps([result.content.sourceMap, blockDescriptionEl.sourceMap])
             : blockDescriptionEl.sourceMap;
