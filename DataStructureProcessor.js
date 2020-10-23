@@ -303,9 +303,9 @@ class DataStructureProcessor {
           childResult = null;
           break;
         default: {
-          // TODO что делать в этом случае? Прерывать парсинг или пропускать ноду?
           const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-          throw new utils.CrafterError(`invalid sectionType: ${sectionType}`, sourceMap);
+          context.addWarning('Ignoring unrecognized block', sourceMap);
+          nextNode = utils.nextNode(curNode);
         }
       }
 
@@ -427,7 +427,8 @@ class DataStructureProcessor {
         }
         default: {
           const errorSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-          throw new utils.CrafterError(`invalid sectionType: ${sectionType}`, errorSourceMap);
+          context.addWarning('Ignoring unrecognized block', errorSourceMap);
+          nextNode = utils.nextNode(curNode);
         }
       }
 
