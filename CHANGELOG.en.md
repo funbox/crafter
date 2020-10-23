@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.66.1 (23.10.2020)
+
+* Switch to the next node when encountering an unknown node inside of a primitive element.
+
 ## 1.66.0 (23.10.2020)
 
 * Refactor SourceMap.
