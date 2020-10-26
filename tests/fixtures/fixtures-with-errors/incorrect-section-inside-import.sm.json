@@ -14,6 +14,51 @@
           ]
         }
       },
+      "attributes": {
+        "sourceMap": {
+          "element": "array",
+          "content": [
+            {
+              "element": "sourceMap",
+              "content": [
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 5
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 1
+                        }
+                      },
+                      "content": 73
+                    },
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 5
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 52
+                        }
+                      },
+                      "content": 52
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
       "content": "Invalid content of \"incorrect-section-inside-import-inner.apib\". Can't recognize \"Get user [GET]\" as API Blueprint section."
     }
   ]
