@@ -21,7 +21,7 @@
       "content": [
         {
           "element": "copy",
-          "content": "Defines a duplicated resource as an endpoint with method GET.\nProduces warning 'Action \"GET /users\" already defined.'.\nIt does not produce warning for the third endpoint due to different method POST."
+          "content": "Defines duplicated action without href \"/users\", one of them has optional parameters.\nProduces warning 'Action \"GET /users\" already defined.'."
         },
         {
           "element": "category",
@@ -46,7 +46,45 @@
               "attributes": {
                 "href": {
                   "element": "string",
-                  "content": "/users"
+                  "content": "/users{?param}"
+                },
+                "hrefVariables": {
+                  "element": "hrefVariables",
+                  "content": [
+                    {
+                      "element": "member",
+                      "content": {
+                        "key": {
+                          "element": "string",
+                          "content": "param"
+                        },
+                        "value": {
+                          "element": "string"
+                        }
+                      },
+                      "attributes": {
+                        "typeAttributes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "optional"
+                            }
+                          ]
+                        }
+                      },
+                      "meta": {
+                        "title": {
+                          "element": "string",
+                          "content": "string"
+                        },
+                        "description": {
+                          "element": "string",
+                          "content": "идентификатор категории видео"
+                        }
+                      }
+                    }
+                  ]
                 }
               },
               "content": [
@@ -73,32 +111,32 @@
                             "statusCode": {
                               "element": "number",
                               "content": 200
+                            },
+                            "headers": {
+                              "element": "httpHeaders",
+                              "content": [
+                                {
+                                  "element": "member",
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "Content-Type"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "content": "application/json"
+                                    }
+                                  }
+                                }
+                              ]
                             }
                           }
                         }
                       ]
                     }
-                  ],
-                  "meta": {
-                    "title": {
-                      "element": "string",
-                      "content": "List users"
-                    }
-                  },
-                  "attributes": {
-                    "href": {
-                      "element": "string",
-                      "content": "/users"
-                    }
-                  }
+                  ]
                 }
-              ],
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "List users"
-                }
-              }
+              ]
             },
             {
               "element": "resource",
@@ -132,91 +170,32 @@
                             "statusCode": {
                               "element": "number",
                               "content": 200
+                            },
+                            "headers": {
+                              "element": "httpHeaders",
+                              "content": [
+                                {
+                                  "element": "member",
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "Content-Type"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "content": "application/json"
+                                    }
+                                  }
+                                }
+                              ]
                             }
                           }
                         }
                       ]
                     }
-                  ],
-                  "meta": {
-                    "title": {
-                      "element": "string",
-                      "content": "Get users"
-                    }
-                  },
-                  "attributes": {
-                    "href": {
-                      "element": "string",
-                      "content": "/users"
-                    }
-                  }
+                  ]
                 }
-              ],
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Get users"
-                }
-              }
-            },
-            {
-              "element": "resource",
-              "attributes": {
-                "href": {
-                  "element": "string",
-                  "content": "/users"
-                }
-              },
-              "content": [
-                {
-                  "element": "transition",
-                  "content": [
-                    {
-                      "element": "httpTransaction",
-                      "content": [
-                        {
-                          "element": "httpRequest",
-                          "attributes": {
-                            "method": {
-                              "element": "string",
-                              "content": "POST"
-                            }
-                          },
-                          "content": []
-                        },
-                        {
-                          "element": "httpResponse",
-                          "content": [],
-                          "attributes": {
-                            "statusCode": {
-                              "element": "number",
-                              "content": 200
-                            }
-                          }
-                        }
-                      ]
-                    }
-                  ],
-                  "meta": {
-                    "title": {
-                      "element": "string",
-                      "content": "Send users"
-                    }
-                  },
-                  "attributes": {
-                    "href": {
-                      "element": "string",
-                      "content": "/users"
-                    }
-                  }
-                }
-              ],
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Send users"
-                }
-              }
+              ]
             }
           ]
         }
@@ -250,25 +229,25 @@
                       "attributes": {
                         "line": {
                           "element": "number",
-                          "content": 13
+                          "content": 19
                         },
                         "column": {
                           "element": "number",
                           "content": 1
                         }
                       },
-                      "content": 270
+                      "content": 320
                     },
                     {
                       "element": "number",
                       "attributes": {
                         "line": {
                           "element": "number",
-                          "content": 16
+                          "content": 21
                         },
                         "column": {
                           "element": "number",
-                          "content": 1
+                          "content": 34
                         }
                       },
                       "content": 43

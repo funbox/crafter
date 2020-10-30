@@ -21,7 +21,7 @@
       "content": [
         {
           "element": "copy",
-          "content": "Defines resource \"/users\" which has two actions with the same method GET.\nIt produces warning 'Action with method \"GET\" already defined for resource \"/users\"'."
+          "content": "Defines resource \"/users\" which has two actions with the same method GET.\nIt produces warning 'Action \"GET /users\" already defined.'."
         },
         {
           "element": "category",
@@ -187,7 +187,7 @@
                           "content": 1
                         }
                       },
-                      "content": 241
+                      "content": 215
                     },
                     {
                       "element": "number",
@@ -210,7 +210,7 @@
           ]
         }
       },
-      "content": "Action with method \"GET\" already defined for resource \"/users\""
+      "content": "Action \"GET /users\" already defined."
     }
   ]
 }

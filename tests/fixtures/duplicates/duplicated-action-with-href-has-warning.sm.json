@@ -46,7 +46,7 @@
       "content": [
         {
           "element": "copy",
-          "content": "Defines resource \"/users\" which has two actions with the same method GET and href \"/users/id\".\nProduces warning 'Action with href \"/users/id\" already defined for resource \"/users\"'.\nIt does not produce warning for the third GET-action due to different href \"/users/page\".",
+          "content": "Defines resource \"/users\" which has two actions with the same method GET and href \"/users/id\".\nProduces warning 'Action \"GET /users/id\" already defined'.\nIt does not produce warning for the third GET-action due to different href \"/users/page\".",
           "attributes": {
             "sourceMap": {
               "element": "array",
@@ -63,7 +63,7 @@
                         },
                         {
                           "element": "number",
-                          "content": 273
+                          "content": 245
                         }
                       ]
                     }
@@ -100,7 +100,7 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 291
+                              "content": 263
                             },
                             {
                               "element": "number",
@@ -134,7 +134,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 301
+                                  "content": 273
                                 },
                                 {
                                   "element": "number",
@@ -159,7 +159,7 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 298
+                              "content": 270
                             },
                             {
                               "element": "number",
@@ -197,7 +197,7 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 313
+                                              "content": 285
                                             },
                                             {
                                               "element": "number",
@@ -221,6 +221,195 @@
                             "statusCode": {
                               "element": "number",
                               "content": 200,
+                              "attributes": {
+                                "sourceMap": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "sourceMap",
+                                      "content": [
+                                        {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "number",
+                                              "content": 311
+                                            },
+                                            {
+                                              "element": "number",
+                                              "content": 3
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            "headers": {
+                              "element": "httpHeaders",
+                              "content": [
+                                {
+                                  "element": "member",
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "Content-Type"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "content": "application/json"
+                                    }
+                                  },
+                                  "attributes": {
+                                    "sourceMap": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "sourceMap",
+                                          "content": [
+                                            {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "number",
+                                                  "content": 316
+                                                },
+                                                {
+                                                  "element": "number",
+                                                  "content": 16
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              ],
+                              "attributes": {
+                                "sourceMap": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "sourceMap",
+                                      "content": [
+                                        {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "number",
+                                              "content": 316
+                                            },
+                                            {
+                                              "element": "number",
+                                              "content": 16
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            "sourceMap": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "sourceMap",
+                                  "content": [
+                                    {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "number",
+                                          "content": 300
+                                        },
+                                        {
+                                          "element": "number",
+                                          "content": 35
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "attributes": {
+                    "href": {
+                      "element": "string",
+                      "content": "/users/id",
+                      "attributes": {
+                        "sourceMap": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "sourceMap",
+                              "content": [
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "number",
+                                      "content": 289
+                                    },
+                                    {
+                                      "element": "number",
+                                      "content": 9
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    "sourceMap": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 281
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 54
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "element": "transition",
+                  "content": [
+                    {
+                      "element": "httpTransaction",
+                      "content": [
+                        {
+                          "element": "httpRequest",
+                          "attributes": {
+                            "method": {
+                              "element": "string",
+                              "content": "GET",
                               "attributes": {
                                 "sourceMap": {
                                   "element": "array",
@@ -246,6 +435,42 @@
                                   ]
                                 }
                               }
+                            }
+                          },
+                          "content": []
+                        },
+                        {
+                          "element": "httpResponse",
+                          "content": [],
+                          "attributes": {
+                            "statusCode": {
+                              "element": "number",
+                              "content": 200,
+                              "attributes": {
+                                "sourceMap": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "sourceMap",
+                                      "content": [
+                                        {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "number",
+                                              "content": 365
+                                            },
+                                            {
+                                              "element": "number",
+                                              "content": 3
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
                             },
                             "headers": {
                               "element": "httpHeaders",
@@ -274,7 +499,7 @@
                                               "content": [
                                                 {
                                                   "element": "number",
-                                                  "content": 344
+                                                  "content": 370
                                                 },
                                                 {
                                                   "element": "number",
@@ -301,7 +526,7 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 344
+                                              "content": 370
                                             },
                                             {
                                               "element": "number",
@@ -326,7 +551,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 328
+                                          "content": 354
                                         },
                                         {
                                           "element": "number",
@@ -359,7 +584,7 @@
                                   "content": [
                                     {
                                       "element": "number",
-                                      "content": 317
+                                      "content": 343
                                     },
                                     {
                                       "element": "number",
@@ -384,7 +609,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 309
+                                  "content": 335
                                 },
                                 {
                                   "element": "number",
@@ -410,42 +635,6 @@
                             "method": {
                               "element": "string",
                               "content": "GET",
-                              "attributes": {
-                                "sourceMap": {
-                                  "element": "array",
-                                  "content": [
-                                    {
-                                      "element": "sourceMap",
-                                      "content": [
-                                        {
-                                          "element": "array",
-                                          "content": [
-                                            {
-                                              "element": "number",
-                                              "content": 367
-                                            },
-                                            {
-                                              "element": "number",
-                                              "content": 3
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              }
-                            }
-                          },
-                          "content": []
-                        },
-                        {
-                          "element": "httpResponse",
-                          "content": [],
-                          "attributes": {
-                            "statusCode": {
-                              "element": "number",
-                              "content": 200,
                               "attributes": {
                                 "sourceMap": {
                                   "element": "array",
@@ -471,170 +660,17 @@
                                   ]
                                 }
                               }
-                            },
-                            "headers": {
-                              "element": "httpHeaders",
-                              "content": [
-                                {
-                                  "element": "member",
-                                  "content": {
-                                    "key": {
-                                      "element": "string",
-                                      "content": "Content-Type"
-                                    },
-                                    "value": {
-                                      "element": "string",
-                                      "content": "application/json"
-                                    }
-                                  },
-                                  "attributes": {
-                                    "sourceMap": {
-                                      "element": "array",
-                                      "content": [
-                                        {
-                                          "element": "sourceMap",
-                                          "content": [
-                                            {
-                                              "element": "array",
-                                              "content": [
-                                                {
-                                                  "element": "number",
-                                                  "content": 398
-                                                },
-                                                {
-                                                  "element": "number",
-                                                  "content": 16
-                                                }
-                                              ]
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                  }
-                                }
-                              ],
-                              "attributes": {
-                                "sourceMap": {
-                                  "element": "array",
-                                  "content": [
-                                    {
-                                      "element": "sourceMap",
-                                      "content": [
-                                        {
-                                          "element": "array",
-                                          "content": [
-                                            {
-                                              "element": "number",
-                                              "content": 398
-                                            },
-                                            {
-                                              "element": "number",
-                                              "content": 16
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              }
-                            },
-                            "sourceMap": {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "sourceMap",
-                                  "content": [
-                                    {
-                                      "element": "array",
-                                      "content": [
-                                        {
-                                          "element": "number",
-                                          "content": 382
-                                        },
-                                        {
-                                          "element": "number",
-                                          "content": 35
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              ]
                             }
-                          }
-                        }
-                      ]
-                    }
-                  ],
-                  "attributes": {
-                    "href": {
-                      "element": "string",
-                      "content": "/users/id",
-                      "attributes": {
-                        "sourceMap": {
-                          "element": "array",
-                          "content": [
-                            {
-                              "element": "sourceMap",
-                              "content": [
-                                {
-                                  "element": "array",
-                                  "content": [
-                                    {
-                                      "element": "number",
-                                      "content": 371
-                                    },
-                                    {
-                                      "element": "number",
-                                      "content": 9
-                                    }
-                                  ]
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      }
-                    },
-                    "sourceMap": {
-                      "element": "array",
-                      "content": [
+                          },
+                          "content": []
+                        },
                         {
-                          "element": "sourceMap",
-                          "content": [
-                            {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "number",
-                                  "content": 363
-                                },
-                                {
-                                  "element": "number",
-                                  "content": 54
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  }
-                },
-                {
-                  "element": "transition",
-                  "content": [
-                    {
-                      "element": "httpTransaction",
-                      "content": [
-                        {
-                          "element": "httpRequest",
+                          "element": "httpResponse",
+                          "content": [],
                           "attributes": {
-                            "method": {
-                              "element": "string",
-                              "content": "GET",
+                            "statusCode": {
+                              "element": "number",
+                              "content": 200,
                               "attributes": {
                                 "sourceMap": {
                                   "element": "array",
@@ -660,42 +696,6 @@
                                   ]
                                 }
                               }
-                            }
-                          },
-                          "content": []
-                        },
-                        {
-                          "element": "httpResponse",
-                          "content": [],
-                          "attributes": {
-                            "statusCode": {
-                              "element": "number",
-                              "content": 200,
-                              "attributes": {
-                                "sourceMap": {
-                                  "element": "array",
-                                  "content": [
-                                    {
-                                      "element": "sourceMap",
-                                      "content": [
-                                        {
-                                          "element": "array",
-                                          "content": [
-                                            {
-                                              "element": "number",
-                                              "content": 449
-                                            },
-                                            {
-                                              "element": "number",
-                                              "content": 3
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              }
                             },
                             "headers": {
                               "element": "httpHeaders",
@@ -724,7 +724,7 @@
                                               "content": [
                                                 {
                                                   "element": "number",
-                                                  "content": 454
+                                                  "content": 426
                                                 },
                                                 {
                                                   "element": "number",
@@ -751,7 +751,7 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 454
+                                              "content": 426
                                             },
                                             {
                                               "element": "number",
@@ -776,7 +776,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 438
+                                          "content": 410
                                         },
                                         {
                                           "element": "number",
@@ -809,7 +809,7 @@
                                   "content": [
                                     {
                                       "element": "number",
-                                      "content": 425
+                                      "content": 397
                                     },
                                     {
                                       "element": "number",
@@ -834,7 +834,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 417
+                                  "content": 389
                                 },
                                 {
                                   "element": "number",
@@ -863,7 +863,7 @@
                       "content": [
                         {
                           "element": "number",
-                          "content": 283
+                          "content": 255
                         },
                         {
                           "element": "number",
@@ -894,7 +894,7 @@
                     },
                     {
                       "element": "number",
-                      "content": 273
+                      "content": 245
                     }
                   ]
                 },
@@ -903,7 +903,7 @@
                   "content": [
                     {
                       "element": "number",
-                      "content": 283
+                      "content": 255
                     },
                     {
                       "element": "number",
@@ -952,7 +952,7 @@
                           "content": 1
                         }
                       },
-                      "content": 363
+                      "content": 335
                     },
                     {
                       "element": "number",
@@ -975,7 +975,7 @@
           ]
         }
       },
-      "content": "Action with href \"/users/id\" already defined for resource \"/users\""
+      "content": "Action \"GET /users/id\" already defined."
     }
   ]
 }
