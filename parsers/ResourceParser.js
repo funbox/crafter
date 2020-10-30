@@ -123,12 +123,9 @@ module.exports = (Parsers) => {
 
       if (this.nestedSectionType(node, context) === SectionTypes.action) {
         [nextNode, childResult] = Parsers.ActionParser.parse(node, context);
-        if (this.checkForActionDuplicates(result, childResult)) {
-          const warningMessage = childResult.href
-            ? `Action with href "${childResult.href.string}" already defined for resource "${result.href.string}"`
-            : `Action with method "${childResult.method.string}" already defined for resource "${result.href.string}"`;
-          context.addWarning(warningMessage, childResult.sourceMap);
-        }
+
+        this.checkForActionDuplicates(result, childResult, context);
+
         result.actions.push(childResult);
 
         if (Object.keys(context.data).includes('endpointActionsCount')) {
@@ -149,34 +146,45 @@ module.exports = (Parsers) => {
         result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.description.sourceMap], context.sourceBuffer, context.linefeedOffsets);
       }
 
-      const { resourceEndpointMethod } = context.data;
-      const metaResource = {
-        href: result.href.string,
-        method: resourceEndpointMethod,
-      };
-      if (context.checkResourceExists(metaResource)) {
-        context.addWarning(`The resource "${result.href.string}" is already defined`, result.href.sourceMap);
-      } else {
-        context.addResource(metaResource);
-      }
       context.resourcePrototypes.pop(); // очищаем стек с прототипами данного ресурса
       context.popFrame();
+
       return result;
     },
 
-    checkForActionDuplicates(resource, childAction) {
-      return resource.actions.some(action => {
-        if (!childAction.href) {
-          // compare only method
-          return (!action.href && action.method.equals(childAction.method));
+    checkForActionDuplicates(resource, action, context) {
+      const getActionString = (method, href, parameters) => {
+        let actionHref = href.string;
+
+        if (parameters) {
+          const actionRequiredParamElements = parameters.parameters.filter(paramEl => (
+            paramEl.typeAttributes.some(attr => attr.string === 'required')
+          ));
+
+          const actionRequiredParamsString = actionRequiredParamElements
+            .map(el => el.name.string)
+            .sort()
+            .join(',');
+
+          const actionUri = actionHref.split('{')[0];
+
+          actionHref = actionRequiredParamsString ? `${actionUri}{?${actionRequiredParamsString}}` : actionUri;
         }
 
-        return (
-          !!action.href
-          && action.href.equals(childAction.href)
-          && action.method.equals(childAction.method)
-        );
-      });
+        return `${method.string} ${actionHref}`;
+      };
+
+      const method = action.method;
+      const href = action.href || resource.href;
+      const parameters = action.parameters || resource.parameters;
+
+      const actionString = getActionString(method, href, parameters);
+
+      if (!context.checkActionExists(actionString)) {
+        context.addAction(actionString);
+      } else {
+        context.addWarning(`Action "${actionString}" already defined.`, action.sourceMap);
+      }
     },
   });
   return true;

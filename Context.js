@@ -15,7 +15,7 @@ class Context {
     this.data = {};
     this.frames = [];
     this.resourcePrototypes = [];
-    this.usedResources = new Map();
+    this.usedActions = new Set();
     this.currentFile = options.currentFile;
     this.logger = options.logger;
     this.sourceMapsEnabled = options.sourceMapsEnabled;
@@ -61,22 +61,12 @@ class Context {
     return this.typeResolver.checkTypeExists(typeName);
   }
 
-  addResource(resource) {
-    this.usedResources.set(resource.href, resource);
+  addAction(actionString) {
+    this.usedActions.add(actionString);
   }
 
-  checkResourceExists(resource) {
-    const existingResource = this.usedResources.get(resource.href);
-
-    if (!existingResource) {
-      return false;
-    }
-
-    if (existingResource && existingResource.method) {
-      return existingResource.method === resource.method;
-    }
-
-    return true;
+  checkActionExists(actionString) {
+    return this.usedActions.has(actionString);
   }
 
   addResourcePrototype(prototype) {
