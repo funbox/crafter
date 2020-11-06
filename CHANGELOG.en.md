@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.67.0 (06.11.2020)
+
+* Check if resource has duplicated actions.
+
 ## 1.66.3 (06.11.2020)
 
 * Fix typos in docs.
