@@ -21,7 +21,6 @@ class Context {
     this.sourceMapsEnabled = options.sourceMapsEnabled;
     this.entryDir = options.entryDir;
     this.typeExtractingInProgress = false;
-    this.typeResolvingInProgress = false;
     this.warningsEnabled = true;
     this.warnings = [];
     this.filePaths = [];
