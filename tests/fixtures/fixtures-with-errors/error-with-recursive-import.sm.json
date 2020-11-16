@@ -1,0 +1,66 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "annotation",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "error"
+            }
+          ]
+        }
+      },
+      "attributes": {
+        "sourceMap": {
+          "element": "array",
+          "content": [
+            {
+              "element": "sourceMap",
+              "content": [
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 1
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 1
+                        }
+                      },
+                      "content": 0
+                    },
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 1
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 48
+                        }
+                      },
+                      "content": 48
+                    }
+                  ]
+                }
+              ],
+              "file": "error-with-recursive-import-inner-inner.apib"
+            }
+          ]
+        }
+      },
+      "content": "Recursive import: error-with-recursive-import-inner.apib → error-with-recursive-import-inner-inner.apib → error-with-recursive-import-inner.apib"
+    }
+  ]
+}
