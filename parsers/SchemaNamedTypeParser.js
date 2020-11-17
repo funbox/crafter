@@ -7,6 +7,9 @@ const { CrafterError } = utils;
 module.exports = (Parsers) => {
   Parsers.SchemaNamedTypeParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
+      context.pushFrame();
+      context.data.startNode = node;
+
       const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
       const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
@@ -67,17 +70,23 @@ module.exports = (Parsers) => {
         }
       }
 
-      result.sourceMap = utils.mergeSourceMaps([result.sourceMap, childResult.sourceMap], context.sourceBuffer, context.linefeedOffsets);
+      const sourceBuffer = context.data.startNode.sourceBuffer || context.sourceBuffer;
+      const linefeedOffsets = context.data.startNode.linefeedOffsets || context.linefeedOffsets;
+      result.sourceMap = utils.mergeSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
 
       return [nextNode, result];
     },
 
     finalize(context, result) {
       if (result.description) {
-        result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.description.sourceMap], context.sourceBuffer, context.linefeedOffsets);
+        const sourceBuffer = context.data.startNode.sourceBuffer || context.sourceBuffer;
+        const linefeedOffsets = context.data.startNode.linefeedOffsets || context.linefeedOffsets;
+        result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
       }
 
       const { attributeSignatureDetails: details } = context.data;
+
+      context.popFrame();
 
       if (!result.bodyEl) throw new CrafterError('Schema named type element must contain body section', details.sourceMap);
       if (!result.schemaEl) throw new CrafterError('Schema named type element must contain schema section', details.sourceMap);

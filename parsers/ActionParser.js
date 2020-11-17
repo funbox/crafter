@@ -24,6 +24,7 @@ module.exports = (Parsers) => {
       const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
 
       const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      context.data.startNode = node;
       context.data.actionSignatureDetails = { sourceMap };
 
       const actionHeaderMatchResult = utils.matchStringToRegex(subject, ActionHeaderRegex);
@@ -141,14 +142,18 @@ module.exports = (Parsers) => {
         result.responses.push(childResult);
       }
 
-      result.sourceMap = utils.mergeSourceMaps([result.sourceMap, childResult.sourceMap], context.sourceBuffer, context.linefeedOffsets);
+      const sourceBuffer = context.data.startNode.sourceBuffer || context.sourceBuffer;
+      const linefeedOffsets = context.data.startNode.linefeedOffsets || context.linefeedOffsets;
+      result.sourceMap = utils.mergeSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
 
       return [nextNode, result];
     },
 
     finalize(context, result) {
       if (result.description) {
-        result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.description.sourceMap], context.sourceBuffer, context.linefeedOffsets);
+        const sourceBuffer = context.data.startNode.sourceBuffer || context.sourceBuffer;
+        const linefeedOffsets = context.data.startNode.linefeedOffsets || context.linefeedOffsets;
+        result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
       }
 
       const { actionSignatureDetails: details } = context.data;

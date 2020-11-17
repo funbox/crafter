@@ -14,6 +14,9 @@ const { CrafterError } = utils;
 module.exports = (Parsers) => {
   Parsers.MSONNamedTypeParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
+      context.pushFrame();
+      context.data.startNode = node;
+
       const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
       const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       let signature;
@@ -298,7 +301,9 @@ module.exports = (Parsers) => {
       }
 
       if (result.content.sourceMap) {
-        result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.content.sourceMap], context.sourceBuffer, context.linefeedOffsets);
+        const sourceBuffer = context.data.startNode.sourceBuffer || context.sourceBuffer;
+        const linefeedOffsets = context.data.startNode.linefeedOffsets || context.linefeedOffsets;
+        result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.content.sourceMap], sourceBuffer, linefeedOffsets);
       }
 
       return [curNode, result];
@@ -309,7 +314,9 @@ module.exports = (Parsers) => {
         const [curNode, desc] = utils.extractDescription(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
         result.description = desc;
-        result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.description.sourceMap], context.sourceBuffer, context.linefeedOffsets);
+        const sourceBuffer = context.data.startNode.sourceBuffer || context.sourceBuffer;
+        const linefeedOffsets = context.data.startNode.linefeedOffsets || context.linefeedOffsets;
+        result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
 
         return [curNode, result];
       }
@@ -331,6 +338,8 @@ module.exports = (Parsers) => {
       }
 
       utils.validateAttributesConsistency(context, result.content, attributeSignatureDetails, typeAttributes);
+
+      context.popFrame();
 
       return result;
     },

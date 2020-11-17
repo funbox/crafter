@@ -10,6 +10,9 @@ const MessageHeaderRegex = new RegExp(`^[Mm]essage\\s*(${RegExpStrings.symbolIde
 module.exports = (Parsers) => {
   Parsers.MessageParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
+      context.pushFrame();
+      context.data.startNode = node;
+
       let title;
       const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
       const [matchData, matchDataIndexes] = utils.matchStringToRegex(subject, MessageHeaderRegex);
@@ -72,14 +75,18 @@ module.exports = (Parsers) => {
         result.content.push(childResult);
       }
 
-      result.sourceMap = utils.mergeSourceMaps([result.sourceMap, childResult.sourceMap], context.sourceBuffer, context.linefeedOffsets);
+      const sourceBuffer = context.data.startNode.sourceBuffer || context.sourceBuffer;
+      const linefeedOffsets = context.data.startNode.linefeedOffsets || context.linefeedOffsets;
+      result.sourceMap = utils.mergeSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
 
       return [nextNode, result];
     },
 
     finalize(context, result) {
       if (result.description) {
-        result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.description.sourceMap], context.sourceBuffer, context.linefeedOffsets);
+        const sourceBuffer = context.data.startNode.sourceBuffer || context.sourceBuffer;
+        const linefeedOffsets = context.data.startNode.linefeedOffsets || context.linefeedOffsets;
+        result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
       }
 
       const hasCustomBody = result.content.find(item => (item instanceof BodyElement));
@@ -99,6 +106,8 @@ module.exports = (Parsers) => {
           result.content.push(new SchemaElement(schema));
         }
       }
+
+      context.popFrame();
 
       return result;
     },
