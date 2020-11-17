@@ -31,7 +31,10 @@ const testPath = {
     };
   },
   get fixturesWithWarnings() {
-    return `${this.base}/fixtures-with-warnings`;
+    return {
+      path: `${this.base}/fixtures-with-warnings`,
+      exclude: /-inner\.apib$/,
+    };
   },
   get copy() {
     return `${this.base}/copy`;
