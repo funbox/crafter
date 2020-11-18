@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.67.1 (18.11.2020)
+
+* Fix generated charBlocks when doc includes multiple files.
+
 ## 1.67.0 (06.11.2020)
 
 * Check if resource has duplicated actions.
