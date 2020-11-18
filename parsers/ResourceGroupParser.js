@@ -9,7 +9,6 @@ module.exports = (Parsers) => {
   Parsers.ResourceGroupParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
       context.pushFrame();
-      context.data.startNode = node;
 
       const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
       const [matchData, matchDataIndexes] = utils.matchStringToRegex(subject, GroupHeaderRegex);
@@ -101,8 +100,8 @@ module.exports = (Parsers) => {
           result.resources.push(childResult);
       }
 
-      const sourceBuffer = context.data.startNode.sourceBuffer || context.sourceBuffer;
-      const linefeedOffsets = context.data.startNode.linefeedOffsets || context.linefeedOffsets;
+      const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
+      const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
       result.sourceMap = utils.mergeSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
 
       return [nextNode, result];
@@ -110,8 +109,8 @@ module.exports = (Parsers) => {
 
     finalize(context, result) {
       if (result.description) {
-        const sourceBuffer = context.data.startNode.sourceBuffer || context.sourceBuffer;
-        const linefeedOffsets = context.data.startNode.linefeedOffsets || context.linefeedOffsets;
+        const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
+        const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
         result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
       }
 

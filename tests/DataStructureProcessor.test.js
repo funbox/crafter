@@ -32,6 +32,7 @@ function getFilledElementFromSource(source) {
       warn(text) { warnings.push(text); },
     },
   });
+  context.rootNode = ast.firstChild;
   const subject = utils.nodeText(ast.firstChild, context.sourceLines);
   const signature = new SignatureParser(subject);
   signature.warnings.forEach(warning => context.logger.warn(warning));

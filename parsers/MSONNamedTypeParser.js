@@ -15,7 +15,6 @@ module.exports = (Parsers) => {
   Parsers.MSONNamedTypeParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
       context.pushFrame();
-      context.data.startNode = node;
 
       const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
       const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
@@ -301,8 +300,8 @@ module.exports = (Parsers) => {
       }
 
       if (result.content.sourceMap) {
-        const sourceBuffer = context.data.startNode.sourceBuffer || context.sourceBuffer;
-        const linefeedOffsets = context.data.startNode.linefeedOffsets || context.linefeedOffsets;
+        const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
+        const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
         result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.content.sourceMap], sourceBuffer, linefeedOffsets);
       }
 
@@ -314,8 +313,8 @@ module.exports = (Parsers) => {
         const [curNode, desc] = utils.extractDescription(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
         result.description = desc;
-        const sourceBuffer = context.data.startNode.sourceBuffer || context.sourceBuffer;
-        const linefeedOffsets = context.data.startNode.linefeedOffsets || context.linefeedOffsets;
+        const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
+        const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
         result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
 
         return [curNode, result];

@@ -40,8 +40,8 @@ module.exports = (Parsers) => {
     processNestedSection(node, context, result) {
       const [nextNode, childResult] = Parsers.MSONNamedTypeParser.parse(node, context);
       result.dataStructures.push(childResult);
-      const sourceBuffer = node.sourceBuffer || context.sourceBuffer;
-      const linefeedOffsets = node.linefeedOffsets || context.linefeedOffsets;
+      const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
+      const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
       result.sourceMap = utils.mergeSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
 
       return [nextNode, result];

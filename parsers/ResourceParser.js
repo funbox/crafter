@@ -18,7 +18,6 @@ module.exports = (Parsers) => {
       let nodeToReturn = node;
 
       context.pushFrame();
-      context.data.startNode = node;
 
       const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
       const [sectionType, [matchData, matchDataIndexes]] = getSectionType(subject);
@@ -137,8 +136,8 @@ module.exports = (Parsers) => {
         result.parameters = childResult;
       }
 
-      const sourceBuffer = context.data.startNode.sourceBuffer || context.sourceBuffer;
-      const linefeedOffsets = context.data.startNode.linefeedOffsets || context.linefeedOffsets;
+      const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
+      const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
       result.sourceMap = utils.mergeSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
 
       return [nextNode, result];
@@ -146,8 +145,8 @@ module.exports = (Parsers) => {
 
     finalize(context, result) {
       if (result.description) {
-        const sourceBuffer = context.data.startNode.sourceBuffer || context.sourceBuffer;
-        const linefeedOffsets = context.data.startNode.linefeedOffsets || context.linefeedOffsets;
+        const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
+        const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
         result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
       }
 

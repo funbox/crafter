@@ -324,8 +324,8 @@ class DataStructureProcessor {
     valueMember.content = objectElement;
 
     if (objectElement.propertyMembers.length) {
-      const sourceBuffer = node.sourceBuffer || context.sourceBuffer;
-      const linefeedOffsets = node.linefeedOffsets || context.linefeedOffsets;
+      const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
+      const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
       const sourceMap = utils.mergeSourceMaps(objectElement.propertyMembers.map(pm => pm.sourceMap), sourceBuffer, linefeedOffsets);
 
       if (valueMember.sourceMap) {
