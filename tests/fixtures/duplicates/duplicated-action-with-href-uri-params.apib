@@ -1,0 +1,22 @@
+# My API
+
+Defines resource "/users" which has two actions with the same method GET and different href with defined URI parameter.
+It does not produce warning for the second GET-action due to different href "/users/{id}/comments".
+
+# Group Users
+
+## /users
+
+### GET /users/{id}
+
++ Parameters
+    + id: 42 (number, required) - user id
+
++ Response 200 (application/json)
+
+### GET /users/{id}/comments
+
++ Parameters
+    + id: 42 (number, required) - user id
+
++ Response 200 (application/json)
