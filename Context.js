@@ -25,6 +25,7 @@ class Context {
     this.warnings = [];
     this.filePaths = [];
     this.debugMode = options.debugMode;
+    this.readFile = options.readFile || readFile;
 
     this.sectionKeywordSignatureParsers = [
       'DefaultValue',
@@ -99,7 +100,7 @@ class Context {
     let file;
 
     try {
-      file = await fs.promises.readFile(fullPath, { encoding: 'utf-8' });
+      file = await this.readFile(fullPath);
     } catch (e) {
       throw new CrafterError(`File reading error. File "${filename}" not found or unreadable.`, sourceMap);
     }
@@ -154,6 +155,10 @@ function getLinefeedOffsets(source) {
   }
 
   return offsets;
+}
+
+function readFile(filePath) {
+  return fs.promises.readFile(filePath, { encoding: 'utf-8' });
 }
 
 module.exports = Context;
