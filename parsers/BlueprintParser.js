@@ -12,9 +12,9 @@ const ImportRegex = /^[Ii]mport\s+(.+)$/;
 
 module.exports = (Parsers) => {
   Parsers.BlueprintParser = {
-    parse(node, context) {
+    async parse(node, context) {
       try {
-        this.preprocessNestedSections(node, context);
+        await this.preprocessNestedSections(node, context);
       } catch (error) {
         if (context.debugMode) {
           throw error;
@@ -140,7 +140,7 @@ module.exports = (Parsers) => {
       ]);
     },
 
-    preprocessNestedSections(node, context) {
+    async preprocessNestedSections(node, context) {
       const usedFiles = context.currentFile ? [context.currentFileName()] : [];
 
       const walkAST = (sectionProcessors) => {
@@ -160,7 +160,7 @@ module.exports = (Parsers) => {
 
       context.typeExtractingInProgress = true;
 
-      this.resolveImports(node, context, usedFiles);
+      await this.resolveImports(node, context, usedFiles);
 
       walkAST({
         [SectionTypes.schemaStructureGroup]: (curNode) => {
@@ -217,7 +217,7 @@ module.exports = (Parsers) => {
       context.enableWarnings();
     },
 
-    resolveImports(entryNode, context, usedFiles) {
+    async resolveImports(entryNode, context, usedFiles) {
       const { sourceLines } = context;
       const parentNode = entryNode.parent;
       const newChildren = [];
@@ -243,7 +243,7 @@ module.exports = (Parsers) => {
 
           usedFiles.push(filename);
 
-          const { ast: childAst, context: childContext } = context.getApibAST(filename, sourceMap);
+          const { ast: childAst, context: childContext } = await context.getApibAST(filename, sourceMap);
           const childSourceLines = childContext.sourceLines;
           const childSourceBuffer = childContext.sourceBuffer;
           const childLinefeedOffsets = childContext.linefeedOffsets;
@@ -264,7 +264,7 @@ module.exports = (Parsers) => {
           context.filePaths.push(`${context.resolvePathRelativeToEntryDir(filename)}`);
 
           addSourceLinesAndFilename(childAst, childSourceLines, childSourceBuffer, childLinefeedOffsets, context.resolvePathRelativeToEntryDir(filename));
-          this.resolveImports(childAst.firstChild, childContext, usedFiles);
+          await this.resolveImports(childAst.firstChild, childContext, usedFiles);
 
           let childNode = childAst.firstChild;
           while (childNode) {
@@ -275,7 +275,7 @@ module.exports = (Parsers) => {
           usedFiles.pop();
         } else {
           if (curNode.firstChild) {
-            this.resolveImports(curNode.firstChild, context, usedFiles);
+            await this.resolveImports(curNode.firstChild, context, usedFiles);
           }
           newChildren.push(curNode);
         }

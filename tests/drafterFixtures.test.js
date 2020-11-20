@@ -45,11 +45,11 @@ const logger = {
   warn() {},
 };
 
-test.each(apibFiles)('%s', filepath => {
-  const result = Crafter.parseFileSync(filepath, { logger })[0];
+test.each(apibFiles)('%s', async (filepath) => {
+  const result = (await Crafter.parseFile(filepath, { logger }))[0];
 
   const jsonFilepath = filepath.replace(APIB_REGEX, '.json');
-  const exampleFile = fs.readFileSync(jsonFilepath, { encoding: 'utf-8' });
+  const exampleFile = await fs.promises.readFile(jsonFilepath, { encoding: 'utf-8' });
   const example = JSON.parse(exampleFile);
 
   expect(result.toRefract()).toEqual(example);

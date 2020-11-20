@@ -87,7 +87,7 @@ const testFilesFrom = (location) => {
   const files = fs.readdirSync(path);
   files.forEach((f) => {
     if (apibRegex.exec(f) && ((location.exclude && !location.exclude.test(f)) || !location.exclude)) {
-      test(f, () => {
+      test(f, async () => {
         const logger = {
           store: undefined,
           warn(text) {
@@ -95,16 +95,16 @@ const testFilesFrom = (location) => {
           },
         };
         const filePath = `${path}/${f}`;
-        const example = getMatchingData(f, path);
-        const result = Crafter.parseFileSync(filePath, { logger })[0];
+        const example = await getMatchingData(f, path);
+        const result = (await Crafter.parseFile(filePath, { logger }))[0];
         const refract = result.toRefract();
         expect(refract).toEqual(example);
         expect(() => {
           elements.fromRefract(refract);
         }).not.toThrowError();
 
-        const exampleSm = getMatchingData(f, path, true);
-        const resultSm = Crafter.parseFileSync(filePath, { logger, sourceMapsEnabled: true })[0];
+        const exampleSm = await getMatchingData(f, path, true);
+        const resultSm = (await Crafter.parseFile(filePath, { logger, sourceMapsEnabled: true }))[0];
         expect(resultSm.toRefract(true)).toEqual(exampleSm);
 
         if (/has-warning/.test(f)) {
@@ -118,137 +118,127 @@ const testFilesFrom = (location) => {
   });
 };
 
-describe('common fixtures', () => {
+describe('common fixtures', async () => {
   testFilesFrom(testPath.base);
 });
 
-describe('resource-proto fixtures', () => {
+describe('resource-proto fixtures', async () => {
   testFilesFrom(testPath.resourceProto);
 });
 
-describe('arrays fixtures', () => {
+describe('arrays fixtures', async () => {
   testFilesFrom(testPath.arrays);
 });
 
-describe('enum fixtures', () => {
+describe('enum fixtures', async () => {
   testFilesFrom(testPath.enum);
 });
 
-describe('one-of-type fixtures', () => {
+describe('one-of-type fixtures', async () => {
   testFilesFrom(testPath.oneOf);
 });
 
-describe('import fixtures', () => {
+describe('import fixtures', async () => {
   testFilesFrom(testPath.import);
 });
 
-describe('wrong-sections fixtures', () => {
+describe('wrong-sections fixtures', async () => {
   testFilesFrom(testPath.wrongSections);
 });
 
-describe('fixtures with errors', () => {
+describe('fixtures with errors', async () => {
   testFilesFrom(testPath.fixturesWithErrors);
 });
 
-describe('fixtures with warnings', () => {
+describe('fixtures with warnings', async () => {
   testFilesFrom(testPath.fixturesWithWarnings);
 });
 
-describe('copy fixtures', () => {
+describe('copy fixtures', async () => {
   testFilesFrom(testPath.copy);
 });
 
-describe('source maps fixtures', () => {
+describe('source maps fixtures', async () => {
   testFilesFrom(testPath.sourceMaps);
 });
 
-describe('fixtures with member separators', () => {
+describe('fixtures with member separators', async () => {
   testFilesFrom(testPath.groupMemberSeparators);
 });
 
-describe('fixtures with block description', () => {
+describe('fixtures with block description', async () => {
   testFilesFrom(testPath.blockDescription);
 });
 
-describe('schema fixtures', () => {
+describe('schema fixtures', async () => {
   testFilesFrom(testPath.schema);
 });
 
-describe('pattern fixtures', () => {
+describe('pattern fixtures', async () => {
   testFilesFrom(testPath.pattern);
 });
 
-describe('format fixtures', () => {
+describe('format fixtures', async () => {
   testFilesFrom(testPath.format);
 });
 
-describe('fixed-size fixtures', () => {
+describe('fixed-size fixtures', async () => {
   testFilesFrom(testPath.fixedSize);
 });
 
-describe('fixtures with subgroups and messages', () => {
+describe('fixtures with subgroups and messages', async () => {
   testFilesFrom(testPath.messageGroups);
 });
 
-describe('recursive arrays fixtures', () => {
+describe('recursive arrays fixtures', async () => {
   testFilesFrom(testPath.recursiveArrays);
 });
 
-describe('recursive object fixtures', () => {
+describe('recursive object fixtures', async () => {
   testFilesFrom(testPath.recursiveObjects);
 });
 
-describe('fixtures with duplicated resources', () => {
+describe('fixtures with duplicated resources', async () => {
   testFilesFrom(testPath.duplicates);
 });
 
-describe('fixtures with inheritance', () => {
+describe('fixtures with inheritance', async () => {
   testFilesFrom(testPath.inheritance);
 });
 
-describe('Crafter with callback', () => {
-  it('Parses a source with and without options', (done) => {
+describe('Crafter isError field', () => {
+  it('Parses a source with and without options', async () => {
     const file = 'simple.apib';
     const path = testPath.base;
     const options = {};
-    const source = readFile(file, path);
-    const example = getMatchingData(file, path);
+    const source = await readFile(file, path);
+    const example = await getMatchingData(file, path);
 
-    Crafter.parse(source, options, (error, result) => {
-      expect(error).toBeUndefined();
-      expect(result[0].toRefract()).toEqual(example);
-      expect(result[0].isError).toBe(false);
+    const result1 = await Crafter.parse(source, options);
+    expect(result1[0].toRefract()).toEqual(example);
+    expect(result1[0].isError).toBe(false);
 
-      Crafter.parse(source, (error2, result2) => {
-        expect(error2).toBeUndefined();
-        expect(result2[0].toRefract()).toEqual(example);
-        expect(result2[0].isError).toBe(false);
-        done();
-      });
-    });
+    const result2 = await Crafter.parse(source);
+    expect(result2[0].toRefract()).toEqual(example);
+    expect(result2[0].isError).toBe(false);
   });
 
-  it('Returns an error with and without options', (done) => {
+  it('Returns an error with and without options', async () => {
     const file = 'undefined-data-type.apib';
     const path = testPath.fixturesWithErrors.path;
     const options = {};
-    const source = readFile(file, path);
+    const source = await readFile(file, path);
 
-    Crafter.parse(source, options, (error, result) => {
-      expect(error).toBeUndefined();
-      expect(result[0].isError).toBe(true);
+    const result1 = await Crafter.parse(source, options);
+    expect(result1[0].isError).toBe(true);
 
-      Crafter.parse(source, (error2, result2) => {
-        expect(error2).toBeUndefined();
-        expect(result2[0].isError).toBe(true);
-        done();
-      });
-    });
+    const result2 = await Crafter.parse(source);
+    expect(result2[0].isError).toBe(true);
   });
 });
 
 describe('Crafter in debug mode', () => {
-  it('Returns an error in debug mode', () => {
+  it('Returns an error in debug mode', async () => {
     const logger = {
       store: undefined,
       warn(text) {
@@ -257,64 +247,64 @@ describe('Crafter in debug mode', () => {
     };
     const filePath = `${testPath.fixturesWithErrors.path}/undefined-mixin-in-data-structure.apib`;
 
-    expect(() => {
-      Crafter.parseFileSync(filePath, { logger, sourceMapsEnabled: true, debugMode: true });
-    }).toThrow('Mixin "(BaseResponse)" is not defined in the document.');
+    await expect(Crafter.parseFile(filePath, { logger, sourceMapsEnabled: true, debugMode: true }))
+      .rejects
+      .toThrow('Mixin "(BaseResponse)" is not defined in the document.');
   });
 });
 
-it('parses from source without options passed', () => {
+it('parses from source without options passed', async () => {
   const file = 'simple.apib';
   const path = testPath.base;
   const options = {};
 
-  testFromSource(file, path, options);
+  await testFromSource(file, path, options);
 });
 
-it('parses from source and includes imports', () => {
+it('parses from source and includes imports', async () => {
   const file = 'resource.apib';
   const path = testPath.import.path;
   const options = { entryDir: path };
 
-  testFromSource(file, path, options);
+  await testFromSource(file, path, options);
 });
 
-it('parses from source and includes nested imports', () => {
+it('parses from source and includes nested imports', async () => {
   const file = 'nested.apib';
   const path = testPath.import.path;
   const options = { entryDir: path };
 
-  testFromSource(file, path, options);
+  await testFromSource(file, path, options);
 });
 
-it('throws an error when parsing from source with imports and without entryDir option defined', () => {
+it('throws an error when parsing from source with imports and without entryDir option defined', async () => {
   const file = 'nested.apib';
   const path = testPath.import.path;
   const options = {};
 
-  const source = readFile(file, path);
+  const source = await readFile(file, path);
 
-  expect(Crafter.parseSync(source, options)[0].isError).toBe(true);
+  expect((await Crafter.parse(source, options))[0].isError).toBe(true);
 });
 
 function readFile(file, path) {
-  return fs.readFileSync(`${path}/${file}`, { encoding: 'utf-8' });
+  return fs.promises.readFile(`${path}/${file}`, { encoding: 'utf-8' });
 }
 
-function getMatchingData(file, path, isSourceMaps = false) {
+async function getMatchingData(file, path, isSourceMaps = false) {
   const ext = !isSourceMaps ? '.json' : '.sm.json';
-  return JSON.parse(readFile(file.replace(apibRegex, ext), path));
+  return JSON.parse(await readFile(file.replace(apibRegex, ext), path));
 }
 
-function testFromSource(file, path, options) {
-  const source = readFile(file, path);
+async function testFromSource(file, path, options) {
+  const source = await readFile(file, path);
 
-  const result = Crafter.parseSync(source, options)[0];
-  const example = getMatchingData(file, path);
+  const result = (await Crafter.parse(source, options))[0];
+  const example = await getMatchingData(file, path);
   expect(result.toRefract()).toEqual(example);
 
   options.sourceMapsEnabled = true;
-  const resultSm = Crafter.parseSync(source, options)[0];
-  const exampleSm = getMatchingData(file, path, options.sourceMapsEnabled);
+  const resultSm = (await Crafter.parse(source, options))[0];
+  const exampleSm = await getMatchingData(file, path, options.sourceMapsEnabled);
   expect(resultSm.toRefract(true)).toEqual(exampleSm);
 }

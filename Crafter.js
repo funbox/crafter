@@ -6,47 +6,22 @@ const utils = require('./utils');
 const Parsers = {};
 let prevPendingParsers = [];
 
-function maybeCallback(cb) {
-  return typeof cb === 'function' ? cb : () => { throw new Error('Call of an asynchronous function without a callback'); };
-}
-
 function getOptions(options, defaultOptions) {
   return options === null || options === undefined || typeof options === 'function'
     ? defaultOptions
     : options;
 }
 
-function parse(source, contextOptions, callback) {
-  callback = maybeCallback(callback || contextOptions);
-  const options = getOptions(contextOptions, {});
-  try {
-    const result = parseSync(source, options);
-    setTimeout(callback, 0, undefined, result);
-  } catch (error) {
-    setTimeout(callback, 0, error);
-  }
-}
-
-function parseFile(file, contextOptions, callback) {
-  callback = maybeCallback(callback || contextOptions);
-  const options = getOptions(contextOptions, {});
-  try {
-    const result = parseFileSync(file, options);
-    setTimeout(callback, 0, undefined, result);
-  } catch (error) {
-    setTimeout(callback, 0, error);
-  }
-}
-
-function parseSync(source, contextOptions) {
+async function parse(source, contextOptions) {
   const ast = utils.markdownSourceToAST(source);
-  const context = new Context(source, Parsers, contextOptions);
-  return Parsers.BlueprintParser.parse(ast.firstChild, context).slice(1);
+  const context = new Context(source, Parsers, getOptions(contextOptions, {}));
+  const result = await Parsers.BlueprintParser.parse(ast.firstChild, context);
+  return result.slice(1);
 }
 
-function parseFileSync(file, contextOptions = {}) {
-  contextOptions.entryDir = path.dirname(file);
-  return parseSync(fs.readFileSync(file, { encoding: 'utf-8' }), contextOptions);
+async function parseFile(file, contextOptions) {
+  const options = { ...getOptions(contextOptions, {}), entryDir: path.dirname(file) };
+  return parse(await fs.promises.readFile(file, { encoding: 'utf-8' }), options);
 }
 
 function defineParsers(parsers) {
@@ -80,7 +55,5 @@ defineParsers(parsers);
 
 module.exports = {
   parse,
-  parseSync,
   parseFile,
-  parseFileSync,
 };

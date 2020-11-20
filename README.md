@@ -69,7 +69,7 @@ npm install --save @funbox/crafter
 
 ```javascript
 const crafter = require('@funbox/crafter');
-const ast = Crafter.parseFileSync(file, {}).toRefract();
+const ast = await Crafter.parseFile(file).toRefract();
 ```
 
 Для парсинга из файла документации `doc.apib` требуется выполнить следующую
