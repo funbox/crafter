@@ -160,20 +160,29 @@ module.exports = (Parsers) => {
       const getActionString = (method, href, parameters) => {
         let actionHref = href.string;
 
-        if (parameters) {
-          const actionRequiredParamElements = parameters.parameters.filter(paramEl => (
-            paramEl.typeAttributes.some(attr => attr.string === 'required')
-          ));
+        if (!parameters) return `${method.string} ${actionHref}`;
 
-          const actionRequiredParamsString = actionRequiredParamElements
-            .map(el => el.name.string)
-            .sort()
-            .join(',');
+        const actionUriArray = actionHref.split('{');
+        let actionRequiredParams = parameters.parameters
+          .filter(p => p.typeAttributes.some(attr => attr.string === 'required'))
+          .map(p => p.name.string)
+          .sort();
 
-          const actionUri = actionHref.split('{')[0];
-
-          actionHref = actionRequiredParamsString ? `${actionUri}{?${actionRequiredParamsString}}` : actionUri;
+        if (actionUriArray.length === 1 || actionUriArray[actionUriArray.length - 1].includes('/')) {
+          return `${method.string} ${actionHref}`;
         }
+
+        const actionUri = actionUriArray.slice(0, -1).join('{');
+        const actionUriParams = actionUri.match(/{([^}]+)}/g);
+
+        if (actionUriParams) {
+          const actionUriValues = actionUriParams.map(p => p.replace(/{|}/g, ''));
+          actionRequiredParams = actionRequiredParams.filter(p => !actionUriValues.includes(p));
+        }
+
+        const actionRequiredParamsString = actionRequiredParams.join(',');
+
+        actionHref = actionRequiredParamsString ? `${actionUri}{?${actionRequiredParamsString}}` : actionUri;
 
         return `${method.string} ${actionHref}`;
       };
