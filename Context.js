@@ -8,6 +8,16 @@ const utils = require('./utils');
 const CrafterError = utils.CrafterError;
 
 class Context {
+  /**
+   * @param {string} source
+   * @param {object[]} parsers
+   * @param {string} options.currentFile
+   * @param {object} options.logger
+   * @param {boolean} options.sourceMapsEnabled - генерация sourceMaps
+   * @param {string} options.entryDir - директория, относительно которой работают команды Import
+   * @param {boolean} options.debugMode - работа в режиме отладки (исключения не перехватываются)
+   * @param {function} options.readFile - функция чтения импортируемого файла, нужна для перехвата и последующей обработки команд Import
+   */
   constructor(source, parsers, options) {
     this.sourceLines = source.split('\n');
     this.sourceBuffer = Buffer.from(source);
