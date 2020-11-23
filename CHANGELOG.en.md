@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.68.1 (23.11.2020)
+
+* Fix detection of duplicating requests.
+
 ## 1.68.0 (23.11.2020)
 
 * Improve import errors.
