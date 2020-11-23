@@ -96,7 +96,7 @@ class Context {
 
   async getApibAST(filename, sourceMap) {
     const currentDir = this.currentFile ? path.dirname(this.currentFile) : this.entryDir;
-    const fullPath = path.resolve(currentDir, filename);
+    const fullPath = path.normalize(path.join(currentDir, filename));
     let file;
 
     try {

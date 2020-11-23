@@ -287,6 +287,24 @@ it('throws an error when parsing from source with imports and without entryDir o
   expect((await Crafter.parse(source, options))[0].isError).toBe(true);
 });
 
+it('parses file using custom file reader', async () => {
+  const options = {
+    entryDir: 'foo/bar',
+    readFile: readImport,
+  };
+
+  let importedFile;
+
+  const result = await Crafter.parse('# My API\n# Import inner.apib', options);
+  expect(result[0].isError).toBe(false);
+  expect(importedFile).toBe('foo/bar/inner.apib');
+
+  async function readImport(fname) {
+    importedFile = fname;
+    return '# GET /foo\n+Response 200';
+  }
+});
+
 function readFile(file, path) {
   return fs.promises.readFile(`${path}/${file}`, { encoding: 'utf-8' });
 }
