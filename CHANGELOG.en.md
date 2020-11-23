@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.0 (23.11.2020)
+
+* Add the ability to redefine the function that reads an imported file.
+
 ## 1.68.1 (23.11.2020)
 
 * Fix detection of duplicating requests.
