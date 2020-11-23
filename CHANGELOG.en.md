@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.68.0 (23.11.2020)
+
+* Improve import errors.
+
 ## 1.67.1 (18.11.2020)
 
 * Fix generated charBlocks when doc includes multiple files.
