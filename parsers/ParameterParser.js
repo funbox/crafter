@@ -197,11 +197,11 @@ module.exports = (Parsers) => {
 
       if (typeAttributes.includes('required')) {
         if (typeAttributes.includes('optional')) {
-          throw new utils.CrafterError(`Parameter "${name}" must not be specified as both required and optional.`, details.sourceMap);
+          throw new utils.CrafterError(`Parameter "${name.string}" must not be specified as both required and optional.`, details.sourceMap);
         }
 
         if (defaultValue) {
-          context.addWarning(`Specifying parameter ${name} as required supersedes its default value, declare the parameter as 'optional' to specify its default value.`, details.sourceMap);
+          context.addWarning(`Specifying parameter "${name.string}" as required supersedes its default value, declare the parameter as 'optional' to specify its default value.`, details.sourceMap);
         }
       }
 
