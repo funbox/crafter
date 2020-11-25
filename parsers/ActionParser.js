@@ -164,7 +164,7 @@ module.exports = (Parsers) => {
       });
 
       if (!(result.responses.length > 0)) {
-        context.addWarning('Аction is missing a response', details.sourceMap);
+        context.addWarning('Action is missing a response', details.sourceMap);
       }
 
       context.resourcePrototypes.pop();
