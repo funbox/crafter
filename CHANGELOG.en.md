@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.1 (25.11.2020)
+
+* Fix message of the error caused by a wrong parameter.
+
 ## 2.0.0 (23.11.2020)
 
 * Add the ability to redefine the function that reads an imported file.
