@@ -105,7 +105,9 @@ module.exports = (Parsers) => {
           if (!context.typeExtractingInProgress) {
             const dataStructureProcessor = new DataStructureProcessor(curNode.parent, Parsers);
             const isFixedOrFixedType = result.content.typeAttributes.includes('fixed') || result.content.typeAttributes.includes('fixedType');
-            context.data.isParentAttributeFixedOrFixedType = context.data.isParentAttributeFixedOrFixedType || isFixedOrFixedType;
+            const isFixedOrFixedTypePropagated = result.content.propagatedTypeAttributes
+              && (result.content.propagatedTypeAttributes.includes('fixed') || result.content.propagatedTypeAttributes.includes('fixedType'));
+            context.data.isParentAttributeFixedOrFixedType = context.data.isParentAttributeFixedOrFixedType || isFixedOrFixedType || isFixedOrFixedTypePropagated;
             context.data.isNamedTypeSection = true;
             dataStructureProcessor.fillValueMember(result.content, context);
             delete context.data.isParentAttributeFixedOrFixedType;

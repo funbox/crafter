@@ -31,7 +31,7 @@ const ValueMemberProcessor = {
       const propagatedTypeAttributes = Array.isArray(namedElement.typeAttributes)
         ? namedElement.typeAttributes.filter(attr => typeAttrsToPropagate.includes(attr))
         : [];
-      element.typeAttributes = [...new Set(element.typeAttributes.concat(propagatedTypeAttributes))];
+      element.propagatedTypeAttributes = propagatedTypeAttributes;
     }
 
     if (value != null) {

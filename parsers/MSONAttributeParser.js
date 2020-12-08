@@ -200,7 +200,9 @@ module.exports = (Parsers) => {
       if (nestedSectionsContentNode && nestedSectionsContentNode.type === 'list') {
         const dataStructureProcessor = new DataStructureProcessor(nestedSectionsContentNode, Parsers, startNode);
         const isFixedOrFixedType = result.value.typeAttributes.includes('fixed') || result.value.typeAttributes.includes('fixedType');
-        context.data.isParentAttributeFixedOrFixedType = context.data.isParentAttributeFixedOrFixedType || isFixedOrFixedType;
+        const isFixedOrFixedTypePropagated = result.value.propagatedTypeAttributes
+          && (result.value.propagatedTypeAttributes.includes('fixed') || result.value.propagatedTypeAttributes.includes('fixedType'));
+        context.data.isParentAttributeFixedOrFixedType = context.data.isParentAttributeFixedOrFixedType || isFixedOrFixedType || isFixedOrFixedTypePropagated;
         dataStructureProcessor.fillValueMember(result.value, context);
         delete context.data.isParentAttributeFixedOrFixedType;
       }

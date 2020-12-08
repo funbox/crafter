@@ -42,11 +42,12 @@ class PropertyMemberElement {
    * @param {boolean} isFixed - наличие флага fixed у одного из родительских элементов, влияет на результирующий AST
    */
   toRefract(sourceMapsEnabled, isFixed) {
+    const isFixedPropagated = this.value.propagatedTypeAttributes && this.value.propagatedTypeAttributes.includes('fixed');
     const result = {
       element: Refract.elements.member,
       content: {
         key: this.name.toRefract(sourceMapsEnabled),
-        value: this.value.toRefract(sourceMapsEnabled, isFixed || this.value.typeAttributes.includes('fixed')),
+        value: this.value.toRefract(sourceMapsEnabled, isFixed || this.value.typeAttributes.includes('fixed') || isFixedPropagated),
       },
     };
 

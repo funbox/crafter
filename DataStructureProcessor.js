@@ -268,7 +268,9 @@ class DataStructureProcessor {
           [nextNode, childResult] = this.Parsers.MSONAttributeParser.parse(curNode, context);
 
           const { value } = childResult;
-          const isFixedOrFixedType = context.data.isParentAttributeFixedOrFixedType || value.typeAttributes.includes('fixed') || value.typeAttributes.includes('fixedType');
+          const isFixedOrFixedTypePropagated = value.propagatedTypeAttributes
+            && (value.propagatedTypeAttributes.includes('fixed') || value.propagatedTypeAttributes.includes('fixedType'));
+          const isFixedOrFixedType = context.data.isParentAttributeFixedOrFixedType || isFixedOrFixedTypePropagated || value.typeAttributes.includes('fixed') || value.typeAttributes.includes('fixedType');
 
           const typeName = value.isArray() && value.nestedTypes[0] || value.type;
           const typeEl = context.typeResolver.types[typeName];

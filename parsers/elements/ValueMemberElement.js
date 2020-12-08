@@ -57,6 +57,12 @@ class ValueMemberElement {
     this.value = value;
     this.description = description;
     /**
+     *
+     * Поле заполняется в методе fillBaseType класса ValueMemberProcessor.
+     * @type {StringElement[]}
+     */
+    this.propagatedTypeAttributes = [];
+    /**
      * Поле заполняется методом fillValueMember класса DataStructureProcessor для объектов и enum-ов
      * и в методе fillBaseType класса ValueMemberProcessor для массивов.
      * @type {ObjectElement|EnumElement|ArrayElement}
@@ -149,7 +155,7 @@ class ValueMemberElement {
       if (this.isEnum()) {
         result.attributes = this.content.toRefract(sourceMapsEnabled);
       } else {
-        result.content = this.content.toRefract(sourceMapsEnabled, isFixed || this.typeAttributes.includes('fixed'));
+        result.content = this.content.toRefract(sourceMapsEnabled, isFixed || this.typeAttributes.includes('fixed') || this.propagatedTypeAttributes.includes('fixed'));
       }
     }
 
