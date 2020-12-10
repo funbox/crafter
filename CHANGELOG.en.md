@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.0 (10.12.2020)
+
+* Correctly add attributes "fixed" and "fixedType" to the attributes list of the inherited element.
+
 ## 2.0.1 (25.11.2020)
 
 * Fix message of the error caused by a wrong parameter.
