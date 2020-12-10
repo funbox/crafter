@@ -59,7 +59,7 @@ class ValueMemberElement {
     /**
      *
      * Поле заполняется в методе fillBaseType класса ValueMemberProcessor.
-     * @type {StringElement[]}
+     * @type {string[]}
      */
     this.propagatedTypeAttributes = [];
     /**
