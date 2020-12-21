@@ -169,7 +169,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"definitions\": {\n    \"DNSServer\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"address\": {\n          \"type\": \"string\"\n        },\n        \"parent\": {\n          \"$ref\": \"#/definitions/DNSServer\",\n          \"type\": [\n            \"object\",\n            \"null\"\n          ]\n        }\n      },\n      \"required\": [\n        \"address\"\n      ]\n    }\n  },\n  \"$ref\": \"#/definitions/DNSServer\"\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"definitions\": {\n    \"DNSServer\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"address\": {\n          \"type\": \"string\"\n        },\n        \"parent\": {\n          \"oneOf\": [\n            {\n              \"$ref\": \"#/definitions/DNSServer\"\n            },\n            {\n              \"type\": \"null\"\n            }\n          ]\n        }\n      },\n      \"required\": [\n        \"address\"\n      ]\n    }\n  },\n  \"$ref\": \"#/definitions/DNSServer\"\n}"
                         }
                       ],
                       "attributes": {

@@ -1,0 +1,20 @@
+# My API
+
+JSON schema of this document should define "data" property as a reference to the "Data" structure or as "null" type.
+Thus, schema validation must allow to use object or null as a value of "data" property.
+
+# Data Structures
+
+## Data
++ a
++ b
+
+# DataWrapper
+
++ data (Data, nullable)
+
+# GET /foo
+
++ Response 200 (application/json)
+  + Attributes
+    + items (array[DataWrapper], required)

@@ -258,13 +258,18 @@ class ValueMemberElement {
    */
   getSchema(dataTypes, flags = new Flags(), namedTypesChain = []) {
     let schema = {};
+    let schemaRef = null;
     let usedTypes = [];
 
     const typeEl = dataTypes[this.type];
     if (typeEl) {
       if (typeEl.isComplex()) {
         if (flags.skipTypesInlining || this.isRecursive(namedTypesChain)) {
-          schema = { $ref: `#/definitions/${this.type}` };
+          const $ref = `#/definitions/${this.type}`;
+          schema = flags.isNullable
+            ? { oneOf: [{ $ref }, { type: 'null' }] }
+            : { $ref };
+          schemaRef = $ref;
           usedTypes = [this.type];
         } else {
           [schema, usedTypes] = typeEl.getSchema(dataTypes, typeEl.typeAttributes && utils.mergeFlags(flags, typeEl), namedTypesChain.concat(this.type));
@@ -283,7 +288,7 @@ class ValueMemberElement {
       const [contentSchema, contentUsedTypes] = this.content.getSchema(dataTypes, utils.mergeFlags(flags, this), newTypesChain);
       usedTypes.push(...contentUsedTypes);
 
-      if (!schema.$ref) {
+      if (!schemaRef) {
         if (typeEl) {
           schema = accountPrecedence(schema, typeEl, this.content);
         }
@@ -315,15 +320,11 @@ class ValueMemberElement {
     // Нормализуем тип, так как в json schema не сущетсвует типа 'file'
     const normalizedType = (this.type === 'file') ? 'string' : schema.type || (this.baseType === 'object' ? this.baseType : this.type);
 
-    if (flags.isNullable) {
-      schema.type = [
-        normalizedType,
-        'null',
-      ];
-
-      if (schema.enum) schema.enum = [...schema.enum, null];
-    } else if (!schema.$ref) {
-      schema.type = normalizedType;
+    if (!schemaRef) {
+      schema.type = flags.isNullable ? [normalizedType, 'null'] : normalizedType;
+      if (schema.enum && flags.isNullable) {
+        schema.enum = [...schema.enum, null];
+      }
     }
 
     if (typeEl || this.content) {

@@ -21,7 +21,7 @@
       "content": [
         {
           "element": "copy",
-          "content": "Defines a named type which recursively depends on another named type.\nRecursive definition is possible if a property member is either optional or nullable."
+          "content": "JSON schema of this document should define \"data\" property as a reference to the \"Data\" structure or as \"null\" type.\nThus, schema validation must allow to use object or null as a value of \"data\" property."
         },
         {
           "element": "category",
@@ -47,32 +47,22 @@
                     "content": {
                       "key": {
                         "element": "string",
-                        "content": "parent"
+                        "content": "a"
                       },
                       "value": {
-                        "element": "DNSServer",
-                        "attributes": {
-                          "typeAttributes": {
-                            "element": "array",
-                            "content": [
-                              {
-                                "element": "string",
-                                "content": "nullable"
-                              }
-                            ]
-                          }
-                        }
+                        "element": "string"
                       }
-                    },
-                    "attributes": {
-                      "typeAttributes": {
-                        "element": "array",
-                        "content": [
-                          {
-                            "element": "string",
-                            "content": "required"
-                          }
-                        ]
+                    }
+                  },
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "b"
+                      },
+                      "value": {
+                        "element": "string"
                       }
                     }
                   }
@@ -80,7 +70,7 @@
                 "meta": {
                   "id": {
                     "element": "string",
-                    "content": "DNSSettings"
+                    "content": "Data"
                   }
                 }
               }
@@ -95,33 +85,21 @@
                     "content": {
                       "key": {
                         "element": "string",
-                        "content": "address"
+                        "content": "data"
                       },
                       "value": {
-                        "element": "string"
-                      }
-                    },
-                    "attributes": {
-                      "typeAttributes": {
-                        "element": "array",
-                        "content": [
-                          {
-                            "element": "string",
-                            "content": "required"
+                        "element": "Data",
+                        "attributes": {
+                          "typeAttributes": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "nullable"
+                              }
+                            ]
                           }
-                        ]
-                      }
-                    }
-                  },
-                  {
-                    "element": "member",
-                    "content": {
-                      "key": {
-                        "element": "string",
-                        "content": "settings"
-                      },
-                      "value": {
-                        "element": "DNSSettings"
+                        }
                       }
                     }
                   }
@@ -129,7 +107,7 @@
                 "meta": {
                   "id": {
                     "element": "string",
-                    "content": "DNSServer"
+                    "content": "DataWrapper"
                   }
                 }
               }
@@ -141,7 +119,7 @@
           "attributes": {
             "href": {
               "element": "string",
-              "content": "/server"
+              "content": "/foo"
             }
           },
           "content": [
@@ -167,7 +145,37 @@
                         {
                           "element": "dataStructure",
                           "content": {
-                            "element": "DNSServer"
+                            "element": "object",
+                            "content": [
+                              {
+                                "element": "member",
+                                "content": {
+                                  "key": {
+                                    "element": "string",
+                                    "content": "items"
+                                  },
+                                  "value": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "DataWrapper"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "attributes": {
+                                  "typeAttributes": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "required"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
                           }
                         },
                         {
@@ -183,7 +191,7 @@
                               ]
                             }
                           },
-                          "content": "{\n  \"address\": \"hello\",\n  \"settings\": {\n    \"parent\": {\n      \"address\": \"hello\"\n    }\n  }\n}",
+                          "content": "{\n  \"items\": [\n    {\n      \"data\": {\n        \"a\": \"hello\",\n        \"b\": \"hello\"\n      }\n    }\n  ]\n}",
                           "attributes": {
                             "contentType": {
                               "element": "string",
@@ -210,7 +218,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"definitions\": {\n    \"DNSServer\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"address\": {\n          \"type\": \"string\"\n        },\n        \"settings\": {\n          \"$ref\": \"#/definitions/DNSSettings\"\n        }\n      },\n      \"required\": [\n        \"address\"\n      ]\n    },\n    \"DNSSettings\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"parent\": {\n          \"oneOf\": [\n            {\n              \"$ref\": \"#/definitions/DNSServer\"\n            },\n            {\n              \"type\": \"null\"\n            }\n          ]\n        }\n      },\n      \"required\": [\n        \"parent\"\n      ]\n    }\n  },\n  \"$ref\": \"#/definitions/DNSServer\"\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"definitions\": {\n    \"DataWrapper\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"data\": {\n          \"oneOf\": [\n            {\n              \"$ref\": \"#/definitions/Data\"\n            },\n            {\n              \"type\": \"null\"\n            }\n          ]\n        }\n      }\n    },\n    \"Data\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"a\": {\n          \"type\": \"string\"\n        },\n        \"b\": {\n          \"type\": \"string\"\n        }\n      }\n    }\n  },\n  \"type\": \"object\",\n  \"properties\": {\n    \"items\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"$ref\": \"#/definitions/DataWrapper\"\n      }\n    }\n  },\n  \"required\": [\n    \"items\"\n  ]\n}"
                         }
                       ],
                       "attributes": {
@@ -244,7 +252,7 @@
               "attributes": {
                 "href": {
                   "element": "string",
-                  "content": "/server"
+                  "content": "/foo"
                 }
               }
             }
