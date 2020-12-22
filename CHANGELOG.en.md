@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.1 (22.12.2020)
+
+* Fix collision of "ref" and "nullable" in JSON schema.
+
 ## 2.1.0 (10.12.2020)
 
 * Correctly add attributes "fixed" and "fixedType" to the attributes list of the inherited element.
