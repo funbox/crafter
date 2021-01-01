@@ -3,6 +3,7 @@ const types = require('../types');
 const utils = require('../utils');
 const { parser: SignatureParser, traits: ParserTraits, typeAttributes } = require('../SignatureParser');
 const MSONNamedTypeElement = require('./elements/MSONNamedTypeElement');
+const ValueMemberElement = require('./elements/ValueMemberElement');
 const EnumElement = require('./elements/EnumElement');
 const ObjectElement = require('./elements/ObjectElement');
 const SchemaNamedTypeElement = require('./elements/SchemaNamedTypeElement');
@@ -34,9 +35,7 @@ module.exports = (Parsers) => {
 
       context.data.attributeSignatureDetails = { sourceMap, node };
 
-      const name = utils.makeStringElement(signature.name, signature.nameOffset + subjectOffset, node, context);
-
-      const typeElement = new MSONNamedTypeElement(name, signature.type, signature.typeAttributes, sourceMap);
+      const valueElement = new ValueMemberElement(signature.type, signature.typeAttributes);
 
       const valueMemberSourceMaps = [];
 
@@ -67,8 +66,11 @@ module.exports = (Parsers) => {
       valueMemberSourceMaps.sort((sm1, sm2) => sm1.byteBlocks[0].offset - sm2.byteBlocks[0].offset);
 
       if (valueMemberSourceMaps.length) {
-        typeElement.content.sourceMap = utils.concatSourceMaps(valueMemberSourceMaps);
+        valueElement.sourceMap = utils.concatSourceMaps(valueMemberSourceMaps);
       }
+
+      const name = utils.makeStringElement(signature.name, signature.nameOffset + subjectOffset, node, context);
+      const typeElement = new MSONNamedTypeElement(name, valueElement, sourceMap);
 
       if (!context.typeExtractingInProgress) {
         const typeEl = context.typeResolver.types[signature.type];

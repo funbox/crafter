@@ -1,6 +1,5 @@
 const Refract = require('../../Refract');
 
-const ValueMemberElement = require('./ValueMemberElement');
 const SourceMapElement = require('./SourceMapElement');
 
 /**
@@ -17,18 +16,17 @@ class MSONNamedTypeElement {
   /**
    *
    * @param {StringElement} name
-   * @param {string} baseType - название родительского типа (примитивный или именованный тип)
-   * @param {(string|Array)[]} typeAttributes - набор атрибутов типа fixed, nullable, ["minimum", 10]
+   * @param {ValueMemberElement} valueElement
    * @param {SourceMap} sourceMap
    */
-  constructor(name, baseType, typeAttributes, sourceMap) {
+  constructor(name, valueElement, sourceMap) {
     this.name = name;
     /**
      * В самом именованном типе хранится только название и описание.
      * Все внутренности типа лежат в этом поле.
      * @type {ValueMemberElement}
      */
-    this.content = new ValueMemberElement(baseType, typeAttributes);
+    this.content = valueElement;
     /**
      * @type {DescriptionElement}
      */

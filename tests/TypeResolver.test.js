@@ -1,5 +1,6 @@
 const TypeResolver = require('../TypeResolver');
 const MSONNamedTypeElement = require('../parsers/elements/MSONNamedTypeElement');
+const ValueMemberElement = require('../parsers/elements/ValueMemberElement');
 const StringElement = require('../parsers/elements/StringElement');
 const CrafterError = require('../utils').CrafterError;
 
@@ -10,8 +11,8 @@ let bar;
 describe('TypeResolver', () => {
   beforeEach(() => {
     resolver = new TypeResolver();
-    foo = new MSONNamedTypeElement(new StringElement('foo'));
-    bar = new MSONNamedTypeElement(new StringElement('bar'), 'foo');
+    foo = new MSONNamedTypeElement(new StringElement('foo'), new ValueMemberElement());
+    bar = new MSONNamedTypeElement(new StringElement('bar'), new ValueMemberElement('foo'));
   });
 
   it('checks empty types array without errors', () => {
