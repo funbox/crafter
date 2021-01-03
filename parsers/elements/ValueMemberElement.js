@@ -30,23 +30,23 @@ const Flags = require('../../Flags');
  */
 class ValueMemberElement {
   /**
-   * @param {string} type - тип данных, например string, array[number] или User
+   * @param {string} rawType - тип данных, например string, array[number] или User
+   * @param {string} type - обработанный тип данных без вложенных типов, например string, array или User
+   * @param {string[]} nestedTypes - типы элементов массива или enum
    * @param {(string|Array)[]} typeAttributes - набор атрибутов типа fixed, nullable, ["minimum", 10]
    * @param {string} value - значение элемента, в зависимости от атрибутов может интерпретироваться как непосредственное значение или пример
    * @param {StringElement} description - описание элемента
    * @param {boolean} isSample - является ли данный элемент примером
    * @param {boolean} isDefault - является ли данный элемент элементом по умолчанию
    */
-  constructor(type, typeAttributes = [], value, description, isSample, isDefault) {
-    const resolvedType = type ? utils.resolveType(type) : { type, nestedTypes: [] };
-
-    this.rawType = type;
-    this.type = resolvedType.type;
+  constructor(rawType, type, nestedTypes = [], typeAttributes = [], value, description, isSample, isDefault) {
+    this.rawType = rawType;
+    this.type = type;
     /**
      * Типы элементов массива array[string, number]: тут string и number — это nestedTypes
      * @type {string[]}
      */
-    this.nestedTypes = resolvedType.nestedTypes;
+    this.nestedTypes = nestedTypes;
     /**
      * Один из базовых типов данных, который определяет текущий элемент непосредственно или путем наследования.
      * Базовые типы определены в types.js в корне проекта.

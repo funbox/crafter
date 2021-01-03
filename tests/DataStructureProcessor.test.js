@@ -36,7 +36,14 @@ function getFilledElementFromSource(source) {
   const subject = utils.nodeText(ast.firstChild, context.sourceLines);
   const signature = new SignatureParser(subject);
   signature.warnings.forEach(warning => context.logger.warn(warning));
-  const valueElement = new ValueMemberElement(signature.type, [], signature.value);
+  const resolvedType = utils.resolveType(signature.type);
+  const valueElement = new ValueMemberElement(
+    signature.type,
+    resolvedType.type,
+    resolvedType.nestedTypes,
+    [],
+    signature.value,
+  );
   ValueMemberProcessor.fillBaseType(context, valueElement);
   const nestedNode = ast.firstChild.next;
   const dataStructureProcessor = new DataStructureProcessor(nestedNode, Parsers);

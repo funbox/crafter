@@ -12,7 +12,7 @@ describe('TypeResolver', () => {
   beforeEach(() => {
     resolver = new TypeResolver();
     foo = new MSONNamedTypeElement(new StringElement('foo'), new ValueMemberElement());
-    bar = new MSONNamedTypeElement(new StringElement('bar'), new ValueMemberElement('foo'));
+    bar = new MSONNamedTypeElement(new StringElement('bar'), new ValueMemberElement('foo', 'foo'));
   });
 
   it('checks empty types array without errors', () => {

@@ -20,7 +20,7 @@ describe('schema', () => {
     it('one member', () => {
       const el = new ArrayElement(
         createValueMemberElements([
-          ['string'],
+          ['string', 'string'],
         ]),
       );
       expect(el.getSchema({})).toEqual([
@@ -37,9 +37,9 @@ describe('schema', () => {
     it('multiple members', () => {
       const el = new ArrayElement(
         createValueMemberElements([
-          ['string'],
-          ['number'],
-          ['boolean'],
+          ['string', 'string'],
+          ['number', 'number'],
+          ['boolean', 'boolean'],
         ]),
       );
       expect(el.getSchema({})).toEqual([
@@ -60,9 +60,9 @@ describe('schema', () => {
     it('fixed', () => {
       const el = new ArrayElement(
         createValueMemberElements([
-          ['string', [], 'hello'],
-          ['number', [], '42'],
-          ['boolean', [], 'true'],
+          ['string', 'string', [], [], 'hello'],
+          ['number', 'number', [], [], '42'],
+          ['boolean', 'boolean', [], [], 'true'],
         ]),
       );
       expect(el.getSchema({}, { isFixed: true })).toEqual([
@@ -92,8 +92,8 @@ describe('schema', () => {
     it('removes duplicating primitive types', () => {
       const el = new ArrayElement(
         createValueMemberElements([
-          ['string'],
-          ['string'],
+          ['string', 'string'],
+          ['string', 'string'],
         ]),
       );
       expect(el.getSchema({}, { isFixedType: true })).toEqual([
@@ -115,7 +115,7 @@ describe('schema', () => {
         obj.propertyMembers.push(new PropertyMemberElement(new StringElement('foo'), new ValueMemberElement(), []));
         obj.propertyMembers.push(new PropertyMemberElement(new StringElement('bar'), new ValueMemberElement(), []));
 
-        const valueMember = new ValueMemberElement('object');
+        const valueMember = new ValueMemberElement('object', 'object');
         valueMember.content = obj;
         return valueMember;
       };
@@ -168,7 +168,7 @@ describe('schema', () => {
     it('getSchema', () => {
       const el = new MSONMixinElement('User');
       const types = {
-        User: new ValueMemberElement('boolean'),
+        User: new ValueMemberElement('boolean', 'boolean'),
       };
       expect(el.getSchema(types)).toEqual([
         {
@@ -284,7 +284,7 @@ describe('schema', () => {
     it('fixed', () => {
       const el = new PropertyMemberElement(
         new StringElement('status'),
-        createValueMemberElement(['string', ['fixed'], 'ok']),
+        createValueMemberElement(['string', 'string', [], ['fixed'], 'ok']),
         [],
       );
       expect(el.getSchema({})).toEqual([
@@ -303,7 +303,7 @@ describe('schema', () => {
     it('fixed parent', () => {
       const el = new PropertyMemberElement(
         new StringElement('status'),
-        createValueMemberElement(['string', [], 'ok']),
+        createValueMemberElement(['string', 'string', [], [], 'ok']),
         [],
       );
       expect(el.getSchema({}, { isFixed: true })).toEqual([
@@ -325,7 +325,7 @@ describe('schema', () => {
     it('nullable', () => {
       const el = new PropertyMemberElement(
         new StringElement('foo'),
-        new ValueMemberElement(undefined, ['nullable']),
+        new ValueMemberElement(undefined, undefined, [], ['nullable']),
         [],
       );
       expect(el.getSchema({})).toEqual([
@@ -341,7 +341,7 @@ describe('schema', () => {
     });
 
     it('pattern', () => {
-      const el = new PropertyMemberElement(new StringElement('foo'), new ValueMemberElement('string', [['pattern', '\\d{3,6}']]), []);
+      const el = new PropertyMemberElement(new StringElement('foo'), new ValueMemberElement('string', 'string', [], [['pattern', '\\d{3,6}']]), []);
       expect(el.getSchema({})).toEqual([
         {
           properties: {
@@ -356,7 +356,7 @@ describe('schema', () => {
     });
 
     it('format', () => {
-      const el = new PropertyMemberElement(new StringElement('foo'), new ValueMemberElement('string', [['format', 'date-time']]), []);
+      const el = new PropertyMemberElement(new StringElement('foo'), new ValueMemberElement('string', 'string', [], [['format', 'date-time']]), []);
       expect(el.getSchema({})).toEqual([
         {
           properties: {
@@ -425,7 +425,7 @@ describe('schema', () => {
       User.content = new ObjectElement();
       User.content.propertyMembers.push(new PropertyMemberElement(new StringElement('foo'), new ValueMemberElement(), []));
 
-      const el = new ValueMemberElement('User');
+      const el = new ValueMemberElement('User', 'User');
 
       expect(el.getSchema({ User })).toEqual([
         {
@@ -459,7 +459,7 @@ describe('schema', () => {
       User.content = new ObjectElement();
       User.content.propertyMembers.push(new PropertyMemberElement(new StringElement('foo'), new ValueMemberElement(), []));
 
-      const el = new ValueMemberElement('User');
+      const el = new ValueMemberElement('User', 'User');
       el.content = new ObjectElement();
       el.content.propertyMembers.push(new PropertyMemberElement(new StringElement('bar'), new ValueMemberElement(), []));
 
@@ -476,7 +476,7 @@ describe('schema', () => {
     });
 
     it('file', () => {
-      const el = new ValueMemberElement('file');
+      const el = new ValueMemberElement('file', 'file');
       expect(el.getSchema({})).toEqual([
         {
           type: 'string',
@@ -487,7 +487,7 @@ describe('schema', () => {
     });
 
     it('nullable', () => {
-      const el = new ValueMemberElement('number');
+      const el = new ValueMemberElement('number', 'number');
       expect(el.getSchema({}, { isNullable: true })).toEqual([
         {
           type: ['number', 'null'],
@@ -501,7 +501,7 @@ describe('schema', () => {
       User.content = new ObjectElement();
       User.content.propertyMembers.push(new PropertyMemberElement(new StringElement('foo'), new ValueMemberElement(), []));
 
-      const el = new ValueMemberElement('User');
+      const el = new ValueMemberElement('User', 'User');
 
       expect(el.getSchema({ User }, { isNullable: true })).toEqual([
         {
@@ -520,7 +520,7 @@ describe('schema', () => {
       Foo.content.members.push(new EnumMemberElement('foo'));
       Foo.content.members.push(new EnumMemberElement('bar'));
 
-      const el = new ValueMemberElement('Foo');
+      const el = new ValueMemberElement('Foo', 'Foo', []);
 
       expect(el.getSchema({ Foo }, { isNullable: true })).toEqual([
         {
@@ -537,7 +537,7 @@ describe('schema', () => {
         new ValueMemberElement('string'),
       ]);
 
-      const el = new ValueMemberElement('Barr');
+      const el = new ValueMemberElement('Barr', 'Barr');
 
       expect(el.getSchema({ Barr }, { isNullable: true })).toEqual([
         {
@@ -551,7 +551,7 @@ describe('schema', () => {
     });
 
     it('fixed', () => {
-      const el = createValueMemberElement(['string', [], 'ok']);
+      const el = createValueMemberElement(['string', 'string', [], [], 'ok']);
       expect(el.getSchema({}, { isFixed: true })).toEqual([
         {
           type: 'string',
@@ -562,7 +562,7 @@ describe('schema', () => {
     });
 
     it('fixed/sample', () => {
-      const el = new ValueMemberElement('string', [], 'ok', '', true);
+      const el = new ValueMemberElement('string', 'string', [], [], 'ok', '', true);
       expect(el.getSchema({}, { isFixed: true })).toEqual([
         {
           type: 'string',

@@ -381,6 +381,8 @@ const utils = {
       nestedTypes: [],
     };
 
+    if (!type) return result;
+
     const matchData = /^(.*?)\s*(\[(.*)])?$/.exec(type);
     const resolvedType = matchData[1];
     result.type = types[resolvedType] || resolvedType;

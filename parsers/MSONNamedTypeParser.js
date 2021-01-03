@@ -35,7 +35,13 @@ module.exports = (Parsers) => {
 
       context.data.attributeSignatureDetails = { sourceMap, node };
 
-      const valueElement = new ValueMemberElement(signature.type, signature.typeAttributes);
+      const resolvedType = utils.resolveType(signature.type);
+      const valueElement = new ValueMemberElement(
+        signature.type,
+        resolvedType.type,
+        resolvedType.nestedTypes,
+        signature.typeAttributes,
+      );
 
       const valueMemberSourceMaps = [];
 

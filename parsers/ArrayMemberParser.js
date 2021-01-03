@@ -25,8 +25,11 @@ module.exports = (Parsers) => {
         ? utils.makeStringElement(signature.description, signature.descriptionOffset, node.firstChild, context)
         : null;
 
+      const resolvedType = utils.resolveType(signature.type);
       const result = new ValueMemberElement(
         signature.type,
+        resolvedType.type,
+        resolvedType.nestedTypes,
         signature.typeAttributes,
         signature.value,
         description,

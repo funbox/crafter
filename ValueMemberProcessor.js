@@ -1,5 +1,5 @@
 const { splitValues } = require('./SignatureParser');
-const { CrafterError, convertType, makeSourceMapsForInlineValues } = require('./utils');
+const { CrafterError, convertType, makeSourceMapsForInlineValues, resolveType } = require('./utils');
 
 const ArrayElement = require('./parsers/elements/ArrayElement');
 const SampleValueElement = require('./parsers/elements/SampleValueElement');
@@ -50,7 +50,8 @@ const ValueMemberProcessor = {
 
     if (element.isArray()) {
       const members = element.nestedTypes.map((t) => {
-        const el = new ValueMemberElement(t);
+        const resolvedType = resolveType(t);
+        const el = new ValueMemberElement(t, resolvedType.type, resolvedType.nestedTypes);
         try {
           ValueMemberProcessor.fillBaseType(context, el);
         } catch (error) {

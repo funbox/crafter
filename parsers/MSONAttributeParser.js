@@ -83,8 +83,11 @@ module.exports = (Parsers) => {
 
       valueMemberSourceMaps.sort((sm1, sm2) => sm1.byteBlocks[0].offset - sm2.byteBlocks[0].offset);
 
+      const resolvedType = utils.resolveType(signature.type);
       const valueEl = new ValueMemberElement(
         signature.type,
+        resolvedType.type,
+        resolvedType.nestedTypes,
         valueTypeAttributes,
         signature.value,
         null,

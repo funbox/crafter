@@ -39,7 +39,13 @@ module.exports = (Parsers) => {
         context.data.startOffset = text.length - signature.rest.length;
       }
 
-      const memberEl = new ValueMemberElement(signature.type, signature.typeAttributes);
+      const resolvedType = utils.resolveType(signature.type);
+      const memberEl = new ValueMemberElement(
+        signature.type,
+        resolvedType.type,
+        resolvedType.nestedTypes,
+        signature.typeAttributes,
+      );
 
       const valueMemberSourceMaps = [];
 
