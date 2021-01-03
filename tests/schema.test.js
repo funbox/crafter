@@ -148,7 +148,7 @@ describe('schema', () => {
     let el;
 
     beforeEach(() => {
-      el = new EnumElement('enum');
+      el = new EnumElement([]);
       el.members.push(new EnumMemberElement('foo'));
       el.members.push(new EnumMemberElement('bar'));
     });
@@ -516,7 +516,7 @@ describe('schema', () => {
 
     it('nullable enum', () => {
       const Foo = new ValueMemberElement();
-      Foo.content = new EnumElement('enum');
+      Foo.content = new EnumElement([]);
       Foo.content.members.push(new EnumMemberElement('foo'));
       Foo.content.members.push(new EnumMemberElement('bar'));
 

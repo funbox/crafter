@@ -367,7 +367,7 @@ function fillElementWithContent(rootElement, elementType, contentMembers) {
       newContentElement = existingContentElement || new ObjectElement();
       break;
     case types.enum:
-      newContentElement = existingContentElement || new EnumElement(rootElement.rawType);
+      newContentElement = existingContentElement || new EnumElement(rootElement.nestedTypes);
       break;
     case types.array:
       newContentElement = existingContentElement;

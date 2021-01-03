@@ -341,9 +341,8 @@ class DataStructureProcessor {
   processEnum(valueMember, node, context) {
     const [, baseNestedTypes] = context.typeResolver.getStandardBaseAndNestedTypes(valueMember.type);
     const nestedTypes = Array.from(new Set([...valueMember.nestedTypes, ...baseNestedTypes]));
-    const type = nestedTypes.length > 0 ? `enum[${nestedTypes.join(', ')}]` : valueMember.rawType;
 
-    const enumElement = new EnumElement(type);
+    const enumElement = new EnumElement(nestedTypes.length ? nestedTypes : valueMember.nestedTypes);
     const sourceMap = utils.makeGenericSourceMap(this.valueMemberRootNode.parent, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
     const samples = [];
     const defaults = [];

@@ -1,5 +1,4 @@
 const Refract = require('../../Refract');
-const utils = require('../../utils');
 const Flags = require('../../Flags');
 const MSONMixinElement = require('./MSONMixinElement');
 
@@ -23,11 +22,9 @@ const MSONMixinElement = require('./MSONMixinElement');
  */
 class EnumElement {
   /**
-   * @param {string} type - строка вида enum[Type], в качестве Type могут быть только примитивные типы
+   * @param {string[]} nestedTypes - типы элементов enum
    */
-  constructor(type) {
-    const resolvedType = utils.resolveType(type);
-
+  constructor(nestedTypes) {
     /**
      * @type {EnumMemberElement[]}
      */
@@ -40,7 +37,7 @@ class EnumElement {
      * @type {SampleValueElement[]}
      */
     this.sampleValues = [];
-    this.type = (resolvedType.nestedTypes[0] ? resolvedType.nestedTypes[0] : 'string');
+    this.type = (nestedTypes[0] ? nestedTypes[0] : 'string');
   }
 
   isComplex() {
