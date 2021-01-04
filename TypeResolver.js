@@ -100,7 +100,7 @@ class TypeResolver {
                 }
               }
               if (member.value.nestedTypes) {
-                member.value.nestedTypes.forEach(type => {
+                member.value.nestedTypes.forEach(({ type }) => {
                   if (this.types[type]) {
                     resolveType(type, this.types[type], [], usedTypes);
                   }
@@ -198,7 +198,7 @@ class TypeResolver {
 
       const resolvedTypeName = usedTypes[usedTypes.length - 1];
       const resolvedType = this.types[resolvedTypeName];
-      return [name, resolvedType.nestedTypes];
+      return [name, (resolvedType.nestedTypes || []).map(({ type }) => type)];
     };
 
     if (standardTypes.includes(typeName)) {

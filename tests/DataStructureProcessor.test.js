@@ -40,7 +40,7 @@ function getFilledElementFromSource(source) {
   const valueElement = new ValueMemberElement(
     signature.type,
     resolvedType.type,
-    resolvedType.nestedTypes,
+    resolvedType.nestedTypes.map(type => new ValueMemberElement(type, type)),
     [],
     signature.value,
   );

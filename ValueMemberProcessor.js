@@ -1,10 +1,9 @@
 const { splitValues } = require('./SignatureParser');
-const { CrafterError, convertType, makeSourceMapsForInlineValues, resolveType } = require('./utils');
+const { CrafterError, convertType, makeSourceMapsForInlineValues } = require('./utils');
 
 const ArrayElement = require('./parsers/elements/ArrayElement');
 const SampleValueElement = require('./parsers/elements/SampleValueElement');
 const DefaultValueElement = require('./parsers/elements/DefaultValueElement');
-const ValueMemberElement = require('./parsers/elements/ValueMemberElement');
 
 const typeAttrsToPropagate = ['fixed', 'fixedType'];
 
@@ -49,9 +48,7 @@ const ValueMemberProcessor = {
     }
 
     if (element.isArray()) {
-      const members = element.nestedTypes.map((t) => {
-        const resolvedType = resolveType(t);
-        const el = new ValueMemberElement(t, resolvedType.type, resolvedType.nestedTypes);
+      element.nestedTypes.forEach((el) => {
         try {
           ValueMemberProcessor.fillBaseType(context, el);
         } catch (error) {
@@ -60,9 +57,8 @@ const ValueMemberProcessor = {
           }
           throw error;
         }
-        return el;
       });
-      element.content = new ArrayElement(members);
+      element.content = new ArrayElement(element.nestedTypes.slice());
     }
 
     element.samples = sampleElements;
@@ -83,7 +79,8 @@ function getSamplesAndDefaultsFromInline(element, value, context) {
 
   if (element.isArray() || element.isEnum()) {
     const [, baseNestedTypes] = context.typeResolver.getStandardBaseAndNestedTypes(element.type);
-    const nestedTypes = Array.from(new Set([...element.nestedTypes, ...baseNestedTypes]));
+    const nestedTypesNames = element.nestedTypes.map(nestedType => nestedType.type);
+    const nestedTypes = Array.from(new Set([...nestedTypesNames, ...baseNestedTypes]));
     inlineValuesType = nestedTypes.find(type => (context.typeResolver.getStandardBaseType(type) !== 'object')) || 'string';
   } else {
     inlineValuesType = element.baseType || 'string';

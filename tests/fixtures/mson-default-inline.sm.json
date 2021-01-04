@@ -533,7 +533,32 @@
                         "element": "array",
                         "content": [
                           {
-                            "element": "string"
+                            "element": "string",
+                            "attributes": {
+                              "sourceMap": {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "sourceMap",
+                                    "content": [
+                                      {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "number",
+                                            "content": 285
+                                          },
+                                          {
+                                            "element": "number",
+                                            "content": 6
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            }
                           }
                         ],
                         "attributes": {

@@ -36,6 +36,12 @@ const SectionTypes = Object.freeze({
   oneOfTypeOption: 'oneOfTypeOption',
   message: 'message',
 
+  /**
+   * @param {object} node
+   * @param {Context} context
+   * @param [array] parsers
+   * @returns {string}
+   */
   calculateSectionType(node, context, parsers) {
     let result = SectionTypes.undefined;
 

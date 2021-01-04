@@ -180,7 +180,32 @@
                             "element": "array",
                             "content": [
                               {
-                                "element": "boolean"
+                                "element": "boolean",
+                                "attributes": {
+                                  "sourceMap": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "sourceMap",
+                                        "content": [
+                                          {
+                                            "element": "array",
+                                            "content": [
+                                              {
+                                                "element": "number",
+                                                "content": 161
+                                              },
+                                              {
+                                                "element": "number",
+                                                "content": 7
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                }
                               },
                               {
                                 "element": "object",

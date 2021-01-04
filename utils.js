@@ -379,6 +379,7 @@ const utils = {
     const result = {
       type,
       nestedTypes: [],
+      nestedTypesOffsets: [],
     };
 
     if (!type) return result;
@@ -387,7 +388,15 @@ const utils = {
     const resolvedType = matchData[1];
     result.type = types[resolvedType] || resolvedType;
     if (matchData[3]) {
-      result.nestedTypes = matchData[3].split(',').map(rawType => rawType.trim()).filter(t => !!t);
+      let currentOffset = type.indexOf(matchData[3]);
+      matchData[3].split(',').forEach(rawType => {
+        const trimmedType = rawType.trim();
+        if (trimmedType) {
+          result.nestedTypes.push(trimmedType);
+          result.nestedTypesOffsets.push(currentOffset + rawType.indexOf(trimmedType));
+        }
+        currentOffset += rawType.length;
+      });
     }
 
     return result;
@@ -601,7 +610,7 @@ const utils = {
   },
 
   typeIsUsedByElement(typeName, typeElement, dataTypes) {
-    if (typeElement.nestedTypes && typeElement.nestedTypes.includes(typeName)) return true;
+    if (typeElement.nestedTypes && typeElement.nestedTypes.find(({ type }) => type === typeName)) return true;
 
     const propertyMembers = typeElement.content && typeElement.content.propertyMembers;
     if (!propertyMembers) {

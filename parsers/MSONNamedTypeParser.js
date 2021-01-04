@@ -36,10 +36,22 @@ module.exports = (Parsers) => {
       context.data.attributeSignatureDetails = { sourceMap, node };
 
       const resolvedType = utils.resolveType(signature.type);
+      const nestedTypes = resolvedType.nestedTypes.map((nestedType, index) => {
+        const el = new ValueMemberElement(nestedType, nestedType, []);
+        el.sourceMap = utils.makeSourceMapsForString(
+          nestedType,
+          resolvedType.nestedTypesOffsets[index] + signature.typeOffset + subjectOffset,
+          node,
+          context.sourceLines,
+          context.sourceBuffer,
+          context.linefeedOffsets,
+        );
+        return el;
+      });
       const valueElement = new ValueMemberElement(
         signature.type,
         resolvedType.type,
-        resolvedType.nestedTypes,
+        nestedTypes,
         signature.typeAttributes,
       );
 

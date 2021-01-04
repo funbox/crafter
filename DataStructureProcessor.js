@@ -272,7 +272,7 @@ class DataStructureProcessor {
             && (value.propagatedTypeAttributes.includes('fixed') || value.propagatedTypeAttributes.includes('fixedType'));
           const isFixedOrFixedType = context.data.isParentAttributeFixedOrFixedType || isFixedOrFixedTypePropagated || value.typeAttributes.includes('fixed') || value.typeAttributes.includes('fixedType');
 
-          const typeName = value.isArray() && value.nestedTypes[0] || value.type;
+          const typeName = value.isArray() && value.nestedTypes[0] && value.nestedTypes[0].type || value.type;
           const typeEl = context.typeResolver.types[typeName];
 
           if (isFixedOrFixedType && typeEl && utils.typeIsUsedByElement(typeName, typeEl, context.typeResolver.types)) {
@@ -340,7 +340,8 @@ class DataStructureProcessor {
 
   processEnum(valueMember, node, context) {
     const [, baseNestedTypes] = context.typeResolver.getStandardBaseAndNestedTypes(valueMember.type);
-    const nestedTypes = Array.from(new Set([...valueMember.nestedTypes, ...baseNestedTypes]));
+    const nestedTypesNames = valueMember.nestedTypes.map(nestedType => nestedType.type);
+    const nestedTypes = Array.from(new Set([...nestedTypesNames, ...baseNestedTypes]));
 
     const enumElement = new EnumElement(nestedTypes.length ? nestedTypes : valueMember.nestedTypes);
     const sourceMap = utils.makeGenericSourceMap(this.valueMemberRootNode.parent, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);

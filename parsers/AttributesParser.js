@@ -40,10 +40,22 @@ module.exports = (Parsers) => {
       }
 
       const resolvedType = utils.resolveType(signature.type);
+      const nestedTypes = resolvedType.nestedTypes.map((nestedType, index) => {
+        const el = new ValueMemberElement(nestedType, nestedType, []);
+        el.sourceMap = utils.makeSourceMapsForString(
+          nestedType,
+          resolvedType.nestedTypesOffsets[index] + signature.typeOffset,
+          node.firstChild,
+          context.sourceLines,
+          context.sourceBuffer,
+          context.linefeedOffsets,
+        );
+        return el;
+      });
       const memberEl = new ValueMemberElement(
         signature.type,
         resolvedType.type,
-        resolvedType.nestedTypes,
+        nestedTypes,
         signature.typeAttributes,
       );
 

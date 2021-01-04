@@ -32,7 +32,7 @@ class ValueMemberElement {
   /**
    * @param {string} rawType - тип данных, например string, array[number] или User
    * @param {string} type - обработанный тип данных без вложенных типов, например string, array или User
-   * @param {string[]} nestedTypes - типы элементов массива или enum
+   * @param {ValueMemberElement[]} nestedTypes - типы элементов массива или enum
    * @param {(string|Array)[]} typeAttributes - набор атрибутов типа fixed, nullable, ["minimum", 10]
    * @param {string} value - значение элемента, в зависимости от атрибутов может интерпретироваться как непосредственное значение или пример
    * @param {StringElement} description - описание элемента
@@ -44,7 +44,6 @@ class ValueMemberElement {
     this.type = type;
     /**
      * Типы элементов массива array[string, number]: тут string и number — это nestedTypes
-     * @type {string[]}
      */
     this.nestedTypes = nestedTypes;
     /**
@@ -211,7 +210,7 @@ class ValueMemberElement {
     if (this.isObject() && this.isRecursive(namedTypesChain)) {
       const recursiveTypeEl = dataTypes[namedTypesChain[namedTypesChain.length - 1]];
       const propertyMember = recursiveTypeEl.content.propertyMembers.find(pm => (
-        pm.value && (pm.value.type === this.type || pm.value.nestedTypes.includes(this.type))
+        pm.value && (pm.value.type === this.type || !!pm.value.nestedTypes.find(nestedType => nestedType.type === this.type))
       ));
 
       if (propertyMember) {

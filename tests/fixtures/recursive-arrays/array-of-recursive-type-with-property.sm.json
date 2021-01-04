@@ -161,7 +161,32 @@
                         "element": "array",
                         "content": [
                           {
-                            "element": "Foo"
+                            "element": "Foo",
+                            "attributes": {
+                              "sourceMap": {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "sourceMap",
+                                    "content": [
+                                      {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "number",
+                                            "content": 51
+                                          },
+                                          {
+                                            "element": "number",
+                                            "content": 3
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            }
                           }
                         ],
                         "attributes": {
