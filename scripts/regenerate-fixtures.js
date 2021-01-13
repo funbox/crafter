@@ -22,14 +22,15 @@ async function processApibFiles(dir) {
   }, Promise.resolve());
 }
 
-function processLanguageServerFiles(dir) {
-  const dirContent = fs.readdirSync(dir);
+async function processLanguageServerFiles(dir) {
+  const dirContent = await fs.readdir(dir);
 
-  dirContent.forEach((item) => {
+  await dirContent.reduce(async (res, item) => {
+    await res;
     if (apibRegex.exec(item)) {
       const fileName = path.join(dir, item);
       const jsonFileName = fileName.replace(apibRegex, '.json');
-      fs.writeFileSync(jsonFileName, `${parseApibFile(fileName, 'json', false, false, true)}\n`);
+      await fs.writeFile(jsonFileName, `${await parseApibFile(fileName, 'json', false, false, true)}\n`);
     }
-  });
+  }, Promise.resolve());
 }

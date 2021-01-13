@@ -15,14 +15,10 @@
         },
         "title": {
           "element": "string",
-          "content": "My API"
+          "content": ""
         }
       },
       "content": [
-        {
-          "element": "copy",
-          "content": "In Language Server mode unknown import should be ignored"
-        },
         {
           "element": "resource",
           "attributes": {
@@ -71,6 +67,66 @@
           ]
         }
       ]
+    },
+    {
+      "element": "annotation",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "warning"
+            }
+          ]
+        }
+      },
+      "attributes": {
+        "sourceMap": {
+          "element": "array",
+          "content": [
+            {
+              "element": "sourceMap",
+              "content": [
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 1
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 1
+                        }
+                      },
+                      "content": 0
+                    },
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 2
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 1
+                        }
+                      },
+                      "content": 16
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "content": "expected API name, e.g. \"# <API Name>\""
     }
   ]
 }
