@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2.0 (13.01.2021)
+
+* Generate source map for nested types.
+
 ## 2.1.1 (22.12.2020)
 
 * Fix collision of "ref" and "nullable" in JSON schema.
