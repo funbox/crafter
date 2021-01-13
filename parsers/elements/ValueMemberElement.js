@@ -281,7 +281,9 @@ class ValueMemberElement {
     }
 
     if (this.content) {
-      const namedTypes = this.nestedTypes.concat(this.type).filter(t => !isStandardType(t));
+      // TODO Есть подозрение, что этот код не нужен: он используется только для массивов, но для них и так выставляется skipTypesInlining
+      const nestedTypes = this.nestedTypes.map(nt => nt.type);
+      const namedTypes = nestedTypes.concat(this.type).filter(t => !isStandardType(t));
       const newTypesChain = namedTypesChain.concat(namedTypes);
 
       const [contentSchema, contentUsedTypes] = this.content.getSchema(dataTypes, utils.mergeFlags(flags, this), newTypesChain);
