@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.3.0 (13.01.2021)
+
+* Add tolerate parsing mode.
+
 ## 2.2.0 (13.01.2021)
 
 * Generate source map for nested types.
