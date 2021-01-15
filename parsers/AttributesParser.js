@@ -195,7 +195,10 @@ module.exports = (Parsers) => {
         // TODO: Что делать в этом случае?
       }
 
-      context.typeResolver.checkUsedMixins(result.content);
+      if (!context.languageServerMode) {
+        context.typeResolver.checkUsedMixins(result.content);
+      }
+
       return [utils.nextNode(context.rootNode), result];
     },
 
