@@ -134,7 +134,7 @@ module.exports = (Parsers) => {
     },
 
     sectionType(node, context) {
-      if (node && node.type === 'item') {
+      if (node && node.type === 'item' && node.firstChild) {
         const text = utils.nodeText(node.firstChild, context.sourceLines);
 
         try {
