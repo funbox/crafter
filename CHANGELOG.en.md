@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.3.2 (15.01.2021)
+
+* Process an empty node in named types.
+
 ## 2.3.1 (15.01.2021)
 
 * Handle missing mixins inside of Attributes section when language server mode activated.
