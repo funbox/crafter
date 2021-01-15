@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.3.1 (15.01.2021)
+
+* Handle missing mixins inside of Attributes section when language server mode activated.
+
 ## 2.3.0 (13.01.2021)
 
 * Add tolerate parsing mode.
