@@ -294,15 +294,20 @@ class ValueMemberElement {
           schema = accountPrecedence(schema, typeEl, this.content);
         }
         schema = utils.mergeSchemas(schema, contentSchema);
-      } else if (this.isObject() && !this.isRecursive(namedTypesChain)) {
-        const localFlags = utils.mergeFlags(flags, this);
-        const [typeElSchema, typeElUsedTypes] = typeEl.getSchema(dataTypes, utils.mergeFlags(localFlags, typeEl), newTypesChain);
+      } else if (!this.isRecursive(namedTypesChain)) {
+        if (this.isObject()) {
+          const localFlags = utils.mergeFlags(flags, this);
+          const [typeElSchema, typeElUsedTypes] = typeEl.getSchema(dataTypes, utils.mergeFlags(localFlags, typeEl), newTypesChain);
 
-        schema = utils.mergeSchemas(typeElSchema, contentSchema);
-        schema = fillSchemaWithAttributes(schema, typeEl.typeAttributes);
-        schema = accountPrecedence(schema, typeEl, this.content);
+          schema = utils.mergeSchemas(typeElSchema, contentSchema);
+          schema = fillSchemaWithAttributes(schema, typeEl.typeAttributes);
+          schema = accountPrecedence(schema, typeEl, this.content);
 
-        usedTypes.push(...typeElUsedTypes);
+          usedTypes.push(...typeElUsedTypes);
+        }
+        if (this.isEnum()) {
+          schema = { anyOf: [{ $ref: schemaRef }, contentSchema] };
+        }
       }
     }
 
