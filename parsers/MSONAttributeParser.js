@@ -33,10 +33,10 @@ module.exports = (Parsers) => {
         descriptionEl = utils.makeStringElement(signature.description, signature.descriptionOffset, node.firstChild, context);
       }
 
-      const splittedAttributes = splitTypeAttributes(signature.typeAttributes);
-      const propertyTypeAttributes = splittedAttributes[0];
-      const valueTypeAttributes = splittedAttributes[1];
-      const valueTypeAttributesIndexes = splittedAttributes[3];
+      const splitAttributes = splitTypeAttributes(signature.typeAttributes);
+      const propertyTypeAttributes = splitAttributes[0];
+      const valueTypeAttributes = splitAttributes[1];
+      const valueTypeAttributesIndexes = splitAttributes[3];
 
       const valueMemberSourceMaps = [];
 
