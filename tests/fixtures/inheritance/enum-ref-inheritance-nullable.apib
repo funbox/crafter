@@ -1,0 +1,21 @@
+# My API
+
+JSON schema definition named "ReportType" should represent "base/movement/track" strings and null as a possible value
+of this enumeration.
+
+# Data Structures
+
+## BaseType (enum)
+
++ base
+
+## ReportType (BaseType, nullable)
+
++ movement
++ track
+
+# GET /foo
+
++ Response 200 (application/json)
+  + Attributes
+      + items (array[ReportType])

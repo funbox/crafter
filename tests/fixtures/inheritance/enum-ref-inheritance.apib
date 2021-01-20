@@ -1,0 +1,21 @@
+# My API
+
+This fixture describes an array, which contains an enum ReportType, inherited from base enum BaseType.
+Resulting JSON schema should allow strings "base", "movement", "track" to be declared as array's elements.
+
+# Data Structures
+
+## BaseType (enum)
+
++ base
+
+## ReportType (BaseType)
+
++ movement
++ track
+
+# GET /foo
+
++ Response 200 (application/json)
+  + Attributes
+      + items (array[ReportType])

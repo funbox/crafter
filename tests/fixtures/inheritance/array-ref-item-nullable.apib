@@ -1,0 +1,21 @@
+# My API
+
+This fixture describes an array, which may contain an enum "ReportType", but also may contain "null".
+
+# Data Structures
+
+## BaseType (enum)
+
++ base
+
+## ReportType (BaseType)
+
++ movement
++ track
+
+# GET /foo
+
++ Response 200 (application/json)
+  + Attributes
+      + items (array)
+        + (ReportType, nullable)
