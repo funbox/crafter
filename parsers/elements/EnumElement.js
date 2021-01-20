@@ -108,6 +108,9 @@ class EnumElement {
     if (this.defaultValue) {
       schema.default = this.defaultValue.value;
     }
+    if (flags.isNullable) {
+      schema.enum = schema.enum.concat([null]);
+    }
     return [schema, usedTypes];
   }
 }

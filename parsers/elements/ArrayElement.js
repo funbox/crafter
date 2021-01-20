@@ -107,7 +107,10 @@ class ArrayElement {
 module.exports = ArrayElement;
 
 function getArrayMemberSchema(member, dataTypes, localFlags, namedTypesChain) {
-  const [currentMemberSchema, currentMemberUsedTypes] = member.getSchema(dataTypes, localFlags, namedTypesChain);
+  const [
+    currentMemberSchema,
+    currentMemberUsedTypes,
+  ] = member.getSchema(dataTypes, utils.mergeFlags(localFlags, member), namedTypesChain);
 
   if (member instanceof MSONMixinElement && currentMemberSchema.type === 'array') {
     if (currentMemberSchema.items === undefined) {
