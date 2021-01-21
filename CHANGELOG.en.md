@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.3.3 (21.01.2021)
+
+* Fix generated schema for enums defined as a reference.
+
 ## 2.3.2 (15.01.2021)
 
 * Process an empty node in named types.
