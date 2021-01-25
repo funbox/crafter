@@ -15,6 +15,7 @@ module.exports = (Parsers) => {
       let href;
       let method = '';
       let protoNames = '';
+      let protoNamesOffset = 0;
       let nodeToReturn = node;
 
       context.pushFrame();
@@ -28,18 +29,21 @@ module.exports = (Parsers) => {
           href = utils.makeStringElement(matchData[2], subjectOffset + matchDataIndexes[2], node, context);
 
           protoNames = matchData[4];
+          protoNamesOffset = matchDataIndexes[4];
           nodeToReturn = utils.nextNode(node);
           break;
         case 'NamelessResource':
           href = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
 
           protoNames = matchData[3];
+          protoNamesOffset = matchDataIndexes[3];
           nodeToReturn = utils.nextNode(node);
           break;
         case 'NamelessEndpoint':
           method = matchData[2];
           href = utils.makeStringElement(matchData[3], subjectOffset + matchDataIndexes[3], node, context);
           protoNames = matchData[5];
+          protoNamesOffset = matchDataIndexes[5];
           context.data.endpointActionsCount = 0;
           break;
         case 'NamedEndpoint':
@@ -54,15 +58,30 @@ module.exports = (Parsers) => {
 
       const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
-      const rawPrototypes = protoNames ? protoNames.split(',').map(p => p.trim()) : [];
-      const prototypes = utils.preparePrototypes(rawPrototypes, context, sourceMap);
+      const protoElements = [];
 
-      context.resourcePrototypes.push(prototypes);
+      if (protoNames) {
+        let protoOffset = protoNamesOffset;
+        const SEP = ',';
+        protoNames.split(SEP).forEach(proto => {
+          const trimmedProto = proto.trim();
+          const protoElement = utils.makeStringElement(
+            trimmedProto,
+            subjectOffset + protoOffset + proto.indexOf(trimmedProto),
+            node,
+            context,
+          );
+          protoElements.push(protoElement);
+          protoOffset += proto.length + SEP.length;
+        });
+      }
+
+      context.resourcePrototypes.push(utils.preparePrototypes(protoElements.map(el => el.string), context, sourceMap));
 
       context.data.resourceEndpointMethod = method;
       context.data.startNode = node;
 
-      const result = new ResourceElement(href, title, sourceMap);
+      const result = new ResourceElement(href, title, protoElements, sourceMap);
 
       return [nodeToReturn, result];
     },

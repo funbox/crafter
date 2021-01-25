@@ -105,6 +105,19 @@
                 "href": {
                   "element": "string",
                   "content": "/users"
+                },
+                "prototypes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "NotFound"
+                    },
+                    {
+                      "element": "string",
+                      "content": "InternalError"
+                    }
+                  ]
                 }
               },
               "content": [

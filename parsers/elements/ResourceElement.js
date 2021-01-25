@@ -24,11 +24,13 @@ class ResourceElement {
   /**
    * @param {StringElement} href - URL HTTP-запроса
    * @param {StringElement=} title - опциональный заголовок
+   * @param {StringElement[]} prototypes - список Resource Prototypes для данного элемента
    * @param {SourceMap} sourceMap
    */
-  constructor(href, title, sourceMap) {
+  constructor(href, title, prototypes, sourceMap) {
     this.href = href;
     this.title = title;
+    this.prototypes = prototypes;
     /**
      * @type {DescriptionElement}
      */
@@ -65,6 +67,13 @@ class ResourceElement {
 
     if (this.parameters) {
       result.attributes.hrefVariables = this.parameters.toRefract(sourceMapsEnabled);
+    }
+
+    if (this.prototypes.length) {
+      result.attributes.prototypes = {
+        element: Refract.elements.array,
+        content: this.prototypes.map(p => p.toRefract(sourceMapsEnabled)),
+      };
     }
 
     if (this.description) {
