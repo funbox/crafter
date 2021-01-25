@@ -18,6 +18,7 @@ module.exports = (Parsers) => {
       let href = null;
       let method = null;
       let protoNames = '';
+      let protoNamesOffset = 0;
 
       context.pushFrame();
 
@@ -42,6 +43,7 @@ module.exports = (Parsers) => {
 
         if (matchData[4]) {
           protoNames = matchData[4];
+          protoNamesOffset = matchDataIndexes[4];
         }
 
         method = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
@@ -72,17 +74,33 @@ module.exports = (Parsers) => {
 
         if (matchData[5]) {
           protoNames = matchData[5];
+          protoNamesOffset = matchDataIndexes[5];
         }
 
         method = utils.makeStringElement(matchData[2], subjectOffset + matchDataIndexes[2], node, context);
       }
 
-      const rawPrototypes = protoNames ? protoNames.split(',').map(p => p.trim()) : [];
-      const prototypes = utils.preparePrototypes(rawPrototypes, context, sourceMap);
+      const protoElements = [];
 
-      context.resourcePrototypes.push(prototypes);
+      if (protoNames) {
+        let protoOffset = protoNamesOffset;
+        const SEP = ',';
+        protoNames.split(SEP).forEach(proto => {
+          const trimmedProto = proto.trim();
+          const protoElement = utils.makeStringElement(
+            trimmedProto,
+            subjectOffset + protoOffset + proto.indexOf(trimmedProto),
+            node,
+            context,
+          );
+          protoElements.push(protoElement);
+          protoOffset += proto.length + SEP.length;
+        });
+      }
 
-      const result = new ActionElement(method, href, title, sourceMap);
+      context.resourcePrototypes.push(utils.preparePrototypes(protoElements.map(el => el.string), context, sourceMap));
+
+      const result = new ActionElement(method, href, title, protoElements, sourceMap);
 
       return [utils.nextNode(node), result];
     },

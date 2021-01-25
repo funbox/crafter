@@ -38,12 +38,15 @@ class ActionElement {
    * @param {StringElement} method - HTTP-метод (GET, POST и т.п.)
    * @param {StringElement=} href - URL HTTP-запроса
    * @param {StringElement} title - опциональный заголовок
+   * @param {StringElement[]} prototypes - список Resource Prototypes для данного элемента
    * @param {SourceMap} sourceMap
    */
-  constructor(method, href, title, sourceMap) {
-    this.title = title;
-    this.href = href;
+  constructor(method, href, title, prototypes, sourceMap) {
     this.method = method;
+    this.href = href;
+    this.title = title;
+    this.prototypes = prototypes;
+
     /**
      * @type {RequestElement[]}
      */
@@ -87,6 +90,14 @@ class ActionElement {
     if (this.parameters) {
       result.attributes = result.attributes || {};
       result.attributes.hrefVariables = this.parameters.toRefract(sourceMapsEnabled);
+    }
+
+    if (this.prototypes.length) {
+      result.attributes = result.attributes || {};
+      result.attributes.prototypes = {
+        element: Refract.elements.array,
+        content: this.prototypes.map(p => p.toRefract(sourceMapsEnabled)),
+      };
     }
 
     if (sourceMapsEnabled) {

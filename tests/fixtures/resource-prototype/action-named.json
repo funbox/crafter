@@ -146,6 +146,17 @@
                       "element": "string",
                       "content": "List all users"
                     }
+                  },
+                  "attributes": {
+                    "prototypes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "NotFound"
+                        }
+                      ]
+                    }
                   }
                 }
               ],
