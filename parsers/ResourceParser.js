@@ -58,24 +58,7 @@ module.exports = (Parsers) => {
 
       const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
-      const protoElements = [];
-
-      if (protoNames) {
-        let protoOffset = protoNamesOffset;
-        const SEP = ',';
-        protoNames.split(SEP).forEach(proto => {
-          const trimmedProto = proto.trim();
-          const protoElement = utils.makeStringElement(
-            trimmedProto,
-            subjectOffset + protoOffset + proto.indexOf(trimmedProto),
-            node,
-            context,
-          );
-          protoElements.push(protoElement);
-          protoOffset += proto.length + SEP.length;
-        });
-      }
-
+      const protoElements = utils.buildPrototypeElements(protoNames, subjectOffset + protoNamesOffset, node, context);
       context.resourcePrototypes.push(utils.preparePrototypes(protoElements.map(el => el.string), context, sourceMap));
 
       context.data.resourceEndpointMethod = method;

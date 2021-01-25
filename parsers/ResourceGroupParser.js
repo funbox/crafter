@@ -17,26 +17,7 @@ module.exports = (Parsers) => {
 
       context.data.groupSignatureDetails = { sourceMap };
 
-      const protoElements = [];
-      const protoNames = matchData[3];
-      const protoNamesOffset = matchDataIndexes[3];
-
-      if (protoNames) {
-        let protoOffset = protoNamesOffset;
-        const SEP = ',';
-        protoNames.split(SEP).forEach(proto => {
-          const trimmedProto = proto.trim();
-          const protoElement = utils.makeStringElement(
-            trimmedProto,
-            subjectOffset + protoOffset + proto.indexOf(trimmedProto),
-            node,
-            context,
-          );
-          protoElements.push(protoElement);
-          protoOffset += proto.length + SEP.length;
-        });
-      }
-
+      const protoElements = utils.buildPrototypeElements(matchData[3], subjectOffset + matchDataIndexes[3], node, context);
       context.resourcePrototypes.push(utils.preparePrototypes(protoElements.map(el => el.string), context, sourceMap));
 
       const result = new ResourceGroupElement(title, protoElements, sourceMap);
