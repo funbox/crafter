@@ -39,13 +39,13 @@ describe('PrototypeResolver', () => {
   });
 
   it('throws error on unknown type', () => {
-    foo.basePrototypes = [new StringElement('unknown')];
+    foo.prototypes = [new StringElement('unknown')];
     resolver.prototypes = { foo };
     expect(() => resolver.resolveRegisteredPrototypes()).toThrow(CrafterError);
   });
 
   it('throws error on loop', () => {
-    foo.basePrototypes = [new StringElement('bar')];
+    foo.prototypes = [new StringElement('bar')];
     resolver.prototypes = { foo, bar };
     expect(() => resolver.resolveRegisteredPrototypes()).toThrow(CrafterError);
   });

@@ -1,5 +1,6 @@
 const Refract = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
+const { addPrototypesToRefract } = require('./ResourcePrototypesUtils');
 
 /**
  * Элемент Resource Prototype.
@@ -15,15 +16,15 @@ class ResourcePrototypeElement {
   /**
    *
    * @param {StringElement} title - название прототипа
-   * @param {StringElement[]} basePrototypes - список прототипов, от которых наследуется текущий
+   * @param {StringElement[]} prototypes - список прототипов, от которых наследуется текущий
    */
-  constructor(title, basePrototypes = []) {
+  constructor(title, prototypes = []) {
     this.title = title;
     /**
      * @type {ResponseElement[]}
      */
     this.responses = [];
-    this.basePrototypes = basePrototypes;
+    this.prototypes = prototypes;
     this.sourceMap = null;
   }
 
@@ -46,13 +47,7 @@ class ResourcePrototypeElement {
       };
     }
 
-    if (this.basePrototypes.length) {
-      result.attributes = result.attributes || {};
-      result.attributes.prototypes = {
-        element: Refract.elements.array,
-        content: this.basePrototypes.map(p => p.toRefract(sourceMapsEnabled)),
-      };
-    }
+    addPrototypesToRefract(this, result, sourceMapsEnabled);
 
     return result;
   }

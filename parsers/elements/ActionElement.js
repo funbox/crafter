@@ -1,6 +1,7 @@
 const Refract = require('../../Refract');
 const RequestElement = require('./RequestElement');
 const SourceMapElement = require('./SourceMapElement');
+const { addPrototypesToRefract } = require('./ResourcePrototypesUtils');
 
 /**
  * Action — связка URL + метод + 1 и более Request + 1 или более Response.
@@ -92,13 +93,7 @@ class ActionElement {
       result.attributes.hrefVariables = this.parameters.toRefract(sourceMapsEnabled);
     }
 
-    if (this.prototypes.length) {
-      result.attributes = result.attributes || {};
-      result.attributes.prototypes = {
-        element: Refract.elements.array,
-        content: this.prototypes.map(p => p.toRefract(sourceMapsEnabled)),
-      };
-    }
+    addPrototypesToRefract(this, result, sourceMapsEnabled);
 
     if (sourceMapsEnabled) {
       result.attributes = result.attributes || {};

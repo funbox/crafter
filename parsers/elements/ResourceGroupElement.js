@@ -1,5 +1,6 @@
 const Refract = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
+const { addPrototypesToRefract } = require('./ResourcePrototypesUtils');
 
 /**
  * Группа ресурсов
@@ -64,13 +65,7 @@ class ResourceGroupElement {
       result.attributes = { sourceMap: sourceMapEl.toRefract() };
     }
 
-    if (this.prototypes.length) {
-      result.attributes = result.attributes || {};
-      result.attributes.prototypes = {
-        element: Refract.elements.array,
-        content: this.prototypes.map(p => p.toRefract(sourceMapsEnabled)),
-      };
-    }
+    addPrototypesToRefract(this, result, sourceMapsEnabled);
 
     return result;
   }

@@ -1,5 +1,6 @@
 const Refract = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
+const { addPrototypesToRefract } = require('./ResourcePrototypesUtils');
 
 /**
  * Ресурс. Возможны несколько вариантов объявления ресурса:
@@ -69,12 +70,7 @@ class ResourceElement {
       result.attributes.hrefVariables = this.parameters.toRefract(sourceMapsEnabled);
     }
 
-    if (this.prototypes.length) {
-      result.attributes.prototypes = {
-        element: Refract.elements.array,
-        content: this.prototypes.map(p => p.toRefract(sourceMapsEnabled)),
-      };
-    }
+    addPrototypesToRefract(this, result, sourceMapsEnabled);
 
     if (this.description) {
       result.content.unshift(this.description.toRefract(sourceMapsEnabled));

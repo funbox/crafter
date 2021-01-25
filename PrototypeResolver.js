@@ -19,7 +19,7 @@ class PrototypeResolver {
       }
 
       usedPrototypes.push(targetProto.title);
-      const baseProtoNames = targetProto.basePrototypes;
+      const baseProtoNames = targetProto.prototypes;
 
       baseProtoNames.forEach((protoName) => {
         if (protoName) {
