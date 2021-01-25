@@ -906,6 +906,69 @@
                   ]
                 }
               ]
+            },
+            "prototypes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "NotFound",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 123
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 8
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "element": "string",
+                  "content": "InternalError",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 133
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 13
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
             }
           }
         }

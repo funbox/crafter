@@ -181,7 +181,18 @@
                 }
               }
             }
-          ]
+          ],
+          "attributes": {
+            "prototypes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "InternalError"
+                }
+              ]
+            }
+          }
         },
         {
           "element": "category",
@@ -283,7 +294,18 @@
                 }
               }
             }
-          ]
+          ],
+          "attributes": {
+            "prototypes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "NotFound"
+                }
+              ]
+            }
+          }
         }
       ]
     }

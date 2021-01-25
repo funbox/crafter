@@ -12,16 +12,35 @@ module.exports = (Parsers) => {
 
       const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
       const [matchData, matchDataIndexes] = utils.matchStringToRegex(subject, GroupHeaderRegex);
-      const rawPrototypes = matchData[3] ? matchData[3].split(',').map(p => p.trim()) : [];
       const title = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
       const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-      const result = new ResourceGroupElement(title, sourceMap);
 
       context.data.groupSignatureDetails = { sourceMap };
 
-      const prototypes = utils.preparePrototypes(rawPrototypes, context, sourceMap);
+      const protoElements = [];
+      const protoNames = matchData[3];
+      const protoNamesOffset = matchDataIndexes[3];
 
-      context.resourcePrototypes.push(prototypes);
+      if (protoNames) {
+        let protoOffset = protoNamesOffset;
+        const SEP = ',';
+        protoNames.split(SEP).forEach(proto => {
+          const trimmedProto = proto.trim();
+          const protoElement = utils.makeStringElement(
+            trimmedProto,
+            subjectOffset + protoOffset + proto.indexOf(trimmedProto),
+            node,
+            context,
+          );
+          protoElements.push(protoElement);
+          protoOffset += proto.length + SEP.length;
+        });
+      }
+
+      context.resourcePrototypes.push(utils.preparePrototypes(protoElements.map(el => el.string), context, sourceMap));
+
+      const result = new ResourceGroupElement(title, protoElements, sourceMap);
+
       return [utils.nextNode(node), result];
     },
 

@@ -14,10 +14,12 @@ const SourceMapElement = require('./SourceMapElement');
 class ResourceGroupElement {
   /**
    * @param {StringElement} title - название группы ресурсов
+   * @param {StringElement[]} prototypes - список Resource Prototypes для данного элемента
    * @param {SourceMap} sourceMap
    */
-  constructor(title, sourceMap) {
+  constructor(title, prototypes, sourceMap) {
     this.title = title;
+    this.prototypes = prototypes;
     /**
      * @type {DescriptionElement}
      */
@@ -60,6 +62,14 @@ class ResourceGroupElement {
     if (sourceMapsEnabled) {
       const sourceMapEl = new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file);
       result.attributes = { sourceMap: sourceMapEl.toRefract() };
+    }
+
+    if (this.prototypes.length) {
+      result.attributes = result.attributes || {};
+      result.attributes.prototypes = {
+        element: Refract.elements.array,
+        content: this.prototypes.map(p => p.toRefract(sourceMapsEnabled)),
+      };
     }
 
     return result;
