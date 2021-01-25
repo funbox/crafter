@@ -39,17 +39,18 @@ class ResourcePrototypeElement {
       content: this.responses.map(r => r.toRefract(sourceMapsEnabled)),
     };
 
-    if (this.basePrototypes.length > 0) {
-      result.meta.basePrototypes = {
-        element: Refract.elements.array,
-        content: this.basePrototypes.map(bp => bp.toRefract(sourceMapsEnabled)),
-      };
-    }
-
     if (sourceMapsEnabled) {
       const sourceMapEl = new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file);
       result.attributes = {
         sourceMap: sourceMapEl.toRefract(),
+      };
+    }
+
+    if (this.basePrototypes.length) {
+      result.attributes = result.attributes || {};
+      result.attributes.prototypes = {
+        element: Refract.elements.array,
+        content: this.basePrototypes.map(p => p.toRefract(sourceMapsEnabled)),
       };
     }
 

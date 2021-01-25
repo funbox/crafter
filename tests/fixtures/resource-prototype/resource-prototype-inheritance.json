@@ -74,15 +74,6 @@
                 "title": {
                   "element": "string",
                   "content": "Common"
-                },
-                "basePrototypes": {
-                  "element": "array",
-                  "content": [
-                    {
-                      "element": "string",
-                      "content": "Errors"
-                    }
-                  ]
                 }
               },
               "content": [
@@ -96,7 +87,18 @@
                     }
                   }
                 }
-              ]
+              ],
+              "attributes": {
+                "prototypes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "Errors"
+                    }
+                  ]
+                }
+              }
             }
           ]
         },

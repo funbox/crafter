@@ -43,19 +43,6 @@
                 "title": {
                   "element": "string",
                   "content": "A"
-                },
-                "basePrototypes": {
-                  "element": "array",
-                  "content": [
-                    {
-                      "element": "string",
-                      "content": "B"
-                    },
-                    {
-                      "element": "string",
-                      "content": "C"
-                    }
-                  ]
                 }
               },
               "content": [
@@ -69,7 +56,22 @@
                     }
                   }
                 }
-              ]
+              ],
+              "attributes": {
+                "prototypes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "B"
+                    },
+                    {
+                      "element": "string",
+                      "content": "C"
+                    }
+                  ]
+                }
+              }
             },
             {
               "element": "resourcePrototype",
@@ -77,15 +79,6 @@
                 "title": {
                   "element": "string",
                   "content": "B"
-                },
-                "basePrototypes": {
-                  "element": "array",
-                  "content": [
-                    {
-                      "element": "string",
-                      "content": "D"
-                    }
-                  ]
                 }
               },
               "content": [
@@ -99,7 +92,18 @@
                     }
                   }
                 }
-              ]
+              ],
+              "attributes": {
+                "prototypes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "D"
+                    }
+                  ]
+                }
+              }
             },
             {
               "element": "resourcePrototype",
@@ -107,19 +111,6 @@
                 "title": {
                   "element": "string",
                   "content": "C"
-                },
-                "basePrototypes": {
-                  "element": "array",
-                  "content": [
-                    {
-                      "element": "string",
-                      "content": "D"
-                    },
-                    {
-                      "element": "string",
-                      "content": "E"
-                    }
-                  ]
                 }
               },
               "content": [
@@ -133,7 +124,22 @@
                     }
                   }
                 }
-              ]
+              ],
+              "attributes": {
+                "prototypes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "D"
+                    },
+                    {
+                      "element": "string",
+                      "content": "E"
+                    }
+                  ]
+                }
+              }
             },
             {
               "element": "resourcePrototype",
@@ -141,15 +147,6 @@
                 "title": {
                   "element": "string",
                   "content": "D"
-                },
-                "basePrototypes": {
-                  "element": "array",
-                  "content": [
-                    {
-                      "element": "string",
-                      "content": "E"
-                    }
-                  ]
                 }
               },
               "content": [
@@ -163,7 +160,18 @@
                     }
                   }
                 }
-              ]
+              ],
+              "attributes": {
+                "prototypes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "E"
+                    }
+                  ]
+                }
+              }
             },
             {
               "element": "resourcePrototype",
