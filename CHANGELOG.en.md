@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.4.0 (26.01.2021)
+
+* Add source maps for resource prototypes.
+
 ## 2.3.3 (21.01.2021)
 
 * Fix generated schema for enums defined as a reference.
