@@ -35,7 +35,7 @@ class ResourcePrototypeElement {
     const result = {
       element: Refract.elements.resourcePrototype,
       meta: {
-        title: this.title.toRefract(sourceMapsEnabled),
+        id: this.title.toRefract(sourceMapsEnabled),
       },
       content: this.responses.map(r => r.toRefract(sourceMapsEnabled)),
     };
