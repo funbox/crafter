@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.5.0 (27.01.2021)
+
+* Use unified title field for resource prototypes.
+
 ## 2.4.0 (26.01.2021)
 
 * Add source maps for resource prototypes.
