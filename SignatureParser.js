@@ -1,24 +1,9 @@
 const utils = require('./utils');
-
-const typeAttributes = {
-  required: 'required',
-  optional: 'optional',
-  fixed: 'fixed',
-  'fixed-type': 'fixedType',
-  nullable: 'nullable',
-};
-
-const parameterizedTypeAttributes = {
-  pattern: { alias: 'pattern' },
-  format: { alias: 'format' },
-  'min-length': { alias: 'minLength', dataType: 'number' },
-  'max-length': { alias: 'maxLength', dataType: 'number' },
-  minimum: { alias: 'minimum', dataType: 'number' },
-  maximum: { alias: 'maximum', dataType: 'number' },
-};
-
-const fakeTypeAttributes = { sample: 'sample', default: 'default' };
-
+const {
+  typeAttributes,
+  parameterizedTypeAttributes,
+  fakeTypeAttributes,
+} = require('./type-attributes');
 /**
  * @typedef {('NAME'|'VALUE'|'ATTRIBUTES'|'DESCRIPTION')} ParserTrait
  */
@@ -439,5 +424,4 @@ module.exports = {
   parser: SignatureParser,
   traits: parserTraits,
   splitValues,
-  typeAttributes,
 };

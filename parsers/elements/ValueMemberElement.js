@@ -104,6 +104,14 @@ class ValueMemberElement {
     return (this.baseType === type || this.type === type);
   }
 
+  getType() {
+    return this.type || (this.content ? 'object' : 'string');
+  }
+
+  getBaseType() {
+    return this.baseType || this.getType();
+  }
+
   isRecursive(typesChain) {
     if (this.isObject() && typesChain.includes(this.type)) return true;
 
@@ -130,7 +138,7 @@ class ValueMemberElement {
    */
   toRefract(sourceMapsEnabled, isFixed) {
     const sourceMapEl = sourceMapsEnabled && this.sourceMap ? new SourceMapElement(this.sourceMap.byteBlocks) : null;
-    const type = this.type || (this.content ? 'object' : 'string');
+    const type = this.getType();
 
     const result = {
       element: type,

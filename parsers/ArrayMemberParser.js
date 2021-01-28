@@ -3,7 +3,7 @@ const SectionTypes = require('../SectionTypes');
 const DataStructureProcessor = require('../DataStructureProcessor');
 const ValueMemberElement = require('./elements/ValueMemberElement');
 const ValueMemberProcessor = require('../ValueMemberProcessor');
-const { parser: SignatureParser, traits: ParserTraits, typeAttributes } = require('../SignatureParser');
+const { parser: SignatureParser, traits: ParserTraits } = require('../SignatureParser');
 
 module.exports = (Parsers) => {
   Parsers.ArrayMemberParser = Object.assign(Object.create(require('./AbstractParser')), {
@@ -92,7 +92,7 @@ module.exports = (Parsers) => {
       const { attributeSignatureDetails } = context.data;
       context.popFrame();
 
-      utils.validateAttributesConsistency(context, result, attributeSignatureDetails, typeAttributes);
+      utils.validateAttributesConsistency(context, result, attributeSignatureDetails);
 
       return result;
     },

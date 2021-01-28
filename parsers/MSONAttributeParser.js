@@ -6,7 +6,7 @@ const StringElement = require('./elements/StringElement');
 const DataStructureProcessor = require('../DataStructureProcessor');
 const ValueMemberElement = require('./elements/ValueMemberElement');
 const ValueMemberProcessor = require('../ValueMemberProcessor');
-const { parser: SignatureParser, typeAttributes } = require('../SignatureParser');
+const { parser: SignatureParser } = require('../SignatureParser');
 
 module.exports = (Parsers) => {
   Parsers.MSONAttributeParser = Object.assign(Object.create(require('./AbstractParser')), {
@@ -236,7 +236,7 @@ module.exports = (Parsers) => {
 
       context.popFrame();
 
-      utils.validateAttributesConsistency(context, result.value, details, typeAttributes);
+      utils.validateAttributesConsistency(context, result.value, details);
 
       return result;
     },

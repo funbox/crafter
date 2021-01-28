@@ -1,7 +1,7 @@
 const SectionTypes = require('../SectionTypes');
 const types = require('../types');
 const utils = require('../utils');
-const { parser: SignatureParser, traits: ParserTraits, typeAttributes } = require('../SignatureParser');
+const { parser: SignatureParser, traits: ParserTraits } = require('../SignatureParser');
 const MSONNamedTypeElement = require('./elements/MSONNamedTypeElement');
 const ValueMemberElement = require('./elements/ValueMemberElement');
 const EnumElement = require('./elements/EnumElement');
@@ -358,7 +358,7 @@ module.exports = (Parsers) => {
         fillElementWithContent(result.content, type);
       }
 
-      utils.validateAttributesConsistency(context, result.content, attributeSignatureDetails, typeAttributes);
+      utils.validateAttributesConsistency(context, result.content, attributeSignatureDetails);
 
       context.popFrame();
 

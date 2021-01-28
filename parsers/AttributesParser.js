@@ -1,7 +1,7 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
 const types = require('../types');
-const { parser: SignatureParser, traits: ParserTraits, typeAttributes } = require('../SignatureParser');
+const { parser: SignatureParser, traits: ParserTraits } = require('../SignatureParser');
 const AttributesElement = require('./elements/AttributesElement');
 const DataStructureProcessor = require('../DataStructureProcessor');
 const ValueMemberElement = require('./elements/ValueMemberElement');
@@ -207,7 +207,7 @@ module.exports = (Parsers) => {
 
       context.popFrame();
 
-      utils.validateAttributesConsistency(context, result.content, attributeSignatureDetails, typeAttributes);
+      utils.validateAttributesConsistency(context, result.content, attributeSignatureDetails);
 
       return result;
     },
