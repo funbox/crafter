@@ -199,17 +199,6 @@
                                     "content": "группа с указанным названием уже существует"
                                   }
                                 },
-                                "attributes": {
-                                  "typeAttributes": {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "string",
-                                        "content": "required"
-                                      }
-                                    ]
-                                  }
-                                },
                                 "content": [
                                   {
                                     "element": "member",
@@ -326,18 +315,7 @@
                             {
                               "element": "dataStructure",
                               "content": {
-                                "element": "NormalResponse",
-                                "attributes": {
-                                  "typeAttributes": {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "string",
-                                        "content": "required"
-                                      }
-                                    ]
-                                  }
-                                }
+                                "element": "NormalResponse"
                               }
                             },
                             {
