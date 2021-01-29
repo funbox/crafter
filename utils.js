@@ -580,8 +580,7 @@ const utils = {
   },
 
   mergeStringElements(first, second) {
-    const merged = new StringElement();
-    merged.string = first.string + second.string;
+    const merged = new StringElement(first.string + second.string);
     if (first.sourceMap && second.sourceMap) {
       merged.sourceMap = utils.concatSourceMaps([first.sourceMap, second.sourceMap]);
     }
