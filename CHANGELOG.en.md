@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.6.0 (29.01.2021)
+
+* Check allowed attributes of an element.
+
 ## 2.5.0 (27.01.2021)
 
 * Use unified title field for resource prototypes.
