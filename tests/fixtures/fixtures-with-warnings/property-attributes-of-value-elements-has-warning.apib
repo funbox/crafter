@@ -1,0 +1,20 @@
+# My API
+
+Value elements of "items" array contain attributes "required", "optional", which refers only to property elements.
+This fixture produces warnings:
+'Type attribute "required" is not allowed for a value of type "string"'
+'Type attribute "optional" is not allowed for a value of type "number"'
+
+# Data Structures
+
+## BaseString (string)
+
+## GET /foo
+
++ Response 200 (application/json)
+  Запрос выполнен успешно
+    + Attributes (object)
+        + items (array)
+          + test1 (BaseString, required)
+          + test2 (number, optional)
+          + (object, fixed-type)
