@@ -1,5 +1,6 @@
 const Refract = require('../../Refract');
 const utils = require('../../utils');
+const utilsHelpers = require('../../utils/index');
 const types = require('../../types');
 const SourceMapElement = require('./SourceMapElement');
 const Flags = require('../../Flags');
@@ -158,7 +159,7 @@ class ValueMemberElement {
     }
 
     if (this.typeAttributes.length) {
-      result.attributes = utils.typeAttributesToRefract(this.typeAttributes);
+      result.attributes = utilsHelpers.typeAttributesToRefract(this.typeAttributes);
     }
 
     if (this.shouldOutputValue(isFixed)) {

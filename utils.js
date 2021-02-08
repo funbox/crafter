@@ -1,6 +1,6 @@
 const commonmark = require('@funbox/commonmark');
 const equal = require('fast-deep-equal');
-const Refract = require('./Refract');
+
 const types = require('./types');
 const DescriptionElement = require('./parsers/elements/DescriptionElement');
 const StringElement = require('./parsers/elements/StringElement');
@@ -35,35 +35,6 @@ class SourceMap {
 }
 
 const utils = {
-  typeAttributesToRefract(attributes) {
-    return {
-      typeAttributes: {
-        element: Refract.elements.array,
-        content: attributes.map(a => {
-          if (Array.isArray(a)) {
-            return {
-              element: Refract.elements.member,
-              content: {
-                key: {
-                  element: Refract.elements.string,
-                  content: a[0],
-                },
-                value: {
-                  element: Refract.elements.string,
-                  content: a[1],
-                },
-              },
-            };
-          }
-          return {
-            element: Refract.elements.string,
-            content: a,
-          };
-        }),
-      },
-    };
-  },
-
   headerText(node, sourceLines) {
     return this.nodeText(node, sourceLines).slice(node.level).trim();
   },

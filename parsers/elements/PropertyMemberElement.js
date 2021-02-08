@@ -1,5 +1,6 @@
 const Refract = require('../../Refract');
 const utils = require('../../utils');
+const utilsHelpers = require('../../utils/index');
 const Flags = require('../../Flags');
 const SourceMapElement = require('./SourceMapElement');
 
@@ -52,7 +53,7 @@ class PropertyMemberElement {
     };
 
     if (this.typeAttributes.length) {
-      result.attributes = utils.typeAttributesToRefract(this.typeAttributes);
+      result.attributes = utilsHelpers.typeAttributesToRefract(this.typeAttributes);
     }
 
     if (sourceMapsEnabled) {
