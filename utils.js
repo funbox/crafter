@@ -6,6 +6,7 @@ const DescriptionElement = require('./parsers/elements/DescriptionElement');
 const StringElement = require('./parsers/elements/StringElement');
 const HeadersElement = require('./parsers/elements/HeadersElement');
 const Flags = require('./Flags');
+const utilsHelpers = require('./utils/index.js');
 const { typeAttributes, parameterizedTypeAttributes, permittedValueTypeAttributes } = require('./type-attributes');
 
 class CrafterError extends Error {
@@ -130,7 +131,7 @@ const utils = {
     }
     const byteBlock = { offset: startOffset, length, file: startNode.file };
     const byteBlocks = [byteBlock];
-    const charBlocks = this.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
+    const charBlocks = utilsHelpers.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
     return new SourceMap(byteBlocks, charBlocks);
   },
 
@@ -173,7 +174,7 @@ const utils = {
     byteBlock.file = node.file;
 
     const byteBlocks = [byteBlock];
-    const charBlocks = this.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
+    const charBlocks = utilsHelpers.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
     return new SourceMap(byteBlocks, charBlocks);
   },
 
@@ -202,7 +203,7 @@ const utils = {
       }
     }
 
-    const charBlocks = this.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
+    const charBlocks = utilsHelpers.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
     return new SourceMap(byteBlocks, charBlocks);
   },
 
@@ -228,7 +229,7 @@ const utils = {
       lineStr = lineStr.slice(inlineValueStr.length);
       columnIndex += inlineValueStr.length;
       const byteBlocks = [byteBlock];
-      const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
+      const charBlocks = utilsHelpers.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
       return new SourceMap(byteBlocks, charBlocks);
     });
   },
@@ -253,7 +254,7 @@ const utils = {
       file: node.file,
     };
     const byteBlocks = [byteBlock];
-    const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
+    const charBlocks = utilsHelpers.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
     return new SourceMap(byteBlocks, charBlocks);
   },
 
@@ -300,16 +301,8 @@ const utils = {
     });
 
     const byteBlocks = [byteBlock];
-    const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
+    const charBlocks = utilsHelpers.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
     return new SourceMap(byteBlocks, charBlocks);
-  },
-
-  getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets) {
-    return byteBlocks.map(byteBlock => {
-      const charBlock = byteBlockToCharacterBlock(byteBlock, sourceBuffer);
-      const info = getLineColumnInfo(charBlock, linefeedOffsets);
-      return { ...charBlock, ...info };
-    });
   },
 
   getSourcePosZeroBased(node) {
@@ -825,30 +818,8 @@ function makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, sour
       byteBlocks.push(byteBlock);
     }
   }
-  const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
+  const charBlocks = utilsHelpers.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
   return new SourceMap(byteBlocks, charBlocks);
-}
-
-function byteBlockToCharacterBlock(byteBlock, sourceBuffer) {
-  const charOffset = sourceBuffer.slice(0, byteBlock.offset).toString().length;
-  const charLength = sourceBuffer.slice(byteBlock.offset, byteBlock.offset + byteBlock.length).toString().length;
-  return { offset: charOffset, length: charLength, file: byteBlock.file };
-}
-
-function getLineColumnInfo(characterBlock, linefeedOffsets) {
-  const startOffset = characterBlock.offset;
-  const length = characterBlock.length;
-
-  const startLinefeedIndex = linefeedOffsets.findIndex(linefeedOffset => linefeedOffset > startOffset);
-  const startLine = startLinefeedIndex + 1;
-  const startColumn = (startLinefeedIndex > 0) ? (startOffset - linefeedOffsets[startLinefeedIndex - 1]) : (startOffset + 1);
-
-  const endOffset = (startOffset + length - 1);
-  const endLinefeedIndex = linefeedOffsets.findIndex(linefeedOffset => linefeedOffset >= endOffset);
-  const endLine = endLinefeedIndex + 1;
-  const endColumn = (endLinefeedIndex > 0) ? (endOffset - linefeedOffsets[endLinefeedIndex - 1]) : (endOffset + 1);
-
-  return { startLine, startColumn, endLine, endColumn };
 }
 
 module.exports = utils;

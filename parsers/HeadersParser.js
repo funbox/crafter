@@ -1,5 +1,6 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
+const utilsHelpers = require('../utils/index.js');
 const HeadersElement = require('./elements/HeadersElement');
 
 const headersRegex = /^[Hh]eaders$/;
@@ -89,7 +90,7 @@ module.exports = (Parsers) => {
           block.length = offset - block.offset;
           block.file = contentNode.file;
           const byteBlocks = [block];
-          const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
+          const charBlocks = utilsHelpers.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
           const sourceMap = new utils.SourceMap(byteBlocks, charBlocks);
           offset += utils.linefeedBytes;
 
