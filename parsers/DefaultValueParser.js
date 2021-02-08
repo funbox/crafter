@@ -25,7 +25,7 @@ module.exports = (Parsers) => {
           case 'primitive':
           case 'enum':
             values.forEach((value, index) => {
-              const converted = utils.convertType(value, context.data.valueType);
+              const converted = utilsHelpers.convertType(value, context.data.valueType);
 
               if (converted.valid) {
                 result.push(new DefaultValueElement(converted.value, context.data.valueType, sourceMaps[index]));
@@ -36,7 +36,7 @@ module.exports = (Parsers) => {
             break;
           case 'array': {
             const preparedValues = values.reduce((res, v, index) => {
-              const converted = utils.convertType(v, context.data.valueType);
+              const converted = utilsHelpers.convertType(v, context.data.valueType);
 
               if (converted.valid) {
                 res.push(converted.value);
@@ -93,7 +93,7 @@ module.exports = (Parsers) => {
       switch (context.data.typeForDefaults) {
         case 'primitive':
         case 'enum': {
-          const converted = utils.convertType(text, context.data.valueType);
+          const converted = utilsHelpers.convertType(text, context.data.valueType);
 
           if (converted.valid) {
             result.push(new DefaultValueElement(converted.value, context.data.valueType, sourceMap));
@@ -103,7 +103,7 @@ module.exports = (Parsers) => {
           break;
         }
         case 'array': {
-          const converted = utils.convertType(text, context.data.valueType);
+          const converted = utilsHelpers.convertType(text, context.data.valueType);
 
           if (converted.valid) {
             if (!result.length) {

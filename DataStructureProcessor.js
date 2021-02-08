@@ -1,6 +1,7 @@
 const SectionTypes = require('./SectionTypes');
 const types = require('./types');
 const utils = require('./utils');
+const utilsHelpers = require('./utils/index');
 
 const EnumElement = require('./parsers/elements/EnumElement');
 const ObjectElement = require('./parsers/elements/ObjectElement');
@@ -241,7 +242,7 @@ class DataStructureProcessor {
 
       if (!member.type && types.primitiveTypes.includes(predefinedType)) {
         member.type = predefinedType;
-        const realValue = utils.convertType(member.value, predefinedType);
+        const realValue = utilsHelpers.convertType(member.value, predefinedType);
         if (!realValue.valid) {
           context.addWarning(`Invalid value "${member.value}" for "${predefinedType}" type`, sourceMap);
         }
@@ -484,7 +485,7 @@ class DataStructureProcessor {
         return;
       }
 
-      const converted = utils.convertType(member.value, enumElement.type);
+      const converted = utilsHelpers.convertType(member.value, enumElement.type);
       const typesMatch = utils.compareAttributeTypes(enumElement, member);
 
       if (!typesMatch) {
