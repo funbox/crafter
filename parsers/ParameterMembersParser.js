@@ -1,5 +1,6 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
+const utilsHelpers = require('../utils/index');
 const ParameterMembersElement = require('./elements/ParameterMembersElement');
 
 const parameterMembersRegex = /^[Mm]embers$/;
@@ -15,7 +16,7 @@ module.exports = (Parsers) => {
 
     sectionType(node, context) {
       if (node.type === 'item') {
-        const text = utils.nodeText(node.firstChild, context.sourceLines);
+        const text = utilsHelpers.nodeText(node.firstChild, context.sourceLines);
         if (parameterMembersRegex.exec(text)) {
           return SectionTypes.parameterMembers;
         }

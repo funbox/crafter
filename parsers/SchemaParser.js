@@ -1,5 +1,6 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
+const utilsHelpers = require('../utils/index');
 const SchemaElement = require('./elements/SchemaElement');
 
 const schemaRegex = /^[Ss]chema$/;
@@ -35,7 +36,7 @@ module.exports = (Parsers) => {
 
     sectionType(node, context) {
       if (node.type === 'item') {
-        const text = utils.nodeText(node.firstChild, context.sourceLines);
+        const text = utilsHelpers.nodeText(node.firstChild, context.sourceLines);
         if (schemaRegex.exec(text)) {
           return SectionTypes.schema;
         }

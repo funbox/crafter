@@ -1,5 +1,6 @@
 const getCharacterBlocksWithLineColumnInfo = require('./getCharacterBlocksWithLineColumnInfo');
 const matchStringToRegex = require('./matchStringToRegex');
+const nodeText = require('./nodeText');
 const resolveType = require('./resolveType');
 const splitTypeAttributes = require('./splitTypeAttributes');
 const typeAttributesToRefract = require('./typeAttributesToRefract');
@@ -7,6 +8,7 @@ const typeAttributesToRefract = require('./typeAttributesToRefract');
 const utils = {
   getCharacterBlocksWithLineColumnInfo,
   matchStringToRegex,
+  nodeText,
   resolveType,
   splitTypeAttributes,
   typeAttributesToRefract,

@@ -1,5 +1,6 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
+const utilsHelpers = require('../utils/index');
 
 const CrafterError = utils.CrafterError;
 
@@ -41,7 +42,7 @@ module.exports = (Parsers) => {
 
       while (curNode.type === 'paragraph') {
         let isWarningAdded = false;
-        const nodeText = utils.nodeText(curNode, context.sourceLines);
+        const nodeText = utilsHelpers.nodeText(curNode, context.sourceLines);
         nodeText.split('\n').forEach(line => { // eslint-disable-line no-loop-func
           const [key, ...rest] = line.split(':');
           const value = rest.join(':');
@@ -268,7 +269,7 @@ module.exports = (Parsers) => {
               firstChildNode = firstChildNode.next;
             }
             if (firstChildNode && this.nestedSectionType(firstChildNode, childContext) === SectionTypes.undefined) {
-              throw new CrafterError(`Invalid content of "${filename}". Can't recognize "${utils.nodeText(firstChildNode, childContext.sourceLines)}" as API Blueprint section.`, sourceMap);
+              throw new CrafterError(`Invalid content of "${filename}". Can't recognize "${utilsHelpers.nodeText(firstChildNode, childContext.sourceLines)}" as API Blueprint section.`, sourceMap);
             }
 
             context.filePaths.push(`${context.resolvePathRelativeToEntryDir(filename)}`);

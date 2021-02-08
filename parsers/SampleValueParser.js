@@ -1,5 +1,6 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
+const utilsHelpers = require('../utils/index');
 const SampleValueElement = require('./elements/SampleValueElement');
 const { splitValues } = require('../SignatureParser');
 
@@ -20,7 +21,7 @@ module.exports = (Parsers) => {
 
     sectionType(node, context) {
       if (node.type === 'item') {
-        const text = utils.nodeText(node.firstChild, context.sourceLines);
+        const text = utilsHelpers.nodeText(node.firstChild, context.sourceLines);
         if (sampleValueRegex.exec(text) || listTypedSampleValueRegex.exec(text)) {
           return SectionTypes.sampleValue;
         }
@@ -49,7 +50,7 @@ module.exports = (Parsers) => {
 
     processNestedSection(node, context, result) {
       const textNode = node.type === 'item' ? node.firstChild : node;
-      const text = utils.nodeText(textNode, context.sourceLines);
+      const text = utilsHelpers.nodeText(textNode, context.sourceLines);
       const sourceMap = utils.makeGenericSourceMap(textNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
       switch (context.data.typeForSamples) {
@@ -95,7 +96,7 @@ module.exports = (Parsers) => {
 };
 
 function processInlineSamples(node, context, result) {
-  const text = utils.nodeText(node.firstChild, context.sourceLines);
+  const text = utilsHelpers.nodeText(node.firstChild, context.sourceLines);
   const valuesMatch = sampleValueRegex.exec(text);
 
   if (!valuesMatch) return;

@@ -1,5 +1,6 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
+const utilsHelpers = require('../utils/index');
 const OneOfTypeOptionElement = require('./elements/OneOfTypeOptionElement');
 
 const oneOfTypeOptionRegex = /^[Pp]roperties$/;
@@ -17,7 +18,7 @@ module.exports = (Parsers) => {
 
     sectionType(node, context) {
       if (node.type === 'item') {
-        const text = utils.nodeText(node.firstChild, context.sourceLines);
+        const text = utilsHelpers.nodeText(node.firstChild, context.sourceLines);
         if (oneOfTypeOptionRegex.exec(text)) {
           return SectionTypes.oneOfTypeOption;
         }

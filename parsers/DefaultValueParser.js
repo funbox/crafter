@@ -1,5 +1,6 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
+const utilsHelpers = require('../utils/index');
 const { splitValues } = require('../SignatureParser');
 const DefaultValueElement = require('./elements/DefaultValueElement');
 
@@ -11,7 +12,7 @@ module.exports = (Parsers) => {
     processSignature(node, context) {
       const text = node.type === 'heading'
         ? utils.headerText(node, context.sourceLines)
-        : utils.nodeText(node.firstChild, context.sourceLines);
+        : utilsHelpers.nodeText(node.firstChild, context.sourceLines);
       const valuesMatch = defaultValueRegex.exec(text);
       const values = valuesMatch ? splitValues(valuesMatch[1]) : undefined;
 
@@ -57,7 +58,7 @@ module.exports = (Parsers) => {
 
     sectionType(node, context) {
       if (node.type === 'item') {
-        const text = utils.nodeText(node.firstChild, context.sourceLines);
+        const text = utilsHelpers.nodeText(node.firstChild, context.sourceLines);
         if (defaultValueRegex.test(text) || listTypedDefaultValueRegex.test(text)) {
           return SectionTypes.defaultValue;
         }
@@ -86,7 +87,7 @@ module.exports = (Parsers) => {
 
     processNestedSection(node, context, result) {
       const textNode = node.type === 'item' ? node.firstChild : node;
-      const text = utils.nodeText(textNode, context.sourceLines);
+      const text = utilsHelpers.nodeText(textNode, context.sourceLines);
       const sourceMap = utils.makeGenericSourceMap(textNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
       switch (context.data.typeForDefaults) {

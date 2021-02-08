@@ -34,7 +34,7 @@ function getFilledElementFromSource(source) {
     },
   });
   context.rootNode = ast.firstChild;
-  const subject = utils.nodeText(ast.firstChild, context.sourceLines);
+  const subject = utilsHelpers.nodeText(ast.firstChild, context.sourceLines);
   const signature = new SignatureParser(subject, false);
   signature.warnings.forEach(warning => context.logger.warn(warning));
   const resolvedType = utilsHelpers.resolveType(signature.type);

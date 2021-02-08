@@ -11,7 +11,7 @@ module.exports = (Parsers) => {
     processSignature(node, context) {
       context.pushFrame();
 
-      const subject = utils.nodeText(node.firstChild, context.sourceLines);
+      const subject = utilsHelpers.nodeText(node.firstChild, context.sourceLines);
       const signature = new SignatureParser(subject, false, [ParserTraits.VALUE, ParserTraits.ATTRIBUTES, ParserTraits.DESCRIPTION]);
 
       const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
@@ -66,7 +66,7 @@ module.exports = (Parsers) => {
 
     sectionType(node, context) {
       if (node.type === 'item') {
-        const text = utils.nodeText(node.firstChild, context.sourceLines);
+        const text = utilsHelpers.nodeText(node.firstChild, context.sourceLines);
 
         try {
           const signature = new SignatureParser(text, false, [ParserTraits.VALUE, ParserTraits.ATTRIBUTES, ParserTraits.DESCRIPTION]);

@@ -19,7 +19,7 @@ module.exports = (Parsers) => {
     processSignature(node, context) {
       context.pushFrame();
 
-      const text = utils.nodeText(node.firstChild, context.sourceLines);
+      const text = utilsHelpers.nodeText(node.firstChild, context.sourceLines);
       const sourceMap = utils.makeSourceMapForLine(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       let signature;
       try {
@@ -113,7 +113,7 @@ module.exports = (Parsers) => {
 
     sectionType(node, context) {
       if (node.type === 'item') {
-        const text = utils.nodeText(node.firstChild, context.sourceLines);
+        const text = utilsHelpers.nodeText(node.firstChild, context.sourceLines);
 
         try {
           const signature = new SignatureParser(text, false);

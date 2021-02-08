@@ -1,5 +1,6 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
+const utilsHelpers = require('../utils/index');
 const MemberGroupElement = require('./elements/MemberGroupElement');
 
 const CrafterError = utils.CrafterError;
@@ -33,7 +34,7 @@ module.exports = (Parsers) => {
       const { isNamedTypeSection } = context.data;
       const text = node.type === 'heading'
         ? utils.headerText(node, context.sourceLines)
-        : utils.nodeText(node.firstChild, context.sourceLines);
+        : utilsHelpers.nodeText(node.firstChild, context.sourceLines);
 
       if (node.parent.prev && isNamedTypeSection) {
         throw new CrafterError(`Expected header-defined member type group "${text}", e.g. "## <text>"`);
@@ -55,7 +56,7 @@ module.exports = (Parsers) => {
       if (node.type === 'item' || node.type === 'heading') {
         const text = node.type === 'heading'
           ? utils.headerText(node, context.sourceLines)
-          : utils.nodeText(node.firstChild, context.sourceLines);
+          : utilsHelpers.nodeText(node.firstChild, context.sourceLines);
         Object.keys(memberSeparatorRegex).forEach((key) => {
           if (memberSeparatorRegex[key].exec(text)) {
             sectionType = sectionTypes[key];

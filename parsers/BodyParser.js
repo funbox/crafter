@@ -1,5 +1,6 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
+const utilsHelpers = require('../utils/index');
 const BodyElement = require('./elements/BodyElement');
 
 const bodyRegex = /^[Bb]ody$/;
@@ -27,7 +28,7 @@ module.exports = (Parsers) => {
 
     sectionType(node, context) {
       if (node.type === 'item') {
-        const text = utils.nodeText(node.firstChild, context.sourceLines);
+        const text = utilsHelpers.nodeText(node.firstChild, context.sourceLines);
         if (bodyRegex.exec(text)) {
           return SectionTypes.body;
         }

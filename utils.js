@@ -35,11 +35,11 @@ class SourceMap {
 
 const utils = {
   headerText(node, sourceLines) {
-    return this.nodeText(node, sourceLines).slice(node.level).trim();
+    return utilsHelpers.nodeText(node, sourceLines).slice(node.level).trim();
   },
 
   headerTextWithOffset(node, sourceLines) {
-    const text = this.nodeText(node, sourceLines).slice(node.level);
+    const text = utilsHelpers.nodeText(node, sourceLines).slice(node.level);
     const trimmedText = text.trim();
     return [trimmedText, text ? node.level + text.indexOf(trimmedText) : undefined];
   },
@@ -55,7 +55,7 @@ const utils = {
       if (description) {
         description = this.appendDescriptionDelimiter(description);
       }
-      description += this.nodeText(curNode, sourceLines);
+      description += utilsHelpers.nodeText(curNode, sourceLines);
       if (startOffset) {
         description = description.slice(startOffset);
         startOffset = 0;
@@ -282,33 +282,6 @@ const utils = {
       endLineIndex: node.sourcepos[1][0] - 1,
       endColumnIndex: node.sourcepos[1][1] - 1,
     };
-  },
-
-  nodeText(node, sourceLines) {
-    if (!node) {
-      return '';
-    }
-
-    const localSourceLines = node.sourceLines || sourceLines;
-    const [startline, startcolumn] = node.sourcepos[0];
-    const [endline, endcolumn] = node.sourcepos[1];
-    const keepWhitespaces = node.type === 'code_block' || node.type === 'item';
-
-    const result = [];
-
-    if (startline === endline) {
-      result.push(localSourceLines[startline - 1].slice(startcolumn - 1, endcolumn));
-    } else {
-      result.push(localSourceLines[startline - 1].slice(startcolumn - 1));
-
-      for (let i = startline + 1; i < endline; i += 1) {
-        result.push(localSourceLines[i - 1]);
-      }
-
-      result.push(localSourceLines[endline - 1].slice(0, endcolumn));
-    }
-
-    return result.map(line => (keepWhitespaces ? line : line.trim())).join('\n').trim();
   },
 
   nextNode(node) {

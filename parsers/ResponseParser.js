@@ -18,7 +18,7 @@ module.exports = (Parsers) => {
     processSignature(node, context) {
       context.pushFrame();
 
-      const subject = (utils.nodeText(node.firstChild, context.sourceLines)).split('\n');
+      const subject = (utilsHelpers.nodeText(node.firstChild, context.sourceLines)).split('\n');
       const [matchData, matchDataIndexes] = utilsHelpers.matchStringToRegex(subject[0], responseRegex);
 
       if (subject.length > 1) {
@@ -71,7 +71,7 @@ module.exports = (Parsers) => {
 
     sectionType(node, context) {
       if (node.type === 'item') {
-        const text = (utils.nodeText(node.firstChild, context.sourceLines)).split('\n');
+        const text = (utilsHelpers.nodeText(node.firstChild, context.sourceLines)).split('\n');
         if (responseRegex.exec(text[0])) {
           return SectionTypes.response;
         }

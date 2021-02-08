@@ -1,5 +1,6 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
+const utilsHelpers = require('../utils/index');
 const EnumMemberElement = require('./elements/EnumMemberElement');
 
 const { parser: SignatureParser, traits: ParserTraits } = require('../SignatureParser');
@@ -7,7 +8,7 @@ const { parser: SignatureParser, traits: ParserTraits } = require('../SignatureP
 module.exports = (Parsers) => {
   Parsers.EnumMemberParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
-      const subject = utils.nodeText(node.firstChild, context.sourceLines);
+      const subject = utilsHelpers.nodeText(node.firstChild, context.sourceLines);
       const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       const signature = new SignatureParser(subject, false, [ParserTraits.VALUE, ParserTraits.ATTRIBUTES, ParserTraits.DESCRIPTION]);
 
@@ -26,7 +27,7 @@ module.exports = (Parsers) => {
 
     sectionType(node, context) {
       if (node.type === 'item') {
-        const text = utils.nodeText(node.firstChild, context.sourceLines);
+        const text = utilsHelpers.nodeText(node.firstChild, context.sourceLines);
 
         try {
           const signature = new SignatureParser(text, false, [ParserTraits.VALUE, ParserTraits.ATTRIBUTES, ParserTraits.DESCRIPTION]);

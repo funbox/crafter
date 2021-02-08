@@ -16,7 +16,7 @@ module.exports = (Parsers) => {
     processSignature(node, context) {
       context.pushFrame();
 
-      const subject = utils.nodeText(node.firstChild, context.sourceLines); // TODO: часто берем text, может сделать отдельную функцию?
+      const subject = utilsHelpers.nodeText(node.firstChild, context.sourceLines); // TODO: часто берем text, может сделать отдельную функцию?
       const signature = new SignatureParser(subject, context.languageServerMode);
 
       const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
@@ -134,7 +134,7 @@ module.exports = (Parsers) => {
 
     sectionType(node, context) {
       if (node && node.type === 'item' && node.firstChild) {
-        const text = utils.nodeText(node.firstChild, context.sourceLines);
+        const text = utilsHelpers.nodeText(node.firstChild, context.sourceLines);
 
         try {
           new SignatureParser(text, context.languageServerMode); // eslint-disable-line no-new

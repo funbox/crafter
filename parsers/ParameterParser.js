@@ -1,6 +1,7 @@
 const SectionTypes = require('../SectionTypes');
 const types = require('../types');
 const utils = require('../utils');
+const utilsHelpers = require('../utils/index');
 const ParameterElement = require('./elements/ParameterElement');
 const StringElement = require('./elements/StringElement');
 const { parser: SignatureParser } = require('../SignatureParser');
@@ -10,7 +11,7 @@ module.exports = (Parsers) => {
     allowLeavingNode: false,
 
     processSignature(node, context) {
-      const text = utils.nodeText(node.firstChild, context.sourceLines);
+      const text = utilsHelpers.nodeText(node.firstChild, context.sourceLines);
       const signature = new SignatureParser(text, false);
 
       context.pushFrame();
@@ -117,7 +118,7 @@ module.exports = (Parsers) => {
 
     sectionType(node, context) {
       if (node.type === 'item') { // TODO: вынести проверку node.type в AbstractParser
-        const text = utils.nodeText(node.firstChild, context.sourceLines);
+        const text = utilsHelpers.nodeText(node.firstChild, context.sourceLines);
 
         try {
           const signature = new SignatureParser(text, false);

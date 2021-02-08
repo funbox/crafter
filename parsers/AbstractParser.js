@@ -1,5 +1,7 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
+const utilsHelpers = require('../utils/index');
+
 const UnrecognizedBlockElement = require('./elements/UnrecognizedBlockElement');
 
 module.exports = {
@@ -56,7 +58,7 @@ module.exports = {
         } else if (this.isUnexpectedNode(curNode, context)) {
           const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
           result.unrecognizedBlocks.push(new UnrecognizedBlockElement(sourceMap));
-          context.addWarning(`Ignoring unrecognized block "${utils.nodeText(curNode, context.sourceLines)}".`, sourceMap);
+          context.addWarning(`Ignoring unrecognized block "${utilsHelpers.nodeText(curNode, context.sourceLines)}".`, sourceMap);
           curNode = utils.nextNode(curNode);
           shouldContinue = true;
         }
