@@ -1,4 +1,5 @@
 const utils = require('../utils');
+const utilsHelpers = require('../utils/index');
 const SectionTypes = require('../SectionTypes');
 const DataStructureProcessor = require('../DataStructureProcessor');
 const ValueMemberElement = require('./elements/ValueMemberElement');
@@ -20,7 +21,7 @@ module.exports = (Parsers) => {
         ? utils.makeStringElement(signature.description, signature.descriptionOffset, node.firstChild, context)
         : null;
 
-      const resolvedType = utils.resolveType(signature.type);
+      const resolvedType = utilsHelpers.resolveType(signature.type);
       const nestedTypes = resolvedType.nestedTypes.map((nestedType, index) => {
         const el = new ValueMemberElement(nestedType, nestedType, []);
         el.sourceMap = utils.makeSourceMapsForString(

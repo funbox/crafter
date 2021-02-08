@@ -1,6 +1,7 @@
 const SectionTypes = require('../SectionTypes');
 const types = require('../types');
 const utils = require('../utils');
+const utilsHelpers = require('../utils/index');
 const { parser: SignatureParser, traits: ParserTraits } = require('../SignatureParser');
 const MSONNamedTypeElement = require('./elements/MSONNamedTypeElement');
 const ValueMemberElement = require('./elements/ValueMemberElement');
@@ -36,7 +37,7 @@ module.exports = (Parsers) => {
 
       context.data.attributeSignatureDetails = { sourceMap, node };
 
-      const resolvedType = utils.resolveType(signature.type);
+      const resolvedType = utilsHelpers.resolveType(signature.type);
       const nestedTypes = resolvedType.nestedTypes.map((nestedType, index) => {
         const el = new ValueMemberElement(nestedType, nestedType, []);
         el.sourceMap = utils.makeSourceMapsForString(

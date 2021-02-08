@@ -1,5 +1,6 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
+const utilsHelpers = require('../utils/index');
 const types = require('../types');
 const { parser: SignatureParser, traits: ParserTraits } = require('../SignatureParser');
 const AttributesElement = require('./elements/AttributesElement');
@@ -39,7 +40,7 @@ module.exports = (Parsers) => {
         context.data.startOffset = text.length - signature.rest.length;
       }
 
-      const resolvedType = utils.resolveType(signature.type);
+      const resolvedType = utilsHelpers.resolveType(signature.type);
       const nestedTypes = resolvedType.nestedTypes.map((nestedType, index) => {
         const el = new ValueMemberElement(nestedType, nestedType, []);
         el.sourceMap = utils.makeSourceMapsForString(

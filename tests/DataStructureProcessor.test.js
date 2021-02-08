@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const Context = require('../Context');
 const utils = require('../utils');
+const utilsHelpers = require('../utils/index');
 const { parser: SignatureParser } = require('../SignatureParser');
 const DataStructureProcessor = require('../DataStructureProcessor');
 const ValueMemberProcessor = require('../ValueMemberProcessor');
@@ -36,7 +37,7 @@ function getFilledElementFromSource(source) {
   const subject = utils.nodeText(ast.firstChild, context.sourceLines);
   const signature = new SignatureParser(subject, false);
   signature.warnings.forEach(warning => context.logger.warn(warning));
-  const resolvedType = utils.resolveType(signature.type);
+  const resolvedType = utilsHelpers.resolveType(signature.type);
   const valueElement = new ValueMemberElement(
     signature.type,
     resolvedType.type,

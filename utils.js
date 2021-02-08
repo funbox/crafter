@@ -1,7 +1,6 @@
 const commonmark = require('@funbox/commonmark');
 const equal = require('fast-deep-equal');
 
-const types = require('./types');
 const DescriptionElement = require('./parsers/elements/DescriptionElement');
 const StringElement = require('./parsers/elements/StringElement');
 const HeadersElement = require('./parsers/elements/HeadersElement');
@@ -338,33 +337,6 @@ const utils = {
       return result;
     }
     return this.nextNodeOfType(result, type);
-  },
-
-  resolveType(type) {
-    const result = {
-      type,
-      nestedTypes: [],
-      nestedTypesOffsets: [],
-    };
-
-    if (!type) return result;
-
-    const matchData = /^(.*?)\s*(\[(.*)])?$/.exec(type);
-    const resolvedType = matchData[1];
-    result.type = types[resolvedType] || resolvedType;
-    if (matchData[3]) {
-      let currentOffset = type.indexOf(matchData[3]);
-      matchData[3].split(',').forEach(rawType => {
-        const trimmedType = rawType.trim();
-        if (trimmedType) {
-          result.nestedTypes.push(trimmedType);
-          result.nestedTypesOffsets.push(currentOffset + rawType.indexOf(trimmedType));
-        }
-        currentOffset += rawType.length;
-      });
-    }
-
-    return result;
   },
 
   compareAttributeTypes(baseAttr, childAttr) {

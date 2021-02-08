@@ -77,7 +77,7 @@ module.exports = (Parsers) => {
 
       valueMemberSourceMaps.sort((sm1, sm2) => sm1.byteBlocks[0].offset - sm2.byteBlocks[0].offset);
 
-      const resolvedType = utils.resolveType(signature.type);
+      const resolvedType = utilsHelpers.resolveType(signature.type);
       const nestedTypes = resolvedType.nestedTypes.map((nestedType, index) => {
         const el = new ValueMemberElement(nestedType, nestedType, []);
         el.sourceMap = utils.makeSourceMapsForString(
