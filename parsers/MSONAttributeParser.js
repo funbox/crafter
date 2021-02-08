@@ -237,7 +237,7 @@ module.exports = (Parsers) => {
 
       context.popFrame();
 
-      utils.validateAttributesConsistency(context, result.value, details);
+      utilsHelpers.validateAttributesConsistency(context, result.value, details);
 
       return result;
     },

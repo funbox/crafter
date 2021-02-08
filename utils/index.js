@@ -5,6 +5,7 @@ const nodeText = require('./nodeText');
 const resolveType = require('./resolveType');
 const splitTypeAttributes = require('./splitTypeAttributes');
 const typeAttributesToRefract = require('./typeAttributesToRefract');
+const validateAttributesConsistency = require('./validateAttributesConsistency');
 
 const utils = {
   convertType,
@@ -14,6 +15,7 @@ const utils = {
   resolveType,
   splitTypeAttributes,
   typeAttributesToRefract,
+  validateAttributesConsistency,
 };
 
 module.exports = utils;

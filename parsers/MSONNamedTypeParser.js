@@ -415,7 +415,7 @@ module.exports = (Parsers) => {
         fillElementWithContent(result.content, type);
       }
 
-      utils.validateAttributesConsistency(context, result.content, attributeSignatureDetails);
+      utilsHelpers.validateAttributesConsistency(context, result.content, attributeSignatureDetails);
 
       context.popFrame();
 

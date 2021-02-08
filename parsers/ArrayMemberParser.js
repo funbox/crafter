@@ -93,7 +93,7 @@ module.exports = (Parsers) => {
       const { attributeSignatureDetails } = context.data;
       context.popFrame();
 
-      utils.validateAttributesConsistency(context, result, attributeSignatureDetails);
+      utilsHelpers.validateAttributesConsistency(context, result, attributeSignatureDetails);
 
       return result;
     },
