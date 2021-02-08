@@ -1,6 +1,7 @@
 const SectionTypes = require('../SectionTypes');
 const types = require('../types');
 const utils = require('../utils');
+const utilsHelpers = require('../utils/index');
 const PropertyMemberElement = require('./elements/PropertyMemberElement');
 const StringElement = require('./elements/StringElement');
 const DataStructureProcessor = require('../DataStructureProcessor');
@@ -31,7 +32,7 @@ module.exports = (Parsers) => {
         descriptionEl = utils.makeStringElement(signature.description, signature.descriptionOffset, node.firstChild, context);
       }
 
-      const splitAttributes = utils.splitTypeAttributes(signature.typeAttributes);
+      const splitAttributes = utilsHelpers.splitTypeAttributes(signature.typeAttributes);
       const propertyTypeAttributes = splitAttributes[0];
       const valueTypeAttributes = splitAttributes[1];
       const valueTypeAttributesIndexes = splitAttributes[3];

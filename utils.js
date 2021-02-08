@@ -423,7 +423,7 @@ const utils = {
 
     if (!context.typeExtractingInProgress) {
       const baseType = result.getBaseType();
-      const [propertyTypeAttributes, valueTypeAttributes] = this.splitTypeAttributes(result.typeAttributes);
+      const [propertyTypeAttributes, valueTypeAttributes] = utilsHelpers.splitTypeAttributes(result.typeAttributes);
       const unacceptablePropertyAttributes = propertyTypeAttributes.length > 0 ? propertyTypeAttributes : [];
       const unacceptableValueAttributes = valueTypeAttributes.filter(valueAttr => {
         const valueAttrKey = Array.isArray(valueAttr) ? valueAttr[0] : valueAttr;
@@ -730,25 +730,6 @@ const utils = {
     });
 
     return rawPrototypes;
-  },
-
-  splitTypeAttributes(typeAttrs) {
-    const propertyAttributes = ['required', 'optional']; // see https://apielements.org/en/latest/element-definitions.html#member-element
-    const propertyTypeAttributes = [];
-    const propertyTypeAttributesIndexes = [];
-    const valueTypeAttributes = [];
-    const valueTypeAttributesIndexes = [];
-
-    typeAttrs.forEach((attr, index) => {
-      if (propertyAttributes.includes(attr)) {
-        propertyTypeAttributes.push(attr);
-        propertyTypeAttributesIndexes.push(index);
-      } else {
-        valueTypeAttributes.push(attr);
-        valueTypeAttributesIndexes.push(index);
-      }
-    });
-    return [propertyTypeAttributes, valueTypeAttributes, propertyTypeAttributesIndexes, valueTypeAttributesIndexes];
   },
 
   CrafterError,
