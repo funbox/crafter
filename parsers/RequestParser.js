@@ -1,6 +1,7 @@
 const SectionTypes = require('../SectionTypes');
 const RegExpStrings = require('../RegExpStrings');
 const utils = require('../utils');
+const utilsHelpers = require('../utils/index');
 
 const requestRegexp = new RegExp(`^[Rr]equest(\\s+${RegExpStrings.symbolIdentifier})?${RegExpStrings.mediaType}?$`);
 
@@ -17,7 +18,7 @@ module.exports = (Parsers) => {
       context.pushFrame();
 
       const subject = utils.nodeText(node.firstChild, context.sourceLines).split('\n');
-      const [matchData, matchDataIndexes] = utils.matchStringToRegex(subject[0], requestRegexp);
+      const [matchData, matchDataIndexes] = utilsHelpers.matchStringToRegex(subject[0], requestRegexp);
 
       const title = matchData[2];
       const contentType = matchData[4];

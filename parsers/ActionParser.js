@@ -1,6 +1,7 @@
 const SectionTypes = require('../SectionTypes');
 const RegExpStrings = require('../RegExpStrings');
 const utils = require('../utils');
+const utilsHelpers = require('../utils/index');
 const ActionElement = require('./elements/ActionElement');
 
 const actionSymbolIdentifier = '(.+)';
@@ -27,7 +28,7 @@ module.exports = (Parsers) => {
       const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       context.data.actionSignatureDetails = { sourceMap };
 
-      const actionHeaderMatchResult = utils.matchStringToRegex(subject, ActionHeaderRegex);
+      const actionHeaderMatchResult = utilsHelpers.matchStringToRegex(subject, ActionHeaderRegex);
       if (actionHeaderMatchResult) {
         const [matchData, matchDataIndexes] = actionHeaderMatchResult;
 
@@ -48,7 +49,7 @@ module.exports = (Parsers) => {
 
         method = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
       } else {
-        const [matchData, matchDataIndexes] = utils.matchStringToRegex(subject, NamedActionHeaderRegex);
+        const [matchData, matchDataIndexes] = utilsHelpers.matchStringToRegex(subject, NamedActionHeaderRegex);
 
         const titleString = matchData[1].trim();
 

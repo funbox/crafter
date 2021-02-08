@@ -1,6 +1,7 @@
 const SectionTypes = require('../SectionTypes');
 const RegExpStrings = require('../RegExpStrings');
 const utils = require('../utils');
+const utilsHelpers = require('../utils/index');
 const MessageElement = require('./elements/MessageElement');
 const BodyElement = require('./elements/BodyElement');
 const SchemaElement = require('./elements/SchemaElement');
@@ -12,7 +13,7 @@ module.exports = (Parsers) => {
     processSignature(node, context) {
       let title;
       const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
-      const [matchData, matchDataIndexes] = utils.matchStringToRegex(subject, MessageHeaderRegex);
+      const [matchData, matchDataIndexes] = utilsHelpers.matchStringToRegex(subject, MessageHeaderRegex);
 
       if (matchData[1]) {
         title = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);

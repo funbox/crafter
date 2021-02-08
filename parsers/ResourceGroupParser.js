@@ -1,6 +1,7 @@
 const SectionTypes = require('../SectionTypes');
 const RegExpStrings = require('../RegExpStrings');
 const utils = require('../utils');
+const utilsHelpers = require('../utils/index');
 const ResourceGroupElement = require('./elements/ResourceGroupElement');
 
 const GroupHeaderRegex = new RegExp(`^[Gg]roup\\s+${RegExpStrings.symbolIdentifier}(\\s+${RegExpStrings.resourcePrototype})?$`);
@@ -11,7 +12,7 @@ module.exports = (Parsers) => {
       context.pushFrame();
 
       const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
-      const [matchData, matchDataIndexes] = utils.matchStringToRegex(subject, GroupHeaderRegex);
+      const [matchData, matchDataIndexes] = utilsHelpers.matchStringToRegex(subject, GroupHeaderRegex);
       const title = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
       const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 

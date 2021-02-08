@@ -1,6 +1,7 @@
 const SectionTypes = require('../SectionTypes');
 const RegExpStrings = require('../RegExpStrings');
 const utils = require('../utils');
+const utilsHelpers = require('../utils/index');
 const ResourceElement = require('./elements/ResourceElement');
 
 const NamelessResourceHeaderRegex = new RegExp(`^${RegExpStrings.uriTemplate}(\\s+${RegExpStrings.resourcePrototype})?$`);
@@ -214,7 +215,7 @@ function getSectionType(subject) {
 
   for (let i = 0; i < names.length; i++) {
     const [re, name] = names[i];
-    const matchResult = utils.matchStringToRegex(subject, re);
+    const matchResult = utilsHelpers.matchStringToRegex(subject, re);
     if (matchResult) return [name, matchResult];
   }
 

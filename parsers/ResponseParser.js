@@ -1,6 +1,7 @@
 const SectionTypes = require('../SectionTypes');
 const RegExpStrings = require('../RegExpStrings');
 const utils = require('../utils');
+const utilsHelpers = require('../utils/index');
 const ResponseElement = require('./elements/ResponseElement');
 const SchemaElement = require('./elements/SchemaElement');
 const HeadersElement = require('./elements/HeadersElement');
@@ -18,7 +19,7 @@ module.exports = (Parsers) => {
       context.pushFrame();
 
       const subject = (utils.nodeText(node.firstChild, context.sourceLines)).split('\n');
-      const [matchData, matchDataIndexes] = utils.matchStringToRegex(subject[0], responseRegex);
+      const [matchData, matchDataIndexes] = utilsHelpers.matchStringToRegex(subject[0], responseRegex);
 
       if (subject.length > 1) {
         context.data.startOffset = subject[0].length + 1;
