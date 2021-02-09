@@ -2,9 +2,9 @@ const types = require('./types');
 const standardTypes = require('./types').standardTypes;
 const MSONMixinElement = require('./parsers/elements/MSONMixinElement');
 const PropertyMemberElement = require('./parsers/elements/PropertyMemberElement');
-const utils = require('./utils');
+const utilsHelpers = require('./utils/index');
 
-const CrafterError = utils.CrafterError;
+const CrafterError = utilsHelpers.CrafterError;
 
 /**
  * Отвечает за извлечение и разбор именованных типов данных из Element AST

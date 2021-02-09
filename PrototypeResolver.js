@@ -1,4 +1,4 @@
-const CrafterError = require('./utils').CrafterError;
+const { CrafterError } = require('./utils/index');
 
 class PrototypeResolver {
   constructor() {

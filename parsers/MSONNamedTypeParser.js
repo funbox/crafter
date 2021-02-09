@@ -1,6 +1,5 @@
 const SectionTypes = require('../SectionTypes');
 const types = require('../types');
-const utils = require('../utils');
 const utilsHelpers = require('../utils/index');
 const { parser: SignatureParser, traits: ParserTraits } = require('../SignatureParser');
 const MSONNamedTypeElement = require('./elements/MSONNamedTypeElement');
@@ -12,7 +11,7 @@ const UnrecognizedBlockElement = require('./elements/UnrecognizedBlockElement');
 const DataStructureProcessor = require('../DataStructureProcessor');
 const ValueMemberProcessor = require('../ValueMemberProcessor');
 
-const { CrafterError } = utils;
+const { CrafterError } = utilsHelpers;
 
 module.exports = (Parsers) => {
   Parsers.MSONNamedTypeParser = Object.assign(Object.create(require('./AbstractParser')), {
@@ -25,7 +24,7 @@ module.exports = (Parsers) => {
       try {
         signature = new SignatureParser(subject, context.languageServerMode, [ParserTraits.NAME, ParserTraits.ATTRIBUTES]);
       } catch (e) {
-        if (!(e instanceof utils.SignatureError)) {
+        if (!(e instanceof utilsHelpers.SignatureError)) {
           throw e;
         } else {
           const hashSymbols = Array(node.level).fill('#').join('');
@@ -176,7 +175,7 @@ module.exports = (Parsers) => {
 
             if (valueMember.isObject()) {
               const sourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-              throw new utils.CrafterError('Sample is not supported for objects', sourceMap);
+              throw new utilsHelpers.CrafterError('Sample is not supported for objects', sourceMap);
             }
 
             if (valueMember.isArray()) {
@@ -278,7 +277,7 @@ module.exports = (Parsers) => {
 
             if (valueMember.isObject()) {
               const sourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-              throw new utils.CrafterError('Default is not supported for objects', sourceMap);
+              throw new utilsHelpers.CrafterError('Default is not supported for objects', sourceMap);
             }
 
             if (valueMember.isArray()) {

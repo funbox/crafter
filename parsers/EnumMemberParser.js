@@ -1,5 +1,4 @@
 const SectionTypes = require('../SectionTypes');
-const utils = require('../utils');
 const utilsHelpers = require('../utils/index');
 const EnumMemberElement = require('./elements/EnumMemberElement');
 
@@ -35,7 +34,7 @@ module.exports = (Parsers) => {
             return SectionTypes.enumMember;
           }
         } catch (e) {
-          if (!(e instanceof utils.SignatureError)) throw e;
+          if (!(e instanceof utilsHelpers.SignatureError)) throw e;
         }
       }
 

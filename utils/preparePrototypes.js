@@ -1,9 +1,4 @@
-class CrafterError extends Error {
-  constructor(message, sourceMap) {
-    super(message);
-    this.sourceMap = sourceMap;
-  }
-}
+const utilsLog = require('./log');
 
 module.exports = function preparePrototypes(rawPrototypes, context, sourceMap) {
   if (context.languageServerMode) {
@@ -12,7 +7,7 @@ module.exports = function preparePrototypes(rawPrototypes, context, sourceMap) {
 
   rawPrototypes.forEach(prototype => {
     if (!context.resourcePrototypeResolver.prototypes[prototype]) {
-      throw new CrafterError(`Unknown resource prototype "${prototype}"`, sourceMap);
+      throw new utilsLog.CrafterError(`Unknown resource prototype "${prototype}"`, sourceMap);
     }
   });
 

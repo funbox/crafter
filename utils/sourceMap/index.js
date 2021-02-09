@@ -3,13 +3,7 @@ const getOffsetFromStartOfFileInBytes = require('../getOffsetFromStartOfFileInBy
 const getSourcePosZeroBased = require('../getSourcePosZeroBased');
 const linefeedBytes = require('../linefeedBytes');
 const utilsNode = require('../node');
-
-class CrafterError extends Error {
-  constructor(message, sourceMap) {
-    super(message);
-    this.sourceMap = sourceMap;
-  }
-}
+const utilsLog = require('../log');
 
 class SourceMap {
   constructor(byteBlocks, charBlocks) {
@@ -24,7 +18,7 @@ module.exports = {
     sourceBuffer = startNode.sourceBuffer || sourceBuffer;
     linefeedOffsets = startNode.linefeedOffsets || linefeedOffsets;
     if (startNode.file !== endNode.file) {
-      throw new CrafterError('startNode and endNode belong to different files');
+      throw new utilsLog.CrafterError('startNode and endNode belong to different files');
     }
     const { startLineIndex, startColumnIndex } = getSourcePosZeroBased(startNode);
     const { endLineIndex, endColumnIndex } = getSourcePosZeroBased(endNode);
@@ -185,7 +179,7 @@ module.exports = {
           file = bb.file;
           fileFetched = true;
         } else if (file !== bb.file) {
-          throw new CrafterError('Can not expand source maps from different files');
+          throw new utilsLog.CrafterError('Can not expand source maps from different files');
         }
 
         if (offset > bb.offset) {

@@ -7,6 +7,7 @@ const getCharacterBlocksWithLineColumnInfo = require('./getCharacterBlocksWithLi
 const getOffsetFromStartOfFileInBytes = require('./getOffsetFromStartOfFileInBytes');
 const getSourcePosZeroBased = require('./getSourcePosZeroBased');
 const linefeedBytes = require('./linefeedBytes');
+const log = require('./log');
 const makeStringElement = require('./makeStringElement');
 const matchStringToRegex = require('./matchStringToRegex');
 const merge = require('./merge');
@@ -28,6 +29,7 @@ const utils = {
   getOffsetFromStartOfFileInBytes,
   getSourcePosZeroBased,
   linefeedBytes,
+  ...log,
   makeStringElement,
   matchStringToRegex,
   ...merge,

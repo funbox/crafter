@@ -1,9 +1,8 @@
 const SectionTypes = require('../SectionTypes');
-const utils = require('../utils');
 const utilsHelpers = require('../utils/index');
 const SchemaNamedTypeElement = require('./elements/SchemaNamedTypeElement');
 
-const { CrafterError } = utils;
+const { CrafterError } = utilsHelpers;
 
 module.exports = (Parsers) => {
   Parsers.SchemaNamedTypeParser = Object.assign(Object.create(require('./AbstractParser')), {

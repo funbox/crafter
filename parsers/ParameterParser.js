@@ -192,7 +192,7 @@ module.exports = (Parsers) => {
 
       if (typeAttributes.includes('required')) {
         if (typeAttributes.includes('optional') && !context.languageServerMode) {
-          throw new utils.CrafterError(`Parameter "${name.string}" must not be specified as both required and optional.`, details.sourceMap);
+          throw new utilsHelpers.CrafterError(`Parameter "${name.string}" must not be specified as both required and optional.`, details.sourceMap);
         }
 
         if (defaultValue) {

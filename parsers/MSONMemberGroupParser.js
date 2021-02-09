@@ -1,9 +1,8 @@
 const SectionTypes = require('../SectionTypes');
-const utils = require('../utils');
 const utilsHelpers = require('../utils/index');
 const MemberGroupElement = require('./elements/MemberGroupElement');
 
-const CrafterError = utils.CrafterError;
+const CrafterError = utilsHelpers.CrafterError;
 
 const separatorToRegexp = separator => new RegExp(`^${separator}$`, 'i');
 

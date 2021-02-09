@@ -1,4 +1,4 @@
-const utils = require('./utils');
+const utilsHelpers = require('./utils/index');
 const {
   typeAttributes,
   parameterizedTypeAttributes,
@@ -417,7 +417,7 @@ function convertValue(value, dataType) {
 }
 
 function error(sig, errorMsg) {
-  throw new utils.SignatureError(errorMsg || `Invalid signature: ${sig}`);
+  throw new utilsHelpers.SignatureError(errorMsg || `Invalid signature: ${sig}`);
 }
 
 module.exports = {

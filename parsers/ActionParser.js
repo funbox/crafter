@@ -1,6 +1,5 @@
 const SectionTypes = require('../SectionTypes');
 const RegExpStrings = require('../RegExpStrings');
-const utils = require('../utils');
 const utilsHelpers = require('../utils/index');
 const ActionElement = require('./elements/ActionElement');
 
@@ -177,7 +176,7 @@ module.exports = (Parsers) => {
         try {
           expectedParameters = getUriVariables(href.string);
         } catch (e) {
-          throw new utils.CrafterError(`Could not retrieve URI parameters: ${href.string}`, details.sourceMap);
+          throw new utilsHelpers.CrafterError(`Could not retrieve URI parameters: ${href.string}`, details.sourceMap);
         }
 
         if (parameters && parameters.parameters) {

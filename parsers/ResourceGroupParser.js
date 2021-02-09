@@ -1,6 +1,5 @@
 const SectionTypes = require('../SectionTypes');
 const RegExpStrings = require('../RegExpStrings');
-const utils = require('../utils');
 const utilsHelpers = require('../utils/index');
 const ResourceGroupElement = require('./elements/ResourceGroupElement');
 
@@ -60,7 +59,7 @@ module.exports = (Parsers) => {
       let childResult;
 
       const { groupSignatureDetails: { sourceMap } } = context.data;
-      const mixedContentError = new utils.CrafterError(`Found mixed content of subgroups and resources in group "${result.title.string}"`, sourceMap);
+      const mixedContentError = new utilsHelpers.CrafterError(`Found mixed content of subgroups and resources in group "${result.title.string}"`, sourceMap);
       const nestedSectionType = SectionTypes.calculateSectionType(node, context, [
         Parsers.MessageParser,
         Parsers.SubgroupParser,

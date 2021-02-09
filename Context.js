@@ -4,8 +4,9 @@ const SectionTypes = require('./SectionTypes');
 const TypeResolver = require('./TypeResolver');
 const PrototypeResolver = require('./PrototypeResolver');
 const utils = require('./utils');
+const utilsHelpers = require('./utils/index');
 
-const CrafterError = utils.CrafterError;
+const CrafterError = utilsHelpers.CrafterError;
 
 /**
  * @typedef {object} ContextOptions

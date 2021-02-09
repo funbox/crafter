@@ -89,7 +89,7 @@ class DataStructureProcessor {
 
       // TODO Что если nextNode !== curNode.next ?
       if (curNode.next && nextNode !== curNode.next) {
-        throw new utils.CrafterError('nextNode !== curNode.next');
+        throw new utilsHelpers.CrafterError('nextNode !== curNode.next');
       }
       curNode = curNode.next;
     }
@@ -216,7 +216,7 @@ class DataStructureProcessor {
 
       // TODO Что если nextNode !== curNode.next ?
       if (curNode.next && nextNode !== curNode.next) {
-        throw new utils.CrafterError('nextNode !== curNode.next');
+        throw new utilsHelpers.CrafterError('nextNode !== curNode.next');
       }
       curNode = curNode.next;
     }
@@ -263,7 +263,7 @@ class DataStructureProcessor {
     const baseType = context.typeResolver.types[valueMember.type];
     if (baseType && baseType instanceof SchemaNamedTypeElement && !context.languageServerMode) {
       const sourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-      throw new utils.CrafterError('No inheritance allowed from schema named type', sourceMap);
+      throw new utilsHelpers.CrafterError('No inheritance allowed from schema named type', sourceMap);
     }
 
     const objectElement = new ObjectElement();
@@ -294,7 +294,7 @@ class DataStructureProcessor {
 
           if (isFixedOrFixedType && typeEl && utils.typeIsUsedByElement(typeName, typeEl, context.typeResolver.types)) {
             const sourceMap = utilsHelpers.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-            throw new utils.CrafterError('Mson attributes based on a recursive type must not have "fixed" or "fixed-type" attributes', sourceMap);
+            throw new utilsHelpers.CrafterError('Mson attributes based on a recursive type must not have "fixed" or "fixed-type" attributes', sourceMap);
           }
           break;
         }
@@ -335,7 +335,7 @@ class DataStructureProcessor {
 
       // TODO Что если nextNode !== curNode.next ?
       if (curNode.next && nextNode !== curNode.next) {
-        throw new utils.CrafterError('nextNode !== curNode.next');
+        throw new utilsHelpers.CrafterError('nextNode !== curNode.next');
       }
 
       curNode = curNode.next;
@@ -445,7 +445,7 @@ class DataStructureProcessor {
           break;
         case SectionTypes.msonArrayMemberGroup: {
           const errorSourceMap = utilsHelpers.makeGenericSourceMap(curNode.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-          throw new utils.CrafterError('Enums must use "Members" instead of "Items" as member section name', errorSourceMap);
+          throw new utilsHelpers.CrafterError('Enums must use "Members" instead of "Items" as member section name', errorSourceMap);
         }
         default: {
           const errorSourceMap = utilsHelpers.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
@@ -457,7 +457,7 @@ class DataStructureProcessor {
 
       // TODO Что если nextNode !== curNode.next ?
       if (curNode.next && nextNode !== curNode.next) {
-        throw new utils.CrafterError('nextNode !== curNode.next');
+        throw new utilsHelpers.CrafterError('nextNode !== curNode.next');
       }
       curNode = curNode.next;
     }
@@ -526,14 +526,14 @@ function validateMixin(mixinElement, curNode, context, checkMixinType) {
 
   if (baseType instanceof SchemaNamedTypeElement) {
     const sourceMap = utilsHelpers.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-    throw new utils.CrafterError('Mixin may not include a schema named type', sourceMap);
+    throw new utilsHelpers.CrafterError('Mixin may not include a schema named type', sourceMap);
   }
 
   const [typeCheckPassed, typeCheckDetails] = checkMixinType(baseType);
 
   if (!typeCheckPassed) {
     const sourceMap = utilsHelpers.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-    throw new utils.CrafterError(`Mixin base type should be the same as parent base type: ${typeCheckDetails}.`, sourceMap);
+    throw new utilsHelpers.CrafterError(`Mixin base type should be the same as parent base type: ${typeCheckDetails}.`, sourceMap);
   }
   return true;
 }

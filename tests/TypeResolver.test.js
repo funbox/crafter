@@ -2,7 +2,7 @@ const TypeResolver = require('../TypeResolver');
 const MSONNamedTypeElement = require('../parsers/elements/MSONNamedTypeElement');
 const ValueMemberElement = require('../parsers/elements/ValueMemberElement');
 const StringElement = require('../parsers/elements/StringElement');
-const CrafterError = require('../utils').CrafterError;
+const { CrafterError } = require('../utils/index');
 
 let resolver;
 let foo;

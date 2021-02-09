@@ -1,5 +1,4 @@
 const SectionTypes = require('../SectionTypes');
-const utils = require('../utils');
 const utilsHelpers = require('../utils/index');
 const types = require('../types');
 const { parser: SignatureParser, traits: ParserTraits } = require('../SignatureParser');
@@ -10,7 +9,7 @@ const ValueMemberProcessor = require('../ValueMemberProcessor');
 const StringElement = require('./elements/StringElement');
 
 const attributesRegex = /^[Aa]ttributes?$/;
-const { CrafterError, SignatureError } = utils;
+const { CrafterError, SignatureError } = utilsHelpers;
 
 module.exports = (Parsers) => {
   Parsers.AttributesParser = Object.assign(Object.create(require('./AbstractParser')), {
@@ -25,7 +24,7 @@ module.exports = (Parsers) => {
       try {
         signature = new SignatureParser(text, context.languageServerMode, [ParserTraits.NAME, ParserTraits.ATTRIBUTES]);
       } catch (e) {
-        if (!(e instanceof utils.SignatureError)) {
+        if (!(e instanceof utilsHelpers.SignatureError)) {
           throw e;
         } else {
           const message = 'Invalid Attributes signature. Expected format: "Attributes (Type Definition)".';

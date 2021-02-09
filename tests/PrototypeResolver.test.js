@@ -4,7 +4,7 @@ const ResponseElement = require('../parsers/elements/ResponseElement');
 const NumberElement = require('../parsers/elements/NumberElement');
 const StringElement = require('../parsers/elements/StringElement');
 
-const CrafterError = require('../utils').CrafterError;
+const { CrafterError } = require('../utils/index');
 
 let resolver;
 let foo;

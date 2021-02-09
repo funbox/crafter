@@ -1,8 +1,7 @@
 const SectionTypes = require('../SectionTypes');
-const utils = require('../utils');
 const utilsHelpers = require('../utils/index');
 
-const CrafterError = utils.CrafterError;
+const CrafterError = utilsHelpers.CrafterError;
 
 const BlueprintElement = require('./elements/BlueprintElement');
 const StringElement = require('./elements/StringElement');

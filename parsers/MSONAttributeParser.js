@@ -1,6 +1,5 @@
 const SectionTypes = require('../SectionTypes');
 const types = require('../types');
-const utils = require('../utils');
 const utilsHelpers = require('../utils/index');
 const PropertyMemberElement = require('./elements/PropertyMemberElement');
 const StringElement = require('./elements/StringElement');
@@ -140,11 +139,11 @@ module.exports = (Parsers) => {
           new SignatureParser(text, context.languageServerMode); // eslint-disable-line no-new
           return SectionTypes.msonAttribute;
         } catch (e) {
-          if (!(e instanceof utils.SignatureError)) {
+          if (!(e instanceof utilsHelpers.SignatureError)) {
             throw e;
           } else {
             const sourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-            throw new utils.CrafterError(e.message, sourceMap);
+            throw new utilsHelpers.CrafterError(e.message, sourceMap);
           }
         }
       }
