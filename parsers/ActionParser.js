@@ -23,7 +23,7 @@ module.exports = (Parsers) => {
 
       context.pushFrame();
 
-      const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
+      const [subject, subjectOffset] = utilsHelpers.headerTextWithOffset(node, context.sourceLines);
 
       const sourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       context.data.actionSignatureDetails = { sourceMap };
@@ -91,7 +91,7 @@ module.exports = (Parsers) => {
 
     sectionType(node, context) {
       if (node && node.type === 'heading') {
-        const subject = utils.headerText(node, context.sourceLines);
+        const subject = utilsHelpers.headerText(node, context.sourceLines);
 
         if (ActionHeaderRegex.exec(subject) || NamedActionHeaderRegex.exec(subject)) {
           return SectionTypes.action;

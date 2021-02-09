@@ -1,7 +1,5 @@
 const commonmark = require('@funbox/commonmark');
 
-const utilsHelpers = require('./utils/index.js');
-
 class CrafterError extends Error {
   constructor(message, sourceMap) {
     super(message);
@@ -21,25 +19,6 @@ class Logger {
 }
 
 const utils = {
-  headerText(node, sourceLines) {
-    return utilsHelpers.nodeText(node, sourceLines).slice(node.level).trim();
-  },
-
-  headerTextWithOffset(node, sourceLines) {
-    const text = utilsHelpers.nodeText(node, sourceLines).slice(node.level);
-    const trimmedText = text.trim();
-    return [trimmedText, text ? node.level + text.indexOf(trimmedText) : undefined];
-  },
-
-  nextNodeOfType(node, type) {
-    const result = utilsHelpers.nextNode(node);
-    if (!result) return result;
-    if (result.type === type) {
-      return result;
-    }
-    return this.nextNodeOfType(result, type);
-  },
-
   compareAttributeTypes(baseAttr, childAttr) {
     const baseType = baseAttr.type;
 
@@ -60,31 +39,6 @@ const utils = {
     const ast = parser.parse(source);
 
     return ast;
-  },
-
-  isCurrentNodeOrChild(node, rootNode) {
-    while (node) {
-      if (node === rootNode) {
-        return true;
-      }
-
-      node = node.parent;
-    }
-
-    return false;
-  },
-
-  defaultValue(type) {
-    const valueByType = {
-      boolean: true,
-      number: 1,
-      string: 'hello',
-      array: [],
-      object: {},
-      file: 'hello',
-      enum: 'hello',
-    };
-    return valueByType[type] === undefined ? '' : valueByType[type];
   },
 
   typeIsUsedByElement(typeName, typeElement, dataTypes) {

@@ -11,7 +11,7 @@ module.exports = (Parsers) => {
     processSignature(node, context) {
       context.pushFrame();
 
-      const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
+      const [subject, subjectOffset] = utilsHelpers.headerTextWithOffset(node, context.sourceLines);
       const [matchData, matchDataIndexes] = utilsHelpers.matchStringToRegex(subject, GroupHeaderRegex);
       const title = utilsHelpers.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
       const sourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
@@ -28,7 +28,7 @@ module.exports = (Parsers) => {
 
     sectionType(node, context) {
       if (node.type === 'heading') {
-        const subject = utils.headerText(node, context.sourceLines);
+        const subject = utilsHelpers.headerText(node, context.sourceLines);
 
         if (GroupHeaderRegex.exec(subject)) {
           return SectionTypes.resourceGroup;

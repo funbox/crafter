@@ -1,8 +1,7 @@
 const DescriptionElement = require('../parsers/elements/DescriptionElement');
 
 const appendDescriptionDelimiter = require('./appendDescriptionDelimiter');
-const nodeText = require('./nodeText');
-const nextNode = require('./nextNode');
+const utilsNode = require('./node');
 const utilsSourceMap = require('./sourceMap');
 
 module.exports = function extractDescription(curNode, sourceLines, sourceBuffer, linefeedOffsets, stopCallback, startOffset) {
@@ -17,12 +16,12 @@ module.exports = function extractDescription(curNode, sourceLines, sourceBuffer,
     if (description) {
       description = appendDescriptionDelimiter(description);
     }
-    description += nodeText(curNode, sourceLines);
+    description += utilsNode.nodeText(curNode, sourceLines);
     if (startOffset) {
       description = description.slice(startOffset);
       startOffset = 0;
     }
-    curNode = nextNode(curNode);
+    curNode = utilsNode.nextNode(curNode);
   }
 
   if (description) {

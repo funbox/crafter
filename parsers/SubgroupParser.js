@@ -1,6 +1,5 @@
 const SectionTypes = require('../SectionTypes');
 const RegExpStrings = require('../RegExpStrings');
-const utils = require('../utils');
 const utilsHelpers = require('../utils/index');
 const SubgroupElement = require('./elements/SubgroupElement');
 
@@ -9,7 +8,7 @@ const SubgroupHeaderRegex = new RegExp(`^[Ss]ub[Gg]roup(\\s+${RegExpStrings.symb
 module.exports = (Parsers) => {
   Parsers.SubgroupParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
-      const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
+      const [subject, subjectOffset] = utilsHelpers.headerTextWithOffset(node, context.sourceLines);
       const [matchData, matchDataIndexes] = utilsHelpers.matchStringToRegex(subject, SubgroupHeaderRegex);
 
       const titleString = matchData[1].trim();
@@ -27,7 +26,7 @@ module.exports = (Parsers) => {
 
     sectionType(node, context) {
       if (node.type === 'heading') {
-        const subject = utils.headerText(node, context.sourceLines);
+        const subject = utilsHelpers.headerText(node, context.sourceLines);
 
         if (SubgroupHeaderRegex.exec(subject)) {
           return SectionTypes.subGroup;

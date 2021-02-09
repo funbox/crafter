@@ -1,5 +1,4 @@
 const SectionTypes = require('../SectionTypes');
-const utils = require('../utils');
 const utilsHelpers = require('../utils/index');
 const { splitValues } = require('../SignatureParser');
 const DefaultValueElement = require('./elements/DefaultValueElement');
@@ -11,7 +10,7 @@ module.exports = (Parsers) => {
   Parsers.DefaultValueParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
       const text = node.type === 'heading'
-        ? utils.headerText(node, context.sourceLines)
+        ? utilsHelpers.headerText(node, context.sourceLines)
         : utilsHelpers.nodeText(node.firstChild, context.sourceLines);
       const valuesMatch = defaultValueRegex.exec(text);
       const values = valuesMatch ? splitValues(valuesMatch[1]) : undefined;
@@ -64,7 +63,7 @@ module.exports = (Parsers) => {
         }
       }
       if (node.type === 'heading') {
-        const text = utils.headerText(node, context.sourceLines);
+        const text = utilsHelpers.headerText(node, context.sourceLines);
         if (listTypedDefaultValueRegex.test(text)) {
           return SectionTypes.defaultValue;
         }

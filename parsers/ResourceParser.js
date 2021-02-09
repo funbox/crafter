@@ -1,6 +1,5 @@
 const SectionTypes = require('../SectionTypes');
 const RegExpStrings = require('../RegExpStrings');
-const utils = require('../utils');
 const utilsHelpers = require('../utils/index');
 const ResourceElement = require('./elements/ResourceElement');
 
@@ -21,7 +20,7 @@ module.exports = (Parsers) => {
 
       context.pushFrame();
 
-      const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
+      const [subject, subjectOffset] = utilsHelpers.headerTextWithOffset(node, context.sourceLines);
       const [sectionType, [matchData, matchDataIndexes]] = getSectionType(subject);
 
       switch (sectionType) {
@@ -72,7 +71,7 @@ module.exports = (Parsers) => {
 
     sectionType(node, context) {
       if (node.type === 'heading') {
-        const subject = utils.headerText(node, context.sourceLines);
+        const subject = utilsHelpers.headerText(node, context.sourceLines);
 
         if (NamelessEndpointHeaderRegex.exec(subject) || NamedResourceHeaderRegex.exec(subject) || NamedEndpointHeaderRegex.exec(subject) || NamelessResourceHeaderRegex.exec(subject)) {
           return SectionTypes.resource;

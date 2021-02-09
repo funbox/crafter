@@ -75,7 +75,7 @@ module.exports = (Parsers) => {
         return [contentNode, result];
       }
 
-      if (utils.isCurrentNodeOrChild(contentNode, parentNode) && contentNode.type === 'list') {
+      if (utilsHelpers.isCurrentNodeOrChild(contentNode, parentNode) && contentNode.type === 'list') {
         contentNode = contentNode.firstChild;
       }
 
@@ -89,7 +89,7 @@ module.exports = (Parsers) => {
       }
 
       if (contentNode.type === 'paragraph' || !!startOffset || !isContentSection(contentNode)) {
-        stopCallback = curNode => (!utils.isCurrentNodeOrChild(curNode, parentNode) || isContentSection(curNode));
+        stopCallback = curNode => (!utilsHelpers.isCurrentNodeOrChild(curNode, parentNode) || isContentSection(curNode));
       }
 
       contentNode.skipLines = startOffset ? 1 : 0;

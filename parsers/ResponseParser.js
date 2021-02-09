@@ -1,6 +1,5 @@
 const SectionTypes = require('../SectionTypes');
 const RegExpStrings = require('../RegExpStrings');
-const utils = require('../utils');
 const utilsHelpers = require('../utils/index');
 const ResponseElement = require('./elements/ResponseElement');
 const SchemaElement = require('./elements/SchemaElement');
@@ -107,7 +106,7 @@ module.exports = (Parsers) => {
     processDescription(node, context, result) {
       const parentNode = node && node.parent;
 
-      const stopCallback = curNode => (!utils.isCurrentNodeOrChild(curNode, parentNode) || this.nestedSectionType(curNode, context) !== SectionTypes.undefined);
+      const stopCallback = curNode => (!utilsHelpers.isCurrentNodeOrChild(curNode, parentNode) || this.nestedSectionType(curNode, context) !== SectionTypes.undefined);
 
       node.skipLines = context.data.startOffset ? 1 : 0;
       const [curNode, descriptionEl] = utilsHelpers.extractDescription(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, stopCallback, context.data.startOffset);

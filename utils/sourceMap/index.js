@@ -2,7 +2,7 @@ const getCharacterBlocksWithLineColumnInfo = require('../getCharacterBlocksWithL
 const getOffsetFromStartOfFileInBytes = require('../getOffsetFromStartOfFileInBytes');
 const getSourcePosZeroBased = require('../getSourcePosZeroBased');
 const linefeedBytes = require('../linefeedBytes');
-const nextNode = require('../nextNode');
+const utilsNode = require('../node');
 
 class CrafterError extends Error {
   constructor(message, sourceMap) {
@@ -53,7 +53,7 @@ module.exports = {
 
     let endNode = startNode;
     const iterationCondition = (node) => (
-      !!node.next && (stopCallback ? !stopCallback(nextNode(node)) : node.next.type === 'paragraph')
+      !!node.next && (stopCallback ? !stopCallback(utilsNode.nextNode(node)) : node.next.type === 'paragraph')
     );
     while (iterationCondition(endNode)) {
       endNode = endNode.next;
@@ -229,7 +229,7 @@ function makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, sour
   linefeedOffsets = startNode.linefeedOffsets || linefeedOffsets;
   const byteBlocks = [];
   const iterationCondition = (node) => (stopCallback ? !stopCallback(node) : (node && node.type === 'paragraph'));
-  for (let node = startNode; iterationCondition(node); node = nextNode(node)) {
+  for (let node = startNode; iterationCondition(node); node = utilsNode.nextNode(node)) {
     const zeroBasedSourcePos = getSourcePosZeroBased(node);
     let { startLineIndex } = zeroBasedSourcePos;
     const { startColumnIndex, endLineIndex } = zeroBasedSourcePos;

@@ -61,7 +61,7 @@ module.exports = (Parsers) => {
       }
 
       if (curNode.type === 'heading' && context.sectionKeywordSignature(curNode) === SectionTypes.undefined) {
-        const [titleText, titleTextOffset] = utils.headerTextWithOffset(curNode, context.sourceLines);
+        const [titleText, titleTextOffset] = utilsHelpers.headerTextWithOffset(curNode, context.sourceLines);
         title = utilsHelpers.makeStringElement(titleText, titleTextOffset, curNode, context);
 
         curNode = curNode.next;
@@ -242,7 +242,7 @@ module.exports = (Parsers) => {
           }
 
           try {
-            const filename = ImportRegex.exec(utils.headerText(curNode, sourceLines))[1].trim();
+            const filename = ImportRegex.exec(utilsHelpers.headerText(curNode, sourceLines))[1].trim();
 
             if (!/\.apib$/.test(filename)) {
               throw new CrafterError(`File import error. File "${filename}" must have extension type ".apib".`, sourceMap);
@@ -337,5 +337,5 @@ function preprocessErrorResult(result, context) {
 }
 
 function isImportSection(node, context) {
-  return node.type === 'heading' && ImportRegex.test(utils.headerText(node, context.sourceLines));
+  return node.type === 'heading' && ImportRegex.test(utilsHelpers.headerText(node, context.sourceLines));
 }

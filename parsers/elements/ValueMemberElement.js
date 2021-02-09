@@ -1,5 +1,4 @@
 const Refract = require('../../Refract');
-const utils = require('../../utils');
 const utilsHelpers = require('../../utils/index');
 const types = require('../../types');
 const SourceMapElement = require('./SourceMapElement');
@@ -271,7 +270,7 @@ class ValueMemberElement {
 
     const type = (typeEl && typeEl.baseType) || this.type || (this.content ? 'object' : 'string');
     const valueToReturn = this.shouldOutputValue() ? this.value : null;
-    return valueToReturn !== undefined && valueToReturn !== null ? valueToReturn : utils.defaultValue(type);
+    return valueToReturn !== undefined && valueToReturn !== null ? valueToReturn : utilsHelpers.defaultValue(type);
   }
 
   /**

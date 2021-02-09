@@ -19,7 +19,7 @@ module.exports = (Parsers) => {
     processSignature(node, context) {
       context.pushFrame();
 
-      const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
+      const [subject, subjectOffset] = utilsHelpers.headerTextWithOffset(node, context.sourceLines);
       const sourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       let signature;
       try {
@@ -149,7 +149,7 @@ module.exports = (Parsers) => {
             fillElementWithContent(result.content, type, childRes.members);
             curNode = nextNode;
           } else {
-            curNode = utils.nextNodeOfType(curNode, 'heading');
+            curNode = utilsHelpers.nextNodeOfType(curNode, 'heading');
           }
         } else if (Parsers.SampleHeaderParser.sectionType(curNode, context) !== SectionTypes.undefined) {
           let unrecognizedBlockDetected = false;
@@ -237,11 +237,11 @@ module.exports = (Parsers) => {
           let nextNode = curNode;
           do {
             lastNodeOfSection = nextNode;
-            nextNode = utils.nextNode(nextNode);
+            nextNode = utilsHelpers.nextNode(nextNode);
           } while (nextNode && nextNode.type !== 'heading');
 
           if (unrecognizedBlockDetected) {
-            const sourceMap = utils.makeGenericSourceMapFromStartAndEndNodes(curNode, lastNodeOfSection, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+            const sourceMap = utilsHelpers.makeGenericSourceMapFromStartAndEndNodes(curNode, lastNodeOfSection, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
             appendUnrecognizedBlocks([sourceMap]);
           }
 
@@ -349,11 +349,11 @@ module.exports = (Parsers) => {
           let nextNode = curNode;
           do {
             lastNodeOfSection = nextNode;
-            nextNode = utils.nextNode(nextNode);
+            nextNode = utilsHelpers.nextNode(nextNode);
           } while (nextNode && nextNode.type !== 'heading');
 
           if (unrecognizedBlockDetected) {
-            const sourceMap = utils.makeGenericSourceMapFromStartAndEndNodes(curNode, lastNodeOfSection, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+            const sourceMap = utilsHelpers.makeGenericSourceMapFromStartAndEndNodes(curNode, lastNodeOfSection, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
             appendUnrecognizedBlocks([sourceMap]);
           }
 

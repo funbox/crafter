@@ -168,7 +168,7 @@ module.exports = (Parsers) => {
         let stopCallback = null;
         if (contentNode.type === 'paragraph' || !!startOffset) {
           stopCallback = curNode => (
-            !utils.isCurrentNodeOrChild(curNode, parentNode)
+            !utilsHelpers.isCurrentNodeOrChild(curNode, parentNode)
             || isContentSection(curNode)
           );
         }

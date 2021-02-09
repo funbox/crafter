@@ -1,5 +1,4 @@
 const SectionTypes = require('../SectionTypes');
-const utils = require('../utils');
 const utilsHelpers = require('../utils/index');
 
 const UnrecognizedBlockElement = require('./elements/UnrecognizedBlockElement');
@@ -15,10 +14,10 @@ module.exports = {
 
     [curNode, result] = this.processSignature(curNode, context);
 
-    if (this.allowLeavingNode || utils.isCurrentNodeOrChild(curNode, context.rootNode)) {
+    if (this.allowLeavingNode || utilsHelpers.isCurrentNodeOrChild(curNode, context.rootNode)) {
       [curNode, result] = this.processDescription(curNode, context, result);
 
-      if (this.allowLeavingNode || utils.isCurrentNodeOrChild(curNode, context.rootNode)) {
+      if (this.allowLeavingNode || utilsHelpers.isCurrentNodeOrChild(curNode, context.rootNode)) {
         [curNode, result] = this.processNestedSections(curNode, context, result);
       }
     }
@@ -51,7 +50,7 @@ module.exports = {
     while (curNode) {
       let shouldContinue = false;
 
-      if (this.allowLeavingNode || utils.isCurrentNodeOrChild(curNode, context.rootNode)) {
+      if (this.allowLeavingNode || utilsHelpers.isCurrentNodeOrChild(curNode, context.rootNode)) {
         if (this.nestedSectionType(curNode, context) !== SectionTypes.undefined) {
           [curNode, result] = this.processNestedSection(curNode, context, result);
           shouldContinue = true;

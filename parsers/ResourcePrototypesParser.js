@@ -1,5 +1,4 @@
 const SectionTypes = require('../SectionTypes');
-const utils = require('../utils');
 const utilsHelpers = require('../utils/index');
 const ResourcePrototypesElement = require('./elements/ResourcePrototypesElement');
 
@@ -14,7 +13,7 @@ module.exports = (Parsers) => {
 
     sectionType(node, context) {
       if (node.type === 'heading') {
-        const subject = utils.headerText(node, context.sourceLines);
+        const subject = utilsHelpers.headerText(node, context.sourceLines);
 
         if (ResourcePrototypesRegex.exec(subject)) {
           return SectionTypes.resourcePrototypes;

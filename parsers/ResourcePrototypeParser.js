@@ -1,6 +1,5 @@
 const SectionTypes = require('../SectionTypes');
 const RegExpStrings = require('../RegExpStrings');
-const utils = require('../utils');
 const utilsHelpers = require('../utils/index');
 const ResourcePrototypeElement = require('./elements/ResourcePrototypeElement');
 
@@ -9,7 +8,7 @@ const PrototypeHeaderRegex = new RegExp(`^${RegExpStrings.symbolIdentifier}(\\s+
 module.exports = (Parsers) => {
   Parsers.ResourcePrototypeParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
-      const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
+      const [subject, subjectOffset] = utilsHelpers.headerTextWithOffset(node, context.sourceLines);
       const [matchData, matchDataIndexes] = utilsHelpers.matchStringToRegex(subject, PrototypeHeaderRegex);
 
       const inheritedPrototypes = utilsHelpers.buildPrototypeElements(matchData[3], subjectOffset + matchDataIndexes[3], node, context);

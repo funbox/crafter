@@ -1,6 +1,7 @@
 const appendDescriptionDelimiter = require('./appendDescriptionDelimiter');
 const buildPrototypeElements = require('./buildPrototypeElements');
 const convertType = require('./convertType');
+const defaultValue = require('./defaultValue');
 const extractDescription = require('./extractDescription');
 const getCharacterBlocksWithLineColumnInfo = require('./getCharacterBlocksWithLineColumnInfo');
 const getOffsetFromStartOfFileInBytes = require('./getOffsetFromStartOfFileInBytes');
@@ -9,8 +10,7 @@ const linefeedBytes = require('./linefeedBytes');
 const makeStringElement = require('./makeStringElement');
 const matchStringToRegex = require('./matchStringToRegex');
 const merge = require('./merge');
-const nextNode = require('./nextNode');
-const nodeText = require('./nodeText');
+const node = require('./node');
 const preparePrototypes = require('./preparePrototypes');
 const resolveType = require('./resolveType');
 const sourceMap = require('./sourceMap');
@@ -22,6 +22,7 @@ const utils = {
   appendDescriptionDelimiter,
   buildPrototypeElements,
   convertType,
+  defaultValue,
   extractDescription,
   getCharacterBlocksWithLineColumnInfo,
   getOffsetFromStartOfFileInBytes,
@@ -30,8 +31,7 @@ const utils = {
   makeStringElement,
   matchStringToRegex,
   ...merge,
-  nextNode,
-  nodeText,
+  ...node,
   preparePrototypes,
   resolveType,
   ...sourceMap,
