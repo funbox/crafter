@@ -36,7 +36,7 @@ module.exports = {
   processDescription(node, context, result) {
     const stopCallback = curNode => (curNode && !this.isDescriptionNode(curNode, context));
 
-    const [curNode, descriptionEl] = utils.extractDescription(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, stopCallback);
+    const [curNode, descriptionEl] = utilsHelpers.extractDescription(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, stopCallback);
 
     if (descriptionEl) {
       result.description = descriptionEl;

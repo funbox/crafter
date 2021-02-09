@@ -389,7 +389,7 @@ module.exports = (Parsers) => {
 
     processDescription(node, context, result) {
       if (node && node.type === 'paragraph') {
-        const [curNode, desc] = utils.extractDescription(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+        const [curNode, desc] = utilsHelpers.extractDescription(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
         result.description = desc;
         const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;

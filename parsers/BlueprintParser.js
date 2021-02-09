@@ -74,7 +74,7 @@ module.exports = (Parsers) => {
 
       const stopCallback = cNode => (cNode.type === 'heading' && context.sectionKeywordSignature(cNode) !== SectionTypes.undefined);
 
-      [curNode, description] = utils.extractDescription(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, stopCallback);
+      [curNode, description] = utilsHelpers.extractDescription(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, stopCallback);
       if (description) {
         sourceMaps.push(description.sourceMap);
       }

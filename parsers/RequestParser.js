@@ -102,7 +102,7 @@ module.exports = (Parsers) => {
       const stopCallback = curNode => (!utils.isCurrentNodeOrChild(curNode, parentNode) || this.nestedSectionType(curNode, context) !== SectionTypes.undefined);
 
       node.skipLines = context.data.startOffset ? 1 : 0;
-      const [curNode, descriptionEl] = utils.extractDescription(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, stopCallback, context.data.startOffset);
+      const [curNode, descriptionEl] = utilsHelpers.extractDescription(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, stopCallback, context.data.startOffset);
       delete node.skipLines;
 
       if (descriptionEl) {

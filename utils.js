@@ -1,7 +1,5 @@
 const commonmark = require('@funbox/commonmark');
 
-const DescriptionElement = require('./parsers/elements/DescriptionElement');
-
 const utilsHelpers = require('./utils/index.js');
 
 class CrafterError extends Error {
@@ -31,33 +29,6 @@ const utils = {
     const text = utilsHelpers.nodeText(node, sourceLines).slice(node.level);
     const trimmedText = text.trim();
     return [trimmedText, text ? node.level + text.indexOf(trimmedText) : undefined];
-  },
-  extractDescription(curNode, sourceLines, sourceBuffer, linefeedOffsets, stopCallback, startOffset) {
-    const startNode = curNode;
-    let description = '';
-    let descriptionEl = null;
-
-    while (curNode && (curNode.type === 'paragraph' || stopCallback)) {
-      if (stopCallback && stopCallback(curNode)) {
-        break;
-      }
-      if (description) {
-        description = this.appendDescriptionDelimiter(description);
-      }
-      description += utilsHelpers.nodeText(curNode, sourceLines);
-      if (startOffset) {
-        description = description.slice(startOffset);
-        startOffset = 0;
-      }
-      curNode = utilsHelpers.nextNode(curNode);
-    }
-
-    if (description) {
-      descriptionEl = new DescriptionElement(description);
-      descriptionEl.sourceMap = utilsHelpers.makeSourceMapForDescription(startNode, sourceLines, sourceBuffer, linefeedOffsets, stopCallback);
-    }
-
-    return [curNode, descriptionEl];
   },
 
   nextNodeOfType(node, type) {
@@ -89,17 +60,6 @@ const utils = {
     const ast = parser.parse(source);
 
     return ast;
-  },
-
-  appendDescriptionDelimiter(s) {
-    if (s[s.length - 1] !== '\n') {
-      s += '\n';
-    }
-    if (s[s.length - 2] !== '\n') {
-      s += '\n';
-    }
-
-    return s;
   },
 
   isCurrentNodeOrChild(node, rootNode) {

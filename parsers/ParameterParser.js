@@ -96,7 +96,7 @@ module.exports = (Parsers) => {
       const [
         nextNode,
         blockDescriptionEl,
-      ] = utils.extractDescription(contentNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, stopCallback, startOffset);
+      ] = utilsHelpers.extractDescription(contentNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, stopCallback, startOffset);
 
       delete contentNode.skipLines;
 
@@ -107,7 +107,7 @@ module.exports = (Parsers) => {
         // https://apielements.org/en/latest/element-definitions.html#reserved-meta-properties
         const stringDescriptionEl = new StringElement(blockDescriptionEl.description, blockDescriptionEl.sourceMap);
         if (result.description) {
-          result.description.string = utils.appendDescriptionDelimiter(result.description.string);
+          result.description.string = utilsHelpers.appendDescriptionDelimiter(result.description.string);
           result.description = utilsHelpers.mergeStringElements(result.description, stringDescriptionEl);
         } else {
           result.description = stringDescriptionEl;
