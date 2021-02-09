@@ -3,6 +3,7 @@ const getCharacterBlocksWithLineColumnInfo = require('./getCharacterBlocksWithLi
 const matchStringToRegex = require('./matchStringToRegex');
 const nodeText = require('./nodeText');
 const resolveType = require('./resolveType');
+const sourceMap = require('./sourceMap');
 const splitTypeAttributes = require('./splitTypeAttributes');
 const typeAttributesToRefract = require('./typeAttributesToRefract');
 const validateAttributesConsistency = require('./validateAttributesConsistency');
@@ -13,6 +14,7 @@ const utils = {
   matchStringToRegex,
   nodeText,
   resolveType,
+  ...sourceMap,
   splitTypeAttributes,
   typeAttributesToRefract,
   validateAttributesConsistency,
