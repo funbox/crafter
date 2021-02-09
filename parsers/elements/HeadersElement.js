@@ -17,6 +17,10 @@ class HeadersElement {
    */
   constructor(headers, sourceMap) {
     this.headers = headers;
+    /**
+     * @type {UnrecognizedBlockElement[]}
+     */
+    this.unrecognizedBlocks = [];
     this.sourceMap = sourceMap;
   }
 
@@ -44,11 +48,18 @@ class HeadersElement {
       })),
     };
 
+    if (this.unrecognizedBlocks.length) {
+      result.attributes = result.attributes || {};
+      result.attributes.unrecognizedBlocks = {
+        element: Refract.elements.array,
+        content: this.unrecognizedBlocks.map(b => b.toRefract(sourceMapsEnabled)),
+      };
+    }
+
     if (sourceMapsEnabled) {
       const sourceMapEl = new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file);
-      result.attributes = {
-        sourceMap: sourceMapEl.toRefract(),
-      };
+      result.attributes = result.attributes || {};
+      result.attributes.sourceMap = sourceMapEl.toRefract();
     }
 
     return result;

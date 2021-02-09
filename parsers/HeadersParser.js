@@ -27,7 +27,7 @@ module.exports = (Parsers) => {
       return SectionTypes.calculateSectionType(node, context, [
         Parsers.BodyParser,
         Parsers.HeadersParser,
-        Parsers.ParameterParser,
+        Parsers.ParametersParser,
         Parsers.RequestParser,
         Parsers.ResponseParser,
         Parsers.ActionParser,
