@@ -127,10 +127,6 @@ module.exports = (Parsers) => {
       return SectionTypes.undefined;
     },
 
-    nestedSectionType(node, context) {
-      return Parsers.MSONAttributeParser.sectionType(node, context);
-    },
-
     processDescription(contentNode, context, result) {
       const parentNode = contentNode && contentNode.parent;
       let type = result.content.type || types.object;
