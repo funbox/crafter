@@ -6,6 +6,7 @@ const EnumElement = require('./parsers/elements/EnumElement');
 const ObjectElement = require('./parsers/elements/ObjectElement');
 const SchemaNamedTypeElement = require('./parsers/elements/SchemaNamedTypeElement');
 const MSONMixinElement = require('./parsers/elements/MSONMixinElement');
+const UnrecognizedBlockElement = require('./parsers/elements/UnrecognizedBlockElement');
 
 class DataStructureProcessor {
   constructor(valueMemberRootNode, Parsers, startNode) {
@@ -67,9 +68,12 @@ class DataStructureProcessor {
           delete context.data.valueType;
           samples.push(...childResult);
           break;
-        default:
+        default: {
           context.addWarning('sub-types of primitive types should not have nested members, ignoring unrecognized block', sourceMap);
+          const curNodeSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+          primitiveElement.unrecognizedBlocks.push(new UnrecognizedBlockElement(curNodeSourceMap));
           nextNode = utils.nextNode(curNode);
+        }
       }
 
       // TODO Что если nextNode !== curNode.next ?
@@ -193,6 +197,8 @@ class DataStructureProcessor {
         }
         default: {
           context.addWarning('Ignoring unrecognized block', sourceMap);
+          const curNodeSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+          arrayElement.unrecognizedBlocks.push(new UnrecognizedBlockElement(curNodeSourceMap));
           nextNode = utils.nextNode(curNode);
         }
       }
@@ -307,6 +313,7 @@ class DataStructureProcessor {
         default: {
           const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
           context.addWarning('Ignoring unrecognized block', sourceMap);
+          valueMember.unrecognizedBlocks.push(new UnrecognizedBlockElement(sourceMap));
           nextNode = utils.nextNode(curNode);
         }
       }
@@ -432,6 +439,7 @@ class DataStructureProcessor {
         default: {
           const errorSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
           context.addWarning('Ignoring unrecognized block', errorSourceMap);
+          valueMember.unrecognizedBlocks.push(new UnrecognizedBlockElement(errorSourceMap));
           nextNode = utils.nextNode(curNode);
         }
       }

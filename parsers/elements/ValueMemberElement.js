@@ -75,9 +75,16 @@ class ValueMemberElement {
      * @type {DefaultValueElement}
      */
     this.default = null;
-    this.sourceMap = null;
     this.isSample = isSample;
     this.isDefault = isDefault;
+    /**
+     * @type {UnrecognizedBlockElement[]}
+     */
+    this.unrecognizedBlocks = [];
+    /**
+     * @type {SourceMap}
+     */
+    this.sourceMap = null;
   }
 
   isObject() {
@@ -193,6 +200,14 @@ class ValueMemberElement {
 
     if (sourceMapEl) {
       result.attributes.sourceMap = sourceMapEl.toRefract();
+    }
+
+    if (this.unrecognizedBlocks.length) {
+      result.attributes = result.attributes || {};
+      result.attributes.unrecognizedBlocks = {
+        element: Refract.elements.array,
+        content: this.unrecognizedBlocks.map(b => b.toRefract(sourceMapsEnabled)),
+      };
     }
 
     return result;

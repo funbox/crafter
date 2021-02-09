@@ -41,6 +41,19 @@
               "element": "dataStructure",
               "content": {
                 "element": "number",
+                "attributes": {
+                  "unrecognizedBlocks": {
+                    "element": "array",
+                    "content": [
+                      {
+                        "element": "unrecognizedBlock"
+                      },
+                      {
+                        "element": "unrecognizedBlock"
+                      }
+                    ]
+                  }
+                },
                 "meta": {
                   "id": {
                     "element": "string",
