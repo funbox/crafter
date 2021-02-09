@@ -20,6 +20,10 @@ class DataStructureGroupElement {
      * @type {MSONNamedTypeElement[]}
      */
     this.dataStructures = [];
+    /**
+     * @type {UnrecognizedBlockElement[]}
+     */
+    this.unrecognizedBlocks = [];
     this.sourceMap = sourceMap;
   }
 
@@ -41,11 +45,18 @@ class DataStructureGroupElement {
       content: this.dataStructures.map(ds => ds.toRefract(sourceMapsEnabled)),
     };
 
+    if (this.unrecognizedBlocks.length) {
+      result.attributes = result.attributes || {};
+      result.attributes.unrecognizedBlocks = {
+        element: Refract.elements.array,
+        content: this.unrecognizedBlocks.map(b => b.toRefract(sourceMapsEnabled)),
+      };
+    }
+
     if (sourceMapsEnabled) {
       const sourceMapEl = new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file);
-      result.attributes = {
-        sourceMap: sourceMapEl.toRefract(),
-      };
+      result.attributes = result.attributes || {};
+      result.attributes.sourceMap = sourceMapEl.toRefract();
     }
 
     return result;

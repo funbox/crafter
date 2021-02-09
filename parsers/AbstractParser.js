@@ -1,5 +1,6 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
+const UnrecognizedBlockElement = require('./elements/UnrecognizedBlockElement');
 
 module.exports = {
   allowLeavingNode: true,
@@ -52,6 +53,7 @@ module.exports = {
         [curNode, result] = this.processNestedSection(curNode, context, result);
       } else if (this.isUnexpectedNode(curNode, context)) {
         const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+        result.unrecognizedBlocks.push(new UnrecognizedBlockElement(sourceMap));
         context.addWarning(`Ignoring unrecognized block "${utils.nodeText(curNode, context.sourceLines)}".`, sourceMap);
         curNode = utils.nextNode(curNode);
       } else {

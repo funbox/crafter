@@ -124,6 +124,16 @@
                       "element": "string",
                       "content": "List"
                     }
+                  },
+                  "attributes": {
+                    "unrecognizedBlocks": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "unrecognizedBlock"
+                        }
+                      ]
+                    }
                   }
                 },
                 {

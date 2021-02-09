@@ -28,6 +28,7 @@ module.exports = {
     sourceMap: 'sourceMap',
     annotation: 'annotation',
     message: 'message',
+    unrecognizedBlock: 'unrecognizedBlock',
   },
   categoryClasses: {
     api: 'api',

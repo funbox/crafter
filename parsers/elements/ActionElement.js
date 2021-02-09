@@ -64,6 +64,10 @@ class ActionElement {
      * @type {DescriptionElement}
      */
     this.description = null;
+    /**
+     * @type {UnrecognizedBlockElement[]}
+     */
+    this.unrecognizedBlocks = [];
     this.sourceMap = sourceMap;
   }
 
@@ -124,6 +128,14 @@ class ActionElement {
 
     if (this.description) {
       result.content.unshift(this.description.toRefract(sourceMapsEnabled));
+    }
+
+    if (this.unrecognizedBlocks.length) {
+      result.attributes = result.attributes || {};
+      result.attributes.unrecognizedBlocks = {
+        element: Refract.elements.array,
+        content: this.unrecognizedBlocks.map(b => b.toRefract(sourceMapsEnabled)),
+      };
     }
 
     return result;
