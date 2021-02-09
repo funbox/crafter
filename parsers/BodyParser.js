@@ -1,5 +1,5 @@
 const SectionTypes = require('../SectionTypes');
-const utilsHelpers = require('../utils/index');
+const utils = require('../utils');
 const BodyElement = require('./elements/BodyElement');
 
 const bodyRegex = /^[Bb]ody$/;
@@ -11,8 +11,8 @@ module.exports = (Parsers) => {
 
       if (!bodyContentNode) {
         const bodyEl = new BodyElement('');
-        bodyEl.sourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-        return [utilsHelpers.nextNode(node), bodyEl];
+        bodyEl.sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+        return [utils.nextNode(node), bodyEl];
       }
 
       const body = bodyContentNode.literal || '';
@@ -22,12 +22,12 @@ module.exports = (Parsers) => {
         context.addWarning('"Body" is expected to be a pre-formatted code block, every of its line indented by exactly 12 spaces or 3 tabs', sourceMap);
       }
       bodyEl.sourceMap = sourceMap;
-      return [utilsHelpers.nextNode(node), bodyEl];
+      return [utils.nextNode(node), bodyEl];
     },
 
     sectionType(node, context) {
       if (node.type === 'item') {
-        const text = utilsHelpers.nodeText(node.firstChild, context.sourceLines);
+        const text = utils.nodeText(node.firstChild, context.sourceLines);
         if (bodyRegex.exec(text)) {
           return SectionTypes.body;
         }
@@ -60,7 +60,7 @@ module.exports = (Parsers) => {
     },
 
     makeSourceMap(node, context) {
-      return utilsHelpers.makeSourceMapForAsset(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      return utils.makeSourceMapForAsset(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
     },
 
     allowLeavingNode: false,

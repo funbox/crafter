@@ -1,5 +1,5 @@
 const Refract = require('../../Refract');
-const utilsHelpers = require('../../utils/index');
+const utils = require('../../utils');
 const StringElement = require('./StringElement');
 const SourceMapElement = require('./SourceMapElement');
 
@@ -29,7 +29,7 @@ class ParameterElement {
    * @param {SourceMap} sourceMap
    */
   constructor(name, value, title, typeAttributes, description, sourceMap) {
-    const resolvedType = utilsHelpers.resolveType(title.string);
+    const resolvedType = utils.resolveType(title.string);
 
     this.name = name;
     this.value = value;

@@ -1,5 +1,5 @@
 const SectionTypes = require('../SectionTypes');
-const utilsHelpers = require('../utils/index');
+const utils = require('../utils');
 const ParameterMembersElement = require('./elements/ParameterMembersElement');
 
 const parameterMembersRegex = /^[Mm]embers$/;
@@ -9,13 +9,13 @@ module.exports = (Parsers) => {
     allowLeavingNode: false,
 
     processSignature(node) {
-      const nextNode = (node.firstChild.next && node.firstChild.next.firstChild) || utilsHelpers.nextNode(node);
+      const nextNode = (node.firstChild.next && node.firstChild.next.firstChild) || utils.nextNode(node);
       return [nextNode, new ParameterMembersElement()];
     },
 
     sectionType(node, context) {
       if (node.type === 'item') {
-        const text = utilsHelpers.nodeText(node.firstChild, context.sourceLines);
+        const text = utils.nodeText(node.firstChild, context.sourceLines);
         if (parameterMembersRegex.exec(text)) {
           return SectionTypes.parameterMembers;
         }

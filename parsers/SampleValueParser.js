@@ -1,5 +1,5 @@
 const SectionTypes = require('../SectionTypes');
-const utilsHelpers = require('../utils/index');
+const utils = require('../utils');
 const SampleValueElement = require('./elements/SampleValueElement');
 const { splitValues } = require('../SignatureParser');
 
@@ -15,18 +15,18 @@ module.exports = (Parsers) => {
         processInlineSamples(node, context, result);
       }
 
-      return [(node.firstChild.next && node.firstChild.next.firstChild) || utilsHelpers.nextNode(node), result];
+      return [(node.firstChild.next && node.firstChild.next.firstChild) || utils.nextNode(node), result];
     },
 
     sectionType(node, context) {
       if (node.type === 'item') {
-        const text = utilsHelpers.nodeText(node.firstChild, context.sourceLines);
+        const text = utils.nodeText(node.firstChild, context.sourceLines);
         if (sampleValueRegex.exec(text) || listTypedSampleValueRegex.exec(text)) {
           return SectionTypes.sampleValue;
         }
       }
       if (node.type === 'heading') {
-        const text = utilsHelpers.headerText(node, context.sourceLines);
+        const text = utils.headerText(node, context.sourceLines);
         if (listTypedSampleValueRegex.exec(text)) {
           return SectionTypes.sampleValue;
         }
@@ -49,13 +49,13 @@ module.exports = (Parsers) => {
 
     processNestedSection(node, context, result) {
       const textNode = node.type === 'item' ? node.firstChild : node;
-      const text = utilsHelpers.nodeText(textNode, context.sourceLines);
-      const sourceMap = utilsHelpers.makeGenericSourceMap(textNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const text = utils.nodeText(textNode, context.sourceLines);
+      const sourceMap = utils.makeGenericSourceMap(textNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
       switch (context.data.typeForSamples) {
         case 'primitive':
         case 'enum': {
-          const converted = utilsHelpers.convertType(text, context.data.valueType);
+          const converted = utils.convertType(text, context.data.valueType);
 
           if (converted.valid) {
             result.push(new SampleValueElement(converted.value, context.data.valueType, sourceMap));
@@ -65,7 +65,7 @@ module.exports = (Parsers) => {
           break;
         }
         case 'array': {
-          const converted = utilsHelpers.convertType(text, context.data.valueType);
+          const converted = utils.convertType(text, context.data.valueType);
 
           if (converted.valid) {
             if (!result.length) {
@@ -83,7 +83,7 @@ module.exports = (Parsers) => {
         // no default
       }
 
-      return [utilsHelpers.nextNode(node), result];
+      return [utils.nextNode(node), result];
     },
 
     isUnexpectedNode() {
@@ -95,20 +95,20 @@ module.exports = (Parsers) => {
 };
 
 function processInlineSamples(node, context, result) {
-  const text = utilsHelpers.nodeText(node.firstChild, context.sourceLines);
+  const text = utils.nodeText(node.firstChild, context.sourceLines);
   const valuesMatch = sampleValueRegex.exec(text);
 
   if (!valuesMatch) return;
 
   const values = splitValues(valuesMatch[1]);
 
-  const sourceMaps = utilsHelpers.makeSourceMapsForInlineValues(valuesMatch[1], values, node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+  const sourceMaps = utils.makeSourceMapsForInlineValues(valuesMatch[1], values, node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
   switch (context.data.typeForSamples) {
     case 'primitive':
     case 'enum':
       values.forEach((value, index) => {
-        const converted = utilsHelpers.convertType(value, context.data.valueType);
+        const converted = utils.convertType(value, context.data.valueType);
 
         if (converted.valid) {
           result.push(new SampleValueElement(converted.value, context.data.valueType, sourceMaps[index]));
@@ -119,7 +119,7 @@ function processInlineSamples(node, context, result) {
       break;
     case 'array': {
       const preparedValues = values.reduce((res, v, index) => {
-        const converted = utilsHelpers.convertType(v, context.data.valueType);
+        const converted = utils.convertType(v, context.data.valueType);
 
         if (converted.valid) {
           res.push(converted.value);

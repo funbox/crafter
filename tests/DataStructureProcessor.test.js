@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const Context = require('../Context');
-const utilsHelpers = require('../utils/index');
+const utils = require('../utils');
 const { parser: SignatureParser } = require('../SignatureParser');
 const DataStructureProcessor = require('../DataStructureProcessor');
 const ValueMemberProcessor = require('../ValueMemberProcessor');
@@ -26,17 +26,17 @@ fs.readdirSync(parsersDir).forEach((pFile) => {
 
 function getFilledElementFromSource(source) {
   const warnings = [];
-  const ast = utilsHelpers.markdownSourceToAST(source);
+  const ast = utils.markdownSourceToAST(source);
   const context = new Context(source, Parsers, {
     logger: {
       warn(text) { warnings.push(text); },
     },
   });
   context.rootNode = ast.firstChild;
-  const subject = utilsHelpers.nodeText(ast.firstChild, context.sourceLines);
+  const subject = utils.nodeText(ast.firstChild, context.sourceLines);
   const signature = new SignatureParser(subject, false);
   signature.warnings.forEach(warning => context.logger.warn(warning));
-  const resolvedType = utilsHelpers.resolveType(signature.type);
+  const resolvedType = utils.resolveType(signature.type);
   const valueElement = new ValueMemberElement(
     signature.type,
     resolvedType.type,

@@ -1,5 +1,5 @@
 const SectionTypes = require('../SectionTypes');
-const utilsHelpers = require('../utils/index');
+const utils = require('../utils');
 const types = require('../types');
 const { parser: SignatureParser, traits: ParserTraits } = require('../SignatureParser');
 const AttributesElement = require('./elements/AttributesElement');
@@ -9,7 +9,7 @@ const ValueMemberProcessor = require('../ValueMemberProcessor');
 const StringElement = require('./elements/StringElement');
 
 const attributesRegex = /^[Aa]ttributes?$/;
-const { CrafterError, SignatureError } = utilsHelpers;
+const { CrafterError, SignatureError } = utils;
 
 module.exports = (Parsers) => {
   Parsers.AttributesParser = Object.assign(Object.create(require('./AbstractParser')), {
@@ -18,13 +18,13 @@ module.exports = (Parsers) => {
     processSignature(node, context) {
       context.pushFrame();
 
-      const text = utilsHelpers.nodeText(node.firstChild, context.sourceLines);
-      const sourceMap = utilsHelpers.makeSourceMapForLine(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const text = utils.nodeText(node.firstChild, context.sourceLines);
+      const sourceMap = utils.makeSourceMapForLine(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       let signature;
       try {
         signature = new SignatureParser(text, context.languageServerMode, [ParserTraits.NAME, ParserTraits.ATTRIBUTES]);
       } catch (e) {
-        if (!(e instanceof utilsHelpers.SignatureError)) {
+        if (!(e instanceof utils.SignatureError)) {
           throw e;
         } else {
           const message = 'Invalid Attributes signature. Expected format: "Attributes (Type Definition)".';
@@ -39,10 +39,10 @@ module.exports = (Parsers) => {
         context.data.startOffset = text.length - signature.rest.length;
       }
 
-      const resolvedType = utilsHelpers.resolveType(signature.type);
+      const resolvedType = utils.resolveType(signature.type);
       const nestedTypes = resolvedType.nestedTypes.map((nestedType, index) => {
         const el = new ValueMemberElement(nestedType, nestedType, []);
-        el.sourceMap = utilsHelpers.makeSourceMapsForString(
+        el.sourceMap = utils.makeSourceMapsForString(
           nestedType,
           resolvedType.nestedTypesOffsets[index] + signature.typeOffset,
           node.firstChild,
@@ -64,7 +64,7 @@ module.exports = (Parsers) => {
       signature.typeAttributes.forEach((attr, index) => {
         const [offset, length] = signature.typeAttributesOffsetsAndLengths[index];
 
-        valueMemberSourceMaps.push(utilsHelpers.makeSourceMapsForStartPosAndLength(
+        valueMemberSourceMaps.push(utils.makeSourceMapsForStartPosAndLength(
           offset,
           length,
           node.firstChild,
@@ -75,7 +75,7 @@ module.exports = (Parsers) => {
       });
 
       if (signature.type) {
-        valueMemberSourceMaps.push(utilsHelpers.makeSourceMapsForString(
+        valueMemberSourceMaps.push(utils.makeSourceMapsForString(
           signature.type,
           signature.typeOffset,
           node.firstChild,
@@ -88,7 +88,7 @@ module.exports = (Parsers) => {
       valueMemberSourceMaps.sort((sm1, sm2) => sm1.byteBlocks[0].offset - sm2.byteBlocks[0].offset);
 
       if (valueMemberSourceMaps.length) {
-        memberEl.sourceMap = utilsHelpers.concatSourceMaps(valueMemberSourceMaps);
+        memberEl.sourceMap = utils.concatSourceMaps(valueMemberSourceMaps);
       }
 
       try {
@@ -103,16 +103,16 @@ module.exports = (Parsers) => {
       let nextNode = signature.rest ? node.firstChild : node.firstChild.next;
 
       if (!nextNode) {
-        nextNode = utilsHelpers.nextNode(node.firstChild);
+        nextNode = utils.nextNode(node.firstChild);
       }
 
-      const attributesSourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const attributesSourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       return [nextNode, new AttributesElement(memberEl, attributesSourceMap)];
     },
 
     sectionType(node, context) {
       if (node.type === 'item') {
-        const text = utilsHelpers.nodeText(node.firstChild, context.sourceLines);
+        const text = utils.nodeText(node.firstChild, context.sourceLines);
 
         try {
           const signature = new SignatureParser(text, false);
@@ -148,7 +148,7 @@ module.exports = (Parsers) => {
         let stopCallback = null;
         if (contentNode.type === 'paragraph' || !!startOffset) {
           stopCallback = curNode => (
-            !utilsHelpers.isCurrentNodeOrChild(curNode, parentNode)
+            !utils.isCurrentNodeOrChild(curNode, parentNode)
             || isContentSection(curNode)
           );
         }
@@ -156,14 +156,14 @@ module.exports = (Parsers) => {
         const [
           nextNode,
           blockDescriptionEl,
-        ] = utilsHelpers.extractDescription(contentNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, stopCallback, startOffset);
+        ] = utils.extractDescription(contentNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, stopCallback, startOffset);
 
         delete contentNode.skipLines;
 
         if (blockDescriptionEl) {
           result.content.description = new StringElement(blockDescriptionEl.description, blockDescriptionEl.sourceMap);
           result.content.sourceMap = result.content.sourceMap
-            ? utilsHelpers.concatSourceMaps([result.content.sourceMap, blockDescriptionEl.sourceMap])
+            ? utils.concatSourceMaps([result.content.sourceMap, blockDescriptionEl.sourceMap])
             : blockDescriptionEl.sourceMap;
         }
         dataStructureProcessorStartNode = nextNode;
@@ -195,7 +195,7 @@ module.exports = (Parsers) => {
         context.typeResolver.checkUsedMixins(result.content);
       }
 
-      return [utilsHelpers.nextNode(context.rootNode), result];
+      return [utils.nextNode(context.rootNode), result];
     },
 
     finalize(context, result) {
@@ -203,7 +203,7 @@ module.exports = (Parsers) => {
 
       context.popFrame();
 
-      utilsHelpers.validateAttributesConsistency(context, result.content, attributeSignatureDetails);
+      utils.validateAttributesConsistency(context, result.content, attributeSignatureDetails);
 
       return result;
     },

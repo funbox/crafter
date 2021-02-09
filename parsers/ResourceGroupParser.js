@@ -1,6 +1,6 @@
 const SectionTypes = require('../SectionTypes');
 const RegExpStrings = require('../RegExpStrings');
-const utilsHelpers = require('../utils/index');
+const utils = require('../utils');
 const ResourceGroupElement = require('./elements/ResourceGroupElement');
 
 const GroupHeaderRegex = new RegExp(`^[Gg]roup\\s+${RegExpStrings.symbolIdentifier}(\\s+${RegExpStrings.resourcePrototype})?$`);
@@ -10,24 +10,24 @@ module.exports = (Parsers) => {
     processSignature(node, context) {
       context.pushFrame();
 
-      const [subject, subjectOffset] = utilsHelpers.headerTextWithOffset(node, context.sourceLines);
-      const [matchData, matchDataIndexes] = utilsHelpers.matchStringToRegex(subject, GroupHeaderRegex);
-      const title = utilsHelpers.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
-      const sourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
+      const [matchData, matchDataIndexes] = utils.matchStringToRegex(subject, GroupHeaderRegex);
+      const title = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
       context.data.groupSignatureDetails = { sourceMap };
 
-      const protoElements = utilsHelpers.buildPrototypeElements(matchData[3], subjectOffset + matchDataIndexes[3], node, context);
-      context.resourcePrototypes.push(utilsHelpers.preparePrototypes(protoElements.map(el => el.string), context, sourceMap));
+      const protoElements = utils.buildPrototypeElements(matchData[3], subjectOffset + matchDataIndexes[3], node, context);
+      context.resourcePrototypes.push(utils.preparePrototypes(protoElements.map(el => el.string), context, sourceMap));
 
       const result = new ResourceGroupElement(title, protoElements, sourceMap);
 
-      return [utilsHelpers.nextNode(node), result];
+      return [utils.nextNode(node), result];
     },
 
     sectionType(node, context) {
       if (node.type === 'heading') {
-        const subject = utilsHelpers.headerText(node, context.sourceLines);
+        const subject = utils.headerText(node, context.sourceLines);
 
         if (GroupHeaderRegex.exec(subject)) {
           return SectionTypes.resourceGroup;
@@ -59,7 +59,7 @@ module.exports = (Parsers) => {
       let childResult;
 
       const { groupSignatureDetails: { sourceMap } } = context.data;
-      const mixedContentError = new utilsHelpers.CrafterError(`Found mixed content of subgroups and resources in group "${result.title.string}"`, sourceMap);
+      const mixedContentError = new utils.CrafterError(`Found mixed content of subgroups and resources in group "${result.title.string}"`, sourceMap);
       const nestedSectionType = SectionTypes.calculateSectionType(node, context, [
         Parsers.MessageParser,
         Parsers.SubgroupParser,
@@ -98,7 +98,7 @@ module.exports = (Parsers) => {
 
       const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
       const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
-      result.sourceMap = utilsHelpers.mergeSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
+      result.sourceMap = utils.mergeSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
 
       return [nextNode, result];
     },
@@ -107,7 +107,7 @@ module.exports = (Parsers) => {
       if (result.description) {
         const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
         const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
-        result.sourceMap = utilsHelpers.mergeSourceMaps([result.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
+        result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
       }
 
       context.resourcePrototypes.pop(); // очищаем стек с прототипами данной группы ресурсов

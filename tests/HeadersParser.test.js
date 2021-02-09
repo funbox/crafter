@@ -1,13 +1,13 @@
 const Context = require('../Context');
 const defineParser = require('../parsers/HeadersParser');
-const utilsHelpers = require('../utils/index');
+const utils = require('../utils');
 
 const Parsers = {};
 defineParser(Parsers);
 
 function parse(source) {
   const warnings = [];
-  const ast = utilsHelpers.markdownSourceToAST(source);
+  const ast = utils.markdownSourceToAST(source);
   const context = new Context(source, Parsers, {
     logger: {
       warn(text) {

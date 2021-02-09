@@ -1,6 +1,6 @@
 const fs = require('fs');
 const Context = require('../Context');
-const utilsHelpers = require('../utils/index');
+const utils = require('../utils');
 
 const Parsers = {};
 fs.readdirSync('./parsers').forEach((pFile) => {
@@ -14,7 +14,7 @@ fs.readdirSync('./parsers').forEach((pFile) => {
 
 function parse(source) {
   const warnings = [];
-  const ast = utilsHelpers.markdownSourceToAST(source);
+  const ast = utils.markdownSourceToAST(source);
   const context = new Context(source, Parsers, {
     logger: {
       warn(text) {
@@ -67,7 +67,7 @@ describe('ParameterParser', () => {
   it('throws an error if a parameter is specified as both required and optional', () => {
     const source = 'name: `John` (required, optional) - user name';
 
-    expect(() => parse(source)).toThrow(utilsHelpers.CrafterError);
+    expect(() => parse(source)).toThrow(utils.CrafterError);
   });
 
   it('parses required parameter with default value, creates warnings via logger', () => {

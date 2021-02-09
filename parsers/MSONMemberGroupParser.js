@@ -1,8 +1,8 @@
 const SectionTypes = require('../SectionTypes');
-const utilsHelpers = require('../utils/index');
+const utils = require('../utils');
 const MemberGroupElement = require('./elements/MemberGroupElement');
 
-const CrafterError = utilsHelpers.CrafterError;
+const CrafterError = utils.CrafterError;
 
 const separatorToRegexp = separator => new RegExp(`^${separator}$`, 'i');
 
@@ -32,8 +32,8 @@ module.exports = (Parsers) => {
       let type;
       const { isNamedTypeSection } = context.data;
       const text = node.type === 'heading'
-        ? utilsHelpers.headerText(node, context.sourceLines)
-        : utilsHelpers.nodeText(node.firstChild, context.sourceLines);
+        ? utils.headerText(node, context.sourceLines)
+        : utils.nodeText(node.firstChild, context.sourceLines);
 
       if (node.parent.prev && isNamedTypeSection) {
         throw new CrafterError(`Expected header-defined member type group "${text}", e.g. "## <text>"`);
@@ -44,7 +44,7 @@ module.exports = (Parsers) => {
           type = key;
         }
       });
-      const nextNode = (node.firstChild.next && node.firstChild.next.firstChild) || utilsHelpers.nextNode(node);
+      const nextNode = (node.firstChild.next && node.firstChild.next.firstChild) || utils.nextNode(node);
       return [nextNode, new MemberGroupElement(type)];
     },
 
@@ -54,8 +54,8 @@ module.exports = (Parsers) => {
       if (node.type === 'list') node = node.firstChild;
       if (node.type === 'item' || node.type === 'heading') {
         const text = node.type === 'heading'
-          ? utilsHelpers.headerText(node, context.sourceLines)
-          : utilsHelpers.nodeText(node.firstChild, context.sourceLines);
+          ? utils.headerText(node, context.sourceLines)
+          : utils.nodeText(node.firstChild, context.sourceLines);
         Object.keys(memberSeparatorRegex).forEach((key) => {
           if (memberSeparatorRegex[key].exec(text)) {
             sectionType = sectionTypes[key];
@@ -82,7 +82,7 @@ module.exports = (Parsers) => {
       const { type } = result;
 
       if (!type) {
-        return [utilsHelpers.nextNode(node), result];
+        return [utils.nextNode(node), result];
       }
 
       let nextNode;

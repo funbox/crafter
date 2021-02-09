@@ -1,6 +1,6 @@
 const SectionTypes = require('../SectionTypes');
 const RegExpStrings = require('../RegExpStrings');
-const utilsHelpers = require('../utils/index');
+const utils = require('../utils');
 const SubgroupElement = require('./elements/SubgroupElement');
 
 const SubgroupHeaderRegex = new RegExp(`^[Ss]ub[Gg]roup(\\s+${RegExpStrings.symbolIdentifier})$`);
@@ -8,25 +8,25 @@ const SubgroupHeaderRegex = new RegExp(`^[Ss]ub[Gg]roup(\\s+${RegExpStrings.symb
 module.exports = (Parsers) => {
   Parsers.SubgroupParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
-      const [subject, subjectOffset] = utilsHelpers.headerTextWithOffset(node, context.sourceLines);
-      const [matchData, matchDataIndexes] = utilsHelpers.matchStringToRegex(subject, SubgroupHeaderRegex);
+      const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
+      const [matchData, matchDataIndexes] = utils.matchStringToRegex(subject, SubgroupHeaderRegex);
 
       const titleString = matchData[1].trim();
-      const title = utilsHelpers.makeStringElement(
+      const title = utils.makeStringElement(
         titleString,
         subjectOffset + matchDataIndexes[1] + matchData[1].indexOf(titleString),
         node,
         context,
       );
-      const sourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       const result = new SubgroupElement(title, sourceMap);
 
-      return [utilsHelpers.nextNode(node), result];
+      return [utils.nextNode(node), result];
     },
 
     sectionType(node, context) {
       if (node.type === 'heading') {
-        const subject = utilsHelpers.headerText(node, context.sourceLines);
+        const subject = utils.headerText(node, context.sourceLines);
 
         if (SubgroupHeaderRegex.exec(subject)) {
           return SectionTypes.subGroup;
@@ -57,7 +57,7 @@ module.exports = (Parsers) => {
       result.messages.push(childResult);
       const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
       const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
-      result.sourceMap = utilsHelpers.mergeSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
+      result.sourceMap = utils.mergeSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
       return [nextNode, result];
     },
 
@@ -65,7 +65,7 @@ module.exports = (Parsers) => {
       if (result.description) {
         const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
         const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
-        result.sourceMap = utilsHelpers.mergeSourceMaps([result.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
+        result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
       }
       return result;
     },

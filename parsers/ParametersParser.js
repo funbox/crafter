@@ -1,5 +1,5 @@
 const SectionTypes = require('../SectionTypes');
-const utilsHelpers = require('../utils/index');
+const utils = require('../utils');
 const ParametersElement = require('./elements/ParametersElement');
 
 const ParametersRegex = /^[Pp]arameters?$/;
@@ -9,14 +9,14 @@ module.exports = (Parsers) => {
     allowLeavingNode: false,
 
     processSignature(node, context) {
-      const sourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       const parametersList = node.firstChild.next;
-      return [(parametersList && parametersList.firstChild) || utilsHelpers.nextNode(node), new ParametersElement(sourceMap)];
+      return [(parametersList && parametersList.firstChild) || utils.nextNode(node), new ParametersElement(sourceMap)];
     },
 
     sectionType(node, context) {
       if (node && node.type === 'item') {
-        const text = utilsHelpers.nodeText(node.firstChild, context.sourceLines);
+        const text = utils.nodeText(node.firstChild, context.sourceLines);
         if (ParametersRegex.exec(text)) {
           return SectionTypes.parameters;
         }

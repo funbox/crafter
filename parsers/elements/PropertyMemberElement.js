@@ -1,5 +1,5 @@
 const Refract = require('../../Refract');
-const utilsHelpers = require('../../utils/index');
+const utils = require('../../utils');
 const Flags = require('../../Flags');
 const SourceMapElement = require('./SourceMapElement');
 
@@ -52,7 +52,7 @@ class PropertyMemberElement {
     };
 
     if (this.typeAttributes.length) {
-      result.attributes = utilsHelpers.typeAttributesToRefract(this.typeAttributes);
+      result.attributes = utils.typeAttributesToRefract(this.typeAttributes);
     }
 
     if (sourceMapsEnabled) {
@@ -91,7 +91,7 @@ class PropertyMemberElement {
   getSchema(dataTypes, flags = new Flags(), namedTypesChain = []) {
     const schema = {};
 
-    const [valueSchema, usedTypes] = this.value.getSchema(dataTypes, utilsHelpers.mergeFlags(flags, this.value, { propagateFixedType: false }), namedTypesChain);
+    const [valueSchema, usedTypes] = this.value.getSchema(dataTypes, utils.mergeFlags(flags, this.value, { propagateFixedType: false }), namedTypesChain);
 
     if (this.descriptionEl) {
       valueSchema.description = this.descriptionEl.string;

@@ -3,9 +3,9 @@ const path = require('path');
 const SectionTypes = require('./SectionTypes');
 const TypeResolver = require('./TypeResolver');
 const PrototypeResolver = require('./PrototypeResolver');
-const utilsHelpers = require('./utils/index');
+const utils = require('./utils');
 
-const CrafterError = utilsHelpers.CrafterError;
+const CrafterError = utils.CrafterError;
 
 /**
  * @typedef {object} ContextOptions
@@ -118,7 +118,7 @@ class Context {
       throw new CrafterError(`File reading error. File "${filename}" not found or unreadable.`, sourceMap);
     }
 
-    const ast = utilsHelpers.markdownSourceToAST(file);
+    const ast = utils.markdownSourceToAST(file);
     const context = new Context(file, [], {
       currentFile: fullPath,
       entryDir: this.entryDir,

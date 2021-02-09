@@ -1,5 +1,5 @@
 const SectionTypes = require('../SectionTypes');
-const utilsHelpers = require('../utils/index');
+const utils = require('../utils');
 const OneOfTypeOptionElement = require('./elements/OneOfTypeOptionElement');
 
 const oneOfTypeOptionRegex = /^[Pp]roperties$/;
@@ -10,14 +10,14 @@ module.exports = (Parsers) => {
 
     processSignature(node, context) {
       const optionMembersList = node.firstChild.next;
-      const nextNode = (optionMembersList && optionMembersList.firstChild) || utilsHelpers.nextNode(node);
-      const sourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const nextNode = (optionMembersList && optionMembersList.firstChild) || utils.nextNode(node);
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       return [nextNode, new OneOfTypeOptionElement([], sourceMap)];
     },
 
     sectionType(node, context) {
       if (node.type === 'item') {
-        const text = utilsHelpers.nodeText(node.firstChild, context.sourceLines);
+        const text = utils.nodeText(node.firstChild, context.sourceLines);
         if (oneOfTypeOptionRegex.exec(text)) {
           return SectionTypes.oneOfTypeOption;
         }

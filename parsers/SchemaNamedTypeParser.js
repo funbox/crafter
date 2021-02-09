@@ -1,24 +1,24 @@
 const SectionTypes = require('../SectionTypes');
-const utilsHelpers = require('../utils/index');
+const utils = require('../utils');
 const SchemaNamedTypeElement = require('./elements/SchemaNamedTypeElement');
 
-const { CrafterError } = utilsHelpers;
+const { CrafterError } = utils;
 
 module.exports = (Parsers) => {
   Parsers.SchemaNamedTypeParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
       context.pushFrame();
 
-      const [subject, subjectOffset] = utilsHelpers.headerTextWithOffset(node, context.sourceLines);
-      const sourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
       context.data.attributeSignatureDetails = { sourceMap };
 
-      const name = utilsHelpers.makeStringElement(subject, subjectOffset, node, context);
+      const name = utils.makeStringElement(subject, subjectOffset, node, context);
 
       const result = new SchemaNamedTypeElement(name, sourceMap);
 
-      return [utilsHelpers.nextNode(node), result];
+      return [utils.nextNode(node), result];
     },
 
     sectionType(node, context) {
@@ -71,7 +71,7 @@ module.exports = (Parsers) => {
 
       const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
       const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
-      result.sourceMap = utilsHelpers.mergeSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
+      result.sourceMap = utils.mergeSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
 
       return [nextNode, result];
     },
@@ -81,7 +81,7 @@ module.exports = (Parsers) => {
       const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
       const unrecognizedBlocksSourceMaps = result.unrecognizedBlocks.map(ub => ub.sourceMap);
       if (result.description) {
-        result.sourceMap = utilsHelpers.mergeSourceMaps([result.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
+        result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
       }
 
       result.sourceMap = utils.concatSourceMaps([result.sourceMap, ...unrecognizedBlocksSourceMaps], sourceBuffer, linefeedOffsets);

@@ -1,6 +1,6 @@
 const SectionTypes = require('../SectionTypes');
 const RegExpStrings = require('../RegExpStrings');
-const utilsHelpers = require('../utils/index');
+const utils = require('../utils');
 const ActionElement = require('./elements/ActionElement');
 
 const actionSymbolIdentifier = '(.+)';
@@ -22,18 +22,18 @@ module.exports = (Parsers) => {
 
       context.pushFrame();
 
-      const [subject, subjectOffset] = utilsHelpers.headerTextWithOffset(node, context.sourceLines);
+      const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
 
-      const sourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       context.data.actionSignatureDetails = { sourceMap };
 
-      const actionHeaderMatchResult = utilsHelpers.matchStringToRegex(subject, ActionHeaderRegex);
+      const actionHeaderMatchResult = utils.matchStringToRegex(subject, ActionHeaderRegex);
       if (actionHeaderMatchResult) {
         const [matchData, matchDataIndexes] = actionHeaderMatchResult;
 
         if (matchData[2]) {
           const hrefString = matchData[2].trim();
-          href = utilsHelpers.makeStringElement(
+          href = utils.makeStringElement(
             hrefString,
             subjectOffset + subject.indexOf(hrefString, matchDataIndexes[2]),
             node,
@@ -46,14 +46,14 @@ module.exports = (Parsers) => {
           protoNamesOffset = matchDataIndexes[4];
         }
 
-        method = utilsHelpers.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
+        method = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
       } else {
-        const [matchData, matchDataIndexes] = utilsHelpers.matchStringToRegex(subject, NamedActionHeaderRegex);
+        const [matchData, matchDataIndexes] = utils.matchStringToRegex(subject, NamedActionHeaderRegex);
 
         const titleString = matchData[1].trim();
 
         if (titleString) {
-          title = utilsHelpers.makeStringElement(
+          title = utils.makeStringElement(
             titleString,
             subjectOffset + subject.indexOf(titleString, matchDataIndexes[1]),
             node,
@@ -64,7 +64,7 @@ module.exports = (Parsers) => {
 
         if (matchData[3]) {
           const hrefString = matchData[3].trim();
-          href = utilsHelpers.makeStringElement(
+          href = utils.makeStringElement(
             hrefString,
             subjectOffset + subject.indexOf(hrefString, matchDataIndexes[3]),
             node,
@@ -77,20 +77,20 @@ module.exports = (Parsers) => {
           protoNamesOffset = matchDataIndexes[5];
         }
 
-        method = utilsHelpers.makeStringElement(matchData[2], subjectOffset + matchDataIndexes[2], node, context);
+        method = utils.makeStringElement(matchData[2], subjectOffset + matchDataIndexes[2], node, context);
       }
 
-      const protoElements = utilsHelpers.buildPrototypeElements(protoNames, subjectOffset + protoNamesOffset, node, context);
-      context.resourcePrototypes.push(utilsHelpers.preparePrototypes(protoElements.map(el => el.string), context, sourceMap));
+      const protoElements = utils.buildPrototypeElements(protoNames, subjectOffset + protoNamesOffset, node, context);
+      context.resourcePrototypes.push(utils.preparePrototypes(protoElements.map(el => el.string), context, sourceMap));
 
       const result = new ActionElement(method, href, title, protoElements, sourceMap);
 
-      return [utilsHelpers.nextNode(node), result];
+      return [utils.nextNode(node), result];
     },
 
     sectionType(node, context) {
       if (node && node.type === 'heading') {
-        const subject = utilsHelpers.headerText(node, context.sourceLines);
+        const subject = utils.headerText(node, context.sourceLines);
 
         if (ActionHeaderRegex.exec(subject) || NamedActionHeaderRegex.exec(subject)) {
           return SectionTypes.action;
@@ -139,7 +139,7 @@ module.exports = (Parsers) => {
 
       const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
       const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
-      result.sourceMap = utilsHelpers.concatSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
+      result.sourceMap = utils.concatSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
 
       return [nextNode, result];
     },
@@ -148,10 +148,10 @@ module.exports = (Parsers) => {
       const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
       const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
       const unrecognizedBlocksSourceMaps = result.unrecognizedBlocks.map(ub => ub.sourceMap);
-      result.sourceMap = utilsHelpers.concatSourceMaps([result.sourceMap, ...unrecognizedBlocksSourceMaps], sourceBuffer, linefeedOffsets);
+      result.sourceMap = utils.concatSourceMaps([result.sourceMap, ...unrecognizedBlocksSourceMaps], sourceBuffer, linefeedOffsets);
 
       if (result.description) {
-        result.sourceMap = utilsHelpers.concatSourceMaps([result.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
+        result.sourceMap = utils.concatSourceMaps([result.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
       }
 
       const { actionSignatureDetails: details } = context.data;
@@ -176,7 +176,7 @@ module.exports = (Parsers) => {
         try {
           expectedParameters = getUriVariables(href.string);
         } catch (e) {
-          throw new utilsHelpers.CrafterError(`Could not retrieve URI parameters: ${href.string}`, details.sourceMap);
+          throw new utils.CrafterError(`Could not retrieve URI parameters: ${href.string}`, details.sourceMap);
         }
 
         if (parameters && parameters.parameters) {

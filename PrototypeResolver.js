@@ -1,4 +1,4 @@
-const { CrafterError } = require('./utils/index');
+const { CrafterError } = require('./utils');
 
 class PrototypeResolver {
   constructor() {

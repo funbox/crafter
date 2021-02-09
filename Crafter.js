@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const Context = require('./Context');
-const utilsHelpers = require('./utils/index');
+const utils = require('./utils');
 
 const Parsers = {};
 let prevPendingParsers = [];
@@ -18,7 +18,7 @@ function getOptions(options, defaultOptions) {
  * @returns {array}
  */
 async function parse(source, contextOptions) {
-  const ast = utilsHelpers.markdownSourceToAST(source);
+  const ast = utils.markdownSourceToAST(source);
   const context = new Context(source, Parsers, getOptions(contextOptions, {}));
   const result = await Parsers.BlueprintParser.parse(ast.firstChild, context);
   return result.slice(1);

@@ -1,5 +1,5 @@
 const SectionTypes = require('../SectionTypes');
-const utilsHelpers = require('../utils/index');
+const utils = require('../utils');
 const SchemaStructureGroupElement = require('./elements/SchemaStructureGroupElement');
 
 const SchemaStructureGroupRegex = /^[Ss]chema\s+[Ss]tructures?$/;
@@ -7,13 +7,13 @@ const SchemaStructureGroupRegex = /^[Ss]chema\s+[Ss]tructures?$/;
 module.exports = (Parsers) => {
   Parsers.SchemaStructureGroupParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
-      const sourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-      return [utilsHelpers.nextNode(node), new SchemaStructureGroupElement(sourceMap)];
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      return [utils.nextNode(node), new SchemaStructureGroupElement(sourceMap)];
     },
 
     sectionType(node, context) {
       if (node.type === 'heading') {
-        const subject = utilsHelpers.headerText(node, context.sourceLines);
+        const subject = utils.headerText(node, context.sourceLines);
 
         if (SchemaStructureGroupRegex.exec(subject)) {
           return SectionTypes.schemaStructureGroup;
@@ -42,7 +42,7 @@ module.exports = (Parsers) => {
       result.schemaStructures.push(childResult);
       const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
       const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
-      result.sourceMap = utilsHelpers.mergeSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
+      result.sourceMap = utils.mergeSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
 
       return [nextNode, result];
     },

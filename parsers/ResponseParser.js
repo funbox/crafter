@@ -1,6 +1,6 @@
 const SectionTypes = require('../SectionTypes');
 const RegExpStrings = require('../RegExpStrings');
-const utilsHelpers = require('../utils/index');
+const utils = require('../utils');
 const ResponseElement = require('./elements/ResponseElement');
 const SchemaElement = require('./elements/SchemaElement');
 const HeadersElement = require('./elements/HeadersElement');
@@ -17,8 +17,8 @@ module.exports = (Parsers) => {
     processSignature(node, context) {
       context.pushFrame();
 
-      const subject = (utilsHelpers.nodeText(node.firstChild, context.sourceLines)).split('\n');
-      const [matchData, matchDataIndexes] = utilsHelpers.matchStringToRegex(subject[0], responseRegex);
+      const subject = (utils.nodeText(node.firstChild, context.sourceLines)).split('\n');
+      const [matchData, matchDataIndexes] = utils.matchStringToRegex(subject[0], responseRegex);
 
       if (subject.length > 1) {
         context.data.startOffset = subject[0].length + 1;
@@ -27,7 +27,7 @@ module.exports = (Parsers) => {
       let statusCode;
 
       if (matchData[2]) {
-        const statusCodeSourceMap = utilsHelpers.makeSourceMapsForStartPosAndLength(
+        const statusCodeSourceMap = utils.makeSourceMapsForStartPosAndLength(
           matchDataIndexes[2],
           matchData[2].length,
           node.firstChild,
@@ -41,10 +41,10 @@ module.exports = (Parsers) => {
       }
 
       const contentType = matchData[4];
-      const responseSourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const responseSourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       const result = new ResponseElement(statusCode, contentType, responseSourceMap);
       if (contentType) {
-        const contentTypeSourceMap = utilsHelpers.makeSourceMapsForStartPosAndLength(
+        const contentTypeSourceMap = utils.makeSourceMapsForStartPosAndLength(
           matchDataIndexes[4],
           contentType.length,
           node.firstChild,
@@ -63,14 +63,14 @@ module.exports = (Parsers) => {
         result.headersSections.push(headersElement);
       }
 
-      const nextNode = subject.length > 1 ? node.firstChild : utilsHelpers.nextNode(node.firstChild);
+      const nextNode = subject.length > 1 ? node.firstChild : utils.nextNode(node.firstChild);
 
       return [nextNode, result];
     },
 
     sectionType(node, context) {
       if (node.type === 'item') {
-        const text = (utilsHelpers.nodeText(node.firstChild, context.sourceLines)).split('\n');
+        const text = (utils.nodeText(node.firstChild, context.sourceLines)).split('\n');
         if (responseRegex.exec(text[0])) {
           return SectionTypes.response;
         }
@@ -106,10 +106,10 @@ module.exports = (Parsers) => {
     processDescription(node, context, result) {
       const parentNode = node && node.parent;
 
-      const stopCallback = curNode => (!utilsHelpers.isCurrentNodeOrChild(curNode, parentNode) || this.nestedSectionType(curNode, context) !== SectionTypes.undefined);
+      const stopCallback = curNode => (!utils.isCurrentNodeOrChild(curNode, parentNode) || this.nestedSectionType(curNode, context) !== SectionTypes.undefined);
 
       node.skipLines = context.data.startOffset ? 1 : 0;
-      const [curNode, descriptionEl] = utilsHelpers.extractDescription(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, stopCallback, context.data.startOffset);
+      const [curNode, descriptionEl] = utils.extractDescription(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, stopCallback, context.data.startOffset);
       delete node.skipLines;
 
       if (descriptionEl) {

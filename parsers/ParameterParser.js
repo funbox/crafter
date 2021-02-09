@@ -1,6 +1,6 @@
 const SectionTypes = require('../SectionTypes');
 const types = require('../types');
-const utilsHelpers = require('../utils/index');
+const utils = require('../utils');
 const ParameterElement = require('./elements/ParameterElement');
 const StringElement = require('./elements/StringElement');
 const { parser: SignatureParser } = require('../SignatureParser');
@@ -10,35 +10,35 @@ module.exports = (Parsers) => {
     allowLeavingNode: false,
 
     processSignature(node, context) {
-      const text = utilsHelpers.nodeText(node.firstChild, context.sourceLines);
+      const text = utils.nodeText(node.firstChild, context.sourceLines);
       const signature = new SignatureParser(text, false);
 
       context.pushFrame();
 
-      const sourceMap = utilsHelpers.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       const parameterSignatureDetails = { sourceMap };
 
       const descriptionEl = signature.description
-        ? utilsHelpers.makeStringElement(signature.description, signature.descriptionOffset, node.firstChild, context)
+        ? utils.makeStringElement(signature.description, signature.descriptionOffset, node.firstChild, context)
         : undefined;
       context.data.parameterSignatureDetails = parameterSignatureDetails;
       signature.warnings.forEach(warning => context.addWarning(warning, sourceMap));
 
       const name = signature.name
-        ? utilsHelpers.makeStringElement(signature.name, signature.nameOffset, node.firstChild, context)
+        ? utils.makeStringElement(signature.name, signature.nameOffset, node.firstChild, context)
         : null;
 
       const value = signature.value
-        ? utilsHelpers.makeStringElement(signature.value, signature.valueOffset, node.firstChild, context)
+        ? utils.makeStringElement(signature.value, signature.valueOffset, node.firstChild, context)
         : null;
 
       const typeAttributes = signature.typeAttributes.map((attr, index) => {
         const [offset] = signature.typeAttributesOffsetsAndLengths[index];
-        return utilsHelpers.makeStringElement(attr, offset, node.firstChild, context);
+        return utils.makeStringElement(attr, offset, node.firstChild, context);
       });
 
       const title = signature.type
-        ? utilsHelpers.makeStringElement(signature.type, signature.typeOffset, node.firstChild, context)
+        ? utils.makeStringElement(signature.type, signature.typeOffset, node.firstChild, context)
         : new StringElement('string');
 
       const result = new ParameterElement(
@@ -55,7 +55,7 @@ module.exports = (Parsers) => {
       }
 
       const nextChildNode = signature.rest ? node.firstChild : node.firstChild.next;
-      const nextNode = nextChildNode || utilsHelpers.nextNode(node.firstChild);
+      const nextNode = nextChildNode || utils.nextNode(node.firstChild);
 
       return [nextNode, result];
     },
@@ -74,7 +74,7 @@ module.exports = (Parsers) => {
         return [contentNode, result];
       }
 
-      if (utilsHelpers.isCurrentNodeOrChild(contentNode, parentNode) && contentNode.type === 'list') {
+      if (utils.isCurrentNodeOrChild(contentNode, parentNode) && contentNode.type === 'list') {
         contentNode = contentNode.firstChild;
       }
 
@@ -88,14 +88,14 @@ module.exports = (Parsers) => {
       }
 
       if (contentNode.type === 'paragraph' || !!startOffset || !isContentSection(contentNode)) {
-        stopCallback = curNode => (!utilsHelpers.isCurrentNodeOrChild(curNode, parentNode) || isContentSection(curNode));
+        stopCallback = curNode => (!utils.isCurrentNodeOrChild(curNode, parentNode) || isContentSection(curNode));
       }
 
       contentNode.skipLines = startOffset ? 1 : 0;
       const [
         nextNode,
         blockDescriptionEl,
-      ] = utilsHelpers.extractDescription(contentNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, stopCallback, startOffset);
+      ] = utils.extractDescription(contentNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, stopCallback, startOffset);
 
       delete contentNode.skipLines;
 
@@ -106,8 +106,8 @@ module.exports = (Parsers) => {
         // https://apielements.org/en/latest/element-definitions.html#reserved-meta-properties
         const stringDescriptionEl = new StringElement(blockDescriptionEl.description, blockDescriptionEl.sourceMap);
         if (result.description) {
-          result.description.string = utilsHelpers.appendDescriptionDelimiter(result.description.string);
-          result.description = utilsHelpers.mergeStringElements(result.description, stringDescriptionEl);
+          result.description.string = utils.appendDescriptionDelimiter(result.description.string);
+          result.description = utils.mergeStringElements(result.description, stringDescriptionEl);
         } else {
           result.description = stringDescriptionEl;
         }
@@ -117,7 +117,7 @@ module.exports = (Parsers) => {
 
     sectionType(node, context) {
       if (node.type === 'item') { // TODO: вынести проверку node.type в AbstractParser
-        const text = utilsHelpers.nodeText(node.firstChild, context.sourceLines);
+        const text = utils.nodeText(node.firstChild, context.sourceLines);
 
         try {
           const signature = new SignatureParser(text, false);
@@ -125,7 +125,7 @@ module.exports = (Parsers) => {
             return SectionTypes.parameter;
           }
         } catch (e) {
-          if (!(e instanceof utilsHelpers.SignatureError)) throw e;
+          if (!(e instanceof utils.SignatureError)) throw e;
         }
       }
 
@@ -191,7 +191,7 @@ module.exports = (Parsers) => {
 
       if (typeAttributes.includes('required')) {
         if (typeAttributes.includes('optional') && !context.languageServerMode) {
-          throw new utilsHelpers.CrafterError(`Parameter "${name.string}" must not be specified as both required and optional.`, details.sourceMap);
+          throw new utils.CrafterError(`Parameter "${name.string}" must not be specified as both required and optional.`, details.sourceMap);
         }
 
         if (defaultValue) {

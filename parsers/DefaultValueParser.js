@@ -1,5 +1,5 @@
 const SectionTypes = require('../SectionTypes');
-const utilsHelpers = require('../utils/index');
+const utils = require('../utils');
 const { splitValues } = require('../SignatureParser');
 const DefaultValueElement = require('./elements/DefaultValueElement');
 
@@ -10,21 +10,21 @@ module.exports = (Parsers) => {
   Parsers.DefaultValueParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
       const text = node.type === 'heading'
-        ? utilsHelpers.headerText(node, context.sourceLines)
-        : utilsHelpers.nodeText(node.firstChild, context.sourceLines);
+        ? utils.headerText(node, context.sourceLines)
+        : utils.nodeText(node.firstChild, context.sourceLines);
       const valuesMatch = defaultValueRegex.exec(text);
       const values = valuesMatch ? splitValues(valuesMatch[1]) : undefined;
 
       const result = [];
 
       if (values) {
-        const sourceMaps = utilsHelpers.makeSourceMapsForInlineValues(valuesMatch[1], values, node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+        const sourceMaps = utils.makeSourceMapsForInlineValues(valuesMatch[1], values, node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
         switch (context.data.typeForDefaults) {
           case 'primitive':
           case 'enum':
             values.forEach((value, index) => {
-              const converted = utilsHelpers.convertType(value, context.data.valueType);
+              const converted = utils.convertType(value, context.data.valueType);
 
               if (converted.valid) {
                 result.push(new DefaultValueElement(converted.value, context.data.valueType, sourceMaps[index]));
@@ -35,7 +35,7 @@ module.exports = (Parsers) => {
             break;
           case 'array': {
             const preparedValues = values.reduce((res, v, index) => {
-              const converted = utilsHelpers.convertType(v, context.data.valueType);
+              const converted = utils.convertType(v, context.data.valueType);
 
               if (converted.valid) {
                 res.push(converted.value);
@@ -52,18 +52,18 @@ module.exports = (Parsers) => {
         }
       }
 
-      return [(node.firstChild.next && node.firstChild.next.firstChild) || utilsHelpers.nextNode(node), result];
+      return [(node.firstChild.next && node.firstChild.next.firstChild) || utils.nextNode(node), result];
     },
 
     sectionType(node, context) {
       if (node.type === 'item') {
-        const text = utilsHelpers.nodeText(node.firstChild, context.sourceLines);
+        const text = utils.nodeText(node.firstChild, context.sourceLines);
         if (defaultValueRegex.test(text) || listTypedDefaultValueRegex.test(text)) {
           return SectionTypes.defaultValue;
         }
       }
       if (node.type === 'heading') {
-        const text = utilsHelpers.headerText(node, context.sourceLines);
+        const text = utils.headerText(node, context.sourceLines);
         if (listTypedDefaultValueRegex.test(text)) {
           return SectionTypes.defaultValue;
         }
@@ -86,13 +86,13 @@ module.exports = (Parsers) => {
 
     processNestedSection(node, context, result) {
       const textNode = node.type === 'item' ? node.firstChild : node;
-      const text = utilsHelpers.nodeText(textNode, context.sourceLines);
-      const sourceMap = utilsHelpers.makeGenericSourceMap(textNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const text = utils.nodeText(textNode, context.sourceLines);
+      const sourceMap = utils.makeGenericSourceMap(textNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
       switch (context.data.typeForDefaults) {
         case 'primitive':
         case 'enum': {
-          const converted = utilsHelpers.convertType(text, context.data.valueType);
+          const converted = utils.convertType(text, context.data.valueType);
 
           if (converted.valid) {
             result.push(new DefaultValueElement(converted.value, context.data.valueType, sourceMap));
@@ -102,7 +102,7 @@ module.exports = (Parsers) => {
           break;
         }
         case 'array': {
-          const converted = utilsHelpers.convertType(text, context.data.valueType);
+          const converted = utils.convertType(text, context.data.valueType);
 
           if (converted.valid) {
             if (!result.length) {
@@ -120,7 +120,7 @@ module.exports = (Parsers) => {
         // no default
       }
 
-      return [utilsHelpers.nextNode(node), result];
+      return [utils.nextNode(node), result];
     },
 
     isUnexpectedNode() {

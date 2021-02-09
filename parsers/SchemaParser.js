@@ -1,5 +1,5 @@
 const SectionTypes = require('../SectionTypes');
-const utilsHelpers = require('../utils/index');
+const utils = require('../utils');
 const SchemaElement = require('./elements/SchemaElement');
 
 const schemaRegex = /^[Ss]chema$/;
@@ -11,8 +11,8 @@ module.exports = (Parsers) => {
 
       if (!schemaContentNode) {
         const schemaEl = new SchemaElement({});
-        schemaEl.sourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-        return [utilsHelpers.nextNode(node), schemaEl];
+        schemaEl.sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+        return [utils.nextNode(node), schemaEl];
       }
 
       const sourceMap = this.makeSourceMap(schemaContentNode, context);
@@ -30,12 +30,12 @@ module.exports = (Parsers) => {
       }
       const schemaEl = new SchemaElement(schemaObj);
       schemaEl.sourceMap = sourceMap;
-      return [utilsHelpers.nextNode(node), schemaEl];
+      return [utils.nextNode(node), schemaEl];
     },
 
     sectionType(node, context) {
       if (node.type === 'item') {
-        const text = utilsHelpers.nodeText(node.firstChild, context.sourceLines);
+        const text = utils.nodeText(node.firstChild, context.sourceLines);
         if (schemaRegex.exec(text)) {
           return SectionTypes.schema;
         }
@@ -68,7 +68,7 @@ module.exports = (Parsers) => {
     },
 
     makeSourceMap(node, context) {
-      return utilsHelpers.makeSourceMapForAsset(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      return utils.makeSourceMapForAsset(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
     },
 
     allowLeavingNode: false,

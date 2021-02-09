@@ -1,6 +1,6 @@
 const SectionTypes = require('../SectionTypes');
 const RegExpStrings = require('../RegExpStrings');
-const utilsHelpers = require('../utils/index');
+const utils = require('../utils');
 const ResourcePrototypeElement = require('./elements/ResourcePrototypeElement');
 
 const PrototypeHeaderRegex = new RegExp(`^${RegExpStrings.symbolIdentifier}(\\s+${RegExpStrings.resourcePrototype})?$`);
@@ -8,16 +8,16 @@ const PrototypeHeaderRegex = new RegExp(`^${RegExpStrings.symbolIdentifier}(\\s+
 module.exports = (Parsers) => {
   Parsers.ResourcePrototypeParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
-      const [subject, subjectOffset] = utilsHelpers.headerTextWithOffset(node, context.sourceLines);
-      const [matchData, matchDataIndexes] = utilsHelpers.matchStringToRegex(subject, PrototypeHeaderRegex);
+      const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
+      const [matchData, matchDataIndexes] = utils.matchStringToRegex(subject, PrototypeHeaderRegex);
 
-      const inheritedPrototypes = utilsHelpers.buildPrototypeElements(matchData[3], subjectOffset + matchDataIndexes[3], node, context);
+      const inheritedPrototypes = utils.buildPrototypeElements(matchData[3], subjectOffset + matchDataIndexes[3], node, context);
 
-      const title = utilsHelpers.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
+      const title = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
       const resourcePrototypeEl = new ResourcePrototypeElement(title, inheritedPrototypes);
-      resourcePrototypeEl.sourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      resourcePrototypeEl.sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
-      return [utilsHelpers.nextNode(node), resourcePrototypeEl];
+      return [utils.nextNode(node), resourcePrototypeEl];
     },
 
     sectionType(node, context) {
@@ -48,7 +48,7 @@ module.exports = (Parsers) => {
       result.responses.push(childResult);
       const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
       const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
-      result.sourceMap = utilsHelpers.mergeSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
+      result.sourceMap = utils.mergeSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
 
       return [nextNode, result];
     },

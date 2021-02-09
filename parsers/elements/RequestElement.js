@@ -1,7 +1,7 @@
 const Refract = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
 const AttributesElement = require('./AttributesElement');
-const utilsHelpers = require('../../utils/index.js');
+const utils = require('../../utils');
 
 /**
  * Элемент для описания HTTP-запроса.
@@ -77,7 +77,7 @@ class RequestElement {
     }
 
     if (this.headersSections.length) {
-      result.attributes.headers = utilsHelpers.mergeHeadersSections(this.headersSections).toRefract(sourceMapsEnabled);
+      result.attributes.headers = utils.mergeHeadersSections(this.headersSections).toRefract(sourceMapsEnabled);
     }
 
     if (this.description) {

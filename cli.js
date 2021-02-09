@@ -2,7 +2,7 @@
 
 const program = require('commander');
 const parseApibFile = require('./parseApibFile');
-const { Logger } = require('./utils/index');
+const { Logger } = require('./utils');
 
 program
   .version(require('./package').version, '-v, --version')

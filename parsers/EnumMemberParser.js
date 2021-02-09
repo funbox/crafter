@@ -1,5 +1,5 @@
 const SectionTypes = require('../SectionTypes');
-const utilsHelpers = require('../utils/index');
+const utils = require('../utils');
 const EnumMemberElement = require('./elements/EnumMemberElement');
 
 const { parser: SignatureParser, traits: ParserTraits } = require('../SignatureParser');
@@ -7,8 +7,8 @@ const { parser: SignatureParser, traits: ParserTraits } = require('../SignatureP
 module.exports = (Parsers) => {
   Parsers.EnumMemberParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
-      const subject = utilsHelpers.nodeText(node.firstChild, context.sourceLines);
-      const sourceMap = utilsHelpers.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const subject = utils.nodeText(node.firstChild, context.sourceLines);
+      const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       const signature = new SignatureParser(subject, false, [ParserTraits.VALUE, ParserTraits.ATTRIBUTES, ParserTraits.DESCRIPTION]);
 
       signature.warnings.forEach(warning => context.addWarning(warning, sourceMap));
@@ -21,12 +21,12 @@ module.exports = (Parsers) => {
 
       result.sourceMap = sourceMap;
 
-      return [utilsHelpers.nextNode(node), result];
+      return [utils.nextNode(node), result];
     },
 
     sectionType(node, context) {
       if (node.type === 'item') {
-        const text = utilsHelpers.nodeText(node.firstChild, context.sourceLines);
+        const text = utils.nodeText(node.firstChild, context.sourceLines);
 
         try {
           const signature = new SignatureParser(text, false, [ParserTraits.VALUE, ParserTraits.ATTRIBUTES, ParserTraits.DESCRIPTION]);
@@ -34,7 +34,7 @@ module.exports = (Parsers) => {
             return SectionTypes.enumMember;
           }
         } catch (e) {
-          if (!(e instanceof utilsHelpers.SignatureError)) throw e;
+          if (!(e instanceof utils.SignatureError)) throw e;
         }
       }
 

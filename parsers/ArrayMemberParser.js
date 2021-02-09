@@ -1,4 +1,4 @@
-const utilsHelpers = require('../utils/index');
+const utils = require('../utils');
 const SectionTypes = require('../SectionTypes');
 const DataStructureProcessor = require('../DataStructureProcessor');
 const ValueMemberElement = require('./elements/ValueMemberElement');
@@ -10,20 +10,20 @@ module.exports = (Parsers) => {
     processSignature(node, context) {
       context.pushFrame();
 
-      const subject = utilsHelpers.nodeText(node.firstChild, context.sourceLines);
+      const subject = utils.nodeText(node.firstChild, context.sourceLines);
       const signature = new SignatureParser(subject, false, [ParserTraits.VALUE, ParserTraits.ATTRIBUTES, ParserTraits.DESCRIPTION]);
 
-      const sourceMap = utilsHelpers.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       context.data.attributeSignatureDetails = { sourceMap, node: node.firstChild };
 
       const description = signature.description
-        ? utilsHelpers.makeStringElement(signature.description, signature.descriptionOffset, node.firstChild, context)
+        ? utils.makeStringElement(signature.description, signature.descriptionOffset, node.firstChild, context)
         : null;
 
-      const resolvedType = utilsHelpers.resolveType(signature.type);
+      const resolvedType = utils.resolveType(signature.type);
       const nestedTypes = resolvedType.nestedTypes.map((nestedType, index) => {
         const el = new ValueMemberElement(nestedType, nestedType, []);
-        el.sourceMap = utilsHelpers.makeSourceMapsForString(
+        el.sourceMap = utils.makeSourceMapsForString(
           nestedType,
           resolvedType.nestedTypesOffsets[index] + signature.typeOffset,
           node.firstChild,
@@ -60,12 +60,12 @@ module.exports = (Parsers) => {
         dataStructureProcessor.fillValueMember(result, context);
       }
 
-      return [utilsHelpers.nextNode(node), result];
+      return [utils.nextNode(node), result];
     },
 
     sectionType(node, context) {
       if (node.type === 'item') {
-        const text = utilsHelpers.nodeText(node.firstChild, context.sourceLines);
+        const text = utils.nodeText(node.firstChild, context.sourceLines);
 
         try {
           const signature = new SignatureParser(text, false, [ParserTraits.VALUE, ParserTraits.ATTRIBUTES, ParserTraits.DESCRIPTION]);
@@ -73,7 +73,7 @@ module.exports = (Parsers) => {
             return SectionTypes.arrayMember;
           }
         } catch (e) {
-          if (!(e instanceof utilsHelpers.SignatureError)) throw e;
+          if (!(e instanceof utils.SignatureError)) throw e;
         }
       }
 
@@ -92,7 +92,7 @@ module.exports = (Parsers) => {
       const { attributeSignatureDetails } = context.data;
       context.popFrame();
 
-      utilsHelpers.validateAttributesConsistency(context, result, attributeSignatureDetails);
+      utils.validateAttributesConsistency(context, result, attributeSignatureDetails);
 
       return result;
     },

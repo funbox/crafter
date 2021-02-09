@@ -1,5 +1,5 @@
 const SectionTypes = require('../SectionTypes');
-const utilsHelpers = require('../utils/index');
+const utils = require('../utils');
 
 const UnrecognizedBlockElement = require('./elements/UnrecognizedBlockElement');
 
@@ -14,10 +14,10 @@ module.exports = {
 
     [curNode, result] = this.processSignature(curNode, context);
 
-    if (this.allowLeavingNode || utilsHelpers.isCurrentNodeOrChild(curNode, context.rootNode)) {
+    if (this.allowLeavingNode || utils.isCurrentNodeOrChild(curNode, context.rootNode)) {
       [curNode, result] = this.processDescription(curNode, context, result);
 
-      if (this.allowLeavingNode || utilsHelpers.isCurrentNodeOrChild(curNode, context.rootNode)) {
+      if (this.allowLeavingNode || utils.isCurrentNodeOrChild(curNode, context.rootNode)) {
         [curNode, result] = this.processNestedSections(curNode, context, result);
       }
     }
@@ -35,7 +35,7 @@ module.exports = {
   processDescription(node, context, result) {
     const stopCallback = curNode => (curNode && !this.isDescriptionNode(curNode, context));
 
-    const [curNode, descriptionEl] = utilsHelpers.extractDescription(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, stopCallback);
+    const [curNode, descriptionEl] = utils.extractDescription(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, stopCallback);
 
     if (descriptionEl) {
       result.description = descriptionEl;
@@ -50,15 +50,15 @@ module.exports = {
     while (curNode) {
       let shouldContinue = false;
 
-      if (this.allowLeavingNode || utilsHelpers.isCurrentNodeOrChild(curNode, context.rootNode)) {
+      if (this.allowLeavingNode || utils.isCurrentNodeOrChild(curNode, context.rootNode)) {
         if (this.nestedSectionType(curNode, context) !== SectionTypes.undefined) {
           [curNode, result] = this.processNestedSection(curNode, context, result);
           shouldContinue = true;
         } else if (this.isUnexpectedNode(curNode, context)) {
-          const sourceMap = utilsHelpers.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+          const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
           result.unrecognizedBlocks.push(new UnrecognizedBlockElement(sourceMap));
-          context.addWarning(`Ignoring unrecognized block "${utilsHelpers.nodeText(curNode, context.sourceLines)}".`, sourceMap);
-          curNode = utilsHelpers.nextNode(curNode);
+          context.addWarning(`Ignoring unrecognized block "${utils.nodeText(curNode, context.sourceLines)}".`, sourceMap);
+          curNode = utils.nextNode(curNode);
           shouldContinue = true;
         }
       }

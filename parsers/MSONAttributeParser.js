@@ -1,6 +1,6 @@
 const SectionTypes = require('../SectionTypes');
 const types = require('../types');
-const utilsHelpers = require('../utils/index');
+const utils = require('../utils');
 const PropertyMemberElement = require('./elements/PropertyMemberElement');
 const StringElement = require('./elements/StringElement');
 const DataStructureProcessor = require('../DataStructureProcessor');
@@ -15,23 +15,23 @@ module.exports = (Parsers) => {
     processSignature(node, context) {
       context.pushFrame();
 
-      const subject = utilsHelpers.nodeText(node.firstChild, context.sourceLines); // TODO: часто берем text, может сделать отдельную функцию?
+      const subject = utils.nodeText(node.firstChild, context.sourceLines); // TODO: часто берем text, может сделать отдельную функцию?
       const signature = new SignatureParser(subject, context.languageServerMode);
 
-      const sourceMap = utilsHelpers.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       context.data.attributeSignatureDetails = { sourceMap, node: node.firstChild };
 
       signature.warnings.forEach(warning => context.addWarning(warning, sourceMap));
 
       const name = signature.name
-        ? utilsHelpers.makeStringElement(signature.name, signature.nameOffset, node.firstChild, context)
+        ? utils.makeStringElement(signature.name, signature.nameOffset, node.firstChild, context)
         : new StringElement(signature.name);
       let descriptionEl;
       if (signature.description) {
-        descriptionEl = utilsHelpers.makeStringElement(signature.description, signature.descriptionOffset, node.firstChild, context);
+        descriptionEl = utils.makeStringElement(signature.description, signature.descriptionOffset, node.firstChild, context);
       }
 
-      const splitAttributes = utilsHelpers.splitTypeAttributes(signature.typeAttributes);
+      const splitAttributes = utils.splitTypeAttributes(signature.typeAttributes);
       const propertyTypeAttributes = splitAttributes[0];
       const valueTypeAttributes = splitAttributes[1];
       const valueTypeAttributesIndexes = splitAttributes[3];
@@ -39,7 +39,7 @@ module.exports = (Parsers) => {
       const valueMemberSourceMaps = [];
 
       if (signature.value) {
-        valueMemberSourceMaps.push(utilsHelpers.makeSourceMapsForString(
+        valueMemberSourceMaps.push(utils.makeSourceMapsForString(
           signature.value,
           signature.valueOffset,
           node.firstChild,
@@ -53,7 +53,7 @@ module.exports = (Parsers) => {
         const origIndex = valueTypeAttributesIndexes[index];
         const [offset, length] = signature.typeAttributesOffsetsAndLengths[origIndex];
 
-        valueMemberSourceMaps.push(utilsHelpers.makeSourceMapsForStartPosAndLength(
+        valueMemberSourceMaps.push(utils.makeSourceMapsForStartPosAndLength(
           offset,
           length,
           node.firstChild,
@@ -64,7 +64,7 @@ module.exports = (Parsers) => {
       });
 
       if (signature.type) {
-        valueMemberSourceMaps.push(utilsHelpers.makeSourceMapsForString(
+        valueMemberSourceMaps.push(utils.makeSourceMapsForString(
           signature.type,
           signature.typeOffset,
           node.firstChild,
@@ -76,10 +76,10 @@ module.exports = (Parsers) => {
 
       valueMemberSourceMaps.sort((sm1, sm2) => sm1.byteBlocks[0].offset - sm2.byteBlocks[0].offset);
 
-      const resolvedType = utilsHelpers.resolveType(signature.type);
+      const resolvedType = utils.resolveType(signature.type);
       const nestedTypes = resolvedType.nestedTypes.map((nestedType, index) => {
         const el = new ValueMemberElement(nestedType, nestedType, []);
-        el.sourceMap = utilsHelpers.makeSourceMapsForString(
+        el.sourceMap = utils.makeSourceMapsForString(
           nestedType,
           resolvedType.nestedTypesOffsets[index] + signature.typeOffset,
           node.firstChild,
@@ -101,7 +101,7 @@ module.exports = (Parsers) => {
       );
 
       if (valueMemberSourceMaps.length) {
-        valueEl.sourceMap = utilsHelpers.concatSourceMaps(valueMemberSourceMaps);
+        valueEl.sourceMap = utils.concatSourceMaps(valueMemberSourceMaps);
       }
 
       try {
@@ -122,28 +122,28 @@ module.exports = (Parsers) => {
         valueEl,
         propertyTypeAttributes,
         descriptionEl,
-        utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets),
+        utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets),
       );
 
       const nextChildNode = signature.rest ? node.firstChild : node.firstChild.next;
-      const nextNode = nextChildNode || utilsHelpers.nextNode(context.rootNode);
+      const nextNode = nextChildNode || utils.nextNode(context.rootNode);
 
       return [nextNode, result];
     },
 
     sectionType(node, context) {
       if (node && node.type === 'item' && node.firstChild) {
-        const text = utilsHelpers.nodeText(node.firstChild, context.sourceLines);
+        const text = utils.nodeText(node.firstChild, context.sourceLines);
 
         try {
           new SignatureParser(text, context.languageServerMode); // eslint-disable-line no-new
           return SectionTypes.msonAttribute;
         } catch (e) {
-          if (!(e instanceof utilsHelpers.SignatureError)) {
+          if (!(e instanceof utils.SignatureError)) {
             throw e;
           } else {
-            const sourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-            throw new utilsHelpers.CrafterError(e.message, sourceMap);
+            const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+            throw new utils.CrafterError(e.message, sourceMap);
           }
         }
       }
@@ -167,7 +167,7 @@ module.exports = (Parsers) => {
         let stopCallback = null;
         if (contentNode.type === 'paragraph' || !!startOffset) {
           stopCallback = curNode => (
-            !utilsHelpers.isCurrentNodeOrChild(curNode, parentNode)
+            !utils.isCurrentNodeOrChild(curNode, parentNode)
             || isContentSection(curNode)
           );
         }
@@ -175,7 +175,7 @@ module.exports = (Parsers) => {
         const [
           nextNode,
           blockDescriptionEl,
-        ] = utilsHelpers.extractDescription(contentNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, stopCallback, startOffset);
+        ] = utils.extractDescription(contentNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, stopCallback, startOffset);
 
         delete contentNode.skipLines;
 
@@ -186,8 +186,8 @@ module.exports = (Parsers) => {
           // https://apielements.org/en/latest/element-definitions.html#reserved-meta-properties
           const stringDescriptionEl = new StringElement(blockDescriptionEl.description, blockDescriptionEl.sourceMap);
           if (result.descriptionEl) {
-            result.descriptionEl.string = utilsHelpers.appendDescriptionDelimiter(result.descriptionEl.string);
-            result.descriptionEl = utilsHelpers.mergeStringElements(result.descriptionEl, stringDescriptionEl);
+            result.descriptionEl.string = utils.appendDescriptionDelimiter(result.descriptionEl.string);
+            result.descriptionEl = utils.mergeStringElements(result.descriptionEl, stringDescriptionEl);
           } else {
             result.descriptionEl = stringDescriptionEl;
           }
@@ -215,7 +215,7 @@ module.exports = (Parsers) => {
         delete context.data.isParentAttributeFixedOrFixedType;
       }
 
-      return [utilsHelpers.nextNode(context.rootNode), result];
+      return [utils.nextNode(context.rootNode), result];
     },
 
     isUnexpectedNode() {
@@ -236,7 +236,7 @@ module.exports = (Parsers) => {
 
       context.popFrame();
 
-      utilsHelpers.validateAttributesConsistency(context, result.value, details);
+      utils.validateAttributesConsistency(context, result.value, details);
 
       return result;
     },

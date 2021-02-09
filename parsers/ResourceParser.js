@@ -1,6 +1,6 @@
 const SectionTypes = require('../SectionTypes');
 const RegExpStrings = require('../RegExpStrings');
-const utilsHelpers = require('../utils/index');
+const utils = require('../utils');
 const ResourceElement = require('./elements/ResourceElement');
 
 const NamelessResourceHeaderRegex = new RegExp(`^${RegExpStrings.uriTemplate}(\\s+${RegExpStrings.resourcePrototype})?$`);
@@ -20,46 +20,46 @@ module.exports = (Parsers) => {
 
       context.pushFrame();
 
-      const [subject, subjectOffset] = utilsHelpers.headerTextWithOffset(node, context.sourceLines);
+      const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
       const [sectionType, [matchData, matchDataIndexes]] = getSectionType(subject);
 
       switch (sectionType) {
         case 'NamedResource':
-          title = utilsHelpers.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
-          href = utilsHelpers.makeStringElement(matchData[2], subjectOffset + matchDataIndexes[2], node, context);
+          title = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
+          href = utils.makeStringElement(matchData[2], subjectOffset + matchDataIndexes[2], node, context);
 
           protoNames = matchData[4];
           protoNamesOffset = matchDataIndexes[4];
-          nodeToReturn = utilsHelpers.nextNode(node);
+          nodeToReturn = utils.nextNode(node);
           break;
         case 'NamelessResource':
-          href = utilsHelpers.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
+          href = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
 
           protoNames = matchData[3];
           protoNamesOffset = matchDataIndexes[3];
-          nodeToReturn = utilsHelpers.nextNode(node);
+          nodeToReturn = utils.nextNode(node);
           break;
         case 'NamelessEndpoint':
           method = matchData[2];
-          href = utilsHelpers.makeStringElement(matchData[3], subjectOffset + matchDataIndexes[3], node, context);
+          href = utils.makeStringElement(matchData[3], subjectOffset + matchDataIndexes[3], node, context);
           protoNames = matchData[5];
           protoNamesOffset = matchDataIndexes[5];
           context.data.endpointActionsCount = 0;
           break;
         case 'NamedEndpoint':
-          title = utilsHelpers.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
+          title = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
           method = matchData[2];
-          href = utilsHelpers.makeStringElement(matchData[3], subjectOffset + matchDataIndexes[3], node, context);
+          href = utils.makeStringElement(matchData[3], subjectOffset + matchDataIndexes[3], node, context);
           context.data.endpointActionsCount = 0;
           break;
         default:
           break;
       }
 
-      const sourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
-      const protoElements = utilsHelpers.buildPrototypeElements(protoNames, subjectOffset + protoNamesOffset, node, context);
-      context.resourcePrototypes.push(utilsHelpers.preparePrototypes(protoElements.map(el => el.string), context, sourceMap));
+      const protoElements = utils.buildPrototypeElements(protoNames, subjectOffset + protoNamesOffset, node, context);
+      context.resourcePrototypes.push(utils.preparePrototypes(protoElements.map(el => el.string), context, sourceMap));
 
       context.data.resourceEndpointMethod = method;
       context.data.startNode = node;
@@ -71,7 +71,7 @@ module.exports = (Parsers) => {
 
     sectionType(node, context) {
       if (node.type === 'heading') {
-        const subject = utilsHelpers.headerText(node, context.sourceLines);
+        const subject = utils.headerText(node, context.sourceLines);
 
         if (NamelessEndpointHeaderRegex.exec(subject) || NamedResourceHeaderRegex.exec(subject) || NamedEndpointHeaderRegex.exec(subject) || NamelessResourceHeaderRegex.exec(subject)) {
           return SectionTypes.resource;
@@ -135,7 +135,7 @@ module.exports = (Parsers) => {
 
       const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
       const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
-      result.sourceMap = utilsHelpers.mergeSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
+      result.sourceMap = utils.mergeSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
 
       return [nextNode, result];
     },
@@ -146,7 +146,7 @@ module.exports = (Parsers) => {
       const unrecognizedBlocksSourceMaps = result.unrecognizedBlocks.map(ub => ub.sourceMap);
 
       if (result.description) {
-        result.sourceMap = utilsHelpers.mergeSourceMaps([result.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
+        result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
       }
 
       result.sourceMap = utils.concatSourceMaps([result.sourceMap, ...unrecognizedBlocksSourceMaps], sourceBuffer, linefeedOffsets);
@@ -214,7 +214,7 @@ function getSectionType(subject) {
 
   for (let i = 0; i < names.length; i++) {
     const [re, name] = names[i];
-    const matchResult = utilsHelpers.matchStringToRegex(subject, re);
+    const matchResult = utils.matchStringToRegex(subject, re);
     if (matchResult) return [name, matchResult];
   }
 

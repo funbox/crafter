@@ -1,7 +1,7 @@
 const SectionTypes = require('../SectionTypes');
-const utilsHelpers = require('../utils/index');
+const utils = require('../utils');
 
-const CrafterError = utilsHelpers.CrafterError;
+const CrafterError = utils.CrafterError;
 
 const BlueprintElement = require('./elements/BlueprintElement');
 const StringElement = require('./elements/StringElement');
@@ -41,11 +41,11 @@ module.exports = (Parsers) => {
 
       while (curNode.type === 'paragraph') {
         let isWarningAdded = false;
-        const nodeText = utilsHelpers.nodeText(curNode, context.sourceLines);
+        const nodeText = utils.nodeText(curNode, context.sourceLines);
         nodeText.split('\n').forEach(line => { // eslint-disable-line no-loop-func
           const [key, ...rest] = line.split(':');
           const value = rest.join(':');
-          const sourceMap = utilsHelpers.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+          const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
           sourceMaps.push(sourceMap);
           if (key && value) {
             const element = new MetaDataElement(key, value);
@@ -60,12 +60,12 @@ module.exports = (Parsers) => {
       }
 
       if (curNode.type === 'heading' && context.sectionKeywordSignature(curNode) === SectionTypes.undefined) {
-        const [titleText, titleTextOffset] = utilsHelpers.headerTextWithOffset(curNode, context.sourceLines);
-        title = utilsHelpers.makeStringElement(titleText, titleTextOffset, curNode, context);
+        const [titleText, titleTextOffset] = utils.headerTextWithOffset(curNode, context.sourceLines);
+        title = utils.makeStringElement(titleText, titleTextOffset, curNode, context);
 
         curNode = curNode.next;
       } else {
-        const sourceMap = utilsHelpers.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+        const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
         context.addWarning('expected API name, e.g. "# <API Name>"', sourceMap);
       }
 
@@ -73,7 +73,7 @@ module.exports = (Parsers) => {
 
       const stopCallback = cNode => (cNode.type === 'heading' && context.sectionKeywordSignature(cNode) !== SectionTypes.undefined);
 
-      [curNode, description] = utilsHelpers.extractDescription(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, stopCallback);
+      [curNode, description] = utils.extractDescription(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, stopCallback);
       if (description) {
         sourceMaps.push(description.sourceMap);
       }
@@ -103,7 +103,7 @@ module.exports = (Parsers) => {
               [curNode, childResult] = Parsers.ResourcePrototypesParser.parse(curNode, context);
               break;
             default: {
-              const sourceMap = utilsHelpers.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+              const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
               result.unrecognizedBlocks.push(new UnrecognizedBlockElement(sourceMap));
               sourceMaps.push(sourceMap);
               context.addWarning(`Ignoring unrecognized block "${utils.nodeText(curNode, context.sourceLines)}".`, sourceMap);
@@ -127,7 +127,7 @@ module.exports = (Parsers) => {
       if (context.error) {
         preprocessErrorResult(result, context);
       } else {
-        result.sourceMap = utilsHelpers.concatSourceMaps(sourceMaps);
+        result.sourceMap = utils.concatSourceMaps(sourceMaps);
       }
 
       context.warnings.forEach(warning => {
@@ -234,14 +234,14 @@ module.exports = (Parsers) => {
 
       while (curNode) {
         if (isImportSection(curNode, context)) {
-          const sourceMap = utilsHelpers.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+          const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
           if (!context.entryDir) {
             throw new CrafterError('Import error. Entry directory should be defined.', sourceMap);
           }
 
           try {
-            const filename = ImportRegex.exec(utilsHelpers.headerText(curNode, sourceLines))[1].trim();
+            const filename = ImportRegex.exec(utils.headerText(curNode, sourceLines))[1].trim();
 
             if (!/\.apib$/.test(filename)) {
               throw new CrafterError(`File import error. File "${filename}" must have extension type ".apib".`, sourceMap);
@@ -268,7 +268,7 @@ module.exports = (Parsers) => {
               firstChildNode = firstChildNode.next;
             }
             if (firstChildNode && this.nestedSectionType(firstChildNode, childContext) === SectionTypes.undefined) {
-              throw new CrafterError(`Invalid content of "${filename}". Can't recognize "${utilsHelpers.nodeText(firstChildNode, childContext.sourceLines)}" as API Blueprint section.`, sourceMap);
+              throw new CrafterError(`Invalid content of "${filename}". Can't recognize "${utils.nodeText(firstChildNode, childContext.sourceLines)}" as API Blueprint section.`, sourceMap);
             }
 
             context.filePaths.push(`${context.resolvePathRelativeToEntryDir(filename)}`);
@@ -336,5 +336,5 @@ function preprocessErrorResult(result, context) {
 }
 
 function isImportSection(node, context) {
-  return node.type === 'heading' && ImportRegex.test(utilsHelpers.headerText(node, context.sourceLines));
+  return node.type === 'heading' && ImportRegex.test(utils.headerText(node, context.sourceLines));
 }
