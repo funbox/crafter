@@ -25,11 +25,11 @@ module.exports = (Parsers) => {
       signature.warnings.forEach(warning => context.addWarning(warning, sourceMap));
 
       const name = signature.name
-        ? utils.makeStringElement(signature.name, signature.nameOffset, node.firstChild, context)
+        ? utilsHelpers.makeStringElement(signature.name, signature.nameOffset, node.firstChild, context)
         : new StringElement(signature.name);
       let descriptionEl;
       if (signature.description) {
-        descriptionEl = utils.makeStringElement(signature.description, signature.descriptionOffset, node.firstChild, context);
+        descriptionEl = utilsHelpers.makeStringElement(signature.description, signature.descriptionOffset, node.firstChild, context);
       }
 
       const splitAttributes = utilsHelpers.splitTypeAttributes(signature.typeAttributes);

@@ -26,15 +26,15 @@ module.exports = (Parsers) => {
 
       switch (sectionType) {
         case 'NamedResource':
-          title = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
-          href = utils.makeStringElement(matchData[2], subjectOffset + matchDataIndexes[2], node, context);
+          title = utilsHelpers.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
+          href = utilsHelpers.makeStringElement(matchData[2], subjectOffset + matchDataIndexes[2], node, context);
 
           protoNames = matchData[4];
           protoNamesOffset = matchDataIndexes[4];
           nodeToReturn = utilsHelpers.nextNode(node);
           break;
         case 'NamelessResource':
-          href = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
+          href = utilsHelpers.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
 
           protoNames = matchData[3];
           protoNamesOffset = matchDataIndexes[3];
@@ -42,15 +42,15 @@ module.exports = (Parsers) => {
           break;
         case 'NamelessEndpoint':
           method = matchData[2];
-          href = utils.makeStringElement(matchData[3], subjectOffset + matchDataIndexes[3], node, context);
+          href = utilsHelpers.makeStringElement(matchData[3], subjectOffset + matchDataIndexes[3], node, context);
           protoNames = matchData[5];
           protoNamesOffset = matchDataIndexes[5];
           context.data.endpointActionsCount = 0;
           break;
         case 'NamedEndpoint':
-          title = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
+          title = utilsHelpers.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
           method = matchData[2];
-          href = utils.makeStringElement(matchData[3], subjectOffset + matchDataIndexes[3], node, context);
+          href = utilsHelpers.makeStringElement(matchData[3], subjectOffset + matchDataIndexes[3], node, context);
           context.data.endpointActionsCount = 0;
           break;
         default:
@@ -59,8 +59,8 @@ module.exports = (Parsers) => {
 
       const sourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
-      const protoElements = utils.buildPrototypeElements(protoNames, subjectOffset + protoNamesOffset, node, context);
-      context.resourcePrototypes.push(utils.preparePrototypes(protoElements.map(el => el.string), context, sourceMap));
+      const protoElements = utilsHelpers.buildPrototypeElements(protoNames, subjectOffset + protoNamesOffset, node, context);
+      context.resourcePrototypes.push(utilsHelpers.preparePrototypes(protoElements.map(el => el.string), context, sourceMap));
 
       context.data.resourceEndpointMethod = method;
       context.data.startNode = node;

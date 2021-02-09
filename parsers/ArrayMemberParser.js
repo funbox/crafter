@@ -18,7 +18,7 @@ module.exports = (Parsers) => {
       context.data.attributeSignatureDetails = { sourceMap, node: node.firstChild };
 
       const description = signature.description
-        ? utils.makeStringElement(signature.description, signature.descriptionOffset, node.firstChild, context)
+        ? utilsHelpers.makeStringElement(signature.description, signature.descriptionOffset, node.firstChild, context)
         : null;
 
       const resolvedType = utilsHelpers.resolveType(signature.type);

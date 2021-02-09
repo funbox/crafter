@@ -13,13 +13,13 @@ module.exports = (Parsers) => {
 
       const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
       const [matchData, matchDataIndexes] = utilsHelpers.matchStringToRegex(subject, GroupHeaderRegex);
-      const title = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
+      const title = utilsHelpers.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
       const sourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
       context.data.groupSignatureDetails = { sourceMap };
 
-      const protoElements = utils.buildPrototypeElements(matchData[3], subjectOffset + matchDataIndexes[3], node, context);
-      context.resourcePrototypes.push(utils.preparePrototypes(protoElements.map(el => el.string), context, sourceMap));
+      const protoElements = utilsHelpers.buildPrototypeElements(matchData[3], subjectOffset + matchDataIndexes[3], node, context);
+      context.resourcePrototypes.push(utilsHelpers.preparePrototypes(protoElements.map(el => el.string), context, sourceMap));
 
       const result = new ResourceGroupElement(title, protoElements, sourceMap);
 

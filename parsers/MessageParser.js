@@ -16,7 +16,7 @@ module.exports = (Parsers) => {
       const [matchData, matchDataIndexes] = utilsHelpers.matchStringToRegex(subject, MessageHeaderRegex);
 
       if (matchData[1]) {
-        title = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
+        title = utilsHelpers.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
       }
 
       const sourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);

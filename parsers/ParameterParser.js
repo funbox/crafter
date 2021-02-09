@@ -20,26 +20,26 @@ module.exports = (Parsers) => {
       const parameterSignatureDetails = { sourceMap };
 
       const descriptionEl = signature.description
-        ? utils.makeStringElement(signature.description, signature.descriptionOffset, node.firstChild, context)
+        ? utilsHelpers.makeStringElement(signature.description, signature.descriptionOffset, node.firstChild, context)
         : undefined;
       context.data.parameterSignatureDetails = parameterSignatureDetails;
       signature.warnings.forEach(warning => context.addWarning(warning, sourceMap));
 
       const name = signature.name
-        ? utils.makeStringElement(signature.name, signature.nameOffset, node.firstChild, context)
+        ? utilsHelpers.makeStringElement(signature.name, signature.nameOffset, node.firstChild, context)
         : null;
 
       const value = signature.value
-        ? utils.makeStringElement(signature.value, signature.valueOffset, node.firstChild, context)
+        ? utilsHelpers.makeStringElement(signature.value, signature.valueOffset, node.firstChild, context)
         : null;
 
       const typeAttributes = signature.typeAttributes.map((attr, index) => {
         const [offset] = signature.typeAttributesOffsetsAndLengths[index];
-        return utils.makeStringElement(attr, offset, node.firstChild, context);
+        return utilsHelpers.makeStringElement(attr, offset, node.firstChild, context);
       });
 
       const title = signature.type
-        ? utils.makeStringElement(signature.type, signature.typeOffset, node.firstChild, context)
+        ? utilsHelpers.makeStringElement(signature.type, signature.typeOffset, node.firstChild, context)
         : new StringElement('string');
 
       const result = new ParameterElement(

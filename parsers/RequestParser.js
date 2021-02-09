@@ -30,7 +30,7 @@ module.exports = (Parsers) => {
       let titleEl = null;
 
       if (title) {
-        titleEl = utils.makeStringElement(title, matchDataIndexes[2], node.firstChild, context);
+        titleEl = utilsHelpers.makeStringElement(title, matchDataIndexes[2], node.firstChild, context);
       }
 
       const requestSourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);

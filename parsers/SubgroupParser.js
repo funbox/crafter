@@ -13,7 +13,7 @@ module.exports = (Parsers) => {
       const [matchData, matchDataIndexes] = utilsHelpers.matchStringToRegex(subject, SubgroupHeaderRegex);
 
       const titleString = matchData[1].trim();
-      const title = utils.makeStringElement(
+      const title = utilsHelpers.makeStringElement(
         titleString,
         subjectOffset + matchDataIndexes[1] + matchData[1].indexOf(titleString),
         node,

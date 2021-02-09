@@ -62,7 +62,7 @@ module.exports = (Parsers) => {
 
       if (curNode.type === 'heading' && context.sectionKeywordSignature(curNode) === SectionTypes.undefined) {
         const [titleText, titleTextOffset] = utils.headerTextWithOffset(curNode, context.sourceLines);
-        title = utils.makeStringElement(titleText, titleTextOffset, curNode, context);
+        title = utilsHelpers.makeStringElement(titleText, titleTextOffset, curNode, context);
 
         curNode = curNode.next;
       } else {

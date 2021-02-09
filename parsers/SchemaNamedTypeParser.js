@@ -15,7 +15,7 @@ module.exports = (Parsers) => {
 
       context.data.attributeSignatureDetails = { sourceMap };
 
-      const name = utils.makeStringElement(subject, subjectOffset, node, context);
+      const name = utilsHelpers.makeStringElement(subject, subjectOffset, node, context);
 
       const result = new SchemaNamedTypeElement(name, sourceMap);
 

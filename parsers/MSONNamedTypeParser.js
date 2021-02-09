@@ -89,7 +89,7 @@ module.exports = (Parsers) => {
         valueElement.sourceMap = utilsHelpers.concatSourceMaps(valueMemberSourceMaps);
       }
 
-      const name = utils.makeStringElement(signature.name, signature.nameOffset + subjectOffset, node, context);
+      const name = utilsHelpers.makeStringElement(signature.name, signature.nameOffset + subjectOffset, node, context);
       const typeElement = new MSONNamedTypeElement(name, valueElement, sourceMap);
 
       if (!context.typeExtractingInProgress) {

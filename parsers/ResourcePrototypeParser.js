@@ -12,9 +12,9 @@ module.exports = (Parsers) => {
       const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
       const [matchData, matchDataIndexes] = utilsHelpers.matchStringToRegex(subject, PrototypeHeaderRegex);
 
-      const inheritedPrototypes = utils.buildPrototypeElements(matchData[3], subjectOffset + matchDataIndexes[3], node, context);
+      const inheritedPrototypes = utilsHelpers.buildPrototypeElements(matchData[3], subjectOffset + matchDataIndexes[3], node, context);
 
-      const title = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
+      const title = utilsHelpers.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
       const resourcePrototypeEl = new ResourcePrototypeElement(title, inheritedPrototypes);
       resourcePrototypeEl.sourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 

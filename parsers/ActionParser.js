@@ -34,7 +34,7 @@ module.exports = (Parsers) => {
 
         if (matchData[2]) {
           const hrefString = matchData[2].trim();
-          href = utils.makeStringElement(
+          href = utilsHelpers.makeStringElement(
             hrefString,
             subjectOffset + subject.indexOf(hrefString, matchDataIndexes[2]),
             node,
@@ -47,14 +47,14 @@ module.exports = (Parsers) => {
           protoNamesOffset = matchDataIndexes[4];
         }
 
-        method = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
+        method = utilsHelpers.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
       } else {
         const [matchData, matchDataIndexes] = utilsHelpers.matchStringToRegex(subject, NamedActionHeaderRegex);
 
         const titleString = matchData[1].trim();
 
         if (titleString) {
-          title = utils.makeStringElement(
+          title = utilsHelpers.makeStringElement(
             titleString,
             subjectOffset + subject.indexOf(titleString, matchDataIndexes[1]),
             node,
@@ -65,7 +65,7 @@ module.exports = (Parsers) => {
 
         if (matchData[3]) {
           const hrefString = matchData[3].trim();
-          href = utils.makeStringElement(
+          href = utilsHelpers.makeStringElement(
             hrefString,
             subjectOffset + subject.indexOf(hrefString, matchDataIndexes[3]),
             node,
@@ -78,11 +78,11 @@ module.exports = (Parsers) => {
           protoNamesOffset = matchDataIndexes[5];
         }
 
-        method = utils.makeStringElement(matchData[2], subjectOffset + matchDataIndexes[2], node, context);
+        method = utilsHelpers.makeStringElement(matchData[2], subjectOffset + matchDataIndexes[2], node, context);
       }
 
-      const protoElements = utils.buildPrototypeElements(protoNames, subjectOffset + protoNamesOffset, node, context);
-      context.resourcePrototypes.push(utils.preparePrototypes(protoElements.map(el => el.string), context, sourceMap));
+      const protoElements = utilsHelpers.buildPrototypeElements(protoNames, subjectOffset + protoNamesOffset, node, context);
+      context.resourcePrototypes.push(utilsHelpers.preparePrototypes(protoElements.map(el => el.string), context, sourceMap));
 
       const result = new ActionElement(method, href, title, protoElements, sourceMap);
 
