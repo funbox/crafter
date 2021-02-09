@@ -1,5 +1,4 @@
 const SectionTypes = require('../SectionTypes');
-const utils = require('../utils');
 const utilsHelpers = require('../utils/index');
 const MSONMixinElement = require('./elements/MSONMixinElement');
 
@@ -10,8 +9,8 @@ module.exports = (Parsers) => {
     processSignature(node, context) {
       const text = utilsHelpers.nodeText(node.firstChild, context.sourceLines);
 
-      const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-      return [utils.nextNode(node), new MSONMixinElement(MSONMixinRegex.exec(text)[1].trim(), sourceMap)];
+      const sourceMap = utilsHelpers.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      return [utilsHelpers.nextNode(node), new MSONMixinElement(MSONMixinRegex.exec(text)[1].trim(), sourceMap)];
     },
 
     processDescription(node, context, result) {

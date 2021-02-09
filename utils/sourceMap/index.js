@@ -1,5 +1,8 @@
-const utils = require('../../utils');
-const utilsHelpers = require('../');
+const getCharacterBlocksWithLineColumnInfo = require('../getCharacterBlocksWithLineColumnInfo');
+const getOffsetFromStartOfFileInBytes = require('../getOffsetFromStartOfFileInBytes');
+const getSourcePosZeroBased = require('../getSourcePosZeroBased');
+const linefeedBytes = require('../linefeedBytes');
+const nextNode = require('../nextNode');
 
 class CrafterError extends Error {
   constructor(message, sourceMap) {
@@ -23,10 +26,10 @@ module.exports = {
     if (startNode.file !== endNode.file) {
       throw new CrafterError('startNode and endNode belong to different files');
     }
-    const { startLineIndex, startColumnIndex } = utils.getSourcePosZeroBased(startNode);
-    const { endLineIndex, endColumnIndex } = utils.getSourcePosZeroBased(endNode);
-    const startOffset = utils.getOffsetFromStartOfFileInBytes(startLineIndex, startColumnIndex, sourceLines);
-    const endOffset = utils.getOffsetFromStartOfFileInBytes(endLineIndex, endColumnIndex + 1, sourceLines);
+    const { startLineIndex, startColumnIndex } = getSourcePosZeroBased(startNode);
+    const { endLineIndex, endColumnIndex } = getSourcePosZeroBased(endNode);
+    const startOffset = getOffsetFromStartOfFileInBytes(startLineIndex, startColumnIndex, sourceLines);
+    const endOffset = getOffsetFromStartOfFileInBytes(endLineIndex, endColumnIndex + 1, sourceLines);
     let length = endOffset - startOffset;
     length += getEndingLinefeedLengthInBytes(endLineIndex, sourceLines);
     if (endNode.next) {
@@ -34,7 +37,7 @@ module.exports = {
     }
     const byteBlock = { offset: startOffset, length, file: startNode.file };
     const byteBlocks = [byteBlock];
-    const charBlocks = utilsHelpers.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
+    const charBlocks = getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
     return new SourceMap(byteBlocks, charBlocks);
   },
 
@@ -50,7 +53,7 @@ module.exports = {
 
     let endNode = startNode;
     const iterationCondition = (node) => (
-      !!node.next && (stopCallback ? !stopCallback(utils.nextNode(node)) : node.next.type === 'paragraph')
+      !!node.next && (stopCallback ? !stopCallback(nextNode(node)) : node.next.type === 'paragraph')
     );
     while (iterationCondition(endNode)) {
       endNode = endNode.next;
@@ -62,11 +65,11 @@ module.exports = {
     sourceLines = node.sourceLines || sourceLines;
     sourceBuffer = node.sourceBuffer || sourceBuffer;
     linefeedOffsets = node.linefeedOffsets || linefeedOffsets;
-    const { startLineIndex, startColumnIndex } = utils.getSourcePosZeroBased(node);
+    const { startLineIndex, startColumnIndex } = getSourcePosZeroBased(node);
     const lineIndex = startLineIndex;
     const indentation = node.sourcepos[0][1] - 1;
 
-    const offset = utils.getOffsetFromStartOfFileInBytes(startLineIndex, startColumnIndex, sourceLines);
+    const offset = getOffsetFromStartOfFileInBytes(startLineIndex, startColumnIndex, sourceLines);
     const byteBlock = { offset, length: 0 };
     const line = sourceLines[lineIndex];
     const lineWithoutIndentation = line.slice(indentation);
@@ -77,7 +80,7 @@ module.exports = {
     byteBlock.file = node.file;
 
     const byteBlocks = [byteBlock];
-    const charBlocks = utilsHelpers.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
+    const charBlocks = getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
     return new SourceMap(byteBlocks, charBlocks);
   },
 
@@ -86,27 +89,27 @@ module.exports = {
     sourceBuffer = node.sourceBuffer || sourceBuffer;
     linefeedOffsets = node.linefeedOffsets || linefeedOffsets;
     const byteBlocks = [];
-    const { startLineIndex, startColumnIndex, endLineIndex } = utils.getSourcePosZeroBased(node);
+    const { startLineIndex, startColumnIndex, endLineIndex } = getSourcePosZeroBased(node);
     const numSpacesPerIndentLevel = 4;
     const indentation = Math.floor(startColumnIndex / numSpacesPerIndentLevel) * numSpacesPerIndentLevel;
-    let offset = utils.getOffsetFromStartOfFileInBytes(startLineIndex, indentation, sourceLines);
+    let offset = getOffsetFromStartOfFileInBytes(startLineIndex, indentation, sourceLines);
     for (let lineIndex = startLineIndex; lineIndex <= endLineIndex; lineIndex += 1) {
       const line = sourceLines[lineIndex];
       if (/\S/.test(line)) {
         const lineWithoutIndentation = line.slice(indentation);
         let length = Buffer.byteLength(lineWithoutIndentation);
         if (lineIndex < sourceLines.length - 1) {
-          length += utils.linefeedBytes;
+          length += linefeedBytes;
         }
         byteBlocks.push({ offset, length, file: node.file });
         offset += length;
         offset += indentation;
       } else {
-        offset += Buffer.byteLength(line) + utils.linefeedBytes;
+        offset += Buffer.byteLength(line) + linefeedBytes;
       }
     }
 
-    const charBlocks = utilsHelpers.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
+    const charBlocks = getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
     return new SourceMap(byteBlocks, charBlocks);
   },
 
@@ -114,7 +117,7 @@ module.exports = {
     sourceLines = node.sourceLines || sourceLines;
     sourceBuffer = node.sourceBuffer || sourceBuffer;
     linefeedOffsets = node.linefeedOffsets || linefeedOffsets;
-    const { startLineIndex, startColumnIndex } = utils.getSourcePosZeroBased(node);
+    const { startLineIndex, startColumnIndex } = getSourcePosZeroBased(node);
 
     let lineStr = sourceLines[startLineIndex].slice(startColumnIndex);
     let columnIndex = startColumnIndex + lineStr.indexOf(value);
@@ -125,39 +128,39 @@ module.exports = {
       columnIndex += lineStr.indexOf(inlineValueStr);
       lineStr = lineStr.slice(lineStr.indexOf(inlineValueStr));
       const byteBlock = {
-        offset: utils.getOffsetFromStartOfFileInBytes(startLineIndex, columnIndex, sourceLines),
+        offset: getOffsetFromStartOfFileInBytes(startLineIndex, columnIndex, sourceLines),
         length: Buffer.byteLength(inlineValueStr),
         file: node.file,
       };
       lineStr = lineStr.slice(inlineValueStr.length);
       columnIndex += inlineValueStr.length;
       const byteBlocks = [byteBlock];
-      const charBlocks = utilsHelpers.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
+      const charBlocks = getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
       return new SourceMap(byteBlocks, charBlocks);
     });
   },
 
   makeSourceMapsForString(str, offset, node, sourceLines, sourceBuffer, linefeedOffsets) {
-    return utils.makeSourceMapsForStartPosAndLength(offset, str.length, node, sourceLines, sourceBuffer, linefeedOffsets);
+    return this.makeSourceMapsForStartPosAndLength(offset, str.length, node, sourceLines, sourceBuffer, linefeedOffsets);
   },
 
   makeSourceMapsForStartPosAndLength(startPos, length, node, sourceLines, sourceBuffer, linefeedOffsets) {
     sourceLines = node.sourceLines || sourceLines;
     sourceBuffer = node.sourceBuffer || sourceBuffer;
     linefeedOffsets = node.linefeedOffsets || linefeedOffsets;
-    const { startLineIndex, startColumnIndex } = utils.getSourcePosZeroBased(node);
+    const { startLineIndex, startColumnIndex } = getSourcePosZeroBased(node);
 
     const columnIndex = startColumnIndex + startPos;
 
-    const offset = utils.getOffsetFromStartOfFileInBytes(startLineIndex, columnIndex, sourceLines);
-    const lengthInBytes = utils.getOffsetFromStartOfFileInBytes(startLineIndex, columnIndex + length, sourceLines) - offset;
+    const offset = getOffsetFromStartOfFileInBytes(startLineIndex, columnIndex, sourceLines);
+    const lengthInBytes = getOffsetFromStartOfFileInBytes(startLineIndex, columnIndex + length, sourceLines) - offset;
     const byteBlock = {
       offset,
       length: lengthInBytes,
       file: node.file,
     };
     const byteBlocks = [byteBlock];
-    const charBlocks = utilsHelpers.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
+    const charBlocks = getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
     return new SourceMap(byteBlocks, charBlocks);
   },
 
@@ -204,7 +207,7 @@ module.exports = {
     });
 
     const byteBlocks = [byteBlock];
-    const charBlocks = utilsHelpers.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
+    const charBlocks = getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
     return new SourceMap(byteBlocks, charBlocks);
   },
 
@@ -226,14 +229,14 @@ function makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, sour
   linefeedOffsets = startNode.linefeedOffsets || linefeedOffsets;
   const byteBlocks = [];
   const iterationCondition = (node) => (stopCallback ? !stopCallback(node) : (node && node.type === 'paragraph'));
-  for (let node = startNode; iterationCondition(node); node = utils.nextNode(node)) {
-    const zeroBasedSourcePos = utils.getSourcePosZeroBased(node);
+  for (let node = startNode; iterationCondition(node); node = nextNode(node)) {
+    const zeroBasedSourcePos = getSourcePosZeroBased(node);
     let { startLineIndex } = zeroBasedSourcePos;
     const { startColumnIndex, endLineIndex } = zeroBasedSourcePos;
     if (node.skipLines) {
       startLineIndex += node.skipLines;
     }
-    let offset = utils.getOffsetFromStartOfFileInBytes(startLineIndex, startColumnIndex, sourceLines);
+    let offset = getOffsetFromStartOfFileInBytes(startLineIndex, startColumnIndex, sourceLines);
     const indentation = node.sourcepos[0][1] - 1;
     let byteBlock = { offset, length: 0 };
     for (let lineIndex = startLineIndex; lineIndex <= endLineIndex; lineIndex += 1) {
@@ -242,7 +245,7 @@ function makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, sour
       leadingSpaces = leadingSpaces < 0 ? 0 : leadingSpaces;
       const lineIndentation = leadingSpaces - indentation;
       const unpaddedLine = line.trim();
-      const length = Buffer.byteLength(unpaddedLine) + utils.linefeedBytes;
+      const length = Buffer.byteLength(unpaddedLine) + linefeedBytes;
       byteBlock.length += length;
       byteBlock.offset += lineIndentation;
       byteBlock.file = startNode.file;
@@ -254,19 +257,19 @@ function makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, sour
       }
     }
     if (node.next && node.next.type === 'paragraph') {
-      byteBlock.length += utils.linefeedBytes;
+      byteBlock.length += linefeedBytes;
     }
     if (byteBlock.length > 1) {
       byteBlocks.push(byteBlock);
     }
   }
-  const charBlocks = utilsHelpers.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
+  const charBlocks = getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
   return new SourceMap(byteBlocks, charBlocks);
 }
 
 function getEndingLinefeedLengthInBytes(lineIndex, sourceLines) {
   if (lineIndex < sourceLines.length - 1) {
-    return utils.linefeedBytes;
+    return linefeedBytes;
   }
   return 0;
 }

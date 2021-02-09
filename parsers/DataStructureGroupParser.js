@@ -1,5 +1,6 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
+const utilsHelpers = require('../utils/index');
 const DataStructureGroupElement = require('./elements/DataStructureGroupElement');
 
 const DataStructureGroupRegex = /^[Dd]ata\s+[Ss]tructures?$/;
@@ -7,8 +8,8 @@ const DataStructureGroupRegex = /^[Dd]ata\s+[Ss]tructures?$/;
 module.exports = (Parsers) => {
   Parsers.DataStructureGroupParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
-      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-      return [utils.nextNode(node), new DataStructureGroupElement(sourceMap)];
+      const sourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      return [utilsHelpers.nextNode(node), new DataStructureGroupElement(sourceMap)];
     },
 
     sectionType(node, context) {
@@ -42,7 +43,7 @@ module.exports = (Parsers) => {
       result.dataStructures.push(childResult);
       const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
       const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
-      result.sourceMap = utils.concatSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
+      result.sourceMap = utilsHelpers.concatSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
 
       return [nextNode, result];
     },

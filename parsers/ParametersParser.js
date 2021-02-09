@@ -1,5 +1,4 @@
 const SectionTypes = require('../SectionTypes');
-const utils = require('../utils');
 const utilsHelpers = require('../utils/index');
 const ParametersElement = require('./elements/ParametersElement');
 
@@ -10,9 +9,9 @@ module.exports = (Parsers) => {
     allowLeavingNode: false,
 
     processSignature(node, context) {
-      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       const parametersList = node.firstChild.next;
-      return [(parametersList && parametersList.firstChild) || utils.nextNode(node), new ParametersElement(sourceMap)];
+      return [(parametersList && parametersList.firstChild) || utilsHelpers.nextNode(node), new ParametersElement(sourceMap)];
     },
 
     sectionType(node, context) {

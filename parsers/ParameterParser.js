@@ -16,7 +16,7 @@ module.exports = (Parsers) => {
 
       context.pushFrame();
 
-      const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utilsHelpers.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       const parameterSignatureDetails = { sourceMap };
 
       const descriptionEl = signature.description
@@ -56,7 +56,7 @@ module.exports = (Parsers) => {
       }
 
       const nextChildNode = signature.rest ? node.firstChild : node.firstChild.next;
-      const nextNode = nextChildNode || utils.nextNode(node.firstChild);
+      const nextNode = nextChildNode || utilsHelpers.nextNode(node.firstChild);
 
       return [nextNode, result];
     },

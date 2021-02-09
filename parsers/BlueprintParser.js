@@ -46,7 +46,7 @@ module.exports = (Parsers) => {
         nodeText.split('\n').forEach(line => { // eslint-disable-line no-loop-func
           const [key, ...rest] = line.split(':');
           const value = rest.join(':');
-          const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+          const sourceMap = utilsHelpers.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
           sourceMaps.push(sourceMap);
           if (key && value) {
             const element = new MetaDataElement(key, value);
@@ -66,7 +66,7 @@ module.exports = (Parsers) => {
 
         curNode = curNode.next;
       } else {
-        const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+        const sourceMap = utilsHelpers.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
         context.addWarning('expected API name, e.g. "# <API Name>"', sourceMap);
       }
 
@@ -104,7 +104,7 @@ module.exports = (Parsers) => {
               [curNode, childResult] = Parsers.ResourcePrototypesParser.parse(curNode, context);
               break;
             default: {
-              const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+              const sourceMap = utilsHelpers.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
               result.unrecognizedBlocks.push(new UnrecognizedBlockElement(sourceMap));
               sourceMaps.push(sourceMap);
               context.addWarning(`Ignoring unrecognized block "${utils.nodeText(curNode, context.sourceLines)}".`, sourceMap);
@@ -128,7 +128,7 @@ module.exports = (Parsers) => {
       if (context.error) {
         preprocessErrorResult(result, context);
       } else {
-        result.sourceMap = utils.concatSourceMaps(sourceMaps);
+        result.sourceMap = utilsHelpers.concatSourceMaps(sourceMaps);
       }
 
       context.warnings.forEach(warning => {
@@ -235,7 +235,7 @@ module.exports = (Parsers) => {
 
       while (curNode) {
         if (isImportSection(curNode, context)) {
-          const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+          const sourceMap = utilsHelpers.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
           if (!context.entryDir) {
             throw new CrafterError('Import error. Entry directory should be defined.', sourceMap);

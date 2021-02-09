@@ -1,5 +1,4 @@
 const SectionTypes = require('../SectionTypes');
-const utils = require('../utils');
 const utilsHelpers = require('../utils/index');
 const SchemaElement = require('./elements/SchemaElement');
 
@@ -12,8 +11,8 @@ module.exports = (Parsers) => {
 
       if (!schemaContentNode) {
         const schemaEl = new SchemaElement({});
-        schemaEl.sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-        return [utils.nextNode(node), schemaEl];
+        schemaEl.sourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+        return [utilsHelpers.nextNode(node), schemaEl];
       }
 
       const sourceMap = this.makeSourceMap(schemaContentNode, context);
@@ -31,7 +30,7 @@ module.exports = (Parsers) => {
       }
       const schemaEl = new SchemaElement(schemaObj);
       schemaEl.sourceMap = sourceMap;
-      return [utils.nextNode(node), schemaEl];
+      return [utilsHelpers.nextNode(node), schemaEl];
     },
 
     sectionType(node, context) {
@@ -69,7 +68,7 @@ module.exports = (Parsers) => {
     },
 
     makeSourceMap(node, context) {
-      return utils.makeSourceMapForAsset(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      return utilsHelpers.makeSourceMapForAsset(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
     },
 
     allowLeavingNode: false,

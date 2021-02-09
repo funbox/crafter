@@ -20,7 +20,7 @@ module.exports = (Parsers) => {
       context.pushFrame();
 
       const text = utilsHelpers.nodeText(node.firstChild, context.sourceLines);
-      const sourceMap = utils.makeSourceMapForLine(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utilsHelpers.makeSourceMapForLine(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       let signature;
       try {
         signature = new SignatureParser(text, context.languageServerMode, [ParserTraits.NAME, ParserTraits.ATTRIBUTES]);
@@ -43,7 +43,7 @@ module.exports = (Parsers) => {
       const resolvedType = utilsHelpers.resolveType(signature.type);
       const nestedTypes = resolvedType.nestedTypes.map((nestedType, index) => {
         const el = new ValueMemberElement(nestedType, nestedType, []);
-        el.sourceMap = utils.makeSourceMapsForString(
+        el.sourceMap = utilsHelpers.makeSourceMapsForString(
           nestedType,
           resolvedType.nestedTypesOffsets[index] + signature.typeOffset,
           node.firstChild,
@@ -65,7 +65,7 @@ module.exports = (Parsers) => {
       signature.typeAttributes.forEach((attr, index) => {
         const [offset, length] = signature.typeAttributesOffsetsAndLengths[index];
 
-        valueMemberSourceMaps.push(utils.makeSourceMapsForStartPosAndLength(
+        valueMemberSourceMaps.push(utilsHelpers.makeSourceMapsForStartPosAndLength(
           offset,
           length,
           node.firstChild,
@@ -76,7 +76,7 @@ module.exports = (Parsers) => {
       });
 
       if (signature.type) {
-        valueMemberSourceMaps.push(utils.makeSourceMapsForString(
+        valueMemberSourceMaps.push(utilsHelpers.makeSourceMapsForString(
           signature.type,
           signature.typeOffset,
           node.firstChild,
@@ -89,7 +89,7 @@ module.exports = (Parsers) => {
       valueMemberSourceMaps.sort((sm1, sm2) => sm1.byteBlocks[0].offset - sm2.byteBlocks[0].offset);
 
       if (valueMemberSourceMaps.length) {
-        memberEl.sourceMap = utils.concatSourceMaps(valueMemberSourceMaps);
+        memberEl.sourceMap = utilsHelpers.concatSourceMaps(valueMemberSourceMaps);
       }
 
       try {
@@ -104,10 +104,10 @@ module.exports = (Parsers) => {
       let nextNode = signature.rest ? node.firstChild : node.firstChild.next;
 
       if (!nextNode) {
-        nextNode = utils.nextNode(node.firstChild);
+        nextNode = utilsHelpers.nextNode(node.firstChild);
       }
 
-      const attributesSourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const attributesSourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       return [nextNode, new AttributesElement(memberEl, attributesSourceMap)];
     },
 
@@ -164,7 +164,7 @@ module.exports = (Parsers) => {
         if (blockDescriptionEl) {
           result.content.description = new StringElement(blockDescriptionEl.description, blockDescriptionEl.sourceMap);
           result.content.sourceMap = result.content.sourceMap
-            ? utils.concatSourceMaps([result.content.sourceMap, blockDescriptionEl.sourceMap])
+            ? utilsHelpers.concatSourceMaps([result.content.sourceMap, blockDescriptionEl.sourceMap])
             : blockDescriptionEl.sourceMap;
         }
         dataStructureProcessorStartNode = nextNode;
@@ -196,7 +196,7 @@ module.exports = (Parsers) => {
         context.typeResolver.checkUsedMixins(result.content);
       }
 
-      return [utils.nextNode(context.rootNode), result];
+      return [utilsHelpers.nextNode(context.rootNode), result];
     },
 
     finalize(context, result) {

@@ -52,61 +52,19 @@ const utils = {
         description = description.slice(startOffset);
         startOffset = 0;
       }
-      curNode = this.nextNode(curNode);
+      curNode = utilsHelpers.nextNode(curNode);
     }
 
     if (description) {
       descriptionEl = new DescriptionElement(description);
-      descriptionEl.sourceMap = this.makeSourceMapForDescription(startNode, sourceLines, sourceBuffer, linefeedOffsets, stopCallback);
+      descriptionEl.sourceMap = utilsHelpers.makeSourceMapForDescription(startNode, sourceLines, sourceBuffer, linefeedOffsets, stopCallback);
     }
 
     return [curNode, descriptionEl];
   },
 
-  getOffsetFromStartOfFileInBytes(lineIndex, columnIndex, sourceLines) {
-    let result = 0;
-    for (let i = 0; i < lineIndex; i += 1) {
-      const str = sourceLines[i];
-      result += Buffer.byteLength(str);
-      result += getEndingLinefeedLengthInBytes(i, sourceLines);
-    }
-    const str = sourceLines[lineIndex].substring(0, columnIndex);
-    result += Buffer.byteLength(str);
-    return result;
-  },
-
-
-
-  getSourcePosZeroBased(node) {
-    return {
-      startLineIndex: node.sourcepos[0][0] - 1,
-      startColumnIndex: node.sourcepos[0][1] - 1,
-      endLineIndex: node.sourcepos[1][0] - 1,
-      endColumnIndex: node.sourcepos[1][1] - 1,
-    };
-  },
-
-  nextNode(node) {
-    if (node.next) {
-      const result = node.next;
-
-      if (result) {
-        if (result.type === 'list') {
-          return result.firstChild || this.nextNode(result);
-        }
-        return result;
-      }
-    }
-
-    if (!node.parent) {
-      return null;
-    }
-
-    return this.nextNode(node.parent);
-  },
-
   nextNodeOfType(node, type) {
-    const result = this.nextNode(node);
+    const result = utilsHelpers.nextNode(node);
     if (!result) return result;
     if (result.type === type) {
       return result;
@@ -245,7 +203,7 @@ const utils = {
   mergeStringElements(first, second) {
     const merged = new StringElement(first.string + second.string);
     if (first.sourceMap && second.sourceMap) {
-      merged.sourceMap = utils.concatSourceMaps([first.sourceMap, second.sourceMap]);
+      merged.sourceMap = utilsHelpers.concatSourceMaps([first.sourceMap, second.sourceMap]);
     }
     return merged;
   },
@@ -306,14 +264,14 @@ const utils = {
     return headersSections.reduce((result, headersSection) => {
       result.headers.push(...headersSection.headers);
       result.sourceMap = result.sourceMap
-        ? this.concatSourceMaps([result.sourceMap, headersSection.sourceMap])
+        ? utilsHelpers.concatSourceMaps([result.sourceMap, headersSection.sourceMap])
         : headersSection.sourceMap;
       return result;
     }, new HeadersElement([], null));
   },
 
   makeStringElement(str, offset, node, context) {
-    const sourceMap = utils.makeSourceMapsForString(
+    const sourceMap = utilsHelpers.makeSourceMapsForString(
       str,
       offset,
       node,
@@ -365,15 +323,6 @@ const utils = {
   SignatureError,
 
   Logger,
-
-  linefeedBytes: 1,
 };
-
-function getEndingLinefeedLengthInBytes(lineIndex, sourceLines) {
-  if (lineIndex < sourceLines.length - 1) {
-    return utils.linefeedBytes;
-  }
-  return 0;
-}
 
 module.exports = utils;

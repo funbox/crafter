@@ -45,7 +45,7 @@ module.exports = (Parsers) => {
           type = key;
         }
       });
-      const nextNode = (node.firstChild.next && node.firstChild.next.firstChild) || utils.nextNode(node);
+      const nextNode = (node.firstChild.next && node.firstChild.next.firstChild) || utilsHelpers.nextNode(node);
       return [nextNode, new MemberGroupElement(type)];
     },
 
@@ -83,7 +83,7 @@ module.exports = (Parsers) => {
       const { type } = result;
 
       if (!type) {
-        return [utils.nextNode(node), result];
+        return [utilsHelpers.nextNode(node), result];
       }
 
       let nextNode;

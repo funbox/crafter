@@ -1,5 +1,4 @@
 const SectionTypes = require('../SectionTypes');
-const utils = require('../utils');
 const utilsHelpers = require('../utils/index');
 const OneOfTypeElement = require('./elements/OneOfTypeElement');
 const OneOfTypeOptionElement = require('./elements/OneOfTypeOptionElement');
@@ -12,8 +11,8 @@ module.exports = (Parsers) => {
 
     processSignature(node, context) {
       const optionsList = node.firstChild.next;
-      const nextNode = (optionsList && optionsList.firstChild) || utils.nextNode(node);
-      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const nextNode = (optionsList && optionsList.firstChild) || utilsHelpers.nextNode(node);
+      const sourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       return [nextNode, new OneOfTypeElement(sourceMap)];
     },
 
@@ -54,7 +53,7 @@ module.exports = (Parsers) => {
           result.options.push(childResult);
           break;
         case SectionTypes.msonAttribute: {
-          const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+          const sourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
           [nextNode, childResult] = Parsers.MSONAttributeParser.parse(node, context);
           result.options.push(new OneOfTypeOptionElement([childResult], sourceMap));
           break;

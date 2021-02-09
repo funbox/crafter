@@ -19,7 +19,7 @@ module.exports = (Parsers) => {
       const subject = utilsHelpers.nodeText(node.firstChild, context.sourceLines); // TODO: часто берем text, может сделать отдельную функцию?
       const signature = new SignatureParser(subject, context.languageServerMode);
 
-      const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utilsHelpers.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       context.data.attributeSignatureDetails = { sourceMap, node: node.firstChild };
 
       signature.warnings.forEach(warning => context.addWarning(warning, sourceMap));
@@ -40,7 +40,7 @@ module.exports = (Parsers) => {
       const valueMemberSourceMaps = [];
 
       if (signature.value) {
-        valueMemberSourceMaps.push(utils.makeSourceMapsForString(
+        valueMemberSourceMaps.push(utilsHelpers.makeSourceMapsForString(
           signature.value,
           signature.valueOffset,
           node.firstChild,
@@ -54,7 +54,7 @@ module.exports = (Parsers) => {
         const origIndex = valueTypeAttributesIndexes[index];
         const [offset, length] = signature.typeAttributesOffsetsAndLengths[origIndex];
 
-        valueMemberSourceMaps.push(utils.makeSourceMapsForStartPosAndLength(
+        valueMemberSourceMaps.push(utilsHelpers.makeSourceMapsForStartPosAndLength(
           offset,
           length,
           node.firstChild,
@@ -65,7 +65,7 @@ module.exports = (Parsers) => {
       });
 
       if (signature.type) {
-        valueMemberSourceMaps.push(utils.makeSourceMapsForString(
+        valueMemberSourceMaps.push(utilsHelpers.makeSourceMapsForString(
           signature.type,
           signature.typeOffset,
           node.firstChild,
@@ -80,7 +80,7 @@ module.exports = (Parsers) => {
       const resolvedType = utilsHelpers.resolveType(signature.type);
       const nestedTypes = resolvedType.nestedTypes.map((nestedType, index) => {
         const el = new ValueMemberElement(nestedType, nestedType, []);
-        el.sourceMap = utils.makeSourceMapsForString(
+        el.sourceMap = utilsHelpers.makeSourceMapsForString(
           nestedType,
           resolvedType.nestedTypesOffsets[index] + signature.typeOffset,
           node.firstChild,
@@ -102,7 +102,7 @@ module.exports = (Parsers) => {
       );
 
       if (valueMemberSourceMaps.length) {
-        valueEl.sourceMap = utils.concatSourceMaps(valueMemberSourceMaps);
+        valueEl.sourceMap = utilsHelpers.concatSourceMaps(valueMemberSourceMaps);
       }
 
       try {
@@ -123,11 +123,11 @@ module.exports = (Parsers) => {
         valueEl,
         propertyTypeAttributes,
         descriptionEl,
-        utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets),
+        utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets),
       );
 
       const nextChildNode = signature.rest ? node.firstChild : node.firstChild.next;
-      const nextNode = nextChildNode || utils.nextNode(context.rootNode);
+      const nextNode = nextChildNode || utilsHelpers.nextNode(context.rootNode);
 
       return [nextNode, result];
     },
@@ -143,7 +143,7 @@ module.exports = (Parsers) => {
           if (!(e instanceof utils.SignatureError)) {
             throw e;
           } else {
-            const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+            const sourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
             throw new utils.CrafterError(e.message, sourceMap);
           }
         }
@@ -216,7 +216,7 @@ module.exports = (Parsers) => {
         delete context.data.isParentAttributeFixedOrFixedType;
       }
 
-      return [utils.nextNode(context.rootNode), result];
+      return [utilsHelpers.nextNode(context.rootNode), result];
     },
 
     isUnexpectedNode() {

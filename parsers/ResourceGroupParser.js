@@ -14,7 +14,7 @@ module.exports = (Parsers) => {
       const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
       const [matchData, matchDataIndexes] = utilsHelpers.matchStringToRegex(subject, GroupHeaderRegex);
       const title = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
-      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
       context.data.groupSignatureDetails = { sourceMap };
 
@@ -23,7 +23,7 @@ module.exports = (Parsers) => {
 
       const result = new ResourceGroupElement(title, protoElements, sourceMap);
 
-      return [utils.nextNode(node), result];
+      return [utilsHelpers.nextNode(node), result];
     },
 
     sectionType(node, context) {
@@ -99,7 +99,7 @@ module.exports = (Parsers) => {
 
       const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
       const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
-      result.sourceMap = utils.mergeSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
+      result.sourceMap = utilsHelpers.mergeSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
 
       return [nextNode, result];
     },
@@ -108,7 +108,7 @@ module.exports = (Parsers) => {
       if (result.description) {
         const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
         const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
-        result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
+        result.sourceMap = utilsHelpers.mergeSourceMaps([result.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
       }
 
       context.resourcePrototypes.pop(); // очищаем стек с прототипами данной группы ресурсов

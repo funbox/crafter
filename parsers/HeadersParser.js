@@ -1,5 +1,4 @@
 const SectionTypes = require('../SectionTypes');
-const utils = require('../utils');
 const utilsHelpers = require('../utils/index.js');
 const HeadersElement = require('./elements/HeadersElement');
 
@@ -9,8 +8,8 @@ module.exports = (Parsers) => {
   Parsers.HeadersParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
       const headers = this.parseHeaders(node, context);
-      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-      return [utils.nextNode(node), new HeadersElement(headers, sourceMap)];
+      const sourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      return [utilsHelpers.nextNode(node), new HeadersElement(headers, sourceMap)];
     },
 
     sectionType(node, context) {
@@ -58,8 +57,8 @@ module.exports = (Parsers) => {
       const sourceBuffer = contentNode.sourceBuffer || context.sourceBuffer;
       const linefeedOffsets = contentNode.linefeedOffsets || context.linefeedOffsets;
 
-      const { startLineIndex, startColumnIndex } = utils.getSourcePosZeroBased(contentNode);
-      const headersSourceMap = utils.makeSourceMapForAsset(contentNode, sourceLines, sourceBuffer, linefeedOffsets);
+      const { startLineIndex, startColumnIndex } = utilsHelpers.getSourcePosZeroBased(contentNode);
+      const headersSourceMap = utilsHelpers.makeSourceMapForAsset(contentNode, sourceLines, sourceBuffer, linefeedOffsets);
       const indentationBytes = startColumnIndex;
 
       if (contentNode.type !== 'code_block') {
@@ -75,7 +74,7 @@ module.exports = (Parsers) => {
 
         if (lineHasNonWhitespace) {
           if (contentLineIndex === 0) {
-            offset = utils.getOffsetFromStartOfFileInBytes(startLineIndex, startColumnIndex, sourceLines);
+            offset = utilsHelpers.getOffsetFromStartOfFileInBytes(startLineIndex, startColumnIndex, sourceLines);
           } else {
             offset += indentationBytes;
           }
@@ -91,8 +90,8 @@ module.exports = (Parsers) => {
           block.file = contentNode.file;
           const byteBlocks = [block];
           const charBlocks = utilsHelpers.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
-          const sourceMap = new utils.SourceMap(byteBlocks, charBlocks);
-          offset += utils.linefeedBytes;
+          const sourceMap = new utilsHelpers.SourceMap(byteBlocks, charBlocks);
+          offset += utilsHelpers.linefeedBytes;
 
           const header = this.parseHeader(contentLine, context, { sourceMap });
 
@@ -106,7 +105,7 @@ module.exports = (Parsers) => {
         } else {
           const sourceLine = sourceLines[startLineIndex + contentLineIndex];
           offset += Buffer.byteLength(sourceLine);
-          offset += utils.linefeedBytes;
+          offset += utilsHelpers.linefeedBytes;
         }
       });
       return headers;

@@ -31,14 +31,14 @@ module.exports = (Parsers) => {
 
           protoNames = matchData[4];
           protoNamesOffset = matchDataIndexes[4];
-          nodeToReturn = utils.nextNode(node);
+          nodeToReturn = utilsHelpers.nextNode(node);
           break;
         case 'NamelessResource':
           href = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
 
           protoNames = matchData[3];
           protoNamesOffset = matchDataIndexes[3];
-          nodeToReturn = utils.nextNode(node);
+          nodeToReturn = utilsHelpers.nextNode(node);
           break;
         case 'NamelessEndpoint':
           method = matchData[2];
@@ -57,7 +57,7 @@ module.exports = (Parsers) => {
           break;
       }
 
-      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
       const protoElements = utils.buildPrototypeElements(protoNames, subjectOffset + protoNamesOffset, node, context);
       context.resourcePrototypes.push(utils.preparePrototypes(protoElements.map(el => el.string), context, sourceMap));
@@ -136,7 +136,7 @@ module.exports = (Parsers) => {
 
       const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
       const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
-      result.sourceMap = utils.mergeSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
+      result.sourceMap = utilsHelpers.mergeSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
 
       return [nextNode, result];
     },
@@ -147,7 +147,7 @@ module.exports = (Parsers) => {
       const unrecognizedBlocksSourceMaps = result.unrecognizedBlocks.map(ub => ub.sourceMap);
 
       if (result.description) {
-        result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
+        result.sourceMap = utilsHelpers.mergeSourceMaps([result.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
       }
 
       result.sourceMap = utils.concatSourceMaps([result.sourceMap, ...unrecognizedBlocksSourceMaps], sourceBuffer, linefeedOffsets);

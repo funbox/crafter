@@ -1,5 +1,4 @@
 const SectionTypes = require('../SectionTypes');
-const utils = require('../utils');
 const utilsHelpers = require('../utils/index');
 const ParameterMembersElement = require('./elements/ParameterMembersElement');
 
@@ -10,7 +9,7 @@ module.exports = (Parsers) => {
     allowLeavingNode: false,
 
     processSignature(node) {
-      const nextNode = (node.firstChild.next && node.firstChild.next.firstChild) || utils.nextNode(node);
+      const nextNode = (node.firstChild.next && node.firstChild.next.firstChild) || utilsHelpers.nextNode(node);
       return [nextNode, new ParameterMembersElement()];
     },
 

@@ -1,5 +1,6 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
+const utilsHelpers = require('../utils/index');
 const SchemaNamedTypeElement = require('./elements/SchemaNamedTypeElement');
 
 const { CrafterError } = utils;
@@ -10,7 +11,7 @@ module.exports = (Parsers) => {
       context.pushFrame();
 
       const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
-      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
       context.data.attributeSignatureDetails = { sourceMap };
 
@@ -18,7 +19,7 @@ module.exports = (Parsers) => {
 
       const result = new SchemaNamedTypeElement(name, sourceMap);
 
-      return [utils.nextNode(node), result];
+      return [utilsHelpers.nextNode(node), result];
     },
 
     sectionType(node, context) {
@@ -71,7 +72,7 @@ module.exports = (Parsers) => {
 
       const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
       const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
-      result.sourceMap = utils.mergeSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
+      result.sourceMap = utilsHelpers.mergeSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
 
       return [nextNode, result];
     },
@@ -81,7 +82,7 @@ module.exports = (Parsers) => {
       const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
       const unrecognizedBlocksSourceMaps = result.unrecognizedBlocks.map(ub => ub.sourceMap);
       if (result.description) {
-        result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
+        result.sourceMap = utilsHelpers.mergeSourceMaps([result.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
       }
 
       result.sourceMap = utils.concatSourceMaps([result.sourceMap, ...unrecognizedBlocksSourceMaps], sourceBuffer, linefeedOffsets);

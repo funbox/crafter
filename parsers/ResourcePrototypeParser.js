@@ -16,9 +16,9 @@ module.exports = (Parsers) => {
 
       const title = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
       const resourcePrototypeEl = new ResourcePrototypeElement(title, inheritedPrototypes);
-      resourcePrototypeEl.sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      resourcePrototypeEl.sourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
-      return [utils.nextNode(node), resourcePrototypeEl];
+      return [utilsHelpers.nextNode(node), resourcePrototypeEl];
     },
 
     sectionType(node, context) {
@@ -49,7 +49,7 @@ module.exports = (Parsers) => {
       result.responses.push(childResult);
       const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
       const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
-      result.sourceMap = utils.mergeSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
+      result.sourceMap = utilsHelpers.mergeSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
 
       return [nextNode, result];
     },

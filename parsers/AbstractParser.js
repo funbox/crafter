@@ -56,10 +56,10 @@ module.exports = {
           [curNode, result] = this.processNestedSection(curNode, context, result);
           shouldContinue = true;
         } else if (this.isUnexpectedNode(curNode, context)) {
-          const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+          const sourceMap = utilsHelpers.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
           result.unrecognizedBlocks.push(new UnrecognizedBlockElement(sourceMap));
           context.addWarning(`Ignoring unrecognized block "${utilsHelpers.nodeText(curNode, context.sourceLines)}".`, sourceMap);
-          curNode = utils.nextNode(curNode);
+          curNode = utilsHelpers.nextNode(curNode);
           shouldContinue = true;
         }
       }

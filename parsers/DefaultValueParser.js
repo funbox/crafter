@@ -19,7 +19,7 @@ module.exports = (Parsers) => {
       const result = [];
 
       if (values) {
-        const sourceMaps = utils.makeSourceMapsForInlineValues(valuesMatch[1], values, node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+        const sourceMaps = utilsHelpers.makeSourceMapsForInlineValues(valuesMatch[1], values, node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
         switch (context.data.typeForDefaults) {
           case 'primitive':
@@ -53,7 +53,7 @@ module.exports = (Parsers) => {
         }
       }
 
-      return [(node.firstChild.next && node.firstChild.next.firstChild) || utils.nextNode(node), result];
+      return [(node.firstChild.next && node.firstChild.next.firstChild) || utilsHelpers.nextNode(node), result];
     },
 
     sectionType(node, context) {
@@ -88,7 +88,7 @@ module.exports = (Parsers) => {
     processNestedSection(node, context, result) {
       const textNode = node.type === 'item' ? node.firstChild : node;
       const text = utilsHelpers.nodeText(textNode, context.sourceLines);
-      const sourceMap = utils.makeGenericSourceMap(textNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utilsHelpers.makeGenericSourceMap(textNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
       switch (context.data.typeForDefaults) {
         case 'primitive':
@@ -121,7 +121,7 @@ module.exports = (Parsers) => {
         // no default
       }
 
-      return [utils.nextNode(node), result];
+      return [utilsHelpers.nextNode(node), result];
     },
 
     isUnexpectedNode() {

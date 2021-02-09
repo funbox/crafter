@@ -1,5 +1,6 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
+const utilsHelpers = require('../utils/index');
 const ResourcePrototypesElement = require('./elements/ResourcePrototypesElement');
 
 const ResourcePrototypesRegex = /^[Rr]esource\s+[Pp]rototypes$/;
@@ -7,8 +8,8 @@ const ResourcePrototypesRegex = /^[Rr]esource\s+[Pp]rototypes$/;
 module.exports = (Parsers) => {
   Parsers.ResourcePrototypesParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
-      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-      return [utils.nextNode(node), new ResourcePrototypesElement(sourceMap)];
+      const sourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      return [utilsHelpers.nextNode(node), new ResourcePrototypesElement(sourceMap)];
     },
 
     sectionType(node, context) {
@@ -42,7 +43,7 @@ module.exports = (Parsers) => {
       result.resourcePrototypes.push(childResult);
       const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
       const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
-      result.sourceMap = utils.mergeSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
+      result.sourceMap = utilsHelpers.mergeSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
 
       return [nextNode, result];
     },

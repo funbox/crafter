@@ -25,7 +25,7 @@ module.exports = (Parsers) => {
 
       const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
 
-      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       context.data.actionSignatureDetails = { sourceMap };
 
       const actionHeaderMatchResult = utilsHelpers.matchStringToRegex(subject, ActionHeaderRegex);
@@ -86,7 +86,7 @@ module.exports = (Parsers) => {
 
       const result = new ActionElement(method, href, title, protoElements, sourceMap);
 
-      return [utils.nextNode(node), result];
+      return [utilsHelpers.nextNode(node), result];
     },
 
     sectionType(node, context) {
@@ -140,7 +140,7 @@ module.exports = (Parsers) => {
 
       const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
       const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
-      result.sourceMap = utils.concatSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
+      result.sourceMap = utilsHelpers.concatSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
 
       return [nextNode, result];
     },
@@ -149,10 +149,10 @@ module.exports = (Parsers) => {
       const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
       const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
       const unrecognizedBlocksSourceMaps = result.unrecognizedBlocks.map(ub => ub.sourceMap);
-      result.sourceMap = utils.concatSourceMaps([result.sourceMap, ...unrecognizedBlocksSourceMaps], sourceBuffer, linefeedOffsets);
+      result.sourceMap = utilsHelpers.concatSourceMaps([result.sourceMap, ...unrecognizedBlocksSourceMaps], sourceBuffer, linefeedOffsets);
 
       if (result.description) {
-        result.sourceMap = utils.concatSourceMaps([result.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
+        result.sourceMap = utilsHelpers.concatSourceMaps([result.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
       }
 
       const { actionSignatureDetails: details } = context.data;

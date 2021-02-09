@@ -33,11 +33,11 @@ module.exports = (Parsers) => {
         titleEl = utils.makeStringElement(title, matchDataIndexes[2], node.firstChild, context);
       }
 
-      const requestSourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const requestSourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       const result = new RequestElement(contentType, titleEl, requestSourceMap);
 
       if (contentType) {
-        const contentTypeSourceMap = utils.makeSourceMapsForStartPosAndLength(
+        const contentTypeSourceMap = utilsHelpers.makeSourceMapsForStartPosAndLength(
           matchDataIndexes[4],
           contentType.length,
           node.firstChild,
@@ -56,7 +56,7 @@ module.exports = (Parsers) => {
         result.headersSections.push(headersElement);
       }
 
-      const nextNode = subject.length > 1 ? node.firstChild : utils.nextNode(node.firstChild);
+      const nextNode = subject.length > 1 ? node.firstChild : utilsHelpers.nextNode(node.firstChild);
 
       return [nextNode, result];
     },

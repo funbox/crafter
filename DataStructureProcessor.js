@@ -51,7 +51,7 @@ class DataStructureProcessor {
     const samples = [];
     const defaults = [];
 
-    const sourceMap = utils.makeGenericSourceMap(this.valueMemberRootNode.parent, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+    const sourceMap = utilsHelpers.makeGenericSourceMap(this.valueMemberRootNode.parent, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
     while (curNode) {
       let nextNode;
@@ -81,9 +81,9 @@ class DataStructureProcessor {
           break;
         default: {
           context.addWarning(`sub-types of primitive types should not have nested members, ignoring unrecognized block "${utils.nodeText(curNode, context.sourceLines)}".`, sourceMap);
-          const curNodeSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+          const curNodeSourceMap = utilsHelpers.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
           primitiveElement.unrecognizedBlocks.push(new UnrecognizedBlockElement(curNodeSourceMap));
-          nextNode = utils.nextNode(curNode);
+          nextNode = utilsHelpers.nextNode(curNode);
         }
       }
 
@@ -114,9 +114,9 @@ class DataStructureProcessor {
 
     if (childSourceMaps.length) {
       if (primitiveElement.sourceMap) {
-        primitiveElement.sourceMap = utils.concatSourceMaps([primitiveElement.sourceMap, ...childSourceMaps]);
+        primitiveElement.sourceMap = utilsHelpers.concatSourceMaps([primitiveElement.sourceMap, ...childSourceMaps]);
       } else {
-        primitiveElement.sourceMap = utils.concatSourceMaps(childSourceMaps);
+        primitiveElement.sourceMap = utilsHelpers.concatSourceMaps(childSourceMaps);
       }
     }
   }
@@ -125,7 +125,7 @@ class DataStructureProcessor {
     let curNode = node;
     const arrayMembers = arrayElement.content.members;
 
-    const sourceMap = utils.makeGenericSourceMap(this.valueMemberRootNode.parent, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+    const sourceMap = utilsHelpers.makeGenericSourceMap(this.valueMemberRootNode.parent, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
     const samples = [];
     const defaults = [];
     const predefinedType = arrayMembers.length ? arrayMembers[0].type : 'string';
@@ -208,9 +208,9 @@ class DataStructureProcessor {
         }
         default: {
           context.addWarning(`Ignoring unrecognized block "${utils.nodeText(curNode, context.sourceLines)}".`, sourceMap);
-          const curNodeSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+          const curNodeSourceMap = utilsHelpers.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
           arrayElement.unrecognizedBlocks.push(new UnrecognizedBlockElement(curNodeSourceMap));
-          nextNode = utils.nextNode(curNode);
+          nextNode = utilsHelpers.nextNode(curNode);
         }
       }
 
@@ -252,9 +252,9 @@ class DataStructureProcessor {
 
     if (childSourceMaps.length) {
       if (arrayElement.sourceMap) {
-        arrayElement.sourceMap = utils.concatSourceMaps([arrayElement.sourceMap, ...childSourceMaps]);
+        arrayElement.sourceMap = utilsHelpers.concatSourceMaps([arrayElement.sourceMap, ...childSourceMaps]);
       } else {
-        arrayElement.sourceMap = utils.concatSourceMaps(childSourceMaps);
+        arrayElement.sourceMap = utilsHelpers.concatSourceMaps(childSourceMaps);
       }
     }
   }
@@ -262,7 +262,7 @@ class DataStructureProcessor {
   processObject(valueMember, node, context) {
     const baseType = context.typeResolver.types[valueMember.type];
     if (baseType && baseType instanceof SchemaNamedTypeElement && !context.languageServerMode) {
-      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utilsHelpers.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       throw new utils.CrafterError('No inheritance allowed from schema named type', sourceMap);
     }
 
@@ -293,7 +293,7 @@ class DataStructureProcessor {
           const typeEl = context.typeResolver.types[typeName];
 
           if (isFixedOrFixedType && typeEl && utils.typeIsUsedByElement(typeName, typeEl, context.typeResolver.types)) {
-            const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+            const sourceMap = utilsHelpers.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
             throw new utils.CrafterError('Mson attributes based on a recursive type must not have "fixed" or "fixed-type" attributes', sourceMap);
           }
           break;
@@ -322,10 +322,10 @@ class DataStructureProcessor {
           childResult = null;
           break;
         default: {
-          const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+          const sourceMap = utilsHelpers.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
           context.addWarning(`Ignoring unrecognized block "${utils.nodeText(curNode, context.sourceLines)}".`, sourceMap);
           valueMember.unrecognizedBlocks.push(new UnrecognizedBlockElement(sourceMap));
-          nextNode = utils.nextNode(curNode);
+          nextNode = utilsHelpers.nextNode(curNode);
         }
       }
 
@@ -346,10 +346,10 @@ class DataStructureProcessor {
     if (objectElement.propertyMembers.length) {
       const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
       const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
-      const sourceMap = utils.mergeSourceMaps(objectElement.propertyMembers.map(pm => pm.sourceMap), sourceBuffer, linefeedOffsets);
+      const sourceMap = utilsHelpers.mergeSourceMaps(objectElement.propertyMembers.map(pm => pm.sourceMap), sourceBuffer, linefeedOffsets);
 
       if (valueMember.sourceMap) {
-        valueMember.sourceMap = utils.concatSourceMaps([valueMember.sourceMap, sourceMap]);
+        valueMember.sourceMap = utilsHelpers.concatSourceMaps([valueMember.sourceMap, sourceMap]);
       } else {
         valueMember.sourceMap = sourceMap;
       }
@@ -362,7 +362,7 @@ class DataStructureProcessor {
     const nestedTypes = Array.from(new Set([...nestedTypesNames, ...baseNestedTypes]));
 
     const enumElement = new EnumElement(nestedTypes.length ? nestedTypes : valueMember.nestedTypes);
-    const sourceMap = utils.makeGenericSourceMap(this.valueMemberRootNode.parent, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+    const sourceMap = utilsHelpers.makeGenericSourceMap(this.valueMemberRootNode.parent, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
     const samples = [];
     const defaults = [];
     const validEnumMemberTypes = EnumElement.validEnumMemberTypes;
@@ -444,14 +444,14 @@ class DataStructureProcessor {
           }
           break;
         case SectionTypes.msonArrayMemberGroup: {
-          const errorSourceMap = utils.makeGenericSourceMap(curNode.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+          const errorSourceMap = utilsHelpers.makeGenericSourceMap(curNode.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
           throw new utils.CrafterError('Enums must use "Members" instead of "Items" as member section name', errorSourceMap);
         }
         default: {
-          const errorSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+          const errorSourceMap = utilsHelpers.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
           context.addWarning(`Ignoring unrecognized block "${utils.nodeText(curNode, context.sourceLines)}".`, errorSourceMap);
           valueMember.unrecognizedBlocks.push(new UnrecognizedBlockElement(errorSourceMap));
-          nextNode = utils.nextNode(curNode);
+          nextNode = utilsHelpers.nextNode(curNode);
         }
       }
 
@@ -499,9 +499,9 @@ class DataStructureProcessor {
 
     if (childSourceMaps.length) {
       if (valueMember.sourceMap) {
-        valueMember.sourceMap = utils.concatSourceMaps([valueMember.sourceMap, ...childSourceMaps]);
+        valueMember.sourceMap = utilsHelpers.concatSourceMaps([valueMember.sourceMap, ...childSourceMaps]);
       } else {
-        valueMember.sourceMap = utils.concatSourceMaps(childSourceMaps);
+        valueMember.sourceMap = utilsHelpers.concatSourceMaps(childSourceMaps);
       }
     }
 
@@ -519,20 +519,20 @@ function validateMixin(mixinElement, curNode, context, checkMixinType) {
   if (!baseType) return true;
 
   if (!baseType.isComplex()) {
-    const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+    const sourceMap = utilsHelpers.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
     context.addWarning('Mixin may not include a type of a primitive sub-type', sourceMap);
     return false;
   }
 
   if (baseType instanceof SchemaNamedTypeElement) {
-    const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+    const sourceMap = utilsHelpers.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
     throw new utils.CrafterError('Mixin may not include a schema named type', sourceMap);
   }
 
   const [typeCheckPassed, typeCheckDetails] = checkMixinType(baseType);
 
   if (!typeCheckPassed) {
-    const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+    const sourceMap = utilsHelpers.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
     throw new utils.CrafterError(`Mixin base type should be the same as parent base type: ${typeCheckDetails}.`, sourceMap);
   }
   return true;

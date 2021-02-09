@@ -14,7 +14,7 @@ module.exports = (Parsers) => {
       const subject = utilsHelpers.nodeText(node.firstChild, context.sourceLines);
       const signature = new SignatureParser(subject, false, [ParserTraits.VALUE, ParserTraits.ATTRIBUTES, ParserTraits.DESCRIPTION]);
 
-      const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utilsHelpers.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       context.data.attributeSignatureDetails = { sourceMap, node: node.firstChild };
 
       const description = signature.description
@@ -24,7 +24,7 @@ module.exports = (Parsers) => {
       const resolvedType = utilsHelpers.resolveType(signature.type);
       const nestedTypes = resolvedType.nestedTypes.map((nestedType, index) => {
         const el = new ValueMemberElement(nestedType, nestedType, []);
-        el.sourceMap = utils.makeSourceMapsForString(
+        el.sourceMap = utilsHelpers.makeSourceMapsForString(
           nestedType,
           resolvedType.nestedTypesOffsets[index] + signature.typeOffset,
           node.firstChild,
@@ -61,7 +61,7 @@ module.exports = (Parsers) => {
         dataStructureProcessor.fillValueMember(result, context);
       }
 
-      return [utils.nextNode(node), result];
+      return [utilsHelpers.nextNode(node), result];
     },
 
     sectionType(node, context) {
