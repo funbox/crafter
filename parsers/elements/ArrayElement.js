@@ -1,4 +1,4 @@
-const utils = require('../../utils');
+const utilsHelpers = require('../../utils/index');
 const types = require('../../types');
 const Flags = require('../../Flags');
 const MSONMixinElement = require('./MSONMixinElement');
@@ -92,12 +92,12 @@ class ArrayElement {
       });
 
       schema.items = {
-        anyOf: utils.uniquifySchemas(memberSchemas),
+        anyOf: utilsHelpers.uniquifySchemas(memberSchemas),
       };
     } else if (this.members.length === 1) {
       // единственным элементом может оказаться MSONMixinElement, который скрывает в себе несколько элементов
       const [memberSchemas, memberUsedTypes] = getArrayMemberSchema(this.members[0], dataTypes, localFlags, namedTypesChain);
-      schema.items = memberSchemas.length === 1 ? memberSchemas[0] : { anyOf: utils.uniquifySchemas(memberSchemas) };
+      schema.items = memberSchemas.length === 1 ? memberSchemas[0] : { anyOf: utilsHelpers.uniquifySchemas(memberSchemas) };
       usedTypes.push(...memberUsedTypes);
     }
     return [schema, usedTypes];
@@ -110,7 +110,7 @@ function getArrayMemberSchema(member, dataTypes, localFlags, namedTypesChain) {
   const [
     currentMemberSchema,
     currentMemberUsedTypes,
-  ] = member.getSchema(dataTypes, utils.mergeFlags(localFlags, member), namedTypesChain);
+  ] = member.getSchema(dataTypes, utilsHelpers.mergeFlags(localFlags, member), namedTypesChain);
 
   if (member instanceof MSONMixinElement && currentMemberSchema.type === 'array') {
     if (currentMemberSchema.items === undefined) {

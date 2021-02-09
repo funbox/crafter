@@ -295,7 +295,7 @@ class ValueMemberElement {
           schemaRef = $ref;
           usedTypes = [this.type];
         } else {
-          [schema, usedTypes] = typeEl.getSchema(dataTypes, typeEl.typeAttributes && utils.mergeFlags(flags, typeEl), namedTypesChain.concat(this.type));
+          [schema, usedTypes] = typeEl.getSchema(dataTypes, typeEl.typeAttributes && utilsHelpers.mergeFlags(flags, typeEl), namedTypesChain.concat(this.type));
         }
         schema = fillSchemaWithAttributes(schema, typeEl.typeAttributes);
       } else {
@@ -310,20 +310,20 @@ class ValueMemberElement {
       const namedTypes = nestedTypes.concat(this.type).filter(t => !isStandardType(t));
       const newTypesChain = namedTypesChain.concat(namedTypes);
 
-      const [contentSchema, contentUsedTypes] = this.content.getSchema(dataTypes, utils.mergeFlags(flags, this), newTypesChain);
+      const [contentSchema, contentUsedTypes] = this.content.getSchema(dataTypes, utilsHelpers.mergeFlags(flags, this), newTypesChain);
       usedTypes.push(...contentUsedTypes);
 
       if (!schemaRef) {
         if (typeEl) {
           schema = accountPrecedence(schema, typeEl, this.content);
         }
-        schema = utils.mergeSchemas(schema, contentSchema);
+        schema = utilsHelpers.mergeSchemas(schema, contentSchema);
       } else if (!this.isRecursive(namedTypesChain)) {
         if (this.isObject()) {
-          const localFlags = utils.mergeFlags(flags, this);
-          const [typeElSchema, typeElUsedTypes] = typeEl.getSchema(dataTypes, utils.mergeFlags(localFlags, typeEl), newTypesChain);
+          const localFlags = utilsHelpers.mergeFlags(flags, this);
+          const [typeElSchema, typeElUsedTypes] = typeEl.getSchema(dataTypes, utilsHelpers.mergeFlags(localFlags, typeEl), newTypesChain);
 
-          schema = utils.mergeSchemas(typeElSchema, contentSchema);
+          schema = utilsHelpers.mergeSchemas(typeElSchema, contentSchema);
           schema = fillSchemaWithAttributes(schema, typeEl.typeAttributes);
           schema = accountPrecedence(schema, typeEl, this.content);
 

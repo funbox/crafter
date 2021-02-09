@@ -1,4 +1,4 @@
-const utils = require('../../utils');
+const utilsHelpers = require('../../utils/index');
 const Flags = require('../../Flags');
 
 /**
@@ -53,7 +53,7 @@ class ObjectElement {
     const usedTypes = [];
     this.propertyMembers.forEach(member => {
       const [memberSchema, memberUsedTypes] = member.getSchema(dataTypes, flags, namedTypesChain);
-      schema = utils.mergeSchemas(schema, memberSchema);
+      schema = utilsHelpers.mergeSchemas(schema, memberSchema);
       usedTypes.push(...memberUsedTypes);
     });
     if (flags.isFixed || flags.isFixedType) {

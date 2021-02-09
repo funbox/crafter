@@ -1,7 +1,7 @@
 const Refract = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
 const AttributesElement = require('./AttributesElement');
-const utils = require('../../utils');
+const utilsHelpers = require('../../utils/index');
 
 /**
  * Элемент для описания HTTP-ответа.
@@ -67,7 +67,7 @@ class ResponseElement {
     };
 
     if (this.headersSections.length) {
-      result.attributes.headers = utils.mergeHeadersSections(this.headersSections).toRefract(sourceMapsEnabled);
+      result.attributes.headers = utilsHelpers.mergeHeadersSections(this.headersSections).toRefract(sourceMapsEnabled);
     }
 
     if (this.description) {

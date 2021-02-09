@@ -6,6 +6,7 @@ const getSourcePosZeroBased = require('./getSourcePosZeroBased');
 const linefeedBytes = require('./linefeedBytes');
 const makeStringElement = require('./makeStringElement');
 const matchStringToRegex = require('./matchStringToRegex');
+const merge = require('./merge');
 const nextNode = require('./nextNode');
 const nodeText = require('./nodeText');
 const preparePrototypes = require('./preparePrototypes');
@@ -24,6 +25,7 @@ const utils = {
   linefeedBytes,
   makeStringElement,
   matchStringToRegex,
+  ...merge,
   nextNode,
   nodeText,
   preparePrototypes,

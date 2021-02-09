@@ -1,5 +1,6 @@
 const Refract = require('../../Refract');
 const utils = require('../../utils');
+const utilsHelpers = require('../../utils/index');
 const Flags = require('../../Flags');
 const SourceMapElement = require('./SourceMapElement');
 
@@ -65,7 +66,7 @@ class AttributesElement {
       localFlags.skipTypesInlining = true;
     }
 
-    const [result, usedTypes] = this.content.getSchema(dataTypes, utils.mergeFlags(localFlags, this.content));
+    const [result, usedTypes] = this.content.getSchema(dataTypes, utilsHelpers.mergeFlags(localFlags, this.content));
 
     const definitions = {};
 

@@ -188,7 +188,7 @@ module.exports = (Parsers) => {
           const stringDescriptionEl = new StringElement(blockDescriptionEl.description, blockDescriptionEl.sourceMap);
           if (result.descriptionEl) {
             result.descriptionEl.string = utils.appendDescriptionDelimiter(result.descriptionEl.string);
-            result.descriptionEl = utils.mergeStringElements(result.descriptionEl, stringDescriptionEl);
+            result.descriptionEl = utilsHelpers.mergeStringElements(result.descriptionEl, stringDescriptionEl);
           } else {
             result.descriptionEl = stringDescriptionEl;
           }

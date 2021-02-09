@@ -1,5 +1,5 @@
 const Refract = require('../../Refract');
-const utils = require('../../utils');
+const utilsHelpers = require('../../utils/index');
 const Flags = require('../../Flags');
 const SourceMapElement = require('./SourceMapElement');
 
@@ -73,7 +73,7 @@ class OneOfTypeOptionElement {
 
     this.members.forEach(member => {
       const [memberSchema, memberUsedTypes] = member.getSchema(dataTypes, flags);
-      schema = utils.mergeSchemas(schema, memberSchema);
+      schema = utilsHelpers.mergeSchemas(schema, memberSchema);
       usedTypes.push(...memberUsedTypes);
     });
 
