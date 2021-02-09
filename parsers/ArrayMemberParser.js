@@ -1,4 +1,3 @@
-const utils = require('../utils');
 const utilsHelpers = require('../utils/index');
 const SectionTypes = require('../SectionTypes');
 const DataStructureProcessor = require('../DataStructureProcessor');
@@ -74,7 +73,7 @@ module.exports = (Parsers) => {
             return SectionTypes.arrayMember;
           }
         } catch (e) {
-          if (!(e instanceof utils.SignatureError)) throw e;
+          if (!(e instanceof utilsHelpers.SignatureError)) throw e;
         }
       }
 

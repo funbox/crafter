@@ -1,5 +1,4 @@
 const Refract = require('../../Refract');
-const utils = require('../../utils');
 const utilsHelpers = require('../../utils/index');
 const Flags = require('../../Flags');
 const SourceMapElement = require('./SourceMapElement');
@@ -62,7 +61,7 @@ class AttributesElement {
     const localFlags = new Flags(flags);
 
     const contentTypeEl = dataTypes[this.content.type];
-    if (contentTypeEl && utils.typeIsUsedByElement(this.content.type, contentTypeEl, dataTypes)) {
+    if (contentTypeEl && utilsHelpers.typeIsUsedByElement(this.content.type, contentTypeEl, dataTypes)) {
       localFlags.skipTypesInlining = true;
     }
 
@@ -80,7 +79,7 @@ class AttributesElement {
         definitions[type] = typeSchema;
 
         typeUsedTypes.forEach(t => {
-          if (utils.typeIsReferred(t, typeSchema) && !types.includes(t) && !definitions[t]) {
+          if (utilsHelpers.typeIsReferred(t, typeSchema) && !types.includes(t) && !definitions[t]) {
             types.push(t);
           }
         });

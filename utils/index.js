@@ -1,5 +1,6 @@
 const appendDescriptionDelimiter = require('./appendDescriptionDelimiter');
 const buildPrototypeElements = require('./buildPrototypeElements');
+const compareAttributeTypes = require('./compareAttributeTypes');
 const convertType = require('./convertType');
 const defaultValue = require('./defaultValue');
 const extractDescription = require('./extractDescription');
@@ -9,6 +10,7 @@ const getSourcePosZeroBased = require('./getSourcePosZeroBased');
 const linefeedBytes = require('./linefeedBytes');
 const log = require('./log');
 const makeStringElement = require('./makeStringElement');
+const markdownSourceToAST = require('./markdownSourceToAST');
 const matchStringToRegex = require('./matchStringToRegex');
 const merge = require('./merge');
 const node = require('./node');
@@ -17,11 +19,14 @@ const resolveType = require('./resolveType');
 const sourceMap = require('./sourceMap');
 const splitTypeAttributes = require('./splitTypeAttributes');
 const typeAttributesToRefract = require('./typeAttributesToRefract');
+const typeIsReferred = require('./typeIsReferred');
+const typeIsUsedByElement = require('./typeIsUsedByElement');
 const validateAttributesConsistency = require('./validateAttributesConsistency');
 
 const utils = {
   appendDescriptionDelimiter,
   buildPrototypeElements,
+  compareAttributeTypes,
   convertType,
   defaultValue,
   extractDescription,
@@ -31,6 +36,7 @@ const utils = {
   linefeedBytes,
   ...log,
   makeStringElement,
+  markdownSourceToAST,
   matchStringToRegex,
   ...merge,
   ...node,
@@ -39,6 +45,8 @@ const utils = {
   ...sourceMap,
   splitTypeAttributes,
   typeAttributesToRefract,
+  typeIsUsedByElement,
+  typeIsReferred,
   validateAttributesConsistency,
 };
 

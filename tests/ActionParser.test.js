@@ -1,6 +1,6 @@
 const fs = require('fs');
 const Context = require('../Context');
-const utils = require('../utils');
+const utilsHelpers = require('../utils/index');
 
 const Parsers = {};
 fs.readdirSync('./parsers').forEach((pFile) => {
@@ -14,7 +14,7 @@ fs.readdirSync('./parsers').forEach((pFile) => {
 
 function parse(source) {
   const warnings = [];
-  const ast = utils.markdownSourceToAST(source);
+  const ast = utilsHelpers.markdownSourceToAST(source);
   const context = new Context(source, Parsers, {
     logger: {
       warn(text) {

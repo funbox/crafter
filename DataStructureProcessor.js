@@ -1,6 +1,5 @@
 const SectionTypes = require('./SectionTypes');
 const types = require('./types');
-const utils = require('./utils');
 const utilsHelpers = require('./utils/index');
 
 const EnumElement = require('./parsers/elements/EnumElement');
@@ -292,7 +291,7 @@ class DataStructureProcessor {
           const typeName = value.isArray() && value.nestedTypes[0] && value.nestedTypes[0].type || value.type;
           const typeEl = context.typeResolver.types[typeName];
 
-          if (isFixedOrFixedType && typeEl && utils.typeIsUsedByElement(typeName, typeEl, context.typeResolver.types)) {
+          if (isFixedOrFixedType && typeEl && utilsHelpers.typeIsUsedByElement(typeName, typeEl, context.typeResolver.types)) {
             const sourceMap = utilsHelpers.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
             throw new utilsHelpers.CrafterError('Mson attributes based on a recursive type must not have "fixed" or "fixed-type" attributes', sourceMap);
           }
@@ -486,7 +485,7 @@ class DataStructureProcessor {
       }
 
       const converted = utilsHelpers.convertType(member.value, enumElement.type);
-      const typesMatch = utils.compareAttributeTypes(enumElement, member);
+      const typesMatch = utilsHelpers.compareAttributeTypes(enumElement, member);
 
       if (!typesMatch) {
         context.addTypeMismatchWarning(member.value, enumElement.type, sourceMap);

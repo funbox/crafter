@@ -1,7 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 const Context = require('../Context');
-const utils = require('../utils');
 const utilsHelpers = require('../utils/index');
 const { parser: SignatureParser } = require('../SignatureParser');
 const DataStructureProcessor = require('../DataStructureProcessor');
@@ -27,7 +26,7 @@ fs.readdirSync(parsersDir).forEach((pFile) => {
 
 function getFilledElementFromSource(source) {
   const warnings = [];
-  const ast = utils.markdownSourceToAST(source);
+  const ast = utilsHelpers.markdownSourceToAST(source);
   const context = new Context(source, Parsers, {
     logger: {
       warn(text) { warnings.push(text); },

@@ -1,6 +1,5 @@
 const SectionTypes = require('../SectionTypes');
 const types = require('../types');
-const utils = require('../utils');
 const utilsHelpers = require('../utils/index');
 const ParameterElement = require('./elements/ParameterElement');
 const StringElement = require('./elements/StringElement');
@@ -126,7 +125,7 @@ module.exports = (Parsers) => {
             return SectionTypes.parameter;
           }
         } catch (e) {
-          if (!(e instanceof utils.SignatureError)) throw e;
+          if (!(e instanceof utilsHelpers.SignatureError)) throw e;
         }
       }
 
