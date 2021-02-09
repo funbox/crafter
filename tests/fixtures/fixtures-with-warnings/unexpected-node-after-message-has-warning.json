@@ -1,0 +1,214 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "api"
+            }
+          ]
+        },
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
+      },
+      "content": [
+        {
+          "element": "copy",
+          "content": "Defines message.\nUses some unrecognizable list item after Message section.\nIt produces warning 'Ignoring unrecognized block \"+ wrong item\"'."
+        },
+        {
+          "element": "category",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "resourceGroup"
+                }
+              ]
+            },
+            "title": {
+              "element": "string",
+              "content": "My Group"
+            }
+          },
+          "content": [
+            {
+              "element": "message",
+              "content": [
+                {
+                  "element": "dataStructure",
+                  "content": {
+                    "element": "object",
+                    "content": [
+                      {
+                        "element": "member",
+                        "content": {
+                          "key": {
+                            "element": "string",
+                            "content": "name"
+                          },
+                          "value": {
+                            "element": "string",
+                            "attributes": {
+                              "samples": {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "string",
+                                    "content": "John"
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        },
+                        "attributes": {
+                          "typeAttributes": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "required"
+                              }
+                            ]
+                          }
+                        },
+                        "meta": {
+                          "description": {
+                            "element": "string",
+                            "content": "user name"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "element": "asset",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "messageBody"
+                        }
+                      ]
+                    }
+                  },
+                  "content": "{\n  \"name\": \"John\"\n}"
+                },
+                {
+                  "element": "asset",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "messageBodySchema"
+                        }
+                      ]
+                    }
+                  },
+                  "attributes": {
+                    "contentType": {
+                      "element": "string",
+                      "content": "application/schema+json"
+                    }
+                  },
+                  "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"name\": {\n      \"type\": \"string\",\n      \"description\": \"user name\"\n    }\n  },\n  \"required\": [\n    \"name\"\n  ]\n}"
+                }
+              ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Test Message"
+                }
+              },
+              "attributes": {
+                "unrecognizedBlocks": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "unrecognizedBlock"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "element": "annotation",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "warning"
+            }
+          ]
+        }
+      },
+      "attributes": {
+        "sourceMap": {
+          "element": "array",
+          "content": [
+            {
+              "element": "sourceMap",
+              "content": [
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 13
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 1
+                        }
+                      },
+                      "content": 256
+                    },
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 13
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 13
+                        }
+                      },
+                      "content": 13
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "content": "Ignoring unrecognized block \"+ wrong item\"."
+    }
+  ]
+}
