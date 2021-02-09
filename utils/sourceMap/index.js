@@ -1,4 +1,5 @@
 const getCharacterBlocksWithLineColumnInfo = require('../getCharacterBlocksWithLineColumnInfo');
+const getEndingLinefeedLengthInBytes = require('../getEndingLinefeedLengthInBytes');
 const getOffsetFromStartOfFileInBytes = require('../getOffsetFromStartOfFileInBytes');
 const getSourcePosZeroBased = require('../getSourcePosZeroBased');
 const linefeedBytes = require('../linefeedBytes');
@@ -259,11 +260,4 @@ function makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, sour
   }
   const charBlocks = getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
   return new SourceMap(byteBlocks, charBlocks);
-}
-
-function getEndingLinefeedLengthInBytes(lineIndex, sourceLines) {
-  if (lineIndex < sourceLines.length - 1) {
-    return linefeedBytes;
-  }
-  return 0;
 }
