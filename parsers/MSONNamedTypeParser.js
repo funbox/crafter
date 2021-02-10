@@ -7,6 +7,7 @@ const ValueMemberElement = require('./elements/ValueMemberElement');
 const EnumElement = require('./elements/EnumElement');
 const ObjectElement = require('./elements/ObjectElement');
 const SchemaNamedTypeElement = require('./elements/SchemaNamedTypeElement');
+const UnrecognizedBlockElement = require('./elements/UnrecognizedBlockElement');
 const DataStructureProcessor = require('../DataStructureProcessor');
 const ValueMemberProcessor = require('../ValueMemberProcessor');
 
@@ -150,6 +151,8 @@ module.exports = (Parsers) => {
             curNode = utils.nextNodeOfType(curNode, 'heading');
           }
         } else if (Parsers.SampleHeaderParser.sectionType(curNode, context) !== SectionTypes.undefined) {
+          let unrecognizedBlockDetected = false;
+
           if (!context.typeExtractingInProgress) {
             const valueMember = result.content;
 
@@ -199,6 +202,7 @@ module.exports = (Parsers) => {
                   concatSourceMaps(valueMember, childSourceMaps);
                 }
               } else {
+                unrecognizedBlockDetected = true;
                 const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
                 context.addWarning('Samples of arrays of non-primitive types are not supported', sourceMap);
               }
@@ -221,13 +225,29 @@ module.exports = (Parsers) => {
                   concatSourceMaps(valueMember, childSourceMaps);
                 }
               } else {
+                unrecognizedBlockDetected = true;
                 const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
                 context.addWarning('Samples of enum of non-primitive types are not supported', sourceMap);
               }
             }
           }
-          curNode = utils.nextNodeOfType(curNode, 'heading');
+
+          let lastNodeOfSection = curNode;
+          let nextNode = curNode;
+          do {
+            lastNodeOfSection = nextNode;
+            nextNode = utils.nextNode(nextNode);
+          } while (nextNode && nextNode.type !== 'heading');
+
+          if (unrecognizedBlockDetected) {
+            const sourceMap = utils.makeGenericSourceMapFromStartAndEndNodes(curNode, lastNodeOfSection, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+            result.content.unrecognizedBlocks.push(new UnrecognizedBlockElement(sourceMap));
+          }
+
+          curNode = nextNode;
         } else if (Parsers.DefaultHeaderParser.sectionType(curNode, context) !== SectionTypes.undefined) {
+          let unrecognizedBlockDetected = false;
+
           if (!context.typeExtractingInProgress) {
             const valueMember = result.content;
 
@@ -248,6 +268,12 @@ module.exports = (Parsers) => {
                 if (defaults.length > 1) {
                   const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
                   context.addWarning('Multiple definitions of "default" value', sourceMap);
+
+                  result.content.unrecognizedBlocks.push(
+                    new UnrecognizedBlockElement(
+                      utils.concatSourceMaps(defaults.slice(1).map(d => d.sourceMap)),
+                    ),
+                  );
                 }
                 valueMember.default = defaults[0];
               }
@@ -280,10 +306,17 @@ module.exports = (Parsers) => {
                   if (childResult.length > 1) {
                     const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
                     context.addWarning('Multiple definitions of "default" value', sourceMap);
+
+                    result.content.unrecognizedBlocks.push(
+                      new UnrecognizedBlockElement(
+                        utils.concatSourceMaps(childResult.slice(1).map(d => d.sourceMap)),
+                      ),
+                    );
                   }
                   valueMember.default = childResult[0];
                 }
               } else {
+                unrecognizedBlockDetected = true;
                 const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
                 context.addWarning('Default values of arrays of non-primitive types are not supported', sourceMap);
               }
@@ -306,16 +339,36 @@ module.exports = (Parsers) => {
                   if (childResult.length > 1) {
                     const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
                     context.addWarning('Multiple definitions of "default" value', sourceMap);
+
+                    result.content.unrecognizedBlocks.push(
+                      new UnrecognizedBlockElement(
+                        utils.concatSourceMaps(childResult.slice(1).map(d => d.sourceMap)),
+                      ),
+                    );
                   }
                   enumElement.defaultValue = childResult[0];
                 }
               } else {
+                unrecognizedBlockDetected = true;
                 const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
                 context.addWarning('Default values of enum of non-primitive types are not supported', sourceMap);
               }
             }
           }
-          curNode = utils.nextNodeOfType(curNode, 'heading');
+
+          let lastNodeOfSection = curNode;
+          let nextNode = curNode;
+          do {
+            lastNodeOfSection = nextNode;
+            nextNode = utils.nextNode(nextNode);
+          } while (nextNode && nextNode.type !== 'heading');
+
+          if (unrecognizedBlockDetected) {
+            const sourceMap = utils.makeGenericSourceMapFromStartAndEndNodes(curNode, lastNodeOfSection, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+            result.content.unrecognizedBlocks.push(new UnrecognizedBlockElement(sourceMap));
+          }
+
+          curNode = nextNode;
         } else {
           break;
         }

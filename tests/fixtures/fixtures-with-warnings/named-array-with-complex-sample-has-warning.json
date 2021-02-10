@@ -46,6 +46,16 @@
                     "element": "object"
                   }
                 ],
+                "attributes": {
+                  "unrecognizedBlocks": {
+                    "element": "array",
+                    "content": [
+                      {
+                        "element": "unrecognizedBlock"
+                      }
+                    ]
+                  }
+                },
                 "meta": {
                   "id": {
                     "element": "string",
