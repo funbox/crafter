@@ -36,10 +36,10 @@ module.exports = (Parsers) => {
       return SectionTypes.calculateSectionType(node, context, [
         Parsers.ResourceParser,
         Parsers.ResourceGroupParser,
-        Parsers.ResourcePrototypeParser,
         Parsers.DataStructureGroupParser,
         Parsers.SchemaStructureGroupParser,
         Parsers.ResourcePrototypesParser,
+        Parsers.ResourcePrototypeParser,
       ]);
     },
 
@@ -55,10 +55,6 @@ module.exports = (Parsers) => {
 
     processDescription(node, context, result) {
       return [node, result];
-    },
-
-    isUnexpectedNode(node, context) {
-      return context.sectionKeywordSignature(node) === SectionTypes.undefined && node.type !== 'heading';
     },
   });
   return true;

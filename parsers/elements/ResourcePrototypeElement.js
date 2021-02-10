@@ -25,6 +25,10 @@ class ResourcePrototypeElement {
      */
     this.responses = [];
     this.prototypes = prototypes;
+    /**
+     * @type {UnrecognizedBlockElement[]}
+     */
+    this.unrecognizedBlocks = [];
     this.sourceMap = null;
   }
 
@@ -48,6 +52,14 @@ class ResourcePrototypeElement {
     }
 
     addPrototypesToRefract(this, result, sourceMapsEnabled);
+
+    if (this.unrecognizedBlocks.length) {
+      result.attributes = result.attributes || {};
+      result.attributes.unrecognizedBlocks = {
+        element: Refract.elements.array,
+        content: this.unrecognizedBlocks.map(b => b.toRefract(sourceMapsEnabled)),
+      };
+    }
 
     return result;
   }
