@@ -34,6 +34,8 @@ class ResourceGroupElement {
      */
     this.subgroups = [];
     this.sourceMap = sourceMap;
+    // Тут не может быть unrecognizedBlocks, потому что такой блок либо уйдет в description
+    // либо распознается как unrecognizedBlocks одной из вложенных секций
   }
 
   /**
