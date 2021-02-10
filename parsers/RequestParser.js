@@ -82,7 +82,6 @@ module.exports = (Parsers) => {
 
     upperSectionType(node, context) {
       return SectionTypes.calculateSectionType(node, context, [
-        Parsers.ParameterParser,
         Parsers.RequestParser,
         Parsers.ResponseParser,
         Parsers.ActionParser,
