@@ -45,6 +45,10 @@ class ResponseElement {
      * @type {(SchemaElement|AttributesElement|BodyElement)[]}
      */
     this.content = [];
+    /**
+     * @type {UnrecognizedBlockElement[]}
+     */
+    this.unrecognizedBlocks = [];
     this.sourceMap = sourceMap;
   }
 
@@ -72,6 +76,13 @@ class ResponseElement {
 
     if (sourceMapEl) {
       result.attributes.sourceMap = sourceMapEl.toRefract();
+    }
+
+    if (this.unrecognizedBlocks.length) {
+      result.attributes.unrecognizedBlocks = {
+        element: Refract.elements.array,
+        content: this.unrecognizedBlocks.map(b => b.toRefract(sourceMapsEnabled)),
+      };
     }
 
     return result;

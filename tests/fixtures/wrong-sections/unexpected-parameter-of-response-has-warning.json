@@ -113,6 +113,14 @@
                                   }
                                 }
                               ]
+                            },
+                            "unrecognizedBlocks": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "unrecognizedBlock"
+                                }
+                              ]
                             }
                           }
                         }
@@ -123,16 +131,6 @@
                     "title": {
                       "element": "string",
                       "content": "List"
-                    }
-                  },
-                  "attributes": {
-                    "unrecognizedBlocks": {
-                      "element": "array",
-                      "content": [
-                        {
-                          "element": "unrecognizedBlock"
-                        }
-                      ]
                     }
                   }
                 },
