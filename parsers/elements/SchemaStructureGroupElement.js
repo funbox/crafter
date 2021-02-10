@@ -28,6 +28,10 @@ class SchemaStructureGroupElement {
      * @type {SchemaNamedTypeElement[]}
      */
     this.schemaStructures = [];
+    /**
+     * @type {UnrecognizedBlockElement[]}
+     */
+    this.unrecognizedBlocks = [];
     this.sourceMap = sourceMap;
   }
 
@@ -53,6 +57,14 @@ class SchemaStructureGroupElement {
       const sourceMapEl = new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file);
       result.attributes = {
         sourceMap: sourceMapEl.toRefract(),
+      };
+    }
+
+    if (this.unrecognizedBlocks.length) {
+      result.attributes = result.attributes || {};
+      result.attributes.unrecognizedBlocks = {
+        element: Refract.elements.array,
+        content: this.unrecognizedBlocks.map(b => b.toRefract(sourceMapsEnabled)),
       };
     }
 
