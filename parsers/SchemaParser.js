@@ -49,7 +49,6 @@ module.exports = (Parsers) => {
         Parsers.BodyParser,
         Parsers.HeadersParser,
         Parsers.SchemaParser,
-        Parsers.ParameterParser,
         Parsers.RequestParser,
         Parsers.ResponseParser,
         Parsers.ActionParser,
@@ -71,6 +70,8 @@ module.exports = (Parsers) => {
     makeSourceMap(node, context) {
       return utils.makeSourceMapForAsset(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
     },
+
+    allowLeavingNode: false,
   });
   return true;
 };
