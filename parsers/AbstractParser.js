@@ -47,18 +47,22 @@ module.exports = {
     let curNode = node;
 
     while (curNode) {
-      if (this.nestedSectionType(curNode, context) !== SectionTypes.undefined
-        && (this.allowLeavingNode || utils.isCurrentNodeOrChild(curNode, context.rootNode))
-      ) {
-        [curNode, result] = this.processNestedSection(curNode, context, result);
-      } else if (this.isUnexpectedNode(curNode, context)) {
-        const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-        result.unrecognizedBlocks.push(new UnrecognizedBlockElement(sourceMap));
-        context.addWarning(`Ignoring unrecognized block "${utils.nodeText(curNode, context.sourceLines)}".`, sourceMap);
-        curNode = utils.nextNode(curNode);
-      } else {
-        break;
+      let shouldContinue = false;
+
+      if (this.allowLeavingNode || utils.isCurrentNodeOrChild(curNode, context.rootNode)) {
+        if (this.nestedSectionType(curNode, context) !== SectionTypes.undefined) {
+          [curNode, result] = this.processNestedSection(curNode, context, result);
+          shouldContinue = true;
+        } else if (this.isUnexpectedNode(curNode, context)) {
+          const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+          result.unrecognizedBlocks.push(new UnrecognizedBlockElement(sourceMap));
+          context.addWarning(`Ignoring unrecognized block "${utils.nodeText(curNode, context.sourceLines)}".`, sourceMap);
+          curNode = utils.nextNode(curNode);
+          shouldContinue = true;
+        }
       }
+
+      if (!shouldContinue) break;
     }
 
     return [curNode, result];
