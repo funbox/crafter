@@ -25,6 +25,10 @@ class BlueprintElement {
     this.meta = meta;
     this.isError = false;
     /**
+     * @type {UnrecognizedBlockElement[]}
+     */
+    this.unrecognizedBlocks = [];
+    /**
      * @type {SourceMap}
      */
     this.sourceMap = null;
@@ -71,6 +75,14 @@ class BlueprintElement {
       const sourceMapEl = new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file);
       result.attributes = result.attributes || {};
       result.attributes.sourceMap = sourceMapEl.toRefract();
+    }
+
+    if (this.unrecognizedBlocks.length) {
+      result.attributes = result.attributes || {};
+      result.attributes.unrecognizedBlocks = {
+        element: Refract.elements.array,
+        content: this.unrecognizedBlocks.map(b => b.toRefract(sourceMapsEnabled)),
+      };
     }
 
     return {

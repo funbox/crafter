@@ -7,6 +7,7 @@ const BlueprintElement = require('./elements/BlueprintElement');
 const StringElement = require('./elements/StringElement');
 const MetaDataElement = require('./elements/MetaDataElement');
 const AnnotationElement = require('./elements/AnnotationElement');
+const UnrecognizedBlockElement = require('./elements/UnrecognizedBlockElement');
 
 const ImportRegex = /^[Ii]mport\s+(.+)$/;
 
@@ -103,7 +104,9 @@ module.exports = (Parsers) => {
               break;
             default: {
               const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-              context.addWarning('unknown node', sourceMap);
+              result.unrecognizedBlocks.push(new UnrecognizedBlockElement(sourceMap));
+              sourceMaps.push(sourceMap);
+              context.addWarning(`Ignoring unrecognized block "${utils.nodeText(curNode, context.sourceLines)}".`, sourceMap);
               curNode = curNode.next;
             }
           }
