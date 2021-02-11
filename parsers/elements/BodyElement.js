@@ -27,10 +27,6 @@ class BodyElement {
      * @type {string}
      */
     this.contentType = undefined;
-    /**
-     * @type {UnrecognizedBlockElement[]}
-     */
-    this.unrecognizedBlocks = [];
     this.sourceMap = null;
   }
 
@@ -59,14 +55,6 @@ class BodyElement {
       result.attributes.contentType = {
         element: Refract.elements.string,
         content: this.contentType,
-      };
-    }
-
-    if (this.unrecognizedBlocks.length) {
-      result.attributes = result.attributes || {};
-      result.attributes.unrecognizedBlocks = {
-        element: Refract.elements.array,
-        content: this.unrecognizedBlocks.map(b => b.toRefract(sourceMapsEnabled)),
       };
     }
 

@@ -39,8 +39,8 @@ module.exports = (Parsers) => {
     upperSectionType(node, context) {
       return SectionTypes.calculateSectionType(node, context, [
         Parsers.BodyParser,
+        Parsers.SchemaParser,
         Parsers.HeadersParser,
-        Parsers.ParameterParser,
         Parsers.RequestParser,
         Parsers.ResponseParser,
         Parsers.ActionParser,
@@ -62,6 +62,8 @@ module.exports = (Parsers) => {
     makeSourceMap(node, context) {
       return utils.makeSourceMapForAsset(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
     },
+
+    allowLeavingNode: false,
   });
   return true;
 };
