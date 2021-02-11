@@ -33,6 +33,16 @@ class DataStructureProcessor {
     if (valueMember.isEnum()) {
       this.processEnum(valueMember, curNode, context);
     }
+
+    if (valueMember.unrecognizedBlocks.length > 0) {
+      const unrecognizedBlocksSourceMaps = valueMember.unrecognizedBlocks.map(ub => ub.sourceMap);
+
+      if (valueMember.sourceMap) {
+        valueMember.sourceMap = utils.concatSourceMaps([valueMember.sourceMap, ...unrecognizedBlocksSourceMaps]);
+      } else {
+        valueMember.sourceMap = utils.concatSourceMaps(unrecognizedBlocksSourceMaps);
+      }
+    }
   }
 
   processPrimitive(primitiveElement, node, context) {
