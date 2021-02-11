@@ -42,13 +42,22 @@ module.exports = (Parsers) => {
       result.dataStructures.push(childResult);
       const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
       const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
-      result.sourceMap = utils.mergeSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
+      result.sourceMap = utils.concatSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
 
       return [nextNode, result];
     },
 
     processDescription(node, context, result) {
       return [node, result];
+    },
+
+    finalize(context, result) {
+      const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
+      const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
+      const unrecognizedBlocksSourceMaps = result.unrecognizedBlocks.map(ub => ub.sourceMap);
+      result.sourceMap = utils.concatSourceMaps([result.sourceMap, ...unrecognizedBlocksSourceMaps], sourceBuffer, linefeedOffsets);
+
+      return result;
     },
   });
   return true;
