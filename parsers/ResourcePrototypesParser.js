@@ -50,6 +50,15 @@ module.exports = (Parsers) => {
     processDescription(node, context, result) {
       return [node, result];
     },
+
+    finalize(context, result) {
+      const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
+      const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
+      const unrecognizedBlocksSourceMaps = result.unrecognizedBlocks.map(ub => ub.sourceMap);
+      result.sourceMap = utils.concatSourceMaps([result.sourceMap, ...unrecognizedBlocksSourceMaps], sourceBuffer, linefeedOffsets);
+
+      return result;
+    },
   });
   return true;
 };
