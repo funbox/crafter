@@ -241,7 +241,7 @@ module.exports = (Parsers) => {
 
           if (unrecognizedBlockDetected) {
             const sourceMap = utils.makeGenericSourceMapFromStartAndEndNodes(curNode, lastNodeOfSection, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-            result.content.unrecognizedBlocks.push(new UnrecognizedBlockElement(sourceMap));
+            appendUnrecognizedBlocks([sourceMap]);
           }
 
           curNode = nextNode;
@@ -269,11 +269,7 @@ module.exports = (Parsers) => {
                   const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
                   context.addWarning('Multiple definitions of "default" value', sourceMap);
 
-                  result.content.unrecognizedBlocks.push(
-                    new UnrecognizedBlockElement(
-                      utils.concatSourceMaps(defaults.slice(1).map(d => d.sourceMap)),
-                    ),
-                  );
+                  appendUnrecognizedBlocks(defaults.slice(1).map(d => d.sourceMap));
                 }
                 valueMember.default = defaults[0];
               }
@@ -307,11 +303,7 @@ module.exports = (Parsers) => {
                     const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
                     context.addWarning('Multiple definitions of "default" value', sourceMap);
 
-                    result.content.unrecognizedBlocks.push(
-                      new UnrecognizedBlockElement(
-                        utils.concatSourceMaps(childResult.slice(1).map(d => d.sourceMap)),
-                      ),
-                    );
+                    appendUnrecognizedBlocks(childResult.slice(1).map(d => d.sourceMap));
                   }
                   valueMember.default = childResult[0];
                 }
@@ -340,11 +332,7 @@ module.exports = (Parsers) => {
                     const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
                     context.addWarning('Multiple definitions of "default" value', sourceMap);
 
-                    result.content.unrecognizedBlocks.push(
-                      new UnrecognizedBlockElement(
-                        utils.concatSourceMaps(childResult.slice(1).map(d => d.sourceMap)),
-                      ),
-                    );
+                    appendUnrecognizedBlocks(childResult.slice(1).map(d => d.sourceMap));
                   }
                   enumElement.defaultValue = childResult[0];
                 }
@@ -365,7 +353,7 @@ module.exports = (Parsers) => {
 
           if (unrecognizedBlockDetected) {
             const sourceMap = utils.makeGenericSourceMapFromStartAndEndNodes(curNode, lastNodeOfSection, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-            result.content.unrecognizedBlocks.push(new UnrecognizedBlockElement(sourceMap));
+            appendUnrecognizedBlocks([sourceMap]);
           }
 
           curNode = nextNode;
@@ -381,6 +369,21 @@ module.exports = (Parsers) => {
       }
 
       return [curNode, result];
+
+      function appendUnrecognizedBlocks(sourceMaps) {
+        result.content.unrecognizedBlocks.push(
+          ...sourceMaps.map(sm => new UnrecognizedBlockElement(sm)),
+        );
+
+        const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
+        const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
+        const sm = utils.concatSourceMaps(sourceMaps, sourceBuffer, linefeedOffsets);
+        if (result.content.sourceMap) {
+          result.content.sourceMap = utils.concatSourceMaps([result.content.sourceMap, sm], sourceBuffer, linefeedOffsets);
+        } else {
+          result.content.sourceMap = sm;
+        }
+      }
     },
 
     processDescription(node, context, result) {
