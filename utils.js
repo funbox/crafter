@@ -663,7 +663,6 @@ const utils = {
   mergeHeadersSections(headersSections) {
     return headersSections.reduce((result, headersSection) => {
       result.headers.push(...headersSection.headers);
-      result.unrecognizedBlocks.push(...headersSection.unrecognizedBlocks);
       result.sourceMap = result.sourceMap
         ? this.concatSourceMaps([result.sourceMap, headersSection.sourceMap])
         : headersSection.sourceMap;

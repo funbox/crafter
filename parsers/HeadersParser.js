@@ -141,6 +141,8 @@ module.exports = (Parsers) => {
 
       return { key, val };
     },
+
+    allowLeavingNode: false,
   });
   return true;
 };
