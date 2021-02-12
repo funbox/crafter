@@ -74,18 +74,20 @@ module.exports = (Parsers) => {
 
       const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
       const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
-      result.sourceMap = utils.mergeSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
+      result.sourceMap = utils.concatSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
 
       return [nextNode, result];
     },
 
     finalize(context, result) {
-      if (result.description) {
-        const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
-        const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
-        result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
-      }
+      const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
+      const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
+      const unrecognizedBlocksSourceMaps = result.unrecognizedBlocks.map(ub => ub.sourceMap);
+      result.sourceMap = utils.concatSourceMaps([result.sourceMap, ...unrecognizedBlocksSourceMaps], sourceBuffer, linefeedOffsets);
 
+      if (result.description) {
+        result.sourceMap = utils.concatSourceMaps([result.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
+      }
       const hasCustomBody = result.content.find(item => (item instanceof BodyElement));
       const hasCustomSchema = result.content.find(item => (item instanceof SchemaElement));
 
