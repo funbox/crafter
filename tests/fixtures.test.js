@@ -118,91 +118,91 @@ const testFilesFrom = (location) => {
   });
 };
 
-describe('common fixtures', async () => {
+describe('common fixtures', () => {
   testFilesFrom(testPath.base);
 });
 
-describe('resource-proto fixtures', async () => {
+describe('resource-proto fixtures', () => {
   testFilesFrom(testPath.resourceProto);
 });
 
-describe('arrays fixtures', async () => {
+describe('arrays fixtures', () => {
   testFilesFrom(testPath.arrays);
 });
 
-describe('enum fixtures', async () => {
+describe('enum fixtures', () => {
   testFilesFrom(testPath.enum);
 });
 
-describe('one-of-type fixtures', async () => {
+describe('one-of-type fixtures', () => {
   testFilesFrom(testPath.oneOf);
 });
 
-describe('import fixtures', async () => {
+describe('import fixtures', () => {
   testFilesFrom(testPath.import);
 });
 
-describe('wrong-sections fixtures', async () => {
+describe('wrong-sections fixtures', () => {
   testFilesFrom(testPath.wrongSections);
 });
 
-describe('fixtures with errors', async () => {
+describe('fixtures with errors', () => {
   testFilesFrom(testPath.fixturesWithErrors);
 });
 
-describe('fixtures with warnings', async () => {
+describe('fixtures with warnings', () => {
   testFilesFrom(testPath.fixturesWithWarnings);
 });
 
-describe('copy fixtures', async () => {
+describe('copy fixtures', () => {
   testFilesFrom(testPath.copy);
 });
 
-describe('source maps fixtures', async () => {
+describe('source maps fixtures', () => {
   testFilesFrom(testPath.sourceMaps);
 });
 
-describe('fixtures with member separators', async () => {
+describe('fixtures with member separators', () => {
   testFilesFrom(testPath.groupMemberSeparators);
 });
 
-describe('fixtures with block description', async () => {
+describe('fixtures with block description', () => {
   testFilesFrom(testPath.blockDescription);
 });
 
-describe('schema fixtures', async () => {
+describe('schema fixtures', () => {
   testFilesFrom(testPath.schema);
 });
 
-describe('pattern fixtures', async () => {
+describe('pattern fixtures', () => {
   testFilesFrom(testPath.pattern);
 });
 
-describe('format fixtures', async () => {
+describe('format fixtures', () => {
   testFilesFrom(testPath.format);
 });
 
-describe('fixed-size fixtures', async () => {
+describe('fixed-size fixtures', () => {
   testFilesFrom(testPath.fixedSize);
 });
 
-describe('fixtures with subgroups and messages', async () => {
+describe('fixtures with subgroups and messages', () => {
   testFilesFrom(testPath.messageGroups);
 });
 
-describe('recursive arrays fixtures', async () => {
+describe('recursive arrays fixtures', () => {
   testFilesFrom(testPath.recursiveArrays);
 });
 
-describe('recursive object fixtures', async () => {
+describe('recursive object fixtures', () => {
   testFilesFrom(testPath.recursiveObjects);
 });
 
-describe('fixtures with duplicated resources', async () => {
+describe('fixtures with duplicated resources', () => {
   testFilesFrom(testPath.duplicates);
 });
 
-describe('fixtures with inheritance', async () => {
+describe('fixtures with inheritance', () => {
   testFilesFrom(testPath.inheritance);
 });
 
