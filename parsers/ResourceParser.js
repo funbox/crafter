@@ -141,11 +141,15 @@ module.exports = (Parsers) => {
     },
 
     finalize(context, result) {
+      const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
+      const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
+      const unrecognizedBlocksSourceMaps = result.unrecognizedBlocks.map(ub => ub.sourceMap);
+
       if (result.description) {
-        const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
-        const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
         result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
       }
+
+      result.sourceMap = utils.concatSourceMaps([result.sourceMap, ...unrecognizedBlocksSourceMaps], sourceBuffer, linefeedOffsets);
 
       context.resourcePrototypes.pop(); // очищаем стек с прототипами данного ресурса
       context.popFrame();
