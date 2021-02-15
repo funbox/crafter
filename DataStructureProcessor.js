@@ -79,7 +79,7 @@ class DataStructureProcessor {
           samples.push(...childResult);
           break;
         default: {
-          context.addWarning('sub-types of primitive types should not have nested members, ignoring unrecognized block', sourceMap);
+          context.addWarning(`sub-types of primitive types should not have nested members, ignoring unrecognized block "${utils.nodeText(curNode, context.sourceLines)}".`, sourceMap);
           const curNodeSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
           primitiveElement.unrecognizedBlocks.push(new UnrecognizedBlockElement(curNodeSourceMap));
           nextNode = utils.nextNode(curNode);
@@ -206,7 +206,7 @@ class DataStructureProcessor {
           break;
         }
         default: {
-          context.addWarning('Ignoring unrecognized block', sourceMap);
+          context.addWarning(`Ignoring unrecognized block "${utils.nodeText(curNode, context.sourceLines)}".`, sourceMap);
           const curNodeSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
           arrayElement.unrecognizedBlocks.push(new UnrecognizedBlockElement(curNodeSourceMap));
           nextNode = utils.nextNode(curNode);
@@ -322,7 +322,7 @@ class DataStructureProcessor {
           break;
         default: {
           const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-          context.addWarning('Ignoring unrecognized block', sourceMap);
+          context.addWarning(`Ignoring unrecognized block "${utils.nodeText(curNode, context.sourceLines)}".`, sourceMap);
           valueMember.unrecognizedBlocks.push(new UnrecognizedBlockElement(sourceMap));
           nextNode = utils.nextNode(curNode);
         }
@@ -448,7 +448,7 @@ class DataStructureProcessor {
         }
         default: {
           const errorSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-          context.addWarning('Ignoring unrecognized block', errorSourceMap);
+          context.addWarning(`Ignoring unrecognized block "${utils.nodeText(curNode, context.sourceLines)}".`, errorSourceMap);
           valueMember.unrecognizedBlocks.push(new UnrecognizedBlockElement(errorSourceMap));
           nextNode = utils.nextNode(curNode);
         }
