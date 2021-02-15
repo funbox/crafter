@@ -196,6 +196,29 @@
                               "content": "required"
                             }
                           ]
+                        },
+                        "sourceMap": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "sourceMap",
+                              "content": [
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "number",
+                                      "content": 157
+                                    },
+                                    {
+                                      "element": "number",
+                                      "content": 2
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
                         }
                       },
                       "meta": {
@@ -248,6 +271,29 @@
                             {
                               "element": "string",
                               "content": "required"
+                            }
+                          ]
+                        },
+                        "sourceMap": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "sourceMap",
+                              "content": [
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "number",
+                                      "content": 163
+                                    },
+                                    {
+                                      "element": "number",
+                                      "content": 2
+                                    }
+                                  ]
+                                }
+                              ]
                             }
                           ]
                         }

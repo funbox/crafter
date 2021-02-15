@@ -1,6 +1,7 @@
 const Refract = require('../../Refract');
 const utils = require('../../utils');
 const StringElement = require('./StringElement');
+const SourceMapElement = require('./SourceMapElement');
 
 /**
  * Параметр URL
@@ -88,6 +89,11 @@ class ParameterElement {
 
     if (this.enumerations) {
       result.content.value.attributes.enumerations = this.enumerations.toRefract(sourceMapsEnabled);
+    }
+
+    if (sourceMapsEnabled && this.sourceMap) {
+      const sourceMapEl = new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file);
+      result.attributes.sourceMap = sourceMapEl.toRefract();
     }
 
     return result;
