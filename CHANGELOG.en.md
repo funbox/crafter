@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.7.0 (15.02.2021)
+
+* Update dependencies to pass audit.
+
 ## 2.6.0 (29.01.2021)
 
 * Check allowed attributes of an element.
