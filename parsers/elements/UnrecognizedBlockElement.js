@@ -6,7 +6,7 @@ const SourceMapElement = require('./SourceMapElement');
  */
 class UnrecognizedBlockElement {
   /**
-   * @param {SourceMap=} sourceMap
+   * @param {SourceMap} sourceMap
    */
   constructor(sourceMap) {
     this.sourceMap = sourceMap;
