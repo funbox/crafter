@@ -47,9 +47,8 @@ module.exports = (Parsers) => {
         title,
         typeAttributes,
         descriptionEl,
+        sourceMap,
       );
-
-      result.sourceMap = sourceMap;
 
       if (signature.rest) {
         context.data.startOffset = text.length - signature.rest.length;

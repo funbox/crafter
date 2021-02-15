@@ -26,8 +26,9 @@ class ParameterElement {
    * @param {StringElement} title
    * @param {StringElement[]} typeAttributes - в данный момент здесь может быть только атрибут required
    * @param {StringElement} description
+   * @param {SourceMap} sourceMap
    */
-  constructor(name, value, title, typeAttributes, description) {
+  constructor(name, value, title, typeAttributes, description, sourceMap) {
     const resolvedType = utils.resolveType(title.string);
 
     this.name = name;
@@ -45,7 +46,7 @@ class ParameterElement {
      * @type {ParameterMembersElement}
      */
     this.enumerations = null;
-    this.sourceMap = null;
+    this.sourceMap = sourceMap;
   }
 
   /**
@@ -91,7 +92,7 @@ class ParameterElement {
       result.content.value.attributes.enumerations = this.enumerations.toRefract(sourceMapsEnabled);
     }
 
-    if (sourceMapsEnabled && this.sourceMap) {
+    if (sourceMapsEnabled) {
       const sourceMapEl = new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file);
       result.attributes.sourceMap = sourceMapEl.toRefract();
     }
