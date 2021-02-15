@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.8.0 (15.02.2021)
+
+* Add unrecognizedBlocks to AST.
+
 ## 2.7.0 (15.02.2021)
 
 * Update dependencies to pass audit.
