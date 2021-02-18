@@ -245,7 +245,7 @@ class DataStructureProcessor {
         if (!realValue.valid) {
           context.addWarning(`Invalid value "${member.value}" for "${predefinedType}" type`, sourceMap);
         }
-        member.value = realValue.valid ? realValue.value : utils.defaultValue(predefinedType);
+        member.value = realValue.valid ? realValue.value : utils.getDefaultValue(predefinedType);
       }
     });
 
@@ -491,7 +491,7 @@ class DataStructureProcessor {
         context.addTypeMismatchWarning(member.value, enumElement.type, sourceMap);
       }
 
-      member.value = converted.valid ? converted.value : utils.defaultValue(enumElement.type);
+      member.value = converted.valid ? converted.value : utils.getDefaultValue(enumElement.type);
 
       if (!member.type) member.type = enumElement.type;
     });

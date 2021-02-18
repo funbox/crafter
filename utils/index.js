@@ -2,7 +2,7 @@ const appendDescriptionDelimiter = require('./appendDescriptionDelimiter');
 const buildPrototypeElements = require('./buildPrototypeElements');
 const compareAttributeTypes = require('./compareAttributeTypes');
 const convertType = require('./convertType');
-const defaultValue = require('./defaultValue');
+const getDefaultValue = require('./getDefaultValue');
 const extractDescription = require('./extractDescription');
 const getCharacterBlocksWithLineColumnInfo = require('./getCharacterBlocksWithLineColumnInfo');
 const getOffsetFromStartOfFileInBytes = require('./getOffsetFromStartOfFileInBytes');
@@ -28,7 +28,7 @@ const utils = {
   buildPrototypeElements,
   compareAttributeTypes,
   convertType,
-  defaultValue,
+  getDefaultValue,
   extractDescription,
   getCharacterBlocksWithLineColumnInfo,
   getOffsetFromStartOfFileInBytes,

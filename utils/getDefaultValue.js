@@ -1,4 +1,4 @@
-module.exports = function defaultValue(type) {
+module.exports = function getDefaultValue(type) {
   const valueByType = {
     boolean: true,
     number: 1,
