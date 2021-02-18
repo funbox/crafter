@@ -1,4 +1,4 @@
-module.exports = function typeIsUsedByElement(typeName, typeElement, dataTypes) {
+module.exports = function isTypeUsedByElement(typeName, typeElement, dataTypes) {
   if (typeElement.nestedTypes && typeElement.nestedTypes.find(({ type }) => type === typeName)) return true;
 
   const propertyMembers = typeElement.content && typeElement.content.propertyMembers;
@@ -8,7 +8,7 @@ module.exports = function typeIsUsedByElement(typeName, typeElement, dataTypes) 
 
   return propertyMembers.some(pm => pm.value && (
     pm.value.type === typeName
-    || dataTypes[pm.value.type] && typeIsUsedByElement(typeName, dataTypes[pm.value.type], dataTypes)
-    || typeIsUsedByElement(typeName, pm.value, dataTypes)
+    || dataTypes[pm.value.type] && isTypeUsedByElement(typeName, dataTypes[pm.value.type], dataTypes)
+    || isTypeUsedByElement(typeName, pm.value, dataTypes)
   ));
 };

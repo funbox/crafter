@@ -61,7 +61,7 @@ class AttributesElement {
     const localFlags = new Flags(flags);
 
     const contentTypeEl = dataTypes[this.content.type];
-    if (contentTypeEl && utils.typeIsUsedByElement(this.content.type, contentTypeEl, dataTypes)) {
+    if (contentTypeEl && utils.isTypeUsedByElement(this.content.type, contentTypeEl, dataTypes)) {
       localFlags.skipTypesInlining = true;
     }
 
@@ -79,7 +79,7 @@ class AttributesElement {
         definitions[type] = typeSchema;
 
         typeUsedTypes.forEach(t => {
-          if (utils.typeIsReferred(t, typeSchema) && !types.includes(t) && !definitions[t]) {
+          if (utils.isTypeReferred(t, typeSchema) && !types.includes(t) && !definitions[t]) {
             types.push(t);
           }
         });

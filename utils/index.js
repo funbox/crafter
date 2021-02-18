@@ -19,8 +19,8 @@ const resolveType = require('./resolveType');
 const sourceMap = require('./sourceMap');
 const splitTypeAttributes = require('./splitTypeAttributes');
 const typeAttributesToRefract = require('./typeAttributesToRefract');
-const typeIsReferred = require('./typeIsReferred');
-const typeIsUsedByElement = require('./typeIsUsedByElement');
+const isTypeReferred = require('./isTypeReferred');
+const isTypeUsedByElement = require('./isTypeUsedByElement');
 const validateAttributesConsistency = require('./validateAttributesConsistency');
 
 const utils = {
@@ -45,8 +45,8 @@ const utils = {
   ...sourceMap,
   splitTypeAttributes,
   typeAttributesToRefract,
-  typeIsUsedByElement,
-  typeIsReferred,
+  isTypeUsedByElement,
+  isTypeReferred,
   validateAttributesConsistency,
 };
 
