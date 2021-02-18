@@ -2,7 +2,7 @@ const getCharacterBlocksWithLineColumnInfo = require('../getCharacterBlocksWithL
 const getEndingLinefeedLengthInBytes = require('../getEndingLinefeedLengthInBytes');
 const getOffsetFromStartOfFileInBytes = require('../getOffsetFromStartOfFileInBytes');
 const getSourcePosZeroBased = require('../getSourcePosZeroBased');
-const linefeedBytes = require('../linefeedBytes');
+const { LINEFEED_BYTES } = require('../../constants');
 const utilsNode = require('../node');
 const utilsLog = require('../log');
 
@@ -94,13 +94,13 @@ module.exports = {
         const lineWithoutIndentation = line.slice(indentation);
         let length = Buffer.byteLength(lineWithoutIndentation);
         if (lineIndex < sourceLines.length - 1) {
-          length += linefeedBytes;
+          length += LINEFEED_BYTES;
         }
         byteBlocks.push({ offset, length, file: node.file });
         offset += length;
         offset += indentation;
       } else {
-        offset += Buffer.byteLength(line) + linefeedBytes;
+        offset += Buffer.byteLength(line) + LINEFEED_BYTES;
       }
     }
 
@@ -240,7 +240,7 @@ function makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, sour
       leadingSpaces = leadingSpaces < 0 ? 0 : leadingSpaces;
       const lineIndentation = leadingSpaces - indentation;
       const unpaddedLine = line.trim();
-      const length = Buffer.byteLength(unpaddedLine) + linefeedBytes;
+      const length = Buffer.byteLength(unpaddedLine) + LINEFEED_BYTES;
       byteBlock.length += length;
       byteBlock.offset += lineIndentation;
       byteBlock.file = startNode.file;
@@ -252,7 +252,7 @@ function makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, sour
       }
     }
     if (node.next && node.next.type === 'paragraph') {
-      byteBlock.length += linefeedBytes;
+      byteBlock.length += LINEFEED_BYTES;
     }
     if (byteBlock.length > 1) {
       byteBlocks.push(byteBlock);

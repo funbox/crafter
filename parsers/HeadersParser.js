@@ -1,3 +1,4 @@
+const { LINEFEED_BYTES } = require('../constants');
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
 const HeadersElement = require('./elements/HeadersElement');
@@ -91,7 +92,7 @@ module.exports = (Parsers) => {
           const byteBlocks = [block];
           const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
           const sourceMap = new utils.SourceMap(byteBlocks, charBlocks);
-          offset += utils.linefeedBytes;
+          offset += LINEFEED_BYTES;
 
           const header = this.parseHeader(contentLine, context, { sourceMap });
 
@@ -105,7 +106,7 @@ module.exports = (Parsers) => {
         } else {
           const sourceLine = sourceLines[startLineIndex + contentLineIndex];
           offset += Buffer.byteLength(sourceLine);
-          offset += utils.linefeedBytes;
+          offset += LINEFEED_BYTES;
         }
       });
       return headers;

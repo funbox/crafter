@@ -7,7 +7,6 @@ const extractDescription = require('./extractDescription');
 const getCharacterBlocksWithLineColumnInfo = require('./getCharacterBlocksWithLineColumnInfo');
 const getOffsetFromStartOfFileInBytes = require('./getOffsetFromStartOfFileInBytes');
 const getSourcePosZeroBased = require('./getSourcePosZeroBased');
-const linefeedBytes = require('./linefeedBytes');
 const log = require('./log');
 const makeStringElement = require('./makeStringElement');
 const markdownSourceToAST = require('./markdownSourceToAST');
@@ -33,7 +32,6 @@ const utils = {
   getCharacterBlocksWithLineColumnInfo,
   getOffsetFromStartOfFileInBytes,
   getSourcePosZeroBased,
-  linefeedBytes,
   ...log,
   makeStringElement,
   markdownSourceToAST,

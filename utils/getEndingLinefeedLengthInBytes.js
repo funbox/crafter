@@ -1,8 +1,8 @@
-const linefeedBytes = require('./linefeedBytes');
+const { LINEFEED_BYTES } = require('../constants');
 
 module.exports = function getEndingLinefeedLengthInBytes(lineIndex, sourceLines) {
   if (lineIndex < sourceLines.length - 1) {
-    return linefeedBytes;
+    return LINEFEED_BYTES;
   }
   return 0;
 };
