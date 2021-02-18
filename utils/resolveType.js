@@ -1,4 +1,4 @@
-const types = require('../types');
+const { types } = require('../constants');
 
 module.exports = function resolveType(type) {
   const result = {

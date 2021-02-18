@@ -1,5 +1,5 @@
 const SectionTypes = require('../SectionTypes');
-const types = require('../types');
+const { types } = require('../constants');
 const utils = require('../utils');
 const PropertyMemberElement = require('./elements/PropertyMemberElement');
 const StringElement = require('./elements/StringElement');

@@ -1,6 +1,6 @@
 const Refract = require('../../Refract');
 const utils = require('../../utils');
-const types = require('../../types');
+const { types } = require('../../constants');
 const SourceMapElement = require('./SourceMapElement');
 const Flags = require('../../Flags');
 

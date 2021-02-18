@@ -1,6 +1,6 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
-const types = require('../types');
+const { types } = require('../constants');
 const { parser: SignatureParser, traits: ParserTraits } = require('../SignatureParser');
 const AttributesElement = require('./elements/AttributesElement');
 const DataStructureProcessor = require('../DataStructureProcessor');

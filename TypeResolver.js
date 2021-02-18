@@ -1,7 +1,7 @@
-const types = require('./types');
-const standardTypes = require('./types').standardTypes;
 const MSONMixinElement = require('./parsers/elements/MSONMixinElement');
 const PropertyMemberElement = require('./parsers/elements/PropertyMemberElement');
+
+const { types } = require('./constants');
 const utils = require('./utils');
 
 const CrafterError = utils.CrafterError;
@@ -67,7 +67,7 @@ class TypeResolver {
 
       const baseTypeName = targetType.type;
 
-      if (baseTypeName && standardTypes.indexOf(baseTypeName) === -1) {
+      if (baseTypeName && types.standardTypes.indexOf(baseTypeName) === -1) {
         const baseType = this.types[baseTypeName];
 
         if (!baseType) {
@@ -175,7 +175,7 @@ class TypeResolver {
         throw new CrafterError(`Type "${name}" not found`);
       }
 
-      if (name && !standardTypes.includes(name)) {
+      if (name && !types.standardTypes.includes(name)) {
         return getBaseType(name);
       }
 
@@ -184,7 +184,7 @@ class TypeResolver {
       return [name, (resolvedType.nestedTypes || []).map(({ type }) => type)];
     };
 
-    if (standardTypes.includes(typeName)) {
+    if (types.standardTypes.includes(typeName)) {
       return [typeName, []];
     }
 

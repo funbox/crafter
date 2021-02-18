@@ -1,6 +1,6 @@
 const { splitValues } = require('./SignatureParser');
 const { CrafterError, convertType, makeSourceMapsForInlineValues } = require('./utils');
-const types = require('./types');
+const { types } = require('./constants');
 
 const ArrayElement = require('./parsers/elements/ArrayElement');
 const SampleValueElement = require('./parsers/elements/SampleValueElement');

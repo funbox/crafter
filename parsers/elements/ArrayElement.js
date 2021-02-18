@@ -1,5 +1,5 @@
 const utils = require('../../utils');
-const types = require('../../types');
+const { types } = require('../../constants');
 const Flags = require('../../Flags');
 const MSONMixinElement = require('./MSONMixinElement');
 
