@@ -1,6 +1,7 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
 const OneOfTypeOptionElement = require('./elements/OneOfTypeOptionElement');
+const { parser: SignatureParser } = require('../SignatureParser');
 
 const oneOfTypeOptionRegex = /^[Pp]roperties/;
 
@@ -9,10 +10,20 @@ module.exports = (Parsers) => {
     allowLeavingNode: false,
 
     processSignature(node, context) {
+      const subject = utils.nodeText(node.firstChild, context.sourceLines);
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const signature = new SignatureParser(subject, context.languageServerMode);
+
+      signature.warnings.forEach(warning => context.addWarning(warning, sourceMap));
+
+      let description;
+      if (signature.description) {
+        description = utils.makeStringElement(signature.description, signature.descriptionOffset, node.firstChild, context);
+      }
+
       const optionMembersList = node.firstChild.next;
       const nextNode = (optionMembersList && optionMembersList.firstChild) || utils.nextNode(node);
-      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-      return [nextNode, new OneOfTypeOptionElement([], sourceMap)];
+      return [nextNode, new OneOfTypeOptionElement([], description, sourceMap)];
     },
 
     sectionType(node, context) {

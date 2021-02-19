@@ -55,7 +55,7 @@ module.exports = (Parsers) => {
         case SectionTypes.msonAttribute: {
           const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
           [nextNode, childResult] = Parsers.MSONAttributeParser.parse(node, context);
-          result.options.push(new OneOfTypeOptionElement([childResult], sourceMap));
+          result.options.push(new OneOfTypeOptionElement([childResult], null, sourceMap));
           break;
         }
         default:

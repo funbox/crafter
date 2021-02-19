@@ -30,8 +30,9 @@ class OneOfTypeOptionElement {
    * @param {PropertyMemberElement[]} members
    * @param {SourceMap} sourceMap
    */
-  constructor(members, sourceMap) {
+  constructor(members, description, sourceMap) {
     this.members = members;
+    this.description = description;
     this.sourceMap = sourceMap;
   }
 
@@ -43,6 +44,12 @@ class OneOfTypeOptionElement {
       element: Refract.elements.option,
       content: this.members.map(member => member.toRefract(sourceMapsEnabled)),
     };
+
+    if (this.description) {
+      result.meta = {
+        description: this.description.toRefract(sourceMapsEnabled),
+      };
+    }
 
     if (sourceMapsEnabled) {
       result.attributes = result.attributes || {};
