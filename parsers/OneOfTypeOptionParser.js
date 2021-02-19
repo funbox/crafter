@@ -2,7 +2,7 @@ const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
 const OneOfTypeOptionElement = require('./elements/OneOfTypeOptionElement');
 
-const oneOfTypeOptionRegex = /^[Pp]roperties$/;
+const oneOfTypeOptionRegex = /^[Pp]roperties/;
 
 module.exports = (Parsers) => {
   Parsers.OneOfTypeOptionParser = Object.assign(Object.create(require('./AbstractParser')), {
