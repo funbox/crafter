@@ -1,7 +1,7 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
 const OneOfTypeOptionElement = require('./elements/OneOfTypeOptionElement');
-const { parser: SignatureParser } = require('../SignatureParser');
+const { parser: SignatureParser, traits: ParserTraits } = require('../SignatureParser');
 
 const oneOfTypeOptionRegex = /^[Pp]roperties$/;
 
@@ -12,7 +12,7 @@ module.exports = (Parsers) => {
     processSignature(node, context) {
       const subject = utils.nodeText(node.firstChild, context.sourceLines);
       const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-      const signature = new SignatureParser(subject, context.languageServerMode);
+      const signature = new SignatureParser(subject, context.languageServerMode, [ParserTraits.VALUE, ParserTraits.DESCRIPTION]);
 
       signature.warnings.forEach(warning => context.addWarning(warning, sourceMap));
 
