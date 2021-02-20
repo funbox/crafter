@@ -3,7 +3,7 @@ const utils = require('../utils');
 const OneOfTypeOptionElement = require('./elements/OneOfTypeOptionElement');
 const { parser: SignatureParser } = require('../SignatureParser');
 
-const oneOfTypeOptionRegex = /^[Pp]roperties/;
+const oneOfTypeOptionRegex = /^[Pp]roperties$/;
 
 module.exports = (Parsers) => {
   Parsers.OneOfTypeOptionParser = Object.assign(Object.create(require('./AbstractParser')), {
@@ -29,8 +29,14 @@ module.exports = (Parsers) => {
     sectionType(node, context) {
       if (node.type === 'item') {
         const text = utils.nodeText(node.firstChild, context.sourceLines);
-        if (oneOfTypeOptionRegex.exec(text)) {
-          return SectionTypes.oneOfTypeOption;
+
+        try {
+          const signature = new SignatureParser(text, false);
+          if (oneOfTypeOptionRegex.exec(signature.name)) {
+            return SectionTypes.oneOfTypeOption;
+          }
+        } catch (e) {
+          if (!(e instanceof utils.SignatureError)) throw e;
         }
       }
       return SectionTypes.undefined;
