@@ -28,6 +28,7 @@ const SourceMapElement = require('./SourceMapElement');
 class OneOfTypeOptionElement {
   /**
    * @param {PropertyMemberElement[]} members
+   * @param {StringElement} description
    * @param {SourceMap} sourceMap
    */
   constructor(members, description, sourceMap) {
