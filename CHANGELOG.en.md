@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.9.0 (24.02.2021)
+
+* Split utils.js into separate modules.
+
 ## 2.8.0 (15.02.2021)
 
 * Add unrecognizedBlocks to AST.
