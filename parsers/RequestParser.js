@@ -16,14 +16,14 @@ module.exports = (Parsers) => {
     processSignature(node, context) {
       context.pushFrame();
 
-      const subject = utils.nodeText(node.firstChild, context.sourceLines).split('\n');
-      const [matchData, matchDataIndexes] = utils.matchStringToRegex(subject[0], requestRegexp);
+      const [subject, ...restLines] = utils.nodeText(node.firstChild, context.sourceLines).split('\n');
+      const [matchData, matchDataIndexes] = utils.matchStringToRegex(subject, requestRegexp);
 
       const title = matchData[2];
       const contentType = matchData[4];
 
-      if (subject.length > 1) {
-        context.data.startOffset = subject[0].length + 1;
+      if (restLines.length > 0) {
+        context.data.startOffset = subject.length + 1;
       }
 
       let titleEl = null;
@@ -55,14 +55,14 @@ module.exports = (Parsers) => {
         result.headersSections.push(headersElement);
       }
 
-      const nextNode = subject.length > 1 ? node.firstChild : utils.nextNode(node.firstChild);
+      const nextNode = restLines.length > 0 ? node.firstChild : utils.nextNode(node.firstChild);
 
       return [nextNode, result];
     },
 
     sectionType(node, context) {
       if (node.type === 'item') {
-        const text = (utils.nodeText(node.firstChild, context.sourceLines)).split('\n');
+        const text = utils.nodeText(node.firstChild, context.sourceLines).split('\n');
         if (requestRegexp.exec(text[0])) {
           return SectionTypes.response;
         }
