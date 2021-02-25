@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.10.0 (25.02.2021)
+
+* Add a description to One Of elements.
+
 ## 2.9.0 (24.02.2021)
 
 * Split utils.js into separate modules.
