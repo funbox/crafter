@@ -1,6 +1,6 @@
 const getSourcePosZeroBased = require('../getSourcePosZeroBased');
 
-module.exports = function nodeText(node, sourceLines) {
+module.exports = function nodeText(node, sourceLines, lineFormatter) {
   if (!node) {
     return '';
   }
@@ -12,7 +12,6 @@ module.exports = function nodeText(node, sourceLines) {
     startColumnIndex,
     endColumnIndex,
   } = getSourcePosZeroBased(node);
-  const keepWhitespaces = node.type === 'code_block' || node.type === 'item';
 
   const result = [];
 
@@ -28,5 +27,6 @@ module.exports = function nodeText(node, sourceLines) {
     result.push(localSourceLines[endLineIndex].slice(0, endColumnIndex + 1));
   }
 
-  return result.map(line => (keepWhitespaces ? line : line.trim())).join('\n').trim();
+  const formatted = lineFormatter ? result.map(lineFormatter) : result;
+  return formatted.join('\n').trim();
 };

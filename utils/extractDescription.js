@@ -16,7 +16,7 @@ module.exports = function extractDescription(curNode, sourceLines, sourceBuffer,
     if (description) {
       description = appendDescriptionDelimiter(description);
     }
-    description += nodeText(curNode, sourceLines);
+    description += nodeText(curNode, sourceLines, getNodeTextFormatter(curNode));
     if (startOffset) {
       description = description.slice(startOffset);
       startOffset = 0;
@@ -31,3 +31,9 @@ module.exports = function extractDescription(curNode, sourceLines, sourceBuffer,
 
   return [curNode, descriptionEl];
 };
+
+function getNodeTextFormatter(node) {
+  // для вложенных списков и блоков кода в описании нужно сохранять отступы
+  const keepWhitespaces = ['code_block', 'item'].includes(node.type);
+  return keepWhitespaces ? undefined : (line) => line.trim();
+}
