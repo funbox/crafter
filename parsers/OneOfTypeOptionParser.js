@@ -12,7 +12,7 @@ module.exports = (Parsers) => {
     processSignature(node, context) {
       const subject = utils.nodeText(node.firstChild, context.sourceLines);
       const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-      const signature = new SignatureParser(subject, context.languageServerMode, [ParserTraits.VALUE, ParserTraits.DESCRIPTION]);
+      const signature = new SignatureParser(subject, false, [ParserTraits.NAME, ParserTraits.DESCRIPTION]);
 
       signature.warnings.forEach(warning => context.addWarning(warning, sourceMap));
 
@@ -31,7 +31,7 @@ module.exports = (Parsers) => {
         const text = utils.nodeText(node.firstChild, context.sourceLines);
 
         try {
-          const signature = new SignatureParser(text, false);
+          const signature = new SignatureParser(text, false, [ParserTraits.NAME, ParserTraits.DESCRIPTION]);
           if (oneOfTypeOptionRegex.exec(signature.name)) {
             return SectionTypes.oneOfTypeOption;
           }
