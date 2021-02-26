@@ -1,16 +1,13 @@
+const CharBlock = require('./sourceMap/CharBlock');
+const CharBlockWithLineColumnInfo = require('./sourceMap/CharBlockWithLineColumnInfo');
+
 module.exports = function getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets) {
   return byteBlocks.map(byteBlock => {
-    const charBlock = byteBlockToCharacterBlock(byteBlock, sourceBuffer);
+    const charBlock = CharBlock.fromByteBlock(byteBlock, sourceBuffer);
     const info = getLineColumnInfo(charBlock, linefeedOffsets);
-    return { ...charBlock, ...info };
+    return new CharBlockWithLineColumnInfo(charBlock, info);
   });
 };
-
-function byteBlockToCharacterBlock(byteBlock, sourceBuffer) {
-  const charOffset = sourceBuffer.slice(0, byteBlock.offset).toString().length;
-  const charLength = sourceBuffer.slice(byteBlock.offset, byteBlock.offset + byteBlock.length).toString().length;
-  return { offset: charOffset, length: charLength, file: byteBlock.file };
-}
 
 function getLineColumnInfo(characterBlock, linefeedOffsets) {
   const startOffset = characterBlock.offset;
