@@ -8,13 +8,15 @@ module.exports = function buildPrototypeElements(protoNames, protoNamesOffset, n
     const SEP = ',';
     protoNames.split(SEP).forEach(proto => {
       const trimmedProto = proto.trim();
-      const protoElement = makeStringElement(
-        trimmedProto,
-        protoOffset + proto.indexOf(trimmedProto),
-        node,
-        context,
-      );
-      protoElements.push(protoElement);
+      if (trimmedProto) {
+        const protoElement = makeStringElement(
+          trimmedProto,
+          protoOffset + proto.indexOf(trimmedProto),
+          node,
+          context,
+        );
+        protoElements.push(protoElement);
+      }
       protoOffset += proto.length + SEP.length;
     });
   }

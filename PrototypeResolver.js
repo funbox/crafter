@@ -22,17 +22,15 @@ class PrototypeResolver {
       const baseProtoNames = targetProto.prototypes;
 
       baseProtoNames.forEach((protoName) => {
-        if (protoName) {
-          const basePrototype = this.prototypes[protoName.string];
+        const basePrototype = this.prototypes[protoName.string];
 
-          if (!basePrototype) {
-            throw new CrafterError(`Unknown prototype: ${protoName.string}`);
-          }
-
-          resolvePrototype(basePrototype);
-
-          copyNewContent(basePrototype, targetProto);
+        if (!basePrototype) {
+          throw new CrafterError(`Unknown prototype: ${protoName.string}`);
         }
+
+        resolvePrototype(basePrototype);
+
+        copyNewContent(basePrototype, targetProto);
       });
 
       usedPrototypes.pop();
