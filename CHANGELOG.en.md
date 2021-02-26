@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.11.0 (26.02.2021)
+
+* Simplify nodeText helper.
+
 ## 2.10.0 (25.02.2021)
 
 * Add a description to One Of elements.
