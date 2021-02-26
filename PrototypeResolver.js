@@ -10,15 +10,15 @@ class PrototypeResolver {
     const usedPrototypes = [];
 
     const resolvePrototype = (targetProto) => {
-      if (usedPrototypes.includes(targetProto.title)) {
-        throw new CrafterError(`Dependencies loop: ${usedPrototypes.concat([targetProto.title]).join(' - ')}`);
+      if (usedPrototypes.includes(targetProto.title.string)) {
+        throw new CrafterError(`Dependencies loop: ${usedPrototypes.concat([targetProto.title.string]).join(' - ')}`);
       }
 
-      if (this.resolvedPrototypes.has(targetProto.title)) {
+      if (this.resolvedPrototypes.has(targetProto.title.string)) {
         return;
       }
 
-      usedPrototypes.push(targetProto.title);
+      usedPrototypes.push(targetProto.title.string);
       const baseProtoNames = targetProto.prototypes;
 
       baseProtoNames.forEach((protoName) => {
