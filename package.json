@@ -5,7 +5,7 @@
   "main": "Crafter.js",
   "scripts": {
     "pretest": "npm run lint",
-    "test": "jest",
+    "test": "jest --coverage",
     "regenerate-fixtures": "node ./scripts/regenerate-fixtures.js",
     "lint": "eslint --cache -c .eslintrc --ext .js ./",
     "postpublish": "bash ./build-docker.sh"
