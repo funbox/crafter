@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.12.0 (26.02.2021)
+
+* Use separate classes for byteBlock / charBlock.
+
 ## 2.11.0 (26.02.2021)
 
 * Simplify nodeText helper.
