@@ -2,6 +2,7 @@ const getCharacterBlocksWithLineColumnInfo = require('../getCharacterBlocksWithL
 const getOffsetFromStartOfFileInBytes = require('../getOffsetFromStartOfFileInBytes');
 const getSourcePosZeroBased = require('../getSourcePosZeroBased');
 const SourceMap = require('./SourceMap');
+const ByteBlock = require('./ByteBlock');
 
 module.exports = function makeSourceMapsForInlineValues(value, inlineValues, node, sourceLines, sourceBuffer, linefeedOffsets) {
   sourceLines = node.sourceLines || sourceLines;
@@ -17,11 +18,11 @@ module.exports = function makeSourceMapsForInlineValues(value, inlineValues, nod
     const inlineValueStr = String(inlineValue);
     columnIndex += lineStr.indexOf(inlineValueStr);
     lineStr = lineStr.slice(lineStr.indexOf(inlineValueStr));
-    const byteBlock = {
-      offset: getOffsetFromStartOfFileInBytes(startLineIndex, columnIndex, sourceLines),
-      length: Buffer.byteLength(inlineValueStr),
-      file: node.file,
-    };
+    const byteBlock = new ByteBlock(
+      getOffsetFromStartOfFileInBytes(startLineIndex, columnIndex, sourceLines),
+      Buffer.byteLength(inlineValueStr),
+      node.file,
+    );
     lineStr = lineStr.slice(inlineValueStr.length);
     columnIndex += inlineValueStr.length;
     const byteBlocks = [byteBlock];

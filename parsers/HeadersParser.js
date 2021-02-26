@@ -2,6 +2,7 @@ const { LINEFEED_BYTES } = require('../constants');
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
 const HeadersElement = require('./elements/HeadersElement');
+const ByteBlock = require('../utils/sourceMap/ByteBlock');
 
 const headersRegex = /^[Hh]eaders$/;
 
@@ -83,12 +84,11 @@ module.exports = (Parsers) => {
           const match = contentLine.match(/^(\s*)(.*)$/);
           const leadingWhitespaceBytes = Buffer.byteLength(match[1]);
           const restBytes = Buffer.byteLength(match[2]);
-          const block = {};
           offset += leadingWhitespaceBytes;
-          block.offset = offset;
+          const blockOffset = offset;
           offset += restBytes;
-          block.length = offset - block.offset;
-          block.file = contentNode.file;
+          const blockLength = offset - blockOffset;
+          const block = new ByteBlock(blockOffset, blockLength, contentNode.file);
           const byteBlocks = [block];
           const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
           const sourceMap = new utils.SourceMap(byteBlocks, charBlocks);

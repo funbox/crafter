@@ -1,4 +1,8 @@
 class SourceMap {
+  /**
+   * @param {ByteBlock[]} byteBlocks
+   * @param charBlocks
+   */
   constructor(byteBlocks, charBlocks) {
     this.byteBlocks = byteBlocks;
     this.charBlocks = charBlocks;

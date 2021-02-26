@@ -4,6 +4,7 @@ const getOffsetFromStartOfFileInBytes = require('../getOffsetFromStartOfFileInBy
 const getSourcePosZeroBased = require('../getSourcePosZeroBased');
 
 const SourceMap = require('./SourceMap');
+const ByteBlock = require('./ByteBlock');
 
 const utilsLog = require('../log');
 
@@ -23,7 +24,7 @@ module.exports = function makeGenericSourceMapFromStartAndEndNodes(startNode, en
   if (endNode.next) {
     length += getTrailingEmptyLinesLengthInBytes(endLineIndex + 1, sourceLines);
   }
-  const byteBlock = { offset: startOffset, length, file: startNode.file };
+  const byteBlock = new ByteBlock(startOffset, length, startNode.file);
   const byteBlocks = [byteBlock];
   const charBlocks = getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
   return new SourceMap(byteBlocks, charBlocks);

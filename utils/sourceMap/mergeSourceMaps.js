@@ -1,5 +1,6 @@
 const getCharacterBlocksWithLineColumnInfo = require('../getCharacterBlocksWithLineColumnInfo');
 const SourceMap = require('./SourceMap');
+const ByteBlock = require('./ByteBlock');
 const utilsLog = require('../log');
 
 module.exports = function mergeSourceMaps(sourceMaps, sourceBuffer, linefeedOffsets) {
@@ -22,11 +23,7 @@ module.exports = function mergeSourceMaps(sourceMaps, sourceBuffer, linefeedOffs
     });
   });
 
-  const byteBlock = {
-    offset,
-    length: -1,
-    file,
-  };
+  const byteBlock = new ByteBlock(offset, -1, file);
 
   sourceMaps.forEach(sm => {
     sm.byteBlocks.forEach(bb => {
