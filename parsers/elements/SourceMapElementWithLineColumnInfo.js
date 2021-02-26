@@ -1,6 +1,9 @@
 const Refract = require('../../Refract');
 
 class SourceMapElementWithLineColumnInfo {
+  /**
+   * @param {CharBlockWithLineColumnInfo[]} blocks
+   */
   constructor(blocks) {
     this.blocks = blocks;
   }

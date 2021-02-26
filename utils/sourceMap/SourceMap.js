@@ -1,7 +1,7 @@
 class SourceMap {
   /**
    * @param {ByteBlock[]} byteBlocks
-   * @param charBlocks
+   * @param {CharBlockWithLineColumnInfo[]} charBlocks
    */
   constructor(byteBlocks, charBlocks) {
     this.byteBlocks = byteBlocks;

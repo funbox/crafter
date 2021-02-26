@@ -1,6 +1,9 @@
 const Refract = require('../../Refract');
 
 class SourceMapElement {
+  /**
+   * @param {ByteBlock[] | CharBlock[]} blocks
+   */
   constructor(blocks) {
     this.blocks = blocks;
   }
