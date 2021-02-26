@@ -85,7 +85,7 @@ class Context {
 
   addResourcePrototype(prototype) {
     if (this.resourcePrototypeResolver.prototypes[prototype.title.string]) {
-      console.error(`${prototype.title} resource prototype already defined`);
+      throw new CrafterError(`Resource prototype "${prototype.title.string}" already defined`);
     }
     this.resourcePrototypeResolver.prototypes[prototype.title.string] = prototype;
   }
