@@ -1,0 +1,40 @@
+# My API
+
+Defines basic data structures and some mson values, which inherit from basic structures.
+Both basic structures and mson values have default values defined.
+Produces the warning "Multiple definitions of default value" for each mson.
+
+# Data Structures
+
+## StringStruct (string)
+
+### Default
+
++ Jack
+
+## ArrStruct (array)
+
+### Default
+
++ live
++ let_die
+
+## EnumStruct (enum)
+
++ movement
++ track
+
+### Default
+
++ track
+
+### Profile
+
++ username: John (StringStruct, default)
++ goals: live (ArrStruct, default)
++ report: movement (EnumStruct, default)
+
+# GET /foo
+
++ Response 200 (application/json)
+    + Attributes(Profile)

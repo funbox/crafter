@@ -238,7 +238,7 @@ describe('Crafter isError field', () => {
 });
 
 describe('Crafter in debug mode', () => {
-  it('Returns an error in debug mode', async () => {
+  it('Returns an error in debug mode during structures preprocessing', async () => {
     const logger = {
       store: undefined,
       warn(text) {
@@ -250,6 +250,20 @@ describe('Crafter in debug mode', () => {
     await expect(Crafter.parseFile(filePath, { logger, sourceMapsEnabled: true, debugMode: true }))
       .rejects
       .toThrow('Mixin "(BaseResponse)" is not defined in the document.');
+  });
+
+  it('Returns an error in debug mode during regular processing', async () => {
+    const logger = {
+      store: undefined,
+      warn(text) {
+        this.store = text;
+      },
+    };
+    const filePath = `${testPath.fixturesWithErrors.path}/array-mixin-in-enum.apib`;
+
+    await expect(Crafter.parseFile(filePath, { logger, sourceMapsEnabled: true, debugMode: true }))
+      .rejects
+      .toThrow('Mixin base type should be the same as parent base type: enums should contain enum mixins.');
   });
 });
 

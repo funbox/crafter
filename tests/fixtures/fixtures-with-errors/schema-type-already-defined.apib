@@ -1,0 +1,46 @@
+# My API
+
+Defines the same schema structure twice.
+It produces error 'SchemaNamedType already defined'.
+
+# Schema Structures
+
+# SchemaNamedType
+
++ Body
+
+      {
+          "test": "Hello"
+      }
+
++ Schema
+
+      {
+          "$schema": "http://json-schema.org/draft-04/schema#",
+          "type": "array",
+          "members": {
+              "test": {
+                  "type": "string"
+              }
+          }
+      }
+
+# SchemaNamedType
+
++ Body
+
+      {
+          "test": "Hello"
+      }
+
++ Schema
+
+      {
+          "$schema": "http://json-schema.org/draft-04/schema#",
+          "type": "array",
+          "members": {
+              "test": {
+                  "type": "string"
+              }
+          }
+      }

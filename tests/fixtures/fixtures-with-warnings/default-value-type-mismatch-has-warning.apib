@@ -1,0 +1,31 @@
+# My API
+
+Defines default values for various mson members. Value types of members and their default values must be the same, but they are not.
+It produces warning 'Invalid value format "100" for type "boolean"', 'Invalid value format "true" for type "number"' and so on.
+
+## Data Structures
+
+### Profile
+
++ sms_notices (boolean, required)
+    + Default: 100
++ balance (number)
+    + Default
+        + true
++ username (string, required)
+    + Default: false
++ reportId (enum[number])
+    + Default: sms
+    + 101
+    + 202
++ userIds (array[number])
+    + Default: user_1, user_2
++ zoneIds (array[number])
+    + Default
+        + zone_1
+        + zone_2
+
+# GET /foo
+
++ Response 200 (application/json)
+    + Attributes(Profile)

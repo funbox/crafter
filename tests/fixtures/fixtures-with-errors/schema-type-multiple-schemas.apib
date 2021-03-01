@@ -1,0 +1,38 @@
+# My API
+
+Defines schema structure with more than one schema section.
+It produces error 'Schema named type could contain only one schema section'.
+
+# Schema Structures
+
+# SchemaNamedType
+
++ Body
+
+      {
+          "test": "Hello"
+      }
+
++ Schema
+
+      {
+          "$schema": "http://json-schema.org/draft-04/schema#",
+          "type": "array",
+          "members": {
+              "test": {
+                  "type": "string"
+              }
+          }
+      }
+
++ Schema
+
+      {
+          "$schema": "http://json-schema.org/draft-04/schema#",
+          "type": "array",
+          "members": {
+              "test": {
+                  "type": "number"
+              }
+          }
+      }

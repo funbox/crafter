@@ -1,0 +1,30 @@
+# My API
+
+Defines some MSON elements with multiple "Default" declarations.
+Produces the warning "Multiple definitions of default value" for each MSON.
+
+## Data Structures
+
+### Profile
+
++ p1 (boolean)
+    + Default: false
+    + Default: true
++ a1 (array[string])
+    + Default
+        + foo
+        + bar
+    + Default
+        + baz
+        + quux
++ e1 (enum)
+    + Default: track
+    + Default: zone
+    + track
+    + sms
+    + zone
+
+# GET /foo
+
++ Response 200 (application/json)
+    + Attributes(Profile)

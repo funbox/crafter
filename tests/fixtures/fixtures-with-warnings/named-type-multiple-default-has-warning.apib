@@ -1,0 +1,41 @@
+# My API
+
+Defines some named structures with multiple "Default" declarations.
+Produces the warning "Multiple definitions of default value" for each structure.
+
+# Data Structures
+
+## P1 (boolean)
+
+### Default
++ false
++ true
+
+## A1 (array[string])
+
+### Default
++ foo
++ bar
+
+### Default
++ baz
++ quux
+
+## E1 (enum)
+
++ track
++ sms
+
+### Default
++ track
+
+### Default
++ zone
+
+# GET /foo
+
++ Response 200 (application/json)
+    + Attributes
+        + p1 (P1)
+        + a1 (A1)
+        + e1 (E1)

@@ -1,0 +1,23 @@
+# My API
+
+Defines exclusive sets of nested member types with One Of Type.
+'Properties' keyword is used to separate these sets.
+One of 'Properties' section is empty for testing purposes.
+
+# Data Structures
+
+## ReportType
++ One of
+  + Properties
+  + Properties
+    + kind: custom (string) - перевод на дополнительное направление
+    + gatewayId (string) - идентификатор платежного шлюза
+
++ One of
+
+# Group Example
+
+# GET /
+
++ Response 200 (application/json)
+    + Attributes(ReportType)

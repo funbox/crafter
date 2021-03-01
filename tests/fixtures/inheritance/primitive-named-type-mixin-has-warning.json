@@ -106,7 +106,67 @@
                         {
                           "element": "dataStructure",
                           "content": {
-                            "element": "object"
+                            "element": "object",
+                            "content": [
+                              {
+                                "element": "member",
+                                "content": {
+                                  "key": {
+                                    "element": "string",
+                                    "content": "o1"
+                                  },
+                                  "value": {
+                                    "element": "object"
+                                  }
+                                }
+                              },
+                              {
+                                "element": "member",
+                                "content": {
+                                  "key": {
+                                    "element": "string",
+                                    "content": "a1"
+                                  },
+                                  "value": {
+                                    "element": "array"
+                                  }
+                                }
+                              },
+                              {
+                                "element": "member",
+                                "content": {
+                                  "key": {
+                                    "element": "string",
+                                    "content": "e1"
+                                  },
+                                  "value": {
+                                    "element": "enum",
+                                    "attributes": {
+                                      "enumerations": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "string",
+                                            "attributes": {
+                                              "typeAttributes": {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "string",
+                                                    "content": "fixed"
+                                                  }
+                                                ]
+                                              }
+                                            },
+                                            "content": "test"
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            ]
                           }
                         },
                         {
@@ -122,7 +182,7 @@
                               ]
                             }
                           },
-                          "content": "{}",
+                          "content": "{\n  \"o1\": {},\n  \"a1\": [],\n  \"e1\": \"test\"\n}",
                           "attributes": {
                             "contentType": {
                               "element": "string",
@@ -149,7 +209,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\"\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"o1\": {\n      \"type\": \"object\"\n    },\n    \"a1\": {\n      \"type\": \"array\"\n    },\n    \"e1\": {\n      \"type\": \"string\",\n      \"enum\": [\n        \"test\"\n      ]\n    }\n  }\n}"
                         }
                       ],
                       "attributes": {
@@ -279,25 +339,145 @@
                       "attributes": {
                         "line": {
                           "element": "number",
-                          "content": 20
+                          "content": 21
                         },
                         "column": {
                           "element": "number",
-                          "content": 9
+                          "content": 13
                         }
                       },
-                      "content": 317
+                      "content": 343
                     },
                     {
                       "element": "number",
                       "attributes": {
                         "line": {
                           "element": "number",
-                          "content": 20
+                          "content": 21
                         },
                         "column": {
                           "element": "number",
-                          "content": 22
+                          "content": 26
+                        }
+                      },
+                      "content": 14
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "content": "Mixin may not include a type of a primitive sub-type"
+    },
+    {
+      "element": "annotation",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "warning"
+            }
+          ]
+        }
+      },
+      "attributes": {
+        "sourceMap": {
+          "element": "array",
+          "content": [
+            {
+              "element": "sourceMap",
+              "content": [
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 23
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 13
+                        }
+                      },
+                      "content": 390
+                    },
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 23
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 26
+                        }
+                      },
+                      "content": 14
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "content": "Mixin may not include a type of a primitive sub-type"
+    },
+    {
+      "element": "annotation",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "warning"
+            }
+          ]
+        }
+      },
+      "attributes": {
+        "sourceMap": {
+          "element": "array",
+          "content": [
+            {
+              "element": "sourceMap",
+              "content": [
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 26
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 13
+                        }
+                      },
+                      "content": 455
+                    },
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 26
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 26
                         }
                       },
                       "content": 14

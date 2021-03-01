@@ -1,0 +1,17 @@
+# My API
+
+Defines Attributes as an array, which includes nested types from other array named 'Address'.
+Resulting json schema should allow both string and number as an array element.
+
+# Group Example
+
+# GET /
+
++ Response 200 (application/json)
+    + Attributes (array)
+        + Karlin
+        + Include Address
+
+# Data Structures
+
+## Address (array[string, number])

@@ -72,6 +72,15 @@ describe('SignatureParser', () => {
       expect(signature.description).toBe('Description');
     });
 
+    it('Parses signature with empty quoted name', () => {
+      const signature = new SignatureParser('``: Example (string)', false);
+      expect(signature.name).toBe('');
+      expect(signature.value).toBe('Example');
+      expect(signature.type).toBe('string');
+      expect(signature.warnings.length).toBe(1);
+      expect(signature.warnings[0]).toBe('No name specified: "``: Example (string)"');
+    });
+
     it('Parses signature with unescaped example', () => {
       const signature = new SignatureParser('name: Example', false);
       expect(signature.name).toBe('name');
@@ -148,6 +157,48 @@ describe('SignatureParser', () => {
       expect(signature.description).toBe('user name');
       expect(signature.type).toEqual('string');
       expect(signature.typeAttributes).toEqual([['pattern', '[a-zа-я]'], 'required']);
+    });
+
+    it('Warns about duplicating type attribute', () => {
+      const signature = new SignatureParser('name (string, required, required)', false);
+      expect(signature.name).toBe('name');
+      expect(signature.type).toBe('string');
+      expect(signature.typeAttributes).toEqual(['required', 'required']);
+      expect(signature.warnings).toHaveLength(1);
+      expect(signature.warnings[0]).toBe('Attribute required has been defined more than once.');
+    });
+
+    it('Warns about duplicating parametrized attribute', () => {
+      const signature = new SignatureParser('name (string, pattern="[a-zа-я]", pattern="[a-zа-я]")', false);
+      expect(signature.name).toBe('name');
+      expect(signature.type).toBe('string');
+      expect(signature.typeAttributes).toEqual([['pattern', '[a-zа-я]'], ['pattern', '[a-zа-я]']]);
+      expect(signature.warnings).toHaveLength(1);
+      expect(signature.warnings[0]).toBe('Attribute pattern has been defined more than once.');
+    });
+
+    it('Raises an error if a value of wrong type is used in parametrized attribute', () => {
+      expect(() => {
+        new SignatureParser('name (string, min-length=false)', false); // eslint-disable-line no-new
+      }).toThrowError('Invalid signature: false is not a number');
+      expect(() => {
+        new SignatureParser('days (array, max-length=test)', false); // eslint-disable-line no-new
+      }).toThrowError('Invalid signature: test is not a number');
+      expect(() => {
+        new SignatureParser('age (array, minimum=true)', false); // eslint-disable-line no-new
+      }).toThrowError('Invalid signature: true is not a number');
+    });
+
+    it('Allows to use wrong parameter type language server mode', () => {
+      expect(() => {
+        new SignatureParser('name (string, min-length=false)', true); // eslint-disable-line no-new
+      }).not.toThrowError();
+      expect(() => {
+        new SignatureParser('days (array, max-length=test)', true); // eslint-disable-line no-new
+      }).not.toThrowError();
+      expect(() => {
+        new SignatureParser('age (array, minimum=true)', true); // eslint-disable-line no-new
+      }).not.toThrowError();
     });
   });
 

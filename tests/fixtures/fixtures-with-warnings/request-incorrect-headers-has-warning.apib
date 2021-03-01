@@ -4,6 +4,8 @@ Defines request headers using wrong format.
 It produces warnings:
 'Ignoring unrecognized HTTP header "Accept-Charset utf-8", expected "<header name>: <header value>", one header per line.',
 'Ignoring unrecognized HTTP header "Content Type _ multipart/form-data, boundary=AaB03x", expected "<header name>: <header value>", one header per line.
+'Ignoring unrecognized HTTP header "User-Agent:", expected "<header name>: <header value>", one header per line.
+'Ignoring unrecognized HTTP header ": Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.146", expected "<header name>: <header value>", one header per line.
 
 # List users [GET /users]
 
@@ -13,6 +15,8 @@ It produces warnings:
             Accept-Charset utf-8
             Connection: keep-alive
             Content Type _ multipart/form-data, boundary=AaB03x
+            User-Agent:
+            : Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.146
 
 
 + Response 200
