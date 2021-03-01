@@ -2,6 +2,7 @@ const getCharacterBlocksWithLineColumnInfo = require('../getCharacterBlocksWithL
 const getEndingLinefeedLengthInBytes = require('../getEndingLinefeedLengthInBytes');
 const getOffsetFromStartOfFileInBytes = require('../getOffsetFromStartOfFileInBytes');
 const getSourcePosZeroBased = require('../getSourcePosZeroBased');
+const getTrailingEmptyLinesLengthInBytes = require('../getTrailingEmptyLinesLengthInBytes');
 
 const SourceMap = require('./SourceMap');
 const ByteBlock = require('./ByteBlock');
@@ -17,11 +18,16 @@ module.exports = function makeGenericSourceMapFromStartAndEndNodes(startNode, en
   }
   const { startLineIndex, startColumnIndex } = getSourcePosZeroBased(startNode);
   const { endLineIndex, endColumnIndex } = getSourcePosZeroBased(endNode);
-  const startOffset = getOffsetFromStartOfFileInBytes(startLineIndex, startColumnIndex, sourceLines);
+
+  const numSpacesPerIndentLevel = 4;
+  const indentation = Math.floor(startColumnIndex / numSpacesPerIndentLevel) * numSpacesPerIndentLevel;
+  const startOffset = getOffsetFromStartOfFileInBytes(startLineIndex, indentation, sourceLines);
   const endOffset = getOffsetFromStartOfFileInBytes(endLineIndex, endColumnIndex + 1, sourceLines);
+
   let length = endOffset - startOffset;
   length += getEndingLinefeedLengthInBytes(endLineIndex, sourceLines);
-  if (endNode.next) {
+
+  if (endNode.next || !/\S/.test(sourceLines[endLineIndex + 1])) {
     length += getTrailingEmptyLinesLengthInBytes(endLineIndex + 1, sourceLines);
   }
   const byteBlock = new ByteBlock(startOffset, length, startNode.file);
@@ -29,12 +35,3 @@ module.exports = function makeGenericSourceMapFromStartAndEndNodes(startNode, en
   const charBlocks = getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
   return new SourceMap(byteBlocks, charBlocks);
 };
-
-function getTrailingEmptyLinesLengthInBytes(lineIndex, sourceLines) {
-  let result = 0;
-  for (let i = lineIndex; i < sourceLines.length && !/\S/.test(sourceLines[i]); i += 1) {
-    result += sourceLines[i].length;
-    result += getEndingLinefeedLengthInBytes(lineIndex, sourceLines);
-  }
-  return result;
-}

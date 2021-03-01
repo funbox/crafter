@@ -118,11 +118,11 @@
                                     "content": [
                                       {
                                         "element": "number",
-                                        "content": 130
+                                        "content": 128
                                       },
                                       {
                                         "element": "number",
-                                        "content": 6
+                                        "content": 8
                                       }
                                     ]
                                   }
@@ -156,11 +156,11 @@
                                     "content": [
                                       {
                                         "element": "number",
-                                        "content": 149
+                                        "content": 147
                                       },
                                       {
                                         "element": "number",
-                                        "content": 8
+                                        "content": 10
                                       }
                                     ]
                                   }
@@ -197,11 +197,11 @@
                             "content": [
                               {
                                 "element": "number",
-                                "content": 130
+                                "content": 128
                               },
                               {
                                 "element": "number",
-                                "content": 6
+                                "content": 8
                               }
                             ]
                           },
@@ -210,15 +210,102 @@
                             "content": [
                               {
                                 "element": "number",
-                                "content": 149
+                                "content": 136
                               },
                               {
                                 "element": "number",
-                                "content": 8
+                                "content": 11
+                              }
+                            ]
+                          },
+                          {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "number",
+                                "content": 147
+                              },
+                              {
+                                "element": "number",
+                                "content": 10
+                              }
+                            ]
+                          },
+                          {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "number",
+                                "content": 157
+                              },
+                              {
+                                "element": "number",
+                                "content": 11
                               }
                             ]
                           }
                         ]
+                      }
+                    ]
+                  },
+                  "unrecognizedBlocks": {
+                    "element": "array",
+                    "content": [
+                      {
+                        "element": "unrecognizedBlock",
+                        "attributes": {
+                          "sourceMap": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "sourceMap",
+                                "content": [
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 136
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 11
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      },
+                      {
+                        "element": "unrecognizedBlock",
+                        "attributes": {
+                          "sourceMap": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "sourceMap",
+                                "content": [
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 157
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 11
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
                       }
                     ]
                   }
@@ -271,7 +358,59 @@
                             },
                             {
                               "element": "number",
-                              "content": 48
+                              "content": 19
+                            }
+                          ]
+                        },
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 128
+                            },
+                            {
+                              "element": "number",
+                              "content": 8
+                            }
+                          ]
+                        },
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 136
+                            },
+                            {
+                              "element": "number",
+                              "content": 11
+                            }
+                          ]
+                        },
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 147
+                            },
+                            {
+                              "element": "number",
+                              "content": 10
+                            }
+                          ]
+                        },
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 157
+                            },
+                            {
+                              "element": "number",
+                              "content": 11
                             }
                           ]
                         }
@@ -311,7 +450,59 @@
                         },
                         {
                           "element": "number",
-                          "content": 48
+                          "content": 19
+                        }
+                      ]
+                    },
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 128
+                        },
+                        {
+                          "element": "number",
+                          "content": 8
+                        }
+                      ]
+                    },
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 136
+                        },
+                        {
+                          "element": "number",
+                          "content": 11
+                        }
+                      ]
+                    },
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 147
+                        },
+                        {
+                          "element": "number",
+                          "content": 10
+                        }
+                      ]
+                    },
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 157
+                        },
+                        {
+                          "element": "number",
+                          "content": 11
                         }
                       ]
                     }
@@ -329,6 +520,19 @@
             {
               "element": "sourceMap",
               "content": [
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 0
+                    },
+                    {
+                      "element": "number",
+                      "content": 10
+                    }
+                  ]
+                },
                 {
                   "element": "array",
                   "content": [
@@ -364,7 +568,59 @@
                     },
                     {
                       "element": "number",
-                      "content": 48
+                      "content": 19
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 128
+                    },
+                    {
+                      "element": "number",
+                      "content": 8
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 136
+                    },
+                    {
+                      "element": "number",
+                      "content": 11
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 147
+                    },
+                    {
+                      "element": "number",
+                      "content": 10
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 157
+                    },
+                    {
+                      "element": "number",
+                      "content": 11
                     }
                   ]
                 }
@@ -406,10 +662,10 @@
                         },
                         "column": {
                           "element": "number",
-                          "content": 3
+                          "content": 1
                         }
                       },
-                      "content": 138
+                      "content": 136
                     },
                     {
                       "element": "number",
@@ -423,7 +679,7 @@
                           "content": 11
                         }
                       },
-                      "content": 9
+                      "content": 11
                     }
                   ]
                 }
@@ -466,10 +722,10 @@
                         },
                         "column": {
                           "element": "number",
-                          "content": 3
+                          "content": 1
                         }
                       },
-                      "content": 159
+                      "content": 157
                     },
                     {
                       "element": "number",
@@ -483,7 +739,7 @@
                           "content": 11
                         }
                       },
-                      "content": 9
+                      "content": 11
                     }
                   ]
                 }

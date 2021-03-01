@@ -15,7 +15,7 @@ module.exports = (Parsers) => {
         return [utils.nextNode(node), schemaEl];
       }
 
-      const sourceMap = this.makeSourceMap(schemaContentNode, context);
+      const sourceMap = this.makeSourceMap(node, context);
 
       const schemaText = schemaContentNode.literal || '';
       let schemaObj;

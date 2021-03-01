@@ -82,7 +82,7 @@ const testPath = {
 
 const apibRegex = /\.apib$/;
 
-const testFilesFrom = (location) => {
+const testFilesFrom = (location, allowErrors) => {
   const path = location.path || location;
   const files = fs.readdirSync(path);
   files.forEach((f) => {
@@ -102,6 +102,11 @@ const testFilesFrom = (location) => {
         expect(() => {
           elements.fromRefract(refract);
         }).not.toThrowError();
+
+        const error = refract.content.find(item => item.element === 'annotation' && item.meta.classes.content[0].content === 'error');
+        if (!allowErrors) {
+          expect(error).toBeUndefined();
+        }
 
         const exampleSm = await getMatchingData(f, path, true);
         const resultSm = (await Crafter.parseFile(filePath, { logger, sourceMapsEnabled: true }))[0];
@@ -147,7 +152,7 @@ describe('wrong-sections fixtures', () => {
 });
 
 describe('fixtures with errors', () => {
-  testFilesFrom(testPath.fixturesWithErrors);
+  testFilesFrom(testPath.fixturesWithErrors, true);
 });
 
 describe('fixtures with warnings', () => {

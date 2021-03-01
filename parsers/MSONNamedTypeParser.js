@@ -147,6 +147,16 @@ module.exports = (Parsers) => {
 
             const [nextNode, childRes] = Parsers.NamedTypeMemberGroupParser.parse(curNode, context);
             fillElementWithContent(result.content, type, childRes.members);
+
+            const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+            const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
+            const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
+            if (result.content.sourceMap) {
+              result.content.sourceMap = utils.concatSourceMaps([result.content.sourceMap, sourceMap], sourceBuffer, linefeedOffsets);
+            } else {
+              result.content.sourceMap = sourceMap;
+            }
+
             curNode = nextNode;
           } else {
             curNode = utils.nextNodeOfType(curNode, 'heading');
@@ -231,6 +241,15 @@ module.exports = (Parsers) => {
                 context.addWarning('Samples of enum of non-primitive types are not supported', sourceMap);
               }
             }
+
+            const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+            const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
+            const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
+            if (result.content.sourceMap) {
+              result.content.sourceMap = utils.concatSourceMaps([result.content.sourceMap, sourceMap], sourceBuffer, linefeedOffsets);
+            } else {
+              result.content.sourceMap = sourceMap;
+            }
           }
 
           let lastNodeOfSection = curNode;
@@ -290,6 +309,15 @@ module.exports = (Parsers) => {
                 const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
                 context.addWarning('Default values of enum of non-primitive types are not supported', sourceMap);
               }
+            }
+
+            const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+            const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
+            const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
+            if (result.content.sourceMap) {
+              result.content.sourceMap = utils.concatSourceMaps([result.content.sourceMap, sourceMap], sourceBuffer, linefeedOffsets);
+            } else {
+              result.content.sourceMap = sourceMap;
             }
           }
 
@@ -370,7 +398,7 @@ module.exports = (Parsers) => {
         const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
 
         if (result.content.sourceMap) {
-          result.content.sourceMap = utils.mergeSourceMaps([result.content.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
+          result.content.sourceMap = utils.concatSourceMaps([result.content.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
         } else {
           result.content.sourceMap = result.description.sourceMap;
         }
@@ -397,7 +425,7 @@ module.exports = (Parsers) => {
       if (result.content.sourceMap) {
         const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
         const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
-        result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.content.sourceMap], sourceBuffer, linefeedOffsets);
+        result.sourceMap = utils.concatSourceMaps([result.sourceMap, result.content.sourceMap], sourceBuffer, linefeedOffsets);
       }
 
       utils.validateAttributesConsistency(context, result.content, attributeSignatureDetails);

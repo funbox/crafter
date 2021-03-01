@@ -42,7 +42,7 @@ module.exports = (Parsers) => {
       result.resourcePrototypes.push(childResult);
       const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
       const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
-      result.sourceMap = utils.mergeSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
+      result.sourceMap = utils.concatSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
 
       return [nextNode, result];
     },

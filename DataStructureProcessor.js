@@ -60,12 +60,20 @@ class DataStructureProcessor {
         this.Parsers.DefaultValueParser,
         this.Parsers.SampleValueParser,
       ]);
-
+      let curNodeSourceMap;
       switch (sectionType) {
         case SectionTypes.defaultValue:
           context.data.typeForDefaults = 'primitive';
           context.data.valueType = primitiveElement.type;
           [nextNode, childResult] = this.Parsers.DefaultValueParser.parse(curNode, context);
+
+          curNodeSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+          if (primitiveElement.sourceMap) {
+            primitiveElement.sourceMap = utils.concatSourceMaps([primitiveElement.sourceMap, curNodeSourceMap]);
+          } else {
+            primitiveElement.sourceMap = utils.concatSourceMaps(curNodeSourceMap);
+          }
+
           delete context.data.typeForDefaults;
           delete context.data.valueType;
           defaults.push(...childResult);
@@ -74,13 +82,21 @@ class DataStructureProcessor {
           context.data.typeForSamples = 'primitive';
           context.data.valueType = primitiveElement.type;
           [nextNode, childResult] = this.Parsers.SampleValueParser.parse(curNode, context);
+
+          curNodeSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+          if (primitiveElement.sourceMap) {
+            primitiveElement.sourceMap = utils.concatSourceMaps([primitiveElement.sourceMap, curNodeSourceMap]);
+          } else {
+            primitiveElement.sourceMap = utils.concatSourceMaps(curNodeSourceMap);
+          }
+
           delete context.data.typeForSamples;
           delete context.data.valueType;
           samples.push(...childResult);
           break;
         default: {
           context.addWarning(`sub-types of primitive types should not have nested members, ignoring unrecognized block "${utils.nodeText(curNode, context.sourceLines)}".`, sourceMap);
-          const curNodeSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+          curNodeSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
           primitiveElement.unrecognizedBlocks.push(new UnrecognizedBlockElement(curNodeSourceMap));
           nextNode = utils.nextNode(curNode);
         }
@@ -268,6 +284,8 @@ class DataStructureProcessor {
     const objectElement = new ObjectElement();
     let curNode = node;
 
+    const childSourceMaps = [];
+
     while (curNode) {
       let nextNode;
       let childResult;
@@ -307,6 +325,8 @@ class DataStructureProcessor {
             (mixinElement) => (mixinElement.isObject() ? [true, ''] : [false, 'objects should contain object mixins']),
           );
 
+          childSourceMaps.push(childResult.sourceMap);
+
           if (!isMixinValid) {
             childResult = null;
           }
@@ -345,12 +365,18 @@ class DataStructureProcessor {
     if (objectElement.propertyMembers.length) {
       const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
       const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
-      const sourceMap = utils.mergeSourceMaps(objectElement.propertyMembers.map(pm => pm.sourceMap), sourceBuffer, linefeedOffsets);
+      const sourceMap = utils.concatSourceMaps(objectElement.propertyMembers.map(pm => pm.sourceMap), sourceBuffer, linefeedOffsets);
 
       if (valueMember.sourceMap) {
         valueMember.sourceMap = utils.concatSourceMaps([valueMember.sourceMap, sourceMap]);
       } else {
         valueMember.sourceMap = sourceMap;
+      }
+    } else if (childSourceMaps.length) {
+      if (valueMember.sourceMap) {
+        valueMember.sourceMap = utils.concatSourceMaps([valueMember.sourceMap, ...childSourceMaps]);
+      } else {
+        valueMember.sourceMap = utils.concatSourceMaps(childSourceMaps);
       }
     }
   }
@@ -437,9 +463,11 @@ class DataStructureProcessor {
               childSourceMaps.push(childResult.sourceMap);
             } else {
               context.addWarning(`Invalid enum member type: ${childResult.type}. Valid types: ${validEnumMemberTypes.join(', ')}.`, childResult.sourceMap);
+              valueMember.unrecognizedBlocks.push(new UnrecognizedBlockElement(childResult.sourceMap));
             }
           } else {
             context.addWarning(`Enum members must have names: ${childResult.type}`, childResult.sourceMap);
+            valueMember.unrecognizedBlocks.push(new UnrecognizedBlockElement(childResult.sourceMap));
           }
           break;
         case SectionTypes.msonArrayMemberGroup: {

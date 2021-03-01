@@ -1,5 +1,6 @@
 const getCharacterBlocksWithLineColumnInfo = require('../getCharacterBlocksWithLineColumnInfo');
 const getOffsetFromStartOfFileInBytes = require('../getOffsetFromStartOfFileInBytes');
+const getTrailingEmptyLinesLengthInBytes = require('../getTrailingEmptyLinesLengthInBytes');
 const getSourcePosZeroBased = require('../getSourcePosZeroBased');
 const { LINEFEED_BYTES } = require('../../constants');
 const SourceMap = require('./SourceMap');
@@ -13,6 +14,7 @@ module.exports = function makeSourceMapForAsset(node, sourceLines, sourceBuffer,
   const numSpacesPerIndentLevel = 4;
   const indentation = Math.floor(startColumnIndex / numSpacesPerIndentLevel) * numSpacesPerIndentLevel;
   let offset = getOffsetFromStartOfFileInBytes(startLineIndex, indentation, sourceLines);
+
   for (let lineIndex = startLineIndex; lineIndex <= endLineIndex; lineIndex += 1) {
     const line = sourceLines[lineIndex];
     if (/\S/.test(line)) {
@@ -21,11 +23,16 @@ module.exports = function makeSourceMapForAsset(node, sourceLines, sourceBuffer,
       if (lineIndex < sourceLines.length - 1) {
         length += LINEFEED_BYTES;
       }
+
+      if (lineIndex + 1 <= endLineIndex) {
+        length += getTrailingEmptyLinesLengthInBytes(lineIndex + 1, sourceLines);
+      }
+
       byteBlocks.push({ offset, length, file: node.file });
       offset += length;
       offset += indentation;
     } else {
-      offset += Buffer.byteLength(line) + LINEFEED_BYTES;
+      offset += Buffer.byteLength(line);
     }
   }
 

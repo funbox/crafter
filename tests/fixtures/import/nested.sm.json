@@ -121,7 +121,20 @@
                         },
                         {
                           "element": "number",
-                          "content": 28
+                          "content": 12
+                        }
+                      ]
+                    },
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 12
+                        },
+                        {
+                          "element": "number",
+                          "content": 16
                         }
                       ]
                     }
@@ -383,7 +396,20 @@
                         },
                         {
                           "element": "number",
-                          "content": 31
+                          "content": 16
+                        }
+                      ]
+                    },
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 16
+                        },
+                        {
+                          "element": "number",
+                          "content": 15
                         }
                       ]
                     }
@@ -610,11 +636,37 @@
                   "content": [
                     {
                       "element": "number",
+                      "content": 0
+                    },
+                    {
+                      "element": "number",
+                      "content": 10
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
                       "content": 10
                     },
                     {
                       "element": "number",
                       "content": 60
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 70
+                    },
+                    {
+                      "element": "number",
+                      "content": 34
                     }
                   ]
                 }
@@ -632,12 +684,25 @@
                     },
                     {
                       "element": "number",
-                      "content": 28
+                      "content": 16
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 16
+                    },
+                    {
+                      "element": "number",
+                      "content": 15
                     }
                   ]
                 }
               ],
-              "file": "nested/nested-inner.apib"
+              "file": "nested-next-level-inner.apib"
             },
             {
               "element": "sourceMap",
@@ -651,12 +716,38 @@
                     },
                     {
                       "element": "number",
-                      "content": 31
+                      "content": 12
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 12
+                    },
+                    {
+                      "element": "number",
+                      "content": 16
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 28
+                    },
+                    {
+                      "element": "number",
+                      "content": 41
                     }
                   ]
                 }
               ],
-              "file": "nested-next-level-inner.apib"
+              "file": "nested/nested-inner.apib"
             }
           ]
         }

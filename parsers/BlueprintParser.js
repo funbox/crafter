@@ -1,5 +1,7 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
+const ByteBlock = require('../utils/sourceMap/ByteBlock');
+const { getEndingLinefeedLengthInBytes, getTrailingEmptyLinesLengthInBytes } = require('../utils');
 
 const CrafterError = utils.CrafterError;
 
@@ -42,11 +44,35 @@ module.exports = (Parsers) => {
       while (curNode.type === 'paragraph') {
         let isWarningAdded = false;
         const nodeText = utils.nodeText(curNode, context.sourceLines);
-        nodeText.split('\n').forEach(line => { // eslint-disable-line no-loop-func
+        const { startLineIndex, startColumnIndex } = utils.getSourcePosZeroBased(curNode);
+        let offset = 0;
+
+        nodeText.split('\n').forEach((line, lineIndex) => { // eslint-disable-line no-loop-func
+          if (lineIndex === 0) {
+            offset = utils.getOffsetFromStartOfFileInBytes(startLineIndex, startColumnIndex, context.sourceLines);
+          }
+
           const [key, ...rest] = line.split(':');
           const value = rest.join(':');
-          const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+
+          const match = line.match(/^(\s*)(.*)$/);
+          const leadingWhitespaceBytes = Buffer.byteLength(match[1]);
+          const restBytes = Buffer.byteLength(match[2]);
+
+          offset += leadingWhitespaceBytes;
+          const blockOffset = offset;
+          offset += restBytes + getEndingLinefeedLengthInBytes(startLineIndex + lineIndex, context.sourceLines);
+
+          if (!/\S/.test(context.sourceLines[startLineIndex + lineIndex + 1])) {
+            offset += getTrailingEmptyLinesLengthInBytes(startLineIndex + lineIndex + 1, context.sourceLines);
+          }
+
+          const blockLength = offset - blockOffset;
+          const byteBlock = new ByteBlock(blockOffset, blockLength, curNode.file);
+          const charBlocks = utils.getCharacterBlocksWithLineColumnInfo([byteBlock], context.sourceBuffer, context.linefeedOffsets);
+          const sourceMap = new utils.SourceMap([byteBlock], charBlocks);
           sourceMaps.push(sourceMap);
+
           if (key && value) {
             const element = new MetaDataElement(key, value);
             element.sourceMap = sourceMap;
@@ -62,6 +88,8 @@ module.exports = (Parsers) => {
       if (curNode.type === 'heading' && context.sectionKeywordSignature(curNode) === SectionTypes.undefined) {
         const [titleText, titleTextOffset] = utils.headerTextWithOffset(curNode, context.sourceLines);
         title = utils.makeStringElement(titleText, titleTextOffset, curNode, context);
+        const titleSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+        sourceMaps.push(titleSourceMap);
 
         curNode = curNode.next;
       } else {
@@ -127,7 +155,7 @@ module.exports = (Parsers) => {
       if (context.error) {
         preprocessErrorResult(result, context);
       } else {
-        result.sourceMap = utils.concatSourceMaps(sourceMaps);
+        result.sourceMap = utils.concatSourceMaps([...sourceMaps, ...context.importsSourceMaps]);
       }
 
       context.warnings.forEach(warning => {
@@ -235,6 +263,7 @@ module.exports = (Parsers) => {
       while (curNode) {
         if (isImportSection(curNode, context)) {
           const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+          context.importsSourceMaps.push(sourceMap);
 
           if (!context.entryDir) {
             throw new CrafterError('Import error. Entry directory should be defined.', sourceMap);
@@ -275,6 +304,7 @@ module.exports = (Parsers) => {
 
             addSourceLinesAndFilename(childAst, childSourceLines, childSourceBuffer, childLinefeedOffsets, context.resolvePathRelativeToEntryDir(filename));
             await this.resolveImports(childAst.firstChild, childContext, usedFiles);
+            context.importsSourceMaps.push(...childContext.importsSourceMaps);
 
             let childNode = childAst.firstChild;
             while (childNode) {

@@ -49,16 +49,16 @@ describe('MSONAttributeParser', () => {
         sourceMap: {
           byteBlocks: [
             {
-              offset: 14,
-              length: 30,
+              offset: 12,
+              length: 32,
             },
           ],
           charBlocks: [
             {
-              offset: 14,
-              length: 22,
+              offset: 12,
+              length: 24,
               startLine: 2,
-              startColumn: 3,
+              startColumn: 1,
               endLine: 2,
               endColumn: 24,
             },
@@ -72,16 +72,16 @@ describe('MSONAttributeParser', () => {
         sourceMap: {
           byteBlocks: [
             {
-              offset: 46,
-              length: 27,
+              offset: 44,
+              length: 29,
             },
           ],
           charBlocks: [
             {
-              offset: 38,
-              length: 19,
+              offset: 36,
+              length: 21,
               startLine: 3,
-              startColumn: 3,
+              startColumn: 1,
               endLine: 3,
               endColumn: 21,
             },
@@ -95,16 +95,16 @@ describe('MSONAttributeParser', () => {
         sourceMap: {
           byteBlocks: [
             {
-              offset: 75,
-              length: 25,
+              offset: 73,
+              length: 27,
             },
           ],
           charBlocks: [
             {
-              offset: 59,
-              length: 17,
+              offset: 57,
+              length: 19,
               startLine: 4,
-              startColumn: 3,
+              startColumn: 1,
               endLine: 4,
               endColumn: 19,
             },
@@ -118,16 +118,16 @@ describe('MSONAttributeParser', () => {
         sourceMap: {
           byteBlocks: [
             {
-              offset: 102,
-              length: 26,
+              offset: 100,
+              length: 28,
             },
           ],
           charBlocks: [
             {
-              offset: 78,
-              length: 18,
+              offset: 76,
+              length: 20,
               startLine: 5,
-              startColumn: 3,
+              startColumn: 1,
               endLine: 5,
               endColumn: 20,
             },
@@ -199,6 +199,7 @@ describe('MSONAttributeParser', () => {
         },
       },
     ]);
+
     expect(members).toEqual([
       {
         value: 'movement',
@@ -207,16 +208,16 @@ describe('MSONAttributeParser', () => {
         sourceMap: {
           byteBlocks: [
             {
-              offset: 45,
-              length: 30,
+              offset: 43,
+              length: 32,
             },
           ],
           charBlocks: [
             {
-              offset: 45,
-              length: 22,
+              offset: 43,
+              length: 24,
               startLine: 4,
-              startColumn: 3,
+              startColumn: 1,
               endLine: 4,
               endColumn: 24,
             },
@@ -230,16 +231,16 @@ describe('MSONAttributeParser', () => {
         sourceMap: {
           byteBlocks: [
             {
-              offset: 77,
-              length: 27,
+              offset: 75,
+              length: 29,
             },
           ],
           charBlocks: [
             {
-              offset: 69,
-              length: 19,
+              offset: 67,
+              length: 21,
               startLine: 5,
-              startColumn: 3,
+              startColumn: 1,
               endLine: 5,
               endColumn: 21,
             },
@@ -253,16 +254,16 @@ describe('MSONAttributeParser', () => {
         sourceMap: {
           byteBlocks: [
             {
-              offset: 106,
-              length: 25,
+              offset: 104,
+              length: 27,
             },
           ],
           charBlocks: [
             {
-              offset: 90,
-              length: 17,
+              offset: 88,
+              length: 19,
               startLine: 6,
-              startColumn: 3,
+              startColumn: 1,
               endLine: 6,
               endColumn: 19,
             },
@@ -276,16 +277,16 @@ describe('MSONAttributeParser', () => {
         sourceMap: {
           byteBlocks: [
             {
-              offset: 133,
-              length: 26,
+              offset: 131,
+              length: 28,
             },
           ],
           charBlocks: [
             {
-              offset: 109,
-              length: 18,
+              offset: 107,
+              length: 20,
               startLine: 7,
-              startColumn: 3,
+              startColumn: 1,
               endLine: 7,
               endColumn: 20,
             },

@@ -7,7 +7,6 @@ const makeSourceMapForLine = require('./makeSourceMapForLine');
 const makeSourceMapsForInlineValues = require('./makeSourceMapsForInlineValues');
 const makeSourceMapsForStartPosAndLength = require('./makeSourceMapsForStartPosAndLength');
 const makeSourceMapsForString = require('./makeSourceMapsForString');
-const mergeSourceMaps = require('./mergeSourceMaps');
 
 const SourceMap = require('./SourceMap');
 
@@ -21,6 +20,5 @@ module.exports = {
   makeSourceMapsForInlineValues,
   makeSourceMapsForStartPosAndLength,
   makeSourceMapsForString,
-  mergeSourceMaps,
   SourceMap,
 };

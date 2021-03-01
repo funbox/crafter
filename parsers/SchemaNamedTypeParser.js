@@ -71,7 +71,7 @@ module.exports = (Parsers) => {
 
       const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
       const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
-      result.sourceMap = utils.mergeSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
+      result.sourceMap = utils.concatSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
 
       return [nextNode, result];
     },
@@ -81,7 +81,7 @@ module.exports = (Parsers) => {
       const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
       const unrecognizedBlocksSourceMaps = result.unrecognizedBlocks.map(ub => ub.sourceMap);
       if (result.description) {
-        result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
+        result.sourceMap = utils.concatSourceMaps([result.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
       }
 
       result.sourceMap = utils.concatSourceMaps([result.sourceMap, ...unrecognizedBlocksSourceMaps], sourceBuffer, linefeedOffsets);

@@ -40,6 +40,7 @@ class Context {
     this.warningsEnabled = true;
     this.warnings = [];
     this.filePaths = [];
+    this.importsSourceMaps = [];
     this.debugMode = options.debugMode;
     this.readFile = options.readFile || readFile;
     this.languageServerMode = options.languageServerMode;

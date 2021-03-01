@@ -57,7 +57,7 @@ module.exports = (Parsers) => {
       result.messages.push(childResult);
       const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
       const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
-      result.sourceMap = utils.mergeSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
+      result.sourceMap = utils.concatSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
       return [nextNode, result];
     },
 
@@ -65,7 +65,7 @@ module.exports = (Parsers) => {
       if (result.description) {
         const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
         const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
-        result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
+        result.sourceMap = utils.concatSourceMaps([result.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
       }
       return result;
     },

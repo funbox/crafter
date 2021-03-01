@@ -5,8 +5,10 @@ const convertType = require('./convertType');
 const getDefaultValue = require('./getDefaultValue');
 const extractDescription = require('./extractDescription');
 const getCharacterBlocksWithLineColumnInfo = require('./getCharacterBlocksWithLineColumnInfo');
+const getEndingLinefeedLengthInBytes = require('./getEndingLinefeedLengthInBytes');
 const getOffsetFromStartOfFileInBytes = require('./getOffsetFromStartOfFileInBytes');
 const getSourcePosZeroBased = require('./getSourcePosZeroBased');
+const getTrailingEmptyLinesLengthInBytes = require('./getTrailingEmptyLinesLengthInBytes');
 const log = require('./log');
 const makeStringElement = require('./makeStringElement');
 const markdownSourceToAST = require('./markdownSourceToAST');
@@ -30,8 +32,10 @@ const utils = {
   getDefaultValue,
   extractDescription,
   getCharacterBlocksWithLineColumnInfo,
+  getEndingLinefeedLengthInBytes,
   getOffsetFromStartOfFileInBytes,
   getSourcePosZeroBased,
+  getTrailingEmptyLinesLengthInBytes,
   ...log,
   makeStringElement,
   markdownSourceToAST,

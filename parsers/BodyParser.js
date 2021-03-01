@@ -17,7 +17,7 @@ module.exports = (Parsers) => {
 
       const body = bodyContentNode.literal || '';
       const bodyEl = new BodyElement(body);
-      const sourceMap = this.makeSourceMap(bodyContentNode, context);
+      const sourceMap = this.makeSourceMap(node, context);
       if (bodyContentNode.type !== 'code_block') {
         context.addWarning('"Body" is expected to be a pre-formatted code block, every of its line indented by exactly 12 spaces or 3 tabs', sourceMap);
       }

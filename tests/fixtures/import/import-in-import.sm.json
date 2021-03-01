@@ -121,7 +121,20 @@
                         },
                         {
                           "element": "number",
-                          "content": 27
+                          "content": 12
+                        }
+                      ]
+                    },
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 12
+                        },
+                        {
+                          "element": "number",
+                          "content": 15
                         }
                       ]
                     }
@@ -348,11 +361,37 @@
                   "content": [
                     {
                       "element": "number",
+                      "content": 0
+                    },
+                    {
+                      "element": "number",
+                      "content": 10
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
                       "content": 10
                     },
                     {
                       "element": "number",
                       "content": 55
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 65
+                    },
+                    {
+                      "element": "number",
+                      "content": 37
                     }
                   ]
                 }
@@ -370,12 +409,44 @@
                     },
                     {
                       "element": "number",
-                      "content": 27
+                      "content": 12
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 12
+                    },
+                    {
+                      "element": "number",
+                      "content": 15
                     }
                   ]
                 }
               ],
               "file": "import-in-import-inner-inner.apib"
+            },
+            {
+              "element": "sourceMap",
+              "content": [
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 0
+                    },
+                    {
+                      "element": "number",
+                      "content": 43
+                    }
+                  ]
+                }
+              ],
+              "file": "import-in-import-inner.apib"
             }
           ]
         }
