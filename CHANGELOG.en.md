@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.13.0 (01.03.2021)
+
+* Delete Drafter tests.
+
 ## 2.12.0 (26.02.2021)
 
 * Use separate classes for byteBlock / charBlock.
