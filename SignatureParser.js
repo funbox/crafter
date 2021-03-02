@@ -353,8 +353,12 @@ function splitAttributes(signature, languageServerMode) {
     }
   }
 
-  if (!attributesEndDelimiterFound && !languageServerMode) {
-    error(signature);
+  if (!attributesEndDelimiterFound) {
+    if (languageServerMode) {
+      lastSlicePos = signature.length;
+    } else {
+      error(signature);
+    }
   }
 
   return {
