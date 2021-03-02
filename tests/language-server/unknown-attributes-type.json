@@ -21,7 +21,7 @@
       "content": [
         {
           "element": "copy",
-          "content": "In Language Server mode invalid Attributes section should not raise an error"
+          "content": "In Language Server mode unknown Attributes section type should not raise an error"
         },
         {
           "element": "resource",
@@ -54,7 +54,7 @@
                         {
                           "element": "dataStructure",
                           "content": {
-                            "element": "string"
+                            "element": "User"
                           }
                         }
                       ],

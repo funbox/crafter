@@ -115,7 +115,7 @@ module.exports = (Parsers) => {
         const text = utils.nodeText(node.firstChild, context.sourceLines);
 
         try {
-          const signature = new SignatureParser(text, false);
+          const signature = new SignatureParser(text, context.languageServerMode);
           if (attributesRegex.exec(signature.name)) {
             return SectionTypes.attributes;
           }
