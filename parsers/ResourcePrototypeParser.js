@@ -22,7 +22,10 @@ module.exports = (Parsers) => {
 
     sectionType(node, context) {
       if (node.type === 'heading' && context.sectionKeywordSignature(node) === SectionTypes.undefined) {
-        return SectionTypes.resourcePrototype;
+        const subject = utils.headerText(node, context.sourceLines);
+        if (PrototypeHeaderRegex.exec(subject)) {
+          return SectionTypes.resourcePrototype;
+        }
       }
 
       return SectionTypes.undefined;
