@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.13.3 (02.03.2021)
+
+* Fix Attributes section parsing in language server mode.
+
 ## 2.13.2 (02.03.2021)
 
 * Fix determination of a description when element signature is incorrect in language server mode.
