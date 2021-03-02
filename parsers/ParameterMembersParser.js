@@ -25,7 +25,7 @@ module.exports = (Parsers) => {
     },
 
     nestedSectionType(node, context) {
-      if (node.type === 'item' && this.sectionType(node.parent.parent, context) !== SectionTypes.undefined) {
+      if (Parsers.ParameterEnumMemberParser.sectionType(node, context) !== SectionTypes.undefined) {
         return SectionTypes.parameterMember;
       }
 
