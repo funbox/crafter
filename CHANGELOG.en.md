@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.13.4 (02.03.2021)
+
+* Handle empty titles in Resource Prototypes.
+
 ## 2.13.3 (02.03.2021)
 
 * Fix Attributes section parsing in language server mode.
