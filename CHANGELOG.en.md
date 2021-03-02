@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.13.5 (02.03.2021)
+
+* Remove duplicated types from getDefaultValue.
+
 ## 2.13.4 (02.03.2021)
 
 * Handle empty titles in Resource Prototypes.
