@@ -1,5 +1,9 @@
 # История изменений проекта
 
+## 2.13.2 (02.03.2021)
+
+* Исправление подсчета описания для некорректной сигнатуры в language server mode.
+
 ## 2.13.1 (02.03.2021)
 
 * Исправление Source Map для Description внутри ValueMemberElement из MSONNamedTypeElement.
