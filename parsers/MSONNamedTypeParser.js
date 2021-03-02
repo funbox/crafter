@@ -362,12 +362,6 @@ module.exports = (Parsers) => {
         }
       }
 
-      if (result.content.sourceMap) {
-        const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
-        const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
-        result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.content.sourceMap], sourceBuffer, linefeedOffsets);
-      }
-
       return [curNode, result];
 
       function appendUnrecognizedBlocks(sourceMaps) {
@@ -393,7 +387,12 @@ module.exports = (Parsers) => {
         result.description = desc;
         const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
         const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
-        result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
+
+        if (result.content.sourceMap) {
+          result.content.sourceMap = utils.mergeSourceMaps([result.content.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
+        } else {
+          result.content.sourceMap = result.description.sourceMap;
+        }
 
         return [curNode, result];
       }
@@ -412,6 +411,12 @@ module.exports = (Parsers) => {
           type = context.typeResolver.getStandardBaseType(type);
         }
         fillElementWithContent(result.content, type);
+      }
+
+      if (result.content.sourceMap) {
+        const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
+        const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
+        result.sourceMap = utils.mergeSourceMaps([result.sourceMap, result.content.sourceMap], sourceBuffer, linefeedOffsets);
       }
 
       utils.validateAttributesConsistency(context, result.content, attributeSignatureDetails);
