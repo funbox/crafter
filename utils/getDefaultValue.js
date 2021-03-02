@@ -1,12 +1,5 @@
+const { types: { defaults } } = require('../constants');
+
 module.exports = function getDefaultValue(type) {
-  const valueByType = {
-    boolean: true,
-    number: 1,
-    string: 'hello',
-    array: [],
-    object: {},
-    file: 'hello',
-    enum: 'hello',
-  };
-  return valueByType[type] === undefined ? '' : valueByType[type];
+  return defaults[type] === undefined ? '' : defaults[type];
 };
