@@ -1,5 +1,9 @@
 # История изменений проекта
 
+## 2.13.1 (02.03.2021)
+
+* Исправление Source Map для Description внутри ValueMemberElement из MSONNamedTypeElement.
+
 ## 2.13.0 (01.03.2021)
 
 * Удаление тестов из Drafter.

@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.13.1 (02.03.2021)
+
+* Fix Source Map of a description of ValueMemberElement that belongs to MSONNamedTypeElement.
+
 ## 2.13.0 (01.03.2021)
 
 * Delete Drafter tests.
