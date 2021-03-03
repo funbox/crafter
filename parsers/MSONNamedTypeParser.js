@@ -120,6 +120,7 @@ module.exports = (Parsers) => {
 
     processNestedSections(node, context, result) {
       let curNode = node;
+      const valueMemberDefaults = [];
 
       while (curNode) {
         if (curNode.type === 'item') {
@@ -252,27 +253,7 @@ module.exports = (Parsers) => {
             const valueMember = result.content;
 
             if (!valueMember.isComplex()) {
-              const defaults = [];
-
-              context.data.typeForDefaults = 'primitive';
-              context.data.valueType = valueMember.type;
-              const [, childResult] = Parsers.DefaultHeaderParser.parse(curNode, context);
-              delete context.data.typeForDefaults;
-              delete context.data.valueType;
-              defaults.push(...childResult);
-
-              const childSourceMaps = childResult.map(child => child.sourceMap);
-              concatSourceMaps(valueMember, childSourceMaps);
-
-              if (defaults.length) {
-                if (defaults.length > 1) {
-                  const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-                  context.addWarning('Multiple definitions of "default" value', sourceMap);
-
-                  appendUnrecognizedBlocks(defaults.slice(1).map(d => d.sourceMap));
-                }
-                valueMember.default = defaults[0];
-              }
+              assignValueMemberDefault(valueMember, 'primitive', valueMember.type, valueMemberDefaults);
             }
 
             if (valueMember.isObject()) {
@@ -287,26 +268,7 @@ module.exports = (Parsers) => {
               const hasComplexMembers = arrayElement.isComplex();
 
               if (!hasComplexMembers) {
-                context.data.typeForDefaults = 'array';
-                context.data.valueType = predefinedType;
-                const [, childResult] = Parsers.DefaultHeaderParser.parse(curNode, context);
-                delete context.data.typeForDefaults;
-                delete context.data.valueType;
-                if (childResult.length) {
-                  const childSourceMaps = [];
-                  childResult.forEach(child => {
-                    childSourceMaps.push(...child.sourceMap);
-                  });
-                  concatSourceMaps(valueMember, childSourceMaps);
-
-                  if (childResult.length > 1) {
-                    const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-                    context.addWarning('Multiple definitions of "default" value', sourceMap);
-
-                    appendUnrecognizedBlocks(childResult.slice(1).map(d => d.sourceMap));
-                  }
-                  valueMember.default = childResult[0];
-                }
+                assignValueMemberDefault(valueMember, 'array', predefinedType, valueMemberDefaults);
               } else {
                 unrecognizedBlockDetected = true;
                 const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
@@ -316,26 +278,10 @@ module.exports = (Parsers) => {
 
             if (valueMember.isEnum()) {
               const enumElement = valueMember.content;
-              const hasComplexMembers = enumElement.isComplex();
+              const hasComplexMembers = valueMember.content.isComplex();
 
               if (!hasComplexMembers) {
-                context.data.typeForDefaults = 'enum';
-                context.data.valueType = enumElement.type;
-                const [, childResult] = Parsers.DefaultHeaderParser.parse(curNode, context);
-                delete context.data.typeForDefaults;
-                delete context.data.valueType;
-                if (childResult.length) {
-                  const childSourceMaps = childResult.map(child => child.sourceMap);
-                  concatSourceMaps(valueMember, childSourceMaps);
-
-                  if (childResult.length > 1) {
-                    const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-                    context.addWarning('Multiple definitions of "default" value', sourceMap);
-
-                    appendUnrecognizedBlocks(childResult.slice(1).map(d => d.sourceMap));
-                  }
-                  enumElement.defaultValue = childResult[0];
-                }
+                assignValueMemberDefault(valueMember, 'enum', enumElement.type, valueMemberDefaults);
               } else {
                 unrecognizedBlockDetected = true;
                 const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
@@ -363,6 +309,37 @@ module.exports = (Parsers) => {
       }
 
       return [curNode, result];
+
+      function assignValueMemberDefault(valueMember, type, valueType, acc) {
+        context.data.typeForDefaults = type;
+        context.data.valueType = valueType;
+
+        const [, childResult] = Parsers.DefaultHeaderParser.parse(curNode, context);
+
+        delete context.data.typeForDefaults;
+        delete context.data.valueType;
+
+        acc.push(...childResult);
+
+        if (acc.length) {
+          const childSourceMaps = acc.map(child => child.sourceMap).flat();
+
+          concatSourceMaps(valueMember, childSourceMaps);
+
+          if (acc.length > 1) {
+            const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+
+            context.addWarning('Multiple definitions of "default" value', sourceMap);
+            appendUnrecognizedBlocks(acc.slice(1).map(d => d.sourceMap).flat());
+          }
+
+          if (type === 'enum') {
+            valueMember.content.defaultValue = acc[0];
+          } else {
+            valueMember.default = acc[0];
+          }
+        }
+      }
 
       function appendUnrecognizedBlocks(sourceMaps) {
         result.content.unrecognizedBlocks.push(
