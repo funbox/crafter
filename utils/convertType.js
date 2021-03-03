@@ -1,7 +1,9 @@
-module.exports = function convertType(value, requiredType) {
+module.exports = function convertType(value, requiredType, ownType) {
   if (value === undefined || value === null) return { valid: false, value };
 
-  switch (requiredType) {
+  const typeToCast = ownType || requiredType;
+
+  switch (typeToCast) {
     case 'number':
       if (Number.isNaN(Number(value))) {
         return { valid: false, value };

@@ -44,7 +44,7 @@ module.exports = (Parsers) => {
 
     nestedSectionType(node, context) {
       if (node.parent.parent && this.sectionType(node.parent.parent, context) !== SectionTypes.undefined) {
-        return Parsers.MSONAttributeParser.sectionType(node, context);
+        return Parsers.MSONAttributeParser.sectionType(node, context); // TODO: непонятно, в каких условиях эта проверка не выполнится
       }
 
       return SectionTypes.undefined;

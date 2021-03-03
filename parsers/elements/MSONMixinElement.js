@@ -36,7 +36,6 @@ class MSONMixinElement {
     };
 
     if (sourceMapsEnabled) {
-      result.attributes = result.attributes || {};
       const sourceMapEl = new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file);
       result.attributes.sourceMap = sourceMapEl.toRefract();
     }

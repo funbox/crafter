@@ -189,7 +189,7 @@ class TypeResolver {
     }
 
     const [baseType, nestedTypes] = getBaseType(typeName);
-    return [baseType || types.object, nestedTypes || []];
+    return [baseType || types.object, nestedTypes];
   }
 }
 

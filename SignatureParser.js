@@ -414,7 +414,7 @@ function convertValue(value, dataType) {
   if (dataType === 'number') {
     converted = Number(value);
     if (Number.isNaN(converted)) {
-      error(`Invalid signature: ${value} is not a number`);
+      error(undefined, `Invalid signature: ${value} is not a number`);
     }
   }
   return converted;

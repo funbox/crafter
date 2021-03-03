@@ -72,7 +72,7 @@ module.exports = (Parsers) => {
       const contentLines = contentNode.literal.trimRight().split('\n');
 
       contentLines.forEach((contentLine, contentLineIndex) => {
-        const lineHasNonWhitespace = /\S/.exec(contentLine);
+        const lineHasNonWhitespace = /\S/.test(contentLine);
 
         if (lineHasNonWhitespace) {
           if (contentLineIndex === 0) {

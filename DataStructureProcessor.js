@@ -485,7 +485,7 @@ class DataStructureProcessor {
         return;
       }
 
-      const converted = utils.convertType(member.value, enumElement.type);
+      const converted = utils.convertType(member.value, enumElement.type, member.type);
       const typesMatch = utils.compareAttributeTypes(enumElement, member);
 
       if (!typesMatch) {

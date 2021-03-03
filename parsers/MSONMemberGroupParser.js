@@ -40,7 +40,7 @@ module.exports = (Parsers) => {
       }
 
       Object.keys(memberSeparatorRegex).forEach((key) => {
-        if (memberSeparatorRegex[key].exec(text)) {
+        if (memberSeparatorRegex[key].test(text)) {
           type = key;
         }
       });
@@ -57,7 +57,7 @@ module.exports = (Parsers) => {
           ? utils.headerText(node, context.sourceLines)
           : utils.nodeText(node.firstChild, context.sourceLines);
         Object.keys(memberSeparatorRegex).forEach((key) => {
-          if (memberSeparatorRegex[key].exec(text)) {
+          if (memberSeparatorRegex[key].test(text)) {
             sectionType = sectionTypes[key];
           }
         });
@@ -81,10 +81,6 @@ module.exports = (Parsers) => {
     processNestedSection(node, context, result) {
       const { type } = result;
 
-      if (!type) {
-        return [utils.nextNode(node), result];
-      }
-
       let nextNode;
       let childResult;
 
@@ -102,6 +98,7 @@ module.exports = (Parsers) => {
           result.members.push(childResult);
           break;
         default:
+          nextNode = utils.nextNode(node);
           break;
       }
 
