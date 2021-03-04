@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.13.6 (04.03.2021)
+
+* Fix processing multiple Default sections.
+
 ## 2.13.5 (02.03.2021)
 
 * Remove duplicated types from getDefaultValue.
