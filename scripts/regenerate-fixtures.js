@@ -3,6 +3,7 @@ const fs = require('fs').promises;
 const parseApibFile = require('../parseApibFile');
 
 const apibRegex = /\.apib$/;
+const apibInnerRegexp = /-inner\.apib$/;
 
 processApibFiles(path.resolve('tests/fixtures'));
 processLanguageServerFiles(path.resolve('tests/language-server'));
@@ -13,7 +14,7 @@ async function processApibFiles(dir) {
     await res;
     if ((await fs.stat(path.join(dir, item))).isDirectory()) {
       await processApibFiles(path.join(dir, item));
-    } else if (path.extname(item) === '.apib' && !/-inner\.apib$/.test(item)) {
+    } else if (apibRegex.test(item) && !apibInnerRegexp.test(item)) {
       const fileName = path.join(dir, item);
       const jsonFileName = fileName.slice(0, -5);
       await fs.writeFile(`${jsonFileName}.json`, `${await parseApibFile(fileName, 'json')}\n`);
@@ -27,7 +28,7 @@ async function processLanguageServerFiles(dir) {
 
   await dirContent.reduce(async (res, item) => {
     await res;
-    if (apibRegex.exec(item)) {
+    if (apibRegex.test(item) && !apibInnerRegexp.test(item)) {
       const fileName = path.join(dir, item);
       const jsonFileName = fileName.replace(apibRegex, '.json');
       await fs.writeFile(jsonFileName, `${await parseApibFile(fileName, 'json', false, false, true)}\n`);
