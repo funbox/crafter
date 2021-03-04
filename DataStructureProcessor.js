@@ -470,6 +470,7 @@ class DataStructureProcessor {
         context.addWarning('Multiple definitions of "default" value', sourceMap);
       }
       enumElement.defaultValue = defaults[0];
+      valueMember.default = defaults[0];
     }
 
     if (hasComplexMembers) {

@@ -335,6 +335,7 @@ module.exports = (Parsers) => {
 
           if (type === 'enum') {
             valueMember.content.defaultValue = acc[0];
+            valueMember.default = acc[0];
           } else {
             valueMember.default = acc[0];
           }
