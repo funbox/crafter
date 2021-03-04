@@ -54,7 +54,7 @@ module.exports = {
         if (this.nestedSectionType(curNode, context) !== SectionTypes.undefined) {
           [curNode, result] = this.processNestedSection(curNode, context, result);
           shouldContinue = true;
-        } else if (this.isUnexpectedNode(curNode, context)) {
+        } else if (curNode.file === context.rootNode.file && this.isUnexpectedNode(curNode, context)) {
           const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
           result.unrecognizedBlocks.push(new UnrecognizedBlockElement(sourceMap));
           context.addWarning(`Ignoring unrecognized block "${utils.nodeText(curNode, context.sourceLines)}".`, sourceMap);

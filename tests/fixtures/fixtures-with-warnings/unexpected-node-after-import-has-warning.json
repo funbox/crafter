@@ -15,16 +15,20 @@
         },
         "title": {
           "element": "string",
-          "content": ""
+          "content": "My API"
         }
       },
       "content": [
+        {
+          "element": "copy",
+          "content": "Defines unexpected node after import instruction.\nIt produces warning 'Ignoring unrecognized block \"#\"'."
+        },
         {
           "element": "resource",
           "attributes": {
             "href": {
               "element": "string",
-              "content": "/status"
+              "content": "/foo"
             }
           },
           "content": [
@@ -60,13 +64,23 @@
               "attributes": {
                 "href": {
                   "element": "string",
-                  "content": "/status"
+                  "content": "/foo"
                 }
               }
             }
           ]
         }
-      ]
+      ],
+      "attributes": {
+        "unrecognizedBlocks": {
+          "element": "array",
+          "content": [
+            {
+              "element": "unrecognizedBlock"
+            }
+          ]
+        }
+      }
     },
     {
       "element": "annotation",
@@ -96,28 +110,28 @@
                       "attributes": {
                         "line": {
                           "element": "number",
-                          "content": 1
+                          "content": 8
                         },
                         "column": {
                           "element": "number",
                           "content": 1
                         }
                       },
-                      "content": 0
+                      "content": 166
                     },
                     {
                       "element": "number",
                       "attributes": {
                         "line": {
                           "element": "number",
-                          "content": 2
+                          "content": 8
                         },
                         "column": {
                           "element": "number",
-                          "content": 1
+                          "content": 2
                         }
                       },
-                      "content": 16
+                      "content": 2
                     }
                   ]
                 }
@@ -126,7 +140,7 @@
           ]
         }
       },
-      "content": "expected API name, e.g. \"# <API Name>\""
+      "content": "Ignoring unrecognized block \"#\"."
     }
   ]
 }
