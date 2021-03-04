@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.13.7 (04.03.2021)
+
+* Handle unrecognized block when it comes after Import directive.
+
 ## 2.13.6 (04.03.2021)
 
 * Fix processing multiple Default sections.
