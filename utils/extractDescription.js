@@ -2,6 +2,7 @@ const DescriptionElement = require('../parsers/elements/DescriptionElement');
 
 const appendDescriptionDelimiter = require('./appendDescriptionDelimiter');
 const { nodeText, nextNode } = require('./node');
+const getSourcePosZeroBased = require('./getSourcePosZeroBased');
 const { makeSourceMapForDescription } = require('./sourceMap');
 
 module.exports = function extractDescription(curNode, sourceLines, sourceBuffer, linefeedOffsets, stopCallback, startOffset) {
@@ -16,7 +17,11 @@ module.exports = function extractDescription(curNode, sourceLines, sourceBuffer,
     if (description) {
       description = appendDescriptionDelimiter(description);
     }
-    description += nodeText(curNode, sourceLines, getNodeTextFormatter(curNode));
+
+    const { startLineIndex } = getSourcePosZeroBased(curNode);
+    const startLineOffset = sourceLines[startLineIndex].search(/\S/);
+    description += nodeText(curNode, sourceLines, getNodeTextFormatter(curNode, startLineOffset));
+
     if (startOffset) {
       description = description.slice(startOffset);
       startOffset = 0;
@@ -32,8 +37,16 @@ module.exports = function extractDescription(curNode, sourceLines, sourceBuffer,
   return [curNode, descriptionEl];
 };
 
-function getNodeTextFormatter(node) {
+function getNodeTextFormatter(node, startLineOffset) {
   // для вложенных списков и блоков кода в описании нужно сохранять отступы
   const keepWhitespaces = ['code_block', 'item'].includes(node.type);
-  return keepWhitespaces ? undefined : (line) => line.trim();
+
+  if (keepWhitespaces) {
+    return (line) => {
+      const spaceFromLeft = line.search(/\S/) - startLineOffset;
+      return spaceFromLeft >= 0 ? line.replace(/^\s+/g, ''.padStart(spaceFromLeft)) : line;
+    };
+  }
+
+  return (line) => line.trim();
 }
