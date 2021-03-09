@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.13.8 (09.03.2021)
+
+* Update usage example in README.
+
 ## 2.13.7 (04.03.2021)
 
 * Handle unrecognized block when it comes after Import directive.
