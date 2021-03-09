@@ -1,0 +1,101 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "api"
+            }
+          ]
+        },
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
+      },
+      "content": [
+        {
+          "element": "copy",
+          "content": "Defines list description for response."
+        },
+        {
+          "element": "resource",
+          "attributes": {
+            "href": {
+              "element": "string",
+              "content": "/foo"
+            }
+          },
+          "content": [
+            {
+              "element": "transition",
+              "content": [
+                {
+                  "element": "httpTransaction",
+                  "content": [
+                    {
+                      "element": "httpRequest",
+                      "attributes": {
+                        "method": {
+                          "element": "string",
+                          "content": "GET"
+                        }
+                      },
+                      "content": []
+                    },
+                    {
+                      "element": "httpResponse",
+                      "content": [
+                        {
+                          "element": "copy",
+                          "content": "Общее положение:\n\n* Параметры `ids` и `idsExcept`\n  1) Для методов API, в которых доступны параметры `ids` и `idsExcept`, не могут быть переданы исключающий и включающий параметры одновременно.\n  2) Параметр `idsExcept` отвечает за выбор всех сущностей, кроме указанных.\n     Пример: `employees: {idsExcept: ['uuid']}` приведет к выбору всех сотрудников клиента, кроме сущности с идентификатором `uuid`.\n\n* Время `unix timestamp`\n  * Передается целым числом секунд с 1 января 1970 г. в UTC.\n    * Для методов API, в которых доступны параметры `ids` и `idsExcept`, не могут быть переданы исключающий и включающий параметры одновременно.\n      * Передается целым числом секунд с 1 января 1970 г. в UTC.\n        * Параметр\n          * Число\n  * Время `unix timestamp`\n    * Передается целым числом секунд с 1 января 1970 г. в UTC."
+                        },
+                        {
+                          "element": "dataStructure",
+                          "content": {
+                            "element": "object",
+                            "content": [
+                              {
+                                "element": "member",
+                                "content": {
+                                  "key": {
+                                    "element": "string",
+                                    "content": "name"
+                                  },
+                                  "value": {
+                                    "element": "string"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ],
+                      "attributes": {
+                        "statusCode": {
+                          "element": "number",
+                          "content": 200
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "attributes": {
+                "href": {
+                  "element": "string",
+                  "content": "/foo"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
