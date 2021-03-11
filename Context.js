@@ -68,8 +68,8 @@ class Context {
     this.resourcePrototypeResolver = new PrototypeResolver();
   }
 
-  addType(type, content) {
-    this.typeResolver.registerType(type, content);
+  addType(type, content, sourceFile) {
+    this.typeResolver.registerType(type, content, sourceFile);
   }
 
   getType(typeName) {

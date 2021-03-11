@@ -194,7 +194,7 @@ module.exports = (Parsers) => {
           schemaStructureGroup.schemaStructures.forEach((schemaType) => {
             const typeName = schemaType.name.string;
             if ((!context.getType(typeName))) {
-              context.addType(schemaType, schemaType);
+              context.addType(schemaType, schemaType, curNode.file || context.currentFile);
             } else if (!context.languageServerMode) {
               throw new CrafterError(`${typeName} type already defined`, schemaType.name.sourceMap);
             }
@@ -206,7 +206,7 @@ module.exports = (Parsers) => {
           dataStructureGroup.dataStructures.forEach((namedType) => {
             const typeName = namedType.name.string;
             if ((!context.getType(typeName))) {
-              context.addType(namedType, namedType.content);
+              context.addType(namedType, namedType.content, curNode.file || context.currentFile);
             } else if (!context.languageServerMode) {
               throw new CrafterError(`${typeName} type already defined`, namedType.name.sourceMap);
             }
@@ -222,7 +222,7 @@ module.exports = (Parsers) => {
           [SectionTypes.dataStructureGroup]: (curNode) => {
             const [nextNode, dataStructureGroup] = Parsers.DataStructureGroupParser.parse(curNode, context);
             dataStructureGroup.dataStructures.forEach((namedType) => {
-              context.addType(namedType, namedType.content);
+              context.addType(namedType, namedType.content, curNode.file || context.currentFile);
             });
             return nextNode;
           },

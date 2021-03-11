@@ -23,11 +23,18 @@ class TypeResolver {
      * @type {Object.<string, StringElement>}
      */
     this.typeNames = {};
+
+    /**
+     * Содержит названия файлов, в которых определён тот или иной именованнный тип
+     * @type {Object.<string, string>}
+     */
+    this.typeLocations = {};
   }
 
-  registerType(type, content) {
+  registerType(type, content, typeLocation) {
     this.types[type.name.string] = content;
     this.typeNames[type.name.string] = type.name;
+    this.typeLocations[type.name.string] = typeLocation;
   }
 
   checkRegisteredTypes() {
