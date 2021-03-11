@@ -39,7 +39,7 @@ const SectionTypes = Object.freeze({
   /**
    * @param {object} node
    * @param {Context} context
-   * @param [array] parsers
+   * @param {array} parsers
    * @returns {string}
    */
   calculateSectionType(node, context, parsers) {
