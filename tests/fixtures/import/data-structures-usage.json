@@ -1,0 +1,528 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "api"
+            }
+          ]
+        },
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
+      },
+      "content": [
+        {
+          "element": "copy",
+          "content": "This fixture defines some named structures and imports another file, which uses these named structure to generate response.\nDefined data structures should be available in imported file."
+        },
+        {
+          "element": "category",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "dataStructures"
+                }
+              ]
+            }
+          },
+          "content": [
+            {
+              "element": "dataStructure",
+              "content": {
+                "element": "object",
+                "content": [
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "status"
+                      },
+                      "value": {
+                        "element": "string",
+                        "attributes": {
+                          "typeAttributes": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "fixed"
+                              }
+                            ]
+                          }
+                        },
+                        "content": "alreadyExists"
+                      }
+                    },
+                    "attributes": {
+                      "typeAttributes": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "required"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ],
+                "meta": {
+                  "id": {
+                    "element": "string",
+                    "content": "AlreadyExistsError"
+                  }
+                }
+              }
+            },
+            {
+              "element": "dataStructure",
+              "content": {
+                "element": "object",
+                "content": [
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "status"
+                      },
+                      "value": {
+                        "element": "string",
+                        "attributes": {
+                          "typeAttributes": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "fixed"
+                              }
+                            ]
+                          }
+                        },
+                        "content": "notFound"
+                      }
+                    },
+                    "attributes": {
+                      "typeAttributes": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "required"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ],
+                "meta": {
+                  "id": {
+                    "element": "string",
+                    "content": "NotFoundError"
+                  }
+                }
+              }
+            },
+            {
+              "element": "dataStructure",
+              "content": {
+                "element": "object",
+                "content": [
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "status"
+                      },
+                      "value": {
+                        "element": "string",
+                        "attributes": {
+                          "typeAttributes": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "fixed"
+                              }
+                            ]
+                          }
+                        },
+                        "content": "ok"
+                      }
+                    },
+                    "attributes": {
+                      "typeAttributes": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "required"
+                          }
+                        ]
+                      }
+                    },
+                    "meta": {
+                      "description": {
+                        "element": "string",
+                        "content": "штатный ответ"
+                      }
+                    }
+                  }
+                ],
+                "meta": {
+                  "id": {
+                    "element": "string",
+                    "content": "NormalResponse"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "element": "category",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "resourceGroup"
+                }
+              ]
+            },
+            "title": {
+              "element": "string",
+              "content": "My Group"
+            }
+          },
+          "content": [
+            {
+              "element": "resource",
+              "attributes": {
+                "href": {
+                  "element": "string",
+                  "content": "/user"
+                }
+              },
+              "content": [
+                {
+                  "element": "transition",
+                  "content": [
+                    {
+                      "element": "httpTransaction",
+                      "content": [
+                        {
+                          "element": "httpRequest",
+                          "attributes": {
+                            "method": {
+                              "element": "string",
+                              "content": "GET"
+                            }
+                          },
+                          "content": []
+                        },
+                        {
+                          "element": "httpResponse",
+                          "content": [
+                            {
+                              "element": "dataStructure",
+                              "content": {
+                                "element": "NormalResponse"
+                              }
+                            },
+                            {
+                              "element": "asset",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "messageBody"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": "{\n  \"status\": \"ok\"\n}",
+                              "attributes": {
+                                "contentType": {
+                                  "element": "string",
+                                  "content": "application/json"
+                                }
+                              }
+                            },
+                            {
+                              "element": "asset",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "messageBodySchema"
+                                    }
+                                  ]
+                                }
+                              },
+                              "attributes": {
+                                "contentType": {
+                                  "element": "string",
+                                  "content": "application/schema+json"
+                                }
+                              },
+                              "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"status\": {\n      \"type\": \"string\",\n      \"enum\": [\n        \"ok\"\n      ],\n      \"description\": \"штатный ответ\"\n    }\n  },\n  \"required\": [\n    \"status\"\n  ]\n}"
+                            }
+                          ],
+                          "attributes": {
+                            "statusCode": {
+                              "element": "number",
+                              "content": 200
+                            },
+                            "headers": {
+                              "element": "httpHeaders",
+                              "content": [
+                                {
+                                  "element": "member",
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "Content-Type"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "content": "application/json"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "element": "httpTransaction",
+                      "content": [
+                        {
+                          "element": "httpRequest",
+                          "attributes": {
+                            "method": {
+                              "element": "string",
+                              "content": "GET"
+                            }
+                          },
+                          "content": []
+                        },
+                        {
+                          "element": "httpResponse",
+                          "content": [
+                            {
+                              "element": "dataStructure",
+                              "content": {
+                                "element": "AlreadyExistsError"
+                              }
+                            },
+                            {
+                              "element": "asset",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "messageBody"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": "{\n  \"status\": \"alreadyExists\"\n}",
+                              "attributes": {
+                                "contentType": {
+                                  "element": "string",
+                                  "content": "application/json"
+                                }
+                              }
+                            },
+                            {
+                              "element": "asset",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "messageBodySchema"
+                                    }
+                                  ]
+                                }
+                              },
+                              "attributes": {
+                                "contentType": {
+                                  "element": "string",
+                                  "content": "application/schema+json"
+                                }
+                              },
+                              "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"status\": {\n      \"type\": \"string\",\n      \"enum\": [\n        \"alreadyExists\"\n      ]\n    }\n  },\n  \"required\": [\n    \"status\"\n  ]\n}"
+                            }
+                          ],
+                          "attributes": {
+                            "statusCode": {
+                              "element": "number",
+                              "content": 200
+                            },
+                            "headers": {
+                              "element": "httpHeaders",
+                              "content": [
+                                {
+                                  "element": "member",
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "Content-Type"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "content": "application/json"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "element": "httpTransaction",
+                      "content": [
+                        {
+                          "element": "httpRequest",
+                          "attributes": {
+                            "method": {
+                              "element": "string",
+                              "content": "GET"
+                            }
+                          },
+                          "content": []
+                        },
+                        {
+                          "element": "httpResponse",
+                          "content": [
+                            {
+                              "element": "dataStructure",
+                              "content": {
+                                "element": "NotFoundError"
+                              }
+                            },
+                            {
+                              "element": "asset",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "messageBody"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": "{\n  \"status\": \"notFound\"\n}",
+                              "attributes": {
+                                "contentType": {
+                                  "element": "string",
+                                  "content": "application/json"
+                                }
+                              }
+                            },
+                            {
+                              "element": "asset",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "messageBodySchema"
+                                    }
+                                  ]
+                                }
+                              },
+                              "attributes": {
+                                "contentType": {
+                                  "element": "string",
+                                  "content": "application/schema+json"
+                                }
+                              },
+                              "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"status\": {\n      \"type\": \"string\",\n      \"enum\": [\n        \"notFound\"\n      ]\n    }\n  },\n  \"required\": [\n    \"status\"\n  ]\n}"
+                            }
+                          ],
+                          "attributes": {
+                            "statusCode": {
+                              "element": "number",
+                              "content": 200
+                            },
+                            "headers": {
+                              "element": "httpHeaders",
+                              "content": [
+                                {
+                                  "element": "member",
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "Content-Type"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "content": "application/json"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "meta": {
+                    "title": {
+                      "element": "string",
+                      "content": "Get user"
+                    }
+                  },
+                  "attributes": {
+                    "href": {
+                      "element": "string",
+                      "content": "/user"
+                    }
+                  }
+                }
+              ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Get user"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

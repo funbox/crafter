@@ -1,0 +1,18 @@
+# My API
+
+This fixture declares the same data structure both in the current file and in the imported file.
+It produces the error "NormalResponse type already defined".
+
+# Import data-structures-duplicated-inner.apib
+
+# Data Structures
+
+## NormalResponse (object)
++ status: ok (required, fixed)
+
+# Group My Group
+
+## Get user [GET /user]
+
++ Response 200 (application/json)
+    + Attributes (NormalResponse)

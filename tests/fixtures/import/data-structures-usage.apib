@@ -1,0 +1,17 @@
+# My API
+
+This fixture defines some named structures and imports another file, which uses these named structure to generate response.
+Defined data structures should be available in imported file.
+
+# Data Structures
+
+## AlreadyExistsError (object)
++ status: alreadyExists (required, fixed)
+
+## NotFoundError (object)
++ status: notFound (required, fixed)
+
+## NormalResponse (object)
++ status: ok (required, fixed) - штатный ответ
+
+# Import data-structures-usage-inner.apib

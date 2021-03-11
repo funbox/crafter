@@ -1,0 +1,2426 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "api"
+            }
+          ]
+        },
+        "title": {
+          "element": "string",
+          "content": "My API",
+          "attributes": {
+            "sourceMap": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "sourceMap",
+                  "content": [
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 2
+                        },
+                        {
+                          "element": "number",
+                          "content": 6
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      },
+      "content": [
+        {
+          "element": "copy",
+          "content": "This fixture defines some named structures and imports another file, which uses these named structure to generate response.\nDefined data structures should be available in imported file.",
+          "attributes": {
+            "sourceMap": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "sourceMap",
+                  "content": [
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 10
+                        },
+                        {
+                          "element": "number",
+                          "content": 187
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "element": "category",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "dataStructures"
+                }
+              ]
+            }
+          },
+          "content": [
+            {
+              "element": "dataStructure",
+              "content": {
+                "element": "object",
+                "content": [
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "status",
+                        "attributes": {
+                          "sourceMap": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "sourceMap",
+                                "content": [
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 249
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 6
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      },
+                      "value": {
+                        "element": "string",
+                        "attributes": {
+                          "typeAttributes": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "fixed"
+                              }
+                            ]
+                          },
+                          "sourceMap": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "sourceMap",
+                                "content": [
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 257
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 13
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 282
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 5
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        "content": "alreadyExists"
+                      }
+                    },
+                    "attributes": {
+                      "typeAttributes": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "required"
+                          }
+                        ]
+                      },
+                      "sourceMap": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "sourceMap",
+                            "content": [
+                              {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "number",
+                                    "content": 247
+                                  },
+                                  {
+                                    "element": "number",
+                                    "content": 43
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ],
+                "attributes": {
+                  "sourceMap": {
+                    "element": "array",
+                    "content": [
+                      {
+                        "element": "sourceMap",
+                        "content": [
+                          {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "number",
+                                "content": 239
+                              },
+                              {
+                                "element": "number",
+                                "content": 6
+                              }
+                            ]
+                          },
+                          {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "number",
+                                "content": 247
+                              },
+                              {
+                                "element": "number",
+                                "content": 43
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "meta": {
+                  "id": {
+                    "element": "string",
+                    "content": "AlreadyExistsError",
+                    "attributes": {
+                      "sourceMap": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "sourceMap",
+                            "content": [
+                              {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "number",
+                                    "content": 219
+                                  },
+                                  {
+                                    "element": "number",
+                                    "content": 18
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              "attributes": {
+                "sourceMap": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "sourceMap",
+                      "content": [
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 216
+                            },
+                            {
+                              "element": "number",
+                              "content": 31
+                            }
+                          ]
+                        },
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 247
+                            },
+                            {
+                              "element": "number",
+                              "content": 43
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "element": "dataStructure",
+              "content": {
+                "element": "object",
+                "content": [
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "status",
+                        "attributes": {
+                          "sourceMap": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "sourceMap",
+                                "content": [
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 318
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 6
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      },
+                      "value": {
+                        "element": "string",
+                        "attributes": {
+                          "typeAttributes": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "fixed"
+                              }
+                            ]
+                          },
+                          "sourceMap": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "sourceMap",
+                                "content": [
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 326
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 8
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 346
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 5
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        "content": "notFound"
+                      }
+                    },
+                    "attributes": {
+                      "typeAttributes": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "required"
+                          }
+                        ]
+                      },
+                      "sourceMap": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "sourceMap",
+                            "content": [
+                              {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "number",
+                                    "content": 316
+                                  },
+                                  {
+                                    "element": "number",
+                                    "content": 38
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ],
+                "attributes": {
+                  "sourceMap": {
+                    "element": "array",
+                    "content": [
+                      {
+                        "element": "sourceMap",
+                        "content": [
+                          {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "number",
+                                "content": 308
+                              },
+                              {
+                                "element": "number",
+                                "content": 6
+                              }
+                            ]
+                          },
+                          {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "number",
+                                "content": 316
+                              },
+                              {
+                                "element": "number",
+                                "content": 38
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "meta": {
+                  "id": {
+                    "element": "string",
+                    "content": "NotFoundError",
+                    "attributes": {
+                      "sourceMap": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "sourceMap",
+                            "content": [
+                              {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "number",
+                                    "content": 293
+                                  },
+                                  {
+                                    "element": "number",
+                                    "content": 13
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              "attributes": {
+                "sourceMap": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "sourceMap",
+                      "content": [
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 290
+                            },
+                            {
+                              "element": "number",
+                              "content": 26
+                            }
+                          ]
+                        },
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 316
+                            },
+                            {
+                              "element": "number",
+                              "content": 38
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "element": "dataStructure",
+              "content": {
+                "element": "object",
+                "content": [
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "status",
+                        "attributes": {
+                          "sourceMap": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "sourceMap",
+                                "content": [
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 383
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 6
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      },
+                      "value": {
+                        "element": "string",
+                        "attributes": {
+                          "typeAttributes": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "fixed"
+                              }
+                            ]
+                          },
+                          "sourceMap": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "sourceMap",
+                                "content": [
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 391
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 2
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 405
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 5
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        "content": "ok"
+                      }
+                    },
+                    "attributes": {
+                      "typeAttributes": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "required"
+                          }
+                        ]
+                      },
+                      "sourceMap": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "sourceMap",
+                            "content": [
+                              {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "number",
+                                    "content": 381
+                                  },
+                                  {
+                                    "element": "number",
+                                    "content": 60
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "meta": {
+                      "description": {
+                        "element": "string",
+                        "content": "штатный ответ",
+                        "attributes": {
+                          "sourceMap": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "sourceMap",
+                                "content": [
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 414
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 25
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                ],
+                "attributes": {
+                  "sourceMap": {
+                    "element": "array",
+                    "content": [
+                      {
+                        "element": "sourceMap",
+                        "content": [
+                          {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "number",
+                                "content": 373
+                              },
+                              {
+                                "element": "number",
+                                "content": 6
+                              }
+                            ]
+                          },
+                          {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "number",
+                                "content": 381
+                              },
+                              {
+                                "element": "number",
+                                "content": 60
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "meta": {
+                  "id": {
+                    "element": "string",
+                    "content": "NormalResponse",
+                    "attributes": {
+                      "sourceMap": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "sourceMap",
+                            "content": [
+                              {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "number",
+                                    "content": 357
+                                  },
+                                  {
+                                    "element": "number",
+                                    "content": 14
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              "attributes": {
+                "sourceMap": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "sourceMap",
+                      "content": [
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 354
+                            },
+                            {
+                              "element": "number",
+                              "content": 27
+                            }
+                          ]
+                        },
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 381
+                            },
+                            {
+                              "element": "number",
+                              "content": 60
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          "attributes": {
+            "sourceMap": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "sourceMap",
+                  "content": [
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 197
+                        },
+                        {
+                          "element": "number",
+                          "content": 19
+                        }
+                      ]
+                    },
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 216
+                        },
+                        {
+                          "element": "number",
+                          "content": 31
+                        }
+                      ]
+                    },
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 247
+                        },
+                        {
+                          "element": "number",
+                          "content": 43
+                        }
+                      ]
+                    },
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 290
+                        },
+                        {
+                          "element": "number",
+                          "content": 26
+                        }
+                      ]
+                    },
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 316
+                        },
+                        {
+                          "element": "number",
+                          "content": 38
+                        }
+                      ]
+                    },
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 354
+                        },
+                        {
+                          "element": "number",
+                          "content": 27
+                        }
+                      ]
+                    },
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 381
+                        },
+                        {
+                          "element": "number",
+                          "content": 60
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "element": "category",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "resourceGroup"
+                }
+              ]
+            },
+            "title": {
+              "element": "string",
+              "content": "My Group",
+              "attributes": {
+                "sourceMap": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "sourceMap",
+                      "content": [
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 8
+                            },
+                            {
+                              "element": "number",
+                              "content": 8
+                            }
+                          ]
+                        }
+                      ],
+                      "file": "data-structures-usage-inner.apib"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "content": [
+            {
+              "element": "resource",
+              "attributes": {
+                "href": {
+                  "element": "string",
+                  "content": "/user",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 35
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 5
+                                }
+                              ]
+                            }
+                          ],
+                          "file": "data-structures-usage-inner.apib"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "sourceMap": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "sourceMap",
+                      "content": [
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 18
+                            },
+                            {
+                              "element": "number",
+                              "content": 25
+                            }
+                          ]
+                        },
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 43
+                            },
+                            {
+                              "element": "number",
+                              "content": 69
+                            }
+                          ]
+                        },
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 112
+                            },
+                            {
+                              "element": "number",
+                              "content": 73
+                            }
+                          ]
+                        },
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 185
+                            },
+                            {
+                              "element": "number",
+                              "content": 67
+                            }
+                          ]
+                        }
+                      ],
+                      "file": "data-structures-usage-inner.apib"
+                    }
+                  ]
+                }
+              },
+              "content": [
+                {
+                  "element": "transition",
+                  "content": [
+                    {
+                      "element": "httpTransaction",
+                      "content": [
+                        {
+                          "element": "httpRequest",
+                          "attributes": {
+                            "method": {
+                              "element": "string",
+                              "content": "GET",
+                              "attributes": {
+                                "sourceMap": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "sourceMap",
+                                      "content": [
+                                        {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "number",
+                                              "content": 31
+                                            },
+                                            {
+                                              "element": "number",
+                                              "content": 3
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "file": "data-structures-usage-inner.apib"
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "content": []
+                        },
+                        {
+                          "element": "httpResponse",
+                          "content": [
+                            {
+                              "element": "dataStructure",
+                              "content": {
+                                "element": "NormalResponse",
+                                "attributes": {
+                                  "sourceMap": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "sourceMap",
+                                        "content": [
+                                          {
+                                            "element": "array",
+                                            "content": [
+                                              {
+                                                "element": "number",
+                                                "content": 95
+                                              },
+                                              {
+                                                "element": "number",
+                                                "content": 14
+                                              }
+                                            ]
+                                          }
+                                        ],
+                                        "file": "data-structures-usage-inner.apib"
+                                      }
+                                    ]
+                                  }
+                                }
+                              },
+                              "attributes": {
+                                "sourceMap": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "sourceMap",
+                                      "content": [
+                                        {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "number",
+                                              "content": 81
+                                            },
+                                            {
+                                              "element": "number",
+                                              "content": 31
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "file": "data-structures-usage-inner.apib"
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "element": "asset",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "messageBody"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": "{\n  \"status\": \"ok\"\n}",
+                              "attributes": {
+                                "contentType": {
+                                  "element": "string",
+                                  "content": "application/json"
+                                }
+                              }
+                            },
+                            {
+                              "element": "asset",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "messageBodySchema"
+                                    }
+                                  ]
+                                }
+                              },
+                              "attributes": {
+                                "contentType": {
+                                  "element": "string",
+                                  "content": "application/schema+json"
+                                }
+                              },
+                              "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"status\": {\n      \"type\": \"string\",\n      \"enum\": [\n        \"ok\"\n      ],\n      \"description\": \"штатный ответ\"\n    }\n  },\n  \"required\": [\n    \"status\"\n  ]\n}"
+                            }
+                          ],
+                          "attributes": {
+                            "statusCode": {
+                              "element": "number",
+                              "content": 200,
+                              "attributes": {
+                                "sourceMap": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "sourceMap",
+                                      "content": [
+                                        {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "number",
+                                              "content": 54
+                                            },
+                                            {
+                                              "element": "number",
+                                              "content": 3
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "file": "data-structures-usage-inner.apib"
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            "headers": {
+                              "element": "httpHeaders",
+                              "content": [
+                                {
+                                  "element": "member",
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "Content-Type"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "content": "application/json"
+                                    }
+                                  },
+                                  "attributes": {
+                                    "sourceMap": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "sourceMap",
+                                          "content": [
+                                            {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "number",
+                                                  "content": 59
+                                                },
+                                                {
+                                                  "element": "number",
+                                                  "content": 16
+                                                }
+                                              ]
+                                            }
+                                          ],
+                                          "file": "data-structures-usage-inner.apib"
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              ],
+                              "attributes": {
+                                "sourceMap": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "sourceMap",
+                                      "content": [
+                                        {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "number",
+                                              "content": 59
+                                            },
+                                            {
+                                              "element": "number",
+                                              "content": 16
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "file": "data-structures-usage-inner.apib"
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            "sourceMap": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "sourceMap",
+                                  "content": [
+                                    {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "number",
+                                          "content": 43
+                                        },
+                                        {
+                                          "element": "number",
+                                          "content": 69
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "file": "data-structures-usage-inner.apib"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ],
+                      "attributes": {
+                        "sourceMap": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "sourceMap",
+                              "content": [
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "number",
+                                      "content": 43
+                                    },
+                                    {
+                                      "element": "number",
+                                      "content": 69
+                                    }
+                                  ]
+                                }
+                              ],
+                              "file": "data-structures-usage-inner.apib"
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "element": "httpTransaction",
+                      "content": [
+                        {
+                          "element": "httpRequest",
+                          "attributes": {
+                            "method": {
+                              "element": "string",
+                              "content": "GET",
+                              "attributes": {
+                                "sourceMap": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "sourceMap",
+                                      "content": [
+                                        {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "number",
+                                              "content": 31
+                                            },
+                                            {
+                                              "element": "number",
+                                              "content": 3
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "file": "data-structures-usage-inner.apib"
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "content": []
+                        },
+                        {
+                          "element": "httpResponse",
+                          "content": [
+                            {
+                              "element": "dataStructure",
+                              "content": {
+                                "element": "AlreadyExistsError",
+                                "attributes": {
+                                  "sourceMap": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "sourceMap",
+                                        "content": [
+                                          {
+                                            "element": "array",
+                                            "content": [
+                                              {
+                                                "element": "number",
+                                                "content": 164
+                                              },
+                                              {
+                                                "element": "number",
+                                                "content": 18
+                                              }
+                                            ]
+                                          }
+                                        ],
+                                        "file": "data-structures-usage-inner.apib"
+                                      }
+                                    ]
+                                  }
+                                }
+                              },
+                              "attributes": {
+                                "sourceMap": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "sourceMap",
+                                      "content": [
+                                        {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "number",
+                                              "content": 150
+                                            },
+                                            {
+                                              "element": "number",
+                                              "content": 35
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "file": "data-structures-usage-inner.apib"
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "element": "asset",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "messageBody"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": "{\n  \"status\": \"alreadyExists\"\n}",
+                              "attributes": {
+                                "contentType": {
+                                  "element": "string",
+                                  "content": "application/json"
+                                }
+                              }
+                            },
+                            {
+                              "element": "asset",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "messageBodySchema"
+                                    }
+                                  ]
+                                }
+                              },
+                              "attributes": {
+                                "contentType": {
+                                  "element": "string",
+                                  "content": "application/schema+json"
+                                }
+                              },
+                              "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"status\": {\n      \"type\": \"string\",\n      \"enum\": [\n        \"alreadyExists\"\n      ]\n    }\n  },\n  \"required\": [\n    \"status\"\n  ]\n}"
+                            }
+                          ],
+                          "attributes": {
+                            "statusCode": {
+                              "element": "number",
+                              "content": 200,
+                              "attributes": {
+                                "sourceMap": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "sourceMap",
+                                      "content": [
+                                        {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "number",
+                                              "content": 123
+                                            },
+                                            {
+                                              "element": "number",
+                                              "content": 3
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "file": "data-structures-usage-inner.apib"
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            "headers": {
+                              "element": "httpHeaders",
+                              "content": [
+                                {
+                                  "element": "member",
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "Content-Type"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "content": "application/json"
+                                    }
+                                  },
+                                  "attributes": {
+                                    "sourceMap": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "sourceMap",
+                                          "content": [
+                                            {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "number",
+                                                  "content": 128
+                                                },
+                                                {
+                                                  "element": "number",
+                                                  "content": 16
+                                                }
+                                              ]
+                                            }
+                                          ],
+                                          "file": "data-structures-usage-inner.apib"
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              ],
+                              "attributes": {
+                                "sourceMap": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "sourceMap",
+                                      "content": [
+                                        {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "number",
+                                              "content": 128
+                                            },
+                                            {
+                                              "element": "number",
+                                              "content": 16
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "file": "data-structures-usage-inner.apib"
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            "sourceMap": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "sourceMap",
+                                  "content": [
+                                    {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "number",
+                                          "content": 112
+                                        },
+                                        {
+                                          "element": "number",
+                                          "content": 73
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "file": "data-structures-usage-inner.apib"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ],
+                      "attributes": {
+                        "sourceMap": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "sourceMap",
+                              "content": [
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "number",
+                                      "content": 112
+                                    },
+                                    {
+                                      "element": "number",
+                                      "content": 73
+                                    }
+                                  ]
+                                }
+                              ],
+                              "file": "data-structures-usage-inner.apib"
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "element": "httpTransaction",
+                      "content": [
+                        {
+                          "element": "httpRequest",
+                          "attributes": {
+                            "method": {
+                              "element": "string",
+                              "content": "GET",
+                              "attributes": {
+                                "sourceMap": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "sourceMap",
+                                      "content": [
+                                        {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "number",
+                                              "content": 31
+                                            },
+                                            {
+                                              "element": "number",
+                                              "content": 3
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "file": "data-structures-usage-inner.apib"
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "content": []
+                        },
+                        {
+                          "element": "httpResponse",
+                          "content": [
+                            {
+                              "element": "dataStructure",
+                              "content": {
+                                "element": "NotFoundError",
+                                "attributes": {
+                                  "sourceMap": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "sourceMap",
+                                        "content": [
+                                          {
+                                            "element": "array",
+                                            "content": [
+                                              {
+                                                "element": "number",
+                                                "content": 237
+                                              },
+                                              {
+                                                "element": "number",
+                                                "content": 13
+                                              }
+                                            ]
+                                          }
+                                        ],
+                                        "file": "data-structures-usage-inner.apib"
+                                      }
+                                    ]
+                                  }
+                                }
+                              },
+                              "attributes": {
+                                "sourceMap": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "sourceMap",
+                                      "content": [
+                                        {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "number",
+                                              "content": 223
+                                            },
+                                            {
+                                              "element": "number",
+                                              "content": 29
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "file": "data-structures-usage-inner.apib"
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "element": "asset",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "messageBody"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": "{\n  \"status\": \"notFound\"\n}",
+                              "attributes": {
+                                "contentType": {
+                                  "element": "string",
+                                  "content": "application/json"
+                                }
+                              }
+                            },
+                            {
+                              "element": "asset",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "messageBodySchema"
+                                    }
+                                  ]
+                                }
+                              },
+                              "attributes": {
+                                "contentType": {
+                                  "element": "string",
+                                  "content": "application/schema+json"
+                                }
+                              },
+                              "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"status\": {\n      \"type\": \"string\",\n      \"enum\": [\n        \"notFound\"\n      ]\n    }\n  },\n  \"required\": [\n    \"status\"\n  ]\n}"
+                            }
+                          ],
+                          "attributes": {
+                            "statusCode": {
+                              "element": "number",
+                              "content": 200,
+                              "attributes": {
+                                "sourceMap": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "sourceMap",
+                                      "content": [
+                                        {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "number",
+                                              "content": 196
+                                            },
+                                            {
+                                              "element": "number",
+                                              "content": 3
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "file": "data-structures-usage-inner.apib"
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            "headers": {
+                              "element": "httpHeaders",
+                              "content": [
+                                {
+                                  "element": "member",
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "Content-Type"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "content": "application/json"
+                                    }
+                                  },
+                                  "attributes": {
+                                    "sourceMap": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "sourceMap",
+                                          "content": [
+                                            {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "number",
+                                                  "content": 201
+                                                },
+                                                {
+                                                  "element": "number",
+                                                  "content": 16
+                                                }
+                                              ]
+                                            }
+                                          ],
+                                          "file": "data-structures-usage-inner.apib"
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              ],
+                              "attributes": {
+                                "sourceMap": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "sourceMap",
+                                      "content": [
+                                        {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "number",
+                                              "content": 201
+                                            },
+                                            {
+                                              "element": "number",
+                                              "content": 16
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "file": "data-structures-usage-inner.apib"
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            "sourceMap": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "sourceMap",
+                                  "content": [
+                                    {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "number",
+                                          "content": 185
+                                        },
+                                        {
+                                          "element": "number",
+                                          "content": 67
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "file": "data-structures-usage-inner.apib"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ],
+                      "attributes": {
+                        "sourceMap": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "sourceMap",
+                              "content": [
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "number",
+                                      "content": 185
+                                    },
+                                    {
+                                      "element": "number",
+                                      "content": 67
+                                    }
+                                  ]
+                                }
+                              ],
+                              "file": "data-structures-usage-inner.apib"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ],
+                  "meta": {
+                    "title": {
+                      "element": "string",
+                      "content": "Get user",
+                      "attributes": {
+                        "sourceMap": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "sourceMap",
+                              "content": [
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "number",
+                                      "content": 21
+                                    },
+                                    {
+                                      "element": "number",
+                                      "content": 8
+                                    }
+                                  ]
+                                }
+                              ],
+                              "file": "data-structures-usage-inner.apib"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "attributes": {
+                    "href": {
+                      "element": "string",
+                      "content": "/user",
+                      "attributes": {
+                        "sourceMap": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "sourceMap",
+                              "content": [
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "number",
+                                      "content": 35
+                                    },
+                                    {
+                                      "element": "number",
+                                      "content": 5
+                                    }
+                                  ]
+                                }
+                              ],
+                              "file": "data-structures-usage-inner.apib"
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    "sourceMap": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 18
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 25
+                                }
+                              ]
+                            },
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 43
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 69
+                                }
+                              ]
+                            },
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 112
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 73
+                                }
+                              ]
+                            },
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 185
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 67
+                                }
+                              ]
+                            }
+                          ],
+                          "file": "data-structures-usage-inner.apib"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Get user",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 21
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 8
+                                }
+                              ]
+                            }
+                          ],
+                          "file": "data-structures-usage-inner.apib"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          ],
+          "attributes": {
+            "sourceMap": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "sourceMap",
+                  "content": [
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 0
+                        },
+                        {
+                          "element": "number",
+                          "content": 18
+                        }
+                      ]
+                    },
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 18
+                        },
+                        {
+                          "element": "number",
+                          "content": 25
+                        }
+                      ]
+                    },
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 43
+                        },
+                        {
+                          "element": "number",
+                          "content": 69
+                        }
+                      ]
+                    },
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 112
+                        },
+                        {
+                          "element": "number",
+                          "content": 73
+                        }
+                      ]
+                    },
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 185
+                        },
+                        {
+                          "element": "number",
+                          "content": 67
+                        }
+                      ]
+                    }
+                  ],
+                  "file": "data-structures-usage-inner.apib"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "attributes": {
+        "sourceMap": {
+          "element": "array",
+          "content": [
+            {
+              "element": "sourceMap",
+              "content": [
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 0
+                    },
+                    {
+                      "element": "number",
+                      "content": 10
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 10
+                    },
+                    {
+                      "element": "number",
+                      "content": 187
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 197
+                    },
+                    {
+                      "element": "number",
+                      "content": 19
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 216
+                    },
+                    {
+                      "element": "number",
+                      "content": 31
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 247
+                    },
+                    {
+                      "element": "number",
+                      "content": 43
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 290
+                    },
+                    {
+                      "element": "number",
+                      "content": 26
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 316
+                    },
+                    {
+                      "element": "number",
+                      "content": 38
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 354
+                    },
+                    {
+                      "element": "number",
+                      "content": 27
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 381
+                    },
+                    {
+                      "element": "number",
+                      "content": 60
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 441
+                    },
+                    {
+                      "element": "number",
+                      "content": 42
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "element": "sourceMap",
+              "content": [
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 0
+                    },
+                    {
+                      "element": "number",
+                      "content": 18
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 18
+                    },
+                    {
+                      "element": "number",
+                      "content": 25
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 43
+                    },
+                    {
+                      "element": "number",
+                      "content": 69
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 112
+                    },
+                    {
+                      "element": "number",
+                      "content": 73
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 185
+                    },
+                    {
+                      "element": "number",
+                      "content": 67
+                    }
+                  ]
+                }
+              ],
+              "file": "data-structures-usage-inner.apib"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
