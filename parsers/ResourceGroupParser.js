@@ -4,6 +4,7 @@ const utils = require('../utils');
 const ResourceGroupElement = require('./elements/ResourceGroupElement');
 
 const GroupHeaderRegex = new RegExp(`^[Gg]roup\\s+${RegExpStrings.symbolIdentifier}(\\s+${RegExpStrings.resourcePrototype})?$`);
+const LanguageServerGroupHeaderRegex = new RegExp(`^[Gg]roup\\s+${RegExpStrings.symbolIdentifier}(\\s+${RegExpStrings.languageServerResourcePrototype})?$`);
 
 module.exports = (Parsers) => {
   Parsers.ResourceGroupParser = Object.assign(Object.create(require('./AbstractParser')), {
@@ -11,7 +12,7 @@ module.exports = (Parsers) => {
       context.pushFrame();
 
       const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
-      const [matchData, matchDataIndexes] = utils.matchStringToRegex(subject, GroupHeaderRegex);
+      const [matchData, matchDataIndexes] = utils.matchStringToRegex(subject, this.getSignatureRegex(context));
       const title = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
       const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
@@ -25,11 +26,14 @@ module.exports = (Parsers) => {
       return [utils.nextNode(node), result];
     },
 
+    getSignatureRegex(context) {
+      return context.languageServerMode ? LanguageServerGroupHeaderRegex : GroupHeaderRegex;
+    },
+
     sectionType(node, context) {
       if (node.type === 'heading') {
         const subject = utils.headerText(node, context.sourceLines);
-
-        if (GroupHeaderRegex.exec(subject)) {
+        if (this.getSignatureRegex(context).exec(subject)) {
           return SectionTypes.resourceGroup;
         }
       }

@@ -23,4 +23,5 @@ module.exports = {
   symbolIdentifier: '([^\\]\\[\\(\\)]+)',
   resourcePrototype: '\\(([^\\]\\[\\(\\)]+)\\)',
   mediaType: '(\\s*\\(([^\\)]*)\\))',
+  languageServerResourcePrototype: '\\((((([^\\]\\[\\(\\)]+)\\)?))?)?',
 };
