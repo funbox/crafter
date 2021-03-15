@@ -278,9 +278,12 @@ module.exports = (Parsers) => {
 
             if (valueMember.isEnum()) {
               const enumElement = valueMember.content;
-              const hasComplexMembers = valueMember.content.isComplex();
 
-              if (!hasComplexMembers) {
+              if (!enumElement) {
+                unrecognizedBlockDetected = true;
+                const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+                context.addWarning(`Enum element "${result.name.string}" should include members.`, sourceMap);
+              } else if (!enumElement.isComplex()) {
                 assignValueMemberDefault(valueMember, 'enum', enumElement.type, valueMemberDefaults);
               } else {
                 unrecognizedBlockDetected = true;
