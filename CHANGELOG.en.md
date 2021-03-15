@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.15.0 (15.03.2021)
+
+* Different improvements inspired by Jest testing report.
+
 ## 2.14.0 (15.03.2021)
 
 * Fix unwanted indentation in nested description blocks.
