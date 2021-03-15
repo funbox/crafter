@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.14.0 (15.03.2021)
+
+* Fix unwanted indentation in nested description blocks.
+
 ## 2.13.8 (09.03.2021)
 
 * Update usage example in README.
