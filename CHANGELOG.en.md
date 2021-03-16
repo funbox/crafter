@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.15.1 (16.03.2021)
+
+* Correctly parse a named enum when it contains only a Default section.
+
 ## 2.15.0 (15.03.2021)
 
 * Different improvements inspired by Jest testing report.
