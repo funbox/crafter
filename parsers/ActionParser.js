@@ -5,14 +5,22 @@ const ActionElement = require('./elements/ActionElement');
 
 const actionSymbolIdentifier = '(.+)';
 
-/** Nameless action matching regex */
 const ActionHeaderRegex = new RegExp(`^${RegExpStrings.requestMethods}\\s*${RegExpStrings.uriTemplate}?(\\s+${RegExpStrings.resourcePrototype})?$`);
-
-/** Named action matching regex */
 const NamedActionHeaderRegex = new RegExp(`^${actionSymbolIdentifier}\\[${RegExpStrings.requestMethods}\\s*${RegExpStrings.uriTemplate}?](\\s+${RegExpStrings.resourcePrototype})?$`);
+
+const LanguageServerActionHeaderRegex = new RegExp(`^${RegExpStrings.requestMethods}\\s*${RegExpStrings.uriTemplate}?(\\s+${RegExpStrings.languageServerResourcePrototype})?$`);
+const LanguageServerNamedActionHeaderRegex = new RegExp(`^${actionSymbolIdentifier}\\[${RegExpStrings.requestMethods}\\s*${RegExpStrings.uriTemplate}?](\\s+${RegExpStrings.languageServerResourcePrototype})?$`);
 
 module.exports = (Parsers) => {
   Parsers.ActionParser = Object.assign(Object.create(require('./AbstractParser')), {
+    getActionHeaderRegex(context) {
+      return context.languageServerMode ? LanguageServerActionHeaderRegex : ActionHeaderRegex;
+    },
+
+    getNamedActionHeaderRegex(context) {
+      return context.languageServerMode ? LanguageServerNamedActionHeaderRegex : NamedActionHeaderRegex;
+    },
+
     processSignature(node, context) {
       let title = null;
       let href = null;
@@ -27,7 +35,7 @@ module.exports = (Parsers) => {
       const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       context.data.actionSignatureDetails = { sourceMap };
 
-      const actionHeaderMatchResult = utils.matchStringToRegex(subject, ActionHeaderRegex);
+      const actionHeaderMatchResult = utils.matchStringToRegex(subject, this.getActionHeaderRegex(context));
       if (actionHeaderMatchResult) {
         const [matchData, matchDataIndexes] = actionHeaderMatchResult;
 
@@ -48,7 +56,7 @@ module.exports = (Parsers) => {
 
         method = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
       } else {
-        const [matchData, matchDataIndexes] = utils.matchStringToRegex(subject, NamedActionHeaderRegex);
+        const [matchData, matchDataIndexes] = utils.matchStringToRegex(subject, this.getNamedActionHeaderRegex(context));
 
         const titleString = matchData[1].trim();
 
@@ -92,7 +100,7 @@ module.exports = (Parsers) => {
       if (node && node.type === 'heading') {
         const subject = utils.headerText(node, context.sourceLines);
 
-        if (ActionHeaderRegex.exec(subject) || NamedActionHeaderRegex.exec(subject)) {
+        if (this.getActionHeaderRegex(context).exec(subject) || this.getNamedActionHeaderRegex(context).exec(subject)) {
           return SectionTypes.action;
         }
       }

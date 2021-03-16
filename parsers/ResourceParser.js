@@ -8,6 +8,11 @@ const NamedResourceHeaderRegex = new RegExp(`^${RegExpStrings.symbolIdentifier}\
 const NamelessEndpointHeaderRegex = new RegExp(`^(${RegExpStrings.requestMethods})\\s+${RegExpStrings.uriTemplate}(\\s+${RegExpStrings.resourcePrototype})?$`);
 const NamedEndpointHeaderRegex = new RegExp(`^${RegExpStrings.symbolIdentifier}\\s+\\[${RegExpStrings.requestMethods}\\s+${RegExpStrings.uriTemplate}](\\s+${RegExpStrings.resourcePrototype})?$`);
 
+const LanguageServerNamelessResourceHeaderRegex = new RegExp(`^${RegExpStrings.uriTemplate}(\\s+${RegExpStrings.languageServerResourcePrototype})?$`);
+const LanguageServerNamedResourceHeaderRegex = new RegExp(`^${RegExpStrings.symbolIdentifier}\\s+\\[${RegExpStrings.uriTemplate}](\\s+${RegExpStrings.languageServerResourcePrototype})?$`);
+const LanguageServerNamelessEndpointHeaderRegex = new RegExp(`^(${RegExpStrings.requestMethods})\\s+${RegExpStrings.uriTemplate}(\\s+${RegExpStrings.languageServerResourcePrototype})?$`);
+const LanguageServerNamedEndpointHeaderRegex = new RegExp(`^${RegExpStrings.symbolIdentifier}\\s+\\[${RegExpStrings.requestMethods}\\s+${RegExpStrings.uriTemplate}](\\s+${RegExpStrings.languageServerResourcePrototype})?$`);
+
 module.exports = (Parsers) => {
   Parsers.ResourceParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
@@ -21,7 +26,7 @@ module.exports = (Parsers) => {
       context.pushFrame();
 
       const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
-      const [sectionType, [matchData, matchDataIndexes]] = getSectionType(subject);
+      const [sectionType, [matchData, matchDataIndexes]] = getSectionType(subject, context);
 
       switch (sectionType) {
         case 'NamedResource':
@@ -73,7 +78,7 @@ module.exports = (Parsers) => {
       if (node.type === 'heading') {
         const subject = utils.headerText(node, context.sourceLines);
 
-        if (getSectionType(subject) !== null) {
+        if (getSectionType(subject, context) !== null) {
           return SectionTypes.resource;
         }
       }
@@ -204,12 +209,12 @@ module.exports = (Parsers) => {
   return true;
 };
 
-function getSectionType(subject) {
+function getSectionType(subject, { languageServerMode }) {
   const names = [
-    [NamelessResourceHeaderRegex, 'NamelessResource'],
-    [NamedResourceHeaderRegex, 'NamedResource'],
-    [NamelessEndpointHeaderRegex, 'NamelessEndpoint'],
-    [NamedEndpointHeaderRegex, 'NamedEndpoint'],
+    [languageServerMode ? LanguageServerNamelessResourceHeaderRegex : NamelessResourceHeaderRegex, 'NamelessResource'],
+    [languageServerMode ? LanguageServerNamedResourceHeaderRegex : NamedResourceHeaderRegex, 'NamedResource'],
+    [languageServerMode ? LanguageServerNamelessEndpointHeaderRegex : NamelessEndpointHeaderRegex, 'NamelessEndpoint'],
+    [languageServerMode ? LanguageServerNamedEndpointHeaderRegex : NamedEndpointHeaderRegex, 'NamedEndpoint'],
   ];
 
   for (let i = 0; i < names.length; i++) {
