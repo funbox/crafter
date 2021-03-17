@@ -13,12 +13,12 @@ const LanguageServerNamedActionHeaderRegex = new RegExp(`^${actionSymbolIdentifi
 
 module.exports = (Parsers) => {
   Parsers.ActionParser = Object.assign(Object.create(require('./AbstractParser')), {
-    getActionHeaderRegex(context) {
-      return context.languageServerMode ? LanguageServerActionHeaderRegex : ActionHeaderRegex;
+    getActionHeaderRegex(languageServerMode) {
+      return languageServerMode ? LanguageServerActionHeaderRegex : ActionHeaderRegex;
     },
 
-    getNamedActionHeaderRegex(context) {
-      return context.languageServerMode ? LanguageServerNamedActionHeaderRegex : NamedActionHeaderRegex;
+    getNamedActionHeaderRegex(languageServerMode) {
+      return languageServerMode ? LanguageServerNamedActionHeaderRegex : NamedActionHeaderRegex;
     },
 
     processSignature(node, context) {
@@ -35,7 +35,7 @@ module.exports = (Parsers) => {
       const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       context.data.actionSignatureDetails = { sourceMap };
 
-      const actionHeaderMatchResult = utils.matchStringToRegex(subject, this.getActionHeaderRegex(context));
+      const actionHeaderMatchResult = utils.matchStringToRegex(subject, this.getActionHeaderRegex(context.languageServerMode));
       if (actionHeaderMatchResult) {
         const [matchData, matchDataIndexes] = actionHeaderMatchResult;
 
@@ -56,7 +56,7 @@ module.exports = (Parsers) => {
 
         method = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
       } else {
-        const [matchData, matchDataIndexes] = utils.matchStringToRegex(subject, this.getNamedActionHeaderRegex(context));
+        const [matchData, matchDataIndexes] = utils.matchStringToRegex(subject, this.getNamedActionHeaderRegex(context.languageServerMode));
 
         const titleString = matchData[1].trim();
 
@@ -100,7 +100,7 @@ module.exports = (Parsers) => {
       if (node && node.type === 'heading') {
         const subject = utils.headerText(node, context.sourceLines);
 
-        if (this.getActionHeaderRegex(context).exec(subject) || this.getNamedActionHeaderRegex(context).exec(subject)) {
+        if (this.getActionHeaderRegex(context.languageServerMode).exec(subject) || this.getNamedActionHeaderRegex(context.languageServerMode).exec(subject)) {
           return SectionTypes.action;
         }
       }

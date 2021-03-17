@@ -26,7 +26,7 @@ module.exports = (Parsers) => {
       context.pushFrame();
 
       const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
-      const [sectionType, [matchData, matchDataIndexes]] = getSectionType(subject, context);
+      const [sectionType, [matchData, matchDataIndexes]] = getSectionType(subject, context.languageServerMode);
 
       switch (sectionType) {
         case 'NamedResource':
@@ -78,7 +78,7 @@ module.exports = (Parsers) => {
       if (node.type === 'heading') {
         const subject = utils.headerText(node, context.sourceLines);
 
-        if (getSectionType(subject, context) !== null) {
+        if (getSectionType(subject, context.languageServerMode) !== null) {
           return SectionTypes.resource;
         }
       }
@@ -209,7 +209,7 @@ module.exports = (Parsers) => {
   return true;
 };
 
-function getSectionType(subject, { languageServerMode }) {
+function getSectionType(subject, languageServerMode) {
   const names = [
     [languageServerMode ? LanguageServerNamelessResourceHeaderRegex : NamelessResourceHeaderRegex, 'NamelessResource'],
     [languageServerMode ? LanguageServerNamedResourceHeaderRegex : NamedResourceHeaderRegex, 'NamedResource'],

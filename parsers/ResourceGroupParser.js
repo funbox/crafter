@@ -12,7 +12,7 @@ module.exports = (Parsers) => {
       context.pushFrame();
 
       const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
-      const [matchData, matchDataIndexes] = utils.matchStringToRegex(subject, this.getSignatureRegex(context));
+      const [matchData, matchDataIndexes] = utils.matchStringToRegex(subject, this.getSignatureRegex(context.languageServerMode));
       const title = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
       const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
@@ -26,14 +26,14 @@ module.exports = (Parsers) => {
       return [utils.nextNode(node), result];
     },
 
-    getSignatureRegex(context) {
-      return context.languageServerMode ? LanguageServerGroupHeaderRegex : GroupHeaderRegex;
+    getSignatureRegex(languageServerMode) {
+      return languageServerMode ? LanguageServerGroupHeaderRegex : GroupHeaderRegex;
     },
 
     sectionType(node, context) {
       if (node.type === 'heading') {
         const subject = utils.headerText(node, context.sourceLines);
-        if (this.getSignatureRegex(context).exec(subject)) {
+        if (this.getSignatureRegex(context.languageServerMode).exec(subject)) {
           return SectionTypes.resourceGroup;
         }
       }
