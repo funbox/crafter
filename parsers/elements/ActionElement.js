@@ -115,23 +115,39 @@ class ActionElement {
     }
 
     requests.forEach((request) => {
-      responses.forEach((response) => {
+      if (responses.length) {
+        responses.forEach((response) => {
+          result.content.push({
+            element: Refract.elements.httpTransaction,
+            content: [
+              request.toRefract(sourceMapsEnabled),
+              response.toRefract(sourceMapsEnabled),
+            ],
+            ...sourceMapsEnabled ? {
+              attributes: {
+                sourceMap: new SourceMapElement([
+                  ...request.sourceMap ? request.sourceMap.byteBlocks : [],
+                  ...response.sourceMap ? response.sourceMap.byteBlocks : [],
+                ]).toRefract(),
+              },
+            } : {},
+          });
+        });
+      } else {
         result.content.push({
           element: Refract.elements.httpTransaction,
           content: [
             request.toRefract(sourceMapsEnabled),
-            response.toRefract(sourceMapsEnabled),
           ],
           ...sourceMapsEnabled ? {
             attributes: {
               sourceMap: new SourceMapElement([
                 ...request.sourceMap ? request.sourceMap.byteBlocks : [],
-                ...response.sourceMap ? response.sourceMap.byteBlocks : [],
               ]).toRefract(),
             },
           } : {},
         });
-      });
+      }
     });
 
     if (this.description) {
