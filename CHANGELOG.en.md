@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.16.0 (19.03.2021)
+
+* Fix parsing of invalid section Resource Group, Resource, and Action, when parser is in language server mode.
+
 ## 2.15.1 (16.03.2021)
 
 * Correctly parse a named enum when it contains only a Default section.
