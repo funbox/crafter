@@ -45,7 +45,7 @@ class HeadersElement {
     };
 
     if (sourceMapsEnabled) {
-      const sourceMapEl = new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file);
+      const sourceMapEl = new SourceMapElement(this.sourceMap.byteBlocks);
       result.attributes = result.attributes || {};
       result.attributes.sourceMap = sourceMapEl.toRefract();
     }

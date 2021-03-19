@@ -54,7 +54,7 @@ class SubgroupElement {
     }
 
     if (sourceMapsEnabled) {
-      const sourceMapEl = new SourceMapElement(this.sourceMap.byteBlocks, this.sourceMap.file);
+      const sourceMapEl = new SourceMapElement(this.sourceMap.byteBlocks);
       result.attributes = { sourceMap: sourceMapEl.toRefract() };
     }
 
