@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.16.1 (22.03.2021)
+
+* Disable pipeline for tags.
+
 ## 2.16.0 (19.03.2021)
 
 * Fix parsing of invalid section Resource Group, Resource, and Action, when parser is in language server mode.
