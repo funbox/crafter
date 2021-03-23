@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.16.3 (23.03.2021)
+
+* Setup package auto-publish.
+
 ## 2.16.2 (23.03.2021)
 
 * Cache node_modules.
