@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.16.2 (23.03.2021)
+
+* Cache node_modules.
+
 ## 2.16.1 (22.03.2021)
 
 * Disable pipeline for tags.
