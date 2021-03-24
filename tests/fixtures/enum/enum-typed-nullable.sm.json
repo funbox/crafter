@@ -46,7 +46,7 @@
       "content": [
         {
           "element": "copy",
-          "content": "JSON schema definition named \"ReportType\" should represent \"base/movement/track\" strings and null as a possible value\nof this enumeration.",
+          "content": "Defines attributes as named type object, which includes nullable enum of numbers as a property",
           "attributes": {
             "sourceMap": {
               "element": "array",
@@ -63,7 +63,7 @@
                         },
                         {
                           "element": "number",
-                          "content": 140
+                          "content": 96
                         }
                       ]
                     }
@@ -90,23 +90,15 @@
             {
               "element": "dataStructure",
               "content": {
-                "element": "enum",
-                "attributes": {
-                  "enumerations": {
-                    "element": "array",
-                    "content": [
-                      {
+                "element": "object",
+                "content": [
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
                         "element": "string",
+                        "content": "interval",
                         "attributes": {
-                          "typeAttributes": {
-                            "element": "array",
-                            "content": [
-                              {
-                                "element": "string",
-                                "content": "fixed"
-                              }
-                            ]
-                          },
                           "sourceMap": {
                             "element": "array",
                             "content": [
@@ -118,11 +110,11 @@
                                     "content": [
                                       {
                                         "element": "number",
-                                        "content": 191
+                                        "content": 132
                                       },
                                       {
                                         "element": "number",
-                                        "content": 5
+                                        "content": 8
                                       }
                                     ]
                                   }
@@ -130,170 +122,298 @@
                               }
                             ]
                           }
-                        },
-                        "content": "base"
-                      }
-                    ]
-                  },
-                  "sourceMap": {
-                    "element": "array",
-                    "content": [
-                      {
-                        "element": "sourceMap",
-                        "content": [
-                          {
-                            "element": "array",
-                            "content": [
-                              {
-                                "element": "number",
-                                "content": 182
-                              },
-                              {
-                                "element": "number",
-                                "content": 4
-                              }
-                            ]
-                          },
-                          {
-                            "element": "array",
-                            "content": [
-                              {
-                                "element": "number",
-                                "content": 191
-                              },
-                              {
-                                "element": "number",
-                                "content": 5
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                },
-                "meta": {
-                  "id": {
-                    "element": "string",
-                    "content": "BaseType",
-                    "attributes": {
-                      "sourceMap": {
-                        "element": "array",
-                        "content": [
-                          {
-                            "element": "sourceMap",
-                            "content": [
-                              {
-                                "element": "array",
-                                "content": [
-                                  {
-                                    "element": "number",
-                                    "content": 172
-                                  },
-                                  {
-                                    "element": "number",
-                                    "content": 8
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    }
-                  }
-                }
-              },
-              "attributes": {
-                "sourceMap": {
-                  "element": "array",
-                  "content": [
-                    {
-                      "element": "sourceMap",
-                      "content": [
-                        {
-                          "element": "array",
-                          "content": [
-                            {
-                              "element": "number",
-                              "content": 169
-                            },
-                            {
-                              "element": "number",
-                              "content": 27
-                            }
-                          ]
                         }
-                      ]
-                    }
-                  ]
-                }
-              }
-            },
-            {
-              "element": "dataStructure",
-              "content": {
-                "element": "BaseType",
-                "attributes": {
-                  "typeAttributes": {
-                    "element": "array",
-                    "content": [
-                      {
-                        "element": "string",
-                        "content": "nullable"
-                      }
-                    ]
-                  },
-                  "enumerations": {
-                    "element": "array",
-                    "content": [
-                      {
-                        "element": "string",
-                        "attributes": {
-                          "typeAttributes": {
-                            "element": "array",
-                            "content": [
-                              {
-                                "element": "string",
-                                "content": "fixed"
-                              }
-                            ]
-                          },
-                          "sourceMap": {
-                            "element": "array",
-                            "content": [
-                              {
-                                "element": "sourceMap",
-                                "content": [
-                                  {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "number",
-                                        "content": 235
-                                      },
-                                      {
-                                        "element": "number",
-                                        "content": 9
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        },
-                        "content": "movement"
                       },
-                      {
-                        "element": "string",
+                      "value": {
+                        "element": "enum",
                         "attributes": {
                           "typeAttributes": {
                             "element": "array",
                             "content": [
                               {
                                 "element": "string",
-                                "content": "fixed"
+                                "content": "nullable"
+                              }
+                            ]
+                          },
+                          "enumerations": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "number",
+                                "attributes": {
+                                  "typeAttributes": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "fixed"
+                                      }
+                                    ]
+                                  },
+                                  "sourceMap": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "sourceMap",
+                                        "content": [
+                                          {
+                                            "element": "array",
+                                            "content": [
+                                              {
+                                                "element": "number",
+                                                "content": 224
+                                              },
+                                              {
+                                                "element": "number",
+                                                "content": 54
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                },
+                                "content": 0,
+                                "meta": {
+                                  "description": {
+                                    "element": "string",
+                                    "content": "мониторинг в режиме Онлайн",
+                                    "attributes": {
+                                      "sourceMap": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "sourceMap",
+                                            "content": [
+                                              {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "number",
+                                                    "content": 224
+                                                  },
+                                                  {
+                                                    "element": "number",
+                                                    "content": 54
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "element": "number",
+                                "attributes": {
+                                  "typeAttributes": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "fixed"
+                                      }
+                                    ]
+                                  },
+                                  "sourceMap": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "sourceMap",
+                                        "content": [
+                                          {
+                                            "element": "array",
+                                            "content": [
+                                              {
+                                                "element": "number",
+                                                "content": 284
+                                              },
+                                              {
+                                                "element": "number",
+                                                "content": 53
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                },
+                                "content": 15,
+                                "meta": {
+                                  "description": {
+                                    "element": "string",
+                                    "content": "мониторинг каждые 15 минут",
+                                    "attributes": {
+                                      "sourceMap": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "sourceMap",
+                                            "content": [
+                                              {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "number",
+                                                    "content": 284
+                                                  },
+                                                  {
+                                                    "element": "number",
+                                                    "content": 53
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "element": "number",
+                                "attributes": {
+                                  "typeAttributes": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "fixed"
+                                      }
+                                    ]
+                                  },
+                                  "sourceMap": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "sourceMap",
+                                        "content": [
+                                          {
+                                            "element": "array",
+                                            "content": [
+                                              {
+                                                "element": "number",
+                                                "content": 343
+                                              },
+                                              {
+                                                "element": "number",
+                                                "content": 53
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                },
+                                "content": 30,
+                                "meta": {
+                                  "description": {
+                                    "element": "string",
+                                    "content": "мониторинг каждые 30 минут",
+                                    "attributes": {
+                                      "sourceMap": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "sourceMap",
+                                            "content": [
+                                              {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "number",
+                                                    "content": 343
+                                                  },
+                                                  {
+                                                    "element": "number",
+                                                    "content": 53
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              {
+                                "element": "number",
+                                "attributes": {
+                                  "typeAttributes": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "fixed"
+                                      }
+                                    ]
+                                  },
+                                  "sourceMap": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "sourceMap",
+                                        "content": [
+                                          {
+                                            "element": "array",
+                                            "content": [
+                                              {
+                                                "element": "number",
+                                                "content": 402
+                                              },
+                                              {
+                                                "element": "number",
+                                                "content": 46
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                },
+                                "content": 60,
+                                "meta": {
+                                  "description": {
+                                    "element": "string",
+                                    "content": "мониторинг каждый час",
+                                    "attributes": {
+                                      "sourceMap": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "sourceMap",
+                                            "content": [
+                                              {
+                                                "element": "array",
+                                                "content": [
+                                                  {
+                                                    "element": "number",
+                                                    "content": 402
+                                                  },
+                                                  {
+                                                    "element": "number",
+                                                    "content": 46
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
                               }
                             ]
                           },
@@ -308,11 +428,76 @@
                                     "content": [
                                       {
                                         "element": "number",
-                                        "content": 246
+                                        "content": 142
                                       },
                                       {
                                         "element": "number",
-                                        "content": 6
+                                        "content": 12
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 156
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 8
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 224
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 54
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 284
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 53
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 343
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 53
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 402
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 46
                                       }
                                     ]
                                   }
@@ -320,78 +505,9 @@
                               }
                             ]
                           }
-                        },
-                        "content": "track"
+                        }
                       }
-                    ]
-                  },
-                  "sourceMap": {
-                    "element": "array",
-                    "content": [
-                      {
-                        "element": "sourceMap",
-                        "content": [
-                          {
-                            "element": "array",
-                            "content": [
-                              {
-                                "element": "number",
-                                "content": 212
-                              },
-                              {
-                                "element": "number",
-                                "content": 8
-                              }
-                            ]
-                          },
-                          {
-                            "element": "array",
-                            "content": [
-                              {
-                                "element": "number",
-                                "content": 222
-                              },
-                              {
-                                "element": "number",
-                                "content": 8
-                              }
-                            ]
-                          },
-                          {
-                            "element": "array",
-                            "content": [
-                              {
-                                "element": "number",
-                                "content": 235
-                              },
-                              {
-                                "element": "number",
-                                "content": 9
-                              }
-                            ]
-                          },
-                          {
-                            "element": "array",
-                            "content": [
-                              {
-                                "element": "number",
-                                "content": 246
-                              },
-                              {
-                                "element": "number",
-                                "content": 6
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                },
-                "meta": {
-                  "id": {
-                    "element": "string",
-                    "content": "ReportType",
+                    },
                     "attributes": {
                       "sourceMap": {
                         "element": "array",
@@ -404,11 +520,98 @@
                                 "content": [
                                   {
                                     "element": "number",
-                                    "content": 200
+                                    "content": 130
                                   },
                                   {
                                     "element": "number",
-                                    "content": 10
+                                    "content": 320
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "meta": {
+                      "description": {
+                        "element": "string",
+                        "content": "периодичность мониторинга",
+                        "attributes": {
+                          "sourceMap": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "sourceMap",
+                                "content": [
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 168
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 49
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                ],
+                "attributes": {
+                  "sourceMap": {
+                    "element": "array",
+                    "content": [
+                      {
+                        "element": "sourceMap",
+                        "content": [
+                          {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "number",
+                                "content": 130
+                              },
+                              {
+                                "element": "number",
+                                "content": 320
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "meta": {
+                  "id": {
+                    "element": "string",
+                    "content": "A",
+                    "attributes": {
+                      "sourceMap": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "sourceMap",
+                            "content": [
+                              {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "number",
+                                    "content": 128
+                                  },
+                                  {
+                                    "element": "number",
+                                    "content": 1
                                   }
                                 ]
                               }
@@ -432,11 +635,11 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 197
+                              "content": 125
                             },
                             {
                               "element": "number",
-                              "content": 55
+                              "content": 325
                             }
                           ]
                         }
@@ -459,7 +662,7 @@
                       "content": [
                         {
                           "element": "number",
-                          "content": 150
+                          "content": 106
                         },
                         {
                           "element": "number",
@@ -472,24 +675,11 @@
                       "content": [
                         {
                           "element": "number",
-                          "content": 169
+                          "content": 125
                         },
                         {
                           "element": "number",
-                          "content": 27
-                        }
-                      ]
-                    },
-                    {
-                      "element": "array",
-                      "content": [
-                        {
-                          "element": "number",
-                          "content": 197
-                        },
-                        {
-                          "element": "number",
-                          "content": 55
+                          "content": 325
                         }
                       ]
                     }
@@ -504,7 +694,7 @@
           "attributes": {
             "href": {
               "element": "string",
-              "content": "/foo",
+              "content": "/interval",
               "attributes": {
                 "sourceMap": {
                   "element": "array",
@@ -517,11 +707,11 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 259
+                              "content": 465
                             },
                             {
                               "element": "number",
-                              "content": 4
+                              "content": 9
                             }
                           ]
                         }
@@ -542,11 +732,11 @@
                       "content": [
                         {
                           "element": "number",
-                          "content": 253
+                          "content": 450
                         },
                         {
                           "element": "number",
-                          "content": 95
+                          "content": 82
                         }
                       ]
                     }
@@ -580,7 +770,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 255
+                                          "content": 461
                                         },
                                         {
                                           "element": "number",
@@ -603,126 +793,7 @@
                         {
                           "element": "dataStructure",
                           "content": {
-                            "element": "object",
-                            "content": [
-                              {
-                                "element": "member",
-                                "content": {
-                                  "key": {
-                                    "element": "string",
-                                    "content": "items",
-                                    "attributes": {
-                                      "sourceMap": {
-                                        "element": "array",
-                                        "content": [
-                                          {
-                                            "element": "sourceMap",
-                                            "content": [
-                                              {
-                                                "element": "array",
-                                                "content": [
-                                                  {
-                                                    "element": "number",
-                                                    "content": 322
-                                                  },
-                                                  {
-                                                    "element": "number",
-                                                    "content": 5
-                                                  }
-                                                ]
-                                              }
-                                            ]
-                                          }
-                                        ]
-                                      }
-                                    }
-                                  },
-                                  "value": {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "ReportType",
-                                        "attributes": {
-                                          "sourceMap": {
-                                            "element": "array",
-                                            "content": [
-                                              {
-                                                "element": "sourceMap",
-                                                "content": [
-                                                  {
-                                                    "element": "array",
-                                                    "content": [
-                                                      {
-                                                        "element": "number",
-                                                        "content": 335
-                                                      },
-                                                      {
-                                                        "element": "number",
-                                                        "content": 10
-                                                      }
-                                                    ]
-                                                  }
-                                                ]
-                                              }
-                                            ]
-                                          }
-                                        }
-                                      }
-                                    ],
-                                    "attributes": {
-                                      "sourceMap": {
-                                        "element": "array",
-                                        "content": [
-                                          {
-                                            "element": "sourceMap",
-                                            "content": [
-                                              {
-                                                "element": "array",
-                                                "content": [
-                                                  {
-                                                    "element": "number",
-                                                    "content": 329
-                                                  },
-                                                  {
-                                                    "element": "number",
-                                                    "content": 17
-                                                  }
-                                                ]
-                                              }
-                                            ]
-                                          }
-                                        ]
-                                      }
-                                    }
-                                  }
-                                },
-                                "attributes": {
-                                  "sourceMap": {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "sourceMap",
-                                        "content": [
-                                          {
-                                            "element": "array",
-                                            "content": [
-                                              {
-                                                "element": "number",
-                                                "content": 320
-                                              },
-                                              {
-                                                "element": "number",
-                                                "content": 28
-                                              }
-                                            ]
-                                          }
-                                        ]
-                                      }
-                                    ]
-                                  }
-                                }
-                              }
-                            ],
+                            "element": "A",
                             "attributes": {
                               "sourceMap": {
                                 "element": "array",
@@ -735,11 +806,11 @@
                                         "content": [
                                           {
                                             "element": "number",
-                                            "content": 320
+                                            "content": 529
                                           },
                                           {
                                             "element": "number",
-                                            "content": 28
+                                            "content": 1
                                           }
                                         ]
                                       }
@@ -761,11 +832,11 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 301
+                                          "content": 515
                                         },
                                         {
                                           "element": "number",
-                                          "content": 47
+                                          "content": 17
                                         }
                                       ]
                                     }
@@ -788,7 +859,7 @@
                               ]
                             }
                           },
-                          "content": "{\n  \"items\": [\n    \"movement\"\n  ]\n}",
+                          "content": "{\n  \"interval\": 0\n}",
                           "attributes": {
                             "contentType": {
                               "element": "string",
@@ -815,7 +886,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"definitions\": {\n    \"ReportType\": {\n      \"anyOf\": [\n        {\n          \"$ref\": \"#/definitions/BaseType\"\n        },\n        {\n          \"type\": \"string\",\n          \"enum\": [\n            \"movement\",\n            \"track\",\n            null\n          ]\n        }\n      ]\n    },\n    \"BaseType\": {\n      \"type\": \"string\",\n      \"enum\": [\n        \"base\"\n      ]\n    }\n  },\n  \"type\": \"object\",\n  \"properties\": {\n    \"items\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"$ref\": \"#/definitions/ReportType\"\n      }\n    }\n  }\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"interval\": {\n      \"type\": [\n        \"number\",\n        \"null\"\n      ],\n      \"enum\": [\n        0,\n        15,\n        30,\n        60,\n        null,\n        null\n      ],\n      \"description\": \"периодичность мониторинга\"\n    }\n  }\n}"
                         }
                       ],
                       "attributes": {
@@ -834,7 +905,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 276
+                                          "content": 488
                                         },
                                         {
                                           "element": "number",
@@ -875,7 +946,7 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 281
+                                              "content": 493
                                             },
                                             {
                                               "element": "number",
@@ -902,7 +973,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 281
+                                          "content": 493
                                         },
                                         {
                                           "element": "number",
@@ -927,11 +998,11 @@
                                   "content": [
                                     {
                                       "element": "number",
-                                      "content": 265
+                                      "content": 477
                                     },
                                     {
                                       "element": "number",
-                                      "content": 83
+                                      "content": 55
                                     }
                                   ]
                                 }
@@ -944,10 +1015,10 @@
                   ]
                 }
               ],
-              "attributes": {
-                "href": {
+              "meta": {
+                "title": {
                   "element": "string",
-                  "content": "/foo",
+                  "content": "Request",
                   "attributes": {
                     "sourceMap": {
                       "element": "array",
@@ -960,11 +1031,42 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 259
+                                  "content": 452
                                 },
                                 {
                                   "element": "number",
-                                  "content": 4
+                                  "content": 7
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              "attributes": {
+                "href": {
+                  "element": "string",
+                  "content": "/interval",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 465
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 9
                                 }
                               ]
                             }
@@ -985,11 +1087,11 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 253
+                              "content": 450
                             },
                             {
                               "element": "number",
-                              "content": 12
+                              "content": 27
                             }
                           ]
                         },
@@ -998,11 +1100,11 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 265
+                              "content": 477
                             },
                             {
                               "element": "number",
-                              "content": 83
+                              "content": 55
                             }
                           ]
                         }
@@ -1012,7 +1114,38 @@
                 }
               }
             }
-          ]
+          ],
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Request",
+              "attributes": {
+                "sourceMap": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "sourceMap",
+                      "content": [
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 452
+                            },
+                            {
+                              "element": "number",
+                              "content": 7
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
         }
       ],
       "attributes": {
@@ -1031,7 +1164,7 @@
                     },
                     {
                       "element": "number",
-                      "content": 140
+                      "content": 96
                     }
                   ]
                 },
@@ -1040,7 +1173,7 @@
                   "content": [
                     {
                       "element": "number",
-                      "content": 150
+                      "content": 106
                     },
                     {
                       "element": "number",
@@ -1053,11 +1186,11 @@
                   "content": [
                     {
                       "element": "number",
-                      "content": 169
+                      "content": 125
                     },
                     {
                       "element": "number",
-                      "content": 27
+                      "content": 325
                     }
                   ]
                 },
@@ -1066,24 +1199,11 @@
                   "content": [
                     {
                       "element": "number",
-                      "content": 197
+                      "content": 450
                     },
                     {
                       "element": "number",
-                      "content": 55
-                    }
-                  ]
-                },
-                {
-                  "element": "array",
-                  "content": [
-                    {
-                      "element": "number",
-                      "content": 253
-                    },
-                    {
-                      "element": "number",
-                      "content": 95
+                      "content": 82
                     }
                   ]
                 }

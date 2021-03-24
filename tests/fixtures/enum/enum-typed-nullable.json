@@ -1,0 +1,303 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "api"
+            }
+          ]
+        },
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
+      },
+      "content": [
+        {
+          "element": "copy",
+          "content": "Defines attributes as named type object, which includes nullable enum of numbers as a property"
+        },
+        {
+          "element": "category",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "dataStructures"
+                }
+              ]
+            }
+          },
+          "content": [
+            {
+              "element": "dataStructure",
+              "content": {
+                "element": "object",
+                "content": [
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "interval"
+                      },
+                      "value": {
+                        "element": "enum",
+                        "attributes": {
+                          "typeAttributes": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "nullable"
+                              }
+                            ]
+                          },
+                          "enumerations": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "number",
+                                "attributes": {
+                                  "typeAttributes": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "fixed"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "content": 0,
+                                "meta": {
+                                  "description": {
+                                    "element": "string",
+                                    "content": "мониторинг в режиме Онлайн"
+                                  }
+                                }
+                              },
+                              {
+                                "element": "number",
+                                "attributes": {
+                                  "typeAttributes": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "fixed"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "content": 15,
+                                "meta": {
+                                  "description": {
+                                    "element": "string",
+                                    "content": "мониторинг каждые 15 минут"
+                                  }
+                                }
+                              },
+                              {
+                                "element": "number",
+                                "attributes": {
+                                  "typeAttributes": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "fixed"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "content": 30,
+                                "meta": {
+                                  "description": {
+                                    "element": "string",
+                                    "content": "мониторинг каждые 30 минут"
+                                  }
+                                }
+                              },
+                              {
+                                "element": "number",
+                                "attributes": {
+                                  "typeAttributes": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "fixed"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "content": 60,
+                                "meta": {
+                                  "description": {
+                                    "element": "string",
+                                    "content": "мониторинг каждый час"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "meta": {
+                      "description": {
+                        "element": "string",
+                        "content": "периодичность мониторинга"
+                      }
+                    }
+                  }
+                ],
+                "meta": {
+                  "id": {
+                    "element": "string",
+                    "content": "A"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "element": "resource",
+          "attributes": {
+            "href": {
+              "element": "string",
+              "content": "/interval"
+            }
+          },
+          "content": [
+            {
+              "element": "transition",
+              "content": [
+                {
+                  "element": "httpTransaction",
+                  "content": [
+                    {
+                      "element": "httpRequest",
+                      "attributes": {
+                        "method": {
+                          "element": "string",
+                          "content": "GET"
+                        }
+                      },
+                      "content": []
+                    },
+                    {
+                      "element": "httpResponse",
+                      "content": [
+                        {
+                          "element": "dataStructure",
+                          "content": {
+                            "element": "A"
+                          }
+                        },
+                        {
+                          "element": "asset",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "messageBody"
+                                }
+                              ]
+                            }
+                          },
+                          "content": "{\n  \"interval\": 0\n}",
+                          "attributes": {
+                            "contentType": {
+                              "element": "string",
+                              "content": "application/json"
+                            }
+                          }
+                        },
+                        {
+                          "element": "asset",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "messageBodySchema"
+                                }
+                              ]
+                            }
+                          },
+                          "attributes": {
+                            "contentType": {
+                              "element": "string",
+                              "content": "application/schema+json"
+                            }
+                          },
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"interval\": {\n      \"type\": [\n        \"number\",\n        \"null\"\n      ],\n      \"enum\": [\n        0,\n        15,\n        30,\n        60,\n        null,\n        null\n      ],\n      \"description\": \"периодичность мониторинга\"\n    }\n  }\n}"
+                        }
+                      ],
+                      "attributes": {
+                        "statusCode": {
+                          "element": "number",
+                          "content": 200
+                        },
+                        "headers": {
+                          "element": "httpHeaders",
+                          "content": [
+                            {
+                              "element": "member",
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "Content-Type"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "application/json"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Request"
+                }
+              },
+              "attributes": {
+                "href": {
+                  "element": "string",
+                  "content": "/interval"
+                }
+              }
+            }
+          ],
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Request"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

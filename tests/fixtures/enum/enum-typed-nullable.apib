@@ -1,0 +1,18 @@
+# My API
+
+Defines attributes as named type object, which includes nullable enum of numbers as a property
+
+# Data Structures
+
+## A
++ interval (enum[number], nullable) - периодичность мониторинга
+    + 0 - мониторинг в режиме Онлайн
+    + 15 - мониторинг каждые 15 минут
+    + 30 - мониторинг каждые 30 минут
+    + 60 - мониторинг каждый час
+
+
+# Request [GET /interval]
+
++ Response 200 (application/json)
+    + Attributes (A)
