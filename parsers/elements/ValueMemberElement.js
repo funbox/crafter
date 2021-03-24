@@ -167,7 +167,7 @@ class ValueMemberElement {
 
     if (this.content) {
       if (this.isEnum()) {
-        result.attributes = this.content.toRefract(sourceMapsEnabled);
+        result.attributes = { ...result.attributes, ...this.content.toRefract(sourceMapsEnabled) };
       } else {
         result.content = this.content.toRefract(sourceMapsEnabled, isFixed || this.typeAttributes.includes('fixed') || this.propagatedTypeAttributes.includes('fixed'));
       }
