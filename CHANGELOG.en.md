@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.16.4 (25.03.2021)
+
+* Fix the situation when nullable enum attributes get overridden.
+
 ## 2.16.3 (23.03.2021)
 
 * Setup package auto-publish.
