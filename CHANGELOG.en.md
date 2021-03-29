@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.16.5 (29.03.2021)
+
+* Delete `no_proxy` variable.
+
 ## 2.16.4 (25.03.2021)
 
 * Fix the situation when nullable enum attributes get overridden.
