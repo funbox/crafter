@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.16.6 (29.03.2021)
+
+* Change repo links with Gitlab links.
+
 ## 2.16.5 (29.03.2021)
 
 * Delete `no_proxy` variable.
