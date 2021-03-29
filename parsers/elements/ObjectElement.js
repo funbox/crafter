@@ -37,9 +37,9 @@ class ObjectElement {
    * @param {string[]} namedTypesChain - использованные в процессе генерации body именованные типы, нужны для отслеживания рекурсивных структур
    */
   getBody(dataTypes, namedTypesChain = []) {
-    return this.propertyMembers.reduce((body, member) => ({
+    return this.propertyMembers.reduce((body, member, index) => ({
       ...body,
-      ...member.getBody(dataTypes, namedTypesChain),
+      ...member.getBody(dataTypes, namedTypesChain, index),
     }), {});
   }
 

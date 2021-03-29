@@ -38,6 +38,7 @@ module.exports = {
     schemaStructures: 'schemaStructures',
     resourcePrototypes: 'resourcePrototypes',
     messageBody: 'messageBody',
+    messageBodyTemplate: 'messageBodyTemplate',
     messageBodySchema: 'messageBodySchema',
   },
 };

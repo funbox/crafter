@@ -1239,6 +1239,21 @@
                                   "content": [
                                     {
                                       "element": "string",
+                                      "content": "messageBodyTemplate"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": "{\n  \"__oneOf-0__\": [\n    {\n      \"month\": \"march\"\n    },\n    {\n      \"interval\": 1\n    }\n  ],\n  \"__oneOf-1__\": [\n    {\n      \"numberOfOccurences\": 5\n    },\n    {\n      \"endDate\": \"2015-04-08T12:30:00Z\"\n    }\n  ]\n}"
+                            },
+                            {
+                              "element": "asset",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
                                       "content": "messageBodySchema"
                                     }
                                   ]

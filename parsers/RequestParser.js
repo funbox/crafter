@@ -8,6 +8,7 @@ const RequestElement = require('./elements/RequestElement');
 const SchemaElement = require('./elements/SchemaElement');
 const HeadersElement = require('./elements/HeadersElement');
 const BodyElement = require('./elements/BodyElement');
+const BodyTemplateElement = require('./elements/BodyTemplateElement');
 
 module.exports = (Parsers) => {
   Parsers.RequestParser = Object.assign(Object.create(require('./AbstractParser')), {
@@ -134,11 +135,20 @@ module.exports = (Parsers) => {
       }
 
       if (!context.languageServerMode && !hasCustomBody) {
-        const body = result.getBody(context.typeResolver.types);
-        if (body !== undefined) {
-          const bodyElement = new BodyElement(typeof body === 'object' ? JSON.stringify(body, null, 2) : body);
+        const bodyTemplate = result.getBody(context.typeResolver.types);
+        if (bodyTemplate !== undefined) {
+          const body = utils.makeDefaultBodyFromTemplate(bodyTemplate);
+          const bodyStr = typeof body === 'object' ? JSON.stringify(body, null, 2) : body;
+          const bodyTemplateStr = typeof bodyTemplate === 'object' ? JSON.stringify(bodyTemplate, null, 2) : bodyTemplate;
+
+          const bodyElement = new BodyElement(bodyStr);
           bodyElement.contentType = result.contentType;
           result.content.push(bodyElement);
+
+          if (bodyTemplateStr !== bodyStr) {
+            const bodyTemplateElement = new BodyTemplateElement(bodyTemplateStr);
+            result.content.push(bodyTemplateElement);
+          }
         }
       }
 

@@ -52,10 +52,14 @@ class OneOfTypeElement {
 
   /**
    * @param {DataTypes} dataTypes - типы из TypeResolver
+   * @param {string[]} namedTypesChain - использованные в процессе генерации body именованные типы, нужны для отслеживания рекурсивных структур
+   * @param {number} index
    */
-  getBody(dataTypes) {
+  getBody(dataTypes, namedTypesChain, index) {
     if (this.options.length) {
-      return this.options[0].getBody(dataTypes);
+      return {
+        [`__oneOf-${index}__`]: this.options.map(option => option.getBody(dataTypes)),
+      };
     }
 
     return {};

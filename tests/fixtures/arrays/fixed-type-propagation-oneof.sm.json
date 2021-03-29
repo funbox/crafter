@@ -886,6 +886,21 @@
                               "content": [
                                 {
                                   "element": "string",
+                                  "content": "messageBodyTemplate"
+                                }
+                              ]
+                            }
+                          },
+                          "content": "{\n  \"result\": [\n    {\n      \"__oneOf-0__\": [\n        {\n          \"foo\": \"hello\"\n        },\n        {\n          \"bar\": \"hello\"\n        }\n      ]\n    }\n  ]\n}"
+                        },
+                        {
+                          "element": "asset",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
                                   "content": "messageBodySchema"
                                 }
                               ]

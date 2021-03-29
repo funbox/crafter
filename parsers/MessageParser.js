@@ -3,6 +3,7 @@ const RegExpStrings = require('../RegExpStrings');
 const utils = require('../utils');
 const MessageElement = require('./elements/MessageElement');
 const BodyElement = require('./elements/BodyElement');
+const BodyTemplateElement = require('./elements/BodyTemplateElement');
 const SchemaElement = require('./elements/SchemaElement');
 
 const MessageHeaderRegex = new RegExp(`^[Mm]essage\\s*(${RegExpStrings.symbolIdentifier})?$`);
@@ -88,10 +89,19 @@ module.exports = (Parsers) => {
       const hasCustomSchema = result.content.find(item => (item instanceof SchemaElement));
 
       if (!hasCustomBody) {
-        const body = result.getBody(context.typeResolver.types);
-        if (body !== undefined) {
-          const bodyElement = new BodyElement(typeof body === 'object' ? JSON.stringify(body, null, 2) : body);
+        const bodyTemplate = result.getBody(context.typeResolver.types);
+        if (bodyTemplate !== undefined) {
+          const body = utils.makeDefaultBodyFromTemplate(bodyTemplate);
+          const bodyStr = typeof body === 'object' ? JSON.stringify(body, null, 2) : body;
+          const bodyTemplateStr = typeof bodyTemplate === 'object' ? JSON.stringify(bodyTemplate, null, 2) : bodyTemplate;
+
+          const bodyElement = new BodyElement(bodyStr);
           result.content.push(bodyElement);
+
+          if (bodyTemplateStr !== bodyStr) {
+            const bodyTemplateElement = new BodyTemplateElement(bodyTemplateStr);
+            result.content.push(bodyTemplateElement);
+          }
         }
       }
 

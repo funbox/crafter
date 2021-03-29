@@ -186,6 +186,21 @@
                               "content": [
                                 {
                                   "element": "string",
+                                  "content": "messageBodyTemplate"
+                                }
+                              ]
+                            }
+                          },
+                          "content": "{\n  \"__oneOf-0__\": [\n    {\n      \"foo\": {\n        \"text\": \"hello\",\n        \"children\": [\n          {\n            \"text\": \"hello\",\n            \"children\": []\n          }\n        ]\n      }\n    },\n    {\n      \"bar\": true\n    }\n  ]\n}"
+                        },
+                        {
+                          "element": "asset",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
                                   "content": "messageBodySchema"
                                 }
                               ]

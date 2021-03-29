@@ -23,6 +23,7 @@ const typeAttributesToRefract = require('./typeAttributesToRefract');
 const isTypeReferred = require('./isTypeReferred');
 const isTypeUsedByElement = require('./isTypeUsedByElement');
 const validateAttributesConsistency = require('./validateAttributesConsistency');
+const makeDefaultBodyFromTemplate = require('./makeDefaultBodyFromTemplate');
 
 const utils = {
   appendDescriptionDelimiter,
@@ -50,6 +51,7 @@ const utils = {
   isTypeUsedByElement,
   isTypeReferred,
   validateAttributesConsistency,
+  makeDefaultBodyFromTemplate,
 };
 
 module.exports = utils;

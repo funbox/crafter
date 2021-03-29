@@ -1011,6 +1011,21 @@
                               "content": [
                                 {
                                   "element": "string",
+                                  "content": "messageBodyTemplate"
+                                }
+                              ]
+                            }
+                          },
+                          "content": "{\n  \"foobar\": {},\n  \"__oneOf-1__\": [\n    {\n      \"foo_str\": \"hello\",\n      \"foo_obj\": {}\n    },\n    {\n      \"bar_str\": \"hello\",\n      \"bar_obj\": \"hello\"\n    }\n  ]\n}"
+                        },
+                        {
+                          "element": "asset",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
                                   "content": "messageBodySchema"
                                 }
                               ]
@@ -1412,6 +1427,21 @@
                               "content": "application/json"
                             }
                           }
+                        },
+                        {
+                          "element": "asset",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "messageBodyTemplate"
+                                }
+                              ]
+                            }
+                          },
+                          "content": "{\n  \"result\": {\n    \"foobar\": {},\n    \"__oneOf-1__\": [\n      {\n        \"foo_str\": \"hello\",\n        \"foo_obj\": {}\n      },\n      {\n        \"bar_str\": \"hello\",\n        \"bar_obj\": \"hello\"\n      }\n    ]\n  }\n}"
                         },
                         {
                           "element": "asset",

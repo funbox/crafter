@@ -260,6 +260,21 @@
                                   "content": [
                                     {
                                       "element": "string",
+                                      "content": "messageBodyTemplate"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": "{\n  \"__oneOf-0__\": [\n    {\n      \"kind\": \"phone\",\n      \"number\": 79000000002\n    },\n    {\n      \"kind\": \"custom\",\n      \"gatewayId\": \"hello\"\n    }\n  ]\n}"
+                            },
+                            {
+                              "element": "asset",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
                                       "content": "messageBodySchema"
                                     }
                                   ]
