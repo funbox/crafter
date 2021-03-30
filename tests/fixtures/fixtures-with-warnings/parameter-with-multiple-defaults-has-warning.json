@@ -95,6 +95,14 @@
                               "content": "required"
                             }
                           ]
+                        },
+                        "unrecognizedBlocks": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "unrecognizedBlock"
+                            }
+                          ]
                         }
                       },
                       "meta": {
@@ -130,6 +138,14 @@
                               "content": "required"
                             }
                           ]
+                        },
+                        "unrecognizedBlocks": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "unrecognizedBlock"
+                            }
+                          ]
                         }
                       },
                       "meta": {
@@ -151,7 +167,7 @@
                           "attributes": {
                             "default": {
                               "element": "string",
-                              "content": "y"
+                              "content": "x"
                             }
                           }
                         }
@@ -163,6 +179,57 @@
                             {
                               "element": "string",
                               "content": "required"
+                            }
+                          ]
+                        },
+                        "unrecognizedBlocks": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "unrecognizedBlock"
+                            }
+                          ]
+                        }
+                      },
+                      "meta": {
+                        "title": {
+                          "element": "string",
+                          "content": "string"
+                        }
+                      }
+                    },
+                    {
+                      "element": "member",
+                      "content": {
+                        "key": {
+                          "element": "string",
+                          "content": "d"
+                        },
+                        "value": {
+                          "element": "string",
+                          "attributes": {
+                            "default": {
+                              "element": "string",
+                              "content": "x"
+                            }
+                          }
+                        }
+                      },
+                      "attributes": {
+                        "typeAttributes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "required"
+                            }
+                          ]
+                        },
+                        "unrecognizedBlocks": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "unrecognizedBlock"
                             }
                           ]
                         }
@@ -345,6 +412,66 @@
                         "line": {
                           "element": "number",
                           "content": 15
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 17
+                        }
+                      },
+                      "content": 11
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "content": "Multiple definitions of \"default\" value"
+    },
+    {
+      "element": "annotation",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "warning"
+            }
+          ]
+        }
+      },
+      "attributes": {
+        "sourceMap": {
+          "element": "array",
+          "content": [
+            {
+              "element": "sourceMap",
+              "content": [
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 20
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 7
+                        }
+                      },
+                      "content": 356
+                    },
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 20
                         },
                         "column": {
                           "element": "number",
