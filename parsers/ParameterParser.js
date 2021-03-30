@@ -5,6 +5,8 @@ const ParameterElement = require('./elements/ParameterElement');
 const StringElement = require('./elements/StringElement');
 const { parser: SignatureParser } = require('../SignatureParser');
 
+const UnrecognizedBlockElement = require('./elements/UnrecognizedBlockElement');
+
 module.exports = (Parsers) => {
   Parsers.ParameterParser = Object.assign(Object.create(require('./AbstractParser')), {
     allowLeavingNode: false,
@@ -164,8 +166,16 @@ module.exports = (Parsers) => {
         if (result.defaultValue || childRes.length > 1) {
           const { parameterSignatureDetails: details } = context.data;
           context.addWarning('Multiple definitions of "default" value', details.sourceMap);
+
+          if (result.defaultValue) {
+            const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+            result.unrecognizedBlocks.push(new UnrecognizedBlockElement(sourceMap));
+          } else if (childRes.length > 1) {
+            childRes.slice(1).forEach(child => result.unrecognizedBlocks.push(new UnrecognizedBlockElement(child.sourceMap)));
+          }
         }
-        result.defaultValue = childRes[0];
+
+        if (!result.defaultValue) result.defaultValue = childRes[0];
       } else {
         [nextNode, childRes] = Parsers.ParameterMembersParser.parse(node, context);
         result.enumerations = childRes;
