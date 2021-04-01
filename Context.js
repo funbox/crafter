@@ -44,6 +44,7 @@ class Context {
     this.debugMode = options.debugMode;
     this.readFile = options.readFile || readFile;
     this.languageServerMode = options.languageServerMode;
+    this.parsers = parsers;
 
     this.sectionKeywordSignatureParsers = [
       'DefaultValue',
@@ -120,7 +121,7 @@ class Context {
     }
 
     const ast = utils.markdownSourceToAST(file);
-    const context = new Context(file, [], {
+    const context = new Context(file, this.parsers, {
       currentFile: fullPath,
       entryDir: this.entryDir,
       languageServerMode: this.languageServerMode,
