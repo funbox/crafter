@@ -5,8 +5,8 @@ const parseApibFile = require('../parseApibFile');
 const apibRegex = /\.apib$/;
 const apibInnerRegexp = /-inner\.apib$/;
 
-processApibFiles(path.resolve('tests/fixtures'));
-processLanguageServerFiles(path.resolve('tests/language-server'));
+processApibFiles(path.resolve('tests/fixtures')).catch(logRegenerationError);
+processLanguageServerFiles(path.resolve('tests/language-server')).catch(logRegenerationError);
 
 async function processApibFiles(dir) {
   const dirContent = await fs.readdir(dir);
@@ -17,8 +17,13 @@ async function processApibFiles(dir) {
     } else if (apibRegex.test(item) && !apibInnerRegexp.test(item)) {
       const fileName = path.join(dir, item);
       const jsonFileName = fileName.slice(0, -5);
-      await fs.writeFile(`${jsonFileName}.json`, `${await parseApibFile(fileName, 'json')}\n`);
-      await fs.writeFile(`${jsonFileName}.sm.json`, `${await parseApibFile(fileName, 'json', true)}\n`);
+      try {
+        await fs.writeFile(`${jsonFileName}.json`, `${await parseApibFile(fileName, 'json')}\n`);
+        await fs.writeFile(`${jsonFileName}.sm.json`, `${await parseApibFile(fileName, 'json', true)}\n`);
+      } catch (e) {
+        e.file = fileName;
+        throw e;
+      }
     }
   }, Promise.resolve());
 }
@@ -30,8 +35,18 @@ async function processLanguageServerFiles(dir) {
     await res;
     if (apibRegex.test(item) && !apibInnerRegexp.test(item)) {
       const fileName = path.join(dir, item);
-      const jsonFileName = fileName.replace(apibRegex, '.json');
-      await fs.writeFile(jsonFileName, `${await parseApibFile(fileName, 'json', false, false, true)}\n`);
+      try {
+        const jsonFileName = fileName.replace(apibRegex, '.json');
+        await fs.writeFile(jsonFileName, `${await parseApibFile(fileName, 'json', false, false, true)}\n`);
+      } catch (e) {
+        e.file = fileName;
+        throw e;
+      }
     }
   }, Promise.resolve());
+}
+
+function logRegenerationError(e) {
+  console.error(`Fixtures regeneration emitted an error in file ${e.file}`);
+  console.log(e);
 }
