@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.17.0 (02.04.2021)
+
+* Update gitlab-ci config.
+
 ## 2.16.6 (29.03.2021)
 
 * Change repo links with Gitlab links.
