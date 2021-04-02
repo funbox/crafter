@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.17.1 (02.04.2021)
+
+* Get correct source lines during the extraction of description.
+
 ## 2.17.0 (02.04.2021)
 
 * Update gitlab-ci config.
