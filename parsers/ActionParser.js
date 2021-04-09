@@ -91,7 +91,7 @@ module.exports = (Parsers) => {
       const protoElements = utils.buildPrototypeElements(protoNames, subjectOffset + protoNamesOffset, node, context);
       context.resourcePrototypes.push(utils.preparePrototypes(protoElements.map(el => el.string), context, sourceMap));
 
-      const result = new ActionElement(method, href, title, protoElements, sourceMap);
+      const result = new ActionElement(method, href, title, protoElements, sourceMap, context.languageServerMode);
 
       return [utils.nextNode(node), result];
     },

@@ -41,8 +41,9 @@ class ActionElement {
    * @param {StringElement} title - опциональный заголовок
    * @param {StringElement[]} prototypes - список Resource Prototypes для данного элемента
    * @param {SourceMap} sourceMap
+   * @param {boolean} languageServerMode
    */
-  constructor(method, href, title, prototypes, sourceMap) {
+  constructor(method, href, title, prototypes, sourceMap, languageServerMode) {
     this.method = method;
     this.href = href;
     this.title = title;
@@ -69,6 +70,7 @@ class ActionElement {
      */
     this.unrecognizedBlocks = [];
     this.sourceMap = sourceMap;
+    this.languageServerMode = languageServerMode;
   }
 
   /**
