@@ -135,7 +135,7 @@ class ActionElement {
             } : {},
           });
         });
-      } else {
+      } else if (this.languageServerMode) {
         result.content.push({
           element: Refract.elements.httpTransaction,
           content: [
