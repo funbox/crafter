@@ -46,6 +46,10 @@ class ParameterElement {
      * @type {ParameterMembersElement}
      */
     this.enumerations = null;
+    /**
+     * @type {UnrecognizedBlockElement[]}
+     */
+    this.unrecognizedBlocks = [];
     this.sourceMap = sourceMap;
   }
 
@@ -95,6 +99,13 @@ class ParameterElement {
     if (sourceMapsEnabled) {
       const sourceMapEl = new SourceMapElement(this.sourceMap.byteBlocks);
       result.attributes.sourceMap = sourceMapEl.toRefract();
+    }
+
+    if (this.unrecognizedBlocks.length) {
+      result.attributes.unrecognizedBlocks = {
+        element: Refract.elements.array,
+        content: this.unrecognizedBlocks.map(b => b.toRefract(sourceMapsEnabled)),
+      };
     }
 
     return result;
