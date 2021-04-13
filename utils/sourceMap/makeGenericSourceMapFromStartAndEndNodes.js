@@ -25,7 +25,7 @@ module.exports = function makeGenericSourceMapFromStartAndEndNodes(startNode, en
   let length = endOffset - startOffset;
   length += getEndingLinefeedLengthInBytes(endLineIndex, sourceLines);
 
-  if (endNode.next || !/\S/.test(sourceLines[endLineIndex + 1])) {
+  if (!/\S/.test(sourceLines[endLineIndex + 1])) {
     length += getTrailingEmptyLinesLengthInBytes(endLineIndex + 1, sourceLines);
   }
   const byteBlock = new ByteBlock(startOffset, length, startNode.file);
