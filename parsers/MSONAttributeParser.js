@@ -18,7 +18,7 @@ module.exports = (Parsers) => {
       const subject = utils.nodeText(node.firstChild, context.sourceLines);
       const signature = new SignatureParser(subject, context.languageServerMode);
 
-      const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       context.data.attributeSignatureDetails = { sourceMap, node: node.firstChild };
 
       signature.warnings.forEach(warning => context.addWarning(warning, sourceMap));

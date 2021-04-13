@@ -50,7 +50,7 @@ module.exports = (Parsers) => {
     processNestedSection(node, context, result) {
       const textNode = node.type === 'item' ? node.firstChild : node;
       const text = utils.nodeText(textNode, context.sourceLines);
-      const sourceMap = utils.makeGenericSourceMap(textNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
       switch (context.data.typeForSamples) {
         case 'primitive':

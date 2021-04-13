@@ -19,9 +19,7 @@ module.exports = function makeGenericSourceMapFromStartAndEndNodes(startNode, en
   const { startLineIndex, startColumnIndex } = getSourcePosZeroBased(startNode);
   const { endLineIndex, endColumnIndex } = getSourcePosZeroBased(endNode);
 
-  const numSpacesPerIndentLevel = 4;
-  const indentation = Math.floor(startColumnIndex / numSpacesPerIndentLevel) * numSpacesPerIndentLevel;
-  const startOffset = getOffsetFromStartOfFileInBytes(startLineIndex, indentation, sourceLines);
+  const startOffset = getOffsetFromStartOfFileInBytes(startLineIndex, startColumnIndex, sourceLines);
   const endOffset = getOffsetFromStartOfFileInBytes(endLineIndex, endColumnIndex + 1, sourceLines);
 
   let length = endOffset - startOffset;

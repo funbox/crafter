@@ -17,7 +17,7 @@ module.exports = (Parsers) => {
 
       context.pushFrame();
 
-      const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       const parameterSignatureDetails = { sourceMap };
 
       const descriptionEl = signature.description

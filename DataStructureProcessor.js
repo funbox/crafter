@@ -471,7 +471,7 @@ class DataStructureProcessor {
           }
           break;
         case SectionTypes.msonArrayMemberGroup: {
-          const errorSourceMap = utils.makeGenericSourceMap(curNode.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+          const errorSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
           throw new utils.CrafterError('Enums must use "Members" instead of "Items" as member section name', errorSourceMap);
         }
         default: {
