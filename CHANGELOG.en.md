@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.18.0 (14.04.2021)
+
+* Add sourceMap of httpTransaction in ActionElement;
+
 ## 2.17.1 (02.04.2021)
 
 * Get correct source lines during the extraction of description.
