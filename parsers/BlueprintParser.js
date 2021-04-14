@@ -45,23 +45,14 @@ module.exports = (Parsers) => {
         let isWarningAdded = false;
         const nodeText = utils.nodeText(curNode, context.sourceLines);
         const { startLineIndex, startColumnIndex } = utils.getSourcePosZeroBased(curNode);
-        let offset = 0;
+        let offset = utils.getOffsetFromStartOfFileInBytes(startLineIndex, startColumnIndex, context.sourceLines);
 
         nodeText.split('\n').forEach((line, lineIndex) => { // eslint-disable-line no-loop-func
-          if (lineIndex === 0) {
-            offset = utils.getOffsetFromStartOfFileInBytes(startLineIndex, startColumnIndex, context.sourceLines);
-          }
-
           const [key, ...rest] = line.split(':');
           const value = rest.join(':');
 
-          const match = line.match(/^(\s*)(.*)$/);
-          const leadingWhitespaceBytes = Buffer.byteLength(match[1]);
-          const restBytes = Buffer.byteLength(match[2]);
-
-          offset += leadingWhitespaceBytes;
           const blockOffset = offset;
-          offset += restBytes + getEndingLinefeedLengthInBytes(startLineIndex + lineIndex, context.sourceLines);
+          offset += line.length + getEndingLinefeedLengthInBytes(startLineIndex + lineIndex, context.sourceLines);
 
           if (!/\S/.test(context.sourceLines[startLineIndex + lineIndex + 1])) {
             offset += getTrailingEmptyLinesLengthInBytes(startLineIndex + lineIndex + 1, context.sourceLines);

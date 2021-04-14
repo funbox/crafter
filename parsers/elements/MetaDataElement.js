@@ -30,7 +30,7 @@ class MetaDataElement {
     this.key = key;
     this.value = value;
     /**
-     * @type {SourceMapElement}
+     * @type {SourceMap}
      */
     this.sourceMap = null;
   }
