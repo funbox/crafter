@@ -184,10 +184,6 @@ module.exports = (Parsers) => {
       return [nextNode, result];
     },
 
-    isUnexpectedNode() {
-      return false;
-    },
-
     finalize(context, result) {
       const { name, type, defaultValue } = result;
       const typeAttributes = result.typeAttributes.map(attr => attr.string);

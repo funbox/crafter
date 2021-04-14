@@ -88,21 +88,6 @@ module.exports = (Parsers) => {
       ]);
     },
 
-    upperSectionType(node, context) {
-      return SectionTypes.calculateSectionType(node, context, [
-        Parsers.RequestParser,
-        Parsers.ResponseParser,
-        Parsers.ActionParser,
-        Parsers.ResourceParser,
-        Parsers.SubgroupParser,
-        Parsers.MessageParser,
-        Parsers.ResourceGroupParser,
-        Parsers.DataStructureGroupParser,
-        Parsers.SchemaStructureGroupParser,
-        Parsers.ResourcePrototypesParser,
-      ]);
-    },
-
     processDescription(node, context, result) {
       const parentNode = node && node.parent;
 

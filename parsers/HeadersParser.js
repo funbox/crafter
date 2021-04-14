@@ -25,24 +25,6 @@ module.exports = (Parsers) => {
       return SectionTypes.undefined;
     },
 
-    upperSectionType(node, context) {
-      return SectionTypes.calculateSectionType(node, context, [
-        Parsers.BodyParser,
-        Parsers.HeadersParser,
-        Parsers.ParametersParser,
-        Parsers.RequestParser,
-        Parsers.ResponseParser,
-        Parsers.ActionParser,
-        Parsers.ResourceParser,
-        Parsers.SubgroupParser,
-        Parsers.MessageParser,
-        Parsers.ResourceGroupParser,
-        Parsers.DataStructureGroupParser,
-        Parsers.SchemaStructureGroupParser,
-        Parsers.ResourcePrototypesParser,
-      ]);
-    },
-
     processDescription(node, context, result) {
       return [node, result];
     },

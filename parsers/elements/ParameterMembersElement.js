@@ -25,6 +25,10 @@ class ParameterMembersElement {
      * @type {ParameterEnumMemberElement[]}
      */
     this.members = [];
+    /**
+     * @type {UnrecognizedBlockElement[]}
+     */
+    this.unrecognizedBlocks = [];
   }
 
   /**

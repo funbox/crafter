@@ -127,7 +127,16 @@
                               "attributes": {
                                 "enumerations": {
                                   "element": "array",
-                                  "content": []
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "name"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "createdAt"
+                                    }
+                                  ]
                                 }
                               }
                             }
@@ -149,76 +158,8 @@
                               "content": "enum[string]"
                             }
                           }
-                        },
-                        {
-                          "element": "member",
-                          "content": {
-                            "key": {
-                              "element": "string",
-                              "content": "name"
-                            },
-                            "value": {
-                              "element": "string"
-                            }
-                          },
-                          "attributes": {
-                            "typeAttributes": {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "string",
-                                  "content": "required"
-                                }
-                              ]
-                            }
-                          },
-                          "meta": {
-                            "title": {
-                              "element": "string",
-                              "content": "string"
-                            }
-                          }
-                        },
-                        {
-                          "element": "member",
-                          "content": {
-                            "key": {
-                              "element": "string",
-                              "content": "createdAt"
-                            },
-                            "value": {
-                              "element": "string"
-                            }
-                          },
-                          "attributes": {
-                            "typeAttributes": {
-                              "element": "array",
-                              "content": [
-                                {
-                                  "element": "string",
-                                  "content": "required"
-                                }
-                              ]
-                            }
-                          },
-                          "meta": {
-                            "title": {
-                              "element": "string",
-                              "content": "string"
-                            }
-                          }
                         }
-                      ],
-                      "attributes": {
-                        "unrecognizedBlocks": {
-                          "element": "array",
-                          "content": [
-                            {
-                              "element": "unrecognizedBlock"
-                            }
-                          ]
-                        }
-                      }
+                      ]
                     }
                   }
                 }
