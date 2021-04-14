@@ -15,19 +15,10 @@ module.exports = function makeSourceMapForDescription(startNode, sourceLines, so
 
   let endNode = startNode;
   const iterationCondition = (node) => (
-    !!node.next && (stopCallback ? !stopCallback(nextNode(node)) : node.next.type === 'paragraph')
+    !!nextNode(node) && (stopCallback ? !stopCallback(nextNode(node)) : node.next.type === 'paragraph')
   );
   while (iterationCondition(endNode)) {
-    endNode = endNode.next;
-  }
-
-  let curEndNode = endNode;
-  while (curEndNode && (curEndNode.type === 'paragraph' || stopCallback)) {
-    if (stopCallback && stopCallback(curEndNode)) {
-      break;
-    }
-    endNode = curEndNode;
-    curEndNode = nextNode(endNode);
+    endNode = nextNode(endNode);
   }
 
   return makeGenericSourceMapFromStartAndEndNodes(startNode, endNode, sourceLines, sourceBuffer, linefeedOffsets);
