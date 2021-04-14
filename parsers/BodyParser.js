@@ -41,7 +41,7 @@ module.exports = (Parsers) => {
     },
 
     makeSourceMap(node, context) {
-      return utils.makeSourceMapForAsset(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      return utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
     },
 
     allowLeavingNode: false,

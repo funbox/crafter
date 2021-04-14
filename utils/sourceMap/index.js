@@ -1,7 +1,6 @@
 const concatSourceMaps = require('./concatSourceMaps');
 const makeGenericSourceMap = require('./makeGenericSourceMap');
 const makeGenericSourceMapFromStartAndEndNodes = require('./makeGenericSourceMapFromStartAndEndNodes');
-const makeSourceMapForAsset = require('./makeSourceMapForAsset');
 const makeSourceMapForDescription = require('./makeSourceMapForDescription');
 const makeSourceMapForLine = require('./makeSourceMapForLine');
 const makeSourceMapsForInlineValues = require('./makeSourceMapsForInlineValues');
@@ -14,7 +13,6 @@ module.exports = {
   concatSourceMaps,
   makeGenericSourceMap,
   makeGenericSourceMapFromStartAndEndNodes,
-  makeSourceMapForAsset,
   makeSourceMapForDescription,
   makeSourceMapForLine,
   makeSourceMapsForInlineValues,
