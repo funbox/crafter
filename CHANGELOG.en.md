@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.19.0 (16.04.2021)
+
+* Handle duplicated Default sections as unrecognized blocks.
+
 ## 2.18.0 (14.04.2021)
 
 * Add sourceMap of httpTransaction in ActionElement;

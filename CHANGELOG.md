@@ -1,5 +1,9 @@
 # История изменений проекта
 
+## 2.19.0 (16.04.2021)
+
+* Добавление дублирующихся секций Default в unrecognizedBlocks.
+
 ## 2.18.0 (14.04.2021)
 
 * Добавление sourceMap для httpTransaction в ActionElement.
