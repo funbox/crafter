@@ -1,0 +1,205 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "api"
+            }
+          ]
+        },
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
+      },
+      "content": [
+        {
+          "element": "copy",
+          "content": "In Language Server mode action element without response should generate httpTransaction."
+        },
+        {
+          "element": "resource",
+          "attributes": {
+            "href": {
+              "element": "string",
+              "content": "/user"
+            }
+          },
+          "content": [
+            {
+              "element": "transition",
+              "content": [
+                {
+                  "element": "httpTransaction",
+                  "content": [
+                    {
+                      "element": "httpRequest",
+                      "attributes": {
+                        "method": {
+                          "element": "string",
+                          "content": "POST"
+                        },
+                        "headers": {
+                          "element": "httpHeaders",
+                          "content": [
+                            {
+                              "element": "member",
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "Content-Type"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "application/json"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "content": [
+                        {
+                          "element": "dataStructure",
+                          "content": {
+                            "element": "object",
+                            "content": [
+                              {
+                                "element": "member",
+                                "content": {
+                                  "key": {
+                                    "element": "string",
+                                    "content": "name"
+                                  },
+                                  "value": {
+                                    "element": "string",
+                                    "attributes": {
+                                      "samples": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "string",
+                                            "content": "John"
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                },
+                                "attributes": {
+                                  "typeAttributes": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "required"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "meta": {
+                                  "description": {
+                                    "element": "string",
+                                    "content": "User name"
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "meta": {
+                "title": {
+                  "element": "string",
+                  "content": "Create user"
+                }
+              },
+              "attributes": {
+                "href": {
+                  "element": "string",
+                  "content": "/user"
+                }
+              }
+            }
+          ],
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Create user"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "element": "annotation",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "warning"
+            }
+          ]
+        }
+      },
+      "attributes": {
+        "sourceMap": {
+          "element": "array",
+          "content": [
+            {
+              "element": "sourceMap",
+              "content": [
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 5
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 1
+                        }
+                      },
+                      "content": 100
+                    },
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 6
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 1
+                        }
+                      },
+                      "content": 28
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "content": "Action is missing a response"
+    }
+  ]
+}
