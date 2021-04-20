@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.20.0 (20.04.2021)
+
+* Create httpTransaction even if an Action block has no response.
+
 ## 2.19.0 (16.04.2021)
 
 * Handle duplicated Default sections as unrecognized blocks.
