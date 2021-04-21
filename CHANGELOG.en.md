@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.21.0 (21.04.2021)
+
+* Improve detection of unrecognized nodes.
+
 ## 2.20.0 (20.04.2021)
 
 * Create httpTransaction even if an Action block has no response.
