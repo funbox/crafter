@@ -430,6 +430,7 @@ class DataStructureProcessor {
             childSourceMaps.push(...childResult.map(c => c.sourceMap));
           } else {
             context.addWarning('Default values of enum of non-primitive type are not supported', sourceMap);
+            valueMember.unrecognizedBlocks.push(...childResult.map(c => new UnrecognizedBlockElement(c.sourceMap)));
           }
           break;
         case SectionTypes.sampleValue:
@@ -443,6 +444,7 @@ class DataStructureProcessor {
             childSourceMaps.push(...childResult.map(c => c.sourceMap));
           } else {
             context.addWarning('Samples of enum of non-primitive type are not supported', sourceMap);
+            valueMember.unrecognizedBlocks.push(...childResult.map(c => new UnrecognizedBlockElement(c.sourceMap)));
           }
           break;
         case SectionTypes.enumMember:
