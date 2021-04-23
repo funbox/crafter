@@ -42,7 +42,7 @@ module.exports = (Parsers) => {
       const linefeedOffsets = contentNode.linefeedOffsets || context.linefeedOffsets;
 
       const { startLineIndex, startColumnIndex } = utils.getSourcePosZeroBased(contentNode);
-      const headersSourceMap = utils.makeGenericSourceMap(contentNode, sourceLines, sourceBuffer, linefeedOffsets);
+      const headersSourceMap = utils.makeGenericSourceMap(node, sourceLines, sourceBuffer, linefeedOffsets);
       const indentationBytes = startColumnIndex;
 
       if (contentNode.type !== 'code_block') {
