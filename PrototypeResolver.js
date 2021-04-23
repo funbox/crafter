@@ -11,7 +11,7 @@ class PrototypeResolver {
 
     const resolvePrototype = (targetProto) => {
       if (usedPrototypes.includes(targetProto.title.string)) {
-        throw new CrafterError(`Dependencies loop: ${usedPrototypes.concat([targetProto.title.string]).join(' - ')}`);
+        throw new CrafterError(`Dependencies loop: ${usedPrototypes.concat([targetProto.title.string]).join(' - ')}`, targetProto.sourceMap);
       }
 
       if (this.resolvedPrototypes.has(targetProto.title.string)) {
