@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.22.0 (23.04.2021)
+
+* Use concatSourceMaps to join sourcemaps instead of mergeSourceMaps.
+
 ## 2.21.0 (21.04.2021)
 
 * Improve detection of unrecognized nodes.
