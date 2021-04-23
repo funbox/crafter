@@ -42,13 +42,13 @@ describe('Sourcemaps of parseResult element must be concatenated consecutively',
 
         const fileLengths = new Map();
 
-        fileLengths.set(undefined, fs.readFileSync(fixture).length);
+        fileLengths.set(undefined, fs.statSync(fixture).size);
         const fixtureDir = path.dirname(fixture);
 
         const positionsForFiles = new Map();
         refract.content[0].attributes.sourceMap.content.forEach(({ content: sourceMapArray, file }) => {
           if (file && !fileLengths.get(file)) {
-            fileLengths.set(file, fs.readFileSync(path.join(fixtureDir, file)).length);
+            fileLengths.set(file, fs.statSync(path.join(fixtureDir, file)).size);
           }
 
           let pos = positionsForFiles.get(file) || 0;
