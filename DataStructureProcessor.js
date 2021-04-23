@@ -37,11 +37,7 @@ class DataStructureProcessor {
     if (valueMember.unrecognizedBlocks.length > 0) {
       const unrecognizedBlocksSourceMaps = valueMember.unrecognizedBlocks.map(ub => ub.sourceMap);
 
-      if (valueMember.sourceMap) {
-        valueMember.sourceMap = utils.concatSourceMaps([valueMember.sourceMap, ...unrecognizedBlocksSourceMaps]);
-      } else {
-        valueMember.sourceMap = utils.concatSourceMaps(unrecognizedBlocksSourceMaps);
-      }
+      valueMember.sourceMap = utils.concatSourceMaps([valueMember.sourceMap, ...unrecognizedBlocksSourceMaps]);
     }
   }
 
@@ -68,11 +64,7 @@ class DataStructureProcessor {
           [nextNode, childResult] = this.Parsers.DefaultValueParser.parse(curNode, context);
 
           curNodeSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-          if (primitiveElement.sourceMap) {
-            primitiveElement.sourceMap = utils.concatSourceMaps([primitiveElement.sourceMap, curNodeSourceMap]);
-          } else {
-            primitiveElement.sourceMap = utils.concatSourceMaps(curNodeSourceMap);
-          }
+          primitiveElement.sourceMap = utils.concatSourceMaps([primitiveElement.sourceMap, curNodeSourceMap]);
 
           delete context.data.typeForDefaults;
           delete context.data.valueType;
@@ -84,11 +76,7 @@ class DataStructureProcessor {
           [nextNode, childResult] = this.Parsers.SampleValueParser.parse(curNode, context);
 
           curNodeSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-          if (primitiveElement.sourceMap) {
-            primitiveElement.sourceMap = utils.concatSourceMaps([primitiveElement.sourceMap, curNodeSourceMap]);
-          } else {
-            primitiveElement.sourceMap = utils.concatSourceMaps(curNodeSourceMap);
-          }
+          primitiveElement.sourceMap = utils.concatSourceMaps([primitiveElement.sourceMap, curNodeSourceMap]);
 
           delete context.data.typeForSamples;
           delete context.data.valueType;
