@@ -8,14 +8,13 @@ module.exports = (Parsers) => {
   Parsers.SchemaParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
       const schemaContentNode = node.firstChild.next;
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
       if (!schemaContentNode) {
         const schemaEl = new SchemaElement({});
-        schemaEl.sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+        schemaEl.sourceMap = sourceMap;
         return [utils.nextNode(node), schemaEl];
       }
-
-      const sourceMap = this.makeSourceMap(node, context);
 
       const schemaText = schemaContentNode.literal || '';
       let schemaObj;
@@ -46,10 +45,6 @@ module.exports = (Parsers) => {
 
     processDescription(node, context, result) {
       return [node, result];
-    },
-
-    makeSourceMap(node, context) {
-      return utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
     },
 
     allowLeavingNode: false,
