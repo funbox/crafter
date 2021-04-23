@@ -313,6 +313,9 @@ class DataStructureProcessor {
             const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
             throw new utils.CrafterError('Mson attributes based on a recursive type must not have "fixed" or "fixed-type" attributes', sourceMap);
           }
+
+          childSourceMaps.push(childResult.sourceMap);
+          objectElement.propertyMembers.push(childResult);
           break;
         }
         case SectionTypes.msonMixin: {
@@ -326,19 +329,20 @@ class DataStructureProcessor {
           );
 
           childSourceMaps.push(childResult.sourceMap);
-
-          if (!isMixinValid) {
-            childResult = null;
+          if (isMixinValid) {
+            objectElement.propertyMembers.push(childResult);
           }
           break;
         }
         case SectionTypes.oneOfType:
           [nextNode, childResult] = this.Parsers.OneOfTypeParser.parse(curNode, context);
+          childSourceMaps.push(childResult.sourceMap);
+          objectElement.propertyMembers.push(childResult);
           break;
         case SectionTypes.msonObjectMemberGroup:
           [nextNode, childResult] = this.Parsers.MSONMemberGroupParser.parse(curNode, context);
+          childSourceMaps.push(...childResult.members.map(child => child.sourceMap));
           objectElement.propertyMembers.push(...childResult.members);
-          childResult = null;
           break;
         default: {
           const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
@@ -346,10 +350,6 @@ class DataStructureProcessor {
           valueMember.unrecognizedBlocks.push(new UnrecognizedBlockElement(sourceMap));
           nextNode = utils.nextNode(curNode);
         }
-      }
-
-      if (childResult) {
-        objectElement.propertyMembers.push(childResult);
       }
 
       // TODO Что если nextNode !== curNode.next ?
@@ -362,17 +362,7 @@ class DataStructureProcessor {
 
     valueMember.content = objectElement;
 
-    if (objectElement.propertyMembers.length) {
-      const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
-      const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
-      const sourceMap = utils.concatSourceMaps(objectElement.propertyMembers.map(pm => pm.sourceMap), sourceBuffer, linefeedOffsets);
-
-      if (valueMember.sourceMap) {
-        valueMember.sourceMap = utils.concatSourceMaps([valueMember.sourceMap, sourceMap]);
-      } else {
-        valueMember.sourceMap = sourceMap;
-      }
-    } else if (childSourceMaps.length) {
+    if (childSourceMaps.length) {
       if (valueMember.sourceMap) {
         valueMember.sourceMap = utils.concatSourceMaps([valueMember.sourceMap, ...childSourceMaps]);
       } else {
