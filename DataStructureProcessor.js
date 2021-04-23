@@ -127,12 +127,10 @@ class DataStructureProcessor {
       primitiveElement.default = defaults[0];
     }
 
-    if (childSourceMaps.length) {
-      if (primitiveElement.sourceMap) {
-        primitiveElement.sourceMap = utils.concatSourceMaps([primitiveElement.sourceMap, ...childSourceMaps]);
-      } else {
-        primitiveElement.sourceMap = utils.concatSourceMaps(childSourceMaps);
-      }
+    if (primitiveElement.sourceMap) {
+      primitiveElement.sourceMap = utils.concatSourceMaps([primitiveElement.sourceMap, ...childSourceMaps]);
+    } else {
+      primitiveElement.sourceMap = utils.concatSourceMaps(childSourceMaps);
     }
   }
 
@@ -265,12 +263,10 @@ class DataStructureProcessor {
       }
     });
 
-    if (childSourceMaps.length) {
-      if (arrayElement.sourceMap) {
-        arrayElement.sourceMap = utils.concatSourceMaps([arrayElement.sourceMap, ...childSourceMaps]);
-      } else {
-        arrayElement.sourceMap = utils.concatSourceMaps(childSourceMaps);
-      }
+    if (arrayElement.sourceMap) {
+      arrayElement.sourceMap = utils.concatSourceMaps([arrayElement.sourceMap, ...childSourceMaps]);
+    } else {
+      arrayElement.sourceMap = utils.concatSourceMaps(childSourceMaps);
     }
   }
 
@@ -362,12 +358,10 @@ class DataStructureProcessor {
 
     valueMember.content = objectElement;
 
-    if (childSourceMaps.length) {
-      if (valueMember.sourceMap) {
-        valueMember.sourceMap = utils.concatSourceMaps([valueMember.sourceMap, ...childSourceMaps]);
-      } else {
-        valueMember.sourceMap = utils.concatSourceMaps(childSourceMaps);
-      }
+    if (valueMember.sourceMap) {
+      valueMember.sourceMap = utils.concatSourceMaps([valueMember.sourceMap, ...childSourceMaps]);
+    } else {
+      valueMember.sourceMap = utils.concatSourceMaps(childSourceMaps);
     }
   }
 
@@ -515,12 +509,10 @@ class DataStructureProcessor {
       if (!member.type) member.type = enumElement.type;
     });
 
-    if (childSourceMaps.length) {
-      if (valueMember.sourceMap) {
-        valueMember.sourceMap = utils.concatSourceMaps([valueMember.sourceMap, ...childSourceMaps]);
-      } else {
-        valueMember.sourceMap = utils.concatSourceMaps(childSourceMaps);
-      }
+    if (valueMember.sourceMap) {
+      valueMember.sourceMap = utils.concatSourceMaps([valueMember.sourceMap, ...childSourceMaps]);
+    } else {
+      valueMember.sourceMap = utils.concatSourceMaps(childSourceMaps);
     }
 
     valueMember.content = enumElement;
