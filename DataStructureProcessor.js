@@ -210,6 +210,8 @@ class DataStructureProcessor {
           if (isMixinValid) {
             arrayMembers.push(childResult);
             childSourceMaps.push(childResult.sourceMap);
+          } else {
+            arrayElement.unrecognizedBlocks.push(new UnrecognizedBlockElement(childResult.sourceMap));
           }
           break;
         }
@@ -324,9 +326,11 @@ class DataStructureProcessor {
             (mixinElement) => (mixinElement.isObject() ? [true, ''] : [false, 'objects should contain object mixins']),
           );
 
-          childSourceMaps.push(childResult.sourceMap);
           if (isMixinValid) {
+            childSourceMaps.push(childResult.sourceMap);
             objectElement.propertyMembers.push(childResult);
+          } else {
+            valueMember.unrecognizedBlocks.push(new UnrecognizedBlockElement(childResult.sourceMap));
           }
           break;
         }
@@ -407,9 +411,11 @@ class DataStructureProcessor {
             (mixinElement) => (mixinElement.isEnum() ? [true, ''] : [false, 'enums should contain enum mixins']),
           );
 
-          childSourceMaps.push(childResult.sourceMap);
           if (isMixinValid) {
+            childSourceMaps.push(childResult.sourceMap);
             enumElement.members.push(childResult);
+          } else {
+            valueMember.unrecognizedBlocks.push(new UnrecognizedBlockElement(childResult.sourceMap));
           }
           break;
         }

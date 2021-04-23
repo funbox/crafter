@@ -53,6 +53,16 @@
               "element": "dataStructure",
               "content": {
                 "element": "object",
+                "attributes": {
+                  "unrecognizedBlocks": {
+                    "element": "array",
+                    "content": [
+                      {
+                        "element": "unrecognizedBlock"
+                      }
+                    ]
+                  }
+                },
                 "meta": {
                   "id": {
                     "element": "string",
@@ -116,7 +126,17 @@
                                     "content": "o1"
                                   },
                                   "value": {
-                                    "element": "object"
+                                    "element": "object",
+                                    "attributes": {
+                                      "unrecognizedBlocks": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "unrecognizedBlock"
+                                          }
+                                        ]
+                                      }
+                                    }
                                   }
                                 }
                               },
@@ -128,7 +148,17 @@
                                     "content": "a1"
                                   },
                                   "value": {
-                                    "element": "array"
+                                    "element": "array",
+                                    "attributes": {
+                                      "unrecognizedBlocks": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "unrecognizedBlock"
+                                          }
+                                        ]
+                                      }
+                                    }
                                   }
                                 }
                               },
@@ -159,6 +189,14 @@
                                               }
                                             },
                                             "content": "test"
+                                          }
+                                        ]
+                                      },
+                                      "unrecognizedBlocks": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "unrecognizedBlock"
                                           }
                                         ]
                                       }
