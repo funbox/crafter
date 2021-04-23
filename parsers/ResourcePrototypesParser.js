@@ -40,9 +40,7 @@ module.exports = (Parsers) => {
     processNestedSection(node, context, result) {
       const [nextNode, childResult] = Parsers.ResourcePrototypeParser.parse(node, context);
       result.resourcePrototypes.push(childResult);
-      const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
-      const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
-      result.sourceMap = utils.concatSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
+      result.sourceMap = utils.concatSourceMaps([result.sourceMap, childResult.sourceMap]);
 
       return [nextNode, result];
     },
@@ -52,10 +50,8 @@ module.exports = (Parsers) => {
     },
 
     finalize(context, result) {
-      const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
-      const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
       const unrecognizedBlocksSourceMaps = result.unrecognizedBlocks.map(ub => ub.sourceMap);
-      result.sourceMap = utils.concatSourceMaps([result.sourceMap, ...unrecognizedBlocksSourceMaps], sourceBuffer, linefeedOffsets);
+      result.sourceMap = utils.concatSourceMaps([result.sourceMap, ...unrecognizedBlocksSourceMaps]);
 
       return result;
     },

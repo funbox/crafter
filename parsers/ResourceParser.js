@@ -138,23 +138,19 @@ module.exports = (Parsers) => {
         result.parameters = childResult;
       }
 
-      const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
-      const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
-      result.sourceMap = utils.concatSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
+      result.sourceMap = utils.concatSourceMaps([result.sourceMap, childResult.sourceMap]);
 
       return [nextNode, result];
     },
 
     finalize(context, result) {
-      const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
-      const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
       const unrecognizedBlocksSourceMaps = result.unrecognizedBlocks.map(ub => ub.sourceMap);
 
       if (result.description) {
-        result.sourceMap = utils.concatSourceMaps([result.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
+        result.sourceMap = utils.concatSourceMaps([result.sourceMap, result.description.sourceMap]);
       }
 
-      result.sourceMap = utils.concatSourceMaps([result.sourceMap, ...unrecognizedBlocksSourceMaps], sourceBuffer, linefeedOffsets);
+      result.sourceMap = utils.concatSourceMaps([result.sourceMap, ...unrecognizedBlocksSourceMaps]);
 
       context.resourcePrototypes.pop(); // очищаем стек с прототипами данного ресурса
       context.popFrame();

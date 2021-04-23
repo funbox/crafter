@@ -149,10 +149,8 @@ module.exports = (Parsers) => {
             fillElementWithContent(result.content, type, childRes.members);
 
             const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-            const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
-            const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
             if (result.content.sourceMap) {
-              result.content.sourceMap = utils.concatSourceMaps([result.content.sourceMap, sourceMap], sourceBuffer, linefeedOffsets);
+              result.content.sourceMap = utils.concatSourceMaps([result.content.sourceMap, sourceMap]);
             } else {
               result.content.sourceMap = sourceMap;
             }
@@ -243,10 +241,8 @@ module.exports = (Parsers) => {
             }
 
             const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-            const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
-            const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
             if (result.content.sourceMap) {
-              result.content.sourceMap = utils.concatSourceMaps([result.content.sourceMap, sourceMap], sourceBuffer, linefeedOffsets);
+              result.content.sourceMap = utils.concatSourceMaps([result.content.sourceMap, sourceMap]);
             } else {
               result.content.sourceMap = sourceMap;
             }
@@ -312,10 +308,8 @@ module.exports = (Parsers) => {
             }
 
             const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-            const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
-            const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
             if (result.content.sourceMap) {
-              result.content.sourceMap = utils.concatSourceMaps([result.content.sourceMap, sourceMap], sourceBuffer, linefeedOffsets);
+              result.content.sourceMap = utils.concatSourceMaps([result.content.sourceMap, sourceMap]);
             } else {
               result.content.sourceMap = sourceMap;
             }
@@ -378,11 +372,9 @@ module.exports = (Parsers) => {
           ...sourceMaps.map(sm => new UnrecognizedBlockElement(sm)),
         );
 
-        const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
-        const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
-        const sm = utils.concatSourceMaps(sourceMaps, sourceBuffer, linefeedOffsets);
+        const sm = utils.concatSourceMaps(sourceMaps);
         if (result.content.sourceMap) {
-          result.content.sourceMap = utils.concatSourceMaps([result.content.sourceMap, sm], sourceBuffer, linefeedOffsets);
+          result.content.sourceMap = utils.concatSourceMaps([result.content.sourceMap, sm]);
         } else {
           result.content.sourceMap = sm;
         }
@@ -394,11 +386,9 @@ module.exports = (Parsers) => {
         const [curNode, desc] = utils.extractDescription(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
 
         result.description = desc;
-        const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
-        const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
 
         if (result.content.sourceMap) {
-          result.content.sourceMap = utils.concatSourceMaps([result.content.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
+          result.content.sourceMap = utils.concatSourceMaps([result.content.sourceMap, result.description.sourceMap]);
         } else {
           result.content.sourceMap = result.description.sourceMap;
         }
@@ -423,9 +413,7 @@ module.exports = (Parsers) => {
       }
 
       if (result.content.sourceMap) {
-        const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
-        const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
-        result.sourceMap = utils.concatSourceMaps([result.sourceMap, result.content.sourceMap], sourceBuffer, linefeedOffsets);
+        result.sourceMap = utils.concatSourceMaps([result.sourceMap, result.content.sourceMap]);
       }
 
       utils.validateAttributesConsistency(context, result.content, attributeSignatureDetails);

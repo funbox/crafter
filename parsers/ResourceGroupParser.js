@@ -100,18 +100,14 @@ module.exports = (Parsers) => {
           result.resources.push(childResult);
       }
 
-      const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
-      const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
-      result.sourceMap = utils.concatSourceMaps([result.sourceMap, childResult.sourceMap], sourceBuffer, linefeedOffsets);
+      result.sourceMap = utils.concatSourceMaps([result.sourceMap, childResult.sourceMap]);
 
       return [nextNode, result];
     },
 
     finalize(context, result) {
       if (result.description) {
-        const sourceBuffer = context.rootNode.sourceBuffer || context.sourceBuffer;
-        const linefeedOffsets = context.rootNode.linefeedOffsets || context.linefeedOffsets;
-        result.sourceMap = utils.concatSourceMaps([result.sourceMap, result.description.sourceMap], sourceBuffer, linefeedOffsets);
+        result.sourceMap = utils.concatSourceMaps([result.sourceMap, result.description.sourceMap]);
       }
 
       context.resourcePrototypes.pop(); // очищаем стек с прототипами данной группы ресурсов
