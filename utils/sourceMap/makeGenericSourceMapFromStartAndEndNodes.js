@@ -22,10 +22,11 @@ module.exports = function makeGenericSourceMapFromStartAndEndNodes(startNode, en
   const startOffset = getOffsetFromStartOfFileInBytes(startLineIndex, startColumnIndex, sourceLines);
   const endOffset = getOffsetFromStartOfFileInBytes(endLineIndex, endColumnIndex + 1, sourceLines);
 
-  let length = endOffset - startOffset;
-  length += getEndingLinefeedLengthInBytes(endLineIndex, sourceLines);
+  const baseLength = endOffset - startOffset;
+  const linefeedLength = getEndingLinefeedLengthInBytes(endLineIndex, sourceLines);
+  const trailingLinesLength = getTrailingEmptyLinesLengthInBytes(endLineIndex + 1, sourceLines);
 
-  length += getTrailingEmptyLinesLengthInBytes(endLineIndex + 1, sourceLines);
+  const length = baseLength + linefeedLength + trailingLinesLength;
 
   const byteBlock = new ByteBlock(startOffset, length, startNode.file);
   const byteBlocks = [byteBlock];
