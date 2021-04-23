@@ -407,9 +407,9 @@ class DataStructureProcessor {
             (mixinElement) => (mixinElement.isEnum() ? [true, ''] : [false, 'enums should contain enum mixins']),
           );
 
+          childSourceMaps.push(childResult.sourceMap);
           if (isMixinValid) {
             enumElement.members.push(childResult);
-            childSourceMaps.push(childResult.sourceMap);
           }
           break;
         }
