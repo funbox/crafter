@@ -84,7 +84,7 @@ class TypeResolver {
         this.checkMixinExists(mixin);
 
         if (mixinName === name) {
-          throw new CrafterError(`Base type '${name}' circularly referencing itself`);
+          throw new CrafterError(`Base type '${name}' circularly referencing itself`, mixin.sourceMap);
         }
 
         resolveType(mixinName, baseType, usedTypes);
