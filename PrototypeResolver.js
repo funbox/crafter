@@ -25,7 +25,7 @@ class PrototypeResolver {
         const basePrototype = this.prototypes[protoName.string];
 
         if (!basePrototype) {
-          throw new CrafterError(`Unknown prototype: ${protoName.string}`);
+          throw new CrafterError(`Unknown prototype: ${protoName.string}`, protoName.sourceMap);
         }
 
         resolvePrototype(basePrototype);
