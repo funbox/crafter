@@ -35,8 +35,9 @@ module.exports = (Parsers) => {
         ? utils.headerText(node, context.sourceLines)
         : utils.nodeText(node.firstChild, context.sourceLines);
 
-      if (node.parent.prev && isNamedTypeSection) {
-        throw new CrafterError(`Expected header-defined member type group "${text}", e.g. "## <text>"`);
+      if (node.type !== 'heading' && isNamedTypeSection) {
+        const sourceMap = utils.makeGenericSourceMap(node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+        throw new CrafterError(`Expected header-defined member type group "${text}", e.g. "## <text>"`, sourceMap);
       }
 
       Object.keys(memberSeparatorRegex).forEach((key) => {
