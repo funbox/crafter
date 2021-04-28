@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.23.0 (28.04.2021)
+
+* Generate source maps of parsing errors.
+
 ## 2.22.0 (23.04.2021)
 
 * Use concatSourceMaps to join sourcemaps instead of mergeSourceMaps.
