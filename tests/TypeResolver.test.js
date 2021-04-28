@@ -19,12 +19,6 @@ describe('TypeResolver', () => {
     resolver.checkRegisteredTypes();
   });
 
-  it('throws error on unknown type', () => {
-    foo.content.type = 'unknown';
-    resolver.registerType(foo, foo.content);
-    expect(() => resolver.checkRegisteredTypes()).toThrow(CrafterError);
-  });
-
   it('throws error on loop', () => {
     foo.content.type = 'bar';
     foo.content.typeAttributes = ['required'];

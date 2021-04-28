@@ -70,10 +70,6 @@ class TypeResolver {
       if (baseTypeName && types.standardTypes.indexOf(baseTypeName) === -1) {
         const baseType = this.types[baseTypeName];
 
-        if (!baseType) {
-          throw new CrafterError(`Unknown type: ${baseTypeName}`, targetType.sourceMap);
-        }
-
         resolveType(baseTypeName, baseType, usedTypes);
       }
 
