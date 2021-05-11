@@ -93,25 +93,18 @@ class SignatureParser {
     const origSignature = signature;
     let i = 0;
     let name = '';
+    let inProgress = false;
 
     while (i < signature.length) {
-      if (signature[i] === '`') {
-        const result = retrieveEscaped(signature, i);
-        if (result.result) {
-          name = `${name}${result.result}`;
-          signature = result.str;
-          i = 0;
-        } else {
-          name = `${name}${signature[i]}`;
-          i++;
-        }
-      } else if (
-        this.traits.includes(parserTraits.VALUE) && signature[i] === VALUES_DELIMITER
+      if (
+        (this.traits.includes(parserTraits.VALUE) && signature[i] === VALUES_DELIMITER
         || this.traits.includes(parserTraits.ATTRIBUTES) && signature[i] === ATTRIBUTES_BEGIN_DELIMITER
-        || this.traits.includes(parserTraits.DESCRIPTION) && signature[i] === DESCRIPTION_DELIMITER
+        || this.traits.includes(parserTraits.DESCRIPTION) && signature[i] === DESCRIPTION_DELIMITER)
+        && !inProgress
       ) {
         break;
       } else {
+        if (signature[i] === '`') inProgress = !inProgress;
         name = `${name}${signature[i]}`;
         i++;
       }
@@ -134,37 +127,33 @@ class SignatureParser {
 
     let i = 0;
     let value = '';
+    let inProgress = false;
 
     while (i < signature.length) {
-      if (signature[i] === '`') {
-        const result = retrieveEscaped(signature, i);
-        this.rawValue = result.escaped;
-        if (result.result) {
-          value = `${value}${result.result}`;
-          signature = result.str;
-          i = 0;
-        } else if (result.escaped) {
-          signature = result.str;
-          i = 0;
-        } else {
-          i++;
-        }
-      } else if (
-        this.traits.includes(parserTraits.ATTRIBUTES) && signature[i] === ATTRIBUTES_BEGIN_DELIMITER
-        || this.traits.includes(parserTraits.DESCRIPTION) && signature[i] === DESCRIPTION_DELIMITER
+      if (
+        (this.traits.includes(parserTraits.ATTRIBUTES) && signature[i] === ATTRIBUTES_BEGIN_DELIMITER
+        || this.traits.includes(parserTraits.DESCRIPTION) && signature[i] === DESCRIPTION_DELIMITER)
+        && !inProgress
       ) {
         break;
       } else {
+        if (signature[i] === '`') inProgress = !inProgress;
         value = `${value}${signature[i]}`;
         i++;
       }
     }
 
-    const clarifiedValue = stripBackticks(value.trim());
-    if (this.rawValue && this.rawValue !== clarifiedValue) {
-      this.value = clarifiedValue;
+    value = value.trim();
+
+    if (value[0] === '`' && value[value.length - 1] === '`' && !value.slice(1, -1).includes('`')) {
+      this.rawValue = value;
+      value = stripBackticks(value);
+    }
+
+    if (this.rawValue && this.rawValue !== value) {
+      this.value = value;
     } else {
-      this.value = clarifiedValue || null;
+      this.value = value || null;
     }
 
     if (this.value) {
@@ -275,34 +264,6 @@ class SignatureParser {
   }
 }
 
-function retrieveEscaped(str, startPos) {
-  let levels = 0;
-  const escapeChar = str[startPos];
-
-  while (str[startPos + levels] === escapeChar) {
-    levels++;
-  }
-
-  const borderChars = str.substr(startPos, levels);
-  const endPos = str.substr(startPos + levels).indexOf(borderChars);
-
-  if (endPos === -1) {
-    return {
-      str: str.substr(levels),
-      result: '',
-      escaped: borderChars,
-    };
-  }
-
-  const result = str.substr(startPos, startPos + endPos + levels * 2);
-
-  return {
-    str: str.substr(startPos + result.length),
-    result,
-    escaped: str.substr(startPos, (levels - 1) * 2 + result.length),
-  };
-}
-
 function splitAttributes(signature, languageServerMode) {
   const SUBTYPE_START_DELIMITER = '[';
   const SUBTYPE_END_DELIMITER = ']';
@@ -369,11 +330,10 @@ function splitAttributes(signature, languageServerMode) {
 }
 
 function splitValues(values) {
-  const hasEscapedValue = /`.+`/.test(values);
-  const splitter = hasEscapedValue ? /(`.+`),/ : ',';
-  const splitted = values.split(splitter)
+  const splitter = /,?\s?(`.+?`)|,(?=[^`]+?)/;
+  const a = values.split(splitter);
+  const splitted = a
     .filter(val => !!val)
-    .map(val => (val.startsWith('`') ? val : val.replace(',', '')))
     .map(val => stripBackticks(val.trim()));
 
   return splitted;

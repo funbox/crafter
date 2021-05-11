@@ -34,12 +34,13 @@ class ValueMemberElement {
    * @param {string} type - обработанный тип данных без вложенных типов, например string, array или User
    * @param {ValueMemberElement[]} nestedTypes - типы элементов массива или enum
    * @param {(string|Array)[]} typeAttributes - набор атрибутов типа fixed, nullable, ["minimum", 10]
-   * @param {string} value - значение элемента, в зависимости от атрибутов может интерпретироваться как непосредственное значение или пример
+   * @param {string} rawValue - значение элемента, в зависимости от атрибутов может интерпретироваться как непосредственное значение или пример
+   * @param {string} value - очищенное от backticks значение элемента
    * @param {StringElement} description - описание элемента
    * @param {boolean} isSample - является ли данный элемент примером
    * @param {boolean} isDefault - является ли данный элемент элементом по умолчанию
    */
-  constructor(rawType, type, nestedTypes = [], typeAttributes = [], value, description, isSample, isDefault) {
+  constructor(rawType, type, nestedTypes = [], typeAttributes = [], rawValue, value, description, isSample, isDefault) {
     this.rawType = rawType;
     this.type = type;
     /**
@@ -53,6 +54,7 @@ class ValueMemberElement {
      */
     this.baseType = undefined;
     this.typeAttributes = typeAttributes;
+    this.rawValue = rawValue;
     this.value = value;
     this.description = description;
     /**

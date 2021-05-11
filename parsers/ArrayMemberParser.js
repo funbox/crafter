@@ -39,6 +39,7 @@ module.exports = (Parsers) => {
         resolvedType.type,
         nestedTypes,
         signature.typeAttributes,
+        signature.rawValue,
         signature.value,
         description,
         signature.isSample,

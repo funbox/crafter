@@ -33,7 +33,7 @@ const ValueMemberProcessor = {
       throw new CrafterError(`Invalid type ${element.rawType}. Nested types should be present only for types which are sub typed from either array or enum structure type`);
     }
 
-    const { value } = element;
+    const { rawValue, value } = element;
     let sampleElements = [];
     let defaultElements = [];
 
@@ -53,7 +53,7 @@ const ValueMemberProcessor = {
       if (element.type && element.isObject()) {
         context.addWarning('"object" with value definition. You should use type definition without value, e.g., "+ key (object)"', context.data.attributeSignatureDetails.sourceMap);
       } else if (isProperty || element.isSample || element.isDefault) {
-        const [inlineSamples, inlineDefaults] = getSamplesAndDefaultsFromInline(element, value, context);
+        const [inlineSamples, inlineDefaults] = getSamplesAndDefaultsFromInline(element, rawValue || value, context);
         if (isProperty || element.isSample) {
           sampleElements = sampleElements.concat(inlineSamples);
         }
