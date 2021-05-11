@@ -60,9 +60,9 @@ describe('schema', () => {
     it('fixed', () => {
       const el = new ArrayElement(
         createValueMemberElements([
-          ['string', 'string', [], [], 'hello'],
-          ['number', 'number', [], [], '42'],
-          ['boolean', 'boolean', [], [], 'true'],
+          ['string', 'string', [], [], null, 'hello'],
+          ['number', 'number', [], [], null, '42'],
+          ['boolean', 'boolean', [], [], null, 'true'],
         ]),
       );
       expect(el.getSchema({}, { isFixed: true })).toEqual([
@@ -284,7 +284,7 @@ describe('schema', () => {
     it('fixed', () => {
       const el = new PropertyMemberElement(
         new StringElement('status'),
-        createValueMemberElement(['string', 'string', [], ['fixed'], 'ok']),
+        createValueMemberElement(['string', 'string', [], ['fixed'], null, 'ok']),
         [],
       );
       expect(el.getSchema({})).toEqual([
@@ -303,7 +303,7 @@ describe('schema', () => {
     it('fixed parent', () => {
       const el = new PropertyMemberElement(
         new StringElement('status'),
-        createValueMemberElement(['string', 'string', [], [], 'ok']),
+        createValueMemberElement(['string', 'string', [], [], null, 'ok']),
         [],
       );
       expect(el.getSchema({}, { isFixed: true })).toEqual([
@@ -551,7 +551,7 @@ describe('schema', () => {
     });
 
     it('fixed', () => {
-      const el = createValueMemberElement(['string', 'string', [], [], 'ok']);
+      const el = createValueMemberElement(['string', 'string', [], [], null, 'ok']);
       expect(el.getSchema({}, { isFixed: true })).toEqual([
         {
           type: 'string',
@@ -562,7 +562,7 @@ describe('schema', () => {
     });
 
     it('fixed/sample', () => {
-      const el = new ValueMemberElement('string', 'string', [], [], 'ok', '', true);
+      const el = new ValueMemberElement('string', 'string', [], [], null, 'ok', '', true);
       expect(el.getSchema({}, { isFixed: true })).toEqual([
         {
           type: 'string',
