@@ -1,5 +1,24 @@
 # My API
 
-It should be possible to use imports in imported file
+It should be possible to use imports in imported file.
+Data structures gathered through all imports should be available here.
 
 # Import import-in-import-inner.apib
+
+# Data Structures
+
+## NormalResponse (object)
++ status: ok (required, fixed) - штатный ответ
+
+# Group My Group
+
+## Get user [GET /user]
+
++ Response 200 (application/json)
+    + Attributes (NormalResponse)
+
++ Response 200 (application/json)
+    + Attributes (ErrorFromInnerFile)
+
++ Response 200 (application/json)
+    + Attributes (ErrorFromInnerInnerFile)

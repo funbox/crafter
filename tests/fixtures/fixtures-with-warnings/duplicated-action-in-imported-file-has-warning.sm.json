@@ -827,38 +827,6 @@
                   ]
                 }
               ]
-            },
-            {
-              "element": "sourceMap",
-              "content": [
-                {
-                  "element": "array",
-                  "content": [
-                    {
-                      "element": "number",
-                      "content": 0
-                    },
-                    {
-                      "element": "number",
-                      "content": 15
-                    }
-                  ]
-                },
-                {
-                  "element": "array",
-                  "content": [
-                    {
-                      "element": "number",
-                      "content": 15
-                    },
-                    {
-                      "element": "number",
-                      "content": 34
-                    }
-                  ]
-                }
-              ],
-              "file": "duplicated-action-in-imported-file-has-warning-inner.apib"
             }
           ]
         }
@@ -892,21 +860,21 @@
                       "attributes": {
                         "line": {
                           "element": "number",
-                          "content": 1
+                          "content": 6
                         },
                         "column": {
                           "element": "number",
                           "content": 1
                         }
                       },
-                      "content": 0
+                      "content": 134
                     },
                     {
                       "element": "number",
                       "attributes": {
                         "line": {
                           "element": "number",
-                          "content": 2
+                          "content": 7
                         },
                         "column": {
                           "element": "number",
@@ -925,33 +893,32 @@
                       "attributes": {
                         "line": {
                           "element": "number",
-                          "content": 3
+                          "content": 8
                         },
                         "column": {
                           "element": "number",
                           "content": 1
                         }
                       },
-                      "content": 15
+                      "content": 149
                     },
                     {
                       "element": "number",
                       "attributes": {
                         "line": {
                           "element": "number",
-                          "content": 3
+                          "content": 9
                         },
                         "column": {
                           "element": "number",
-                          "content": 34
+                          "content": 1
                         }
                       },
-                      "content": 34
+                      "content": 35
                     }
                   ]
                 }
-              ],
-              "file": "duplicated-action-in-imported-file-has-warning-inner.apib"
+              ]
             }
           ]
         }
