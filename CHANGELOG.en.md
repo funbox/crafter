@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.24.0 (17.05.2021)
+
+* Generate templates of body sections which include all One Of options.
+
 ## 2.23.0 (28.04.2021)
 
 * Generate source maps of parsing errors.
