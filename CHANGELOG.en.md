@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.25.0 (18.05.2021)
+
+* Create a new release after merge to the master branch.
+
 ## 2.24.0 (17.05.2021)
 
 * Generate templates of body sections which include all One Of options.
