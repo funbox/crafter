@@ -71,4 +71,9 @@ describe('PrototypeResolver', () => {
     expect(resolver.prototypes.baz.responses[0]).toBe(bar.responses[0]);
     expect(resolver.prototypes.baz.responses[1]).toBe(foo.responses[0]);
   });
+
+  it('fails to inherit prototypes from invalid resolver', () => {
+    expect(() => resolver.extendWith('not type resolver')).toThrow('Failed to extend prototype resolver: resolver should be an object');
+    expect(() => resolver.extendWith({})).toThrow('Failed to extend prototype resolver: resolver should have a valid form');
+  });
 });

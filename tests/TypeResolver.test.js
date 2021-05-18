@@ -26,4 +26,9 @@ describe('TypeResolver', () => {
     resolver.registerType(bar, bar.content);
     expect(() => resolver.checkRegisteredTypes()).toThrow(CrafterError);
   });
+
+  it('fails to inherit types from invalid resolver', () => {
+    expect(() => resolver.extendWith('not type resolver')).toThrow('Failed to extend type resolver: resolver should be an object');
+    expect(() => resolver.extendWith({})).toThrow('Failed to extend type resolver: resolver should have a valid form');
+  });
 });
