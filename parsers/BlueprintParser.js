@@ -30,51 +30,18 @@ module.exports = (Parsers) => {
       }
 
       let curNode = node;
-
       let title = new StringElement('');
-      const metadataArray = [];
       const sourceMaps = [];
 
       if (context.error) {
-        const errorResult = new BlueprintElement(title, undefined, metadataArray);
+        const errorResult = new BlueprintElement(title, undefined, []);
         preprocessErrorResult(errorResult, context);
         return [null, errorResult, context.filePaths];
       }
 
-      while (curNode.type === 'paragraph') {
-        let isWarningAdded = false;
-        const nodeText = utils.nodeText(curNode, context.sourceLines);
-        const { startLineIndex, startColumnIndex } = utils.getSourcePosZeroBased(curNode);
-        let offset = utils.getOffsetFromStartOfFileInBytes(startLineIndex, startColumnIndex, context.sourceLines);
-
-        nodeText.split('\n').forEach((line, lineIndex) => { // eslint-disable-line no-loop-func
-          const [key, ...rest] = line.split(':');
-          const value = rest.join(':');
-
-          const blockOffset = offset;
-          offset += line.length + getEndingLinefeedLengthInBytes(startLineIndex + lineIndex, context.sourceLines);
-
-          if (!/\S/.test(context.sourceLines[startLineIndex + lineIndex + 1])) {
-            offset += getTrailingEmptyLinesLengthInBytes(startLineIndex + lineIndex + 1, context.sourceLines);
-          }
-
-          const blockLength = offset - blockOffset;
-          const byteBlock = new ByteBlock(blockOffset, blockLength, curNode.file);
-          const charBlocks = utils.getCharacterBlocksWithLineColumnInfo([byteBlock], context.sourceBuffer, context.linefeedOffsets);
-          const sourceMap = new utils.SourceMap([byteBlock], charBlocks);
-          sourceMaps.push(sourceMap);
-
-          if (key && value) {
-            const element = new MetaDataElement(key, value);
-            element.sourceMap = sourceMap;
-            metadataArray.push(element);
-          } else if (!isWarningAdded) {
-            isWarningAdded = true;
-            context.addWarning('ignoring possible metadata, expected "<key> : <value>", one per line', sourceMap);
-          }
-        });
-        curNode = curNode.next;
-      }
+      const [metaElements, metaSourceMaps, nextNode] = this.extractMetadata(curNode, context);
+      curNode = nextNode;
+      sourceMaps.push(...metaSourceMaps);
 
       if (curNode.type === 'heading' && context.sectionKeywordSignature(curNode) === SectionTypes.undefined) {
         const [titleText, titleTextOffset] = utils.headerTextWithOffset(curNode, context.sourceLines);
@@ -94,7 +61,7 @@ module.exports = (Parsers) => {
         sourceMaps.push(description.sourceMap);
       }
 
-      const result = new BlueprintElement(title, description, metadataArray);
+      const result = new BlueprintElement(title, description, metaElements);
 
       while (curNode) {
         const nodeType = this.nestedSectionType(curNode, context);
@@ -372,6 +339,49 @@ module.exports = (Parsers) => {
       nodesToRemove.forEach(node => node.unlink());
 
       return childBlueprintsContainer;
+    },
+
+    extractMetadata(startNode, context) {
+      const metadataArray = [];
+      const sourceMaps = [];
+      let curNode = startNode;
+
+      while (curNode.type === 'paragraph') {
+        let isWarningAdded = false;
+        const nodeText = utils.nodeText(curNode, context.sourceLines);
+        const { startLineIndex, startColumnIndex } = utils.getSourcePosZeroBased(curNode);
+        let offset = utils.getOffsetFromStartOfFileInBytes(startLineIndex, startColumnIndex, context.sourceLines);
+
+        nodeText.split('\n').forEach((line, lineIndex) => { // eslint-disable-line no-loop-func
+          const [key, ...rest] = line.split(':');
+          const value = rest.join(':');
+
+          const blockOffset = offset;
+          offset += line.length + getEndingLinefeedLengthInBytes(startLineIndex + lineIndex, context.sourceLines);
+
+          if (!/\S/.test(context.sourceLines[startLineIndex + lineIndex + 1])) {
+            offset += getTrailingEmptyLinesLengthInBytes(startLineIndex + lineIndex + 1, context.sourceLines);
+          }
+
+          const blockLength = offset - blockOffset;
+          const byteBlock = new ByteBlock(blockOffset, blockLength, curNode.file);
+          const charBlocks = utils.getCharacterBlocksWithLineColumnInfo([byteBlock], context.sourceBuffer, context.linefeedOffsets);
+          const sourceMap = new utils.SourceMap([byteBlock], charBlocks);
+          sourceMaps.push(sourceMap);
+
+          if (key && value) {
+            const element = new MetaDataElement(key, value);
+            element.sourceMap = sourceMap;
+            metadataArray.push(element);
+          } else if (!isWarningAdded) {
+            isWarningAdded = true;
+            context.addWarning('ignoring possible metadata, expected "<key> : <value>", one per line', sourceMap);
+          }
+        });
+        curNode = curNode.next;
+      }
+
+      return [metadataArray, sourceMaps, curNode];
     },
   };
   return true;
