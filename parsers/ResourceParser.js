@@ -116,6 +116,7 @@ module.exports = (Parsers) => {
         Parsers.DataStructureGroupParser,
         Parsers.SchemaStructureGroupParser,
         Parsers.ResourcePrototypesParser,
+        Parsers.ImportParser,
       ]);
     },
 
@@ -198,6 +199,7 @@ module.exports = (Parsers) => {
       if (!context.checkActionExists(actionString)) {
         context.addAction(actionString);
       } else {
+        // TODO: учитывать файл, в котором объявлен экшен, см. context.checkActionExists
         context.addWarning(`Action "${actionString}" already defined.`, action.sourceMap);
       }
     },

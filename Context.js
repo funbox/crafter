@@ -63,6 +63,7 @@ class Context {
       'DataStructureGroup',
       'SchemaStructureGroup',
       'ResourcePrototypes',
+      'Import',
     ].map(name => parsers[`${name}Parser`]);
 
     this.typeResolver = new TypeResolver();

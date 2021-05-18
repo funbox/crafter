@@ -43,6 +43,7 @@ module.exports = (Parsers) => {
         Parsers.SchemaStructureGroupParser,
         Parsers.ResourcePrototypesParser,
         Parsers.ResourcePrototypeParser,
+        Parsers.ImportParser,
       ]);
     },
 

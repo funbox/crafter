@@ -35,6 +35,7 @@ const SectionTypes = Object.freeze({
   oneOfType: 'oneOfType',
   oneOfTypeOption: 'oneOfTypeOption',
   message: 'message',
+  import: 'import',
 
   /**
    * @param {object} node
