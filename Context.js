@@ -93,11 +93,8 @@ class Context {
     return this.usedActions.has(actionString);
   }
 
-  addResourcePrototype(prototype) {
-    if (this.resourcePrototypeResolver.prototypes[prototype.title.string]) {
-      throw new CrafterError(`Resource prototype "${prototype.title.string}" already defined`, prototype.sourceMap);
-    }
-    this.resourcePrototypeResolver.prototypes[prototype.title.string] = prototype;
+  addResourcePrototype(prototype, sourceFile) {
+    this.resourcePrototypeResolver.registerPrototype(prototype, sourceFile);
   }
 
   sectionKeywordSignature(node) {

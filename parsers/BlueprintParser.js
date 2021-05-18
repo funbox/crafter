@@ -254,7 +254,7 @@ module.exports = (Parsers) => {
         [SectionTypes.resourcePrototypes]: (curNode) => {
           const [nextNode, resourcePrototypeGroup] = Parsers.ResourcePrototypesParser.parse(curNode, context);
           resourcePrototypeGroup.resourcePrototypes.forEach((proto) => {
-            context.addResourcePrototype(proto);
+            context.addResourcePrototype(proto, curNode.file || context.currentFile);
           });
           return nextNode;
         },

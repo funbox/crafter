@@ -4,6 +4,16 @@ class PrototypeResolver {
   constructor() {
     this.prototypes = {};
     this.resolvedPrototypes = new Set();
+    this.prototypeLocations = {};
+  }
+
+  registerPrototype(prototype, sourceFile) {
+    const protoName = prototype.title.string;
+    if (this.prototypes[protoName]) {
+      throw new CrafterError(`Resource prototype "${protoName}" already defined`, prototype.sourceMap);
+    }
+    this.prototypes[protoName] = prototype;
+    this.prototypeLocations[protoName] = sourceFile;
   }
 
   extendWith(externalResolver) {
