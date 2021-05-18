@@ -23,9 +23,20 @@ class PrototypeResolver {
       throw new Error(`Failed to extend prototype resolver: ${errorText}`);
     }
 
+    Object.keys(externalResolver.prototypes).forEach((protoName) => {
+      const existingLocation = this.prototypeLocations[protoName];
+      if (existingLocation !== undefined) {
+        throw new CrafterError(`Resource prototype "${protoName}" already defined in ${existingLocation}`);
+      }
+    });
+
     this.prototypes = {
       ...this.prototypes,
       ...externalResolver.prototypes,
+    };
+    this.prototypeLocations = {
+      ...this.prototypeLocations,
+      ...externalResolver.prototypeLocations,
     };
     this.resolvedPrototypes = new Set([...this.resolvedPrototypes, ...externalResolver.resolvedPrototypes]);
   }

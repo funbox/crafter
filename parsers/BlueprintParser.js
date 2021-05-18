@@ -200,10 +200,20 @@ module.exports = (Parsers) => {
 
       if (importedBlueprints && importedBlueprints.size > 0) {
         importedBlueprints.forEach((value) => {
-          const { importedTypes, importedPrototypes, usedActions } = value;
-          context.typeResolver.extendWith(importedTypes);
-          context.resourcePrototypeResolver.extendWith(importedPrototypes);
-          context.addActions(usedActions);
+          const {
+            importedTypes,
+            importedPrototypes,
+            usedActions,
+            importSourceMap,
+          } = value;
+          try {
+            context.typeResolver.extendWith(importedTypes);
+            context.resourcePrototypeResolver.extendWith(importedPrototypes);
+            context.addActions(usedActions);
+          } catch (e) {
+            e.sourceMap = importSourceMap;
+            throw e;
+          }
         });
       }
 
@@ -338,6 +348,7 @@ module.exports = (Parsers) => {
               importedPrototypes: {
                 prototypes: childContext.resourcePrototypeResolver.prototypes,
                 resolvedPrototypes: childContext.resourcePrototypeResolver.resolvedPrototypes,
+                prototypeLocations: childContext.resourcePrototypeResolver.prototypeLocations,
               },
               usedActions: Array.from(childContext.usedActions),
               importSourceMap: sourceMap,

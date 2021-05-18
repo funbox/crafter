@@ -38,6 +38,13 @@ class TypeResolver {
       throw new Error(`Failed to extend type resolver: ${errorText}`);
     }
 
+    Object.keys(externalResolver.types).forEach((name) => {
+      const existingLocation = this.typeLocations[name];
+      if (existingLocation !== undefined) {
+        throw new CrafterError(`Type "${name}" already defined in ${existingLocation}`);
+      }
+    });
+
     this.types = {
       ...this.types,
       ...externalResolver.types,
