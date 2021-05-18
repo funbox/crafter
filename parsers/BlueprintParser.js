@@ -83,9 +83,6 @@ module.exports = (Parsers) => {
         sourceMaps.push(titleSourceMap);
 
         curNode = curNode.next;
-      } else if (!context.importedFile) {
-        const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-        context.addWarning('expected API name, e.g. "# <API Name>"', sourceMap);
       }
 
       let description = '';
@@ -326,7 +323,6 @@ module.exports = (Parsers) => {
 
             addSourceLinesAndFilename(childAst, childSourceLines, childSourceBuffer, childLinefeedOffsets, context.resolvePathRelativeToEntryDir(filename));
             context.importsSourceMaps.push(...childContext.importsSourceMaps);
-            childContext.importedFile = true;
             childContext.usedFiles.unshift(...context.usedFiles);
 
             const [, importedBlueprint] = await Parsers.BlueprintParser.parse(childAst.firstChild, childContext);

@@ -45,7 +45,6 @@ class Context {
     this.readFile = options.readFile || readFile;
     this.languageServerMode = options.languageServerMode;
     this.parsers = parsers;
-    this.importedFile = false;
     this.usedFiles = this.currentFile ? [this.currentFileName()] : [];
 
     this.sectionKeywordSignatureParsers = [
