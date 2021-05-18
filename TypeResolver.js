@@ -31,6 +31,27 @@ class TypeResolver {
     this.typeLocations = {};
   }
 
+  extendWith(externalResolver) {
+    const [isValid, errorText] = validateResolver(externalResolver);
+
+    if (!isValid) {
+      throw new Error(`Failed to extend type resolver: ${errorText}`);
+    }
+
+    this.types = {
+      ...this.types,
+      ...externalResolver.types,
+    };
+    this.typeNames = {
+      ...this.typeNames,
+      ...externalResolver.typeNames,
+    };
+    this.typeLocations = {
+      ...this.typeLocations,
+      ...externalResolver.typeLocations,
+    };
+  }
+
   registerType(type, content, typeLocation) {
     this.types[type.name.string] = content;
     this.typeNames[type.name.string] = type.name;
@@ -218,6 +239,18 @@ function getIncludedMixins(target) {
   processValueElement(target);
 
   return includedMixins;
+}
+
+function validateResolver(resolver) {
+  if (typeof resolver !== 'object') {
+    return [false, 'resolver should be an object'];
+  }
+
+  if ([resolver.types, resolver.typeNames, resolver.typeLocations].some(field => (typeof field !== 'object'))) {
+    return [false, 'resolver should have a valid form'];
+  }
+
+  return [true];
 }
 
 module.exports = TypeResolver;

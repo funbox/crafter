@@ -45,6 +45,8 @@ class Context {
     this.readFile = options.readFile || readFile;
     this.languageServerMode = options.languageServerMode;
     this.parsers = parsers;
+    this.importedFile = false;
+    this.usedFiles = this.currentFile ? [this.currentFileName()] : [];
 
     this.sectionKeywordSignatureParsers = [
       'DefaultValue',
@@ -82,7 +84,12 @@ class Context {
     this.usedActions.add(actionString);
   }
 
+  addActions(actionsArray) {
+    actionsArray.forEach(action => this.addAction(action));
+  }
+
   checkActionExists(actionString) {
+    // TODO: учитывать файл, в котором объявлен экшен
     return this.usedActions.has(actionString);
   }
 

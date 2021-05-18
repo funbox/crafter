@@ -6,6 +6,20 @@ class PrototypeResolver {
     this.resolvedPrototypes = new Set();
   }
 
+  extendWith(externalResolver) {
+    const [isValid, errorText] = validateResolver(externalResolver);
+
+    if (!isValid) {
+      throw new Error(`Failed to extend prototype resolver: ${errorText}`);
+    }
+
+    this.prototypes = {
+      ...this.prototypes,
+      ...externalResolver.prototypes,
+    };
+    this.resolvedPrototypes = new Set([...this.resolvedPrototypes, ...externalResolver.resolvedPrototypes]);
+  }
+
   resolveRegisteredPrototypes() {
     const usedPrototypes = [];
 
@@ -53,6 +67,18 @@ function copyNewContent(src, target) {
   function hasResponse(srcAttr) {
     return !!target.responses.find(a => a.statusCode.equals(srcAttr.statusCode));
   }
+}
+
+function validateResolver(resolver) {
+  if (typeof resolver !== 'object') {
+    return [false, 'resolver should be an object'];
+  }
+
+  if ([resolver.prototypes, resolver.resolvedPrototypes].some(field => (typeof field !== 'object'))) {
+    return [false, 'resolver should have a valid form'];
+  }
+
+  return [true];
 }
 
 module.exports = PrototypeResolver;

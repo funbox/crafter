@@ -14,7 +14,7 @@ module.exports = (Parsers) => {
       if (node.type === 'heading') {
         const subject = utils.headerText(node, context.sourceLines);
 
-        if (ImportRegex.exec(subject)) {
+        if (ImportRegex.test(subject)) {
           return SectionTypes.import;
         }
       }
@@ -38,6 +38,10 @@ module.exports = (Parsers) => {
 
     processNestedSections(node, context, result) {
       return [node, result];
+    },
+
+    getFilename(node, context) {
+      return ImportRegex.exec(utils.headerText(node, context.sourceLines))[1].trim();
     },
   });
   return true;

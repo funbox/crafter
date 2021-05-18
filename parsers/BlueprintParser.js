@@ -11,8 +11,6 @@ const MetaDataElement = require('./elements/MetaDataElement');
 const AnnotationElement = require('./elements/AnnotationElement');
 const UnrecognizedBlockElement = require('./elements/UnrecognizedBlockElement');
 
-const ImportRegex = /^[Ii]mport\s+(.+)$/;
-
 module.exports = (Parsers) => {
   Parsers.BlueprintParser = {
     async parse(node, context) {
@@ -20,8 +18,10 @@ module.exports = (Parsers) => {
         return [null, new BlueprintElement(new StringElement(''), null, []), context.filePaths];
       }
 
+      let importedBlueprints;
+
       try {
-        await this.preprocessNestedSections(node, context);
+        importedBlueprints = await this.preprocessNestedSections(node, context);
       } catch (error) {
         if (context.debugMode) {
           throw error;
@@ -83,7 +83,7 @@ module.exports = (Parsers) => {
         sourceMaps.push(titleSourceMap);
 
         curNode = curNode.next;
-      } else {
+      } else if (!context.importedFile) {
         const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
         context.addWarning('expected API name, e.g. "# <API Name>"', sourceMap);
       }
@@ -121,6 +121,17 @@ module.exports = (Parsers) => {
             case SectionTypes.resourcePrototypes:
               [curNode, childResult] = Parsers.ResourcePrototypesParser.parse(curNode, context);
               break;
+            case SectionTypes.import: {
+              if (importedBlueprints && importedBlueprints.size > 0 && curNode.importId) {
+                const { blueprint } = importedBlueprints.get(curNode.importId);
+                result.annotations.push(...blueprint.annotations);
+                result.content.push(...blueprint.content);
+              }
+              [curNode, childResult] = Parsers.ImportParser.parse(curNode, context);
+              sourceMaps.push(childResult.sourceMap);
+              childResult = null;
+              break;
+            }
             default: {
               const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
               result.unrecognizedBlocks.push(new UnrecognizedBlockElement(sourceMap));
@@ -163,12 +174,11 @@ module.exports = (Parsers) => {
         Parsers.DataStructureGroupParser,
         Parsers.SchemaStructureGroupParser,
         Parsers.ResourcePrototypesParser,
+        Parsers.ImportParser,
       ]);
     },
 
     async preprocessNestedSections(node, context) {
-      const usedFiles = context.currentFile ? [context.currentFileName()] : [];
-
       const walkAST = (sectionProcessors) => {
         let curNode = node;
 
@@ -186,7 +196,16 @@ module.exports = (Parsers) => {
 
       context.typeExtractingInProgress = true;
 
-      await this.resolveImports(node, context, usedFiles);
+      const importedBlueprints = await this.resolveImports(node, context);
+
+      if (importedBlueprints && importedBlueprints.size > 0) {
+        importedBlueprints.forEach((value) => {
+          const { importedTypes, importedPrototypes, usedActions } = value;
+          context.typeResolver.extendWith(importedTypes);
+          context.resourcePrototypeResolver.extendWith(importedPrototypes);
+          context.addActions(usedActions);
+        });
+      }
 
       walkAST({
         [SectionTypes.schemaStructureGroup]: (curNode) => {
@@ -243,16 +262,18 @@ module.exports = (Parsers) => {
 
       context.resourcePrototypeResolver.resolveRegisteredPrototypes();
       context.enableWarnings();
+
+      return importedBlueprints;
     },
 
-    async resolveImports(entryNode, context, usedFiles) {
-      const { sourceLines } = context;
-      const parentNode = entryNode.parent;
-      const newChildren = [];
+    async resolveImports(entryNode, context) {
+      const { usedFiles } = context;
       let curNode = entryNode;
+      const nodesToRemove = [];
+      const childBlueprintsContainer = new Map();
 
       while (curNode) {
-        if (isImportSection(curNode, context)) {
+        if (Parsers.ImportParser.sectionType(curNode, context) === SectionTypes.import) {
           const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
           context.importsSourceMaps.push(sourceMap);
 
@@ -261,7 +282,8 @@ module.exports = (Parsers) => {
           }
 
           try {
-            const filename = ImportRegex.exec(utils.headerText(curNode, sourceLines))[1].trim();
+            const filename = Parsers.ImportParser.getFilename(curNode, context);
+            const importId = filename;
 
             if (!/\.apib$/.test(filename)) {
               throw new CrafterError(`File import error. File "${filename}" must have extension type ".apib".`, sourceMap);
@@ -270,8 +292,6 @@ module.exports = (Parsers) => {
             if (usedFiles.includes(filename)) {
               throw new CrafterError(`Recursive import: ${usedFiles.join(' → ')} → ${filename}`, sourceMap);
             }
-
-            usedFiles.push(filename);
 
             const { ast: childAst, context: childContext } = await context.getApibAST(filename, sourceMap);
             const childSourceLines = childContext.sourceLines;
@@ -282,26 +302,48 @@ module.exports = (Parsers) => {
               throw new CrafterError(`File import error. File "${filename}" is empty.`, sourceMap);
             }
 
-            let firstChildNode = childAst.firstChild;
+            let childNodeToCheck = childAst.firstChild;
 
-            while (firstChildNode && isImportSection(firstChildNode, childContext)) {
-              firstChildNode = firstChildNode.next;
+            while (childNodeToCheck && Parsers.ImportParser.sectionType(childNodeToCheck, childContext) === SectionTypes.import) {
+              // файл может начинаться с импорта, в таком случае, его нужно пропустить
+              childNodeToCheck = childNodeToCheck.next;
             }
-            if (firstChildNode && this.nestedSectionType(firstChildNode, childContext) === SectionTypes.undefined) {
-              throw new CrafterError(`Invalid content of "${filename}". Can't recognize "${utils.nodeText(firstChildNode, childContext.sourceLines)}" as API Blueprint section.`, sourceMap);
+            if (childNodeToCheck && this.nestedSectionType(childNodeToCheck, childContext) === SectionTypes.undefined) {
+              throw new CrafterError(`Invalid content of "${filename}". Can't recognize "${utils.nodeText(childNodeToCheck, childContext.sourceLines)}" as API Blueprint section.`, sourceMap);
             }
 
             context.filePaths.push(`${context.resolvePathRelativeToEntryDir(filename)}`);
 
             addSourceLinesAndFilename(childAst, childSourceLines, childSourceBuffer, childLinefeedOffsets, context.resolvePathRelativeToEntryDir(filename));
-            await this.resolveImports(childAst.firstChild, childContext, usedFiles);
             context.importsSourceMaps.push(...childContext.importsSourceMaps);
+            childContext.importedFile = true;
+            childContext.usedFiles.unshift(...context.usedFiles);
 
-            let childNode = childAst.firstChild;
-            while (childNode) {
-              newChildren.push(childNode);
-              childNode = childNode.next;
+            const [, importedBlueprint] = await Parsers.BlueprintParser.parse(childAst.firstChild, childContext);
+            const importedBlueprintError = findError(importedBlueprint);
+
+            if (importedBlueprintError) {
+              const importError = new Error(importedBlueprintError.text);
+              importError.sourceMap = importedBlueprintError.sourceMap;
+              throw importError;
             }
+
+            childBlueprintsContainer.set(importId, {
+              blueprint: importedBlueprint,
+              importedTypes: {
+                types: childContext.typeResolver.types,
+                typeNames: childContext.typeResolver.typeNames,
+                typeLocations: childContext.typeResolver.typeLocations,
+              },
+              importedPrototypes: {
+                prototypes: childContext.resourcePrototypeResolver.prototypes,
+                resolvedPrototypes: childContext.resourcePrototypeResolver.resolvedPrototypes,
+              },
+              usedActions: Array.from(childContext.usedActions),
+              importSourceMap: sourceMap,
+            });
+
+            curNode.importId = importId;
 
             // Если в Language Server Mode случится ошибка и до этой инструкции выполнение не дойдет,
             // то при повторной попытке импорта данного файла случится Recursive import.
@@ -310,27 +352,19 @@ module.exports = (Parsers) => {
             // ошибка, а для данного режима не важно какая именно ошибка произойдет.
             usedFiles.pop();
           } catch (e) {
+            nodesToRemove.push(curNode);
             if (!context.languageServerMode) {
               throw e;
             }
           }
-        } else {
-          newChildren.push(curNode);
         }
         curNode = curNode.next;
       }
 
-      let childNode = parentNode.firstChild;
+      // нода удаляется из ast только в случае, если импорт с ошибкой
+      nodesToRemove.forEach(node => node.unlink());
 
-      while (childNode) {
-        const nextNode = childNode.next;
-        childNode.unlink();
-        childNode = nextNode;
-      }
-
-      newChildren.forEach((child) => {
-        parentNode.appendChild(child);
-      });
+      return childBlueprintsContainer;
     },
   };
   return true;
@@ -356,6 +390,6 @@ function preprocessErrorResult(result, context) {
   result.annotations.push(new AnnotationElement('error', context.error.message, context.error.sourceMap));
 }
 
-function isImportSection(node, context) {
-  return node.type === 'heading' && ImportRegex.test(utils.headerText(node, context.sourceLines));
+function findError(blueprintElement) {
+  return blueprintElement.annotations.find(anno => anno.type === 'error');
 }
