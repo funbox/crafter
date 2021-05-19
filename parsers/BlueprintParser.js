@@ -88,8 +88,20 @@ module.exports = (Parsers) => {
             case SectionTypes.import: {
               if (importedBlueprints && importedBlueprints.size > 0 && curNode.importId) {
                 const { blueprint } = importedBlueprints.get(curNode.importId);
-                result.annotations.push(...blueprint.annotations);
-                result.content.push(...blueprint.content);
+                const localImportHistory = new Set();
+                blueprint.content.forEach(element => {
+                  if (element.importedFrom && !context.importHistory.has(element.importedFrom)) {
+                    result.content.push(element);
+                    localImportHistory.add(element.importedFrom);
+                  }
+                });
+                blueprint.annotations.forEach(annotation => {
+                  if (annotation.importedFrom && !context.importHistory.has(annotation.importedFrom)) {
+                    result.annotations.push(annotation);
+                    localImportHistory.add(annotation.importedFrom);
+                  }
+                });
+                context.importHistory = new Set([...context.importHistory, ...localImportHistory]);
               }
               [curNode, childResult] = Parsers.ImportParser.parse(curNode, context);
               sourceMaps.push(childResult.sourceMap);
@@ -257,7 +269,6 @@ module.exports = (Parsers) => {
 
           try {
             const filename = Parsers.ImportParser.getFilename(curNode, context);
-            const importId = filename;
 
             if (!/\.apib$/.test(filename)) {
               throw new CrafterError(`File import error. File "${filename}" must have extension type ".apib".`, sourceMap);
@@ -271,6 +282,7 @@ module.exports = (Parsers) => {
             const childSourceLines = childContext.sourceLines;
             const childSourceBuffer = childContext.sourceBuffer;
             const childLinefeedOffsets = childContext.linefeedOffsets;
+            const importId = childContext.currentFile;
 
             if (!childAst.firstChild) {
               throw new CrafterError(`File import error. File "${filename}" is empty.`, sourceMap);
@@ -300,6 +312,9 @@ module.exports = (Parsers) => {
               importError.sourceMap = importedBlueprintError.sourceMap;
               throw importError;
             }
+
+            importedBlueprint.content.forEach(element => { element.importedFrom = element.importedFrom || importId; });
+            importedBlueprint.annotations.forEach(annotation => { annotation.importedFrom = annotation.importedFrom || importId; });
 
             childBlueprintsContainer.set(importId, {
               blueprint: importedBlueprint,

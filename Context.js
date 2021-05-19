@@ -46,6 +46,7 @@ class Context {
     this.languageServerMode = options.languageServerMode;
     this.parsers = parsers;
     this.usedFiles = this.currentFile ? [this.currentFileName()] : [];
+    this.importHistory = new Set();
 
     this.sectionKeywordSignatureParsers = [
       'DefaultValue',
