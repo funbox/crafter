@@ -38,25 +38,28 @@ class TypeResolver {
       throw new Error(`Failed to extend type resolver: ${errorText}`);
     }
 
-    Object.keys(externalResolver.types).forEach((name) => {
+    Object.entries(externalResolver.typeLocations).forEach(([name, location]) => {
       const existingLocation = this.typeLocations[name];
-      if (existingLocation !== undefined) {
+      if (existingLocation !== undefined && existingLocation !== location) {
         throw new CrafterError(`Type "${name}" already defined in ${existingLocation}`);
+      }
+
+      if (existingLocation === undefined) {
+        this.typeLocations[name] = location;
       }
     });
 
-    this.types = {
-      ...this.types,
-      ...externalResolver.types,
-    };
-    this.typeNames = {
-      ...this.typeNames,
-      ...externalResolver.typeNames,
-    };
-    this.typeLocations = {
-      ...this.typeLocations,
-      ...externalResolver.typeLocations,
-    };
+    Object.entries(externalResolver.types).forEach(([name, type]) => {
+      if (this.types[name] === undefined) {
+        this.types[name] = type;
+      }
+    });
+
+    Object.entries(externalResolver.typeNames).forEach(([name, nameElement]) => {
+      if (this.typeNames[name] === undefined) {
+        this.typeNames[name] = nameElement;
+      }
+    });
   }
 
   registerType(type, content, typeLocation) {
