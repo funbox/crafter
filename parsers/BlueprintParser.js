@@ -18,10 +18,8 @@ module.exports = (Parsers) => {
         return [null, new BlueprintElement(new StringElement(''), null, []), context.filePaths];
       }
 
-      let importedBlueprints;
-
       try {
-        importedBlueprints = await this.preprocessNestedSections(node, context);
+        await this.preprocessNestedSections(node, context);
       } catch (error) {
         if (context.debugMode) {
           throw error;
@@ -67,6 +65,7 @@ module.exports = (Parsers) => {
         const nodeType = this.nestedSectionType(curNode, context);
 
         let childResult;
+        let childAnnotation;
 
         try {
           switch (nodeType) {
@@ -86,26 +85,14 @@ module.exports = (Parsers) => {
               [curNode, childResult] = Parsers.ResourcePrototypesParser.parse(curNode, context);
               break;
             case SectionTypes.import: {
-              if (importedBlueprints && importedBlueprints.size > 0 && curNode.importId) {
-                const { blueprint } = importedBlueprints.get(curNode.importId);
-                const localImportHistory = new Set();
-                blueprint.content.forEach(element => {
-                  if (element.importedFrom && !context.importHistory.has(element.importedFrom)) {
-                    result.content.push(element);
-                    localImportHistory.add(element.importedFrom);
-                  }
-                });
-                blueprint.annotations.forEach(annotation => {
-                  if (annotation.importedFrom && !context.importHistory.has(annotation.importedFrom)) {
-                    result.annotations.push(annotation);
-                    localImportHistory.add(annotation.importedFrom);
-                  }
-                });
-                context.importHistory = new Set([...context.importHistory, ...localImportHistory]);
+              if (curNode.importId) {
+                const [nNode, importData] = await Parsers.ImportParser.parse(curNode, context);
+                curNode = nNode;
+                childResult = { elements: importData.refractElements, sourceMap: importData.sourceMap };
+                childAnnotation = { elements: importData.refractAnnotations };
+              } else {
+                curNode = curNode.next;
               }
-              [curNode, childResult] = Parsers.ImportParser.parse(curNode, context);
-              sourceMaps.push(childResult.sourceMap);
-              childResult = null;
               break;
             }
             default: {
@@ -125,8 +112,20 @@ module.exports = (Parsers) => {
         }
 
         if (childResult) {
-          result.content.push(childResult);
+          if (Array.isArray(childResult.elements)) {
+            childResult.elements.forEach(element => { result.content.push(element); });
+          } else {
+            result.content.push(childResult);
+          }
           sourceMaps.push(childResult.sourceMap);
+        }
+
+        if (childAnnotation) {
+          if (Array.isArray(childAnnotation.elements)) {
+            childAnnotation.elements.forEach(element => { result.annotations.push(element); });
+          } else {
+            result.annotations.push(childAnnotation);
+          }
         }
       }
 
@@ -155,13 +154,13 @@ module.exports = (Parsers) => {
     },
 
     async preprocessNestedSections(node, context) {
-      const walkAST = (sectionProcessors) => {
+      const walkAST = async (sectionProcessors) => {
         let curNode = node;
 
         while (curNode) {
           const nodeType = this.nestedSectionType(curNode, context);
           if (sectionProcessors[nodeType]) {
-            curNode = sectionProcessors[nodeType](curNode);
+            curNode = await sectionProcessors[nodeType](curNode);
           } else {
             curNode = curNode.next;
           }
@@ -172,28 +171,7 @@ module.exports = (Parsers) => {
 
       context.typeExtractingInProgress = true;
 
-      const importedBlueprints = await this.resolveImports(node, context);
-
-      if (importedBlueprints && importedBlueprints.size > 0) {
-        importedBlueprints.forEach((value) => {
-          const {
-            importedTypes,
-            importedPrototypes,
-            usedActions,
-            importSourceMap,
-          } = value;
-          try {
-            context.typeResolver.extendWith(importedTypes);
-            context.resourcePrototypeResolver.extendWith(importedPrototypes);
-            context.addActions(usedActions);
-          } catch (e) {
-            e.sourceMap = importSourceMap;
-            throw e;
-          }
-        });
-      }
-
-      walkAST({
+      await walkAST({
         [SectionTypes.schemaStructureGroup]: (curNode) => {
           const [nextNode, schemaStructureGroup] = Parsers.SchemaStructureGroupParser.parse(curNode, context);
           schemaStructureGroup.schemaStructures.forEach((schemaType) => {
@@ -218,12 +196,25 @@ module.exports = (Parsers) => {
           });
           return nextNode;
         },
+        [SectionTypes.import]: async (curNode) => {
+          const [nextNode, importedBlueprint] = await Parsers.ImportParser.parse(curNode, context);
+          const { importedTypes, importedPrototypes, usedActions } = importedBlueprint;
+          try {
+            context.typeResolver.extendWith(importedTypes);
+            context.resourcePrototypeResolver.extendWith(importedPrototypes);
+            context.addActions(usedActions);
+          } catch (e) {
+            e.sourceMap = importedBlueprint.sourceMap;
+            throw e;
+          }
+          return nextNode;
+        },
       });
 
       context.typeExtractingInProgress = false;
 
       if (!context.languageServerMode) {
-        walkAST({
+        await walkAST({
           [SectionTypes.dataStructureGroup]: (curNode) => {
             const [nextNode, dataStructureGroup] = Parsers.DataStructureGroupParser.parse(curNode, context);
             dataStructureGroup.dataStructures.forEach((namedType) => {
@@ -236,7 +227,7 @@ module.exports = (Parsers) => {
         context.typeResolver.checkRegisteredTypes();
       }
 
-      walkAST({
+      await walkAST({
         [SectionTypes.resourcePrototypes]: (curNode) => {
           const [nextNode, resourcePrototypeGroup] = Parsers.ResourcePrototypesParser.parse(curNode, context);
           resourcePrototypeGroup.resourcePrototypes.forEach((proto) => {
@@ -248,112 +239,6 @@ module.exports = (Parsers) => {
 
       context.resourcePrototypeResolver.resolveRegisteredPrototypes();
       context.enableWarnings();
-
-      return importedBlueprints;
-    },
-
-    async resolveImports(entryNode, context) {
-      const { usedFiles } = context;
-      let curNode = entryNode;
-      const nodesToRemove = [];
-      const childBlueprintsContainer = new Map();
-
-      while (curNode) {
-        if (Parsers.ImportParser.sectionType(curNode, context) === SectionTypes.import) {
-          const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
-          context.importsSourceMaps.push(sourceMap);
-
-          if (!context.entryDir) {
-            throw new CrafterError('Import error. Entry directory should be defined.', sourceMap);
-          }
-
-          try {
-            const filename = Parsers.ImportParser.getFilename(curNode, context);
-
-            if (!/\.apib$/.test(filename)) {
-              throw new CrafterError(`File import error. File "${filename}" must have extension type ".apib".`, sourceMap);
-            }
-
-            if (usedFiles.includes(filename)) {
-              throw new CrafterError(`Recursive import: ${usedFiles.join(' → ')} → ${filename}`, sourceMap);
-            }
-
-            const { ast: childAst, context: childContext } = await context.getApibAST(filename, sourceMap);
-            const childSourceLines = childContext.sourceLines;
-            const childSourceBuffer = childContext.sourceBuffer;
-            const childLinefeedOffsets = childContext.linefeedOffsets;
-            const importId = childContext.currentFile;
-
-            if (!childAst.firstChild) {
-              throw new CrafterError(`File import error. File "${filename}" is empty.`, sourceMap);
-            }
-
-            let childNodeToCheck = childAst.firstChild;
-
-            while (childNodeToCheck && Parsers.ImportParser.sectionType(childNodeToCheck, childContext) === SectionTypes.import) {
-              // файл может начинаться с импорта, в таком случае, его нужно пропустить
-              childNodeToCheck = childNodeToCheck.next;
-            }
-            if (childNodeToCheck && this.nestedSectionType(childNodeToCheck, childContext) === SectionTypes.undefined) {
-              throw new CrafterError(`Invalid content of "${filename}". Can't recognize "${utils.nodeText(childNodeToCheck, childContext.sourceLines)}" as API Blueprint section.`, sourceMap);
-            }
-
-            context.filePaths.push(`${context.resolvePathRelativeToEntryDir(filename)}`);
-
-            addSourceLinesAndFilename(childAst, childSourceLines, childSourceBuffer, childLinefeedOffsets, context.resolvePathRelativeToEntryDir(filename));
-            context.importsSourceMaps.push(...childContext.importsSourceMaps);
-            childContext.usedFiles.unshift(...context.usedFiles);
-
-            const [, importedBlueprint] = await Parsers.BlueprintParser.parse(childAst.firstChild, childContext);
-            const importedBlueprintError = findError(importedBlueprint);
-
-            if (importedBlueprintError) {
-              const importError = new Error(importedBlueprintError.text);
-              importError.sourceMap = importedBlueprintError.sourceMap;
-              throw importError;
-            }
-
-            importedBlueprint.content.forEach(element => { element.importedFrom = element.importedFrom || importId; });
-            importedBlueprint.annotations.forEach(annotation => { annotation.importedFrom = annotation.importedFrom || importId; });
-
-            childBlueprintsContainer.set(importId, {
-              blueprint: importedBlueprint,
-              importedTypes: {
-                types: childContext.typeResolver.types,
-                typeNames: childContext.typeResolver.typeNames,
-                typeLocations: childContext.typeResolver.typeLocations,
-              },
-              importedPrototypes: {
-                prototypes: childContext.resourcePrototypeResolver.prototypes,
-                resolvedPrototypes: childContext.resourcePrototypeResolver.resolvedPrototypes,
-                prototypeLocations: childContext.resourcePrototypeResolver.prototypeLocations,
-              },
-              usedActions: Array.from(childContext.usedActions),
-              importSourceMap: sourceMap,
-            });
-
-            curNode.importId = importId;
-
-            // Если в Language Server Mode случится ошибка и до этой инструкции выполнение не дойдет,
-            // то при повторной попытке импорта данного файла случится Recursive import.
-            // На практике ничего страшного не произойдет, т.к. ошибка случится только в случае,
-            // если файл некорректный, поэтому в любом случае при попытке повторного импорта произошла бы
-            // ошибка, а для данного режима не важно какая именно ошибка произойдет.
-            usedFiles.pop();
-          } catch (e) {
-            nodesToRemove.push(curNode);
-            if (!context.languageServerMode) {
-              throw e;
-            }
-          }
-        }
-        curNode = curNode.next;
-      }
-
-      // нода удаляется из ast только в случае, если импорт с ошибкой
-      nodesToRemove.forEach(node => node.unlink());
-
-      return childBlueprintsContainer;
     },
 
     extractMetadata(startNode, context) {
@@ -402,26 +287,7 @@ module.exports = (Parsers) => {
   return true;
 };
 
-function addSourceLinesAndFilename(ast, sourceLines, sourceBuffer, linefeedOffsets, filename) {
-  const walker = ast.walker();
-  let event = walker.next();
-  let node;
-
-  while (event) {
-    node = event.node;
-    node.sourceLines = sourceLines;
-    node.sourceBuffer = sourceBuffer;
-    node.linefeedOffsets = linefeedOffsets;
-    node.file = filename;
-    event = walker.next();
-  }
-}
-
 function preprocessErrorResult(result, context) {
   result.isError = true;
   result.annotations.push(new AnnotationElement('error', context.error.message, context.error.sourceMap));
-}
-
-function findError(blueprintElement) {
-  return blueprintElement.annotations.find(anno => anno.type === 'error');
 }
