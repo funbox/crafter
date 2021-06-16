@@ -4,7 +4,21 @@ const utils = require('../utils');
 const ImportRegex = /^[Ii]mport\s+(.+)$/;
 
 module.exports = (Parsers) => {
-  Parsers.ImportParser = Object.assign(Object.create(require('./AbstractParser')), {
+  Parsers.ImportParser = {
+    parse(node, context) {
+      const oldRootNode = context.rootNode;
+      context.rootNode = node;
+      let curNode = node;
+      let result;
+
+      [curNode, result] = this.processSignature(curNode, context);
+
+      result = this.finalize(context, result);
+
+      context.rootNode = oldRootNode;
+      return [curNode, result];
+    },
+
     processSignature(node, context) {
       const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
       return [utils.nextNode(node), { sourceMap }]; // TODO: отдельный элемент для импорта?
@@ -32,17 +46,13 @@ module.exports = (Parsers) => {
       ]);
     },
 
-    processDescription(node, context, result) {
-      return [node, result];
-    },
-
-    processNestedSections(node, context, result) {
-      return [node, result];
-    },
-
     getFilename(node, context) {
       return ImportRegex.exec(utils.headerText(node, context.sourceLines))[1].trim();
     },
-  });
+
+    finalize(context, result) {
+      return result;
+    },
+  };
   return true;
 };
