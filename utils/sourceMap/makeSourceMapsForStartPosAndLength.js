@@ -5,9 +5,6 @@ const SourceMap = require('./SourceMap');
 const ByteBlock = require('./ByteBlock');
 
 module.exports = function makeSourceMapsForStartPosAndLength(startPos, length, node, sourceLines, sourceBuffer, linefeedOffsets) {
-  sourceLines = node.sourceLines || sourceLines;
-  sourceBuffer = node.sourceBuffer || sourceBuffer;
-  linefeedOffsets = node.linefeedOffsets || linefeedOffsets;
   const { startLineIndex, startColumnIndex } = getSourcePosZeroBased(node);
 
   const columnIndex = startColumnIndex + startPos;

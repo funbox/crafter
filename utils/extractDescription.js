@@ -19,8 +19,7 @@ module.exports = function extractDescription(curNode, sourceLines, sourceBuffer,
     }
 
     const { startLineIndex } = getSourcePosZeroBased(curNode);
-    const localSourceLines = curNode.sourceLines || sourceLines;
-    const startLineOffset = localSourceLines[startLineIndex].search(/\S/);
+    const startLineOffset = sourceLines[startLineIndex].search(/\S/);
     description += nodeText(curNode, sourceLines, getNodeTextFormatter(curNode, startLineOffset));
 
     if (startOffset) {

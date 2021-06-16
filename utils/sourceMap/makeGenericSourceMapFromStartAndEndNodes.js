@@ -10,9 +10,6 @@ const ByteBlock = require('./ByteBlock');
 const utilsLog = require('../log');
 
 module.exports = function makeGenericSourceMapFromStartAndEndNodes(startNode, endNode, sourceLines, sourceBuffer, linefeedOffsets) {
-  sourceLines = startNode.sourceLines || sourceLines;
-  sourceBuffer = startNode.sourceBuffer || sourceBuffer;
-  linefeedOffsets = startNode.linefeedOffsets || linefeedOffsets;
   if (startNode.file !== endNode.file) {
     throw new utilsLog.CrafterError('startNode and endNode belong to different files');
   }

@@ -25,9 +25,6 @@ module.exports = function makeSourceMapForDescription(startNode, sourceLines, so
 };
 
 function makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, sourceBuffer, linefeedOffsets, stopCallback) {
-  sourceLines = startNode.sourceLines || sourceLines;
-  sourceBuffer = startNode.sourceBuffer || sourceBuffer;
-  linefeedOffsets = startNode.linefeedOffsets || linefeedOffsets;
   const byteBlocks = [];
   const iterationCondition = (node) => (stopCallback ? !stopCallback(node) : (node && node.type === 'paragraph'));
   for (let node = startNode; iterationCondition(node); node = nextNode(node)) {

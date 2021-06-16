@@ -168,9 +168,6 @@ function addSourceLinesAndFilename(ast, sourceLines, sourceBuffer, linefeedOffse
 
   while (event) {
     node = event.node;
-    node.sourceLines = sourceLines;
-    node.sourceBuffer = sourceBuffer;
-    node.linefeedOffsets = linefeedOffsets;
     node.file = filename;
     event = walker.next();
   }

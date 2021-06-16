@@ -37,10 +37,7 @@ module.exports = (Parsers) => {
         return headers;
       }
 
-      const sourceLines = contentNode.sourceLines || context.sourceLines;
-      const sourceBuffer = contentNode.sourceBuffer || context.sourceBuffer;
-      const linefeedOffsets = contentNode.linefeedOffsets || context.linefeedOffsets;
-
+      const { sourceLines, sourceBuffer, linefeedOffsets } = context;
       const { startLineIndex, startColumnIndex } = utils.getSourcePosZeroBased(contentNode);
       const headersSourceMap = utils.makeGenericSourceMap(node, sourceLines, sourceBuffer, linefeedOffsets);
       const indentationBytes = startColumnIndex;

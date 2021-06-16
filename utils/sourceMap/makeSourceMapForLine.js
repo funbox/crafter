@@ -6,9 +6,6 @@ const SourceMap = require('./SourceMap');
 const ByteBlock = require('./ByteBlock');
 
 module.exports = function makeSourceMapForLine(node, sourceLines, sourceBuffer, linefeedOffsets) {
-  sourceLines = node.sourceLines || sourceLines;
-  sourceBuffer = node.sourceBuffer || sourceBuffer;
-  linefeedOffsets = node.linefeedOffsets || linefeedOffsets;
   const { startLineIndex, startColumnIndex } = getSourcePosZeroBased(node);
   const lineIndex = startLineIndex;
   const indentation = startColumnIndex;
