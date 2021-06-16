@@ -17,6 +17,8 @@ class PrototypeResolver {
   }
 
   extendWith(externalResolver) {
+    if (!externalResolver) return;
+
     const [isValid, errorText] = validateResolver(externalResolver);
 
     if (!isValid) {

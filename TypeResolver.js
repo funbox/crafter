@@ -32,6 +32,8 @@ class TypeResolver {
   }
 
   extendWith(externalResolver) {
+    if (!externalResolver) return;
+
     const [isValid, errorText] = validateResolver(externalResolver);
 
     if (!isValid) {

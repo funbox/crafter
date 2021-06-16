@@ -84,7 +84,7 @@ class Context {
     this.usedActions.add(actionString);
   }
 
-  addActions(actionsArray) {
+  addActions(actionsArray = []) {
     actionsArray.forEach(action => this.addAction(action));
   }
 
