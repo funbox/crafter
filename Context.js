@@ -91,7 +91,6 @@ class Context {
   }
 
   checkActionExists(actionString) {
-    // TODO: учитывать файл, в котором объявлен экшен
     return this.usedActions.has(actionString);
   }
 
