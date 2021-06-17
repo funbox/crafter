@@ -4,7 +4,7 @@ const getSourcePosZeroBased = require('../getSourcePosZeroBased');
 const SourceMap = require('./SourceMap');
 const ByteBlock = require('./ByteBlock');
 
-module.exports = function makeSourceMapsForInlineValues(value, inlineValues, node, sourceLines, sourceBuffer, linefeedOffsets) {
+module.exports = function makeSourceMapsForInlineValues(value, inlineValues, node, sourceLines, sourceBuffer, linefeedOffsets, currentFile) {
   const { startLineIndex, startColumnIndex } = getSourcePosZeroBased(node);
 
   let lineStr = sourceLines[startLineIndex].slice(startColumnIndex);
@@ -18,7 +18,7 @@ module.exports = function makeSourceMapsForInlineValues(value, inlineValues, nod
     const byteBlock = new ByteBlock(
       getOffsetFromStartOfFileInBytes(startLineIndex, columnIndex, sourceLines),
       Buffer.byteLength(inlineValueStr),
-      node.file,
+      currentFile,
     );
     lineStr = lineStr.slice(inlineValueStr.length);
     columnIndex += inlineValueStr.length;

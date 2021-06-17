@@ -61,7 +61,7 @@ module.exports = (Parsers) => {
           break;
       }
 
-      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
 
       const protoElements = utils.buildPrototypeElements(protoNames, subjectOffset + protoNamesOffset, node, context);
       context.resourcePrototypes.push(utils.preparePrototypes(protoElements.map(el => el.string), context, sourceMap));

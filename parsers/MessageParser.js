@@ -19,7 +19,7 @@ module.exports = (Parsers) => {
         title = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
       }
 
-      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
       const result = new MessageElement(title, sourceMap);
 
       return [utils.nextNode(node), result];

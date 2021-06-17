@@ -32,7 +32,7 @@ module.exports = (Parsers) => {
 
       const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
 
-      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
       context.data.actionSignatureDetails = { sourceMap };
 
       const actionHeaderMatchResult = utils.matchStringToRegex(subject, this.getActionHeaderRegex(context.languageServerMode));

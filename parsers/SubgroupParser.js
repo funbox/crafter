@@ -18,7 +18,7 @@ module.exports = (Parsers) => {
         node,
         context,
       );
-      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
       const result = new SubgroupElement(title, sourceMap);
 
       return [utils.nextNode(node), result];

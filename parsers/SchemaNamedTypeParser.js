@@ -10,7 +10,7 @@ module.exports = (Parsers) => {
       context.pushFrame();
 
       const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
-      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
 
       context.data.attributeSignatureDetails = { sourceMap };
 

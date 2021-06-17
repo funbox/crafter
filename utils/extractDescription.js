@@ -5,7 +5,7 @@ const { nodeText, nextNode } = require('./node');
 const getSourcePosZeroBased = require('./getSourcePosZeroBased');
 const { makeSourceMapForDescription } = require('./sourceMap');
 
-module.exports = function extractDescription(curNode, sourceLines, sourceBuffer, linefeedOffsets, stopCallback, startOffset) {
+module.exports = function extractDescription(curNode, sourceLines, sourceBuffer, linefeedOffsets, currentFile, stopCallback, startOffset) {
   const startNode = curNode;
   let description = '';
   let descriptionEl = null;
@@ -31,7 +31,7 @@ module.exports = function extractDescription(curNode, sourceLines, sourceBuffer,
 
   if (description) {
     descriptionEl = new DescriptionElement(description);
-    descriptionEl.sourceMap = makeSourceMapForDescription(startNode, sourceLines, sourceBuffer, linefeedOffsets, stopCallback);
+    descriptionEl.sourceMap = makeSourceMapForDescription(startNode, sourceLines, sourceBuffer, linefeedOffsets, currentFile, stopCallback);
   }
 
   return [curNode, descriptionEl];

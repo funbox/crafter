@@ -9,7 +9,8 @@ const CrafterError = utils.CrafterError;
 
 /**
  * @typedef {object} ContextOptions
- * @property {string} currentFile - название текущего разбираемого файла
+ * @property {string} currentFile - название текущего разбираемого файла с учётом полного пути
+ * @property {string} filename - название текущего разбираемого файла с учётом пути относительно входной директории
  * @property {object} logger
  * @property {boolean} sourceMapsEnabled - включение генерации sourceMap
  * @property {string} entryDir - директория от которой считаются пути import инструкций
@@ -33,6 +34,7 @@ class Context {
     this.resourcePrototypes = [];
     this.usedActions = new Set();
     this.currentFile = options.currentFile;
+    this.filename = options.filename;
     this.logger = options.logger;
     this.sourceMapsEnabled = options.sourceMapsEnabled || options.languageServerMode;
     this.entryDir = options.entryDir;
@@ -128,6 +130,7 @@ class Context {
     const ast = utils.markdownSourceToAST(file);
     const context = new Context(file, this.parsers, {
       currentFile: fullPath,
+      filename: this.resolvePathRelativeToEntryDir(filename),
       entryDir: this.entryDir,
       languageServerMode: this.languageServerMode,
     });

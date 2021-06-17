@@ -7,7 +7,7 @@ const SchemaStructureGroupRegex = /^[Ss]chema\s+[Ss]tructures?$/;
 module.exports = (Parsers) => {
   Parsers.SchemaStructureGroupParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
-      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
       return [utils.nextNode(node), new SchemaStructureGroupElement(sourceMap)];
     },
 

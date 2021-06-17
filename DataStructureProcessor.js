@@ -46,7 +46,7 @@ class DataStructureProcessor {
     const samples = [];
     const defaults = [];
 
-    const sourceMap = utils.makeGenericSourceMap(this.valueMemberRootNode.parent, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+    const sourceMap = utils.makeGenericSourceMap(this.valueMemberRootNode.parent, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
 
     while (curNode) {
       let nextNode;
@@ -63,7 +63,7 @@ class DataStructureProcessor {
           context.data.valueType = primitiveElement.type;
           [nextNode, childResult] = this.Parsers.DefaultValueParser.parse(curNode, context);
 
-          curNodeSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+          curNodeSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
           primitiveElement.sourceMap = utils.concatSourceMaps([primitiveElement.sourceMap, curNodeSourceMap]);
 
           delete context.data.typeForDefaults;
@@ -75,7 +75,7 @@ class DataStructureProcessor {
           context.data.valueType = primitiveElement.type;
           [nextNode, childResult] = this.Parsers.SampleValueParser.parse(curNode, context);
 
-          curNodeSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+          curNodeSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
           primitiveElement.sourceMap = utils.concatSourceMaps([primitiveElement.sourceMap, curNodeSourceMap]);
 
           delete context.data.typeForSamples;
@@ -84,7 +84,7 @@ class DataStructureProcessor {
           break;
         default: {
           context.addWarning(`sub-types of primitive types should not have nested members, ignoring unrecognized block "${utils.nodeText(curNode, context.sourceLines)}".`, sourceMap);
-          curNodeSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+          curNodeSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
           primitiveElement.unrecognizedBlocks.push(new UnrecognizedBlockElement(curNodeSourceMap));
           nextNode = utils.nextNode(curNode);
         }
@@ -126,7 +126,7 @@ class DataStructureProcessor {
     let curNode = node;
     const arrayMembers = arrayElement.content.members;
 
-    const sourceMap = utils.makeGenericSourceMap(this.valueMemberRootNode.parent, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+    const sourceMap = utils.makeGenericSourceMap(this.valueMemberRootNode.parent, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
     const samples = [];
     const defaults = [];
     const predefinedType = arrayMembers.length ? arrayMembers[0].type : 'string';
@@ -211,7 +211,7 @@ class DataStructureProcessor {
         }
         default: {
           context.addWarning(`Ignoring unrecognized block "${utils.nodeText(curNode, context.sourceLines)}".`, sourceMap);
-          const curNodeSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+          const curNodeSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
           arrayElement.unrecognizedBlocks.push(new UnrecognizedBlockElement(curNodeSourceMap));
           nextNode = utils.nextNode(curNode);
         }
@@ -263,7 +263,7 @@ class DataStructureProcessor {
   processObject(valueMember, node, context) {
     const baseType = context.typeResolver.types[valueMember.type];
     if (baseType && baseType instanceof SchemaNamedTypeElement && !context.languageServerMode) {
-      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
       throw new utils.CrafterError('No inheritance allowed from schema named type', sourceMap);
     }
 
@@ -296,7 +296,7 @@ class DataStructureProcessor {
           const typeEl = context.typeResolver.types[typeName];
 
           if (isFixedOrFixedType && typeEl && utils.isTypeUsedByElement(typeName, typeEl, context.typeResolver.types)) {
-            const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+            const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
             throw new utils.CrafterError('Mson attributes based on a recursive type must not have "fixed" or "fixed-type" attributes', sourceMap);
           }
 
@@ -333,7 +333,7 @@ class DataStructureProcessor {
           objectElement.propertyMembers.push(...childResult.members);
           break;
         default: {
-          const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+          const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
           context.addWarning(`Ignoring unrecognized block "${utils.nodeText(curNode, context.sourceLines)}".`, sourceMap);
           valueMember.unrecognizedBlocks.push(new UnrecognizedBlockElement(sourceMap));
           nextNode = utils.nextNode(curNode);
@@ -363,7 +363,7 @@ class DataStructureProcessor {
     const nestedTypes = Array.from(new Set([...nestedTypesNames, ...baseNestedTypes]));
 
     const enumElement = new EnumElement(nestedTypes.length ? nestedTypes : valueMember.nestedTypes);
-    const sourceMap = utils.makeGenericSourceMap(this.valueMemberRootNode.parent, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+    const sourceMap = utils.makeGenericSourceMap(this.valueMemberRootNode.parent, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
     const samples = [];
     const defaults = [];
     const validEnumMemberTypes = EnumElement.validEnumMemberTypes;
@@ -451,11 +451,11 @@ class DataStructureProcessor {
           }
           break;
         case SectionTypes.msonArrayMemberGroup: {
-          const errorSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+          const errorSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
           throw new utils.CrafterError('Enums must use "Members" instead of "Items" as member section name', errorSourceMap);
         }
         default: {
-          const errorSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+          const errorSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
           context.addWarning(`Ignoring unrecognized block "${utils.nodeText(curNode, context.sourceLines)}".`, errorSourceMap);
           valueMember.unrecognizedBlocks.push(new UnrecognizedBlockElement(errorSourceMap));
           nextNode = utils.nextNode(curNode);
@@ -525,20 +525,20 @@ function validateMixin(mixinElement, curNode, context, checkMixinType) {
   if (!baseType) return true;
 
   if (!baseType.isComplex()) {
-    const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+    const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
     context.addWarning('Mixin may not include a type of a primitive sub-type', sourceMap);
     return false;
   }
 
   if (baseType instanceof SchemaNamedTypeElement) {
-    const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+    const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
     throw new utils.CrafterError('Mixin may not include a schema named type', sourceMap);
   }
 
   const [typeCheckPassed, typeCheckDetails] = checkMixinType(baseType);
 
   if (!typeCheckPassed) {
-    const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+    const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
     throw new utils.CrafterError(`Mixin base type should be the same as parent base type: ${typeCheckDetails}.`, sourceMap);
   }
   return true;

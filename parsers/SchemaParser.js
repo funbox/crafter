@@ -8,7 +8,7 @@ module.exports = (Parsers) => {
   Parsers.SchemaParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
       const schemaContentNode = node.firstChild.next;
-      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
 
       if (!schemaContentNode) {
         const schemaEl = new SchemaElement({});

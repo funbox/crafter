@@ -42,7 +42,7 @@ module.exports = (Parsers) => {
     async resolveImport(curNode, context) {
       const { usedFiles } = context;
 
-      const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
 
       if (!context.entryDir) {
         throw new CrafterError('Import error. Entry directory should be defined.', sourceMap);
@@ -60,9 +60,6 @@ module.exports = (Parsers) => {
         }
 
         const { ast: childAst, context: childContext } = await context.getApibAST(filename, sourceMap);
-        const childSourceLines = childContext.sourceLines;
-        const childSourceBuffer = childContext.sourceBuffer;
-        const childLinefeedOffsets = childContext.linefeedOffsets;
         const importId = childContext.currentFile;
 
         let childNodeToCheck = childAst.firstChild;
@@ -81,7 +78,6 @@ module.exports = (Parsers) => {
 
         context.filePaths.push(`${context.resolvePathRelativeToEntryDir(filename)}`);
 
-        addSourceLinesAndFilename(childAst, childSourceLines, childSourceBuffer, childLinefeedOffsets, context.resolvePathRelativeToEntryDir(filename));
         context.importsSourceMaps.push(...childContext.importsSourceMaps);
         childContext.usedFiles.unshift(...context.usedFiles);
 
@@ -160,18 +156,6 @@ module.exports = (Parsers) => {
   };
   return true;
 };
-
-function addSourceLinesAndFilename(ast, sourceLines, sourceBuffer, linefeedOffsets, filename) {
-  const walker = ast.walker();
-  let event = walker.next();
-  let node;
-
-  while (event) {
-    node = event.node;
-    node.file = filename;
-    event = walker.next();
-  }
-}
 
 function findError(blueprintElement) {
   return blueprintElement.annotations.find(anno => anno.type === 'error');

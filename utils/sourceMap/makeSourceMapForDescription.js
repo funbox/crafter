@@ -7,10 +7,10 @@ const { LINEFEED_BYTES } = require('../../constants');
 const SourceMap = require('./SourceMap');
 const ByteBlock = require('./ByteBlock');
 
-module.exports = function makeSourceMapForDescription(startNode, sourceLines, sourceBuffer, linefeedOffsets, stopCallback) {
+module.exports = function makeSourceMapForDescription(startNode, sourceLines, sourceBuffer, linefeedOffsets, currentFile, stopCallback) {
   const indentation = startNode.sourcepos[0][1] - 1;
   if (indentation > 0) {
-    return makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, sourceBuffer, linefeedOffsets, stopCallback);
+    return makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, sourceBuffer, linefeedOffsets, currentFile, stopCallback);
   }
 
   let endNode = startNode;
@@ -21,10 +21,10 @@ module.exports = function makeSourceMapForDescription(startNode, sourceLines, so
     endNode = nextNode(endNode);
   }
 
-  return makeGenericSourceMapFromStartAndEndNodes(startNode, endNode, sourceLines, sourceBuffer, linefeedOffsets);
+  return makeGenericSourceMapFromStartAndEndNodes(startNode, endNode, sourceLines, sourceBuffer, linefeedOffsets, currentFile);
 };
 
-function makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, sourceBuffer, linefeedOffsets, stopCallback) {
+function makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, sourceBuffer, linefeedOffsets, currentFile, stopCallback) {
   const byteBlocks = [];
   const iterationCondition = (node) => (stopCallback ? !stopCallback(node) : (node && node.type === 'paragraph'));
   for (let node = startNode; iterationCondition(node); node = nextNode(node)) {
@@ -36,7 +36,7 @@ function makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, sour
     }
     let offset = getOffsetFromStartOfFileInBytes(startLineIndex, startColumnIndex, sourceLines);
     const indentation = startColumnIndex;
-    let byteBlock = new ByteBlock(offset, 0, startNode.file);
+    let byteBlock = new ByteBlock(offset, 0, currentFile);
     for (let lineIndex = startLineIndex; lineIndex <= endLineIndex; lineIndex += 1) {
       const line = sourceLines[lineIndex];
       let leadingSpaces = line.search(/\S/);
@@ -50,7 +50,7 @@ function makeSourceMapForDescriptionWithIndentation(startNode, sourceLines, sour
       if (lineIndex !== endLineIndex) {
         byteBlocks.push(byteBlock);
         offset += indentation;
-        byteBlock = new ByteBlock(offset, 0, startNode.file);
+        byteBlock = new ByteBlock(offset, 0, currentFile);
       }
     }
     if (node.next && node.next.type === 'paragraph') {

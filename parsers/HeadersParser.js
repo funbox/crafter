@@ -10,7 +10,7 @@ module.exports = (Parsers) => {
   Parsers.HeadersParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
       const headers = this.parseHeaders(node, context);
-      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
       return [utils.nextNode(node), new HeadersElement(headers, sourceMap)];
     },
 
@@ -37,9 +37,9 @@ module.exports = (Parsers) => {
         return headers;
       }
 
-      const { sourceLines, sourceBuffer, linefeedOffsets } = context;
+      const { sourceLines, sourceBuffer, linefeedOffsets, filename } = context;
       const { startLineIndex, startColumnIndex } = utils.getSourcePosZeroBased(contentNode);
-      const headersSourceMap = utils.makeGenericSourceMap(node, sourceLines, sourceBuffer, linefeedOffsets);
+      const headersSourceMap = utils.makeGenericSourceMap(node, sourceLines, sourceBuffer, linefeedOffsets, filename);
       const indentationBytes = startColumnIndex;
 
       if (contentNode.type !== 'code_block') {
@@ -67,7 +67,7 @@ module.exports = (Parsers) => {
           const blockOffset = offset;
           offset += restBytes;
           const blockLength = offset - blockOffset;
-          const block = new ByteBlock(blockOffset, blockLength, contentNode.file);
+          const block = new ByteBlock(blockOffset, blockLength, context.filename);
           const byteBlocks = [block];
           const charBlocks = utils.getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
           const sourceMap = new utils.SourceMap(byteBlocks, charBlocks);

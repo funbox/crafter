@@ -9,6 +9,7 @@ module.exports = function makeStringElement(str, offset, node, context) {
     context.sourceLines,
     context.sourceBuffer,
     context.linefeedOffsets,
+    context.filename,
   );
   return new StringElement(str, sourceMap);
 };

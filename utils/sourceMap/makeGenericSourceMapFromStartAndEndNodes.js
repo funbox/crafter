@@ -7,12 +7,7 @@ const getTrailingEmptyLinesLengthInBytes = require('../getTrailingEmptyLinesLeng
 const SourceMap = require('./SourceMap');
 const ByteBlock = require('./ByteBlock');
 
-const utilsLog = require('../log');
-
-module.exports = function makeGenericSourceMapFromStartAndEndNodes(startNode, endNode, sourceLines, sourceBuffer, linefeedOffsets) {
-  if (startNode.file !== endNode.file) {
-    throw new utilsLog.CrafterError('startNode and endNode belong to different files');
-  }
+module.exports = function makeGenericSourceMapFromStartAndEndNodes(startNode, endNode, sourceLines, sourceBuffer, linefeedOffsets, currentFile) {
   const { startLineIndex, startColumnIndex } = getSourcePosZeroBased(startNode);
   const { endLineIndex, endColumnIndex } = getSourcePosZeroBased(endNode);
 
@@ -25,7 +20,7 @@ module.exports = function makeGenericSourceMapFromStartAndEndNodes(startNode, en
 
   const length = baseLength + linefeedLength + trailingLinesLength;
 
-  const byteBlock = new ByteBlock(startOffset, length, startNode.file);
+  const byteBlock = new ByteBlock(startOffset, length, currentFile);
   const byteBlocks = [byteBlock];
   const charBlocks = getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);
   return new SourceMap(byteBlocks, charBlocks);

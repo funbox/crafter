@@ -19,7 +19,7 @@ module.exports = (Parsers) => {
       context.pushFrame();
 
       const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
-      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
       let signature;
       try {
         signature = new SignatureParser(subject, context.languageServerMode, [ParserTraits.NAME, ParserTraits.ATTRIBUTES]);
@@ -46,6 +46,7 @@ module.exports = (Parsers) => {
           context.sourceLines,
           context.sourceBuffer,
           context.linefeedOffsets,
+          context.filename,
         );
         return el;
       });
@@ -68,6 +69,7 @@ module.exports = (Parsers) => {
           context.sourceLines,
           context.sourceBuffer,
           context.linefeedOffsets,
+          context.filename,
         ));
       });
 
@@ -79,6 +81,7 @@ module.exports = (Parsers) => {
           context.sourceLines,
           context.sourceBuffer,
           context.linefeedOffsets,
+          context.filename,
         ));
       }
 
@@ -148,7 +151,7 @@ module.exports = (Parsers) => {
             const [nextNode, childRes] = Parsers.NamedTypeMemberGroupParser.parse(curNode, context);
             fillElementWithContent(result.content, type, childRes.members);
 
-            const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+            const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
             if (result.content.sourceMap) {
               result.content.sourceMap = utils.concatSourceMaps([result.content.sourceMap, sourceMap]);
             } else {
@@ -183,7 +186,7 @@ module.exports = (Parsers) => {
             }
 
             if (valueMember.isObject()) {
-              const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+              const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
               throw new utils.CrafterError('Sample is not supported for objects', sourceMap);
             }
 
@@ -212,7 +215,7 @@ module.exports = (Parsers) => {
                 }
               } else {
                 unrecognizedBlockDetected = true;
-                const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+                const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
                 context.addWarning('Samples of arrays of non-primitive types are not supported', sourceMap);
               }
             }
@@ -235,12 +238,12 @@ module.exports = (Parsers) => {
                 }
               } else {
                 unrecognizedBlockDetected = true;
-                const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+                const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
                 context.addWarning('Samples of enum of non-primitive types are not supported', sourceMap);
               }
             }
 
-            const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+            const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
             if (result.content.sourceMap) {
               result.content.sourceMap = utils.concatSourceMaps([result.content.sourceMap, sourceMap]);
             } else {
@@ -256,7 +259,14 @@ module.exports = (Parsers) => {
           } while (nextNode && nextNode.type !== 'heading');
 
           if (unrecognizedBlockDetected) {
-            const sourceMap = utils.makeGenericSourceMapFromStartAndEndNodes(curNode, lastNodeOfSection, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+            const sourceMap = utils.makeGenericSourceMapFromStartAndEndNodes(
+              curNode,
+              lastNodeOfSection,
+              context.sourceLines,
+              context.sourceBuffer,
+              context.linefeedOffsets,
+              context.filename,
+            );
             appendUnrecognizedBlocks([sourceMap]);
           }
 
@@ -272,7 +282,7 @@ module.exports = (Parsers) => {
             }
 
             if (valueMember.isObject()) {
-              const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+              const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
               throw new utils.CrafterError('Default is not supported for objects', sourceMap);
             }
 
@@ -286,7 +296,7 @@ module.exports = (Parsers) => {
                 assignValueMemberDefault(valueMember, 'array', predefinedType, valueMemberDefaults);
               } else {
                 unrecognizedBlockDetected = true;
-                const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+                const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
                 context.addWarning('Default values of arrays of non-primitive types are not supported', sourceMap);
               }
             }
@@ -296,18 +306,18 @@ module.exports = (Parsers) => {
 
               if (!enumElement) {
                 unrecognizedBlockDetected = true;
-                const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+                const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
                 context.addWarning(`Enum element "${result.name.string}" should include members.`, sourceMap);
               } else if (!enumElement.isComplex()) {
                 assignValueMemberDefault(valueMember, 'enum', enumElement.type, valueMemberDefaults);
               } else {
                 unrecognizedBlockDetected = true;
-                const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+                const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
                 context.addWarning('Default values of enum of non-primitive types are not supported', sourceMap);
               }
             }
 
-            const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+            const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
             if (result.content.sourceMap) {
               result.content.sourceMap = utils.concatSourceMaps([result.content.sourceMap, sourceMap]);
             } else {
@@ -323,7 +333,14 @@ module.exports = (Parsers) => {
           } while (nextNode && nextNode.type !== 'heading');
 
           if (unrecognizedBlockDetected) {
-            const sourceMap = utils.makeGenericSourceMapFromStartAndEndNodes(curNode, lastNodeOfSection, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+            const sourceMap = utils.makeGenericSourceMapFromStartAndEndNodes(
+              curNode,
+              lastNodeOfSection,
+              context.sourceLines,
+              context.sourceBuffer,
+              context.linefeedOffsets,
+              context.filename,
+            );
             appendUnrecognizedBlocks([sourceMap]);
           }
 
@@ -352,7 +369,7 @@ module.exports = (Parsers) => {
           concatSourceMaps(valueMember, childSourceMaps);
 
           if (acc.length > 1) {
-            const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+            const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
 
             context.addWarning('Multiple definitions of "default" value', sourceMap);
             appendUnrecognizedBlocks(acc.slice(1).map(d => d.sourceMap).flat());
@@ -383,7 +400,8 @@ module.exports = (Parsers) => {
 
     processDescription(node, context, result) {
       if (node && node.type === 'paragraph') {
-        const [curNode, desc] = utils.extractDescription(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+        const { sourceLines, sourceBuffer, linefeedOffsets, filename } = context;
+        const [curNode, desc] = utils.extractDescription(node, sourceLines, sourceBuffer, linefeedOffsets, filename);
 
         result.description = desc;
 

@@ -18,7 +18,7 @@ module.exports = (Parsers) => {
       const result = [];
 
       if (values) {
-        const sourceMaps = utils.makeSourceMapsForInlineValues(valuesMatch[1], values, node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+        const sourceMaps = utils.makeSourceMapsForInlineValues(valuesMatch[1], values, node.firstChild, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
 
         switch (context.data.typeForDefaults) {
           case 'primitive':
@@ -87,7 +87,7 @@ module.exports = (Parsers) => {
     processNestedSection(node, context, result) {
       const textNode = node.type === 'item' ? node.firstChild : node;
       const text = utils.nodeText(textNode, context.sourceLines);
-      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
 
       switch (context.data.typeForDefaults) {
         case 'primitive':

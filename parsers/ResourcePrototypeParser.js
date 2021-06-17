@@ -15,7 +15,7 @@ module.exports = (Parsers) => {
 
       const title = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
       const resourcePrototypeEl = new ResourcePrototypeElement(title, inheritedPrototypes);
-      resourcePrototypeEl.sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      resourcePrototypeEl.sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
 
       return [utils.nextNode(node), resourcePrototypeEl];
     },

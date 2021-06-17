@@ -17,7 +17,7 @@ module.exports = (Parsers) => {
 
       context.pushFrame();
 
-      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
       const parameterSignatureDetails = { sourceMap };
 
       const descriptionEl = signature.description
@@ -94,10 +94,11 @@ module.exports = (Parsers) => {
       }
 
       contentNode.skipLines = startOffset ? 1 : 0;
+      const { sourceLines, sourceBuffer, linefeedOffsets, filename } = context;
       const [
         nextNode,
         blockDescriptionEl,
-      ] = utils.extractDescription(contentNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, stopCallback, startOffset);
+      ] = utils.extractDescription(contentNode, sourceLines, sourceBuffer, linefeedOffsets, filename, stopCallback, startOffset);
 
       delete contentNode.skipLines;
 
@@ -168,7 +169,7 @@ module.exports = (Parsers) => {
           context.addWarning('Multiple definitions of "default" value', details.sourceMap);
 
           if (result.defaultValue) {
-            const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+            const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
             result.unrecognizedBlocks.push(new UnrecognizedBlockElement(sourceMap));
           } else if (childRes.length > 1) {
             childRes.slice(1).forEach(child => result.unrecognizedBlocks.push(new UnrecognizedBlockElement(child.sourceMap)));

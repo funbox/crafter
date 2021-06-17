@@ -44,7 +44,7 @@ module.exports = (Parsers) => {
       if (curNode.type === 'heading' && context.sectionKeywordSignature(curNode) === SectionTypes.undefined) {
         const [titleText, titleTextOffset] = utils.headerTextWithOffset(curNode, context.sourceLines);
         title = utils.makeStringElement(titleText, titleTextOffset, curNode, context);
-        const titleSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+        const titleSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
         sourceMaps.push(titleSourceMap);
 
         curNode = curNode.next;
@@ -53,8 +53,9 @@ module.exports = (Parsers) => {
       let description = '';
 
       const stopCallback = cNode => (cNode.type === 'heading' && context.sectionKeywordSignature(cNode) !== SectionTypes.undefined);
+      const { sourceLines, sourceBuffer, linefeedOffsets, filename } = context;
 
-      [curNode, description] = utils.extractDescription(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, stopCallback);
+      [curNode, description] = utils.extractDescription(curNode, sourceLines, sourceBuffer, linefeedOffsets, filename, stopCallback);
       if (description) {
         sourceMaps.push(description.sourceMap);
       }
@@ -96,7 +97,7 @@ module.exports = (Parsers) => {
               break;
             }
             default: {
-              const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+              const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
               result.unrecognizedBlocks.push(new UnrecognizedBlockElement(sourceMap));
               sourceMaps.push(sourceMap);
               context.addWarning(`Ignoring unrecognized block "${utils.nodeText(curNode, context.sourceLines)}".`, sourceMap);
@@ -177,7 +178,7 @@ module.exports = (Parsers) => {
           schemaStructureGroup.schemaStructures.forEach((schemaType) => {
             const typeName = schemaType.name.string;
             if ((!context.getType(typeName))) {
-              context.addType(schemaType, schemaType, curNode.file || context.currentFile);
+              context.addType(schemaType, schemaType, context.filename);
             } else if (!context.languageServerMode) {
               throw new CrafterError(`${typeName} type already defined`, schemaType.name.sourceMap);
             }
@@ -189,7 +190,7 @@ module.exports = (Parsers) => {
           dataStructureGroup.dataStructures.forEach((namedType) => {
             const typeName = namedType.name.string;
             if ((!context.getType(typeName))) {
-              context.addType(namedType, namedType.content, curNode.file || context.currentFile);
+              context.addType(namedType, namedType.content, context.filename);
             } else if (!context.languageServerMode) {
               throw new CrafterError(`${typeName} type already defined`, namedType.name.sourceMap);
             }
@@ -218,7 +219,7 @@ module.exports = (Parsers) => {
           [SectionTypes.dataStructureGroup]: (curNode) => {
             const [nextNode, dataStructureGroup] = Parsers.DataStructureGroupParser.parse(curNode, context);
             dataStructureGroup.dataStructures.forEach((namedType) => {
-              context.addType(namedType, namedType.content, curNode.file || context.currentFile);
+              context.addType(namedType, namedType.content, context.filename);
             });
             return nextNode;
           },
@@ -231,7 +232,7 @@ module.exports = (Parsers) => {
         [SectionTypes.resourcePrototypes]: (curNode) => {
           const [nextNode, resourcePrototypeGroup] = Parsers.ResourcePrototypesParser.parse(curNode, context);
           resourcePrototypeGroup.resourcePrototypes.forEach((proto) => {
-            context.addResourcePrototype(proto, curNode.file || context.currentFile);
+            context.addResourcePrototype(proto, context.filename);
           });
           return nextNode;
         },
@@ -264,7 +265,7 @@ module.exports = (Parsers) => {
           }
 
           const blockLength = offset - blockOffset;
-          const byteBlock = new ByteBlock(blockOffset, blockLength, curNode.file);
+          const byteBlock = new ByteBlock(blockOffset, blockLength, context.filename);
           const charBlocks = utils.getCharacterBlocksWithLineColumnInfo([byteBlock], context.sourceBuffer, context.linefeedOffsets);
           const sourceMap = new utils.SourceMap([byteBlock], charBlocks);
           sourceMaps.push(sourceMap);

@@ -113,7 +113,15 @@ function getSamplesAndDefaultsFromInline(element, value, context) {
     return res;
   }, []);
 
-  const sourceMaps = makeSourceMapsForInlineValues(value, inlineValues, context.data.attributeSignatureDetails.node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+  const sourceMaps = makeSourceMapsForInlineValues(
+    value,
+    inlineValues,
+    context.data.attributeSignatureDetails.node,
+    context.sourceLines,
+    context.sourceBuffer,
+    context.linefeedOffsets,
+    context.filename,
+  );
 
   if (element.isArray()) {
     sampleElements = [new SampleValueElement(inlineValues, inlineValuesType, sourceMaps)];

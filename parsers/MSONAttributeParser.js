@@ -18,7 +18,7 @@ module.exports = (Parsers) => {
       const subject = utils.nodeText(node.firstChild, context.sourceLines);
       const signature = new SignatureParser(subject, context.languageServerMode);
 
-      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
       context.data.attributeSignatureDetails = { sourceMap, node: node.firstChild };
 
       signature.warnings.forEach(warning => context.addWarning(warning, sourceMap));
@@ -46,6 +46,7 @@ module.exports = (Parsers) => {
           context.sourceLines,
           context.sourceBuffer,
           context.linefeedOffsets,
+          context.filename,
         ));
       }
 
@@ -60,6 +61,7 @@ module.exports = (Parsers) => {
           context.sourceLines,
           context.sourceBuffer,
           context.linefeedOffsets,
+          context.filename,
         ));
       });
 
@@ -71,6 +73,7 @@ module.exports = (Parsers) => {
           context.sourceLines,
           context.sourceBuffer,
           context.linefeedOffsets,
+          context.filename,
         ));
       }
 
@@ -86,6 +89,7 @@ module.exports = (Parsers) => {
           context.sourceLines,
           context.sourceBuffer,
           context.linefeedOffsets,
+          context.filename,
         );
         return el;
       });
@@ -122,7 +126,7 @@ module.exports = (Parsers) => {
         valueEl,
         propertyTypeAttributes,
         descriptionEl,
-        utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets),
+        utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename),
       );
 
       const nextChildNode = signature.rest ? node.firstChild : node.firstChild.next;
@@ -142,7 +146,7 @@ module.exports = (Parsers) => {
           if (!(e instanceof utils.SignatureError)) {
             throw e;
           } else {
-            const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+            const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
             throw new utils.CrafterError(e.message, sourceMap);
           }
         }
@@ -164,6 +168,7 @@ module.exports = (Parsers) => {
       let dataStructureProcessorStartNode = contentNode;
 
       if (contentNode) {
+        const { sourceLines, sourceBuffer, linefeedOffsets, filename } = context;
         let stopCallback = null;
         if (contentNode.type === 'paragraph' || !!startOffset) {
           stopCallback = curNode => (
@@ -175,7 +180,7 @@ module.exports = (Parsers) => {
         const [
           nextNode,
           blockDescriptionEl,
-        ] = utils.extractDescription(contentNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, stopCallback, startOffset);
+        ] = utils.extractDescription(contentNode, sourceLines, sourceBuffer, linefeedOffsets, filename, stopCallback, startOffset);
 
         delete contentNode.skipLines;
 

@@ -9,7 +9,7 @@ module.exports = (Parsers) => {
     allowLeavingNode: false,
 
     processSignature(node, context) {
-      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
       const parametersList = node.firstChild.next;
       return [(parametersList && parametersList.firstChild) || utils.nextNode(node), new ParametersElement(sourceMap)];
     },

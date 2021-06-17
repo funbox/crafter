@@ -7,7 +7,7 @@ const ResourcePrototypesRegex = /^[Rr]esource\s+[Pp]rototypes$/;
 module.exports = (Parsers) => {
   Parsers.ResourcePrototypesParser = Object.assign(Object.create(require('./AbstractParser')), {
     processSignature(node, context) {
-      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
       return [utils.nextNode(node), new ResourcePrototypesElement(sourceMap)];
     },
 

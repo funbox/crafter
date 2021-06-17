@@ -5,7 +5,7 @@ const getSourcePosZeroBased = require('../getSourcePosZeroBased');
 const SourceMap = require('./SourceMap');
 const ByteBlock = require('./ByteBlock');
 
-module.exports = function makeSourceMapForLine(node, sourceLines, sourceBuffer, linefeedOffsets) {
+module.exports = function makeSourceMapForLine(node, sourceLines, sourceBuffer, linefeedOffsets, currentFile) {
   const { startLineIndex, startColumnIndex } = getSourcePosZeroBased(node);
   const lineIndex = startLineIndex;
   const indentation = startColumnIndex;
@@ -14,7 +14,7 @@ module.exports = function makeSourceMapForLine(node, sourceLines, sourceBuffer, 
   const line = sourceLines[lineIndex];
   const lineWithoutIndentation = line.slice(indentation);
   const length = Buffer.byteLength(lineWithoutIndentation) + getEndingLinefeedLengthInBytes(lineIndex, sourceLines);
-  const byteBlock = new ByteBlock(offset, length, node.file);
+  const byteBlock = new ByteBlock(offset, length, currentFile);
 
   const byteBlocks = [byteBlock];
   const charBlocks = getCharacterBlocksWithLineColumnInfo(byteBlocks, sourceBuffer, linefeedOffsets);

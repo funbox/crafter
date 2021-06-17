@@ -35,6 +35,7 @@ module.exports = (Parsers) => {
           context.sourceLines,
           context.sourceBuffer,
           context.linefeedOffsets,
+          context.filename,
         );
         statusCode = new NumberElement(Number(matchData[2]), statusCodeSourceMap);
       } else {
@@ -42,7 +43,7 @@ module.exports = (Parsers) => {
       }
 
       const contentType = matchData[4];
-      const responseSourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const responseSourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
       const result = new ResponseElement(statusCode, contentType, responseSourceMap);
       if (contentType) {
         const contentTypeSourceMap = utils.makeSourceMapsForStartPosAndLength(
@@ -52,6 +53,7 @@ module.exports = (Parsers) => {
           context.sourceLines,
           context.sourceBuffer,
           context.linefeedOffsets,
+          context.filename,
         );
         const headersElement = new HeadersElement(
           [{
@@ -93,9 +95,10 @@ module.exports = (Parsers) => {
       const parentNode = node && node.parent;
 
       const stopCallback = curNode => (!utils.isCurrentNodeOrChild(curNode, parentNode) || this.nestedSectionType(curNode, context) !== SectionTypes.undefined);
+      const { sourceLines, sourceBuffer, linefeedOffsets, filename, data: { startOffset } } = context;
 
       node.skipLines = context.data.startOffset ? 1 : 0;
-      const [curNode, descriptionEl] = utils.extractDescription(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, stopCallback, context.data.startOffset);
+      const [curNode, descriptionEl] = utils.extractDescription(node, sourceLines, sourceBuffer, linefeedOffsets, filename, stopCallback, startOffset);
       delete node.skipLines;
 
       if (descriptionEl) {

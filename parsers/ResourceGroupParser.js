@@ -14,7 +14,7 @@ module.exports = (Parsers) => {
       const [subject, subjectOffset] = utils.headerTextWithOffset(node, context.sourceLines);
       const [matchData, matchDataIndexes] = utils.matchStringToRegex(subject, this.getSignatureRegex(context.languageServerMode));
       const title = utils.makeStringElement(matchData[1], subjectOffset + matchDataIndexes[1], node, context);
-      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
 
       context.data.groupSignatureDetails = { sourceMap };
 

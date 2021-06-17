@@ -9,7 +9,7 @@ module.exports = (Parsers) => {
     processSignature(node, context) {
       const bodyContentNode = node.firstChild.next;
 
-      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets);
+      const sourceMap = utils.makeGenericSourceMap(node, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
       if (!bodyContentNode) {
         const bodyEl = new BodyElement('');
         bodyEl.sourceMap = sourceMap;
