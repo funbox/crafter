@@ -22,7 +22,8 @@ module.exports = (Parsers) => {
 
     async processSignature(node, context) {
       const nextNode = utils.nextNode(node);
-      const childBlueprintData = await this.resolveImport(node, context);
+      const cachedData = this.resolveFromCache(node, context);
+      const childBlueprintData = cachedData || (await this.resolveImport(node, context));
       context.importsSourceMaps.push(childBlueprintData.sourceMap);
       return [nextNode, childBlueprintData]; // TODO: отдельный элемент для импорта?
     },
@@ -37,6 +38,14 @@ module.exports = (Parsers) => {
       }
 
       return SectionTypes.undefined;
+    },
+
+    resolveFromCache(curNode, context) {
+      if (curNode.importId && context.importCache.has(curNode.importId)) {
+        return context.importCache.get(curNode.importId);
+      }
+
+      return null;
     },
 
     async resolveImport(curNode, context) {
@@ -111,6 +120,7 @@ module.exports = (Parsers) => {
         };
 
         curNode.importId = importId;
+        context.importCache.set(importId, childBlueprintData);
 
         // Если в Language Server Mode случится ошибка и до этой инструкции выполнение не дойдет,
         // то при повторной попытке импорта данного файла случится Recursive import.

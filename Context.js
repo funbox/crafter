@@ -49,6 +49,7 @@ class Context {
     this.parsers = parsers;
     this.usedFiles = this.currentFile ? [this.currentFileName()] : [];
     this.importHistory = new Set();
+    this.importCache = new Map();
 
     this.sectionKeywordSignatureParsers = [
       'DefaultValue',
