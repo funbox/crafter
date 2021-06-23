@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.0 (23.06.2021)
+
+* Full refactor of imports.
+
 ## 2.25.0 (18.05.2021)
 
 * Create a new release after merge to the master branch.
