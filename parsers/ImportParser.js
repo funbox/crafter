@@ -3,6 +3,7 @@ const utils = require('../utils');
 
 const ImportRegex = /^[Ii]mport\s+(.+)$/;
 const CrafterError = utils.CrafterError;
+const ImportElement = utils.ImportElement;
 
 module.exports = (Parsers) => {
   Parsers.ImportParser = {
@@ -22,10 +23,10 @@ module.exports = (Parsers) => {
 
     async processSignature(node, context) {
       const nextNode = utils.nextNode(node);
-      const cachedData = this.resolveFromCache(node, context);
-      const childBlueprintData = cachedData || (await this.resolveImport(node, context));
-      context.importsSourceMaps.push(childBlueprintData.sourceMap);
-      return [nextNode, childBlueprintData]; // TODO: отдельный элемент для импорта?
+      const cachedElement = this.resolveFromCache(node, context);
+      const importElement = cachedElement || (await this.resolveImport(node, context));
+      context.importsSourceMaps.push(importElement.sourceMap);
+      return [nextNode, importElement];
     },
 
     sectionType(node, context) {
@@ -40,6 +41,11 @@ module.exports = (Parsers) => {
       return SectionTypes.undefined;
     },
 
+    /**
+     * @param curNode
+     * @param {Context} context
+     * @return {null|ImportElement}
+     */
     resolveFromCache(curNode, context) {
       if (curNode.importId && context.importCache.has(curNode.importId)) {
         return context.importCache.get(curNode.importId);
@@ -48,6 +54,11 @@ module.exports = (Parsers) => {
       return null;
     },
 
+    /**
+     * @param curNode
+     * @param {Context} context
+     * @return {Promise<ImportElement>}
+     */
     async resolveImport(curNode, context) {
       const { usedFiles } = context;
 
@@ -99,28 +110,10 @@ module.exports = (Parsers) => {
           throw importError;
         }
 
-        importedBlueprint.content.forEach(element => { element.importedFrom = element.importedFrom || importId; });
-        importedBlueprint.annotations.forEach(annotation => { annotation.importedFrom = annotation.importedFrom || importId; });
-
-        const childBlueprintData = {
-          refractElements: importedBlueprint.content,
-          refractAnnotations: importedBlueprint.annotations,
-          importedTypes: {
-            types: childContext.typeResolver.types,
-            typeNames: childContext.typeResolver.typeNames,
-            typeLocations: childContext.typeResolver.typeLocations,
-          },
-          importedPrototypes: {
-            prototypes: childContext.resourcePrototypeResolver.prototypes,
-            resolvedPrototypes: childContext.resourcePrototypeResolver.resolvedPrototypes,
-            prototypeLocations: childContext.resourcePrototypeResolver.prototypeLocations,
-          },
-          usedActions: Array.from(childContext.usedActions),
-          sourceMap,
-        };
+        const importElement = new ImportElement(importId, importedBlueprint, childContext, sourceMap);
 
         curNode.importId = importId;
-        context.importCache.set(importId, childBlueprintData);
+        context.importCache.set(importId, importElement);
 
         // Если в Language Server Mode случится ошибка и до этой инструкции выполнение не дойдет,
         // то при повторной попытке импорта данного файла случится Recursive import.
@@ -129,13 +122,15 @@ module.exports = (Parsers) => {
         // ошибка, а для данного режима не важно какая именно ошибка произойдет.
         usedFiles.pop();
 
-        return childBlueprintData;
+        return importElement;
       } catch (e) {
         curNode.unlink();
         if (!context.languageServerMode) {
           throw e;
         }
-        return { sourceMap };
+        const emptyElement = new ImportElement();
+        emptyElement.sourceMap = sourceMap;
+        return emptyElement;
       }
     },
 
@@ -143,6 +138,11 @@ module.exports = (Parsers) => {
       return ImportRegex.exec(utils.headerText(node, context.sourceLines))[1].trim();
     },
 
+    /**
+     * @param {Context} context
+     * @param {ImportElement} result
+     * @return {ImportElement}
+     */
     finalize(context, result) {
       if (context.typeExtractingInProgress) {
         return result;
