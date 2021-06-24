@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.0 (24.06.2021)
+
+* Restrict attribute type to process inline samples correctly.
+
 ## 3.0.0 (23.06.2021)
 
 * Full refactor of imports.
