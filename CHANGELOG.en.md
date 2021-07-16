@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.1 (16.07.2021)
+
+* Fix parsing of URI parameters that contain symbols "~", ".", "-".
+
 ## 3.1.0 (24.06.2021)
 
 * Restrict attribute type to process inline samples correctly.
