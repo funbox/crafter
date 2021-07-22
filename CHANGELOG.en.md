@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.2.0 (16.07.2021)
+
+* Use kaniko to publish a docker image.
+
 ## 3.1.1 (16.07.2021)
 
 * Fix parsing of URI parameters that contain symbols "~", ".", "-".
