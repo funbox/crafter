@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.3.0 (20.08.2021)
+
+* Send notifications about new releases.
+
 ## 3.2.0 (22.07.2021)
 
 * Use kaniko to publish a docker image.
