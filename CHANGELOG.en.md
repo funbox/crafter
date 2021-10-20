@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.4.0 (20.10.2021)
+
+* Use node:14.18.0-stretch-slim for docker image.
+
 ## 3.3.0 (20.08.2021)
 
 * Send notifications about new releases.
