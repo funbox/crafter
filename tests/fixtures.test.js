@@ -296,6 +296,17 @@ it('parses from source and includes nested imports', async () => {
   await testFromSource(file, path, options);
 });
 
+it('parses from source and includes all used file paths', async () => {
+  const file = 'nested.apib';
+  const path = testPath.import.path;
+  const options = { entryDir: path };
+
+  const source = await readFile(file, path);
+  const filePaths = (await Crafter.parse(source, options))[1];
+
+  expect(filePaths).toEqual(['nested/nested-inner.apib', 'nested-next-level-inner.apib']);
+});
+
 it('throws an error when parsing from source with imports and without entryDir option defined', async () => {
   const file = 'nested.apib';
   const path = testPath.import.path;
