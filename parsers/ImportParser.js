@@ -104,6 +104,8 @@ module.exports = (Parsers) => {
         const [, importedBlueprint] = await Parsers.BlueprintParser.parse(childAst.firstChild, childContext);
         const importedBlueprintError = findError(importedBlueprint);
 
+        context.filePaths = [...new Set(context.filePaths.concat(childContext.filePaths))];
+
         if (importedBlueprintError) {
           const importError = new Error(importedBlueprintError.text);
           importError.sourceMap = importedBlueprintError.sourceMap;
