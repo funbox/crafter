@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.4.2 (03.11.2021)
+
+* Fix error ONE_OF_MULTIPLE for a nullable One Of element.
+
 ## 3.4.1 (03.11.2021)
 
 * Fix counting of documentation files.
