@@ -209,11 +209,13 @@ describe('schema', () => {
               properties: {
                 foo: { type: 'string' },
               },
+              type: 'object',
             },
             {
               properties: {
                 bar: { type: 'string' },
               },
+              type: 'object',
             },
           ],
         },
@@ -234,6 +236,7 @@ describe('schema', () => {
             foo: { type: 'string' },
             bar: { type: 'string' },
           },
+          type: 'object',
         },
         [],
       ]);
@@ -248,6 +251,7 @@ describe('schema', () => {
           properties: {
             foo: { type: 'string' },
           },
+          type: 'object',
         },
         [],
       ]);
@@ -263,6 +267,7 @@ describe('schema', () => {
               description: 'hello',
             },
           },
+          type: 'object',
         },
         [],
       ]);
@@ -275,6 +280,7 @@ describe('schema', () => {
           properties: {
             foo: { type: 'string' },
           },
+          type: 'object',
           required: ['foo'],
         },
         [],
@@ -295,6 +301,7 @@ describe('schema', () => {
               enum: ['ok'],
             },
           },
+          type: 'object',
         },
         [],
       ]);
@@ -314,6 +321,7 @@ describe('schema', () => {
               enum: ['ok'],
             },
           },
+          type: 'object',
           required: [
             'status',
           ],
@@ -335,6 +343,7 @@ describe('schema', () => {
               type: ['string', 'null'],
             },
           },
+          type: 'object',
         },
         [],
       ]);
@@ -350,6 +359,7 @@ describe('schema', () => {
               pattern: '\\d{3,6}',
             },
           },
+          type: 'object',
         },
         [],
       ]);
@@ -365,6 +375,7 @@ describe('schema', () => {
               format: 'date-time',
             },
           },
+          type: 'object',
         },
         [],
       ]);
