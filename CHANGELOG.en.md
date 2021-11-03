@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.4.1 (03.11.2021)
+
+* Fix counting of documentation files.
+
 ## 3.4.0 (20.10.2021)
 
 * Use node:14.18.0-stretch-slim for docker image.
