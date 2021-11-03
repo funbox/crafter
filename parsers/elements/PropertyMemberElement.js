@@ -101,6 +101,8 @@ class PropertyMemberElement {
       [this.name.string]: valueSchema,
     };
 
+    schema.type = 'object';
+
     if (
       (flags.isFixed || flags.isFixedType || this.typeAttributes.includes('required'))
       && !this.typeAttributes.includes('optional')

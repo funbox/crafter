@@ -297,6 +297,10 @@ class ValueMemberElement {
           usedTypes = [this.type];
         } else {
           [schema, usedTypes] = typeEl.getSchema(dataTypes, typeEl.typeAttributes && utils.mergeFlags(flags, typeEl), namedTypesChain.concat(this.type));
+
+          if (schema.oneOf && flags.isNullable) {
+            schema = { ...schema, oneOf: [{ type: 'null' }, ...schema.oneOf] };
+          }
         }
         schema = fillSchemaWithAttributes(schema, typeEl.typeAttributes);
       } else {
