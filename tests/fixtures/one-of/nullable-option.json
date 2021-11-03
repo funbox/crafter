@@ -1,0 +1,368 @@
+{
+  "element": "parseResult",
+  "content": [
+    {
+      "element": "category",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "api"
+            }
+          ]
+        },
+        "title": {
+          "element": "string",
+          "content": "My API"
+        }
+      },
+      "content": [
+        {
+          "element": "copy",
+          "content": "Defines exclusive sets of nested member types with One Of Type.\nItem is nullable for testing purposes."
+        },
+        {
+          "element": "category",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "dataStructures"
+                }
+              ]
+            }
+          },
+          "content": [
+            {
+              "element": "dataStructure",
+              "content": {
+                "element": "object",
+                "content": [
+                  {
+                    "element": "select",
+                    "content": [
+                      {
+                        "element": "option",
+                        "content": [
+                          {
+                            "element": "member",
+                            "content": {
+                              "key": {
+                                "element": "string",
+                                "content": "kind"
+                              },
+                              "value": {
+                                "element": "string",
+                                "attributes": {
+                                  "samples": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "phone"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            "meta": {
+                              "description": {
+                                "element": "string",
+                                "content": "перевод на другой телефон"
+                              }
+                            }
+                          },
+                          {
+                            "element": "member",
+                            "content": {
+                              "key": {
+                                "element": "string",
+                                "content": "number"
+                              },
+                              "value": {
+                                "element": "number",
+                                "attributes": {
+                                  "samples": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 79000000002
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            "meta": {
+                              "description": {
+                                "element": "string",
+                                "content": "номер телефона"
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "element": "option",
+                        "content": [
+                          {
+                            "element": "member",
+                            "content": {
+                              "key": {
+                                "element": "string",
+                                "content": "kind"
+                              },
+                              "value": {
+                                "element": "string",
+                                "attributes": {
+                                  "samples": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "string",
+                                        "content": "custom"
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            "meta": {
+                              "description": {
+                                "element": "string",
+                                "content": "перевод на дополнительное направление"
+                              }
+                            }
+                          },
+                          {
+                            "element": "member",
+                            "content": {
+                              "key": {
+                                "element": "string",
+                                "content": "gatewayId"
+                              },
+                              "value": {
+                                "element": "string"
+                              }
+                            },
+                            "meta": {
+                              "description": {
+                                "element": "string",
+                                "content": "идентификатор платежного шлюза"
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "meta": {
+                  "id": {
+                    "element": "string",
+                    "content": "ReportType"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        {
+          "element": "category",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "resourceGroup"
+                }
+              ]
+            },
+            "title": {
+              "element": "string",
+              "content": "Example"
+            }
+          },
+          "content": [
+            {
+              "element": "resource",
+              "attributes": {
+                "href": {
+                  "element": "string",
+                  "content": "/"
+                }
+              },
+              "content": [
+                {
+                  "element": "transition",
+                  "content": [
+                    {
+                      "element": "httpTransaction",
+                      "content": [
+                        {
+                          "element": "httpRequest",
+                          "attributes": {
+                            "method": {
+                              "element": "string",
+                              "content": "GET"
+                            }
+                          },
+                          "content": []
+                        },
+                        {
+                          "element": "httpResponse",
+                          "content": [
+                            {
+                              "element": "copy",
+                              "content": "Запрос выполнен успешно"
+                            },
+                            {
+                              "element": "dataStructure",
+                              "content": {
+                                "element": "object",
+                                "content": [
+                                  {
+                                    "element": "member",
+                                    "content": {
+                                      "key": {
+                                        "element": "string",
+                                        "content": "item"
+                                      },
+                                      "value": {
+                                        "element": "ReportType",
+                                        "attributes": {
+                                          "typeAttributes": {
+                                            "element": "array",
+                                            "content": [
+                                              {
+                                                "element": "string",
+                                                "content": "nullable"
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "attributes": {
+                                      "typeAttributes": {
+                                        "element": "array",
+                                        "content": [
+                                          {
+                                            "element": "string",
+                                            "content": "required"
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "element": "asset",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "messageBody"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": "{\n  \"item\": {\n    \"kind\": \"phone\",\n    \"number\": 79000000002\n  }\n}",
+                              "attributes": {
+                                "contentType": {
+                                  "element": "string",
+                                  "content": "application/json"
+                                }
+                              }
+                            },
+                            {
+                              "element": "asset",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "messageBodyTemplate"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": "{\n  \"item\": {\n    \"__oneOf-0__\": [\n      {\n        \"kind\": \"phone\",\n        \"number\": 79000000002\n      },\n      {\n        \"kind\": \"custom\",\n        \"gatewayId\": \"hello\"\n      }\n    ]\n  }\n}"
+                            },
+                            {
+                              "element": "asset",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "messageBodySchema"
+                                    }
+                                  ]
+                                }
+                              },
+                              "attributes": {
+                                "contentType": {
+                                  "element": "string",
+                                  "content": "application/schema+json"
+                                }
+                              },
+                              "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"item\": {\n      \"type\": [\n        \"object\",\n        \"null\"\n      ],\n      \"oneOf\": [\n        {\n          \"type\": \"null\"\n        },\n        {\n          \"properties\": {\n            \"kind\": {\n              \"type\": \"string\",\n              \"description\": \"перевод на другой телефон\"\n            },\n            \"number\": {\n              \"type\": \"number\",\n              \"description\": \"номер телефона\"\n            }\n          },\n          \"type\": \"object\"\n        },\n        {\n          \"properties\": {\n            \"kind\": {\n              \"type\": \"string\",\n              \"description\": \"перевод на дополнительное направление\"\n            },\n            \"gatewayId\": {\n              \"type\": \"string\",\n              \"description\": \"идентификатор платежного шлюза\"\n            }\n          },\n          \"type\": \"object\"\n        }\n      ]\n    }\n  },\n  \"required\": [\n    \"item\"\n  ]\n}"
+                            }
+                          ],
+                          "attributes": {
+                            "statusCode": {
+                              "element": "number",
+                              "content": 200
+                            },
+                            "headers": {
+                              "element": "httpHeaders",
+                              "content": [
+                                {
+                                  "element": "member",
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "Content-Type"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "content": "application/json"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "attributes": {
+                    "href": {
+                      "element": "string",
+                      "content": "/"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
