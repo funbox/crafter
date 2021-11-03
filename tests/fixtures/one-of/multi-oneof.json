@@ -282,7 +282,7 @@
                                   "content": "application/schema+json"
                                 }
                               },
-                              "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"oneOf\": [\n    {\n      \"properties\": {\n        \"month\": {\n          \"type\": \"string\"\n        }\n      }\n    },\n    {\n      \"properties\": {\n        \"interval\": {\n          \"type\": \"number\"\n        }\n      }\n    },\n    {\n      \"properties\": {\n        \"numberOfOccurences\": {\n          \"type\": \"number\"\n        }\n      }\n    },\n    {\n      \"properties\": {\n        \"endDate\": {\n          \"type\": \"string\"\n        }\n      }\n    }\n  ]\n}"
+                              "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"oneOf\": [\n    {\n      \"properties\": {\n        \"month\": {\n          \"type\": \"string\"\n        }\n      },\n      \"type\": \"object\"\n    },\n    {\n      \"properties\": {\n        \"interval\": {\n          \"type\": \"number\"\n        }\n      },\n      \"type\": \"object\"\n    },\n    {\n      \"properties\": {\n        \"numberOfOccurences\": {\n          \"type\": \"number\"\n        }\n      },\n      \"type\": \"object\"\n    },\n    {\n      \"properties\": {\n        \"endDate\": {\n          \"type\": \"string\"\n        }\n      },\n      \"type\": \"object\"\n    }\n  ]\n}"
                             }
                           ],
                           "attributes": {
