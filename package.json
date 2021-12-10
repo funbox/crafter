@@ -7,7 +7,8 @@
     "pretest": "npm run lint",
     "test": "jest --coverage",
     "regenerate-fixtures": "node ./scripts/regenerate-fixtures.js",
-    "lint": "eslint --cache -c .eslintrc --ext .js ./"
+    "lint": "eslint --cache -c .eslintrc --ext .js ./",
+    "prepublishOnly": "lawyer"
   },
   "keywords": [
     "drafter",
@@ -55,6 +56,9 @@
       "text",
       "cobertura"
     ],
-    "reporters": [ "default", "jest-junit" ]
+    "reporters": [
+      "default",
+      "jest-junit"
+    ]
   }
 }
