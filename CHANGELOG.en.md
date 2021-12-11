@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.5.0 (11.12.2021)
+
+* Add Lawyer.
+
 ## 3.4.2 (03.11.2021)
 
 * Fix error ONE_OF_MULTIPLE for a nullable One Of element.
