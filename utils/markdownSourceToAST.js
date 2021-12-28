@@ -1,4 +1,4 @@
-const commonmark = require('@funbox/commonmark');
+const commonmark = require('commonmark');
 
 module.exports = function markdownSourceToAST(source) {
   const parser = new commonmark.Parser({ sourcepos: true });
