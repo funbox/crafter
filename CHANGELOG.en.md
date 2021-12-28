@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.6.0 (28.12.2021)
+
+* Replace `commonmark` fork with the original package.
+
 ## 3.5.0 (11.12.2021)
 
 * Add Lawyer.
