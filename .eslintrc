@@ -9,6 +9,7 @@
   },
   "extends": "./node_modules/@funboxteam/eslint-config/.eslintrc.js",
   "rules": {
-    "no-await-in-loop": "off"
+    "no-await-in-loop": "off",
+    "default-param-last": "off"
   }
 }

@@ -246,7 +246,6 @@ class ValueMemberElement {
         }
       }
 
-
       const recursionDepth = getRecursionDepth(namedTypesChain);
 
       if (namedTypesChain[namedTypesChain.length - recursionDepth] === this.type) {

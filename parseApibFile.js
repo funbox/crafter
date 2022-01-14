@@ -1,5 +1,5 @@
 const yaml = require('yamljs');
-const Crafter = require('./Crafter.js');
+const Crafter = require('./Crafter');
 
 module.exports = async function parseApibFile(fileName, outputFormat, sourceMapsEnabled, debugMode, languageServerMode, contextOptions = {}) {
   const result = (await Crafter.parseFile(fileName, { sourceMapsEnabled, debugMode, languageServerMode, ...contextOptions }))[0];

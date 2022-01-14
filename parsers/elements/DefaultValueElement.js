@@ -72,7 +72,6 @@ class DefaultValueElement {
       content: this.value,
     };
 
-
     if (sourceMapsEnabled && this.sourceMap) {
       const sourceMapEl = new SourceMapElement(this.sourceMap.byteBlocks);
       result.attributes = {

@@ -5,7 +5,7 @@ const parseApibFile = require('./parseApibFile');
 const { Logger } = require('./utils');
 
 program
-  .version(require('./package').version, '-v, --version')
+  .version(require('./package.json').version, '-v, --version')
   .usage('[options] <apib file>')
   .option('-f, --format [format]', 'output format of the Parse Result: yaml|json', /^(yaml|json)$/, 'yaml')
   .option('-s, --sourcemap', 'export sourcemap in the Parse Result')

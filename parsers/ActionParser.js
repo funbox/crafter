@@ -69,7 +69,6 @@ module.exports = (Parsers) => {
           );
         }
 
-
         if (matchData[3]) {
           const hrefString = matchData[3].trim();
           href = utils.makeStringElement(
