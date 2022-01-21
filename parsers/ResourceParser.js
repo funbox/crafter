@@ -153,7 +153,7 @@ module.exports = (Parsers) => {
 
       result.sourceMap = utils.concatSourceMaps([result.sourceMap, ...unrecognizedBlocksSourceMaps]);
 
-      context.resourcePrototypes.pop(); // очищаем стек с прототипами данного ресурса
+      context.resourcePrototypes.pop(); // clear a stack with prototypes of the current resource
       context.popFrame();
 
       return result;

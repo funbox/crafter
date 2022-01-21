@@ -2,13 +2,13 @@ const Refract = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
 
 /**
- * Корневой элемент дерева Element AST
+ * Root element of Element AST
  */
 class BlueprintElement {
   /**
-   * @param {StringElement} title - название документации
+   * @param {StringElement} title - a documentation title
    * @param {DescriptionElement} description
-   * @param {MetaDataElement[]} meta - массив метаданных
+   * @param {MetaDataElement[]} meta - metadata array
    */
   constructor(title, description, meta) {
     this.title = title;

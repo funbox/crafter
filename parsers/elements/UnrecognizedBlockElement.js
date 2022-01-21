@@ -2,7 +2,7 @@ const Refract = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
 
 /**
- * Элемент для описания неожиданных нод, обнаруженных при парсинге документации
+ * Element to keep unrecognized nodes found during documentation parsing
  */
 class UnrecognizedBlockElement {
   /**

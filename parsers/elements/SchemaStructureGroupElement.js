@@ -2,9 +2,9 @@ const Refract = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
 
 /**
- * Элемент Schema Structures.
+ * Schema Structures element.
  *
- * Пример:
+ * Example:
  *
  * # Schema Structures <--
  * # SchemaNamedType

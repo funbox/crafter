@@ -89,7 +89,7 @@ module.exports = (Parsers) => {
         }
 
         while (childNodeToCheck && Parsers.ImportParser.sectionType(childNodeToCheck, childContext) === SectionTypes.import) {
-          // файл может начинаться с импорта, в таком случае, его нужно пропустить
+          // skip a node if a file starts with an Import directive
           childNodeToCheck = childNodeToCheck.next;
         }
         if (childNodeToCheck && Parsers.BlueprintParser.nestedSectionType(childNodeToCheck, childContext) === SectionTypes.undefined) {
@@ -117,11 +117,10 @@ module.exports = (Parsers) => {
         curNode.importId = importId;
         context.importCache.set(importId, importElement);
 
-        // Если в Language Server Mode случится ошибка и до этой инструкции выполнение не дойдет,
-        // то при повторной попытке импорта данного файла случится Recursive import.
-        // На практике ничего страшного не произойдет, т.к. ошибка случится только в случае,
-        // если файл некорректный, поэтому в любом случае при попытке повторного импорта произошла бы
-        // ошибка, а для данного режима не важно какая именно ошибка произойдет.
+        // If an error occurs while we're in Language Server Mode and this instruction won't be executed,
+        // then the second try to import this file will throw a recursive import error.
+        // In fact, it doesn't matter because an error occurs only in the case of an invalid file, so there is an error eventually
+        // and we don't bother what error exactly.
         usedFiles.pop();
 
         return importElement;

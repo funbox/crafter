@@ -1,9 +1,9 @@
 const Refract = require('../../Refract');
 
 /**
- * Перечисления для параметра URL типа enum
+ * Enumerations of URL parameter declared as enum
  *
- * Пример:
+ * Example:
  *
  * + Parameters
  *   + quality (enum)
@@ -11,7 +11,7 @@ const Refract = require('../../Refract');
  *       + normal
  *       + premium
  *
- * Дерево:
+ * resulting tree:
  *
  * ParameterElement
  *   enumerations: ParameterMembersElement <--

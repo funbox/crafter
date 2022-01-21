@@ -3,16 +3,16 @@ const Flags = require('../../Flags');
 const MSONMixinElement = require('./MSONMixinElement');
 
 /**
- * Enum (перечисление)
+ * Enum (enumerable value)
  *
- * Пример:
+ * Example:
  *
- * исходный текст:
+ * source lines:
  * + kind (enum)
  *   + track
  *   + movement
  *
- * дерево:
+ * resulting tree:
  * PropertyMemberElement
  *   value: ValueMemberElement
  *     content: EnumElement <--
@@ -22,7 +22,7 @@ const MSONMixinElement = require('./MSONMixinElement');
  */
 class EnumElement {
   /**
-   * @param {string[]} nestedTypes - типы элементов enum
+   * @param {string[]} nestedTypes - possible enum types
    */
   constructor(nestedTypes) {
     /**
@@ -69,8 +69,8 @@ class EnumElement {
   }
 
   /**
-   * @param {DataTypes} dataTypes - типы из TypeResolver
-   * @param {string[]} namedTypesChain - использованные в процессе генерации body именованные типы, нужны для отслеживания рекурсивных структур
+   * @param {DataTypes} dataTypes - types from TypeResolver
+   * @param {string[]} namedTypesChain - named types used in the Body generation process are applicable to track recursive structures
    */
   getBody(dataTypes, namedTypesChain = []) {
     if (this.defaultValue) {
@@ -89,9 +89,9 @@ class EnumElement {
   }
 
   /**
-   * @param {DataTypes} dataTypes - типы из TypeResolver
-   * @param {Flags} flags - флаги генерации JSON Schema
-   * @param {string[]} namedTypesChain - использованные в процессе генерации schema именованные типы, нужны для отслеживания рекурсивных структур
+   * @param {DataTypes} dataTypes - types from TypeResolver
+   * @param {Flags} flags - flags for JSON Schema generation
+   * @param {string[]} namedTypesChain - named types used in the Schema generation process are applicable to track recursive structures
    */
   getSchema(dataTypes, flags = new Flags(), namedTypesChain = []) {
     const usedTypes = [];

@@ -11,9 +11,9 @@ class CharBlock {
   }
 
   /**
-   * @param {number} offset - смещение начала блока от начала файла в символах
-   * @param {number} length - длина блока в символах
-   * @param {string=} file - путь к файлу, к которому относится блок
+   * @param {number} offset - offset of a block from the start of a file counted in characters
+   * @param {number} length - length of a block in characters
+   * @param {string=} file - path to a file that contains a block
    */
   constructor(offset, length, file) {
     this.offset = offset;

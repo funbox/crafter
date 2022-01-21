@@ -2,8 +2,8 @@ const Refract = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
 
 /**
- * Элемент для хранения HTTP-заголовков запросов и ответов.
- * Структура отдельного заголовка достаточно простая, поэтому отдельный тип данных под нее не предусмотрен.
+ * Element to store HTTP headers of requests and responses.
+ * The structure of a header is quite simple, so there is no separate data type for it.
  *
  * @see https://apielements.org/en/latest/element-definitions.html#http-headers-object
  */

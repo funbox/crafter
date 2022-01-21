@@ -3,9 +3,9 @@ const SourceMapElement = require('./SourceMapElement');
 const { addPrototypesToRefract } = require('./ResourcePrototypesUtils');
 
 /**
- * Группа ресурсов
+ * Resource group
  *
- * # Group Users <-- начало группы ресурсов
+ * # Group Users <-- start of the resource group
  *
  * # GET /user
  * + Response 200
@@ -14,8 +14,8 @@ const { addPrototypesToRefract } = require('./ResourcePrototypesUtils');
  */
 class ResourceGroupElement {
   /**
-   * @param {StringElement} title - название группы ресурсов
-   * @param {StringElement[]} prototypes - список Resource Prototypes для данного элемента
+   * @param {StringElement} title - a group title
+   * @param {StringElement[]} prototypes - a list Resource Prototypes for current element
    * @param {SourceMap} sourceMap
    */
   constructor(title, prototypes, sourceMap) {
@@ -34,8 +34,8 @@ class ResourceGroupElement {
      */
     this.subgroups = [];
     this.sourceMap = sourceMap;
-    // Тут не может быть unrecognizedBlocks, потому что такой блок либо уйдет в description
-    // либо распознается как unrecognizedBlocks одной из вложенных секций
+    // This element cannot have unrecognized blocks because such a block is determined either as
+    // a description or as an unrecognized block of one of the nested sections
   }
 
   /**

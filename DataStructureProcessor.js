@@ -90,7 +90,7 @@ class DataStructureProcessor {
         }
       }
 
-      // TODO Что если nextNode !== curNode.next ?
+      // TODO What if nextNode !== curNode.next ?
       if (curNode.next && nextNode !== curNode.next) {
         throw new utils.CrafterError('nextNode !== curNode.next');
       }
@@ -217,7 +217,7 @@ class DataStructureProcessor {
         }
       }
 
-      // TODO Что если nextNode !== curNode.next ?
+      // TODO What if nextNode !== curNode.next ?
       if (curNode.next && nextNode !== curNode.next) {
         throw new utils.CrafterError('nextNode !== curNode.next');
       }
@@ -238,8 +238,8 @@ class DataStructureProcessor {
 
     arrayMembers.forEach((member) => {
       if (member instanceof MSONMixinElement) {
-        // может быть ValueMemberElement или MSONMixinElement,
-        // при этом MSONMixinElement вставляем "как есть"
+        // a member can be a ValueMemberElement or a MSONMixinElement
+        // in case of MSONMixinElement do not process it
         return;
       }
 
@@ -340,7 +340,7 @@ class DataStructureProcessor {
         }
       }
 
-      // TODO Что если nextNode !== curNode.next ?
+      // TODO What if nextNode !== curNode.next ?
       if (curNode.next && nextNode !== curNode.next) {
         throw new utils.CrafterError('nextNode !== curNode.next');
       }
@@ -462,7 +462,7 @@ class DataStructureProcessor {
         }
       }
 
-      // TODO Что если nextNode !== curNode.next ?
+      // TODO What if nextNode !== curNode.next ?
       if (curNode.next && nextNode !== curNode.next) {
         throw new utils.CrafterError('nextNode !== curNode.next');
       }
@@ -488,8 +488,8 @@ class DataStructureProcessor {
 
     enumElement.members.forEach((member) => {
       if (member instanceof MSONMixinElement) {
-        // может быть EnumMemberElement или MSONMixinElement,
-        // при этом MSONMixinElement вставляем "как есть"
+        // a member can be a EnumMemberElement or a MSONMixinElement
+        // in case of MSONMixinElement do not process it
         return;
       }
 

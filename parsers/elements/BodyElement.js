@@ -2,15 +2,15 @@ const Refract = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
 
 /**
- * Секция Body. Либо создается автоматически из AttributesElement, либо задается вручную.
+ * Body section. Can be both generated automatically from AttributesElement or manually specified.
  *
- * Пример:
+ * Example:
  *
  * + Body
  *
  *     Hello world
  *
- * дерево:
+ * resulting tree:
  *
  * BodyElement
  *   body: Hello world

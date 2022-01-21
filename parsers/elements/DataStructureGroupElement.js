@@ -2,9 +2,9 @@ const Refract = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
 
 /**
- * Секция Data Structures
+ * Data Structures section
  *
- * # Data Structures <-- Секция Data Structures
+ * # Data Structures <-- Data Structures section
  * ## User
  * + name (string, required)
  * + email (string, required)

@@ -2,15 +2,15 @@ const Refract = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
 
 /**
- * Произвольные метаданные документации в формате «ключ: значение»
+ * Arbitrary metadata of documentation in key-value format
  *
- * Пример:
+ * Example:
  *
  * version: 1.0 <--
  * accessLevel: restricted <--
  * # My API
  *
- * дерево:
+ * resulting tree:
  *
  * BlueprintElement
  *   meta:

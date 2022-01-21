@@ -74,7 +74,7 @@ module.exports = (Parsers) => {
       if ([SectionTypes.subGroup, SectionTypes.message].includes(nestedSectionType)) {
         if (context.resourcePrototypes[0] && context.resourcePrototypes[0].length > 0) {
           context.addWarning('A group with subgroups should not use resource prototypes. Adding one will have no effect.', sourceMap);
-          context.resourcePrototypes.pop(); // очищаем стек с прототипами данной группы ресурсов
+          context.resourcePrototypes.pop(); // clear a stack with prototypes of the current resource group
         }
       }
 
@@ -111,7 +111,7 @@ module.exports = (Parsers) => {
         result.sourceMap = utils.concatSourceMaps([result.sourceMap, result.description.sourceMap]);
       }
 
-      context.resourcePrototypes.pop(); // очищаем стек с прототипами данной группы ресурсов
+      context.resourcePrototypes.pop(); // clear a stack with prototypes of the current resource group
       context.popFrame();
       return result;
     },

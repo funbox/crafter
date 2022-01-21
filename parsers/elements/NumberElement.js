@@ -2,7 +2,7 @@ const Refract = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
 
 /**
- * Элемент для описания числовых структур внутри Element AST, таких как HTTP Status Code
+ * Element to store numeric structures inside of Element AST, as a HTTP Status Code
  */
 class NumberElement {
   /**

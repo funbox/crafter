@@ -4,15 +4,15 @@ const Flags = require('../../Flags');
 const MSONMixinElement = require('./MSONMixinElement');
 
 /**
- * Массив
+ * Array
  *
- * Пример:
+ * Example:
  *
- * исходный текст:
+ * source lines:
  * + Attributes
  *   + foo (array[string])
  *
- * дерево:
+ * resulting tree:
  * AttributesElement
  *   content: ValueMemberElement
  *     content: ObjectElement
@@ -28,7 +28,7 @@ const MSONMixinElement = require('./MSONMixinElement');
 class ArrayElement {
   /**
    *
-   * @param {ValueMemberElement[]} members - вложенные типы данных, например для array[string] это string
+   * @param {ValueMemberElement[]} members - nested data types, e.g. nested type of array[string] is string
    */
   constructor(members) {
     this.members = members;
@@ -40,15 +40,15 @@ class ArrayElement {
 
   /**
    * @param {boolean} sourceMapsEnabled
-   * @param {boolean} isFixed - наличие флага fixed у одного из родительских элементов влияет на результирующий AST
+   * @param {boolean} isFixed - resulting AST will be modified if one of the parent elements has the "fixed" attribute
    */
   toRefract(sourceMapsEnabled, isFixed) {
     return this.members.map(element => element.toRefract(sourceMapsEnabled, isFixed));
   }
 
   /**
-   * @param {DataTypes} dataTypes - типы из TypeResolver
-   * @param {string[]} namedTypesChain - использованные в процессе генерации body именованные типы, нужны для отслеживания рекурсивных структур
+   * @param {DataTypes} dataTypes - types from TypeResolver
+   * @param {string[]} namedTypesChain - named types used in the Body generation process are applicable to track recursive structures
    */
   getBody(dataTypes, namedTypesChain = []) {
     return this.members.reduce((acc, member) => {
@@ -61,9 +61,9 @@ class ArrayElement {
   }
 
   /**
-   * @param {DataTypes} dataTypes - типы из TypeResolver
-   * @param {Flags} flags - флаги генерации JSON Schema
-   * @param {string[]} namedTypesChain - использованные в процессе генерации schema именованные типы, нужны для отслеживания рекурсивных структур
+   * @param {DataTypes} dataTypes - types from TypeResolver
+   * @param {Flags} flags - flags for JSON Schema generation
+   * @param {string[]} namedTypesChain - named types used in the Schema generation process are applicable to track recursive structures
    */
   getSchema(dataTypes, flags = new Flags(), namedTypesChain = []) {
     const schema = { type: 'array' };
@@ -95,7 +95,7 @@ class ArrayElement {
         anyOf: utils.uniquifySchemas(memberSchemas),
       };
     } else if (this.members.length === 1) {
-      // единственным элементом может оказаться MSONMixinElement, который скрывает в себе несколько элементов
+      // the only element could be MSONMixinElement which substitutes multiple elements
       const [memberSchemas, memberUsedTypes] = getArrayMemberSchema(this.members[0], dataTypes, localFlags, namedTypesChain);
       schema.items = memberSchemas.length === 1 ? memberSchemas[0] : { anyOf: utils.uniquifySchemas(memberSchemas) };
       usedTypes.push(...memberUsedTypes);

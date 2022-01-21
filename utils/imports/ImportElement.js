@@ -1,7 +1,7 @@
 /**
- * Класс для хранения данных, полученных из разбора импортированного документа.
- * Не входит в API Elements (https://apielements.org/), не попадает напрямую в refract,
- * а служит лишь временным контейнером.
+ * This class stores data acquired after the parsing of an imported document.
+ * It is not a part of API Elements (https://apielements.org/) spec and does not get into refract,
+ * and it serves only as a temporary container.
  */
 class ImportElement {
   /**

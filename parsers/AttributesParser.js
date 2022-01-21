@@ -192,7 +192,7 @@ module.exports = (Parsers) => {
         dataStructureProcessor.fillValueMember(result.content, context);
         delete context.data.isParentAttributeFixedOrFixedType;
       } else {
-        // TODO: Что делать в этом случае?
+        // TODO: How to handle this case?
       }
 
       if (!context.languageServerMode) {

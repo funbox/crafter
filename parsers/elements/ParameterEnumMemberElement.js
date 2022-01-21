@@ -2,9 +2,9 @@ const Refract = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
 
 /**
- * Элемент перечисления для параметра URL типа enum
+ * Element of a URL parameter declared as an enum
  *
- * Пример:
+ * Example:
  *
  * + Parameters
  *   + quality (enum)
@@ -12,7 +12,7 @@ const SourceMapElement = require('./SourceMapElement');
  *       + normal
  *       + premium
  *
- * Дерево:
+ * resulting tree:
  *
  * ParameterElement
  *   enumerations: ParameterMembersElement

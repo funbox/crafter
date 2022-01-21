@@ -2,12 +2,12 @@ const Refract = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
 
 /**
- *  Описание документации, может содержать Markdown-разметку.
+ *  Documentation description, can include Markdown markup.
  *
- * Пример:
+ * Example:
  * # My API
  *
- * Описание API <-- эта строка будет извлечена в DescriptionElement
+ * API description <-- this line will be extracted as a DescriptionElement
  *
  * @see https://apielements.org/en/latest/element-definitions.html#copy-string
  */

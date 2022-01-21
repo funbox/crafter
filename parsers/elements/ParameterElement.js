@@ -4,14 +4,14 @@ const StringElement = require('./StringElement');
 const SourceMapElement = require('./SourceMapElement');
 
 /**
- * Параметр URL
+ * URL parameter
  *
- * Пример:
+ * Example:
  *
  * + Parameters
  *   + a (string, required)
  *
- * Дерево:
+ * resulting tree:
  *
  * ParametersElement
  *   parameters:
@@ -24,7 +24,7 @@ class ParameterElement {
    * @param {StringElement} name
    * @param {StringElement} value
    * @param {StringElement} title
-   * @param {StringElement[]} typeAttributes - в данный момент здесь может быть только атрибут required
+   * @param {StringElement[]} typeAttributes - currently only required attribute can be here
    * @param {StringElement} description
    * @param {SourceMap} sourceMap
    */

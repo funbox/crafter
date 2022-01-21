@@ -3,29 +3,29 @@ const SourceMapElement = require('./SourceMapElement');
 const { addPrototypesToRefract } = require('./ResourcePrototypesUtils');
 
 /**
- * Ресурс. Возможны несколько вариантов объявления ресурса:
+ * Resource element. There are multiple options
  *
- * # /users <-- неименованный ресурс
+ * # /users <-- unnamed resource
  * # GET <-- Action
  * + Response 200
  *
- * # Пользователи [/users] <-- именованный ресурс
+ * # Users [/users] <-- named resource
  * # GET <-- Action
  * + Response 200
  *
- * # GET /users <-- неименованный endpoint (ресурс + action в одном узле Markdown AST)
+ * # GET /users <-- unnamed endpoint (resource + action in the single Markdown AST node)
  * + Response 200
  *
- * # Пользователи [GET /users] <-- именованный endpoint (ресурс + action в одном узле Markdown AST)
+ * # Users [GET /users] <-- named endpoint (resource + action in the single Markdown AST node)
  * + Response 200
  *
  * @see https://apielements.org/en/latest/element-definitions.html#resource
  */
 class ResourceElement {
   /**
-   * @param {StringElement} href - URL HTTP-запроса
-   * @param {StringElement=} title - опциональный заголовок
-   * @param {StringElement[]} prototypes - список Resource Prototypes для данного элемента
+   * @param {StringElement} href - URL of a HTTP request
+   * @param {StringElement=} title - an optional title
+   * @param {StringElement[]} prototypes - a list of Resource Prototypes for current element
    * @param {SourceMap} sourceMap
    */
   constructor(href, title, prototypes, sourceMap) {

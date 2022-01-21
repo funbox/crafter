@@ -4,9 +4,9 @@ const AttributesElement = require('./AttributesElement');
 const utils = require('../../utils');
 
 /**
- * Элемент для описания HTTP-запроса.
+ * HTTP request element
  *
- * Пример:
+ * Example:
  *
  * + Request MyRequest (application/json)
  *   + Body
@@ -14,7 +14,7 @@ const utils = require('../../utils');
  *               "hello": "world"
  *             }
  *
- * Дерево:
+ * resulting tree:
  *
  * RequestElement <--
  *   title: MyRequest
@@ -25,15 +25,15 @@ const utils = require('../../utils');
  */
 class RequestElement {
   /**
-   * @param {string=} contentType - заголовок content-type, например application/json
-   * @param {StringElement} title - опциональный заголовок запроса
+   * @param {string=} contentType - a "content-type" header, e.g. application/json
+   * @param {StringElement} title - an optional title of a request
    * @param {SourceMap} sourceMap
    */
   constructor(contentType, title, sourceMap) {
     this.contentType = contentType;
     this.title = title;
     /**
-     * метод запроса (GET, POST и т. п.) задается в ActionParser
+     * request method (GET, POST, etc) set in ActionParser
      * @type {StringElement}
      */
     this.method = null;
@@ -99,7 +99,7 @@ class RequestElement {
   }
 
   /**
-   * @param {DataTypes} dataTypes - типы из TypeResolver
+   * @param {DataTypes} dataTypes - types from TypeResolver
    */
   getBody(dataTypes) {
     if (this.contentType !== 'application/json') {
@@ -111,7 +111,7 @@ class RequestElement {
   }
 
   /**
-   * @param {DataTypes} dataTypes - типы из TypeResolver
+   * @param {DataTypes} dataTypes - types from TypeResolver
    */
   getSchema(dataTypes) {
     let schema;

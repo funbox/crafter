@@ -2,14 +2,14 @@ const Refract = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
 
 /**
- * Параметры URL
+ * URL parameters
  *
- * Пример:
+ * Example:
  *
  * + Parameters
  *   + a (string, required)
  *
- * Дерево:
+ * resulting tree:
  *
  * ParametersElement <--
  *   parameters:

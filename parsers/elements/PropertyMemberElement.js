@@ -4,14 +4,14 @@ const Flags = require('../../Flags');
 const SourceMapElement = require('./SourceMapElement');
 
 /**
- * Поле объекта
+ * Field of an object
  *
- * Пример:
+ * Example:
  *
  * + Attributes
  *   + foo
  *
- * дерево:
+ * resulting tree:
  * AttributesElement
  *   content: ValueMemberElement
  *     content: ObjectElement
@@ -24,7 +24,7 @@ class PropertyMemberElement {
   /**
    * @param {StringElement} name
    * @param {ValueMemberElement} value
-   * @param {(string|Array)[]} typeAttributes - набор атрибутов "required" и/или "optional"
+   * @param {(string|Array)[]} typeAttributes - a set of attributes "required" and/or "optional"
    * @param {StringElement} descriptionEl
    * @param {SourceMapElement} sourceMap
    */
@@ -39,7 +39,7 @@ class PropertyMemberElement {
 
   /**
    * @param {boolean} sourceMapsEnabled
-   * @param {boolean} isFixed - наличие флага fixed у одного из родительских элементов, влияет на результирующий AST
+   * @param {boolean} isFixed - resulting AST will be modified if one of the parent elements has the "fixed" attribute
    */
   toRefract(sourceMapsEnabled, isFixed) {
     const isFixedPropagated = this.value.propagatedTypeAttributes && this.value.propagatedTypeAttributes.includes('fixed');
@@ -71,8 +71,8 @@ class PropertyMemberElement {
   }
 
   /**
-   * @param {DataTypes} dataTypes - типы из TypeResolver
-   * @param {string[]} namedTypesChain - использованные в процессе генерации body именованные типы, нужны для отслеживания рекурсивных структур
+   * @param {DataTypes} dataTypes - types from TypeResolver
+   * @param {string[]} namedTypesChain - named types used in the Body generation process are applicable to track recursive structures
    */
   getBody(dataTypes, namedTypesChain = []) {
     const key = this.name.string;
@@ -84,9 +84,9 @@ class PropertyMemberElement {
   }
 
   /**
-   * @param {DataTypes} dataTypes - типы из TypeResolver
-   * @param {Flags} flags - флаги генерации JSON Schema
-   * @param {string[]} namedTypesChain - использованные в процессе генерации schema именованные типы, нужны для отслеживания рекурсивных структур
+   * @param {DataTypes} dataTypes - types from TypeResolver
+   * @param {Flags} flags - flags for JSON Schema generation
+   * @param {string[]} namedTypesChain - named types used in the Schema generation process are applicable to track recursive structures
    */
   getSchema(dataTypes, flags = new Flags(), namedTypesChain = []) {
     const schema = {};

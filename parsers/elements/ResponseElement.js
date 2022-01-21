@@ -4,9 +4,9 @@ const AttributesElement = require('./AttributesElement');
 const utils = require('../../utils');
 
 /**
- * Элемент для описания HTTP-ответа.
+ * HTTP response element
  *
- * Пример:
+ * Example:
  *
  * + Response 200 (application/json)
  *   + Body
@@ -14,7 +14,7 @@ const utils = require('../../utils');
  *               "hello": "world"
  *             }
  *
- * Дерево:
+ * resulting tree:
  *
  * ResponseElement <--
  *   statusCode: 200
@@ -26,8 +26,8 @@ const utils = require('../../utils');
  */
 class ResponseElement {
   /**
-   * @param {NumberElement} statusCode - код ответа HTTP
-   * @param {string=} contentType - заголовок content-type, например application/json
+   * @param {NumberElement} statusCode - HTTP response code
+   * @param {string=} contentType - a "content-type" header, e.g. application/json
    * @param {SourceMap=} sourceMap
    */
   constructor(statusCode, contentType, sourceMap) {
@@ -89,7 +89,7 @@ class ResponseElement {
   }
 
   /**
-   * @param {DataTypes} dataTypes - типы из TypeResolver
+   * @param {DataTypes} dataTypes - types from TypeResolver
    */
   getBody(dataTypes) {
     if (this.contentType !== 'application/json') {
@@ -101,7 +101,7 @@ class ResponseElement {
   }
 
   /**
-   * @param {DataTypes} dataTypes - типы из TypeResolver
+   * @param {DataTypes} dataTypes - types from TypeResolver
    */
   getSchema(dataTypes) {
     let schema;

@@ -9,20 +9,20 @@ const CrafterError = utils.CrafterError;
 
 /**
  * @typedef {object} ContextOptions
- * @property {string} currentFile - название текущего разбираемого файла с учётом полного пути
- * @property {string} filename - название текущего разбираемого файла с учётом пути относительно входной директории
+ * @property {string} currentFile - name of the current file including full path
+ * @property {string} filename - name of the current file including path relative to the entry directory
  * @property {object} logger
- * @property {boolean} sourceMapsEnabled - включение генерации sourceMap
- * @property {string} entryDir - директория от которой считаются пути import инструкций
- * @property {boolean} debugMode - режим в котором некоторые исключения в BlueprintParser не перехватываются, что позволяет получить стектрейс для отладки
- * @property {function} readFile - функция чтения импортируемого файла, нужна для перехвата и последующей обработки команд Import
- * @property {boolean} languageServerMode - режима парсинга для Language Server: игнорируются некоторые ошибки, не проверяются именованные типы, не генерируются JSON Schema и Body
+ * @property {boolean} sourceMapsEnabled - enable source maps generation
+ * @property {string} entryDir - base directory relative to which Crafter resolves imports
+ * @property {boolean} debugMode - mode that disables catching some of the exceptions and allows to examine a stack trace of an error
+ * @property {function} readFile - a function to read imported file that needed for interception and processing of Import commands
+ * @property {boolean} languageServerMode - parsing mode for Language Server: some errors are ignored, no typechecking of named types, disabled generation of JSON Schema and Body
  */
 
 class Context {
   /**
-   * @param {string} source - разбираемый исходный код
-   * @param {object} parsers - хэш с парсерами
+   * @param {string} source - source code to parse
+   * @param {object} parsers - hash object with parsers
    * @param {ContextOptions} options
    */
   constructor(source, parsers, options) {

@@ -10,7 +10,7 @@ const NumberElement = require('./elements/NumberElement');
 
 const responseRegex = new RegExp(`^[Rr]esponse(\\s+(\\d+))?${RegExpStrings.mediaType}?$`);
 
-// TODO: Объединить с RequestParser, т.к. много общего?
+// TODO: should be unified with RequestParser due to common code?
 module.exports = (Parsers) => {
   Parsers.ResponseParser = Object.assign(Object.create(require('./AbstractParser')), {
     allowLeavingNode: false,

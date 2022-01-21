@@ -2,9 +2,9 @@ const Refract = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
 
 /**
- * Элемент Resource Prototypes.
+ * Resource Prototypes element.
  *
- * Пример:
+ * Example:
  *
  * # Resource Prototypes <--
  * ## UserResource

@@ -1,9 +1,9 @@
 const Refract = require('../../Refract');
 
 /**
- * Шаблон body, включающий поля вида __oneOf-X__ со всеми возможными опциями One Of.
+ * A body template that includes __oneOf-X__ fields with all possible variations of One Of option.
  *
- * Пример:
+ * Example:
  *
  * {
  *   "a": 1,
@@ -13,7 +13,7 @@ const Refract = require('../../Refract');
  *   ]
  * }
  *
- * Из такого шаблона можно сгенерировать два body: { "a": 1, "b": 2 } и { "a": 1, "c": 3 }.
+ * This template can be used to generate two variants of a body: { "a": 1, "b": 2 } and { "a": 1, "c": 3 }.
  */
 class BodyTemplateElement {
   /**

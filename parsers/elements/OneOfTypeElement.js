@@ -3,16 +3,16 @@ const Flags = require('../../Flags');
 const SourceMapElement = require('./SourceMapElement');
 
 /**
- * Секция One Of
+ * One Of section
  *
- * Пример:
+ * Example:
  *
- * исходный текст:
+ * source lines:
  *   + One Of
  *     + foo
  *     + bar
  *
- * дерево:
+ * resulting tree:
  * OneOfTypeElement <--
  *   options:
  *     - OneOfTypeOptionElement
@@ -51,8 +51,8 @@ class OneOfTypeElement {
   }
 
   /**
-   * @param {DataTypes} dataTypes - типы из TypeResolver
-   * @param {string[]} namedTypesChain - использованные в процессе генерации body именованные типы, нужны для отслеживания рекурсивных структур
+   * @param {DataTypes} dataTypes - types from TypeResolver
+   * @param {string[]} namedTypesChain - named types used in the Body generation process are applicable to track recursive structures
    * @param {number} index
    */
   getBody(dataTypes, namedTypesChain, index) {
@@ -66,8 +66,8 @@ class OneOfTypeElement {
   }
 
   /**
-   * @param {DataTypes} dataTypes - типы из TypeResolver
-   * @param {Flags} flags - флаги генерации JSON Schema
+   * @param {DataTypes} dataTypes - types from TypeResolver
+   * @param {Flags} flags - flags for JSON Schema generation
    */
   getSchema(dataTypes, flags = new Flags()) {
     const usedTypes = [];

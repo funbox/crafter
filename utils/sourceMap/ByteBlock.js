@@ -1,8 +1,8 @@
 class ByteBlock {
   /**
-   * @param {number} offset - смещение начала блока от начала файла в байтах
-   * @param {number} length - длина блока в байтах
-   * @param {string=} file - путь к файлу, к которому относится блок
+   * @param {number} offset - offset of a block from the start of a file counted in bytes
+   * @param {number} length - length of a block in bytes
+   * @param {string=} file - path to a file that contains a block
    */
   constructor(offset, length, file) {
     this.offset = offset;

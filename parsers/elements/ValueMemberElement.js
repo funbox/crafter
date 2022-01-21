@@ -5,21 +5,21 @@ const SourceMapElement = require('./SourceMapElement');
 const Flags = require('../../Flags');
 
 /**
- * Краеугольный камень многих структур данных в Crafter.
- * ValueMemberElement может быть телом именованного типа, поля объекта, типом элементов массива или вариантом из One Of.
+ * The cornerstone of many structures in Crafter.
+ * ValueMemberElement can act as a content of a named type, object's field, array's element or an option from One Of.
  *
- * Примеры:
+ * Examples:
  *
- * исходный текст:
+ * source lines:
  * + Attributes (string)
- * дерево:
+ * resulting tree:
  * AttributesElement
  *   content: ValueMemberElement
  *
- * исходный текст:
+ * source lines:
  * + Attributes
  *   + name (string)
- * дерево:
+ * resulting tree:
  * AttributesElement
  *   content: ValueMemberElement
  *     content: ObjectElement
@@ -30,26 +30,26 @@ const Flags = require('../../Flags');
  */
 class ValueMemberElement {
   /**
-   * @param {string} rawType - тип данных, например string, array[number] или User
-   * @param {string} type - обработанный тип данных без вложенных типов, например string, array или User
-   * @param {ValueMemberElement[]} nestedTypes - типы элементов массива или enum
-   * @param {(string|Array)[]} typeAttributes - набор атрибутов типа fixed, nullable, ["minimum", 10]
-   * @param {string} rawValue - значение элемента, в зависимости от атрибутов может интерпретироваться как непосредственное значение или пример
-   * @param {string} value - очищенное от backticks значение элемента
-   * @param {StringElement} description - описание элемента
-   * @param {boolean} isSample - является ли данный элемент примером
-   * @param {boolean} isDefault - является ли данный элемент элементом по умолчанию
+   * @param {string} rawType - data type, e.g. string, array[number], User
+   * @param {string} type - processed data type without nested types, e.g. string, array, User
+   * @param {ValueMemberElement[]} nestedTypes - types of elements of an array or an enum
+   * @param {(string|Array)[]} typeAttributes - a set of attributes as fixed, nullable, ["minimum", 10]
+   * @param {string} rawValue - an element's value that could be interpreted as a value itself or as a sample
+   * @param {string} value - a value without backticks
+   * @param {StringElement} description - a description of an element
+   * @param {boolean} isSample - account current element as a sample
+   * @param {boolean} isDefault - account current element as the default element
    */
   constructor(rawType, type, nestedTypes = [], typeAttributes = [], rawValue, value, description, isSample, isDefault) {
     this.rawType = rawType;
     this.type = type;
     /**
-     * Типы элементов массива array[string, number]: тут string и number — это nestedTypes
+     * Array's elements type array[string, number]: where string and number are nestedTypes
      */
     this.nestedTypes = nestedTypes;
     /**
-     * Один из базовых типов данных, который определяет текущий элемент непосредственно или путем наследования.
-     * Базовые типы определены в types.js в корне проекта.
+     * A type from the list of base types that determines current element directly or through inheritance
+     * Base types are defined inf the file types.js in the root of the project
      * @type {string}
      */
     this.baseType = undefined;
@@ -58,14 +58,13 @@ class ValueMemberElement {
     this.value = value;
     this.description = description;
     /**
-     *
-     * Поле заполняется в методе fillBaseType класса ValueMemberProcessor.
+     * This field is being filled in the method fillBaseType of the ValueMemberProcessor class
      * @type {string[]}
      */
     this.propagatedTypeAttributes = [];
     /**
-     * Поле заполняется методом fillValueMember класса DataStructureProcessor для объектов и enum-ов
-     * и в методе fillBaseType класса ValueMemberProcessor для массивов.
+     * For objects and enums, this field is being filled in the method fillValueMember of the DataStructureProcessor class.
+     * For arrays, this field is being filled in the method fillBaseType of the ValueMemberProcessor class.
      * @type {ObjectElement|EnumElement|ArrayElement}
      */
     this.content = null;
@@ -137,13 +136,13 @@ class ValueMemberElement {
   }
 
   shouldOutputValue(isFixed) {
-    const notEmpty = this.value != null; // проверяем null | undefined, разрешаем false
+    const notEmpty = this.value != null; // check for null | undefined to allow "false"
     return !((this.type && this.isObject()) || this.shouldOutputSamples(isFixed) || this.default) && notEmpty;
   }
 
   /**
    * @param {boolean} sourceMapsEnabled
-   * @param {boolean} isFixed - наличие флага fixed у одного из родительских элементов, влияет на результирующий AST
+   * @param {boolean} isFixed - resulting AST will be modified if one of the parent elements has the "fixed" attribute
    */
   toRefract(sourceMapsEnabled, isFixed) {
     const sourceMapEl = sourceMapsEnabled && this.sourceMap ? new SourceMapElement(this.sourceMap.byteBlocks) : null;
@@ -216,8 +215,8 @@ class ValueMemberElement {
   }
 
   /**
-   * @param {DataTypes} dataTypes - типы из TypeResolver
-   * @param {string[]} namedTypesChain - использованные в процессе генерации body именованные типы, нужны для отслеживания рекурсивных структур
+   * @param {DataTypes} dataTypes - types from TypeResolver
+   * @param {string[]} namedTypesChain - named types used in the Body generation process are applicable to track recursive structures
    */
   getBody(dataTypes, namedTypesChain = []) {
     if (this.shouldOutputSamples()) {
@@ -275,9 +274,9 @@ class ValueMemberElement {
   }
 
   /**
-   * @param {DataTypes} dataTypes - типы из TypeResolver
-   * @param {Flags} flags - флаги генерации JSON Schema
-   * @param {string[]} namedTypesChain - использованные в процессе генерации schema именованные типы, нужны для отслеживания рекурсивных структур
+   * @param {DataTypes} dataTypes - types from TypeResolver
+   * @param {Flags} flags - flags for JSON Schema generation
+   * @param {string[]} namedTypesChain - named types used in the Schema generation process are applicable to track recursive structures
    */
   getSchema(dataTypes, flags = new Flags(), namedTypesChain = []) {
     let schema = {};
@@ -309,7 +308,8 @@ class ValueMemberElement {
     }
 
     if (this.content) {
-      // TODO Есть подозрение, что этот код не нужен: он используется только для массивов, но для них и так выставляется skipTypesInlining
+      // TODO: There is a possibility that the next piece of code is redundant: it is applicable only for arrays,
+      // but arrays already have skipTypesInlining set to true
       const nestedTypes = this.nestedTypes.map(nt => nt.type);
       const namedTypes = nestedTypes.concat(this.type).filter(t => !isStandardType(t));
       const newTypesChain = namedTypesChain.concat(namedTypes);
@@ -351,7 +351,7 @@ class ValueMemberElement {
       schema.type = 'string';
     }
 
-    // Нормализуем тип, так как в json schema не сущетсвует типа 'file'
+    // Cast type to standard for json schema doesn't have the "file" type
     const normalizedType = (this.type === 'file') ? 'string' : schema.type || (this.baseType === 'object' ? this.baseType : this.type);
 
     if (!schemaRef) {

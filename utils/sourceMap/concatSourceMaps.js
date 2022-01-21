@@ -16,13 +16,13 @@ module.exports = function concatSourceMaps(sourceMaps) {
 };
 
 function prepareBlocks(blocks) {
-  // Данная подготовка нужна на случай когда есть 2 source map, причем один из них включает в себя другой.
-  // Например, при парсинге tests/fixtures/inheritance/object-named-type-inheritance.apib
-  // возникают два source map:
+  // this preparation is actual in the case when there are two source map blocks, and one of them includes the other.
+  // For example, during parsing of tests/fixtures/inheritance/object-named-type-inheritance.apib
+  // two source map blocks are created:
   // # Admin (User)
-  // и
+  // and
   // User
-  // чтобы оставить только первый из них нужна эта функция фильтрации
+  // with the help of this function, only one block remains
   let baseBlock;
   return blocks
     .sort((a, z) => (

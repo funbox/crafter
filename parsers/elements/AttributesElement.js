@@ -4,13 +4,13 @@ const Flags = require('../../Flags');
 const SourceMapElement = require('./SourceMapElement');
 
 /**
- * Секция Attributes
+ * Attributes section
  *
- * Пример:
+ * Example:
  *
  * + Attributes (string)
  *
- * дерево:
+ * resulting tree:
  * AttributesElement
  *   content: ValueMemberElement
  *     type: string
@@ -47,15 +47,15 @@ class AttributesElement {
   }
 
   /**
-   * @param {DataTypes} dataTypes - типы из TypeResolver
+   * @param {DataTypes} dataTypes - types from TypeResolver
    */
   getBody(dataTypes) {
     return this.content.getBody(dataTypes);
   }
 
   /**
-   * @param {DataTypes} dataTypes - типы из TypeResolver
-   * @param {Flags} flags - всегда пустой объект, добавлен для единообразия
+   * @param {DataTypes} dataTypes - types from TypeResolver
+   * @param {Flags} flags - always empty, added for consistency
    */
   getSchema(dataTypes, flags = new Flags()) {
     const localFlags = new Flags(flags);

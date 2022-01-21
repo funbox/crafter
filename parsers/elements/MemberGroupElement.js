@@ -1,7 +1,7 @@
 /**
- * Элемент для хранения групп элементов объектов, массивов и enum-ов.
+ * Element to store groups of objects, arrays, enums
  *
- * Примеры:
+ * Samples:
  *
  * + Attributes
  *   block description
@@ -23,7 +23,7 @@
  */
 class MemberGroupElement {
   /**
-   * @param {string} type - тип группы (array, enum, object)
+   * @param {string} type - type of a group (array, enum, object)
    */
   constructor(type) {
     this.type = type;

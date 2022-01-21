@@ -3,9 +3,9 @@ const Refract = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
 
 /**
- * Именованный тип, описанный с помощью JSON Schema.
+ * Named type described as JSON Schema.
  *
- * Пример:
+ * Example:
  *
  * # Schema Structures
  * # SchemaNamedType <--
@@ -35,7 +35,7 @@ class SchemaNamedTypeElement {
      */
     this.schemaEl = null;
     /**
-     * bodyEl, преобразованный в объект с помощью JSON.parse
+     * a bodyEl transformed to object via JSON.parse
      */
     this.body = null;
 

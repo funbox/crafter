@@ -2,16 +2,16 @@ const { elements: { array } } = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
 
 /**
- * Элемент по умолчанию в структурах данных.
- * Создается только для примитивов или массивов примитивов (string, boolean, number).
+ * An element to keep the default value.
+ * Can be created only for primitive values or arrays of primitive (string, boolean, number)
  *
- * Пример:
+ * Example:
  *
- * исходный текст:
+ * source lines:
  * + Attributes
  *   + foo: bar (string, default)
  *
- * дерево:
+ * resulting tree:
  * AttributesElement
  *   content: ValueMemberElement
  *     content: ObjectElement
@@ -25,7 +25,7 @@ const SourceMapElement = require('./SourceMapElement');
 class DefaultValueElement {
   /**
    * @param {string|number|boolean|string[]|number[]|boolean[]} value
-   * @param {string} type — тип значения
+   * @param {string} type — value type
    * @param sourceMap
    */
   constructor(value, type, sourceMap) {

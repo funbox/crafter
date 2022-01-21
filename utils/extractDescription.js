@@ -38,7 +38,7 @@ module.exports = function extractDescription(curNode, sourceLines, sourceBuffer,
 };
 
 function getNodeTextFormatter(node, startLineOffset) {
-  // для вложенных списков и блоков кода в описании нужно сохранять отступы
+  // we should keep indentation of nested lists and code blocks
   const keepWhitespaces = ['code_block', 'item'].includes(node.type);
 
   if (keepWhitespaces) {

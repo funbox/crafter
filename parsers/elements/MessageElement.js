@@ -3,9 +3,9 @@ const SourceMapElement = require('./SourceMapElement');
 const AttributesElement = require('./AttributesElement');
 
 /**
- * Элемент типа Message, нужен для описания не-HTTP-взаимодействий.
+ * Element of Message type that is used to describe non-HTTP interactions
  *
- * Пример:
+ * Example:
  *
  * ## Message ClientToServerMessage <--
  *   + Attributes
@@ -70,7 +70,7 @@ class MessageElement {
   }
 
   /**
-   * @param {DataTypes} dataTypes - типы из TypeResolver
+   * @param {DataTypes} dataTypes - types from TypeResolver
    */
   getBody(dataTypes) {
     const attrsEl = this.content.find(item => item instanceof AttributesElement);
@@ -78,7 +78,7 @@ class MessageElement {
   }
 
   /**
-   * @param {DataTypes} dataTypes - типы из TypeResolver
+   * @param {DataTypes} dataTypes - types from TypeResolver
    */
   getSchema(dataTypes) {
     let schema;

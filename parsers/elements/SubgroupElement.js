@@ -2,9 +2,9 @@ const Refract = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
 
 /**
- * Элемент для подгрупп при описании не-HTTP-взаимодействия.
+ * Element to keep a subgroup to describe non-HTTP interactions
  *
- * Пример:
+ * Example:
  *
  * # SubGroup chat:1234 <--
  *   Block description of the channel with id "1234"
@@ -26,8 +26,8 @@ class SubgroupElement {
      */
     this.messages = [];
     this.sourceMap = sourceMap;
-    // Тут не может быть unrecognizedBlocks, потому что такой блок либо уйдет в description
-    // либо распознается как unrecognizedBlocks одной из вложенных секций
+    // This element cannot have unrecognized blocks because such a block is determined either as
+    // a description or as an unrecognized block of one of the nested sections
   }
 
   /**

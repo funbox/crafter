@@ -4,25 +4,25 @@ const SourceMapElement = require('./SourceMapElement');
 const { addPrototypesToRefract } = require('./ResourcePrototypesUtils');
 
 /**
- * Action — связка URL + метод + 1 и более Request + 1 или более Response.
- * Если запросов в тексте документации нет, то один запрос будет создан автоматически в методе ActionParser.finalize.
+ * Action is a bundle of URL + HTTP method + at least one Request + at least one Response.
+ * If a documentation file has no user-defined requests, a request will be created automatically in the method ActionParser.finalize.
  *
- * Action элементы группируются в элемент Resource в рамках одного URL, т. е. для примера ниже будет ResourceElement, в котором два ActionElement.
+ * Multiple Action elements group into a Resource element within one URL, i.e. the following example has one ResourceElement with two Action elements.
  *
  * # Users [/users]
  *
- * ## Action с опциональным заголовком [GET]
+ * ## Action with an optional title [GET]
  * + Response 200
  *
  * ## POST
  * + Response 200
  *
- * А для такого примера будет ResourceElement, в котором только один ActionElement.
+ * This example has a ResourceElement with only one ActionElement.
  *
  * # List users [GET /users/]
  * + Response 200
  *
- * Дерево:
+ * Tree:
  *
  * ResourceElement
  *   actions:
@@ -36,10 +36,10 @@ const { addPrototypesToRefract } = require('./ResourcePrototypesUtils');
  */
 class ActionElement {
   /**
-   * @param {StringElement} method - HTTP-метод (GET, POST и т.п.)
-   * @param {StringElement=} href - URL HTTP-запроса
-   * @param {StringElement} title - опциональный заголовок
-   * @param {StringElement[]} prototypes - список Resource Prototypes для данного элемента
+   * @param {StringElement} method - HTTP-method (GET, POST, etc)
+   * @param {StringElement=} href - URL of HTTP request
+   * @param {StringElement} title - optional title
+   * @param {StringElement[]} prototypes - a list of Resource Prototypes of this element
    * @param {SourceMap} sourceMap
    * @param {boolean} languageServerMode
    */

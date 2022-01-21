@@ -2,17 +2,17 @@ const Refract = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
 
 /**
- * Элемент перечисления
+ * Enum element
  *
- * Пример:
+ * Example:
  *
- * исходный текст:
+ * source lines:
  * + kind (enum)
  *   + track
  *   + movement
  *   + Sample track
  *
- * дерево:
+ * resulting tree:
  * PropertyMemberElement
  *   value: ValueMemberElement
  *     content: EnumElement
@@ -28,7 +28,7 @@ const SourceMapElement = require('./SourceMapElement');
 class EnumMemberElement {
   /**
    *
-   * @param {string} value - значение элемента перечисления
+   * @param {string} value - value of an enum element
    * @param {string} description
    * @param {string} type
    */

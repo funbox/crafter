@@ -2,7 +2,7 @@ const Refract = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
 
 /**
- * Элемент для описания строковых структур внутри Element AST, таких как названия именнованных типов, полей объекта и т. п.
+ * Element to store string structures inside of Element AST, such as names of named types, fields of objects, and so on
  */
 class StringElement {
   /**

@@ -4,16 +4,16 @@ const Flags = require('../../Flags');
 const SourceMapElement = require('./SourceMapElement');
 
 /**
- * Элемент секции One Of
+ * One Of element section
  *
- * Пример:
+ * Example:
  *
- * исходный текст:
+ * source lines:
  *   + One Of
  *     + foo
  *     + bar
  *
- * дерево:
+ * resulting tree:
  * OneOfTypeElement
  *   options:
  *     - OneOfTypeOptionElement <--
@@ -62,7 +62,7 @@ class OneOfTypeOptionElement {
   }
 
   /**
-   * @param {DataTypes} dataTypes - типы из TypeResolver
+   * @param {DataTypes} dataTypes - types from TypeResolver
    */
   getBody(dataTypes) {
     return this.members.reduce((body, member) => ({
@@ -72,8 +72,8 @@ class OneOfTypeOptionElement {
   }
 
   /**
-   * @param {DataTypes} dataTypes - типы из TypeResolver
-   * @param {Flags} flags - флаги генерации JSON Schema
+   * @param {DataTypes} dataTypes - types from TypeResolver
+   * @param {Flags} flags - flags for JSON Schema generation
    */
   getSchema(dataTypes, flags = new Flags()) {
     let schema = {};

@@ -3,9 +3,9 @@ const SourceMapElement = require('./SourceMapElement');
 const { addPrototypesToRefract } = require('./ResourcePrototypesUtils');
 
 /**
- * Элемент Resource Prototype.
+ * Resource Prototype elements
  *
- * Пример:
+ * Example:
  *
  * # Resource Prototypes
  * ## UserResource <--
@@ -15,8 +15,8 @@ const { addPrototypesToRefract } = require('./ResourcePrototypesUtils');
 class ResourcePrototypeElement {
   /**
    *
-   * @param {StringElement} title - название прототипа
-   * @param {StringElement[]} prototypes - список прототипов, от которых наследуется текущий
+   * @param {StringElement} title - a title of the prototype
+   * @param {StringElement[]} prototypes - a list of prototypes from which current prototype inherits
    */
   constructor(title, prototypes = []) {
     this.title = title;

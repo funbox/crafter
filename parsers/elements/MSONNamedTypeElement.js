@@ -3,10 +3,10 @@ const Refract = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
 
 /**
- * Именованный тип данных
+ * Named data type
  *
  * # Data Structures
- * ## User <-- именованный тип данных
+ * ## User <-- named data type
  * + name (string, required)
  * + email (string, required)
  *
@@ -22,8 +22,8 @@ class MSONNamedTypeElement {
   constructor(name, valueElement, sourceMap) {
     this.name = name;
     /**
-     * В самом именованном типе хранится только название и описание.
-     * Все внутренности типа лежат в этом поле.
+     * A named type element stores only a title and a description.
+     * All internals of the type lie in this field.
      * @type {ValueMemberElement}
      */
     this.content = valueElement;

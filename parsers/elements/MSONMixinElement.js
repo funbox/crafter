@@ -3,9 +3,9 @@ const Flags = require('../../Flags');
 const SourceMapElement = require('./SourceMapElement');
 
 /**
- * Include-секция
+ * Include section
  *
- * Пример:
+ * Example:
  *
  * + foo
  *   + Include MyType <--
@@ -44,8 +44,8 @@ class MSONMixinElement {
   }
 
   /**
-   * @param {DataTypes} dataTypes - типы из TypeResolver
-   * @param {string[]} namedTypesChain - использованные в процессе генерации body именованные типы, нужны для отслеживания рекурсивных структур
+   * @param {DataTypes} dataTypes - types from TypeResolver
+   * @param {string[]} namedTypesChain - named types used in the Body generation process are applicable to track recursive structures
    */
   getBody(dataTypes, namedTypesChain = []) {
     const typeEl = dataTypes[this.className];
@@ -53,9 +53,9 @@ class MSONMixinElement {
   }
 
   /**
-   * @param {DataTypes} dataTypes - типы из TypeResolver
-   * @param {Flags} flags - флаги генерации JSON Schema
-   * @param {string[]} namedTypesChain - использованные в процессе генерации body именованные типы, нужны для отслеживания рекурсивных структур
+   * @param {DataTypes} dataTypes - types from TypeResolver
+   * @param {Flags} flags - flags for JSON Schema generation
+   * @param {string[]} namedTypesChain - named types used in the Schema generation process are applicable to track recursive structures
    */
   getSchema(dataTypes, flags = new Flags(), namedTypesChain = []) {
     const typeEl = dataTypes[this.className];

@@ -2,15 +2,15 @@ const { elements: { array } } = require('../../Refract');
 const SourceMapElement = require('./SourceMapElement');
 
 /**
- * Пример в структурах данных.
- * Создается только для примитивов или массивов примитивов (string, boolean, number).
+ * An element to keep a sample value.
+ * Can be created only for primitive values or arrays of primitive (string, boolean, number)
  *
- * Пример:
+ * Example:
  *
  * + Attributes
- *   + foo: bar (string) - в этом примере строка bar будет помещена в SampleValueElement
+ *   + foo: bar (string) - "bar" value will be processed as a SampleValueElement
  *
- * дерево:
+ * resulting tree:
  * AttributesElement
  *   content: ValueMemberElement
  *     content: ObjectElement
@@ -26,7 +26,7 @@ const SourceMapElement = require('./SourceMapElement');
 class SampleValueElement {
   /**
    * @param {string|number|boolean|string[]|number[]|boolean[]} value
-   * @param {string} type - тип значения
+   * @param {string} type - value type
    * @param {SourceMap|SourceMap[]} sourceMap
    */
   constructor(value, type, sourceMap) {

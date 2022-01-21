@@ -3,7 +3,7 @@ module.exports = function compareAttributeTypes(baseAttr, childAttr) {
 
   switch (baseType) {
     case 'number':
-      if (childAttr.type) return true; // если для enumMember задан свой тип, то всё ок
+      if (childAttr.type) return true; // enum member can have its own type
       if (Number.isNaN(Number(childAttr.value))) return false;
       break;
     default:
