@@ -1,176 +1,115 @@
-## Отладка Crafter
+## Crafter debugging
 
-При работе над той или иной функциональностью в Crafter разработчик неизбежно
-сталкивается с разного рода ошибками, которые необходимо идентифицировать и
-исправить. Для разбора ошибок можно использовать различные техники. Чаще всего
-применяют отладочный вывод и отладчик (debugger).
+During code writing, any developer most likely will be meeting errors of any sort, which must be identified and fixed. There are many different ways of doing it. The most common are using a logger or a debugger.
 
-Отладочный вывод — добавление в разные части программы инструкций `console.log`,
-позволяющих разработчику лучше понять, что именно происходит в тот или иной
-момент, и на основе этого сделать вывод о причине бага.
+Logging supposes that different parts of a program include `console.log` instructions, which can help a developer to understand what state the program has at a particular point in time.
 
-Отладчик — приложение, позволяющее останавливать выполнение программы в
-определенный момент, производить выполнение программы по шагам и просматривать
-значение различных переменных.
+A debugger is a tool that is typically used to halt the execution of the program, examine the values of variables, execute the program step by step and line by line.
 
-Далее по тексту предполагается, что разработчик использует среду
-программирования [WebStorm](https://www.jetbrains.com/webstorm/). Для других
-приложений (VS Code, Sublime Text, Vim и т. п.) наверняка есть похожие режимы,
-но их рассмотрение выходит за пределы данного документа. О том, как происходит
-отладка Node.js приложений в среде WebStorm, можно прочитать в
-[официальной документации](https://www.jetbrains.com/help/webstorm/running-and-debugging-node-js.html).
+Further in the text it is assumed that a developer uses [WebStorm](https://www.jetbrains.com/webstorm/) IDE.
+Other development environments (VS Code, Sublime Text, Vim, etc) definitely have similar debugging solutions
+but their consideration is beyond the scope of this document. A guide to Node.js app debugging in WebStorm can
+be found in [the official documentation](https://www.jetbrains.com/help/webstorm/running-and-debugging-node-js.html).
 
-По внешнему виду ошибки можно разделить на две группы:
+An error can be related to one of the two groups:
 
-- ошибки JavaScript;
-- несоответствие ожидаемого и фактического результата.
+- a JavaScript error;
+- a mismatch between expected and actual results.
 
-Рассмотрим каждую из групп подробнее.
+Let's take a look at each of the groups.
 
-### Ошибки JavaScript
+### JavaScript errors
 
-Ошибки JavaScript проявляются в виде сообщений `undefined is not a function`,
-`cannot read property y of undefined` и подобных. Специфика JavaScript ошибок в
-том, что всегда можно посмотреть, где данная ошибка произошла. Для этого
-необходимо запустить Crafter с флагом `-d`, при этом будет включен отладочный
-режим, когда при возникновении ошибки происходит выход из программы с печатью
-стека вызовов (stacktrace). Если известно, где произошла ошибка, становится
-возможным понять, почему данная ошибка произошла и как ее исправить.
+Javascript errors can be recognized by such messages as `undefined is not a function`,
+`cannot read property of undefined` and similar to them. Due to the specificity of Javascript,
+you can always track from where the particular error comes. To do that, you need to run Crafter with
+the `-d` option, this enables a debugging mode. If debugging mode is enabled and an error is thrown,
+Crafter will exit with a stack trace printed. To know where an error occurs is the first step to know
+how to fix it.
 
-Например, в случае сообщения `cannot read property y of undefined`, скорее
-всего, происходит попытка вызова метода у объекта, который по каким-то причинам
-отсутствует. Возможно, функция, которая генерирует данный объект, вернула `null`
-или `undefined`, возможно, в одном из блоков `if` забыли присвоить значение
-объекту или же цикл завершился раньше, чем должен был, и поэтому инициализация
-объекта не произошла.
+For example, in the case of the error `cannot read property of undefined`, there is possibly an attempt to call a method on an object that is undefined. Maybe some function returned `null` or `undefined`
+or no value was assigned to an object in some `if` section or a `for` loop.
 
-В случае возникновения ошибки JavaScript рекомендуется использовать отладчик
-(debugger): точка останова (breakpoint) ставится чуть выше места возникновения
-ошибки, и при этом появляется возможность посмотреть значения локальных
-переменных, выполнить программу по шагам и тем самым приблизиться к пониманию
-причин возникновения ошибки и, как следствие, устранению ошибки.
+When a JavaScript error occurs, a debugger can be a helping hand. A breakpoint should be set just above the place where an error occurred to give a developer the ability to watch values of local variables or to execute a program step by step so that the developer can eliminate the error.
 
-### Несоответствие ожидаемого и фактического результата
+### A mismatch between expected and actual results
 
-Другая разновидность ошибок — ситуация, когда ошибки JavaScript отсутствуют, но
-при этом в результате парсинга получается совершенно не тот результат, которого
-ожидает разработчик. Возможны несколько типичных причин такого поведения:
+Another type of error is the situation when no Javascript error is present, but the result
+of the parsing is completely different from the result expected by a developer. Here is the list of possible reasons:
 
-- одна из секций не была распознана, и Crafter пропустил ее: в этом случае чаще
-  всего будет отображаться сообщение вида `Ignoring unrecognized block`;
-- секция была распознана как описание вместо секции с данными: определить данную
-  проблему можно по наличию блока `copy` в результате;
-- секция была распознана неправильно: в результате парсинга секция имеет другой
-  тип, например вместо `dataStructure` — `httpTransaction`;
-- JSON Schema отсутствует, не валидна или выглядит не так, как ожидается;
-- Body отсутствует или выглядит не так, как ожидается.
+- one of the sections was not recognized, so Crafter has to skip it. Probably, the message `Ignoring unrecognized block` will be in the output;
+- a section was recognized as a description, not as a content section. Such section will likely  have a `copy` block in the result;
+- a section was incorrectly recognized. As a result, the section will have an invalid type. For example, the type will be `httpTransaction` instead of `dataStructure`.
+- a JSON schema is missing, invalid or does not look as expected.
 
-В отличие от ошибок JavaScript в случае логических ошибок неочевидно, откуда
-начинать отладку. Разбор ошибок на больших документациях достаточно неудобен,
-поэтому для того, чтобы разобраться в причинах возникновения ошибки и устранить
-их, сначала необходимо подготовить минимальный воспроизводящий пример файла
-`.apib`. Такой пример можно сделать путем последовательного удаления блоков, не
-относящихся к непосредственной ошибке. Можно использовать метод половинного
-деления: удаляем половину секций, проверяем, сохранилась ли ошибка. Если ошибка
-сохранилась, удаляем половину из оставшихся блоков, если нет, возвращаем
-удаленные блоки и удаляем другую половину.
+Unlike JavaScript errors, in the case of logical errors, it is not obvious where to start debugging.
+Debugging large documentation could be unhandy, so it is important to provide a minimal reproducible example. An example can be prepared by sequential deletion of blocks that are not related to the error.
+Bisection method can also be used: delete half of the sections, then check if the error still exists. If it does exist, delete half of the remaining blocks. If not, restore deleted blocks and delete the other half.
 
-После того, как минимальный пример подготовлен, можно начинать поиск и
-устранение ошибки.
+After an example is prepared, you can now begin to search and fix errors.
 
-Рассмотрим каждый из описанных выше случаев подробнее.
+#### An unrecognized section
 
-#### Секция не распознана
+Each section in Crafter is handled by its own parser from the `parsers` directory.
+Each parser implements the next algorithm (see also [algorithm.md](algorithm.md))):
 
-Каждая секция в Crafter обрабатывается своим парсером из директории `parsers`.
-Каждый парсер действует по следующему алгоритму (подробнее см.
-[algorithm.md](algorithm.md)):
+- parse a signature;
+- parse a description;
+- parse nested sections.
 
-- обработать сигнатуру;
-- обработать описание;
-- обработать вложенные секции.
+Nested sections are parsed in a next way:
 
-Вложенные секции обрабатываются следующим образом:
+- call the `nestedSectionType` method;
+- if the method returned a defined value (not-`undefined`), run `processNestedSection`;
+- if the method returned an undefined value, check if the section is valid by calling the `isUnexpectedNode` method. If the section is not valid, skip it.
 
-- вызвать метод `nestedSectionType`;
-- если `nestedSectionType` вернул значение, отличное от `undefined`, запустить
-  `processNestedSection`;
-- если `nestedSectionType` вернул `undefined`, проверить, валидна ли такая
-  секция в данном контексте с помощью метода `isUnexpectedNode`, и если нет, то
-  пропустить ее.
+If a section is not recognized, it means that one of the parsers returned `undefined` from the `nestedSectionType` method. To manage how it happens, set a breakpoint in the `processNestedSections` method of [AbstractParser.js](../parsers/AbstractParser.js) in a place where a warning about an unrecognized section appears. It can help to understand which parser tries to process a section:
 
-Если секция не распозналась, значит в какой-то момент один из парсеров вернул
-`undefined` из метода `nestedSectionType`. Нужно разобраться, почему так
-произошло. Для этого ставим точку останова в
-[AbstractParser.js](../parsers/AbstractParser.js), в методе
-`processNestedSections` рядом с генерацией предупреждения о нераспознанной
-секции, а после этого смотрим, где определена функция `processSignature`, и
-понимаем, в каком парсере находимся:
+![search for a signature](search-for-signature.png)
 
-![поиск метода](search-for-signature.png)
+After that, you can explore the `nestedSectionType` method of the target parser to understand what is wrong.
 
-После этого можно исследовать метод `nestedSectionType` целевого парсера и
-пытаться понять, что пошло не так.
+#### A section is recognized as a description
 
-#### Секция распознана как описание
+Most of the parsers use the function `processDescription` from the [AbstractParser](../parsers/AbstractParser.js) to parse a description. To understand why a section is parsed as a description, it is recommended to add a breakpoint into this function and run the parser in debugging mode. In some cases, it might be not Crafter's fault, but invalid documentation.
 
-Большинство парсеров используют для разбора описания функцию
-`processDescription` из [AbstractParser](../parsers/AbstractParser.js), поэтому
-для того, чтобы понять, почему лишняя секция попала в описание, рекомендуется
-добавить точку останова в эту функцию и запустить парсер в режиме отладки.
-Возможно, дело не в Crafter, а в корректности самой документации, например если
-при написании секции `Body` забыть поставить пустую строку, то весь блок будет
-распознан как описание:
+In the next example, the whole section will be parsed as a description because of the missing empty line after the `+ Body` keyword:
 
 ```markdown
 + Body 
             Hello world
 ```
 
-#### Секция распознана неправильно
+#### A section is recognized incorrectly
 
-Чтобы понять, почему та или иная секция была распознана неправильно, сначала
-необходимо определить, в какой момент все пошло не так, как нужно. Для этого
-добавляем точку останова в [BlueprintParser](../parsers/BlueprintParser.js) в
-конец метода `parse` и проверяем, какое AST получилось. После этого пытаемся
-найти секцию до ошибочной, определяем, какой парсер ее разбирал (для этого
-смотрим название секции и поиском по проекту проверяем, какой из парсеров такую
-секцию создает), добавляем точку останова в найденный парсер и разбираемся,
-почему секция распозналась неправильно.
+To understand why a section can be incorrectly parsed, you need to determine what piece of code breaks the process. Add a breakpoint to the [BlueprintParser](../parsers/BlueprintParser.js) at the end of the `parse` method and check the resulting AST. After that, try to find an invalid section, detect a corresponding parser, add a breakpoint to the parser and find out why the section is parsed incorrectly.
 
-Часто встречающиеся причины такой ошибки:
+Common reasons for an error of this type:
 
-- часть секции распозналась как `description`, и парсер пытается обработать
-  оставшуюся часть с середины;
-- опечатка в функции `processNestedSection`.
+- a part of a section is parsed as a description, and the parser tries to parse the rest of the section from the middle;
+- there might be a typo in a `processNestedSection` function.
 
-#### Проблемы с JSON Schema
+#### JSON Schema issues
 
-Генерация JSON Schema происходит с помощью рекурсивного вызова функции
-`getSchema` в функции `finalize` в
-[ResponseParser](../parsers/ResponseParser.js) и
-[RequestParser](../parsers/RequestParser.js), поэтому в случае проблем
-необходимо поставить точку останова в `finalize` и двигаться вглубь.
+To generate a JSON schema recursive function `getSchema` is called in the `finalize` function in
+[ResponseParser](../parsers/ResponseParser.js) and [RequestParser](../parsers/RequestParser.js), therefore,
+in case of any bugs, you need to set an initial breakpoint in the `finalize` function and then go deeper.
 
-Нужно помнить, что если у элемента `Request` или `Response` есть вложенная
-секция `Schema`, то генерация JSON Schema запускаться не будет.
+It is important to notice that no schema will be generated automatically if
+a `Request` element or a `Response` element has its own nested `Schema` section.
 
-#### Проблемы с Body
+#### Body issues
 
-Генерация Body происходит с помощью рекурсивного вызова функции `getBody` в
-функции `finalize` в [ResponseParser](../parsers/ResponseParser.js) и
-[RequestParser](../parsers/RequestParser.js), поэтому в случае проблем
-необходимо поставить точку останова в `finalize` и двигаться вглубь.
+To generate a JSON schema recursive function `getBody` is called in the `finalize` function in
+[ResponseParser](../parsers/ResponseParser.js) and [RequestParser](../parsers/RequestParser.js), therefore,
+in case of any bugs, you need to set an initial breakpoint in the `finalize` function and then go deeper.
 
-Нужно помнить, что если у элемента `Request` или `Response` есть вложенная
-секция `Body`, то генерация JSON Schema запускаться не будет.
+It is important to notice that no schema will be generated automatically if
+a `Request` element or a `Response` element has its own nested `Body` section.
 
-### Тесты
+### Tests
 
-После отладки той или иной ошибки необходимо добавить тест, который позволит
-удостовериться, что ошибка не появится вновь. Для этого нужно поместить тест в
-директорию `tests/fixtures` и запустить скрипт `npm run regenerate-fixtures`.
-Данный скрипт сгенерирует необходимые для работы теста JSON-файлы. Если в
-результате запуска скрипта кроме новых файлов изменятся существующие, то нужно
-посмотреть изменения вручную и понять, не поломалась ли какая-то существующая
-функциональность.
+When bugfix is accomplished, a test should be added to make sure that an error will not appear again.
+A new test should be placed in the directory `tests/fixtures`, then run `npm run regenerate-fixtures`.
+This script generates JSON files that act as a model to compare with an actual result.
+If some other JSON files changed after regeneration, that change must be validated manually to prevent regression.

@@ -1,908 +1,909 @@
-# История изменений проекта
+# Changelog
 
 ## 3.6.0 (28.12.2021)
 
-* Замена форка `@funbox/commonmark` на оригинальный пакет.
+* Replace `commonmark` fork with the original package.
 
 ## 3.5.0 (11.12.2021)
 
-* Добавление Юриста.
+* Add Lawyer.
 
 ## 3.4.2 (03.11.2021)
 
-* Исправление ошибки ONE_OF_MULTIPLE для nullable элемента с типом oneOf.
+* Fix error ONE_OF_MULTIPLE for a nullable One Of element.
 
 ## 3.4.1 (03.11.2021)
 
-* Исправление подсчета файлов документации.
+* Fix counting of documentation files.
 
 ## 3.4.0 (20.10.2021)
 
-* Замена базового Докер-образа на node:14.18.0-stretch-slim.
+* Use node:14.18.0-stretch-slim for docker image.
 
 ## 3.3.0 (20.08.2021)
 
-* Настройка уведомлений о релизах.
+* Send notifications about new releases.
 
 ## 3.2.0 (22.07.2021)
 
-* Перевод публикации docker-образа с dind на kaniko.
+* Use kaniko to publish a docker image.
 
 ## 3.1.1 (16.07.2021)
 
-* Исправление парсинга параметров URI, содержащих символы "~", ".", "-".
+* Fix parsing of URI parameters that contain symbols "~", ".", "-".
 
 ## 3.1.0 (24.06.2021)
 
-* Добавление ограничения на тип атрибута для определения multi-samples.
+* Restrict attribute type to process inline samples correctly.
 
 ## 3.0.0 (23.06.2021)
 
-* Изменение схемы работы с импортами.
+* Full refactor of imports.
 
 ## 2.25.0 (18.05.2021)
 
-* Настройка создания релизов при мерже в мастер.
+* Create a new release after merge to the master branch.
 
 ## 2.24.0 (17.05.2021)
 
-* Генерация шаблонов body, включающих все опции One Of.
+* Generate templates of body sections which include all One Of options.
 
 ## 2.23.0 (28.04.2021)
 
-* Добавление sourceMap в ошибки.
+* Generate source maps of parsing errors.
 
 ## 2.22.0 (23.04.2021)
 
-* Использование concatSourceMaps для объединения sm вместо mergeSourceMaps.
+* Use concatSourceMaps to join sourcemaps instead of mergeSourceMaps.
 
 ## 2.21.0 (21.04.2021)
 
-* Доработка определения наличия нераспознанной ноды.
+* Improve detection of unrecognized nodes.
 
 ## 2.20.0 (20.04.2021)
 
-* Генерация httpTransaction даже если у Action нет ни одного Response.
+* Create httpTransaction even if an Action block has no response.
 
 ## 2.19.0 (16.04.2021)
 
-* Добавление дублирующихся секций Default в unrecognizedBlocks.
+* Handle duplicated Default sections as unrecognized blocks.
 
 ## 2.18.0 (14.04.2021)
 
-* Добавление sourceMap для httpTransaction в ActionElement.
+* Add sourceMap of httpTransaction in ActionElement;
 
 ## 2.17.1 (02.04.2021)
 
-* Исправление обращения к sourceLines при извлечении описания.
+* Get correct source lines during the extraction of description.
 
 ## 2.17.0 (02.04.2021)
 
-* Доработка конфигурации gitlab-ci.
+* Update gitlab-ci config.
 
 ## 2.16.6 (29.03.2021)
 
-* Замена ссылок репозиториев на gitlab.
+* Change repo links with Gitlab links.
 
 ## 2.16.5 (29.03.2021)
 
-* Удаление переменной `no_proxy`.
+* Delete `no_proxy` variable.
 
 ## 2.16.4 (25.03.2021)
 
-* Исправление перезатирания значений attributes для enum nullable.
+* Fix the situation when nullable enum attributes get overridden.
 
 ## 2.16.3 (23.03.2021)
 
-* Автопубликация пакета.
+* Setup package auto-publish.
 
 ## 2.16.2 (23.03.2021)
 
-* Настройка кэша node_modules.
+* Cache node_modules.
 
 ## 2.16.1 (22.03.2021)
 
-* Отключение tags pipeline.
+* Disable pipeline for tags.
 
 ## 2.16.0 (19.03.2021)
 
-* Исправление парсинга невалидных секций Resource Group, Resource и Action в language server mode.
+* Fix parsing of invalid section Resource Group, Resource, and Action, when parser is in language server mode.
 
 ## 2.15.1 (16.03.2021)
 
-* Фикс парсинга именованного enum, который содержит только Default-секцию.
+* Correctly parse a named enum when it contains only a Default section.
 
 ## 2.15.0 (15.03.2021)
 
-* Доработки и обновления тестов по результатам отчёта jest.
+* Different improvements inspired by Jest testing report.
 
 ## 2.14.0 (15.03.2021)
 
-* Исправление лишних отступов во вложенных описаниях.
+* Fix unwanted indentation in nested description blocks.
 
 ## 2.13.8 (09.03.2021)
 
-* Исправление примера использования в README.
+* Update usage example in README.
 
 ## 2.13.7 (04.03.2021)
 
-* Исправление обработки unrecognized block после инструкции Import.
+* Handle unrecognized block when it comes after Import directive.
 
 ## 2.13.6 (04.03.2021)
 
-* Исправление работы с несколькими секциями Default.
+* Fix processing multiple Default sections.
 
 ## 2.13.5 (02.03.2021)
 
-* Удаление дублирования типов из getDefaultValue.
+* Remove duplicated types from getDefaultValue.
 
 ## 2.13.4 (02.03.2021)
 
-* Исправление обработки пустого заголовка в Resource Prototypes.
+* Handle empty titles in Resource Prototypes.
 
 ## 2.13.3 (02.03.2021)
 
-* Исправление парсинга секции Attributes в language server mode.
+* Fix Attributes section parsing in language server mode.
 
 ## 2.13.2 (02.03.2021)
 
-* Исправление подсчета описания для некорректной сигнатуры в language server mode.
+* Fix determination of a description when element signature is incorrect in language server mode.
 
 ## 2.13.1 (02.03.2021)
 
-* Исправление Source Map для Description внутри ValueMemberElement из MSONNamedTypeElement.
+* Fix Source Map of a description of ValueMemberElement that belongs to MSONNamedTypeElement.
 
 ## 2.13.0 (01.03.2021)
 
-* Удаление тестов из Drafter.
+* Delete Drafter tests.
 
 ## 2.12.0 (26.02.2021)
 
-* Использование отдельного класса для byteBlock / charBlock.
+* Use separate classes for byteBlock / charBlock.
 
 ## 2.11.0 (26.02.2021)
 
-* Упрощение хелпера nodeText.
+* Simplify nodeText helper.
 
 ## 2.10.0 (25.02.2021)
 
-* Добавление описания для элементов One Of.
+* Add a description to One Of elements.
 
 ## 2.9.0 (24.02.2021)
 
-* Разделение utils.js на отдельные модули.
+* Split utils.js into separate modules.
 
 ## 2.8.0 (15.02.2021)
 
-* Добавление unrecognizedBlocks в AST.
+* Add unrecognizedBlocks to AST.
 
 ## 2.7.0 (15.02.2021)
 
-* Аудит зависимостей.
+* Update dependencies to pass audit.
 
 ## 2.6.0 (29.01.2021)
 
-* Добавление проверки допустимых атрибутов у элемента.
+* Check allowed attributes of an element.
 
 ## 2.5.0 (27.01.2021)
 
-* Унификация поля с названием для resource prototype.
+* Use unified title field for resource prototypes.
 
 ## 2.4.0 (26.01.2021)
 
-* Добавление source map для resource prototypes.
+* Add source maps for resource prototypes.
 
 ## 2.3.3 (21.01.2021)
 
-* Исправление формирования схемы для enum, заданного по ссылке.
+* Fix generated schema for enums defined as a reference.
 
 ## 2.3.2 (15.01.2021)
 
-* Обработка пустой ноды в именованном типе.
+* Process an empty node in named types.
 
 ## 2.3.1 (15.01.2021)
 
-* Обработка отсутствующего Mixin в Attributes в language server mode.
+* Handle missing mixins inside of Attributes section when language server mode activated.
 
 ## 2.3.0 (13.01.2021)
 
-* Добавление толерантного парсинга.
+* Add tolerate parsing mode.
 
 ## 2.2.0 (13.01.2021)
 
-* Добавление source map для nested types.
+* Generate source map for nested types.
 
 ## 2.1.1 (22.12.2020)
 
-* Исправление сочетания ref и nullable в json-схемах.
+* Fix collision of "ref" and "nullable" in JSON schema.
 
 ## 2.1.0 (10.12.2020)
 
-* Исправление добавления атрибутов fixed, fixedType в атрибуты наследующего элемента.
+* Correctly add attributes "fixed" and "fixedType" to the attributes list of the inherited element.
 
 ## 2.0.1 (25.11.2020)
 
-* Исправление формирования текста ошибки для параметров.
+* Fix message of the error caused by a wrong parameter.
 
 ## 2.0.0 (23.11.2020)
 
-* Добавление возможности переопределения функции чтения импортируемого файла.
+* Add the ability to redefine the function that reads an imported file.
 
 ## 1.68.1 (23.11.2020)
 
-* Исправление определения дублирующих запросов.
+* Fix detection of duplicating requests.
 
 ## 1.68.0 (23.11.2020)
 
-* Доработка сообщений ошибок импорта.
+* Improve import errors.
 
 ## 1.67.1 (18.11.2020)
 
-* Исправление генерации charBlocks для документации из нескольких файлов.
+* Fix generated charBlocks when doc includes multiple files.
 
 ## 1.67.0 (06.11.2020)
 
-* Добавление проверки на дублирование actions.
+* Check if resource has duplicated actions.
 
 ## 1.66.3 (06.11.2020)
 
-* Исправление опечаток в доке.
+* Fix typos in docs.
 
 ## 1.66.2 (23.10.2020)
 
-* Исправление fixed-объектов в массивах.
+* Fix processing of fixed objects inside of arrays.
 
 ## 1.66.1 (23.10.2020)
 
-* Переход к следующей ноде в случае неизвестных элементов, вложенных в примитив.
+* Switch to the next node when encountering an unknown node inside of a primitive element.
 
 ## 1.66.0 (23.10.2020)
 
-* Улучшение SourceMap.
+* Refactor SourceMap.
 
 ## 1.65.0 (19.10.2020)
 
-* Обработка секции Default в именованных типах.
+* Process Default section in named types.
 
 ## 1.64.1 (16.10.2020)
 
-* Исправление обработки nameless endpoint resources.
+* Fix processing of nameless endpoint resources.
 
 ## 1.64.0 (12.10.2020)
 
-* Удаление передачи дефолтного логгера в Crafter.parse.
+* Do not use default logger inside of Crafter.parse.
 
 ## 1.63.1 (15.09.2020)
 
-* Доработка получения nestedTypes именованных типов при наследовании.
+* Improve acquiring nested types in inherited named types.
 
 ## 1.63.0 (21.07.2020)
 
-* Доработка сообщения ошибки "Type not found".
+* Improve message of the error "Type not found".
 
 ## 1.62.0 (17.07.2020)
 
-* Доработка проверки типа секции MemberTypeGroup в именованных типах.
+* Improve check of MemberTypeGroup section in named types.
 
 ## 1.61.0 (15.07.2020)
 
-* Удаление присваивания результатов проверки валидности атрибутов.
+* Do not use attributes validity check result as a return value.
 
 ## 1.60.0 (09.07.2020)
 
-* Улучшение описания файлов в папке `crafter/parsers/elements`.
+* Improve files description in the folder `crafter/parsers/elements`.
 
 ## 1.59.0 (09.07.2020)
 
-* Улучшение документации в папке `crafter/docs`.
+* Improve documentation in the folder `crafter/docs`.
 
 ## 1.58.1 (09.07.2020)
 
-* Исправление генерации source maps для файла без новой строки в конце.
+* Fix source maps for files with no new line at the end.
 
 ## 1.58.0 (08.07.2020)
 
-* Улучшение текста `README.md`.
+* Improve `README.md`.
 
 ## 1.57.0 (08.07.2020)
 
-* Доработка переопределения атрибутов при наследовании.
+* Improve attributes overriding and precedence.
 
 ## 1.56.0 (08.07.2020)
 
-* Добавление проверки типа вложенных миксинов.
+* Check type of included mixins.
 
 ## 1.55.0 (08.07.2020)
 
-* Возможность задать Include в массивах и перечислениях.
+* Add the ability to use Include in arrays and enums.
 
 ## 1.54.4 (07.07.2020)
 
-* Предотвращение повторного вызова callback в Crafter.parse.
+* Call callback in Crafter.parse only once.
 
 ## 1.54.3 (22.06.2020)
 
-* Исправление обработки импортов в импортированном файле.
+* Fix imports processing inside of an imported file.
 
 ## 1.54.2 (22.06.2020)
 
-* Исправление парсинга секции Resource идущей после Resource Prototypes.
+* Fix processing of the Resource section when it comes after Resource Prototypes section.
 
 ## 1.54.1 (22.06.2020)
 
-* Корректная обработка ошибок неизвестного Resource Prototype.
+* Improve error handling when unknown Resource Prototype found.
 
 ## 1.54.0 (22.06.2020)
 
-* Распознание первой ноды подключаемого файла при импорте.
+* Detect first node of the imported file.
 
 ## 1.53.0 (17.06.2020)
 
-* Переход на Node.js 12.16.3 в Docker образе.
+* Use Node.js 12.16.3 in Docker image.
 
 ## 1.52.0 (19.05.2020)
 
-* Правка jsdoc для конструкторов RequestElement и ResponseElement.
+* Fix jsdoc for constructors of RequestElement and ResponseElement classes.
 
 ## 1.51.0 (19.05.2020)
 
-* Запрет указания сложных типов данных для URI параметров.
+* Disallow complex data types used in URI parameters.
 
 ## 1.50.0 (14.05.2020)
 
-* Добавление поддержки рекурсивных объектов.
+* Add support of recursive objects.
 
 ## 1.49.0 (13.05.2020)
 
-* Вывод предупреждений при дублировании ресурсов.
+* Show a warning in case of duplicated resources.
 
 ## 1.48.1 (14.04.2020)
 
-* Удаление definitions для наследуемых типов.
+* Delete definitions for inherited types.
 
 ## 1.48.0 (09.04.2020)
 
-* Вывод предупреждений при задании примеров массивам и перечислениям с объектами.
+* Show a warning when arrays of objects or enums of objects have a sample.
 
 ## 1.47.2 (20.03.2020)
 
-* Сохранение отступов списков в описании.
+* Keep list indentation in a description blocks.
 
 ## 1.47.1 (26.02.2020)
 
-* Доработка генерации json schema для рекурсивных массивов с вложенным полем.
+* Improve JSON schemas for recursive arrays with nested elements.
 
 ## 1.47.0 (14.02.2020)
 
-* Удаление избыточной проверки.
+* Delete unnecessary check.
 
 ## 1.46.1 (12.02.2020)
 
-* Рефакторинг названия и описания переменных и параметров функции.
+* Refactor the titles and descriptions of variables and parameters in functions.
 
 ## 1.46.0 (31.01.2020)
 
-* Добавление информации об отладке Crafter.
+* Add an information of how to debug Crafter.
 
 ## 1.45.0 (31.01.2020)
 
-* Описание структур данных из parsers/elements.
+* Add a description for data structures from parsers/elements.
 
 ## 1.44.0 (28.01.2020)
 
-* Добавление комментариев с обоснованием использования StringElement для описания.
+* Add a comment to explain why StringElement is used as an element for description.
 
 ## 1.43.0 (28.01.2020)
 
-* Добавление дебаг-режима.
+* Add debug mode.
 
 ## 1.42.0 (28.01.2020)
 
-* Постпроцессинг созданного ValueMemberElement в schema.test.js.
+* Add postprocessing to a ValueMemberElement object in schema.test.js.
 
 ## 1.41.0 (27.01.2020)
 
-* Добавление класса SourceMap.
+* Add SourceMap class.
 
 ## 1.40.0 (27.01.2020)
 
-* Добавление SourceMapElementWithLineColumnInfo.
+* Add SourceMapElementWithLineColumnInfo.
 
 ## 1.39.1 (24.01.2020)
 
-* Исправление типа элемента statusCode в ResponseElement.
+* Fix the value type of statusCode element in ResponseElement.
 
 ## 1.39.0 (24.01.2020)
 
-* Удаление ненужных проверок типов в splitValues и convertType.
+* Delete redundant type checks in splitValues and convertType.
 
 ## 1.38.0 (21.01.2020)
 
-* Описание процесса преобразования Markdown дерева в APIB AST.
+* Describe the process of how Markdown transforms to APIB AST.
 
 ## 1.37.0 (02.11.2019)
 
-* Использование по умолчанию значения property в качестве примера.
+* Use property value as a sample if no sample provided.
 
 ## 1.36.1 (29.10.2019)
 
-* Исправление ошибки "Type not found" при парсинге атрибутов "default" и "sample".
+* Fix the error "Type not found" caused by parsing of "default" and "sample" attributes.
 
 ## 1.36.0 (19.10.2019)
 
-* Поддержка рекурсивных массивов.
+* Add support of recursive arrays.
 
 ## 1.35.1 (17.10.2019)
 
-* Добавление pretest-скрипта.
+* Add pretest npm task.
 
 ## 1.35.0 (14.10.2019)
 
-* Удаление мутации объекта valueMemberElement в методе getSchema.
+* Avoid valueMemberElement object mutation in the "getSchema" method.
 
 ## 1.34.2 (07.10.2019)
 
-* Отключение парсинга атрибутов у schema named type.
+* Skip attributes parsing in schema named types.
 
 ## 1.34.1 (03.10.2019)
 
-* Исправление генерации body для falsy примеров.
+* Fix body generation for falsy samples.
 
 ## 1.34.0 (03.10.2019)
 
-* Сборка docker-образа на этапе postpublish.
+* Build Docker image at postpublish stage.
 
 ## 1.33.0 (02.10.2019)
 
-* Исключение тестов при публикации пакета.
+* Exclude tests from files to publish.
 
 ## 1.32.0 (02.10.2019)
 
-* Source maps для инлайн-примеров.
+* Add source maps to inline-defined samples.
 
 ## 1.31.4 (02.10.2019)
 
-* Удаление ручной корректировки sourcepos для code-block типа.
+* Remove in-place correction of sourcepos for code_block sections.
 
 ## 1.31.3 (01.10.2019)
 
-* Указание версии crafter при добавлении его в контейнер.
+* Specify Crafter version in a container.
 
 ## 1.31.2 (01.10.2019)
 
-* Установка последней версии пакета Crafter в контейнер.
+* Use the latest Crafter version to install into a container.
 
 ## 1.31.1 (01.10.2019)
 
-* Добавление отдельной команды на пуш latest-версии образа с Crafter.
+* Add a separate command to push the latest version of the image.
 
 ## 1.31.0 (01.10.2019)
 
-* Добавление Dockerfile для сборки образа.
+* Add Dockerfile to build an image.
 
 ## 1.30.0 (30.09.2019)
 
-* Добавление ошибки SignatureError и ее обработка при парсинге.
+* Add custom error SignatureError.
 
 ## 1.29.0 (26.09.2019)
 
-* Перевод на @funbox/commonmark для корректного отражения sourcepos комментариев.
+* Use commonmark fork to correctly generate sourcepos of html comments.
 
 ## 1.28.0 (23.09.2019)
 
-* Удаление избыточного копирования контента при наследовании типа от типа.
+* Remove redundant copied content when inheriting one type from another type.
 
 ## 1.27.0 (18.09.2019)
 
-* Парсинг заголовков «Sample».
+* Parse "Sample" sections defined as headers.
 
 ## 1.26.0 (02.09.2019)
 
-* Возможность использования Schema-типов в различных секциях.
+* Allow to use Schema-types in different sections.
 
 ## 1.25.0 (30.08.2019)
 
-* Возможность получить список файлов использованных при генерации документации.
+* Add the ability to get a list of files used to generate documentation.
 
 ## 1.24.4 (28.08.2019)
 
-* Исправление ошибок вида «invalid sectionType».
+* Fix errors «invalid sectionType».
 
 ## 1.24.3 (22.08.2019)
 
-* Исправление парсинга блоков с заголовками при импорте.
+* Fix parsing of imported docs with the Headers section.
 
 ## 1.24.2 (22.08.2019)
 
-* Исправление формирования информации о строке/колонке в sourceMap при импорте.
+* Fix line/column info in sourcemaps of imported file.
 
 ## 1.24.1 (20.08.2019)
 
-* Исправление ошибок «Maximum call stack size exceeded».
+* Fix error «Maximum call stack size exceeded».
 
 ## 1.24.0 (15.08.2019)
 
-* Доработка слияния полей items в хэлпере mergeSchemas.
+* Improve merge of "items" fields in helper method mergeSchemas.
 
 ## 1.23.1 (15.08.2019)
 
-* Исправление сообщения об ошибке при отсутствии искомого блока.
+* Fix error message when expected block not found.
 
 ## 1.23.0 (02.08.2019)
 
-* Исправление рефракта элементов для соответствия api-elements.
+* Fix refract to conform api-elements spec.
 
 ## 1.22.0 (31.07.2019)
 
-* Вывод предупреждения о несовпадении значения и ожидаемого типа.
+* Show warning when a value doesnt match an expected data type.
 
 ## 1.21.4 (31.07.2019)
 
-* Отображение предупреждения при попытке задать inline-значение объекту.
+* Show warning after the attempt to set an inline-value for an object.
 
 ## 1.21.3 (30.07.2019)
 
-* Исправление определения типа инлайн-элементов массива.
+* Correctly detect type of inline-value of an array element.
 
 ## 1.21.2 (29.07.2019)
 
-* Исправление обработки описания параметров URI.
+* Fix processing of description of URI parameters.
 
 ## 1.21.1 (29.07.2019)
 
-* Исправление применения Sample и Default, добавленных в именованном типе.
+* Fix Sample / Default section added to a named type.
 
 ## 1.21.0 (26.07.2019)
 
-* Рефакторинг getBody.
+* Refactor getBody method.
 
 ## 1.20.0 (25.07.2019)
 
-* Рефакторинг работы со значениями по-умолчанию.
+* Refactor Default section.
 
 ## 1.19.0 (25.07.2019)
 
-* Рефакторинг примеров (Samples).
+* Refactor Samples section.
 
 ## 1.18.3 (10.07.2019)
 
-* Исправление ошибки при неправильном атрибуте.
+* Fix error when incorrect MSON-attribute encountered.
 
 ## 1.18.2 (26.06.2019)
 
-* Исправление значения value со строки на null в schema для типа nullable enum.
+* Use "null" value for nullable enums in JSON schema.
 
 ## 1.18.1 (26.06.2019)
 
-* Корректировка schema для типа nullable enum.
+* Fix JSON schema for nullable enum.
 
 ## 1.18.0 (19.06.2019)
 
-* Парсинг Schema Structures.
+* Parse Schema Structures.
 
 ## 1.17.0 (18.06.2019)
 
-* Вывод версии крафтера.
+* Add version option to cli.
 
 ## 1.16.0 (14.06.2019)
 
-* Генерация json-schema для секций Message.
+* Generate json-schema for Message sections.
 
 ## 1.15.0 (10.06.2019)
 
-* Добавление блоков Schema Structures.
+* Schema Structures section implementation.
 
 ## 1.14.5 (07.06.2019)
 
-* Генерация корректного body для примитивных типов без примеров.
+* Generate correct body for primitive types without samples.
 
 ## 1.14.4 (03.06.2019)
 
-* Исправление парсинга пустых секций Body и Schema.
+* Fix parsing of empty Body/Schema section.
 
 ## 1.14.3 (03.06.2019)
 
-* Корректировка отражения value в schema при наследовании именованных типов.
+* Add correct value to schema when inheritance of named types is applied.
 
 ## 1.14.2 (03.06.2019)
 
-* Исправление schema для комплексных объектов с nullable.
+* Fix generated JSON schema for complex objects with "nullable" attribute.
 
 ## 1.14.1 (31.05.2019)
 
-* Исправление рефракта заголовка секции Message.
+* Fix refract for a title of Message section
 
 ## 1.14.0 (25.05.2019)
 
-* Парсинг секции Message.
+* Message section parsing.
 
 ## 1.13.1 (24.05.2019)
 
-* Исправление потери отступов у code_block.
+* Fix lost indentation in code_block.
 
 ## 1.13.0 (24.05.2019)
 
-* Добавление в readme.md описания использования на других проектах.
+* Add installation and use info to readme.md.
 
 ## 1.12.1 (22.05.2019)
 
-* Вывод предупреждений о неверном задании отступов секций Headers и Body.
+* Show a warning when Headers and Body sections have wrong indentation.
 
 ## 1.12.0 (21.05.2019)
 
-* Поддержка параметров minimum и maximum.
+* Add support of "minimum" and "maximum" attributes.
 
 ## 1.11.1 (20.05.2019)
 
-* Исправление парсинга параметров URI со звёздочкой в actions.
+* Fix parsing of URI parameters that have star symbol.
 
 ## 1.11.0 (17.05.2019)
 
-* Парсинг секций SubGroup.
+* SubGroup section parsing.
 
 ## 1.10.2 (16.05.2019)
 
-* Изменение схемы парсинга сигнатуры секций Resource.
+* Change the way how to parse signature of a Resource section.
 
 ## 1.10.1 (14.05.2019)
 
-* Исправление получения сорсмапов для блочного описания без отступов.
+* Fix sourcemaps for block description with zero indentation.
 
 ## 1.10.0 (13.05.2019)
 
-* Вывод ошибок в AST.
+* Put errors in AST.
 
 ## 1.9.4 (07.05.2019)
 
-* Исправление парсинга блока кода в блочном описании.
+* Fix parsing of a code block in a description.
 
 ## 1.9.3 (07.05.2019)
 
-* Корректировка json-схем для fixed и fixed-type элементов.
+* Fix JSON schema for "fixed" and "fixed-type" elements.
 
 ## 1.9.2 (07.05.2019)
 
-* Конвертация значений нетипизированных элементов массива.
+* Convert array elements that have no explicit type.
 
 ## 1.9.1 (26.04.2019)
 
-* Конвертирование вложенных элементов enum.
+* Copy nested elements of an enum.
 
 ## 1.9.0 (23.04.2019)
 
-* Возможность отображения блоков в описании.
+* Text blocks in description.
 
 ## 1.8.4 (23.04.2019)
 
-* Исправление передачи атрибута fixed-type вложенным элементам.
+* Fix transfer of the "fixed-type" attribute to nested elements.
 
 ## 1.8.3 (19.04.2019)
 
-* Исправление проверки типа атрибутов при сравнении.
+* Fix attributes type check when attributes are being compared.
 
 ## 1.8.2 (19.04.2019)
 
-* Исправление проверки совпадающих атрибутов при резолве наследования.
+* Fix check of matching attributes during inheritance routine.
 
 ## 1.8.1 (18.04.2019)
 
-* Исправление обработки секций resourcePrototype.
+* Fix processing of "Resource prototype" sections.
 
 ## 1.8.0 (18.04.2019)
 
-* Добавление предупреждения, если тип значения не соответствует string-типу для атрибутов pattern и format.
+* Show a warning if the actual value type of "pattern"/"format" attributes cannot be casted to string type.
 
 ## 1.7.0 (16.04.2019)
 
-* Добавление warning-ов в AST.
+* Add warnings to AST.
 
 ## 1.6.0 (07.04.2019)
 
-* Удаление ключевого слова fixed-type для массивов из дерева.
+* Delete from tree "fixed-type" keyword in array element.
 
 ## 1.5.0 (05.04.2019)
 
-* Поддержка атрибута format.
+* Process "format" attribute.
 
 ## 1.4.0 (03.04.2019)
 
-* Обработка атрибутов min-length и max-length.
+* Process min-length / max-length attributes.
 
 ## 1.3.0 (30.03.2019)
 
-* Добавление описаний для fixtures.
+* Add a description to fixtures.
 
 ## 1.2.0 (19.03.2019)
 
-* Добавление поддержки атрибута pattern для строковых типов.
+* Add support of the "pattern" attribute for string-typed elements.
 
 ## 1.1.14 (18.03.2019)
 
-* Проверка атрибута optional при формировании json-schema.
+* JSON schema should consider "optional" attributes.
 
 ## 1.1.13 (13.03.2019)
 
-* Использование дефолтных значений в body и json-schema.
+* Use default values in body and JSON schema.
 
 ## 1.1.12 (07.03.2019)
 
-* Исправление генерации json-schema для fixed и fixed-type объектов.
+* Fix generation of JSON schemas for object with "fixed" and "fixed-type" attributes.
 
 ## 1.1.11 (07.03.2019)
 
-* Доработки секции Default и возможность вкладывать Default и Sample в примитивы.
+* Improve Default section processing.
+* Add the ability to use nested Default and Sample sections in primitive types.
 
 ## 1.1.10 (07.03.2019)
 
-* Исправление парсинга атрибутов.
+* Fix attributes parsing.
 
 ## 1.1.9 (07.03.2019)
 
-* Добавление предупреждения если в action отсутствуют ответы.
+* Add a warning if action has no responses.
 
 ## 1.1.8 (06.03.2019)
 
-* Исправление процессинга именованных примитивных типов.
+* Fix processing of named primitive types.
 
-## 1.1.7 (01.03.2019)
+## 1.1.7 (01.02.2019)
 
-* Исправление парсинга именованных эндпоинтов.
+* Fix processing of a named endpoint.
 
 ## 1.1.6 (27.02.2019)
 
-* Удаление пустой строки из source map.
+* Delete empty strings from source map sections.
 
 ## 1.1.5 (27.02.2019)
 
-* Обработка enum uri-параметра с пропущенным "+ Members".
+* Fix processing of a URI parameter with missing "+ Members".
 
 ## 1.1.4 (27.02.2019)
 
-* Вывод полного идентификатора типа uri-параметра.
+* Add full URI parameter signature to output.
 
 ## 1.1.3 (27.02.2019)
 
-* Вывод предупреждений на stderr.
+* Use stderr to output warnings.
 
 ## 1.1.2 (26.02.2019)
 
-* Обработка вложенных элементов href-параметра в виде описания.
+* Process nested elements of a href parameter as a description.
 
 ## 1.1.1 (22.02.2019)
 
-* Исправление парсинга пустых значений enum.
-* Исправление парсинга Resource Prototype.
+* Fixed processing of empty enum values.
+* Fixed parsing of a Resource Prototype section.
 
 ## 1.1.0 (21.02.2019)
 
-* Вывод более читаемой ошибки при парсинге секций NamedType и Attributes.
+* Make error message more readable when error occurs in NamedType and Attributes sections.
 
 ## 1.0.4 (20.02.2019)
 
-* Доработка конвертации значений в mson-атрибутах.
+* Improved conversion of values in MSON-attributes.
 
 ## 1.0.3 (16.02.2019)
 
-* Исправление генерации body.
+* Fix body generation.
 
 ## 1.0.2 (11.02.2019)
 
-* Исправление наследования от пустого именованного типа.
+* Fix inheritance from an empty named type.
 
 ## 1.0.1 (06.02.2019)
 
-* Исправление метода Crafter.parse при использовании вместе с utils.promisify.
+* Fix the Crafter.parse method when it is used along with the utils.promisify helper.
 
 ## 1.0.0 (30.01.2019)
 
-* Обработка атрибута sample у разных типов mson-элементов.
+* Process the "sample" attribute in MSON elements declaration.
 
 ## 0.13.0 (29.01.2019)
 
-* Добавление препроцессинга типов.
+* Preprocess types.
 
 ## 0.12.1 (24.01.2019)
 
-* Исправление получения sourceMaps элементов из импортированных файлов.
+* Fix wrong sourcemaps from imported files.
 
 ## 0.12.0 (23.01.2019)
 
-* Указание номера строки и текущего файла при выводе предупреждения.
+* Define line and current file in a warning message.
 
 ## 0.11.0 (22.01.2019)
 
-* Генерация messageBody.
+* Generate messageBody.
 
 ## 0.10.3 (18.01.2019)
 
-* Удаление дубликата слова Warning в предупреждении.
+* Delete duplicated "Warning" word in a warning message.
 
 ## 0.10.2 (18.01.2019)
 
-* Исправление обработки атрибута "fixed" при создании схем.
+* JSON schema creation now correctly applies "fixed" attribute.
 
 ## 0.10.1 (10.01.2019)
 
-* Исправление обработки описания для response и request.
+* Fix description processing for requests and responses.
 
 ## 0.10.0 (09.01.2019)
 
-* Запись инлайн-значений массива в качестве блока samples.
+* Use array's inline-defined values as array samples.
 
 ## 0.9.2 (27.12.2018)
 
-* Исправление парсинга секции Action без uri.
+* Fix Action section parsing when action uri is missing.
 
 ## 0.9.1 (27.12.2018)
 
-* Добавление условия выхода при получении описания apib-документа.
+* Add a return condition when getting a document description.
 
 ## 0.9.0 (27.12.2018)
 
-* Обработка секции с метаданными.
+* Parse metadata section.
 
 ## 0.8.2 (26.12.2018)
 
-* Исправление обработки пустых именованных типов.
+* Fix parsing of empty named types
 
 ## 0.8.1 (26.12.2018)
 
-* Исправление возврата nextNode из секции Attributes.
+* Return correct nextNode from Attributes section.
 
 ## 0.8.0 (25.12.2018)
 
-* Реализация блочного описания массивов.
+* Parse block description in arrays
 
 ## 0.7.0 (19.12.2018)
 
-* Добавление тестов из Drafter.
+* Add tests from Drafter.
 
 ## 0.6.1 (14.12.2018)
 
-* Исправление работы при разборе документации без названия.
+* Fix parsing when documentation has no title.
 
 ## 0.6.0 (07.12.2018)
 
-* Изменение очередности атрибутов в именованных типах для соответствия поведению Drafter.
+* Change attributes order in named types to behave more Drafter-way
 
 ## 0.5.1 (06.12.2018)
 
-* Исправление определения currentFile.
+* Detect currentFile properly.
 
 ## 0.5.0 (06.12.2018)
 
-* Добавление обработки описания и свойств для MSONNamedTypeElement.
+* Parse description and properties of MSONNamedTypeElement.
 
 ## 0.4.0 (05.12.2018)
 
-* Добавление warning'ов в SignatureParser.
-* Добавление дополнительных тестов для SignatureParser.
+* Add warnings to SignatureParser.
+* Add more tests for SignatureParser.
 
 ## 0.3.0 (03.12.2018)
 
-* Обработка секции Schema.
+* Process Schema section.
 
 ## 0.2.0 (03.12.2018)
 
-* Добавление Unit-тестов на DataStructureProcessor.
+* Add unit-tests for DataStructureProcessor.
 
 ## 0.1.2 (03.12.2018)
 
-* Исправление резолвинга путей при работе с импортами.
+* Fix paths when dealing with imports
 
 ## 0.1.1 (27.11.2018)
 
-* Исправление поля bin в package.json.
+* Fix `bin` field in package.json.
 
 ## 0.1.0 (17.11.2018)
 
-Начальный прототип проекта. Проект строит AST так же, как это делает Drafter в ветке master (v4.0.0-pre.2). Реализованы следующие функции:
+Initial project prototype. This project builds AST in the same way as Drafter does on master branch (v4.0.0-pre.2). Currently implemented functions:
 
-* парсинг структур данных;
-* парсинг запросов, ответов;
-* парсинг `Resource Prototypes`;
-* генерация JSON Schema;
-* генерация Source Maps;
-* подключение других файлов через `Import`.
+* data structures parsing;
+* requests and responses parsing;
+* `Resource Prototypes` parsing;
+* JSON Schema parsing;
+* source maps generation;
+* ability to include files via `Import` keyword.
 
-В рамках начального прототипа не реализованы такие функции, как старый синтаксис параметров запроса (`+ id (number, optional, 1000) description`) и [Model](https://github.com/apiaryio/api-blueprint/blob/master/API%20Blueprint%20Specification.md#def-model-section).
+For this is the first iteration, some functions are missing, e.g. old syntax for request parameters (`+ id (number, optional, 1000) description`) and [Model](https://github.com/apiaryio/api-blueprint/blob/master/API%20Blueprint%20Specification.md#def-model-section).

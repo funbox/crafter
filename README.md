@@ -1,128 +1,109 @@
 # @funbox/crafter
 
-## Мотивация
+## Rationale
 
-В нашей компании разрабатывается большое количество JSON API. Их необходимо
-описывать и согласовывать, отслеживать изменения и показывать документацию
-большому кругу лиц, поэтому возникла необходимость в удобном формате и средствах для
-работы с документацией. Исторически в компании происходил выбор между
-[API Blueprint](https://apiblueprint.org/) и [Swagger](https://swagger.io/). Мы
-выбрали API Blueprint по двум причинам. Во-первых, исходный код документации,
-описанной с помощью API Blueprint, проще воспринимается человеком. Во-вторых, на
-момент исследования в Swagger не хватало ряда важных возможностей, например One
-Of.
+We use JSON API widely in the company, so each day, our developers face such issues as describing and approving
+API documentation, tracking changes, distributing documentation among partners, and so on.
+That is why we felt a strong need for convenient tools to work with documentation.
 
-API Blueprint состоит из двух частей:
+[По-русски](./README.ru.md)
 
-- парсера формата APIB [Drafter](https://github.com/apiaryio/drafter);
-- рендерера HTML-версии документации
-  [aglio](https://github.com/danielgtaylor/aglio).
+Historically, the battle was between [API Blueprint](https://apiblueprint.org/) and [Swagger](https://swagger.io/).
+We chose API Blueprint for two reasons. Firstly, the source code of documentation that is described using API Blueprint is more readable to humans.
+Secondly, at the time of research conducted, Swagger lacked several important features, as One Of support.
 
-Drafter — это библиотека, которая получает на вход текст в формате APIB и
-возвращает распарсенное дерево в формате
-[API Elements](http://api-elements.readthedocs.io/en/latest/) в виде YAML/JSON.
-Drafter реализован на языке программирования C++. Код библиотеки достаточно
-сложный и грязный, содержит много багов и легаси. Разобраться, как работает тот
-или иной блок, очень сложно. Если исправление багов разработчики принимают
-охотно, то при попытке добавить новую фичу можно сильно забуксовать и потратить
-очень много времени на обсуждение, а в итоге фичу так и не примут. В нашей
-компании практически нет проектов на C++, поэтому разработчиков, которые могут
-поддерживать Drafter, очень мало, при этом необходимость в новых фичах возникает
-регулярно.
+API Blueprint consists of two parts:
 
-## Описание
+- APIB format parser [Drafter](https://github.com/apiaryio/drafter);
+- an API Blueprint renderer that outputs static HTML version of documentation [aglio](https://github.com/danielgtaylor/aglio).
 
-Библиотека **Crafter** — это замена Drafter, написанная на JavaScript, благодаря
-чему ее легче поддерживать. Библиотека устраняет описанные выше недостатки
-оригинала и реализует все необходимые возможности:
+Drafter is the library that takes a text in APIB format as an input and returns the parse result as a tree of
+[API Elements](http://api-elements.readthedocs.io/en/latest/). Output can be serialized as YAML or as JSON.
 
-- Resource Prototypes — возможность задать общие ответы для разных ресурсов в
-  одном месте и переиспользовать их во всей документации.
-- Подключение внешних APIB-файлов, чтобы документация была модульной и более
-  простой в использовании.
-- Отключение fixed-type для массивов. В API Blueprint исторически сложилось, что
-  описание типа как `array[SomeType]` означает, что в массиве могут быть
-  элементы типа `SomeType`, а могут и не быть. Удобнее, если такое описание
-  значило бы, что в массиве должны быть только элементы типа `SomeType`.
-- Возможность использовать массивы в GET-параметрах.
-- Описание некоторых типов данных напрямую в JSON Schema.
-- Валидации длины строки и соответствия регулярному выражению.
+Drafter is written in C++, and the code is pretty complicated and obscure while containing a lot of bugs and legacy.
+It is understand to manage how some of its parts work. And if bug fixes are welcomed by maintainers, a new feature could become an obstacle.
+Our company has a tiny percent of C++ projects, so almost none of the developers can maintain Drafter.
 
-Более подробную информацию о работе библиотеки можно найти в документах из
-[docs](docs).
+## Features
 
-## Установка
+Crafter was created as the replacement of Drafter, written in JavaScript, and easy to maintain.
+The library eliminates all previously described limitations and implements all needed features:
 
-Глобально:
+- Resource Prototypes is the ability to set up common responses for different resources in one place and to reuse it through the documentation.
+- You can import external APIB files and split the documentation into modules. That makes documentation easy to use.
+- Disabled "fixed-type" attribute of arrays. From its dawn, API Blueprint spec defines `array[SomeType]` as an array
+  that MAY have nested elements of the `SomeType` type. Thus, it is not guaranteed the elements exist in fact.
+  It would be more convenient to account that such array can contain ONLY elements of the `SomeType` type.
+- The ability to use arrays in GET-parameters.
+- The ability to describe certain data types directly as JSON Schema.
+- String validations to check the expected length and match it to a regular expression.
+
+Additional information about how the library works is placed in the [docs](docs) directory.
+
+## Installation
+
+Global install:
 
 ```bash
 npm install -g @funbox/crafter
 ```
 
-Локально в проект:
+Local install:
 
 ```bash
 npm install --save @funbox/crafter
 ```
 
-## Использование
+## Usage
 
 ```javascript
 const crafter = require('@funbox/crafter');
 const ast = (await crafter.parseFile(file))[0].toRefract();
 ```
 
-Для парсинга из файла документации `doc.apib` требуется выполнить следующую
-команду:
+To parse a file named `doc.apib` run the next command:
 
 ```bash
 crafter [options] doc.apib
 ```
 
-Доступные команды можно посмотреть через `crafter -h`.
+Use `crafter -h` to list available options.
 
-## Запуск тестов
+## Run tests
 
 ```bash
 npm test
 ```
 
-## Использование через Docker
+## Run in Docker
 
-Для использования @funbox/crafter в Docker-контейнере нужно выполнить следующую
-команду в директории с вашей APIB-документацией:
+To run @funbox/crafter as a Docker container you need to execute the next command in the directory with documentation:
 
 ```bash
 docker run \
   --rm \
   -v $(pwd):/app \
-  funbox/crafter -f json файл-с-документацией.apib
+  funbox/crafter -f json doc-file.apib
 ```
 
-При запуске контейнера необходимо примонтировать хост-директорию с документацией
-в некоторую директорию в контейнере и затем указать путь к APIB-файлу
-относительно созданного в контейнере пути.
+You need to mount a host directory with documentation into some directory in a container and then specify the path to
+the APIB file relative to the path created in the container.
 
-По умолчанию рабочей директорией образа задана директория `/app`, поэтому
-удобнее всего смонтировать хост-директорию непосредственно в `/app`. Тогда в
-качестве параметра можно передать просто название файла
-`файл-с-документацией.apib`.
+The default working directory of the image is set to `/app`, therefore it may be easier to mount
+a host directory into the `/app`. Then you can pass just a filename as a parameter.
 
-### Использование Docker-контейнера в Windows
+### Docker container in Windows
 
-При запуске контейнера в Windows нужно добавлять слеш (`/`) перед вызовом `pwd`.
-Команда будет выглядеть так:
+If you run a container in Windows, you need to add slash (`/`) before `pwd`.
+The command will look like this:
 
 ```bash
 docker run \
   --rm \
   -v /$(pwd):/app/doc \
-  funbox/crafter -f json doc/файл-с-документацией.apib
+  funbox/crafter -f json doc/doc-file.apib
 ```
 
-Кроме того, примонтированная директория может быть пустой. Если это так,
-необходимо убедиться, что в настройках Docker Desktop for Windows, в разделе
-Shared Drives включен шаринг нужного диска (стоит галка). Если диск не расшарен,
-необходимо отметить его как `shared`, применить изменения и перезапустить Docker
-Desktop.
-
+Moreover, you can find that the mounted directory is empty. In this case, you need to check
+that your hard drive is marked as shared. This setting can be found in the settings of Docker Desktop for Windows,
+Shared Drives section. If the disk is not shared, mark it as `shared`, apply changes, and restart Docker Desktop.

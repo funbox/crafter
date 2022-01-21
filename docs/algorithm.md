@@ -1,23 +1,17 @@
-## Алгоритм работы
+## Algorithm description
 
-API Blueprint основан на Markdown, поэтому при разборе документации Crafter
-поступает следующим образом:
+API Blueprint is based on Markdown, so when parsing the documentation, Crafter does the following:
 
-- запускает парсер `commonmark` для преобразования текста APIB-файла в Markdown
-  AST (структуру элементов дерева можно посмотреть в
-  [README проекта commonmark](https://github.com/commonmark/commonmark.js/blob/master/README.md));
-- последовательно обходит Markdown AST и формирует Element AST, древовидную
-  структуру из объектов, классы которых расположены в каталоге
-  `parsers/elements`;
-- с помощью метода `toRefract()` корневого элемента дерева получает финальную
-  структуру [Refract AST](https://github.com/refractproject/refract-spec),
-  которую сериализует в файл или stdout. На ее основе построен формат
-  [API Elements](http://api-elements.readthedocs.io/en/latest/).
+- runs `commonmark` parser to transform a text from an APB file to Markdown AST
+  (you can explore tree structure in [commonmark README](https://github.com/commonmark/commonmark.js/blob/master/README.md));
+- sequentially walks the Markdown AST and creates instances of Element AST, a tree-like structure of objects, which classes are placed in the directory `parsers/elements`;
+- with the help of the `toRefract()` method Crafter generates the final structure of [Refract AST](https://github.com/refractproject/refract-spec).
+  Then serialized structure is emitted to a file or stdout. [API Elements](http://api-elements.readthedocs.io/en/latest/) format is based on Refract AST.
 
-### Необходимость преобразования Markdown AST в другой формат
+### The rationale for the transformation of Markdown AST to another format
 
-Хотя APIB основан на Markdown, данные форматы имеют совершенно разную семантику.
-Рассмотрим простой пример:
+Even though APIB is based on Markdown, these formats are different semantically.
+Consider this simple example:
 
 ```markdown
 # My API
@@ -27,30 +21,25 @@ API Blueprint основан на Markdown, поэтому при разборе
 + Response 200
 ```
 
-С точки зрения Markdown в этом документе есть три элемента:
+From the point of view of Markdown, this document has three elements:
 
-- заголовок `My API`;
-- заголовок `GET /foo`;
-- ненумерованный список, содержащий один элемент `Response 200`.
+- the title `My API`;
+- the title `GET /foo`;
+- an unordered list containing one element `Response 200`.
 
-С точки зрения APIB этот документ определяет API с названием `My API`. Внутри
-API есть единственный метод, описывающий запрос типа `GET` на URL `/foo`. В
-документации сказано, что сервер может вернуть ответ с HTTP Code 200.
+From the point of view of APIB, this document defines an API with the title `My API`.
+The API has the only method which describes a `GET` request to URL `/foo`, and the response should have HTTP Code 200.
 
-### Роль Element AST
+### The role of Element AST
 
-У внимательного читателя может возникнуть вопрос, почему не преобразовывать
-Markdown AST напрямую в Refract, минуя какой-то промежуточный формат. Refract —
-формат, содержащий только данные, причем часто в достаточно обобщенном виде, но
-не методы работы с ними. В процессе разбора узлов Markdown AST результат
-дополняется и модифицируется, например при генерации JSON Schema. Для более
-удобной работы с AST в процессе разбора был разработан промежуточный формат
-Element AST. Чтобы получить Refract AST из Element AST, используется метод
-`toRefract()`, который вызывается у корневого узла Element AST. При
-необходимости узел Element AST может вызывать метод `toRefract()` дочерних
-узлов.
+The attentive reader may wonder why not convert Markdown AST directly to Refract, skipping some intermediate format.
+The problem is that Refract contains only the data themselves and does not contain any methods to process the data.
+During the traversal of Markdown AST nodes, the result is supplemented and modified, as in the generation of JSON Schema.
+To make the process of AST parsing more developer-friendly, an intermediate format was developed. To get Refract AST you need
+to call `toRefract()` from the root node of Element AST. If necessary, the Element AST root node can call the method `toRefract()`
+of child nodes.
 
-Например, парсер обрабатывает секцию вида:
+As an example, parser processes the next section:
 
 ```Markdown
 # GET /user
@@ -61,42 +50,35 @@ Element AST. Чтобы получить Refract AST из Element AST, испо�
     + age (number)
 ```
 
-Парсер разобрал секцию ответа и сформировал на основе этой секции какую-то
-структуру в Element AST (т. е. некоторый результат уже получен). Но так как тип
-ответа указан как `application/json`, то предполагается, что у описываемого
-ответа должна быть секция JSON Schema. Этой секции в явном виде нет, поэтому
-парсер генерирует ее автоматически и подставляет в результат, тем самым
-модифицируя его.
+Parser had processed the response section and formed some structure based on this section.
+We already have a certain result, but the type of the response is defined as `application/json`.
+It means that the response should have a JSON Schema section which is absent in the raw documentation.
+So the goal of the parser is to generate a JSON schema and add it to the resulted output.
 
-## Этапы формирования Element AST
+## Stages of Element AST generation
 
-Процесс формирования Element AST начинается с вызова метода `parse` у
-[BlueprintParser](../parsers/BlueprintParser.js) и состоит из следующих этапов:
+The generation process starts with the call of the `parse` method of [BlueprintParser](../parsers/BlueprintParser.js)
+and includes the following steps:
 
-- резолвинг импортов;
-- извлечение типов;
-- разбор Markdown AST.
+- imports resolving;
+- types extraction;
+- parsing of Markdown AST.
 
-Рассмотрим каждый из них поподробнее.
+Let have a closer look at each of the steps.
 
-### Резолвинг импортов
+### Imports resolving
 
-Первый шаг разбора Markdown AST — загрузка файлов, подключаемых с помощью
-команды `Import`. Данную операцию необходимо сделать до того, как происходят
-следующие шаги, потому что в подключаемых файлах могут быть определены
-именованные типы данных, используемые в других файлах.
+The first step of Markdown AST parsing is to load all files, declared with `Import` keyword.
+Import must be done before all next steps because imported files can define named types which are then used in other files.
 
-За резолвинг импортов отвечает функция `resolveImports` из файла
-[BlueprintParser.js](../parsers/BlueprintParser.js), которая производит
-рекурсивный обход Markdown AST, находит заголовки, содержащие текст вида
-`/^[Ii]mport\s+(.+)$/`, читает подключаемый файл и заменяет заголовок его
-содержимым. Во время работы функция проверяет импорты на отсутствие циклов: если
-в файле A.apib написано `# Import B.apib`, а в файле B.apib написано
-`# Import A.apib`, будет сгенерирована ошибка.
+The function `resolveImports` from [BlueprintParser.js](../parsers/BlueprintParser.js) manages import routine and
+recursively traverse Markdown AST, finds a heading containing text like `/^[Ii]mport\s+(.+)$/`, then reads an imported file
+and substitutes the heading with its content. The function also makes sure that imports don't have circular dependencies:
+if a file A.apib contains `# Import B.apib` and a file B.apib contains `# Import A.apib`, an error will be thrown.
 
-### Извлечение типов
+### Types extraction
 
-Рассмотрим пример документации:
+Take a look at the next example:
 
 ```markdown
 # My API
@@ -114,13 +96,12 @@ Element AST. Чтобы получить Refract AST из Element AST, испо�
   + Attributes (array[User])
 ```
 
-В данном примере при описании ответа на запрос `GET /users` используется
-именованный тип `User`, определенный выше. При разборе ответа будет
-сгенерирована JSON Schema и пример ответа (Body), поэтому к моменту разбора
-секции `Response` именованный тип `User` должен быть разобран и сохранен в
-некотором хранилище. Если секция `Data Structures` находится в документации
-выше, чем `Response`, то никаких проблем не возникает. Однако описанный выше
-пример можно модифицировать следующим образом:
+In the example, we define the named type `User` and use it to describe the response to the request `GET /users`.
+Parsing of the response gives us generated JSON schema and response example (Body). This means, at the moment of
+parsing of `Response` section the `User` named type must be parsed and stored somewhere.
+
+If the `Data Structures` section is higher in the documentation than `Response` section, there is no problem.
+But the above example can be modified in the next way:
 
 ```markdown
 # My API
@@ -138,32 +119,28 @@ Element AST. Чтобы получить Refract AST из Element AST, испо�
 + email: `admin@localhost` (string, required)
 ```
 
-Этот вариант написания документации тоже корректный с точки зрения спецификации
-API Blueprint, но, в отличие от предыдущего, секция `Response` расположена выше
-описания именованного типа `User`, поэтому сформировать JSON Schema не
-представляется возможным в процессе последовательного разбора документации, так
-как на момент разбора ответа информации об именованном типе еще нет.
+This documentation is valid and meets the API Blueprint specification, but
+the `Response` section is now defined before the `User` type. Therefore, it is not
+possible to generate a JSON schema because at the time of parsing the response
+there is still no information about the `User` type.
 
-Чтобы решить данную проблему, в Crafter реализовано предварительное извлечение
-именованных типов, также известное как препроцессинг типов. У
-[BlueprintParser](../parsers/BlueprintParser.js), который всегда начинает разбор
-Markdown AST, имеется метод
-[preprocessNestedSections](../parsers/BlueprintParser.js#132), в котором и
-реализовано извлечение именованных типов. Оно проходит в два этапа:
+To solve this problem, Crafter has preliminary extraction of named types,
+also known as types preprocessing. [BlueprintParser](../parsers/BlueprintParser.js),
+which is always the first to start parsing, has the method [preprocessNestedSections](../parsers/BlueprintParser.js#132) to perform such extraction.
 
-- извлечение названий типов и их базовых типов;
-- извлечение содержимого типов.
+The extraction completes in two steps:
 
-Почему нельзя извлечь тип сразу с содержимым?
+1) extraction of type names and their base types;
+2) extraction of types content.
 
-Определим два понятия:
+To understand why we cannot extract both type and its content, we need to introduce two concepts:
 
-- родительский тип — тип, от которого наследуется текущий;
-- базовый тип — корневой тип цепочки наследования (object, array, enum, string,
-  number, boolean).
+1) parent type is the type from which the current type inherits;
+2) base type is the root type of inheritance chain (object, array, enum, string,
+   number, boolean).
 
-В зависимости от базового типа для текущего обрабатываемого типа содержимое
-интерпретируется и заполняется по-разному. Например:
+Content of the current type is interpreted and filled differently depending on the base type.
+For example:
 
 ```markdown
 # Data Structures
@@ -177,11 +154,11 @@ Markdown AST, имеется метод
 + foo
 ```
 
-Для типа `Type1` строка `+ foo` означает, что массив может содержать элементы
-строкового типа и пример такого элемента — строка `foo`. Для типа `Type2` строка
-`+ foo` означает, что объект может содержать строковое поле `foo` без примера.
+For the type `Type1` the line `+ foo` means that the array can contain string elements,
+such as `foo` string. For the `Type2` the line `+ foo` means that the object can contain
+the `foo` field of the string type.
 
-Иногда определить базовый тип легко. Например, при таком описании:
+Sometimes it is easy to determine a base type. In such example:
 
 ```markdown
 # Data Structures
@@ -192,11 +169,11 @@ Markdown AST, имеется метод
 + email: `admin@localhost` (string, required)
 ```
 
-очевидно, что базовый тип для типа `User` — объект (согласно спецификации API
-Blueprint если не указан родительский тип для именованного типа, считается, что
-он — объект). Но так как API Blueprint поддерживает возможность наследования, то
-понять, какой базовый тип у текущего типа, можно далеко не всегда. Например, при
-таком описании:
+it is obvious that the base type of the `User` type is object (due to specification which declares
+that the default type of a named type is object if no explicit type provided).
+But sometimes it can be hard to determine a base type.
+
+In such description:
 
 ```markdown
 # Data Structures
@@ -211,121 +188,99 @@ Blueprint если не указан родительский тип для им
 + email: `admin@localhost` (string, required)
 ```
 
-невозможно определить базовый тип для типа `Admin` до тех пор, пока не будет
-разобран родительский тип `User`. Для решения этой проблемы в Crafter
-выставляется переменная `context.typeExtractingInProgress` и запускается
-[частичный обход Markdown AST](../parsers/BlueprintParser.js#154-179)
-(разбираются не все секции, а только `Data Structures` и `Schema Structures`).
-При этом для именованных типов извлекаются названия и базовые типы, которые
-помещаются в `context` с помощью функции `context.addType`.
+it is impossible to determine the base type of the `Admin` type until
+the parent type `User` is parsed.
 
-После этого переменная `context.typeExtractingInProgress` устанавливается в
-`false` и происходит
-[повторный частичный обход Markdown AST](../parsers/BlueprintParser.js#183-191),
-в процессе которого уже разбирается содержимое именованных типов.
+To solve this problem Crafter sets the variable `context.typeExtractingInProgress` to `true`
+and starts [partial parsing of Markdown AST](../parsers/BlueprintParser.js#154-179).
+"Partial" means that only `Data Structures` and `Schema Structures` are being parsed.
+Blueprint parser extracts names and base types of defined named types and puts them in the
+`context`.
 
-После того, как типы извлечены, происходит проверка корректности (функция
-[context.typeResolver.resolveRegisteredTypes()](../TypeResolver.js#16)), которая
-включает:
+After that the variable `context.typeExtractingInProgress` sets back to `false`
+and the second [partial parsing of Markdown AST](../parsers/BlueprintParser.js#183-191) occurs,
+during which the processor grabs the content of named types.
 
-- проверку что все используемые типы определены. Например, если тип `A`
-  наследуется от типа `B`, то проверяется, что тип `B` определен;
-- проверку корректности циклических зависимостей. В некоторых случаях
-  циклические зависимости недопустимы.
+After the extraction, types must be checked in the function [context.typeResolver.resolveRegisteredTypes()](../TypeResolver.js#16)) which includes:
 
-### Разбор Markdown AST
+- a check that all used types are defined. Thus, if a type `A` inherits from a type `B`, the `B` type must be defined;
+- a check that circular dependencies are valid. In some cases, circular dependencies are not applicable.
 
-Основной код Crafter — это набор объектов-парсеров, расположенных в директории
-[parsers](../parsers). Типичный парсер имеет главный метод
-`parse(node, context)`, который принимает на вход узел Markdown AST и контекст с
-вспомогательными данными и возвращает массив из двух элементов: следующий узел,
-который необходимо разработать, и результат обработки.
+### Markdown AST parsing
 
-Так как метод `parse` достаточно общий, чаще всего парсеры наследуются от
-объекта [AbstractParser](../parsers/AbstractParser.js) и переопределяют ряд
-более специфичных методов. Типичная APIB-секция (Request, Response, Attributes и
-т.п.) состоит из следующих элементов:
+The core functionality of Crafter is a set of parsers located in the directory [parsers](../parsers).
+A general parser has the main method `parse(node, context)` which accepts a node of Markdown AST
+and the context, and returns an array with two elements: the next node to parse and a parsing result.
 
-- signature — первая строка, которая определяет начало секции и может содержать
-  дополнительную информацию;
-- description — опциональный блок текстового описания;
-- nestedSections — вложенные секции.
+Most of declared parsers extend from the [AbstractParser](../parsers/AbstractParser.js)
+and override some of its methods. Typical APIB section (Request, Response, Attributes, etc)
+consists of the following elements:
 
-Рассмотрим пример:
+- signature — the first row that defines a section beginning and may contain additional info;
+- description — an optional block of text description;
+- nestedSections — other sections that can be included in the current section.
+
+Consider the example:
 
 ```markdown
 + Response 200 (application/json)
-  Типичный ответ сервера
+  Abstract server response
 
   + Attributes
     + status: `ok` (required, fixed)
     + users (array)
 ```
 
-Здесь для блока `Response`:
+There the `Response` block consists of:
 
 - `+ Response 200 (application/json)` — signature;
-- `Типичный ответ сервера` — description;
-- все остальные строки — nestedSections.
+- `Abstract server response` — description;
+- other lines — nestedSections.
 
-При этом внутри nestedSections есть секция `Attributes`, для которой:
+At the same time, inside of nested section the `Attributes` section exists in which:
 
 - `+ Attributes` — signature;
-- остальные строки — nestedSections.
+- other lines — nestedSections.
 
-Алгоритм работы метода `parse` (см.
-[AbstractParser.parse](../parsers/AbstractParser.js#7)) следующий:
+`parse` method (see [AbstractParser.parse](../parsers/AbstractParser.js#7))
+implements the next algorithm:
 
-- разобрать signature с помощью метода `processSignature`;
-- разобрать description с помощью метода `processDescription`;
-- разобрать nestedSections с помощью метода `processNestedSection`:
-  - определить, является ли следующий узел nestedSection, с помощью метода
-    `nestedSectionType`;
-  - если следующий узел является nestedSection, то обработать его с помощью
-    метода `processNestedSection` (внутри этого метода обычно задействуются
-    другие парсеры, например см.
-    [ResponseParser.processNestedSection](../parsers/ResponseParser.js#95));
-- вызвать метод `finalize` для действий, которые нужно выполнить после обработки
-  секции, например для `ResponseParser` метод
-  [finalize](../parsers/ResponseParser.js#117) производит генерацию JSON Schema
-  и примера ответа.
+- parse a signature in the `processSignature` method;
+- parse a description in the processDescription` method;
+- parse nested sections in the `processNestedSection` method:
+  - determine if the next node can be nested, using the `nestedSectionType` method;
+  - if the next node is a nested section, parse it in the `processNestedSection` method
+- call the `finalize` method to perform actions that should be done after the section parsing.
+  For example, in the `ResponseParser` the [finalize](../parsers/ResponseParser.js#117) method
+  generates a JSON schema and a sample of the response.
 
-### Генерация JSON Schema
+### JSON Schema generation
 
-Одним из этапов разбора Markdown AST является генерация JSON Schema для секций
-Request и Response, если выполняются два условия:
+Generation of a JSON Schema for Request and Response sections is one of the steps of Markdown AST parsing.
+This generation happens when two conditions are met:
 
-- указан `content-type: application/json`, например так:
-  `+ Response 200 (application/json)`;
-- JSON Schema не объявлена вручную с помощью секции Schema.
+- `content-type` is set to `application/json` (as in `+ Response 200 (application/json)`);
+- a custom JSON Schema is not defined.
 
-Для генерации JSON Schema в методе `finalize` парсеров
-[RequestParser](../parsers/RequestParser.js) и
-[ResponseParser](../parsers/ResponseParser.js) вызывается метод `getSchema` у
-элементов типа [RequestElement](../parsers/elements/RequestElement.js) и
-[ResponseElement](../parsers/elements/ResponseElement.js) соответственно. Данный
-метод рекурсивно вызывает одноименные методы у дочерних элементов и формирует
-итоговую JSON Schema. Для обеспечения поддержки рекурсивных структур данных
-метод `getSchema` возвращает массив из двух элементов:
+To generate a JSON Schema the method `finalize` of parsers [RequestParser](../parsers/RequestParser.js)
+and [ResponseParser](../parsers/ResponseParser.js) calls the method `getSchema` of elements
+[RequestElement](../parsers/elements/RequestElement.js) and [ResponseElement](../parsers/elements/ResponseElement.js). This method recursively calls similar methods of child elements
+to form the resulting JSON schema. To support recursive data structures `getSchema` methods return an array
+with two elements:
 
-- результата построения JSON Schema;
-- списка используемых именованных типов, которые должны попасть в секцию
-  `definitions`. Построение секции `definitions` происходит в
-  [AttributesElement](../parsers/AttributesElement.js).
+- the result of JSON schema building;
+- a list of used named types to be included in the `definitions` section. This section appears in the
+  [AttributesElement](../parsers/AttributesElement.js)
 
-### Генерация Body (примера запроса/ответа)
+### Body generation (an example of request/response)
 
-Одним из этапов разбора Markdown AST является генерация Body для секций Request
-и Response, если выполняются два условия:
+Generation of a Body for Request and Response sections is one of the steps of Markdown AST parsing.
+This generation happens when two conditions are met:
 
-- указан `content-type: application/json`, например так:
-  `+ Response 200 (application/json)`;
-- пример не объявлен вручную с помощью секции Body.
+- `content-type` is set to `application/json` (as in `+ Response 200 (application/json)`);
+- a custom Body is not defined.
 
-Для генерации Body в методе `finalize` парсеров
-[RequestParser](../parsers/RequestParser.js) и
-[ResponseParser](../parsers/ResponseParser.js) вызывается метод `getBody` у
-элемента типа [RequestElement](../parsers/elements/RequestElement.js) и
-[ResponseElement](../parsers/elements/ResponseElement.js) соответственно. Данный
-метод рекурсивно вызывает одноименные методы у дочерних элементов и формирует
-итоговую секцию Body.
+To generate a Body the method `finalize` of parsers [RequestParser](../parsers/RequestParser.js)
+and [ResponseParser](../parsers/ResponseParser.js) calls the method `getBody` of elements
+[RequestElement](../parsers/elements/RequestElement.js) and [ResponseElement](../parsers/elements/ResponseElement.js). This method recursively calls similar methods of child elements
+to form the resulting Body.
