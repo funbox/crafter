@@ -1,4 +1,4 @@
-# @funbox/crafter
+# @funboxteam/crafter
 
 ## Rationale
 
@@ -45,19 +45,19 @@ Additional information about how the library works is placed in the [docs](docs)
 Global install:
 
 ```bash
-npm install -g @funbox/crafter
+npm install -g @funboxteam/crafter
 ```
 
 Local install:
 
 ```bash
-npm install --save @funbox/crafter
+npm install --save @funboxteam/crafter
 ```
 
 ## Usage
 
 ```javascript
-const crafter = require('@funbox/crafter');
+const crafter = require('@funboxteam/crafter');
 const ast = (await crafter.parseFile(file))[0].toRefract();
 ```
 
@@ -77,7 +77,7 @@ npm test
 
 ## Run in Docker
 
-To run @funbox/crafter as a Docker container you need to execute the next command in the directory with documentation:
+To run @funboxteam/crafter as a Docker container you need to execute the next command in the directory with documentation:
 
 ```bash
 docker run \

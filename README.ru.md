@@ -1,4 +1,4 @@
-# @funbox/crafter
+# @funboxteam/crafter
 
 ## Мотивация
 
@@ -56,19 +56,19 @@ Drafter реализован на языке программирования C+
 Глобально:
 
 ```bash
-npm install -g @funbox/crafter
+npm install -g @funboxteam/crafter
 ```
 
 Локально в проект:
 
 ```bash
-npm install --save @funbox/crafter
+npm install --save @funboxteam/crafter
 ```
 
 ## Использование
 
 ```javascript
-const crafter = require('@funbox/crafter');
+const crafter = require('@funboxteam/crafter');
 const ast = (await crafter.parseFile(file))[0].toRefract();
 ```
 
@@ -89,7 +89,7 @@ npm test
 
 ## Использование через Docker
 
-Для использования @funbox/crafter в Docker-контейнере нужно выполнить следующую
+Для использования @funboxteam/crafter в Docker-контейнере нужно выполнить следующую
 команду в директории с вашей APIB-документацией:
 
 ```bash
