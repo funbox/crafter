@@ -2,6 +2,12 @@
   "name": "@funboxteam/crafter",
   "version": "3.6.0",
   "description": "JavaScript replacement of Drafter library for parsing API Blueprint documentation format",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/funbox/crafter"
+  },
+  "author": "FunBox LLC <wanted@fun-box.ru> (https://funbox.ru)",
+  "license": "MIT",
   "main": "Crafter.js",
   "scripts": {
     "pretest": "npm run lint",
