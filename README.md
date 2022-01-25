@@ -7,13 +7,13 @@ It is a replacement for Drafter library with some handy features added.
 
 ## Rationale
 
-Drafter is written in C++, and the code is pretty complicated and obscure while containing a lot of bugs and legacy.
+Drafter is written in C++, so the code is pretty complicated and obscure while containing a lot of bugs and legacy.
 It is hard to understand how some of its parts work. And if bug fixes are welcomed by maintainers, adding a new feature could become an obstacle.
 
 Our company has a tiny percent of C++ projects, so almost none of the developers can maintain Drafter.
 
 That is why we decided to create own JavaScript replacement which eliminates all previously described limitations,
-is easy to maintain and allows us to add all needed features.
+is easy to maintain, and allows us to add all needed features.
 
 ## Features
 
@@ -46,7 +46,7 @@ npm install --save @funboxteam/crafter
 
 ### Node.js
 
-Parse an external file:
+Parse a file:
 
 ```javascript
 const crafter = require('@funboxteam/crafter');
@@ -55,7 +55,7 @@ const apibFile = 'doc.apib';
 const ast = (await crafter.parseFile(apibFile))[0].toRefract();
 ```
 
-or provide a string variable containing APIB documentation:
+Or provide a string variable containing APIB documentation:
 
 ```javascript
 const crafter = require('@funboxteam/crafter');
@@ -77,8 +77,8 @@ crafter [options] doc.apib
 - `-f, --format <format>` — set output format of the parse result. Available formats: `json`, `yaml`. Default is `yaml`.
 - `-s, --sourcemap` — export source maps in the parse result.
 - `-d, --debug` — enable debugging mode, which disables catching some of the exceptions.
-- `-l, --langserver` — enable tolerant mode, which is used in language server
-- `-h, --help` — output usage information
+- `-l, --langserver` — enable tolerant mode, which is used in language server.
+- `-h, --help` — output usage information.
 
 ## Run tests
 
@@ -97,7 +97,7 @@ docker run \
   funbox/crafter -f json doc-file.apib
 ```
 
-The default working directory of the image is set to `/app`, therefore it may be easier to mount
+The default working directory of the image is set to `/app`, therefore it is easier to mount
 a host directory into the `/app`. Then just a filename as a parameter will do.
 
 ### Docker container in Windows
@@ -118,12 +118,12 @@ If the disk is not shared, mark it as `shared`, apply changes, and restart Docke
 
 ## Why API Blueprint
 
-We use JSON API widely in the company, so each day, our developers face such issues as describing and approving API documentation,
+We use JSON API widely in the company, so each day our developers face such issues as describing and approving API documentation,
 tracking changes, distributing documentation among partners, and so on. That is why we felt a strong need for convenient tools
 to work with documentation.
 
 Historically, the battle was between [API Blueprint](https://apiblueprint.org/) and [Swagger](https://swagger.io/).
 We chose API Blueprint for two reasons. Firstly, the source code of documentation that is described using API Blueprint is more readable to humans.
-Secondly, at the time of research conducted, Swagger lacked several important features, as One Of support.
+Secondly, at the time of research conducted, Swagger lacked several important features, as `One Of` support.
 
 [![Sponsored by FunBox](https://funbox.ru/badges/sponsored_by_funbox_centered.svg)](https://funbox.ru)
