@@ -1,42 +1,30 @@
 # @funboxteam/crafter
 
-## Rationale
-
-We use JSON API widely in the company, so each day, our developers face such issues as describing and approving
-API documentation, tracking changes, distributing documentation among partners, and so on.
-That is why we felt a strong need for convenient tools to work with documentation.
+**Crafter** is an [API Blueprint](https://apiblueprint.org/) parser written in pure JavaScript.
+It is a replacement for Drafter library with some handy features added.
 
 [По-русски](./README.ru.md)
 
-Historically, the battle was between [API Blueprint](https://apiblueprint.org/) and [Swagger](https://swagger.io/).
-We chose API Blueprint for two reasons. Firstly, the source code of documentation that is described using API Blueprint is more readable to humans.
-Secondly, at the time of research conducted, Swagger lacked several important features, as One Of support.
-
-API Blueprint consists of two parts:
-
-- APIB format parser [Drafter](https://github.com/apiaryio/drafter);
-- an API Blueprint renderer that outputs static HTML version of documentation [aglio](https://github.com/danielgtaylor/aglio).
-
-Drafter is the library that takes a text in APIB format as an input and returns the parse result as a tree of
-[API Elements](http://api-elements.readthedocs.io/en/latest/). Output can be serialized as YAML or as JSON.
+## Rationale
 
 Drafter is written in C++, and the code is pretty complicated and obscure while containing a lot of bugs and legacy.
-It is understand to manage how some of its parts work. And if bug fixes are welcomed by maintainers, a new feature could become an obstacle.
+It is hard to understand how some of its parts work. And if bug fixes are welcomed by maintainers, adding a new feature could become an obstacle.
+
 Our company has a tiny percent of C++ projects, so almost none of the developers can maintain Drafter.
+
+That is why we decided to create own JavaScript replacement which eliminates all previously described limitations,
+is easy to maintain and allows us to add all needed features.
 
 ## Features
 
-Crafter was created as the replacement of Drafter, written in JavaScript, and easy to maintain.
-The library eliminates all previously described limitations and implements all needed features:
+Compared to Drafter, this library can offer some important features:
 
-- Resource Prototypes is the ability to set up common responses for different resources in one place and to reuse it through the documentation.
-- You can import external APIB files and split the documentation into modules. That makes documentation easy to use.
-- Disabled "fixed-type" attribute of arrays. From its dawn, API Blueprint spec defines `array[SomeType]` as an array
-  that MAY have nested elements of the `SomeType` type. Thus, it is not guaranteed the elements exist in fact.
-  It would be more convenient to account that such array can contain ONLY elements of the `SomeType` type.
-- The ability to use arrays in GET-parameters.
-- The ability to describe certain data types directly as JSON Schema.
-- String validations to check the expected length and match it to a regular expression.
+- **Modules**. Now it is possible to split one giant file into parts and inject APIB files into each other, which makes documentation easy to use.
+- **Resource Prototypes** allow you to set up common responses in one place and reuse them through the documentation.
+- Support of **arrays in query strings**.
+- **JSON Schema based types**. In case of complex types it is possible to describe them directly as JSON Schema.
+- **String validation** attributes that describe the expected length of parameters and regular expressions they should match.
+- Describe a **non-HTTP interaction** (as WebSocket) by means of Message section.
 
 Additional information about how the library works is placed in the [docs](docs) directory.
 
@@ -56,10 +44,27 @@ npm install --save @funboxteam/crafter
 
 ## Usage
 
+### Node.js
+
+Parse an external file:
+
 ```javascript
 const crafter = require('@funboxteam/crafter');
-const ast = (await crafter.parseFile(file))[0].toRefract();
+
+const apibFile = 'doc.apib';
+const ast = (await crafter.parseFile(apibFile))[0].toRefract();
 ```
+
+or provide a string variable containing APIB documentation:
+
+```javascript
+const crafter = require('@funboxteam/crafter');
+
+const source = '# My API\n\n## List users [GET /users]\n\n+ Response 200';
+const ast = (await crafter.parse(source))[0].toRefract();
+```
+
+### CLI
 
 To parse a file named `doc.apib` run the next command:
 
@@ -67,7 +72,13 @@ To parse a file named `doc.apib` run the next command:
 crafter [options] doc.apib
 ```
 
-Use `crafter -h` to list available options.
+## Options
+
+- `-f, --format <format>` — set output format of the parse result. Available formats: `json`, `yaml`. Default is `yaml`.
+- `-s, --sourcemap` — export source maps in the parse result.
+- `-d, --debug` — enable debugging mode, which disables catching some of the exceptions.
+- `-l, --langserver` — enable tolerant mode, which is used in language server
+- `-h, --help` — output usage information
 
 ## Run tests
 
@@ -77,7 +88,7 @@ npm test
 
 ## Run in Docker
 
-To run @funboxteam/crafter as a Docker container you need to execute the next command in the directory with documentation:
+To run @funboxteam/crafter as a Docker container execute the next command in the directory with documentation:
 
 ```bash
 docker run \
@@ -86,15 +97,12 @@ docker run \
   funbox/crafter -f json doc-file.apib
 ```
 
-You need to mount a host directory with documentation into some directory in a container and then specify the path to
-the APIB file relative to the path created in the container.
-
 The default working directory of the image is set to `/app`, therefore it may be easier to mount
-a host directory into the `/app`. Then you can pass just a filename as a parameter.
+a host directory into the `/app`. Then just a filename as a parameter will do.
 
 ### Docker container in Windows
 
-If you run a container in Windows, you need to add slash (`/`) before `pwd`.
+To run a container in Windows, add a slash (`/`) before `pwd`.
 The command will look like this:
 
 ```bash
@@ -104,6 +112,18 @@ docker run \
   funbox/crafter -f json doc/doc-file.apib
 ```
 
-Moreover, you can find that the mounted directory is empty. In this case, you need to check
-that your hard drive is marked as shared. This setting can be found in the settings of Docker Desktop for Windows,
-Shared Drives section. If the disk is not shared, mark it as `shared`, apply changes, and restart Docker Desktop.
+There is a chance that the mounted directory is empty. In this case, check that your hard drive is marked as shared.
+This setting can be found in the settings of Docker Desktop for Windows, Shared Drives section.
+If the disk is not shared, mark it as `shared`, apply changes, and restart Docker Desktop.
+
+## Why API Blueprint
+
+We use JSON API widely in the company, so each day, our developers face such issues as describing and approving API documentation,
+tracking changes, distributing documentation among partners, and so on. That is why we felt a strong need for convenient tools
+to work with documentation.
+
+Historically, the battle was between [API Blueprint](https://apiblueprint.org/) and [Swagger](https://swagger.io/).
+We chose API Blueprint for two reasons. Firstly, the source code of documentation that is described using API Blueprint is more readable to humans.
+Secondly, at the time of research conducted, Swagger lacked several important features, as One Of support.
+
+[![Sponsored by FunBox](https://funbox.ru/badges/sponsored_by_funbox_centered.svg)](https://funbox.ru)
