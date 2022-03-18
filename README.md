@@ -1,5 +1,9 @@
 # @funboxteam/crafter
 
+<img align="right" width="160" height="160"
+     alt="Crafter avatar"
+     src="./logo.png">
+
 **Crafter** is an [API Blueprint](https://apiblueprint.org/) parser written in pure JavaScript.
 It is a replacement for Drafter library with some handy features added.
 
