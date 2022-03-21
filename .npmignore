@@ -73,3 +73,12 @@ junit.xml
 
 # -- Published package --
 /tests
+
+# -- Files that should not be in npm package --
+.github/
+scripts/
+.eslintrc
+.editorconfig
+.eslintignore
+build-docker.sh
+logo.png
