@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.0.0 (21.03.2022)
+
+Published the package on Github and added LICENSE file.
+
+
 ## 3.6.0 (28.12.2021)
 
 * Replace `commonmark` fork with the original package.
