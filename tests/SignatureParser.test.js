@@ -94,7 +94,7 @@ describe('SignatureParser', () => {
       expect(signature.rawValue).toBe('`Example`');
     });
 
-    it('Parses signature with description delimeter inside description', () => {
+    it('Parses signature with description delimiter inside description', () => {
       const signature = new SignatureParser('name - description - here', false);
       expect(signature.name).toBe('name');
       expect(signature.description).toBe('description - here');
@@ -157,6 +157,29 @@ describe('SignatureParser', () => {
       expect(signature.description).toBe('user name');
       expect(signature.type).toEqual('string');
       expect(signature.typeAttributes).toEqual([['pattern', '[a-zа-я]'], 'required']);
+    });
+
+    it('Parses signature with markdown in description', () => {
+      const signature1 = new SignatureParser('name (string, required) - Example of **bold text** (asterisks)', false);
+      expect(signature1.description).toBe('Example of **bold text** (asterisks)');
+
+      const signature11 = new SignatureParser('name (string, required) - Example of __bold text__ (underscores)', false);
+      expect(signature11.description).toBe('Example of __bold text__ (underscores)');
+
+      const signature2 = new SignatureParser('name (string, required) - Example of *italic text* (asterisks)', false);
+      expect(signature2.description).toBe('Example of *italic text* (asterisks)');
+
+      const signature22 = new SignatureParser('name (string, required) - Example of _italic text_ (underscores)', false);
+      expect(signature22.description).toBe('Example of _italic text_ (underscores)');
+
+      const signature3 = new SignatureParser('name (string, required) - Example of ~~strikethrough~~', false);
+      expect(signature3.description).toBe('Example of ~~strikethrough~~');
+
+      const signature4 = new SignatureParser('name (string, required) - Example of `inline code`', false);
+      expect(signature4.description).toBe('Example of `inline code`');
+
+      const signature5 = new SignatureParser('name (string, required) - Example of [link text](https://example.com/)', false);
+      expect(signature5.description).toBe('Example of [link text](https://example.com/)');
     });
 
     it('Warns about duplicating type attribute', () => {
@@ -231,6 +254,29 @@ describe('SignatureParser', () => {
       const signature = new SignatureParser('(string) - Description', false, traits);
       expect(signature.type).toBe('string');
       expect(signature.description).toBe('Description');
+    });
+
+    it('Parses signature with markdown in description', () => {
+      const signature1 = new SignatureParser('(string) - Example of **bold text** (asterisks)', false, traits);
+      expect(signature1.description).toBe('Example of **bold text** (asterisks)');
+
+      const signature11 = new SignatureParser('(string) - Example of __bold text__ (underscores)', false, traits);
+      expect(signature11.description).toBe('Example of __bold text__ (underscores)');
+
+      const signature2 = new SignatureParser('(string) - Example of *italic text* (asterisks)', false, traits);
+      expect(signature2.description).toBe('Example of *italic text* (asterisks)');
+
+      const signature22 = new SignatureParser('(string) - Example of _italic text_ (underscores)', false, traits);
+      expect(signature22.description).toBe('Example of _italic text_ (underscores)');
+
+      const signature3 = new SignatureParser('(string) - Example of ~~strikethrough~~', false, traits);
+      expect(signature3.description).toBe('Example of ~~strikethrough~~');
+
+      const signature4 = new SignatureParser('`Test` (string) - Example of `inline code`', false, traits);
+      expect(signature4.description).toBe('Example of `inline code`');
+
+      const signature5 = new SignatureParser('(string) - Example of [link text](https://example.com/)', false);
+      expect(signature5.description).toBe('Example of [link text](https://example.com/)');
     });
 
     it('Parses signature with type only', () => {
