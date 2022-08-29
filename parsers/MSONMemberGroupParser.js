@@ -83,8 +83,10 @@ module.exports = (Parsers) => {
 
     processNestedSection(node, context, result) {
       const { type } = result;
-
-      const dataStructureProcessor = new DataStructureProcessor(node.parent, Parsers);
+      const listElement = node.parent;
+      // in named structures, the real parent is the whole document, but sourcemaps of the whole document are useless
+      const listParentElement = context.data.isNamedTypeSection ? listElement : listElement.parent;
+      const dataStructureProcessor = new DataStructureProcessor(listElement, Parsers, undefined, listParentElement);
       const valueMember = new ValueMemberElement(type, type, context.data.parentNestedTypes);
 
       dataStructureProcessor.fillValueMember(valueMember, context);

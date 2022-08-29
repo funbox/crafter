@@ -10,8 +10,9 @@ const MSONMixinElement = require('./parsers/elements/MSONMixinElement');
 const UnrecognizedBlockElement = require('./parsers/elements/UnrecognizedBlockElement');
 
 class DataStructureProcessor {
-  constructor(valueMemberRootNode, Parsers, startNode) {
+  constructor(valueMemberRootNode, Parsers, startNode, valueMemberParentNode) {
     this.valueMemberRootNode = valueMemberRootNode;
+    this.valueMemberParentNode = valueMemberParentNode || valueMemberRootNode.parent;
     this.Parsers = Parsers;
     this.startNode = startNode;
   }
@@ -47,7 +48,7 @@ class DataStructureProcessor {
     const samples = [];
     const defaults = [];
 
-    const sourceMap = utils.makeGenericSourceMap(this.valueMemberRootNode.parent, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
+    const sourceMap = utils.makeGenericSourceMap(this.valueMemberParentNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
 
     while (curNode) {
       let nextNode;
@@ -128,7 +129,7 @@ class DataStructureProcessor {
     valueMember.content = valueMember.content || new ArrayElement([]);
     const arrayMembers = valueMember.content.members;
 
-    const sourceMap = utils.makeGenericSourceMap(this.valueMemberRootNode.parent, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
+    const sourceMap = utils.makeGenericSourceMap(this.valueMemberParentNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
     const samples = [];
     const defaults = [];
     const nestedTypeNames = valueMember.nestedTypes.map(nestedType => nestedType.type);
@@ -388,7 +389,7 @@ class DataStructureProcessor {
     const nestedTypes = Array.from(new Set([...nestedTypesNames, ...baseNestedTypes]));
 
     const enumElement = new EnumElement(nestedTypes.length ? nestedTypes : valueMember.nestedTypes);
-    const sourceMap = utils.makeGenericSourceMap(this.valueMemberRootNode.parent, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
+    const sourceMap = utils.makeGenericSourceMap(this.valueMemberParentNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
     const samples = [];
     const defaults = [];
     const validEnumMemberTypes = EnumElement.validEnumMemberTypes;
@@ -520,6 +521,7 @@ class DataStructureProcessor {
       const typesMatch = utils.compareAttributeTypes(enumElement, member);
 
       if (!typesMatch) {
+        // TODO: передавать сорсмапы элемента, а не всего enum?
         context.addTypeMismatchWarning(member.value, enumElement.type, sourceMap);
       }
 

@@ -128,7 +128,7 @@ module.exports = (Parsers) => {
       while (curNode) {
         if (curNode.type === 'item') {
           if (!context.typeExtractingInProgress) {
-            const dataStructureProcessor = new DataStructureProcessor(curNode.parent, Parsers);
+            const dataStructureProcessor = new DataStructureProcessor(curNode.parent, Parsers, undefined, curNode.parent);
             const isFixedOrFixedType = result.content.typeAttributes.includes('fixed') || result.content.typeAttributes.includes('fixedType');
             const isFixedOrFixedTypePropagated = result.content.propagatedTypeAttributes
               && (result.content.propagatedTypeAttributes.includes('fixed') || result.content.propagatedTypeAttributes.includes('fixedType'));
@@ -147,6 +147,7 @@ module.exports = (Parsers) => {
             if (context.typeResolver.types[type]) {
               type = context.typeResolver.getStandardBaseType(type);
             }
+            context.data.isNamedTypeSection = true;
             context.data.parentType = type;
             context.data.parentNestedTypes = result.content.nestedTypes;
 
@@ -154,6 +155,7 @@ module.exports = (Parsers) => {
 
             delete context.data.parentType;
             delete context.data.parentNestedTypes;
+            delete context.data.isNamedTypeSection;
 
             if (memberGroup.childValueMember) {
               const { childValueMember } = memberGroup;
