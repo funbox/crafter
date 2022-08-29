@@ -28,9 +28,9 @@ class MemberGroupElement {
   constructor(type) {
     this.type = type;
     /**
-     * @type {(ValueMemberElement|EnumMemberElement|PropertyMemberElement)[]}
+     * @type {ValueMemberElement}
      */
-    this.members = [];
+    this.childValueMember = null;
   }
 }
 

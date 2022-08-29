@@ -147,9 +147,38 @@ module.exports = (Parsers) => {
             if (context.typeResolver.types[type]) {
               type = context.typeResolver.getStandardBaseType(type);
             }
+            context.data.parentType = type;
+            context.data.parentNestedTypes = result.content.nestedTypes;
 
-            const [nextNode, childRes] = Parsers.NamedTypeMemberGroupParser.parse(curNode, context);
-            fillElementWithContent(result.content, type, childRes.members);
+            const [nextNode, memberGroup] = Parsers.NamedTypeMemberGroupParser.parse(curNode, context);
+
+            delete context.data.parentType;
+            delete context.data.parentNestedTypes;
+
+            if (memberGroup.childValueMember) {
+              const { childValueMember } = memberGroup;
+              const rootValueMember = result.content;
+              const membersField = type === types.object ? 'propertyMembers' : 'members';
+              const contentMembers = childValueMember.content[membersField];
+
+              if (!rootValueMember.content) {
+                rootValueMember.content = childValueMember.content;
+              } else {
+                // TODO: при использовании array[string] элемент string дублируется два раза, т.к. сразу попадает в массив при создании new ArrayElement
+                rootValueMember.content[membersField].push(...contentMembers);
+              }
+
+              if (childValueMember.unrecognizedBlocks.length > 0) {
+                appendUnrecognizedBlocks(childValueMember.unrecognizedBlocks.map(ub => ub.sourceMap));
+              }
+
+              const contentMembersSourceMaps = contentMembers.map(cm => cm.sourceMap);
+              if (rootValueMember.sourceMap) {
+                rootValueMember.sourceMap = utils.concatSourceMaps([rootValueMember.sourceMap, ...contentMembersSourceMaps]);
+              } else {
+                rootValueMember.sourceMap = utils.concatSourceMaps(contentMembersSourceMaps);
+              }
+            }
 
             const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
             if (result.content.sourceMap) {

@@ -1,6 +1,9 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
 const MemberGroupElement = require('./elements/MemberGroupElement');
+const ValueMemberElement = require('./elements/ValueMemberElement');
+const DataStructureProcessor = require('../DataStructureProcessor');
+const ValueMemberProcessor = require('../ValueMemberProcessor');
 
 const CrafterError = utils.CrafterError;
 
@@ -82,28 +85,14 @@ module.exports = (Parsers) => {
     processNestedSection(node, context, result) {
       const { type } = result;
 
-      let nextNode;
-      let childResult;
+      const dataStructureProcessor = new DataStructureProcessor(node.parent, Parsers);
+      const valueMember = new ValueMemberElement(type, type, context.data.parentNestedTypes);
 
-      switch (type) {
-        case 'array':
-          [nextNode, childResult] = Parsers.ArrayMemberParser.parse(node, context);
-          result.members.push(childResult);
-          break;
-        case 'enum':
-          [nextNode, childResult] = Parsers.EnumMemberParser.parse(node, context);
-          result.members.push(childResult);
-          break;
-        case 'object':
-          [nextNode, childResult] = Parsers.MSONAttributeParser.parse(node, context);
-          result.members.push(childResult);
-          break;
-        default:
-          nextNode = utils.nextNode(node);
-          break;
-      }
+      ValueMemberProcessor.fillBaseType(context, valueMember);
+      dataStructureProcessor.fillValueMember(valueMember, context);
+      result.childValueMember = valueMember;
 
-      return [nextNode, result];
+      return [utils.nextNode(node.parent), result];
     },
 
     isUnexpectedNode() {

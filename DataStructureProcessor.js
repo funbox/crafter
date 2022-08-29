@@ -181,8 +181,18 @@ class DataStructureProcessor {
         }
         case SectionTypes.msonArrayMemberGroup: {
           [nextNode, childResult] = this.Parsers.MSONMemberGroupParser.parse(curNode, context);
-          arrayMembers.push(...childResult.members);
-          childSourceMaps.push(...childResult.members.map(c => c.sourceMap));
+
+          if (childResult.childValueMember) {
+            const { childValueMember } = childResult;
+            const contentMembers = childValueMember.content.members;
+
+            arrayMembers.push(...contentMembers);
+            childSourceMaps.push(...contentMembers.map(cm => cm.sourceMap));
+
+            if (childValueMember.unrecognizedBlocks) {
+              arrayElement.unrecognizedBlocks.push(...childValueMember.unrecognizedBlocks);
+            }
+          }
           break;
         }
         case SectionTypes.msonMixin: {
@@ -329,8 +339,18 @@ class DataStructureProcessor {
           break;
         case SectionTypes.msonObjectMemberGroup:
           [nextNode, childResult] = this.Parsers.MSONMemberGroupParser.parse(curNode, context);
-          childSourceMaps.push(...childResult.members.map(child => child.sourceMap));
-          objectElement.propertyMembers.push(...childResult.members);
+
+          if (childResult.childValueMember) {
+            const { childValueMember } = childResult;
+            const contentMembers = childValueMember.content.propertyMembers;
+
+            objectElement.propertyMembers.push(...contentMembers);
+            childSourceMaps.push(...contentMembers.map(cm => cm.sourceMap));
+
+            if (childValueMember.unrecognizedBlocks) {
+              valueMember.unrecognizedBlocks.push(...childValueMember.unrecognizedBlocks);
+            }
+          }
           break;
         default: {
           const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
@@ -386,8 +406,17 @@ class DataStructureProcessor {
       switch (sectionType) {
         case SectionTypes.msonEnumMemberGroup:
           [nextNode, childResult] = this.Parsers.MSONMemberGroupParser.parse(curNode, context);
-          enumElement.members.push(...childResult.members);
-          childSourceMaps.push(...childResult.members.map(m => m.sourceMap));
+          if (childResult.childValueMember) {
+            const { childValueMember } = childResult;
+            const contentMembers = childValueMember.content.members;
+
+            enumElement.members.push(...contentMembers);
+            childSourceMaps.push(...contentMembers.map(cm => cm.sourceMap));
+
+            if (childValueMember.unrecognizedBlocks) {
+              valueMember.unrecognizedBlocks.push(...childValueMember.unrecognizedBlocks);
+            }
+          }
           break;
         case SectionTypes.msonMixin: {
           [nextNode, childResult] = this.Parsers.MSONMixinParser.parse(curNode, context);
