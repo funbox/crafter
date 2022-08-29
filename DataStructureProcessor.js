@@ -387,9 +387,13 @@ class DataStructureProcessor {
     const samples = [];
     const defaults = [];
     const validEnumMemberTypes = EnumElement.validEnumMemberTypes;
-    const hasComplexMembers = enumElement.isComplex();
     let curNode = node;
     const childSourceMaps = [];
+
+    if (enumElement.isComplex()) {
+      context.addWarning('Enum must not use non-primitive or named types as a sub-type. Sub-type "string" will be used instead.', sourceMap);
+      enumElement.type = 'string';
+    }
 
     while (curNode) {
       let nextNode;
@@ -442,13 +446,8 @@ class DataStructureProcessor {
           [nextNode, childResult] = this.Parsers.DefaultValueParser.parse(curNode, context);
           delete context.data.typeForDefaults;
           delete context.data.valueType;
-          if (!hasComplexMembers) {
-            defaults.push(...childResult);
-            childSourceMaps.push(...childResult.map(c => c.sourceMap));
-          } else {
-            context.addWarning('Default values of enum of non-primitive type are not supported', sourceMap);
-            valueMember.unrecognizedBlocks.push(...childResult.map(c => new UnrecognizedBlockElement(c.sourceMap)));
-          }
+          defaults.push(...childResult);
+          childSourceMaps.push(...childResult.map(c => c.sourceMap));
           break;
         case SectionTypes.sampleValue:
           context.data.typeForSamples = 'enum';
@@ -456,13 +455,8 @@ class DataStructureProcessor {
           [nextNode, childResult] = this.Parsers.SampleValueParser.parse(curNode, context);
           delete context.data.typeForSamples;
           delete context.data.valueType;
-          if (!hasComplexMembers) {
-            samples.push(...childResult);
-            childSourceMaps.push(...childResult.map(c => c.sourceMap));
-          } else {
-            context.addWarning('Samples of enum of non-primitive type are not supported', sourceMap);
-            valueMember.unrecognizedBlocks.push(...childResult.map(c => new UnrecognizedBlockElement(c.sourceMap)));
-          }
+          samples.push(...childResult);
+          childSourceMaps.push(...childResult.map(c => c.sourceMap));
           break;
         case SectionTypes.enumMember:
           [nextNode, childResult] = this.Parsers.EnumMemberParser.parse(curNode, context);
@@ -508,11 +502,6 @@ class DataStructureProcessor {
       }
       enumElement.defaultValue = defaults[0];
       valueMember.default = defaults[0];
-    }
-
-    if (hasComplexMembers) {
-      context.addWarning('Enum must not use non-primitive or named types as a sub-type. Sub-type "string" will be used instead.', sourceMap);
-      enumElement.type = 'string';
     }
 
     enumElement.members.forEach((member) => {
