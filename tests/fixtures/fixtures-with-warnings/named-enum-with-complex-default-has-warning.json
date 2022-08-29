@@ -21,7 +21,7 @@
       "content": [
         {
           "element": "copy",
-          "content": "Defines a data structure with an enum of objects and a default section in it.\nEmits the warning \"Default values of enum of non-primitive types are not supported\"."
+          "content": "Defines a data structure with an enum of objects and a default section in it.\nEmits the next warning: \"Enum must not use non-primitive or named types as a sub-type\".\nDefault is parsed as the literal value \"(object)\"."
         },
         {
           "element": "category",
@@ -77,13 +77,9 @@
                       }
                     ]
                   },
-                  "unrecognizedBlocks": {
-                    "element": "array",
-                    "content": [
-                      {
-                        "element": "unrecognizedBlock"
-                      }
-                    ]
+                  "default": {
+                    "element": "string",
+                    "content": "(object)"
                   }
                 },
                 "meta": {
@@ -126,28 +122,28 @@
                       "attributes": {
                         "line": {
                           "element": "number",
-                          "content": 15
+                          "content": 1
                         },
                         "column": {
                           "element": "number",
                           "content": 1
                         }
                       },
-                      "content": 250
+                      "content": 0
                     },
                     {
                       "element": "number",
                       "attributes": {
                         "line": {
                           "element": "number",
-                          "content": 16
+                          "content": 18
                         },
                         "column": {
                           "element": "number",
-                          "content": 1
+                          "content": 11
                         }
                       },
-                      "content": 13
+                      "content": 328
                     }
                   ]
                 }
@@ -156,7 +152,7 @@
           ]
         }
       },
-      "content": "Default values of enum of non-primitive types are not supported"
+      "content": "Enum must not use non-primitive or named types as a sub-type. Sub-type \"string\" will be used instead."
     }
   ]
 }

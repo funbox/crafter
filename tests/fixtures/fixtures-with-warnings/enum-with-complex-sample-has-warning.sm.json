@@ -46,7 +46,7 @@
       "content": [
         {
           "element": "copy",
-          "content": "Defines a data structure with an enum of objects and a sample section in it.\nEmits the next warnings:\n\"Samples of enum of non-primitive types are not supported\",\n\"Enum must not use non-primitive or named types as a sub-type\"",
+          "content": "Defines a data structure with an enum of objects and a sample section in it.\nEmits the next warning: \"Enum must not use non-primitive or named types as a sub-type\".\nSample is parsed as the literal value \"(object)\".",
           "attributes": {
             "sourceMap": {
               "element": "array",
@@ -63,7 +63,7 @@
                         },
                         {
                           "element": "number",
-                          "content": 226
+                          "content": 216
                         }
                       ]
                     }
@@ -110,7 +110,7 @@
                                     "content": [
                                       {
                                         "element": "number",
-                                        "content": 273
+                                        "content": 263
                                       },
                                       {
                                         "element": "number",
@@ -153,7 +153,7 @@
                                             "content": [
                                               {
                                                 "element": "number",
-                                                "content": 335
+                                                "content": 325
                                               },
                                               {
                                                 "element": "number",
@@ -191,7 +191,7 @@
                                             "content": [
                                               {
                                                 "element": "number",
-                                                "content": 346
+                                                "content": 336
                                               },
                                               {
                                                 "element": "number",
@@ -208,73 +208,12 @@
                               }
                             ]
                           },
-                          "sourceMap": {
+                          "samples": {
                             "element": "array",
                             "content": [
                               {
-                                "element": "sourceMap",
-                                "content": [
-                                  {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "number",
-                                        "content": 287
-                                      },
-                                      {
-                                        "element": "number",
-                                        "content": 12
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "number",
-                                        "content": 320
-                                      },
-                                      {
-                                        "element": "number",
-                                        "content": 11
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "number",
-                                        "content": 335
-                                      },
-                                      {
-                                        "element": "number",
-                                        "content": 7
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "number",
-                                        "content": 346
-                                      },
-                                      {
-                                        "element": "number",
-                                        "content": 7
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          "unrecognizedBlocks": {
-                            "element": "array",
-                            "content": [
-                              {
-                                "element": "unrecognizedBlock",
+                                "element": "string",
+                                "content": "(object)",
                                 "attributes": {
                                   "sourceMap": {
                                     "element": "array",
@@ -287,7 +226,7 @@
                                             "content": [
                                               {
                                                 "element": "number",
-                                                "content": 320
+                                                "content": 310
                                               },
                                               {
                                                 "element": "number",
@@ -300,6 +239,68 @@
                                     ]
                                   }
                                 }
+                              }
+                            ]
+                          },
+                          "sourceMap": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "sourceMap",
+                                "content": [
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 277
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 12
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 310
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 11
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 325
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 7
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 336
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 7
+                                      }
+                                    ]
+                                  }
+                                ]
                               }
                             ]
                           }
@@ -318,7 +319,7 @@
                                 "content": [
                                   {
                                     "element": "number",
-                                    "content": 270
+                                    "content": 260
                                   },
                                   {
                                     "element": "number",
@@ -345,7 +346,7 @@
                             "content": [
                               {
                                 "element": "number",
-                                "content": 270
+                                "content": 260
                               },
                               {
                                 "element": "number",
@@ -374,7 +375,7 @@
                                 "content": [
                                   {
                                     "element": "number",
-                                    "content": 258
+                                    "content": 248
                                   },
                                   {
                                     "element": "number",
@@ -402,7 +403,7 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 255
+                              "content": 245
                             },
                             {
                               "element": "number",
@@ -415,7 +416,7 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 270
+                              "content": 260
                             },
                             {
                               "element": "number",
@@ -442,7 +443,7 @@
                       "content": [
                         {
                           "element": "number",
-                          "content": 236
+                          "content": 226
                         },
                         {
                           "element": "number",
@@ -455,7 +456,7 @@
                       "content": [
                         {
                           "element": "number",
-                          "content": 255
+                          "content": 245
                         },
                         {
                           "element": "number",
@@ -468,7 +469,7 @@
                       "content": [
                         {
                           "element": "number",
-                          "content": 270
+                          "content": 260
                         },
                         {
                           "element": "number",
@@ -500,7 +501,7 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 359
+                              "content": 349
                             },
                             {
                               "element": "number",
@@ -525,7 +526,7 @@
                       "content": [
                         {
                           "element": "number",
-                          "content": 353
+                          "content": 343
                         },
                         {
                           "element": "number",
@@ -538,7 +539,7 @@
                       "content": [
                         {
                           "element": "number",
-                          "content": 365
+                          "content": 355
                         },
                         {
                           "element": "number",
@@ -576,7 +577,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 355
+                                          "content": 345
                                         },
                                         {
                                           "element": "number",
@@ -612,7 +613,7 @@
                                         "content": [
                                           {
                                             "element": "number",
-                                            "content": 416
+                                            "content": 406
                                           },
                                           {
                                             "element": "number",
@@ -638,7 +639,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 403
+                                          "content": 393
                                         },
                                         {
                                           "element": "number",
@@ -711,7 +712,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 376
+                                          "content": 366
                                         },
                                         {
                                           "element": "number",
@@ -752,7 +753,7 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 381
+                                              "content": 371
                                             },
                                             {
                                               "element": "number",
@@ -779,7 +780,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 381
+                                          "content": 371
                                         },
                                         {
                                           "element": "number",
@@ -804,7 +805,7 @@
                                   "content": [
                                     {
                                       "element": "number",
-                                      "content": 365
+                                      "content": 355
                                     },
                                     {
                                       "element": "number",
@@ -831,7 +832,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 365
+                                  "content": 355
                                 },
                                 {
                                   "element": "number",
@@ -862,7 +863,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 359
+                                  "content": 349
                                 },
                                 {
                                   "element": "number",
@@ -887,7 +888,7 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 353
+                              "content": 343
                             },
                             {
                               "element": "number",
@@ -900,7 +901,7 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 365
+                              "content": 355
                             },
                             {
                               "element": "number",
@@ -946,7 +947,7 @@
                     },
                     {
                       "element": "number",
-                      "content": 226
+                      "content": 216
                     }
                   ]
                 },
@@ -955,7 +956,7 @@
                   "content": [
                     {
                       "element": "number",
-                      "content": 236
+                      "content": 226
                     },
                     {
                       "element": "number",
@@ -968,7 +969,7 @@
                   "content": [
                     {
                       "element": "number",
-                      "content": 255
+                      "content": 245
                     },
                     {
                       "element": "number",
@@ -981,7 +982,7 @@
                   "content": [
                     {
                       "element": "number",
-                      "content": 270
+                      "content": 260
                     },
                     {
                       "element": "number",
@@ -994,7 +995,7 @@
                   "content": [
                     {
                       "element": "number",
-                      "content": 353
+                      "content": 343
                     },
                     {
                       "element": "number",
@@ -1007,7 +1008,7 @@
                   "content": [
                     {
                       "element": "number",
-                      "content": 365
+                      "content": 355
                     },
                     {
                       "element": "number",
@@ -1049,81 +1050,21 @@
                       "attributes": {
                         "line": {
                           "element": "number",
-                          "content": 12
+                          "content": 11
                         },
                         "column": {
                           "element": "number",
                           "content": 1
                         }
                       },
-                      "content": 270
+                      "content": 260
                     },
                     {
                       "element": "number",
                       "attributes": {
                         "line": {
                           "element": "number",
-                          "content": 17
-                        },
-                        "column": {
-                          "element": "number",
-                          "content": 1
-                        }
-                      },
-                      "content": 83
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      },
-      "content": "Samples of enum of non-primitive type are not supported"
-    },
-    {
-      "element": "annotation",
-      "meta": {
-        "classes": {
-          "element": "array",
-          "content": [
-            {
-              "element": "string",
-              "content": "warning"
-            }
-          ]
-        }
-      },
-      "attributes": {
-        "sourceMap": {
-          "element": "array",
-          "content": [
-            {
-              "element": "sourceMap",
-              "content": [
-                {
-                  "element": "array",
-                  "content": [
-                    {
-                      "element": "number",
-                      "attributes": {
-                        "line": {
-                          "element": "number",
-                          "content": 12
-                        },
-                        "column": {
-                          "element": "number",
-                          "content": 1
-                        }
-                      },
-                      "content": 270
-                    },
-                    {
-                      "element": "number",
-                      "attributes": {
-                        "line": {
-                          "element": "number",
-                          "content": 17
+                          "content": 16
                         },
                         "column": {
                           "element": "number",

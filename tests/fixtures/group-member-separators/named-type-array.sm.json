@@ -93,7 +93,7 @@
                 "element": "array",
                 "content": [
                   {
-                    "element": "boolean",
+                    "element": "string",
                     "attributes": {
                       "sourceMap": {
                         "element": "array",
@@ -110,7 +110,35 @@
                                   },
                                   {
                                     "element": "number",
-                                    "content": 7
+                                    "content": 6
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "element": "string",
+                    "attributes": {
+                      "sourceMap": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "sourceMap",
+                            "content": [
+                              {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "number",
+                                    "content": 99
+                                  },
+                                  {
+                                    "element": "number",
+                                    "content": 6
                                   }
                                 ]
                               }
@@ -135,7 +163,7 @@
                                 "content": [
                                   {
                                     "element": "number",
-                                    "content": 121
+                                    "content": 120
                                   },
                                   {
                                     "element": "number",
@@ -164,7 +192,7 @@
                                 "content": [
                                   {
                                     "element": "number",
-                                    "content": 128
+                                    "content": 127
                                   },
                                   {
                                     "element": "number",
@@ -195,7 +223,7 @@
                               },
                               {
                                 "element": "number",
-                                "content": 14
+                                "content": 13
                               }
                             ]
                           },
@@ -204,7 +232,7 @@
                             "content": [
                               {
                                 "element": "number",
-                                "content": 110
+                                "content": 109
                               },
                               {
                                 "element": "number",
@@ -217,7 +245,7 @@
                             "content": [
                               {
                                 "element": "number",
-                                "content": 121
+                                "content": 120
                               },
                               {
                                 "element": "number",
@@ -230,7 +258,7 @@
                             "content": [
                               {
                                 "element": "number",
-                                "content": 128
+                                "content": 127
                               },
                               {
                                 "element": "number",
@@ -291,7 +319,7 @@
                             },
                             {
                               "element": "number",
-                              "content": 26
+                              "content": 25
                             }
                           ]
                         },
@@ -300,7 +328,7 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 110
+                              "content": 109
                             },
                             {
                               "element": "number",
@@ -313,7 +341,7 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 121
+                              "content": 120
                             },
                             {
                               "element": "number",
@@ -326,7 +354,7 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 128
+                              "content": 127
                             },
                             {
                               "element": "number",
@@ -370,7 +398,7 @@
                         },
                         {
                           "element": "number",
-                          "content": 26
+                          "content": 25
                         }
                       ]
                     },
@@ -379,7 +407,7 @@
                       "content": [
                         {
                           "element": "number",
-                          "content": 110
+                          "content": 109
                         },
                         {
                           "element": "number",
@@ -392,7 +420,7 @@
                       "content": [
                         {
                           "element": "number",
-                          "content": 121
+                          "content": 120
                         },
                         {
                           "element": "number",
@@ -405,7 +433,7 @@
                       "content": [
                         {
                           "element": "number",
-                          "content": 128
+                          "content": 127
                         },
                         {
                           "element": "number",
@@ -437,7 +465,7 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 153
+                              "content": 152
                             },
                             {
                               "element": "number",
@@ -462,7 +490,7 @@
                       "content": [
                         {
                           "element": "number",
-                          "content": 137
+                          "content": 136
                         },
                         {
                           "element": "number",
@@ -475,7 +503,7 @@
                       "content": [
                         {
                           "element": "number",
-                          "content": 161
+                          "content": 160
                         },
                         {
                           "element": "number",
@@ -513,7 +541,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 149
+                                          "content": 148
                                         },
                                         {
                                           "element": "number",
@@ -549,7 +577,7 @@
                                         "content": [
                                           {
                                             "element": "number",
-                                            "content": 212
+                                            "content": 211
                                           },
                                           {
                                             "element": "number",
@@ -575,7 +603,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 199
+                                          "content": 198
                                         },
                                         {
                                           "element": "number",
@@ -602,7 +630,7 @@
                               ]
                             }
                           },
-                          "content": "[\n  true,\n  \"name\",\n  \"email\"\n]",
+                          "content": "[\n  \"hello\",\n  \"hello\",\n  \"name\",\n  \"email\"\n]",
                           "attributes": {
                             "contentType": {
                               "element": "string",
@@ -629,7 +657,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"array\",\n  \"items\": {\n    \"anyOf\": [\n      {\n        \"type\": \"boolean\"\n      },\n      {\n        \"type\": \"string\"\n      }\n    ]\n  }\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"array\",\n  \"items\": {\n    \"anyOf\": [\n      {\n        \"type\": \"string\"\n      }\n    ]\n  }\n}"
                         }
                       ],
                       "attributes": {
@@ -648,7 +676,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 172
+                                          "content": 171
                                         },
                                         {
                                           "element": "number",
@@ -689,7 +717,7 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 177
+                                              "content": 176
                                             },
                                             {
                                               "element": "number",
@@ -716,7 +744,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 177
+                                          "content": 176
                                         },
                                         {
                                           "element": "number",
@@ -741,7 +769,7 @@
                                   "content": [
                                     {
                                       "element": "number",
-                                      "content": 161
+                                      "content": 160
                                     },
                                     {
                                       "element": "number",
@@ -768,7 +796,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 161
+                                  "content": 160
                                 },
                                 {
                                   "element": "number",
@@ -799,7 +827,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 139
+                                  "content": 138
                                 },
                                 {
                                   "element": "number",
@@ -830,7 +858,7 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 153
+                                  "content": 152
                                 },
                                 {
                                   "element": "number",
@@ -855,7 +883,7 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 137
+                              "content": 136
                             },
                             {
                               "element": "number",
@@ -868,7 +896,7 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 161
+                              "content": 160
                             },
                             {
                               "element": "number",
@@ -899,7 +927,7 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 139
+                              "content": 138
                             },
                             {
                               "element": "number",
@@ -971,7 +999,7 @@
                     },
                     {
                       "element": "number",
-                      "content": 26
+                      "content": 25
                     }
                   ]
                 },
@@ -980,7 +1008,7 @@
                   "content": [
                     {
                       "element": "number",
-                      "content": 110
+                      "content": 109
                     },
                     {
                       "element": "number",
@@ -993,7 +1021,7 @@
                   "content": [
                     {
                       "element": "number",
-                      "content": 121
+                      "content": 120
                     },
                     {
                       "element": "number",
@@ -1006,7 +1034,7 @@
                   "content": [
                     {
                       "element": "number",
-                      "content": 128
+                      "content": 127
                     },
                     {
                       "element": "number",
@@ -1019,7 +1047,7 @@
                   "content": [
                     {
                       "element": "number",
-                      "content": 137
+                      "content": 136
                     },
                     {
                       "element": "number",
@@ -1032,7 +1060,7 @@
                   "content": [
                     {
                       "element": "number",
-                      "content": 161
+                      "content": 160
                     },
                     {
                       "element": "number",
