@@ -46,7 +46,7 @@
       "content": [
         {
           "element": "copy",
-          "content": "Defines enum-type properties without members.\nIt produces warnings 'Enum element \"state\" should include members.', 'Enum element \"kind\" should include members.',\n'Enum element \"process\" should include members.'",
+          "content": "Only \"string\", \"boolean\" and \"number\" are valid types for enum members, other types produce warnings.",
           "attributes": {
             "sourceMap": {
               "element": "array",
@@ -63,7 +63,7 @@
                         },
                         {
                           "element": "number",
-                          "content": 213
+                          "content": 103
                         }
                       ]
                     }
@@ -97,7 +97,7 @@
                     "content": {
                       "key": {
                         "element": "string",
-                        "content": "state",
+                        "content": "id",
                         "attributes": {
                           "sourceMap": {
                             "element": "array",
@@ -110,11 +110,11 @@
                                     "content": [
                                       {
                                         "element": "number",
-                                        "content": 253
+                                        "content": 148
                                       },
                                       {
                                         "element": "number",
-                                        "content": 5
+                                        "content": 2
                                       }
                                     ]
                                   }
@@ -125,267 +125,14 @@
                         }
                       },
                       "value": {
-                        "element": "enum",
-                        "attributes": {
-                          "sourceMap": {
-                            "element": "array",
-                            "content": [
-                              {
-                                "element": "sourceMap",
-                                "content": [
-                                  {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "number",
-                                        "content": 260
-                                      },
-                                      {
-                                        "element": "number",
-                                        "content": 4
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        }
-                      }
-                    },
-                    "attributes": {
-                      "sourceMap": {
-                        "element": "array",
-                        "content": [
-                          {
-                            "element": "sourceMap",
-                            "content": [
-                              {
-                                "element": "array",
-                                "content": [
-                                  {
-                                    "element": "number",
-                                    "content": 251
-                                  },
-                                  {
-                                    "element": "number",
-                                    "content": 39
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    },
-                    "meta": {
-                      "description": {
                         "element": "string",
-                        "content": "enum with no members",
                         "attributes": {
-                          "sourceMap": {
-                            "element": "array",
-                            "content": [
-                              {
-                                "element": "sourceMap",
-                                "content": [
-                                  {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "number",
-                                        "content": 268
-                                      },
-                                      {
-                                        "element": "number",
-                                        "content": 20
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        }
-                      }
-                    }
-                  }
-                ],
-                "attributes": {
-                  "sourceMap": {
-                    "element": "array",
-                    "content": [
-                      {
-                        "element": "sourceMap",
-                        "content": [
-                          {
-                            "element": "array",
-                            "content": [
-                              {
-                                "element": "number",
-                                "content": 251
-                              },
-                              {
-                                "element": "number",
-                                "content": 39
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                },
-                "meta": {
-                  "id": {
-                    "element": "string",
-                    "content": "Enum1",
-                    "attributes": {
-                      "sourceMap": {
-                        "element": "array",
-                        "content": [
-                          {
-                            "element": "sourceMap",
-                            "content": [
-                              {
-                                "element": "array",
-                                "content": [
-                                  {
-                                    "element": "number",
-                                    "content": 245
-                                  },
-                                  {
-                                    "element": "number",
-                                    "content": 5
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    }
-                  }
-                }
-              },
-              "attributes": {
-                "sourceMap": {
-                  "element": "array",
-                  "content": [
-                    {
-                      "element": "sourceMap",
-                      "content": [
-                        {
-                          "element": "array",
-                          "content": [
-                            {
-                              "element": "number",
-                              "content": 242
-                            },
-                            {
-                              "element": "number",
-                              "content": 9
-                            }
-                          ]
-                        },
-                        {
-                          "element": "array",
-                          "content": [
-                            {
-                              "element": "number",
-                              "content": 251
-                            },
-                            {
-                              "element": "number",
-                              "content": 39
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                }
-              }
-            },
-            {
-              "element": "dataStructure",
-              "content": {
-                "element": "object",
-                "content": [
-                  {
-                    "element": "member",
-                    "content": {
-                      "key": {
-                        "element": "string",
-                        "content": "kind",
-                        "attributes": {
-                          "sourceMap": {
-                            "element": "array",
-                            "content": [
-                              {
-                                "element": "sourceMap",
-                                "content": [
-                                  {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "number",
-                                        "content": 301
-                                      },
-                                      {
-                                        "element": "number",
-                                        "content": 4
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        }
-                      },
-                      "value": {
-                        "element": "enum",
-                        "attributes": {
-                          "enumerations": {
-                            "element": "array",
-                            "content": []
-                          },
-                          "default": {
-                            "element": "string",
-                            "content": "sms",
-                            "attributes": {
-                              "sourceMap": {
-                                "element": "array",
-                                "content": [
-                                  {
-                                    "element": "sourceMap",
-                                    "content": [
-                                      {
-                                        "element": "array",
-                                        "content": [
-                                          {
-                                            "element": "number",
-                                            "content": 388
-                                          },
-                                          {
-                                            "element": "number",
-                                            "content": 3
-                                          }
-                                        ]
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            }
-                          },
                           "samples": {
                             "element": "array",
                             "content": [
                               {
                                 "element": "string",
-                                "content": "sms",
+                                "content": "1",
                                 "attributes": {
                                   "sourceMap": {
                                     "element": "array",
@@ -398,11 +145,11 @@
                                             "content": [
                                               {
                                                 "element": "number",
-                                                "content": 408
+                                                "content": 152
                                               },
                                               {
                                                 "element": "number",
-                                                "content": 3
+                                                "content": 1
                                               }
                                             ]
                                           }
@@ -425,37 +172,11 @@
                                     "content": [
                                       {
                                         "element": "number",
-                                        "content": 307
+                                        "content": 152
                                       },
                                       {
                                         "element": "number",
-                                        "content": 4
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "number",
-                                        "content": 388
-                                      },
-                                      {
-                                        "element": "number",
-                                        "content": 3
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "number",
-                                        "content": 408
-                                      },
-                                      {
-                                        "element": "number",
-                                        "content": 3
+                                        "content": 1
                                       }
                                     ]
                                   }
@@ -478,48 +199,17 @@
                                 "content": [
                                   {
                                     "element": "number",
-                                    "content": 299
+                                    "content": 146
                                   },
                                   {
                                     "element": "number",
-                                    "content": 115
+                                    "content": 9
                                   }
                                 ]
                               }
                             ]
                           }
                         ]
-                      }
-                    },
-                    "meta": {
-                      "description": {
-                        "element": "string",
-                        "content": "enum with no members, but with default and sample values",
-                        "attributes": {
-                          "sourceMap": {
-                            "element": "array",
-                            "content": [
-                              {
-                                "element": "sourceMap",
-                                "content": [
-                                  {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "number",
-                                        "content": 315
-                                      },
-                                      {
-                                        "element": "number",
-                                        "content": 56
-                                      }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        }
                       }
                     }
                   }
@@ -536,11 +226,24 @@
                             "content": [
                               {
                                 "element": "number",
-                                "content": 299
+                                "content": 138
                               },
                               {
                                 "element": "number",
-                                "content": 115
+                                "content": 6
+                              }
+                            ]
+                          },
+                          {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "number",
+                                "content": 146
+                              },
+                              {
+                                "element": "number",
+                                "content": 9
                               }
                             ]
                           }
@@ -552,7 +255,7 @@
                 "meta": {
                   "id": {
                     "element": "string",
-                    "content": "Enum2",
+                    "content": "A",
                     "attributes": {
                       "sourceMap": {
                         "element": "array",
@@ -565,11 +268,11 @@
                                 "content": [
                                   {
                                     "element": "number",
-                                    "content": 293
+                                    "content": 135
                                   },
                                   {
                                     "element": "number",
-                                    "content": 5
+                                    "content": 1
                                   }
                                 ]
                               }
@@ -593,11 +296,11 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 290
+                              "content": 132
                             },
                             {
                               "element": "number",
-                              "content": 9
+                              "content": 14
                             }
                           ]
                         },
@@ -606,11 +309,11 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 299
+                              "content": 146
                             },
                             {
                               "element": "number",
-                              "content": 115
+                              "content": 9
                             }
                           ]
                         }
@@ -623,46 +326,22 @@
             {
               "element": "dataStructure",
               "content": {
-                "element": "object",
-                "content": [
-                  {
-                    "element": "member",
-                    "content": {
-                      "key": {
+                "element": "enum",
+                "attributes": {
+                  "enumerations": {
+                    "element": "array",
+                    "content": [
+                      {
                         "element": "string",
-                        "content": "process",
                         "attributes": {
-                          "sourceMap": {
+                          "typeAttributes": {
                             "element": "array",
                             "content": [
                               {
-                                "element": "sourceMap",
-                                "content": [
-                                  {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "number",
-                                        "content": 425
-                                      },
-                                      {
-                                        "element": "number",
-                                        "content": 7
-                                      }
-                                    ]
-                                  }
-                                ]
+                                "element": "string",
+                                "content": "fixed"
                               }
                             ]
-                          }
-                        }
-                      },
-                      "value": {
-                        "element": "enum",
-                        "attributes": {
-                          "enumerations": {
-                            "element": "array",
-                            "content": []
                           },
                           "sourceMap": {
                             "element": "array",
@@ -675,11 +354,11 @@
                                     "content": [
                                       {
                                         "element": "number",
-                                        "content": 434
+                                        "content": 189
                                       },
                                       {
                                         "element": "number",
-                                        "content": 4
+                                        "content": 48
                                       }
                                     ]
                                   }
@@ -687,38 +366,308 @@
                               }
                             ]
                           }
-                        }
-                      }
-                    },
-                    "attributes": {
-                      "sourceMap": {
-                        "element": "array",
-                        "content": [
-                          {
-                            "element": "sourceMap",
+                        },
+                        "content": "string is the default type if type is omitted"
+                      },
+                      {
+                        "element": "boolean",
+                        "attributes": {
+                          "typeAttributes": {
+                            "element": "array",
                             "content": [
                               {
-                                "element": "array",
+                                "element": "string",
+                                "content": "fixed"
+                              }
+                            ]
+                          },
+                          "sourceMap": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "sourceMap",
                                 "content": [
                                   {
-                                    "element": "number",
-                                    "content": 423
-                                  },
-                                  {
-                                    "element": "number",
-                                    "content": 97
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 256
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 17
+                                      }
+                                    ]
                                   }
                                 ]
                               }
                             ]
                           }
+                        },
+                        "content": true
+                      },
+                      {
+                        "element": "boolean",
+                        "attributes": {
+                          "typeAttributes": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "fixed"
+                              }
+                            ]
+                          },
+                          "sourceMap": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "sourceMap",
+                                "content": [
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 273
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 18
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        "content": false
+                      },
+                      {
+                        "element": "number",
+                        "attributes": {
+                          "typeAttributes": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "fixed"
+                              }
+                            ]
+                          },
+                          "sourceMap": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "sourceMap",
+                                "content": [
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 291
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 14
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        "content": 13
+                      },
+                      {
+                        "element": "string",
+                        "attributes": {
+                          "typeAttributes": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "fixed"
+                              }
+                            ]
+                          },
+                          "sourceMap": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "sourceMap",
+                                "content": [
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 333
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 19
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        "content": "valid 2"
+                      }
+                    ]
+                  },
+                  "sourceMap": {
+                    "element": "array",
+                    "content": [
+                      {
+                        "element": "sourceMap",
+                        "content": [
+                          {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "number",
+                                "content": 169
+                              },
+                              {
+                                "element": "number",
+                                "content": 4
+                              }
+                            ]
+                          },
+                          {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "number",
+                                "content": 176
+                              },
+                              {
+                                "element": "number",
+                                "content": 13
+                              }
+                            ]
+                          },
+                          {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "number",
+                                "content": 189
+                              },
+                              {
+                                "element": "number",
+                                "content": 48
+                              }
+                            ]
+                          },
+                          {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "number",
+                                "content": 237
+                              },
+                              {
+                                "element": "number",
+                                "content": 19
+                              }
+                            ]
+                          },
+                          {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "number",
+                                "content": 256
+                              },
+                              {
+                                "element": "number",
+                                "content": 17
+                              }
+                            ]
+                          },
+                          {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "number",
+                                "content": 273
+                              },
+                              {
+                                "element": "number",
+                                "content": 18
+                              }
+                            ]
+                          },
+                          {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "number",
+                                "content": 291
+                              },
+                              {
+                                "element": "number",
+                                "content": 14
+                              }
+                            ]
+                          },
+                          {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "number",
+                                "content": 305
+                              },
+                              {
+                                "element": "number",
+                                "content": 28
+                              }
+                            ]
+                          },
+                          {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "number",
+                                "content": 333
+                              },
+                              {
+                                "element": "number",
+                                "content": 19
+                              }
+                            ]
+                          },
+                          {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "number",
+                                "content": 352
+                              },
+                              {
+                                "element": "number",
+                                "content": 26
+                              }
+                            ]
+                          }
                         ]
                       }
-                    },
-                    "meta": {
-                      "description": {
-                        "element": "string",
-                        "content": "enum with \"Members\" section separator but with not actual members",
+                    ]
+                  },
+                  "unrecognizedBlocks": {
+                    "element": "array",
+                    "content": [
+                      {
+                        "element": "unrecognizedBlock",
                         "attributes": {
                           "sourceMap": {
                             "element": "array",
@@ -731,11 +680,67 @@
                                     "content": [
                                       {
                                         "element": "number",
-                                        "content": 442
+                                        "content": 237
                                       },
                                       {
                                         "element": "number",
-                                        "content": 65
+                                        "content": 19
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      },
+                      {
+                        "element": "unrecognizedBlock",
+                        "attributes": {
+                          "sourceMap": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "sourceMap",
+                                "content": [
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 305
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 28
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      },
+                      {
+                        "element": "unrecognizedBlock",
+                        "attributes": {
+                          "sourceMap": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "sourceMap",
+                                "content": [
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 352
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 26
                                       }
                                     ]
                                   }
@@ -745,38 +750,13 @@
                           }
                         }
                       }
-                    }
-                  }
-                ],
-                "attributes": {
-                  "sourceMap": {
-                    "element": "array",
-                    "content": [
-                      {
-                        "element": "sourceMap",
-                        "content": [
-                          {
-                            "element": "array",
-                            "content": [
-                              {
-                                "element": "number",
-                                "content": 423
-                              },
-                              {
-                                "element": "number",
-                                "content": 97
-                              }
-                            ]
-                          }
-                        ]
-                      }
                     ]
                   }
                 },
                 "meta": {
                   "id": {
                     "element": "string",
-                    "content": "Enum3",
+                    "content": "Test enum",
                     "attributes": {
                       "sourceMap": {
                         "element": "array",
@@ -789,11 +769,11 @@
                                 "content": [
                                   {
                                     "element": "number",
-                                    "content": 417
+                                    "content": 158
                                   },
                                   {
                                     "element": "number",
-                                    "content": 5
+                                    "content": 9
                                   }
                                 ]
                               }
@@ -817,11 +797,11 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 414
+                              "content": 155
                             },
                             {
                               "element": "number",
-                              "content": 9
+                              "content": 21
                             }
                           ]
                         },
@@ -830,11 +810,115 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 423
+                              "content": 176
                             },
                             {
                               "element": "number",
-                              "content": 97
+                              "content": 13
+                            }
+                          ]
+                        },
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 189
+                            },
+                            {
+                              "element": "number",
+                              "content": 48
+                            }
+                          ]
+                        },
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 237
+                            },
+                            {
+                              "element": "number",
+                              "content": 19
+                            }
+                          ]
+                        },
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 256
+                            },
+                            {
+                              "element": "number",
+                              "content": 17
+                            }
+                          ]
+                        },
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 273
+                            },
+                            {
+                              "element": "number",
+                              "content": 18
+                            }
+                          ]
+                        },
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 291
+                            },
+                            {
+                              "element": "number",
+                              "content": 14
+                            }
+                          ]
+                        },
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 305
+                            },
+                            {
+                              "element": "number",
+                              "content": 28
+                            }
+                          ]
+                        },
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 333
+                            },
+                            {
+                              "element": "number",
+                              "content": 19
+                            }
+                          ]
+                        },
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 352
+                            },
+                            {
+                              "element": "number",
+                              "content": 26
                             }
                           ]
                         }
@@ -857,7 +941,7 @@
                       "content": [
                         {
                           "element": "number",
-                          "content": 223
+                          "content": 113
                         },
                         {
                           "element": "number",
@@ -870,7 +954,20 @@
                       "content": [
                         {
                           "element": "number",
-                          "content": 242
+                          "content": 132
+                        },
+                        {
+                          "element": "number",
+                          "content": 14
+                        }
+                      ]
+                    },
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 146
                         },
                         {
                           "element": "number",
@@ -883,11 +980,11 @@
                       "content": [
                         {
                           "element": "number",
-                          "content": 251
+                          "content": 155
                         },
                         {
                           "element": "number",
-                          "content": 39
+                          "content": 21
                         }
                       ]
                     },
@@ -896,11 +993,11 @@
                       "content": [
                         {
                           "element": "number",
-                          "content": 290
+                          "content": 176
                         },
                         {
                           "element": "number",
-                          "content": 9
+                          "content": 13
                         }
                       ]
                     },
@@ -909,11 +1006,11 @@
                       "content": [
                         {
                           "element": "number",
-                          "content": 299
+                          "content": 189
                         },
                         {
                           "element": "number",
-                          "content": 115
+                          "content": 48
                         }
                       ]
                     },
@@ -922,11 +1019,11 @@
                       "content": [
                         {
                           "element": "number",
-                          "content": 414
+                          "content": 237
                         },
                         {
                           "element": "number",
-                          "content": 9
+                          "content": 19
                         }
                       ]
                     },
@@ -935,11 +1032,76 @@
                       "content": [
                         {
                           "element": "number",
-                          "content": 423
+                          "content": 256
                         },
                         {
                           "element": "number",
-                          "content": 97
+                          "content": 17
+                        }
+                      ]
+                    },
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 273
+                        },
+                        {
+                          "element": "number",
+                          "content": 18
+                        }
+                      ]
+                    },
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 291
+                        },
+                        {
+                          "element": "number",
+                          "content": 14
+                        }
+                      ]
+                    },
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 305
+                        },
+                        {
+                          "element": "number",
+                          "content": 28
+                        }
+                      ]
+                    },
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 333
+                        },
+                        {
+                          "element": "number",
+                          "content": 19
+                        }
+                      ]
+                    },
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 352
+                        },
+                        {
+                          "element": "number",
+                          "content": 26
                         }
                       ]
                     }
@@ -979,7 +1141,7 @@
                     },
                     {
                       "element": "number",
-                      "content": 213
+                      "content": 103
                     }
                   ]
                 },
@@ -988,7 +1150,7 @@
                   "content": [
                     {
                       "element": "number",
-                      "content": 223
+                      "content": 113
                     },
                     {
                       "element": "number",
@@ -1001,7 +1163,20 @@
                   "content": [
                     {
                       "element": "number",
-                      "content": 242
+                      "content": 132
+                    },
+                    {
+                      "element": "number",
+                      "content": 14
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 146
                     },
                     {
                       "element": "number",
@@ -1014,11 +1189,11 @@
                   "content": [
                     {
                       "element": "number",
-                      "content": 251
+                      "content": 155
                     },
                     {
                       "element": "number",
-                      "content": 39
+                      "content": 21
                     }
                   ]
                 },
@@ -1027,11 +1202,11 @@
                   "content": [
                     {
                       "element": "number",
-                      "content": 290
+                      "content": 176
                     },
                     {
                       "element": "number",
-                      "content": 9
+                      "content": 13
                     }
                   ]
                 },
@@ -1040,11 +1215,11 @@
                   "content": [
                     {
                       "element": "number",
-                      "content": 299
+                      "content": 189
                     },
                     {
                       "element": "number",
-                      "content": 115
+                      "content": 48
                     }
                   ]
                 },
@@ -1053,11 +1228,11 @@
                   "content": [
                     {
                       "element": "number",
-                      "content": 414
+                      "content": 237
                     },
                     {
                       "element": "number",
-                      "content": 9
+                      "content": 19
                     }
                   ]
                 },
@@ -1066,11 +1241,76 @@
                   "content": [
                     {
                       "element": "number",
-                      "content": 423
+                      "content": 256
                     },
                     {
                       "element": "number",
-                      "content": 97
+                      "content": 17
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 273
+                    },
+                    {
+                      "element": "number",
+                      "content": 18
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 291
+                    },
+                    {
+                      "element": "number",
+                      "content": 14
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 305
+                    },
+                    {
+                      "element": "number",
+                      "content": 28
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 333
+                    },
+                    {
+                      "element": "number",
+                      "content": 19
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 352
+                    },
+                    {
+                      "element": "number",
+                      "content": 26
                     }
                   ]
                 }
@@ -1108,28 +1348,28 @@
                       "attributes": {
                         "line": {
                           "element": "number",
-                          "content": 11
+                          "content": 15
                         },
                         "column": {
                           "element": "number",
                           "content": 1
                         }
                       },
-                      "content": 251
+                      "content": 237
                     },
                     {
                       "element": "number",
                       "attributes": {
                         "line": {
                           "element": "number",
-                          "content": 12
+                          "content": 15
                         },
                         "column": {
                           "element": "number",
-                          "content": 1
+                          "content": 19
                         }
                       },
-                      "content": 39
+                      "content": 19
                     }
                   ]
                 }
@@ -1138,67 +1378,7 @@
           ]
         }
       },
-      "content": "Enum element \"state\" should include members."
-    },
-    {
-      "element": "annotation",
-      "meta": {
-        "classes": {
-          "element": "array",
-          "content": [
-            {
-              "element": "string",
-              "content": "warning"
-            }
-          ]
-        }
-      },
-      "attributes": {
-        "sourceMap": {
-          "element": "array",
-          "content": [
-            {
-              "element": "sourceMap",
-              "content": [
-                {
-                  "element": "array",
-                  "content": [
-                    {
-                      "element": "number",
-                      "attributes": {
-                        "line": {
-                          "element": "number",
-                          "content": 14
-                        },
-                        "column": {
-                          "element": "number",
-                          "content": 1
-                        }
-                      },
-                      "content": 299
-                    },
-                    {
-                      "element": "number",
-                      "attributes": {
-                        "line": {
-                          "element": "number",
-                          "content": 17
-                        },
-                        "column": {
-                          "element": "number",
-                          "content": 1
-                        }
-                      },
-                      "content": 115
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      },
-      "content": "Enum element \"kind\" should include members."
+      "content": "Invalid enum member type: A. Valid types: string, number, boolean."
     },
     {
       "element": "annotation",
@@ -1235,21 +1415,21 @@
                           "content": 1
                         }
                       },
-                      "content": 423
+                      "content": 305
                     },
                     {
                       "element": "number",
                       "attributes": {
                         "line": {
                           "element": "number",
-                          "content": 20
+                          "content": 19
                         },
                         "column": {
                           "element": "number",
-                          "content": 12
+                          "content": 28
                         }
                       },
-                      "content": 97
+                      "content": 28
                     }
                   ]
                 }
@@ -1258,7 +1438,67 @@
           ]
         }
       },
-      "content": "Enum element \"process\" should include members."
+      "content": "Invalid enum member type: array[A]. Valid types: string, number, boolean."
+    },
+    {
+      "element": "annotation",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "warning"
+            }
+          ]
+        }
+      },
+      "attributes": {
+        "sourceMap": {
+          "element": "array",
+          "content": [
+            {
+              "element": "sourceMap",
+              "content": [
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 21
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 1
+                        }
+                      },
+                      "content": 352
+                    },
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 21
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 26
+                        }
+                      },
+                      "content": 26
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "content": "Invalid enum member type: object. Valid types: string, number, boolean."
     }
   ]
 }

@@ -1,0 +1,21 @@
+# My API
+
+Defines object-type data structure "User" and uses it as a mixin (inside of a "Properties" members group).
+
+# Data Structures
+
+## User
+
++ name: `John` (string, required) - user name
+
+## Admin
+
+### Properties
+
++ Include User
++ `access_level`: `all` (string, required)
+
+# Get admin [GET /admin]
+
++ Response 200 (application/json)
+    + Attributes(Admin)
