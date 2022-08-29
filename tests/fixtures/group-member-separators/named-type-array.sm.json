@@ -122,34 +122,6 @@
                   },
                   {
                     "element": "string",
-                    "attributes": {
-                      "sourceMap": {
-                        "element": "array",
-                        "content": [
-                          {
-                            "element": "sourceMap",
-                            "content": [
-                              {
-                                "element": "array",
-                                "content": [
-                                  {
-                                    "element": "number",
-                                    "content": 99
-                                  },
-                                  {
-                                    "element": "number",
-                                    "content": 6
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    }
-                  },
-                  {
-                    "element": "string",
                     "content": "name",
                     "attributes": {
                       "sourceMap": {
@@ -630,7 +602,7 @@
                               ]
                             }
                           },
-                          "content": "[\n  \"hello\",\n  \"hello\",\n  \"name\",\n  \"email\"\n]",
+                          "content": "[\n  \"hello\",\n  \"name\",\n  \"email\"\n]",
                           "attributes": {
                             "contentType": {
                               "element": "string",

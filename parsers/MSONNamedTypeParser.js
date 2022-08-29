@@ -164,7 +164,6 @@ module.exports = (Parsers) => {
               if (!rootValueMember.content) {
                 rootValueMember.content = childValueMember.content;
               } else {
-                // TODO: при использовании array[string] элемент string дублируется два раза, т.к. сразу попадает в массив при создании new ArrayElement
                 rootValueMember.content[membersField].push(...contentMembers);
               }
 

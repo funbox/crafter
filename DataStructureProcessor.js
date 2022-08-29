@@ -2,8 +2,9 @@ const SectionTypes = require('./SectionTypes');
 const { types } = require('./constants');
 const utils = require('./utils');
 
-const EnumElement = require('./parsers/elements/EnumElement');
 const ObjectElement = require('./parsers/elements/ObjectElement');
+const ArrayElement = require('./parsers/elements/ArrayElement');
+const EnumElement = require('./parsers/elements/EnumElement');
 const SchemaNamedTypeElement = require('./parsers/elements/SchemaNamedTypeElement');
 const MSONMixinElement = require('./parsers/elements/MSONMixinElement');
 const UnrecognizedBlockElement = require('./parsers/elements/UnrecognizedBlockElement');
@@ -122,15 +123,19 @@ class DataStructureProcessor {
     }
   }
 
-  processArray(arrayElement, node, context) {
+  processArray(valueMember, node, context) {
     let curNode = node;
-    const arrayMembers = arrayElement.content.members;
+    valueMember.content = valueMember.content || new ArrayElement([]);
+    const arrayMembers = valueMember.content.members;
 
     const sourceMap = utils.makeGenericSourceMap(this.valueMemberRootNode.parent, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
     const samples = [];
     const defaults = [];
-    const predefinedType = arrayMembers.length ? arrayMembers[0].type : 'string';
-    const hasComplexMembers = arrayElement.content.isComplex();
+    const nestedTypeNames = valueMember.nestedTypes.map(nestedType => nestedType.type);
+    const membersTypeNames = arrayMembers.map(member => member.type);
+    const nestedTypes = Array.from(new Set([...membersTypeNames, ...nestedTypeNames]));
+    const predefinedType = nestedTypes.length ? nestedTypes[0] : 'string';
+    const hasComplexMembers = valueMember.content.isComplex();
 
     const childSourceMaps = [];
 
@@ -190,7 +195,7 @@ class DataStructureProcessor {
             childSourceMaps.push(...contentMembers.map(cm => cm.sourceMap));
 
             if (childValueMember.unrecognizedBlocks) {
-              arrayElement.unrecognizedBlocks.push(...childValueMember.unrecognizedBlocks);
+              valueMember.unrecognizedBlocks.push(...childValueMember.unrecognizedBlocks);
             }
           }
           break;
@@ -209,7 +214,7 @@ class DataStructureProcessor {
             arrayMembers.push(childResult);
             childSourceMaps.push(childResult.sourceMap);
           } else {
-            arrayElement.unrecognizedBlocks.push(new UnrecognizedBlockElement(childResult.sourceMap));
+            valueMember.unrecognizedBlocks.push(new UnrecognizedBlockElement(childResult.sourceMap));
           }
           break;
         }
@@ -222,7 +227,7 @@ class DataStructureProcessor {
         default: {
           context.addWarning(`Ignoring unrecognized block "${utils.nodeText(curNode, context.sourceLines)}".`, sourceMap);
           const curNodeSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
-          arrayElement.unrecognizedBlocks.push(new UnrecognizedBlockElement(curNodeSourceMap));
+          valueMember.unrecognizedBlocks.push(new UnrecognizedBlockElement(curNodeSourceMap));
           nextNode = utils.nextNode(curNode);
         }
       }
@@ -235,15 +240,15 @@ class DataStructureProcessor {
     }
 
     if (samples.length) {
-      arrayElement.samples = arrayElement.samples || [];
-      arrayElement.samples.push(...samples);
+      valueMember.samples = valueMember.samples || [];
+      valueMember.samples.push(...samples);
     }
 
     if (defaults.length) {
       if (defaults.length > 1) {
         context.addWarning('Multiple definitions of "default" value', sourceMap);
       }
-      arrayElement.default = defaults[0];
+      valueMember.default = defaults[0];
     }
 
     arrayMembers.forEach((member) => {
@@ -263,10 +268,10 @@ class DataStructureProcessor {
       }
     });
 
-    if (arrayElement.sourceMap) {
-      arrayElement.sourceMap = utils.concatSourceMaps([arrayElement.sourceMap, ...childSourceMaps]);
+    if (valueMember.sourceMap) {
+      valueMember.sourceMap = utils.concatSourceMaps([valueMember.sourceMap, ...childSourceMaps]);
     } else {
-      arrayElement.sourceMap = utils.concatSourceMaps(childSourceMaps);
+      valueMember.sourceMap = utils.concatSourceMaps(childSourceMaps);
     }
   }
 

@@ -3,7 +3,6 @@ const utils = require('../utils');
 const MemberGroupElement = require('./elements/MemberGroupElement');
 const ValueMemberElement = require('./elements/ValueMemberElement');
 const DataStructureProcessor = require('../DataStructureProcessor');
-const ValueMemberProcessor = require('../ValueMemberProcessor');
 
 const CrafterError = utils.CrafterError;
 
@@ -88,7 +87,6 @@ module.exports = (Parsers) => {
       const dataStructureProcessor = new DataStructureProcessor(node.parent, Parsers);
       const valueMember = new ValueMemberElement(type, type, context.data.parentNestedTypes);
 
-      ValueMemberProcessor.fillBaseType(context, valueMember);
       dataStructureProcessor.fillValueMember(valueMember, context);
       result.childValueMember = valueMember;
 
