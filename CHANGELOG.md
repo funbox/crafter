@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.0.1 (30.08.2021)
+
+Fixed `Members` parsing in enums. Now Crafter can warn when you use invalid enum member type.
+
+
 ## 4.0.0 (21.03.2022)
 
 Published the package on Github and added LICENSE file.
