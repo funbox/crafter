@@ -21,7 +21,7 @@
       "content": [
         {
           "element": "copy",
-          "content": "Defines a data structure with an enum of objects and a default section in it.\nEmits the next warnings:\n\"Default values of enum of non-primitive types are not supported\",\n\"Enum must not use non-primitive or named types as a sub-type\""
+          "content": "Defines a data structure with an enum of objects and a default section in it.\nEmits the next warning: \"Enum must not use non-primitive or named types as a sub-type\".\nDefault is parsed as the literal value \"(object)\"."
         },
         {
           "element": "category",
@@ -87,13 +87,9 @@
                               }
                             ]
                           },
-                          "unrecognizedBlocks": {
-                            "element": "array",
-                            "content": [
-                              {
-                                "element": "unrecognizedBlock"
-                              }
-                            ]
+                          "default": {
+                            "element": "string",
+                            "content": "(object)"
                           }
                         }
                       }
@@ -157,7 +153,7 @@
                               ]
                             }
                           },
-                          "content": "{\n  \"report_type\": \"push\"\n}",
+                          "content": "{\n  \"report_type\": \"(object)\"\n}",
                           "attributes": {
                             "contentType": {
                               "element": "string",
@@ -184,7 +180,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"report_type\": {\n      \"type\": \"string\",\n      \"enum\": [\n        \"push\",\n        \"sms\"\n      ]\n    }\n  }\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"report_type\": {\n      \"type\": \"string\",\n      \"enum\": [\n        \"push\",\n        \"sms\"\n      ],\n      \"default\": \"(object)\"\n    }\n  }\n}"
                         }
                       ],
                       "attributes": {
@@ -254,81 +250,21 @@
                       "attributes": {
                         "line": {
                           "element": "number",
-                          "content": 12
+                          "content": 11
                         },
                         "column": {
                           "element": "number",
                           "content": 1
                         }
                       },
-                      "content": 278
+                      "content": 262
                     },
                     {
                       "element": "number",
                       "attributes": {
                         "line": {
                           "element": "number",
-                          "content": 17
-                        },
-                        "column": {
-                          "element": "number",
-                          "content": 1
-                        }
-                      },
-                      "content": 84
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      },
-      "content": "Default values of enum of non-primitive type are not supported"
-    },
-    {
-      "element": "annotation",
-      "meta": {
-        "classes": {
-          "element": "array",
-          "content": [
-            {
-              "element": "string",
-              "content": "warning"
-            }
-          ]
-        }
-      },
-      "attributes": {
-        "sourceMap": {
-          "element": "array",
-          "content": [
-            {
-              "element": "sourceMap",
-              "content": [
-                {
-                  "element": "array",
-                  "content": [
-                    {
-                      "element": "number",
-                      "attributes": {
-                        "line": {
-                          "element": "number",
-                          "content": 12
-                        },
-                        "column": {
-                          "element": "number",
-                          "content": 1
-                        }
-                      },
-                      "content": 278
-                    },
-                    {
-                      "element": "number",
-                      "attributes": {
-                        "line": {
-                          "element": "number",
-                          "content": 17
+                          "content": 16
                         },
                         "column": {
                           "element": "number",

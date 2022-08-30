@@ -21,7 +21,7 @@
       "content": [
         {
           "element": "copy",
-          "content": "Defines enum-type properties without members.\nIt produces warnings 'Enum element \"state\" should include members.', 'Enum element \"kind\" should include members.',\n'Enum element \"process\" should include members.'"
+          "content": "Only \"string\", \"boolean\" and \"number\" are valid types for enum members, other types produce warnings."
         },
         {
           "element": "category",
@@ -47,67 +47,21 @@
                     "content": {
                       "key": {
                         "element": "string",
-                        "content": "state"
+                        "content": "id"
                       },
                       "value": {
-                        "element": "enum"
-                      }
-                    },
-                    "meta": {
-                      "description": {
                         "element": "string",
-                        "content": "enum with no members"
-                      }
-                    }
-                  }
-                ],
-                "meta": {
-                  "id": {
-                    "element": "string",
-                    "content": "Enum1"
-                  }
-                }
-              }
-            },
-            {
-              "element": "dataStructure",
-              "content": {
-                "element": "object",
-                "content": [
-                  {
-                    "element": "member",
-                    "content": {
-                      "key": {
-                        "element": "string",
-                        "content": "kind"
-                      },
-                      "value": {
-                        "element": "enum",
                         "attributes": {
-                          "enumerations": {
-                            "element": "array",
-                            "content": []
-                          },
-                          "default": {
-                            "element": "string",
-                            "content": "sms"
-                          },
                           "samples": {
                             "element": "array",
                             "content": [
                               {
                                 "element": "string",
-                                "content": "sms"
+                                "content": "1"
                               }
                             ]
                           }
                         }
-                      }
-                    },
-                    "meta": {
-                      "description": {
-                        "element": "string",
-                        "content": "enum with no members, but with default and sample values"
                       }
                     }
                   }
@@ -115,7 +69,7 @@
                 "meta": {
                   "id": {
                     "element": "string",
-                    "content": "Enum2"
+                    "content": "A"
                   }
                 }
               }
@@ -123,37 +77,107 @@
             {
               "element": "dataStructure",
               "content": {
-                "element": "object",
-                "content": [
-                  {
-                    "element": "member",
-                    "content": {
-                      "key": {
+                "element": "enum",
+                "attributes": {
+                  "enumerations": {
+                    "element": "array",
+                    "content": [
+                      {
                         "element": "string",
-                        "content": "process"
-                      },
-                      "value": {
-                        "element": "enum",
                         "attributes": {
-                          "enumerations": {
+                          "typeAttributes": {
                             "element": "array",
-                            "content": []
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "fixed"
+                              }
+                            ]
                           }
-                        }
-                      }
-                    },
-                    "meta": {
-                      "description": {
+                        },
+                        "content": "string is the default type if type is omitted"
+                      },
+                      {
+                        "element": "boolean",
+                        "attributes": {
+                          "typeAttributes": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "fixed"
+                              }
+                            ]
+                          }
+                        },
+                        "content": true
+                      },
+                      {
+                        "element": "boolean",
+                        "attributes": {
+                          "typeAttributes": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "fixed"
+                              }
+                            ]
+                          }
+                        },
+                        "content": false
+                      },
+                      {
+                        "element": "number",
+                        "attributes": {
+                          "typeAttributes": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "fixed"
+                              }
+                            ]
+                          }
+                        },
+                        "content": 13
+                      },
+                      {
                         "element": "string",
-                        "content": "enum with \"Members\" section separator but with not actual members"
+                        "attributes": {
+                          "typeAttributes": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "fixed"
+                              }
+                            ]
+                          }
+                        },
+                        "content": "valid 2"
                       }
-                    }
+                    ]
+                  },
+                  "unrecognizedBlocks": {
+                    "element": "array",
+                    "content": [
+                      {
+                        "element": "unrecognizedBlock"
+                      },
+                      {
+                        "element": "unrecognizedBlock"
+                      },
+                      {
+                        "element": "unrecognizedBlock"
+                      }
+                    ]
                   }
-                ],
+                },
                 "meta": {
                   "id": {
                     "element": "string",
-                    "content": "Enum3"
+                    "content": "Test enum"
                   }
                 }
               }
@@ -190,28 +214,28 @@
                       "attributes": {
                         "line": {
                           "element": "number",
-                          "content": 11
+                          "content": 15
                         },
                         "column": {
                           "element": "number",
                           "content": 1
                         }
                       },
-                      "content": 251
+                      "content": 237
                     },
                     {
                       "element": "number",
                       "attributes": {
                         "line": {
                           "element": "number",
-                          "content": 12
+                          "content": 15
                         },
                         "column": {
                           "element": "number",
-                          "content": 1
+                          "content": 19
                         }
                       },
-                      "content": 39
+                      "content": 19
                     }
                   ]
                 }
@@ -220,67 +244,7 @@
           ]
         }
       },
-      "content": "Enum element \"state\" should include members."
-    },
-    {
-      "element": "annotation",
-      "meta": {
-        "classes": {
-          "element": "array",
-          "content": [
-            {
-              "element": "string",
-              "content": "warning"
-            }
-          ]
-        }
-      },
-      "attributes": {
-        "sourceMap": {
-          "element": "array",
-          "content": [
-            {
-              "element": "sourceMap",
-              "content": [
-                {
-                  "element": "array",
-                  "content": [
-                    {
-                      "element": "number",
-                      "attributes": {
-                        "line": {
-                          "element": "number",
-                          "content": 14
-                        },
-                        "column": {
-                          "element": "number",
-                          "content": 1
-                        }
-                      },
-                      "content": 299
-                    },
-                    {
-                      "element": "number",
-                      "attributes": {
-                        "line": {
-                          "element": "number",
-                          "content": 17
-                        },
-                        "column": {
-                          "element": "number",
-                          "content": 1
-                        }
-                      },
-                      "content": 115
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      },
-      "content": "Enum element \"kind\" should include members."
+      "content": "Invalid enum member type: A. Valid types: string, number, boolean."
     },
     {
       "element": "annotation",
@@ -317,21 +281,21 @@
                           "content": 1
                         }
                       },
-                      "content": 423
+                      "content": 305
                     },
                     {
                       "element": "number",
                       "attributes": {
                         "line": {
                           "element": "number",
-                          "content": 20
+                          "content": 19
                         },
                         "column": {
                           "element": "number",
-                          "content": 12
+                          "content": 28
                         }
                       },
-                      "content": 97
+                      "content": 28
                     }
                   ]
                 }
@@ -340,7 +304,67 @@
           ]
         }
       },
-      "content": "Enum element \"process\" should include members."
+      "content": "Invalid enum member type: array[A]. Valid types: string, number, boolean."
+    },
+    {
+      "element": "annotation",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "warning"
+            }
+          ]
+        }
+      },
+      "attributes": {
+        "sourceMap": {
+          "element": "array",
+          "content": [
+            {
+              "element": "sourceMap",
+              "content": [
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 21
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 1
+                        }
+                      },
+                      "content": 352
+                    },
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 21
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 26
+                        }
+                      },
+                      "content": 26
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "content": "Invalid enum member type: object. Valid types: string, number, boolean."
     }
   ]
 }

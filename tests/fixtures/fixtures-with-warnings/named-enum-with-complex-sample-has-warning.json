@@ -21,7 +21,7 @@
       "content": [
         {
           "element": "copy",
-          "content": "Defines a data structure with an enum of objects and a default section in it.\nEmits the warning \"Samples of enum of non-primitive types are not supported\"."
+          "content": "Defines a data structure with an enum of objects and a default section in it.\nEmits the next warning: \"Enum must not use non-primitive or named types as a sub-type\".\nSample is parsed as the literal value \"(object)\"."
         },
         {
           "element": "category",
@@ -77,11 +77,12 @@
                       }
                     ]
                   },
-                  "unrecognizedBlocks": {
+                  "samples": {
                     "element": "array",
                     "content": [
                       {
-                        "element": "unrecognizedBlock"
+                        "element": "string",
+                        "content": "(object)"
                       }
                     ]
                   }
@@ -126,6 +127,20 @@
                       "attributes": {
                         "line": {
                           "element": "number",
+                          "content": 13
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 1
+                        }
+                      },
+                      "content": 289
+                    },
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
                           "content": 15
                         },
                         "column": {
@@ -133,21 +148,7 @@
                           "content": 1
                         }
                       },
-                      "content": 243
-                    },
-                    {
-                      "element": "number",
-                      "attributes": {
-                        "line": {
-                          "element": "number",
-                          "content": 16
-                        },
-                        "column": {
-                          "element": "number",
-                          "content": 1
-                        }
-                      },
-                      "content": 12
+                      "content": 14
                     }
                   ]
                 }
@@ -156,7 +157,7 @@
           ]
         }
       },
-      "content": "Samples of enum of non-primitive types are not supported"
+      "content": "Enum must not use non-primitive or named types as a sub-type. Sub-type \"string\" will be used instead."
     }
   ]
 }

@@ -21,7 +21,7 @@
       "content": [
         {
           "element": "copy",
-          "content": "Defines a data structure with an enum of objects and a sample section in it.\nEmits the next warnings:\n\"Samples of enum of non-primitive types are not supported\",\n\"Enum must not use non-primitive or named types as a sub-type\""
+          "content": "Defines a data structure with an enum of objects and a sample section in it.\nEmits the next warning: \"Enum must not use non-primitive or named types as a sub-type\".\nSample is parsed as the literal value \"(object)\"."
         },
         {
           "element": "category",
@@ -87,11 +87,12 @@
                               }
                             ]
                           },
-                          "unrecognizedBlocks": {
+                          "samples": {
                             "element": "array",
                             "content": [
                               {
-                                "element": "unrecognizedBlock"
+                                "element": "string",
+                                "content": "(object)"
                               }
                             ]
                           }
@@ -254,81 +255,21 @@
                       "attributes": {
                         "line": {
                           "element": "number",
-                          "content": 12
+                          "content": 11
                         },
                         "column": {
                           "element": "number",
                           "content": 1
                         }
                       },
-                      "content": 270
+                      "content": 260
                     },
                     {
                       "element": "number",
                       "attributes": {
                         "line": {
                           "element": "number",
-                          "content": 17
-                        },
-                        "column": {
-                          "element": "number",
-                          "content": 1
-                        }
-                      },
-                      "content": 83
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      },
-      "content": "Samples of enum of non-primitive type are not supported"
-    },
-    {
-      "element": "annotation",
-      "meta": {
-        "classes": {
-          "element": "array",
-          "content": [
-            {
-              "element": "string",
-              "content": "warning"
-            }
-          ]
-        }
-      },
-      "attributes": {
-        "sourceMap": {
-          "element": "array",
-          "content": [
-            {
-              "element": "sourceMap",
-              "content": [
-                {
-                  "element": "array",
-                  "content": [
-                    {
-                      "element": "number",
-                      "attributes": {
-                        "line": {
-                          "element": "number",
-                          "content": 12
-                        },
-                        "column": {
-                          "element": "number",
-                          "content": 1
-                        }
-                      },
-                      "content": 270
-                    },
-                    {
-                      "element": "number",
-                      "attributes": {
-                        "line": {
-                          "element": "number",
-                          "content": 17
+                          "content": 16
                         },
                         "column": {
                           "element": "number",

@@ -2,15 +2,17 @@ const SectionTypes = require('./SectionTypes');
 const { types } = require('./constants');
 const utils = require('./utils');
 
-const EnumElement = require('./parsers/elements/EnumElement');
 const ObjectElement = require('./parsers/elements/ObjectElement');
+const ArrayElement = require('./parsers/elements/ArrayElement');
+const EnumElement = require('./parsers/elements/EnumElement');
 const SchemaNamedTypeElement = require('./parsers/elements/SchemaNamedTypeElement');
 const MSONMixinElement = require('./parsers/elements/MSONMixinElement');
 const UnrecognizedBlockElement = require('./parsers/elements/UnrecognizedBlockElement');
 
 class DataStructureProcessor {
-  constructor(valueMemberRootNode, Parsers, startNode) {
+  constructor(valueMemberRootNode, Parsers, startNode, valueMemberParentNode) {
     this.valueMemberRootNode = valueMemberRootNode;
+    this.valueMemberParentNode = valueMemberParentNode || valueMemberRootNode.parent;
     this.Parsers = Parsers;
     this.startNode = startNode;
   }
@@ -46,7 +48,7 @@ class DataStructureProcessor {
     const samples = [];
     const defaults = [];
 
-    const sourceMap = utils.makeGenericSourceMap(this.valueMemberRootNode.parent, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
+    const sourceMap = utils.makeGenericSourceMap(this.valueMemberParentNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
 
     while (curNode) {
       let nextNode;
@@ -122,15 +124,19 @@ class DataStructureProcessor {
     }
   }
 
-  processArray(arrayElement, node, context) {
+  processArray(valueMember, node, context) {
     let curNode = node;
-    const arrayMembers = arrayElement.content.members;
+    valueMember.content = valueMember.content || new ArrayElement([]);
+    const arrayMembers = valueMember.content.members;
 
-    const sourceMap = utils.makeGenericSourceMap(this.valueMemberRootNode.parent, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
+    const sourceMap = utils.makeGenericSourceMap(this.valueMemberParentNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
     const samples = [];
     const defaults = [];
-    const predefinedType = arrayMembers.length ? arrayMembers[0].type : 'string';
-    const hasComplexMembers = arrayElement.content.isComplex();
+    const nestedTypeNames = valueMember.nestedTypes.map(nestedType => nestedType.type);
+    const membersTypeNames = arrayMembers.map(member => member.type);
+    const nestedTypes = Array.from(new Set([...membersTypeNames, ...nestedTypeNames]));
+    const predefinedType = nestedTypes.length ? nestedTypes[0] : 'string';
+    const hasComplexMembers = valueMember.content.isComplex();
 
     const childSourceMaps = [];
 
@@ -181,8 +187,18 @@ class DataStructureProcessor {
         }
         case SectionTypes.msonArrayMemberGroup: {
           [nextNode, childResult] = this.Parsers.MSONMemberGroupParser.parse(curNode, context);
-          arrayMembers.push(...childResult.members);
-          childSourceMaps.push(...childResult.members.map(c => c.sourceMap));
+
+          if (childResult.childValueMember) {
+            const { childValueMember } = childResult;
+            const contentMembers = childValueMember.content.members;
+
+            arrayMembers.push(...contentMembers);
+            childSourceMaps.push(...contentMembers.map(cm => cm.sourceMap));
+
+            if (childValueMember.unrecognizedBlocks) {
+              valueMember.unrecognizedBlocks.push(...childValueMember.unrecognizedBlocks);
+            }
+          }
           break;
         }
         case SectionTypes.msonMixin: {
@@ -199,7 +215,7 @@ class DataStructureProcessor {
             arrayMembers.push(childResult);
             childSourceMaps.push(childResult.sourceMap);
           } else {
-            arrayElement.unrecognizedBlocks.push(new UnrecognizedBlockElement(childResult.sourceMap));
+            valueMember.unrecognizedBlocks.push(new UnrecognizedBlockElement(childResult.sourceMap));
           }
           break;
         }
@@ -212,7 +228,7 @@ class DataStructureProcessor {
         default: {
           context.addWarning(`Ignoring unrecognized block "${utils.nodeText(curNode, context.sourceLines)}".`, sourceMap);
           const curNodeSourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
-          arrayElement.unrecognizedBlocks.push(new UnrecognizedBlockElement(curNodeSourceMap));
+          valueMember.unrecognizedBlocks.push(new UnrecognizedBlockElement(curNodeSourceMap));
           nextNode = utils.nextNode(curNode);
         }
       }
@@ -225,15 +241,15 @@ class DataStructureProcessor {
     }
 
     if (samples.length) {
-      arrayElement.samples = arrayElement.samples || [];
-      arrayElement.samples.push(...samples);
+      valueMember.samples = valueMember.samples || [];
+      valueMember.samples.push(...samples);
     }
 
     if (defaults.length) {
       if (defaults.length > 1) {
         context.addWarning('Multiple definitions of "default" value', sourceMap);
       }
-      arrayElement.default = defaults[0];
+      valueMember.default = defaults[0];
     }
 
     arrayMembers.forEach((member) => {
@@ -253,10 +269,10 @@ class DataStructureProcessor {
       }
     });
 
-    if (arrayElement.sourceMap) {
-      arrayElement.sourceMap = utils.concatSourceMaps([arrayElement.sourceMap, ...childSourceMaps]);
+    if (valueMember.sourceMap) {
+      valueMember.sourceMap = utils.concatSourceMaps([valueMember.sourceMap, ...childSourceMaps]);
     } else {
-      arrayElement.sourceMap = utils.concatSourceMaps(childSourceMaps);
+      valueMember.sourceMap = utils.concatSourceMaps(childSourceMaps);
     }
   }
 
@@ -329,8 +345,18 @@ class DataStructureProcessor {
           break;
         case SectionTypes.msonObjectMemberGroup:
           [nextNode, childResult] = this.Parsers.MSONMemberGroupParser.parse(curNode, context);
-          childSourceMaps.push(...childResult.members.map(child => child.sourceMap));
-          objectElement.propertyMembers.push(...childResult.members);
+
+          if (childResult.childValueMember) {
+            const { childValueMember } = childResult;
+            const contentMembers = childValueMember.content.propertyMembers;
+
+            objectElement.propertyMembers.push(...contentMembers);
+            childSourceMaps.push(...contentMembers.map(cm => cm.sourceMap));
+
+            if (childValueMember.unrecognizedBlocks) {
+              valueMember.unrecognizedBlocks.push(...childValueMember.unrecognizedBlocks);
+            }
+          }
           break;
         default: {
           const sourceMap = utils.makeGenericSourceMap(curNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
@@ -363,13 +389,17 @@ class DataStructureProcessor {
     const nestedTypes = Array.from(new Set([...nestedTypesNames, ...baseNestedTypes]));
 
     const enumElement = new EnumElement(nestedTypes.length ? nestedTypes : valueMember.nestedTypes);
-    const sourceMap = utils.makeGenericSourceMap(this.valueMemberRootNode.parent, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
+    const sourceMap = utils.makeGenericSourceMap(this.valueMemberParentNode, context.sourceLines, context.sourceBuffer, context.linefeedOffsets, context.filename);
     const samples = [];
     const defaults = [];
     const validEnumMemberTypes = EnumElement.validEnumMemberTypes;
-    const hasComplexMembers = enumElement.isComplex();
     let curNode = node;
     const childSourceMaps = [];
+
+    if (enumElement.isComplex()) {
+      context.addWarning('Enum must not use non-primitive or named types as a sub-type. Sub-type "string" will be used instead.', sourceMap);
+      enumElement.type = 'string';
+    }
 
     while (curNode) {
       let nextNode;
@@ -386,8 +416,17 @@ class DataStructureProcessor {
       switch (sectionType) {
         case SectionTypes.msonEnumMemberGroup:
           [nextNode, childResult] = this.Parsers.MSONMemberGroupParser.parse(curNode, context);
-          enumElement.members.push(...childResult.members);
-          childSourceMaps.push(...childResult.members.map(m => m.sourceMap));
+          if (childResult.childValueMember) {
+            const { childValueMember } = childResult;
+            const contentMembers = childValueMember.content.members;
+
+            enumElement.members.push(...contentMembers);
+            childSourceMaps.push(...contentMembers.map(cm => cm.sourceMap));
+
+            if (childValueMember.unrecognizedBlocks) {
+              valueMember.unrecognizedBlocks.push(...childValueMember.unrecognizedBlocks);
+            }
+          }
           break;
         case SectionTypes.msonMixin: {
           [nextNode, childResult] = this.Parsers.MSONMixinParser.parse(curNode, context);
@@ -413,13 +452,8 @@ class DataStructureProcessor {
           [nextNode, childResult] = this.Parsers.DefaultValueParser.parse(curNode, context);
           delete context.data.typeForDefaults;
           delete context.data.valueType;
-          if (!hasComplexMembers) {
-            defaults.push(...childResult);
-            childSourceMaps.push(...childResult.map(c => c.sourceMap));
-          } else {
-            context.addWarning('Default values of enum of non-primitive type are not supported', sourceMap);
-            valueMember.unrecognizedBlocks.push(...childResult.map(c => new UnrecognizedBlockElement(c.sourceMap)));
-          }
+          defaults.push(...childResult);
+          childSourceMaps.push(...childResult.map(c => c.sourceMap));
           break;
         case SectionTypes.sampleValue:
           context.data.typeForSamples = 'enum';
@@ -427,13 +461,8 @@ class DataStructureProcessor {
           [nextNode, childResult] = this.Parsers.SampleValueParser.parse(curNode, context);
           delete context.data.typeForSamples;
           delete context.data.valueType;
-          if (!hasComplexMembers) {
-            samples.push(...childResult);
-            childSourceMaps.push(...childResult.map(c => c.sourceMap));
-          } else {
-            context.addWarning('Samples of enum of non-primitive type are not supported', sourceMap);
-            valueMember.unrecognizedBlocks.push(...childResult.map(c => new UnrecognizedBlockElement(c.sourceMap)));
-          }
+          samples.push(...childResult);
+          childSourceMaps.push(...childResult.map(c => c.sourceMap));
           break;
         case SectionTypes.enumMember:
           [nextNode, childResult] = this.Parsers.EnumMemberParser.parse(curNode, context);
@@ -481,11 +510,6 @@ class DataStructureProcessor {
       valueMember.default = defaults[0];
     }
 
-    if (hasComplexMembers) {
-      context.addWarning('Enum must not use non-primitive or named types as a sub-type. Sub-type "string" will be used instead.', sourceMap);
-      enumElement.type = 'string';
-    }
-
     enumElement.members.forEach((member) => {
       if (member instanceof MSONMixinElement) {
         // a member can be a EnumMemberElement or a MSONMixinElement
@@ -497,6 +521,7 @@ class DataStructureProcessor {
       const typesMatch = utils.compareAttributeTypes(enumElement, member);
 
       if (!typesMatch) {
+        // TODO: передавать сорсмапы элемента, а не всего enum?
         context.addTypeMismatchWarning(member.value, enumElement.type, sourceMap);
       }
 

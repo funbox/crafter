@@ -46,7 +46,7 @@
       "content": [
         {
           "element": "copy",
-          "content": "Defines a data structure with an enum of objects and a sample section in it.\nEmits the next warning: \"Enum must not use non-primitive or named types as a sub-type\".\nSample is parsed as the literal value \"(object)\".",
+          "content": "Defines object-type data structure \"User\" and uses it as a mixin (inside of a \"Properties\" members group).",
           "attributes": {
             "sourceMap": {
               "element": "array",
@@ -63,7 +63,7 @@
                         },
                         {
                           "element": "number",
-                          "content": 216
+                          "content": 108
                         }
                       ]
                     }
@@ -97,7 +97,7 @@
                     "content": {
                       "key": {
                         "element": "string",
-                        "content": "report_type",
+                        "content": "name",
                         "attributes": {
                           "sourceMap": {
                             "element": "array",
@@ -110,11 +110,11 @@
                                     "content": [
                                       {
                                         "element": "number",
-                                        "content": 263
+                                        "content": 148
                                       },
                                       {
                                         "element": "number",
-                                        "content": 11
+                                        "content": 4
                                       }
                                     ]
                                   }
@@ -125,95 +125,14 @@
                         }
                       },
                       "value": {
-                        "element": "enum",
+                        "element": "string",
                         "attributes": {
-                          "enumerations": {
-                            "element": "array",
-                            "content": [
-                              {
-                                "element": "string",
-                                "attributes": {
-                                  "typeAttributes": {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "string",
-                                        "content": "fixed"
-                                      }
-                                    ]
-                                  },
-                                  "sourceMap": {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "sourceMap",
-                                        "content": [
-                                          {
-                                            "element": "array",
-                                            "content": [
-                                              {
-                                                "element": "number",
-                                                "content": 325
-                                              },
-                                              {
-                                                "element": "number",
-                                                "content": 7
-                                              }
-                                            ]
-                                          }
-                                        ]
-                                      }
-                                    ]
-                                  }
-                                },
-                                "content": "push"
-                              },
-                              {
-                                "element": "string",
-                                "attributes": {
-                                  "typeAttributes": {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "string",
-                                        "content": "fixed"
-                                      }
-                                    ]
-                                  },
-                                  "sourceMap": {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "sourceMap",
-                                        "content": [
-                                          {
-                                            "element": "array",
-                                            "content": [
-                                              {
-                                                "element": "number",
-                                                "content": 336
-                                              },
-                                              {
-                                                "element": "number",
-                                                "content": 7
-                                              }
-                                            ]
-                                          }
-                                        ]
-                                      }
-                                    ]
-                                  }
-                                },
-                                "content": "sms"
-                              }
-                            ]
-                          },
                           "samples": {
                             "element": "array",
                             "content": [
                               {
                                 "element": "string",
-                                "content": "(object)",
+                                "content": "John",
                                 "attributes": {
                                   "sourceMap": {
                                     "element": "array",
@@ -226,11 +145,11 @@
                                             "content": [
                                               {
                                                 "element": "number",
-                                                "content": 310
+                                                "content": 155
                                               },
                                               {
                                                 "element": "number",
-                                                "content": 11
+                                                "content": 4
                                               }
                                             ]
                                           }
@@ -253,11 +172,11 @@
                                     "content": [
                                       {
                                         "element": "number",
-                                        "content": 277
+                                        "content": 155
                                       },
                                       {
                                         "element": "number",
-                                        "content": 12
+                                        "content": 4
                                       }
                                     ]
                                   },
@@ -266,37 +185,11 @@
                                     "content": [
                                       {
                                         "element": "number",
-                                        "content": 310
+                                        "content": 162
                                       },
                                       {
                                         "element": "number",
-                                        "content": 11
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "number",
-                                        "content": 325
-                                      },
-                                      {
-                                        "element": "number",
-                                        "content": 7
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "element": "array",
-                                    "content": [
-                                      {
-                                        "element": "number",
-                                        "content": 336
-                                      },
-                                      {
-                                        "element": "number",
-                                        "content": 7
+                                        "content": 6
                                       }
                                     ]
                                   }
@@ -308,6 +201,15 @@
                       }
                     },
                     "attributes": {
+                      "typeAttributes": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "required"
+                          }
+                        ]
+                      },
                       "sourceMap": {
                         "element": "array",
                         "content": [
@@ -319,17 +221,48 @@
                                 "content": [
                                   {
                                     "element": "number",
-                                    "content": 260
+                                    "content": 146
                                   },
                                   {
                                     "element": "number",
-                                    "content": 83
+                                    "content": 47
                                   }
                                 ]
                               }
                             ]
                           }
                         ]
+                      }
+                    },
+                    "meta": {
+                      "description": {
+                        "element": "string",
+                        "content": "user name",
+                        "attributes": {
+                          "sourceMap": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "sourceMap",
+                                "content": [
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 182
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 9
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
                       }
                     }
                   }
@@ -346,11 +279,11 @@
                             "content": [
                               {
                                 "element": "number",
-                                "content": 260
+                                "content": 146
                               },
                               {
                                 "element": "number",
-                                "content": 83
+                                "content": 47
                               }
                             ]
                           }
@@ -362,7 +295,7 @@
                 "meta": {
                   "id": {
                     "element": "string",
-                    "content": "ReportType",
+                    "content": "User",
                     "attributes": {
                       "sourceMap": {
                         "element": "array",
@@ -375,11 +308,11 @@
                                 "content": [
                                   {
                                     "element": "number",
-                                    "content": 248
+                                    "content": 140
                                   },
                                   {
                                     "element": "number",
-                                    "content": 10
+                                    "content": 4
                                   }
                                 ]
                               }
@@ -403,7 +336,337 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 245
+                              "content": 137
+                            },
+                            {
+                              "element": "number",
+                              "content": 9
+                            }
+                          ]
+                        },
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 146
+                            },
+                            {
+                              "element": "number",
+                              "content": 47
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            },
+            {
+              "element": "dataStructure",
+              "content": {
+                "element": "object",
+                "content": [
+                  {
+                    "element": "ref",
+                    "attributes": {
+                      "path": {
+                        "element": "string",
+                        "content": "content"
+                      },
+                      "sourceMap": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "sourceMap",
+                            "content": [
+                              {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "number",
+                                    "content": 219
+                                  },
+                                  {
+                                    "element": "number",
+                                    "content": 15
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    "content": "User"
+                  },
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "access_level",
+                        "attributes": {
+                          "sourceMap": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "sourceMap",
+                                "content": [
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 237
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 12
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      },
+                      "value": {
+                        "element": "string",
+                        "attributes": {
+                          "samples": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "all",
+                                "attributes": {
+                                  "sourceMap": {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "sourceMap",
+                                        "content": [
+                                          {
+                                            "element": "array",
+                                            "content": [
+                                              {
+                                                "element": "number",
+                                                "content": 253
+                                              },
+                                              {
+                                                "element": "number",
+                                                "content": 3
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            ]
+                          },
+                          "sourceMap": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "sourceMap",
+                                "content": [
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 253
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 3
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "element": "array",
+                                    "content": [
+                                      {
+                                        "element": "number",
+                                        "content": 259
+                                      },
+                                      {
+                                        "element": "number",
+                                        "content": 6
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "attributes": {
+                      "typeAttributes": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "required"
+                          }
+                        ]
+                      },
+                      "sourceMap": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "sourceMap",
+                            "content": [
+                              {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "number",
+                                    "content": 234
+                                  },
+                                  {
+                                    "element": "number",
+                                    "content": 44
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ],
+                "attributes": {
+                  "sourceMap": {
+                    "element": "array",
+                    "content": [
+                      {
+                        "element": "sourceMap",
+                        "content": [
+                          {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "number",
+                                "content": 203
+                              },
+                              {
+                                "element": "number",
+                                "content": 16
+                              }
+                            ]
+                          },
+                          {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "number",
+                                "content": 219
+                              },
+                              {
+                                "element": "number",
+                                "content": 15
+                              }
+                            ]
+                          },
+                          {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "number",
+                                "content": 234
+                              },
+                              {
+                                "element": "number",
+                                "content": 44
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "meta": {
+                  "id": {
+                    "element": "string",
+                    "content": "Admin",
+                    "attributes": {
+                      "sourceMap": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "sourceMap",
+                            "content": [
+                              {
+                                "element": "array",
+                                "content": [
+                                  {
+                                    "element": "number",
+                                    "content": 196
+                                  },
+                                  {
+                                    "element": "number",
+                                    "content": 5
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              "attributes": {
+                "sourceMap": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "sourceMap",
+                      "content": [
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 193
+                            },
+                            {
+                              "element": "number",
+                              "content": 10
+                            }
+                          ]
+                        },
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 203
+                            },
+                            {
+                              "element": "number",
+                              "content": 16
+                            }
+                          ]
+                        },
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 219
                             },
                             {
                               "element": "number",
@@ -416,11 +679,11 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 260
+                              "content": 234
                             },
                             {
                               "element": "number",
-                              "content": 83
+                              "content": 44
                             }
                           ]
                         }
@@ -443,7 +706,7 @@
                       "content": [
                         {
                           "element": "number",
-                          "content": 226
+                          "content": 118
                         },
                         {
                           "element": "number",
@@ -456,7 +719,59 @@
                       "content": [
                         {
                           "element": "number",
-                          "content": 245
+                          "content": 137
+                        },
+                        {
+                          "element": "number",
+                          "content": 9
+                        }
+                      ]
+                    },
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 146
+                        },
+                        {
+                          "element": "number",
+                          "content": 47
+                        }
+                      ]
+                    },
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 193
+                        },
+                        {
+                          "element": "number",
+                          "content": 10
+                        }
+                      ]
+                    },
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 203
+                        },
+                        {
+                          "element": "number",
+                          "content": 16
+                        }
+                      ]
+                    },
+                    {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "number",
+                          "content": 219
                         },
                         {
                           "element": "number",
@@ -469,11 +784,11 @@
                       "content": [
                         {
                           "element": "number",
-                          "content": 260
+                          "content": 234
                         },
                         {
                           "element": "number",
-                          "content": 83
+                          "content": 44
                         }
                       ]
                     }
@@ -488,7 +803,7 @@
           "attributes": {
             "href": {
               "element": "string",
-              "content": "/foo",
+              "content": "/admin",
               "attributes": {
                 "sourceMap": {
                   "element": "array",
@@ -501,11 +816,11 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 349
+                              "content": 295
                             },
                             {
                               "element": "number",
-                              "content": 4
+                              "content": 6
                             }
                           ]
                         }
@@ -526,11 +841,11 @@
                       "content": [
                         {
                           "element": "number",
-                          "content": 343
+                          "content": 278
                         },
                         {
                           "element": "number",
-                          "content": 12
+                          "content": 26
                         }
                       ]
                     },
@@ -539,11 +854,11 @@
                       "content": [
                         {
                           "element": "number",
-                          "content": 355
+                          "content": 304
                         },
                         {
                           "element": "number",
-                          "content": 63
+                          "content": 58
                         }
                       ]
                     }
@@ -577,7 +892,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 345
+                                          "content": 291
                                         },
                                         {
                                           "element": "number",
@@ -600,7 +915,7 @@
                         {
                           "element": "dataStructure",
                           "content": {
-                            "element": "ReportType",
+                            "element": "Admin",
                             "attributes": {
                               "sourceMap": {
                                 "element": "array",
@@ -613,11 +928,11 @@
                                         "content": [
                                           {
                                             "element": "number",
-                                            "content": 406
+                                            "content": 355
                                           },
                                           {
                                             "element": "number",
-                                            "content": 10
+                                            "content": 5
                                           }
                                         ]
                                       }
@@ -639,11 +954,11 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 393
+                                          "content": 342
                                         },
                                         {
                                           "element": "number",
-                                          "content": 25
+                                          "content": 20
                                         }
                                       ]
                                     }
@@ -666,7 +981,7 @@
                               ]
                             }
                           },
-                          "content": "{\n  \"report_type\": \"push\"\n}",
+                          "content": "{\n  \"name\": \"John\",\n  \"access_level\": \"all\"\n}",
                           "attributes": {
                             "contentType": {
                               "element": "string",
@@ -693,7 +1008,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"report_type\": {\n      \"type\": \"string\",\n      \"enum\": [\n        \"push\",\n        \"sms\"\n      ]\n    }\n  }\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"name\": {\n      \"type\": \"string\",\n      \"description\": \"user name\"\n    },\n    \"access_level\": {\n      \"type\": \"string\"\n    }\n  },\n  \"required\": [\n    \"name\",\n    \"access_level\"\n  ]\n}"
                         }
                       ],
                       "attributes": {
@@ -712,7 +1027,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 366
+                                          "content": 315
                                         },
                                         {
                                           "element": "number",
@@ -753,7 +1068,7 @@
                                           "content": [
                                             {
                                               "element": "number",
-                                              "content": 371
+                                              "content": 320
                                             },
                                             {
                                               "element": "number",
@@ -780,7 +1095,7 @@
                                       "content": [
                                         {
                                           "element": "number",
-                                          "content": 371
+                                          "content": 320
                                         },
                                         {
                                           "element": "number",
@@ -805,11 +1120,11 @@
                                   "content": [
                                     {
                                       "element": "number",
-                                      "content": 355
+                                      "content": 304
                                     },
                                     {
                                       "element": "number",
-                                      "content": 63
+                                      "content": 58
                                     }
                                   ]
                                 }
@@ -832,11 +1147,11 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 355
+                                  "content": 304
                                 },
                                 {
                                   "element": "number",
-                                  "content": 63
+                                  "content": 58
                                 }
                               ]
                             }
@@ -847,10 +1162,10 @@
                   }
                 }
               ],
-              "attributes": {
-                "href": {
+              "meta": {
+                "title": {
                   "element": "string",
-                  "content": "/foo",
+                  "content": "Get admin",
                   "attributes": {
                     "sourceMap": {
                       "element": "array",
@@ -863,11 +1178,42 @@
                               "content": [
                                 {
                                   "element": "number",
-                                  "content": 349
+                                  "content": 280
                                 },
                                 {
                                   "element": "number",
-                                  "content": 4
+                                  "content": 9
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              "attributes": {
+                "href": {
+                  "element": "string",
+                  "content": "/admin",
+                  "attributes": {
+                    "sourceMap": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "sourceMap",
+                          "content": [
+                            {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "number",
+                                  "content": 295
+                                },
+                                {
+                                  "element": "number",
+                                  "content": 6
                                 }
                               ]
                             }
@@ -888,11 +1234,11 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 343
+                              "content": 278
                             },
                             {
                               "element": "number",
-                              "content": 12
+                              "content": 26
                             }
                           ]
                         },
@@ -901,11 +1247,11 @@
                           "content": [
                             {
                               "element": "number",
-                              "content": 355
+                              "content": 304
                             },
                             {
                               "element": "number",
-                              "content": 63
+                              "content": 58
                             }
                           ]
                         }
@@ -915,7 +1261,38 @@
                 }
               }
             }
-          ]
+          ],
+          "meta": {
+            "title": {
+              "element": "string",
+              "content": "Get admin",
+              "attributes": {
+                "sourceMap": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "sourceMap",
+                      "content": [
+                        {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "number",
+                              "content": 280
+                            },
+                            {
+                              "element": "number",
+                              "content": 9
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          }
         }
       ],
       "attributes": {
@@ -947,7 +1324,7 @@
                     },
                     {
                       "element": "number",
-                      "content": 216
+                      "content": 108
                     }
                   ]
                 },
@@ -956,7 +1333,7 @@
                   "content": [
                     {
                       "element": "number",
-                      "content": 226
+                      "content": 118
                     },
                     {
                       "element": "number",
@@ -969,7 +1346,59 @@
                   "content": [
                     {
                       "element": "number",
-                      "content": 245
+                      "content": 137
+                    },
+                    {
+                      "element": "number",
+                      "content": 9
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 146
+                    },
+                    {
+                      "element": "number",
+                      "content": 47
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 193
+                    },
+                    {
+                      "element": "number",
+                      "content": 10
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 203
+                    },
+                    {
+                      "element": "number",
+                      "content": 16
+                    }
+                  ]
+                },
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "content": 219
                     },
                     {
                       "element": "number",
@@ -982,11 +1411,11 @@
                   "content": [
                     {
                       "element": "number",
-                      "content": 260
+                      "content": 234
                     },
                     {
                       "element": "number",
-                      "content": 83
+                      "content": 44
                     }
                   ]
                 },
@@ -995,11 +1424,11 @@
                   "content": [
                     {
                       "element": "number",
-                      "content": 343
+                      "content": 278
                     },
                     {
                       "element": "number",
-                      "content": 12
+                      "content": 26
                     }
                   ]
                 },
@@ -1008,11 +1437,11 @@
                   "content": [
                     {
                       "element": "number",
-                      "content": 355
+                      "content": 304
                     },
                     {
                       "element": "number",
-                      "content": 63
+                      "content": 58
                     }
                   ]
                 }
@@ -1021,66 +1450,6 @@
           ]
         }
       }
-    },
-    {
-      "element": "annotation",
-      "meta": {
-        "classes": {
-          "element": "array",
-          "content": [
-            {
-              "element": "string",
-              "content": "warning"
-            }
-          ]
-        }
-      },
-      "attributes": {
-        "sourceMap": {
-          "element": "array",
-          "content": [
-            {
-              "element": "sourceMap",
-              "content": [
-                {
-                  "element": "array",
-                  "content": [
-                    {
-                      "element": "number",
-                      "attributes": {
-                        "line": {
-                          "element": "number",
-                          "content": 11
-                        },
-                        "column": {
-                          "element": "number",
-                          "content": 1
-                        }
-                      },
-                      "content": 260
-                    },
-                    {
-                      "element": "number",
-                      "attributes": {
-                        "line": {
-                          "element": "number",
-                          "content": 16
-                        },
-                        "column": {
-                          "element": "number",
-                          "content": 1
-                        }
-                      },
-                      "content": 83
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      },
-      "content": "Enum must not use non-primitive or named types as a sub-type. Sub-type \"string\" will be used instead."
     }
   ]
 }

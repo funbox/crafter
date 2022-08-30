@@ -20,10 +20,6 @@
       },
       "content": [
         {
-          "element": "copy",
-          "content": "Defines array items with Items keyword in named type."
-        },
-        {
           "element": "category",
           "meta": {
             "classes": {
@@ -40,24 +36,92 @@
             {
               "element": "dataStructure",
               "content": {
-                "element": "array",
-                "content": [
-                  {
-                    "element": "string"
-                  },
-                  {
-                    "element": "string",
-                    "content": "name"
-                  },
-                  {
-                    "element": "string",
-                    "content": "email"
+                "element": "enum",
+                "attributes": {
+                  "enumerations": {
+                    "element": "array",
+                    "content": [
+                      {
+                        "element": "string",
+                        "attributes": {
+                          "typeAttributes": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "fixed"
+                              }
+                            ]
+                          }
+                        },
+                        "content": "N1"
+                      },
+                      {
+                        "element": "ref",
+                        "attributes": {
+                          "path": {
+                            "element": "string",
+                            "content": "content"
+                          }
+                        },
+                        "content": "East Code"
+                      }
+                    ]
                   }
-                ],
+                },
                 "meta": {
                   "id": {
                     "element": "string",
-                    "content": "User"
+                    "content": "Post Code"
+                  }
+                }
+              }
+            },
+            {
+              "element": "dataStructure",
+              "content": {
+                "element": "enum",
+                "attributes": {
+                  "enumerations": {
+                    "element": "array",
+                    "content": [
+                      {
+                        "element": "string",
+                        "attributes": {
+                          "typeAttributes": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "fixed"
+                              }
+                            ]
+                          }
+                        },
+                        "content": "EC2A"
+                      },
+                      {
+                        "element": "string",
+                        "attributes": {
+                          "typeAttributes": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "fixed"
+                              }
+                            ]
+                          }
+                        },
+                        "content": "E1"
+                      }
+                    ]
+                  }
+                },
+                "meta": {
+                  "id": {
+                    "element": "string",
+                    "content": "East Code"
                   }
                 }
               }
@@ -69,7 +133,7 @@
           "attributes": {
             "href": {
               "element": "string",
-              "content": "/user"
+              "content": "/"
             }
           },
           "content": [
@@ -95,7 +159,21 @@
                         {
                           "element": "dataStructure",
                           "content": {
-                            "element": "User"
+                            "element": "object",
+                            "content": [
+                              {
+                                "element": "member",
+                                "content": {
+                                  "key": {
+                                    "element": "string",
+                                    "content": "code"
+                                  },
+                                  "value": {
+                                    "element": "Post Code"
+                                  }
+                                }
+                              }
+                            ]
                           }
                         },
                         {
@@ -111,7 +189,7 @@
                               ]
                             }
                           },
-                          "content": "[\n  \"hello\",\n  \"name\",\n  \"email\"\n]",
+                          "content": "{\n  \"code\": \"N1\"\n}",
                           "attributes": {
                             "contentType": {
                               "element": "string",
@@ -138,7 +216,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"array\",\n  \"items\": {\n    \"anyOf\": [\n      {\n        \"type\": \"string\"\n      }\n    ]\n  }\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"code\": {\n      \"type\": \"string\",\n      \"enum\": [\n        \"N1\",\n        \"EC2A\",\n        \"E1\"\n      ]\n    }\n  }\n}"
                         }
                       ],
                       "attributes": {
@@ -169,26 +247,14 @@
                   ]
                 }
               ],
-              "meta": {
-                "title": {
-                  "element": "string",
-                  "content": "Get user"
-                }
-              },
               "attributes": {
                 "href": {
                   "element": "string",
-                  "content": "/user"
+                  "content": "/"
                 }
               }
             }
-          ],
-          "meta": {
-            "title": {
-              "element": "string",
-              "content": "Get user"
-            }
-          }
+          ]
         }
       ]
     }

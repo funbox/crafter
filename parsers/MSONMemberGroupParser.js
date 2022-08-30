@@ -1,6 +1,8 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
 const MemberGroupElement = require('./elements/MemberGroupElement');
+const ValueMemberElement = require('./elements/ValueMemberElement');
+const DataStructureProcessor = require('../DataStructureProcessor');
 
 const CrafterError = utils.CrafterError;
 
@@ -81,29 +83,16 @@ module.exports = (Parsers) => {
 
     processNestedSection(node, context, result) {
       const { type } = result;
+      const listElement = node.parent;
+      // in named structures, the real parent is the whole document, but sourcemaps of the whole document are useless
+      const listParentElement = context.data.isNamedTypeSection ? listElement : listElement.parent;
+      const dataStructureProcessor = new DataStructureProcessor(listElement, Parsers, undefined, listParentElement);
+      const valueMember = new ValueMemberElement(type, type, context.data.parentNestedTypes);
 
-      let nextNode;
-      let childResult;
+      dataStructureProcessor.fillValueMember(valueMember, context);
+      result.childValueMember = valueMember;
 
-      switch (type) {
-        case 'array':
-          [nextNode, childResult] = Parsers.ArrayMemberParser.parse(node, context);
-          result.members.push(childResult);
-          break;
-        case 'enum':
-          [nextNode, childResult] = Parsers.EnumMemberParser.parse(node, context);
-          result.members.push(childResult);
-          break;
-        case 'object':
-          [nextNode, childResult] = Parsers.MSONAttributeParser.parse(node, context);
-          result.members.push(childResult);
-          break;
-        default:
-          nextNode = utils.nextNode(node);
-          break;
-      }
-
-      return [nextNode, result];
+      return [utils.nextNode(node.parent), result];
     },
 
     isUnexpectedNode() {

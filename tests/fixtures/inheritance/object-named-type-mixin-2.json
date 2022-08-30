@@ -21,7 +21,7 @@
       "content": [
         {
           "element": "copy",
-          "content": "Defines array items with Items keyword in named type."
+          "content": "Defines object-type data structure \"User\" and uses it as a mixin (inside of a \"Properties\" members group)."
         },
         {
           "element": "category",
@@ -40,24 +40,111 @@
             {
               "element": "dataStructure",
               "content": {
-                "element": "array",
+                "element": "object",
                 "content": [
                   {
-                    "element": "string"
-                  },
-                  {
-                    "element": "string",
-                    "content": "name"
-                  },
-                  {
-                    "element": "string",
-                    "content": "email"
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "name"
+                      },
+                      "value": {
+                        "element": "string",
+                        "attributes": {
+                          "samples": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "John"
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "attributes": {
+                      "typeAttributes": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "required"
+                          }
+                        ]
+                      }
+                    },
+                    "meta": {
+                      "description": {
+                        "element": "string",
+                        "content": "user name"
+                      }
+                    }
                   }
                 ],
                 "meta": {
                   "id": {
                     "element": "string",
                     "content": "User"
+                  }
+                }
+              }
+            },
+            {
+              "element": "dataStructure",
+              "content": {
+                "element": "object",
+                "content": [
+                  {
+                    "element": "ref",
+                    "attributes": {
+                      "path": {
+                        "element": "string",
+                        "content": "content"
+                      }
+                    },
+                    "content": "User"
+                  },
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "access_level"
+                      },
+                      "value": {
+                        "element": "string",
+                        "attributes": {
+                          "samples": {
+                            "element": "array",
+                            "content": [
+                              {
+                                "element": "string",
+                                "content": "all"
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "attributes": {
+                      "typeAttributes": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "required"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ],
+                "meta": {
+                  "id": {
+                    "element": "string",
+                    "content": "Admin"
                   }
                 }
               }
@@ -69,7 +156,7 @@
           "attributes": {
             "href": {
               "element": "string",
-              "content": "/user"
+              "content": "/admin"
             }
           },
           "content": [
@@ -95,7 +182,7 @@
                         {
                           "element": "dataStructure",
                           "content": {
-                            "element": "User"
+                            "element": "Admin"
                           }
                         },
                         {
@@ -111,7 +198,7 @@
                               ]
                             }
                           },
-                          "content": "[\n  \"hello\",\n  \"name\",\n  \"email\"\n]",
+                          "content": "{\n  \"name\": \"John\",\n  \"access_level\": \"all\"\n}",
                           "attributes": {
                             "contentType": {
                               "element": "string",
@@ -138,7 +225,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"array\",\n  \"items\": {\n    \"anyOf\": [\n      {\n        \"type\": \"string\"\n      }\n    ]\n  }\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"name\": {\n      \"type\": \"string\",\n      \"description\": \"user name\"\n    },\n    \"access_level\": {\n      \"type\": \"string\"\n    }\n  },\n  \"required\": [\n    \"name\",\n    \"access_level\"\n  ]\n}"
                         }
                       ],
                       "attributes": {
@@ -172,13 +259,13 @@
               "meta": {
                 "title": {
                   "element": "string",
-                  "content": "Get user"
+                  "content": "Get admin"
                 }
               },
               "attributes": {
                 "href": {
                   "element": "string",
-                  "content": "/user"
+                  "content": "/admin"
                 }
               }
             }
@@ -186,7 +273,7 @@
           "meta": {
             "title": {
               "element": "string",
-              "content": "Get user"
+              "content": "Get admin"
             }
           }
         }
