@@ -3,6 +3,7 @@ const utils = require('../utils');
 
 const ImportRegex = /^[Ii]mport\s+(.+)$/;
 const CrafterError = utils.CrafterError;
+const AggregateError = utils.AggregateError;
 const ImportElement = utils.ImportElement;
 
 module.exports = (Parsers) => {
@@ -107,9 +108,9 @@ module.exports = (Parsers) => {
         context.filePaths = [...new Set(context.filePaths.concat(childContext.filePaths))];
 
         if (importedBlueprintError) {
-          const importError = new Error(importedBlueprintError.text);
-          importError.sourceMap = importedBlueprintError.sourceMap;
-          throw importError;
+          const importedFileError = new CrafterError(importedBlueprintError.text, importedBlueprintError.sourceMap);
+          const sourceFileError = new CrafterError(`File import error. Parsing of "${filename}" ended with an error.`, sourceMap);
+          throw new AggregateError([importedFileError, sourceFileError], 'File import error');
         }
 
         const importElement = new ImportElement(importId, importedBlueprint, childContext, sourceMap);
