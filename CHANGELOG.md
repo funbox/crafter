@@ -1,6 +1,11 @@
 # Changelog
 
-## 4.0.1 (30.08.2021)
+## 4.1.0 (05.09.2022)
+
+Attached additional import error to Blueprint annotations.
+
+
+## 4.0.1 (30.08.2022)
 
 Fixed `Members` parsing in enums. Now Crafter can warn when you use invalid enum member type.
 
