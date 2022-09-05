@@ -1,7 +1,7 @@
 const SectionTypes = require('../SectionTypes');
 const utils = require('../utils');
 const ByteBlock = require('../utils/sourceMap/ByteBlock');
-const { getEndingLinefeedLengthInBytes, getTrailingEmptyLinesLengthInBytes } = require('../utils');
+const { getEndingLinefeedLengthInBytes, getTrailingEmptyLinesLengthInBytes, AggregateError } = require('../utils');
 
 const CrafterError = utils.CrafterError;
 
@@ -290,5 +290,7 @@ module.exports = (Parsers) => {
 
 function preprocessErrorResult(result, context) {
   result.isError = true;
-  result.annotations.push(new AnnotationElement('error', context.error.message, context.error.sourceMap));
+  const errors = context.error instanceof AggregateError ? context.error.errors : [context.error];
+  const annotations = errors.map(err => new AnnotationElement('error', err.message, err.sourceMap));
+  result.annotations.push(...annotations);
 }

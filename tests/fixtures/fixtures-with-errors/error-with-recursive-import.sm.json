@@ -61,6 +61,66 @@
         }
       },
       "content": "Recursive import: error-with-recursive-import.apib → error-with-recursive-import-inner.apib → error-with-recursive-import-inner-inner.apib → error-with-recursive-import-inner.apib"
+    },
+    {
+      "element": "annotation",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "error"
+            }
+          ]
+        }
+      },
+      "attributes": {
+        "sourceMap": {
+          "element": "array",
+          "content": [
+            {
+              "element": "sourceMap",
+              "content": [
+                {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 6
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 1
+                        }
+                      },
+                      "content": 203
+                    },
+                    {
+                      "element": "number",
+                      "attributes": {
+                        "line": {
+                          "element": "number",
+                          "content": 6
+                        },
+                        "column": {
+                          "element": "number",
+                          "content": 48
+                        }
+                      },
+                      "content": 48
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "content": "File import error. Parsing of \"error-with-recursive-import-inner.apib\" ended with an error."
     }
   ]
 }
