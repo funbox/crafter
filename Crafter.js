@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const Context = require('./Context');
+const parsersList = require('./Parsers');
 const utils = require('./utils');
 
 const Parsers = {};
@@ -31,17 +32,14 @@ async function parseFile(file, contextOptions) {
 
 function defineParsers(parsers) {
   const pendingParsers = [];
-  parsers.forEach((pFile) => {
-    if (/Parser.js$/.exec(pFile)) {
-      const defineParser = require(`./parsers/${pFile}`); // eslint-disable-line import/no-dynamic-require
-      if (typeof defineParser === 'function') {
-        const isDefined = defineParser(Parsers);
-        if (typeof isDefined !== 'boolean') {
-          throw new Error(`Expect parser function "${pFile}" to return "true" or "false", but it returned ${isDefined}.`);
-        }
-        if (!isDefined) {
-          pendingParsers.push(pFile);
-        }
+  parsers.forEach((parser) => {
+    if (typeof parser === 'function') {
+      const isDefined = parser(Parsers);
+      if (typeof isDefined !== 'boolean') {
+        throw new Error(`Expect parser function to return "true" or "false", but it returned ${isDefined}.`);
+      }
+      if (!isDefined) {
+        pendingParsers.push(parser);
       }
     }
   });
@@ -54,9 +52,7 @@ function defineParsers(parsers) {
   }
 }
 
-const parsers = fs.readdirSync(path.join(__dirname, 'parsers'));
-
-defineParsers(parsers);
+defineParsers(parsersList);
 
 module.exports = {
   parse,
