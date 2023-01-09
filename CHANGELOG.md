@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.1.1 (09.01.2023)
+
+Replaced dynamic parsers `require` statements with static ones.
+
+
 ## 4.1.0 (05.09.2022)
 
 Attached additional import error to Blueprint annotations.
