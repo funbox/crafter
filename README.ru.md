@@ -1,5 +1,8 @@
 # @funboxteam/crafter
 
+[![npm (scoped)](https://img.shields.io/npm/v/@funboxteam/crafter)](https://www.npmjs.com/package/@funboxteam/crafter)
+[![Coverage Status](https://coveralls.io/repos/github/funbox/crafter/badge.svg?branch=master)](https://coveralls.io/github/funbox/crafter?branch=master)
+
 <img align="right" width="160" height="160"
      alt="Crafter avatar"
      src="./logo.png">
