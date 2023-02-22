@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.1.2 (22.02.2023)
+
+Added a workflow to build and push Docker image.
+
 ## 4.1.1 (09.01.2023)
 
 Replaced dynamic parsers `require` statements with static ones.
