@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.0.0 (28.02.2023)
+
+Switched from MIT license to Apache-2.0 license.
+
 ## 4.1.2 (22.02.2023)
 
 Added a workflow to build and push Docker image.
