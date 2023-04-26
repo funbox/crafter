@@ -61,18 +61,6 @@ class ObjectElement {
     }
     return [schema, usedTypes];
   }
-
-  getOptionalMembers() {
-    return this.propertyMembers.filter(member => (
-      Array.isArray(member.typeAttributes) && member.typeAttributes.includes('optional')
-    ));
-  }
-
-  getRequiredMembers() {
-    return this.propertyMembers.filter(member => (
-      Array.isArray(member.typeAttributes) && member.typeAttributes.includes('required')
-    ));
-  }
 }
 
 module.exports = ObjectElement;

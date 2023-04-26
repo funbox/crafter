@@ -34,12 +34,31 @@ module.exports = function mergeSchemas(schema1, schema2) {
       },
     },
   ];
+  const propsToOverride = [
+    {
+      name: 'required',
+      action(firstSchema, secondSchema) {
+        if (!firstSchema.properties || !secondSchema.properties) return firstSchema.required;
+
+        const firstProperties = Object.keys(firstSchema.properties);
+        const secondProperties = Object.keys(secondSchema.properties);
+
+        const optionalOverride = firstProperties
+          .filter(property => secondProperties.includes(property)
+            && (firstSchema.required.includes(property) && (!secondSchema.required || !secondSchema.required.includes(property))));
+
+        const required = firstSchema.required.filter(property => !optionalOverride.includes(property));
+
+        return required.length > 0 ? required : undefined;
+      },
+    },
+  ];
   const result = { ...schema1 };
   Object.keys(schema2).forEach(key => {
-    const foundProp = propsToMerge.find(prop => (prop === key || (prop.name && prop.name === key)));
-    if ((key in result) && foundProp) {
-      if (foundProp.action) {
-        result[key] = foundProp.action(result[key], schema2[key]);
+    const propToMerge = propsToMerge.find(prop => (prop === key || (prop.name && prop.name === key)));
+    if ((key in result) && propToMerge) {
+      if (propToMerge.action) {
+        result[key] = propToMerge.action(result[key], schema2[key]);
         return;
       }
       if (Array.isArray(result[key])) {
@@ -57,5 +76,17 @@ module.exports = function mergeSchemas(schema1, schema2) {
       result[key] = schema2[key];
     }
   });
+  Object.keys(result).forEach(key => {
+    const propToOverride = propsToOverride.find(prop => (prop.name && prop.name === key));
+    if (propToOverride) {
+      const value = propToOverride.action(result, schema2);
+      if (!value) {
+        delete result[key];
+        return;
+      }
+      result[key] = value;
+    }
+  });
+
   return result;
 };
