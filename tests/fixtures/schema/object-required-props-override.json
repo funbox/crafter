@@ -21,7 +21,7 @@
       "content": [
         {
           "element": "copy",
-          "content": "Defines attributes `person1` and `person2` which inherit from fixed-type base structure and have nested nested properties.\nThese properties identify themselves as optional.\nThus, the resulting json schema for `person1` should have only `first_name` and `id` as required properties (`last_name` is optional).\nThe resulting json schema for `person2` should not have any required property, since both properties defined as optional."
+          "content": "Defines attributes `person1`, `person2` and `person3` which inherit from fixed-type base structure or structure with required properties.\nSome of properties redefined as optional.\nThus, the resulting json schema for `person1` should have only `first_name` and `id` as required properties (`last_name` is optional).\nThe resulting json schema for `person2` should not have any required property, since both properties defined as optional.\nThe resulting json schema for `person3` should have only `last_name` as required property (`first_name` is optional)."
         },
         {
           "element": "category",
@@ -102,17 +102,6 @@
               "element": "dataStructure",
               "content": {
                 "element": "object",
-                "attributes": {
-                  "typeAttributes": {
-                    "element": "array",
-                    "content": [
-                      {
-                        "element": "string",
-                        "content": "fixedType"
-                      }
-                    ]
-                  }
-                },
                 "content": [
                   {
                     "element": "member",
@@ -123,6 +112,17 @@
                       },
                       "value": {
                         "element": "string"
+                      }
+                    },
+                    "attributes": {
+                      "typeAttributes": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "required"
+                          }
+                        ]
                       }
                     }
                   },
@@ -136,6 +136,17 @@
                       "value": {
                         "element": "string"
                       }
+                    },
+                    "attributes": {
+                      "typeAttributes": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "required"
+                          }
+                        ]
+                      }
                     }
                   }
                 ],
@@ -143,6 +154,66 @@
                   "id": {
                     "element": "string",
                     "content": "Person 2"
+                  }
+                }
+              }
+            },
+            {
+              "element": "dataStructure",
+              "content": {
+                "element": "object",
+                "content": [
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "first_name"
+                      },
+                      "value": {
+                        "element": "string"
+                      }
+                    },
+                    "attributes": {
+                      "typeAttributes": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "required"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "element": "member",
+                    "content": {
+                      "key": {
+                        "element": "string",
+                        "content": "last_name"
+                      },
+                      "value": {
+                        "element": "string"
+                      }
+                    },
+                    "attributes": {
+                      "typeAttributes": {
+                        "element": "array",
+                        "content": [
+                          {
+                            "element": "string",
+                            "content": "required"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ],
+                "meta": {
+                  "id": {
+                    "element": "string",
+                    "content": "Person 3"
                   }
                 }
               }
@@ -278,6 +349,43 @@
                                     ]
                                   }
                                 }
+                              },
+                              {
+                                "element": "member",
+                                "content": {
+                                  "key": {
+                                    "element": "string",
+                                    "content": "person3"
+                                  },
+                                  "value": {
+                                    "element": "Person 3",
+                                    "content": [
+                                      {
+                                        "element": "member",
+                                        "content": {
+                                          "key": {
+                                            "element": "string",
+                                            "content": "first_name"
+                                          },
+                                          "value": {
+                                            "element": "string"
+                                          }
+                                        },
+                                        "attributes": {
+                                          "typeAttributes": {
+                                            "element": "array",
+                                            "content": [
+                                              {
+                                                "element": "string",
+                                                "content": "optional"
+                                              }
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
                               }
                             ]
                           }
@@ -295,7 +403,7 @@
                               ]
                             }
                           },
-                          "content": "{\n  \"person1\": {\n    \"first_name\": \"hello\",\n    \"last_name\": \"hello\",\n    \"id\": \"hello\"\n  },\n  \"person2\": {\n    \"first_name\": \"hello\",\n    \"last_name\": \"hello\"\n  }\n}",
+                          "content": "{\n  \"person1\": {\n    \"first_name\": \"hello\",\n    \"last_name\": \"hello\",\n    \"id\": \"hello\"\n  },\n  \"person2\": {\n    \"first_name\": \"hello\",\n    \"last_name\": \"hello\"\n  },\n  \"person3\": {\n    \"first_name\": \"hello\",\n    \"last_name\": \"hello\"\n  }\n}",
                           "attributes": {
                             "contentType": {
                               "element": "string",
@@ -322,7 +430,7 @@
                               "content": "application/schema+json"
                             }
                           },
-                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"person1\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"first_name\": {\n          \"type\": \"string\"\n        },\n        \"last_name\": {\n          \"type\": \"string\"\n        },\n        \"id\": {\n          \"type\": \"string\"\n        }\n      },\n      \"required\": [\n        \"first_name\",\n        \"id\"\n      ],\n      \"additionalProperties\": false\n    },\n    \"person2\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"first_name\": {\n          \"type\": \"string\"\n        },\n        \"last_name\": {\n          \"type\": \"string\"\n        }\n      },\n      \"additionalProperties\": false\n    }\n  }\n}"
+                          "content": "{\n  \"$schema\": \"http://json-schema.org/draft-04/schema#\",\n  \"type\": \"object\",\n  \"properties\": {\n    \"person1\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"first_name\": {\n          \"type\": \"string\"\n        },\n        \"last_name\": {\n          \"type\": \"string\"\n        },\n        \"id\": {\n          \"type\": \"string\"\n        }\n      },\n      \"required\": [\n        \"first_name\",\n        \"id\"\n      ],\n      \"additionalProperties\": false\n    },\n    \"person2\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"first_name\": {\n          \"type\": \"string\"\n        },\n        \"last_name\": {\n          \"type\": \"string\"\n        }\n      }\n    },\n    \"person3\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"first_name\": {\n          \"type\": \"string\"\n        },\n        \"last_name\": {\n          \"type\": \"string\"\n        }\n      },\n      \"required\": [\n        \"last_name\"\n      ]\n    }\n  }\n}"
                         }
                       ],
                       "attributes": {
