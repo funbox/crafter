@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.0.1 (28.04.2023)
+
+Fixed issues with schemas' merge conflicts resolution.
+
+
 ## 5.0.0 (28.02.2023)
 
 Switched from MIT license to Apache-2.0 license.
