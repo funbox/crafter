@@ -1,5 +1,12 @@
 # Changelog
 
+## 6.0.0 (29.05.2023)
+
+Dropped support for Node.js 12.
+
+Check the [migration guide](./MIGRATION.md) for details.
+
+
 ## 5.0.1 (28.04.2023)
 
 Fixed issues with schemas' merge conflicts resolution.
