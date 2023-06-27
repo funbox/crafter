@@ -17,12 +17,14 @@ if (program.args.length === 0) {
   program.help();
 }
 
+const options = program.opts();
+
 parseApibFile(
   program.args[0],
-  program.format,
-  program.sourcemap,
-  program.debug,
-  program.langserver,
+  options.format,
+  options.sourcemap,
+  options.debug,
+  options.langserver,
   { logger: new Logger(console.error) },
 ).then(result => {
   console.log(result);
