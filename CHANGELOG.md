@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.0.1 (27.06.2023)
+
+Fixed a vulnerability caused by a dependency of the "commander" package.
+Commander updated to a major version, but this does not affect the end user of this package.
+
+
 ## 6.0.0 (29.05.2023)
 
 Dropped support for Node.js 12.
