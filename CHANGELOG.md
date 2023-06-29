@@ -1,5 +1,10 @@
 # Changelog
 
+## 6.0.2 (29.06.2023)
+
+Replaced the package that prints the result as YAML.
+
+
 ## 6.0.1 (27.06.2023)
 
 Fixed a vulnerability caused by a dependency of the "commander" package.
